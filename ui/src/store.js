@@ -66,8 +66,10 @@ import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,
 } from '@pages/frontsite/PatronProfile/reducer';
-import { orderDetailsReducer } from '@pages/backoffice/Acquisition';
-import { vendorDetailsReducer } from '@pages/backoffice/Acquisition';
+import {
+  orderDetailsReducer,
+  vendorDetailsReducer,
+} from '@pages/backoffice/Acquisition';
 import { seriesDetailsFrontReducer } from '@pages/frontsite/Series/SeriesDetails/reducer';
 
 const rootReducer = combineReducers({

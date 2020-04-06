@@ -13,19 +13,15 @@ import {
   SearchBar as VendorsSearchBar,
   SearchControls,
 } from '@components';
-import { vendor as vendorApi } from '@api';
-import { getSearchConfig } from '@config';
+import { acqVendor as vendorApi } from '@api';
 import { AcquisitionRoutes } from '@routes/urls';
-import {
-  VendorList,
-  ExportReactSearchKitResults,
-  NewButton,
-} from '../../../components';
+import { ExportReactSearchKitResults, NewButton } from '../../../components';
 import {
   SearchFooter,
   SearchEmptyResults,
 } from '@components/SearchControls/components/';
 import history from '@history';
+import { VendorList } from './VendorList';
 
 export class VendorSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -34,7 +30,6 @@ export class VendorSearch extends Component {
       withCredentials: true,
     },
   });
-  searchConfig = getSearchConfig('vendors');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     const helperFields = [
@@ -107,7 +102,7 @@ export class VendorSearch extends Component {
                     </Grid>
                     <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'vendors'} />
+                    <SearchControls modelName={'acqVendors'} />
                     <ResultsList renderElement={this.renderVendorList} />
                     <SearchFooter />
                   </Grid.Column>

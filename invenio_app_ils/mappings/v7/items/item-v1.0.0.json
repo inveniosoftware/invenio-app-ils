@@ -70,7 +70,7 @@
             "type": "keyword"
           },
           "publication_year": {
-            "type": "integer"
+            "type": "keyword"
           },
           "title": {
             "type": "text"

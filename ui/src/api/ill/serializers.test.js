@@ -32,7 +32,10 @@ describe('Borrowing Request request/response serializers tests', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        created_by_pid: '1',
+        created_by: {
+          type: 'user_id',
+          value: '1',
+        },
         document_pid: '1h23-ah34',
         expected_delivery_date: stringDate,
         extension: extension,
@@ -62,7 +65,10 @@ describe('Borrowing Request request/response serializers tests', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        created_by_pid: '1',
+        created_by: {
+          type: 'user_id',
+          value: '1',
+        },
         document_pid: '1h23-ah34',
         expected_delivery_date: objDate,
         extension: {
@@ -93,7 +99,10 @@ describe('Borrowing Request request/response serializers tests', () => {
     const serialized = brwReqSerializer.toJSON({
       pid: '123',
       cancel_reason: 'abc',
-      created_by_pid: '1',
+      created_by: {
+        type: 'user_id',
+        value: '1',
+      },
       document_pid: '1h23-ah34',
       expected_delivery_date: objDate,
       extension: {
@@ -121,7 +130,10 @@ describe('Borrowing Request request/response serializers tests', () => {
     expect(serialized).toEqual({
       pid: '123',
       cancel_reason: 'abc',
-      created_by_pid: '1',
+      created_by: {
+        type: 'user_id',
+        value: '1',
+      },
       document_pid: '1h23-ah34',
       expected_delivery_date: stringDate,
       extension: {

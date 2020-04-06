@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
 import { getIn } from 'formik';
 import { StringField, TextField } from '@forms';
-import { vendor as vendorApi } from '@api/acquisition/vendor';
+import { acqVendor as vendorApi } from '@api';
 import { AcquisitionRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { BaseForm } from '@forms';

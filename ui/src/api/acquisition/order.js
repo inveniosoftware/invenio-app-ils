@@ -77,7 +77,7 @@ class QueryBuilder {
     if (!pid) {
       throw TypeError('Vendor pid argument missing');
     }
-    this.vendorQuery.push(`vendor_pid:${pid}`);
+    this.vendorPidQuery.push(`vendor_pid:${pid}`);
     return this;
   }
 
@@ -88,7 +88,7 @@ class QueryBuilder {
 
   qs() {
     const searchCriteria = this.patronQuery
-      .concat(this.recipientQuery, this.vendorQuery)
+      .concat(this.recipientQuery, this.vendorQuery, this.vendorPidQuery)
       .join(' AND ');
     return `${searchCriteria}${this.sortByQuery}`;
   }

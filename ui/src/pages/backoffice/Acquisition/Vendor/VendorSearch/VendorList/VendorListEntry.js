@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Icon, Item, List } from 'semantic-ui-react';
 import { AcquisitionRoutes } from '@routes/urls';
-import { order as orderApi } from '@api';
+import { acqOrder as orderApi } from '@api';
+import { AcquisitionVendorIcon } from '@pages/backoffice/components/icons';
 
 const VendorListInfo = ({ vendor }) => (
   <List verticalAlign="middle" className={'document-circulation'}>
     <List.Item>
-      <List.Content floated="right">
-        <strong>{vendor.metadata.email}</strong>
+      <List.Content>
+        email <strong>{vendor.metadata.email}</strong>
       </List.Content>
-      <List.Content>email</List.Content>
     </List.Item>
     <List.Item>
-      <List.Content floated="right">
-        <strong>{vendor.metadata.phone}</strong>
+      <List.Content>
+        phone <strong>{vendor.metadata.phone}</strong>
       </List.Content>
-      <List.Content>phone</List.Content>
     </List.Item>
   </List>
 );
@@ -82,6 +81,7 @@ export default class VendorListEntry extends Component {
             to={AcquisitionRoutes.vendorDetailsFor(vendor.metadata.pid)}
             data-test={`navigate-${vendor.metadata.pid}`}
           >
+            <AcquisitionVendorIcon />
             {vendor.metadata.name}
           </Item.Header>
           <Item.Meta>Address:</Item.Meta>

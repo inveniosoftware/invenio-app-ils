@@ -1,2 +1,2 @@
-export { order } from './order';
-export { vendor } from './vendor';
+export { order as acqOrder } from './order';
+export { vendor as acqVendor } from './vendor';

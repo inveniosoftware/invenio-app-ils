@@ -6,8 +6,6 @@ export {
 } from './ExportSearchResults';
 export { OverdueLoanSendMailModal } from './OverdueLoanSendMailModal';
 export { DocumentList } from './Document';
-export { OrderList } from './OrderList';
-export { VendorList } from './VendorList';
 export { EditButton, NewButton, SeeAllButton } from './buttons';
 export * from './icons';
 export { DetailsHeader } from './DetailsHeader';

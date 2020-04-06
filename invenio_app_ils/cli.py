@@ -755,17 +755,25 @@ class DocumentRequestGenerator(Generator):
 class LibraryGenerator(Generator):
     """Location Generator."""
 
+    def random_name(self):
+        """Generate random name."""
+        parts = lorem.sentence().split()
+        return " ".join(parts[:min(randint(1, 2), len(parts))])
+
     def generate(self):
         """Generate."""
-        size = self.holder.libraries["total"]
-        objs = [
-            {
+        size = self.holder.vendors["total"]
+        objs = []
+        for pid in range(1, size + 1):
+            obj = {
                 "pid": self.create_pid(),
-                "name": lorem.sentence(),
-                "notes": "{}".format(lorem.text()),
+                "name": self.random_name(),
+                "address": "CERN\n1211 Geneva 23\nSwitzerland",
+                "email": "visits.service@cern.ch",
+                "phone": "+41 (0) 22 76 776 76",
+                "notes": lorem.sentence(),
             }
-            for pid in range(1, size + 1)
-        ]
+            objs.append(obj)
 
         self.holder.libraries["objs"] = objs
 
@@ -784,6 +792,12 @@ class LibraryGenerator(Generator):
 class BorrowingRequestGenerator(Generator):
     """Borrowing requests generator."""
 
+    def random_date(self, start, end):
+        """Generate random date between two dates."""
+        delta = end - start
+        int_delta = (delta.days * 24 * 3600) + delta.seconds
+        return start + timedelta(seconds=random.randrange(int_delta))
+
     def random_document_pid(self):
         """Get a random document PID."""
         return random.choice(self.holder.pids("documents", "pid"))
@@ -796,6 +810,7 @@ class BorrowingRequestGenerator(Generator):
         """Generate."""
         size = self.holder.borrowing_requests["total"]
         objs = []
+        now = datetime.now()
         for pid in range(1, size + 1):
             obj = {
                 "pid": self.create_pid(),
@@ -806,6 +821,10 @@ class BorrowingRequestGenerator(Generator):
                 "type": "Hardcover",
                 "notes": lorem.sentence(),
             }
+            obj["request_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
+            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
+            obj["received_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
+            obj["loan_end_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             if obj["status"] == ["ON_LOAN", "RETURNED"]:

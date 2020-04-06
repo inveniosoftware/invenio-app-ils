@@ -10,7 +10,7 @@ import {
 } from '@forms';
 import { invenioConfig } from '@config';
 import { serializeVendor } from '@components/ESSelector/serializer';
-import { vendor as vendorApi } from '@api/acquisition';
+import { acqVendor as vendorApi } from '@api';
 
 export class OrderInfo extends Component {
   render() {
@@ -34,7 +34,7 @@ export class OrderInfo extends Component {
             search
             label="Status"
             fieldPath="status"
-            options={invenioConfig.orders.statuses}
+            options={invenioConfig.acqOrders.statuses}
           />
           <StringField label="Cancel Reason" fieldPath="cancel_reason" />
         </GroupField>

@@ -1,25 +1,25 @@
-import React from 'react';
+import { toShortDate } from '@api/date';
+import { CopyButton, CreatedBy, Error, Loader } from '@components';
+import { DetailsHeader, EditButton } from '@pages/backoffice/components';
+import { AcquisitionOrderIcon } from '@pages/backoffice/components/icons';
+import { AcquisitionRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Container,
   Accordion,
-  Ref,
+  Container,
   Divider,
-  Label,
   Grid,
-  Sticky,
+  Label,
   Menu,
+  Ref,
+  Sticky,
 } from 'semantic-ui-react';
-import { CopyButton, Loader, Error } from '@components';
 import { OrderInformation } from './OrderInformation';
+import { OrderLines } from './OrderLines';
 import { OrderStatistics } from './OrderStatistics';
 import { PaymentInformation } from './PaymentInformation';
-import { OrderLines } from './OrderLines';
-import { DetailsHeader, EditButton } from '@pages/backoffice/components';
-import { toShortDate } from '@api/date';
-import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
-import { PatronIcon, OrderIcon } from '@pages/backoffice/components/icons';
 
 class OrderHeader extends React.Component {
   renderStatus(status) {
@@ -49,14 +49,13 @@ class OrderHeader extends React.Component {
     const recordInfo = (
       <>
         <label>Order</label> #{pid} <CopyButton text={pid} />
-        <br />
-        <label>Created by </label>
-        <Link
-          to={BackOfficeRoutes.patronDetailsFor(data.metadata.created_by_pid)}
-        >
-          <PatronIcon />
-          user {data.metadata.created_by_pid}
-        </Link>
+        {data.metadata.created_by && (
+          <>
+            <br />
+            <label className="muted">Created by</label>{' '}
+            <CreatedBy metadata={data.metadata} />
+          </>
+        )}
         <br />
         <label>Order date</label> {toShortDate(data.metadata.order_date)}
       </>
@@ -71,7 +70,7 @@ class OrderHeader extends React.Component {
         }
         subTitle={<>From vendor: {vendorLink}</>}
         pid={data.metadata.pid}
-        icon={<OrderIcon />}
+        icon={<AcquisitionOrderIcon />}
         recordInfo={recordInfo}
       />
     );
@@ -129,7 +128,7 @@ class ActionMenu extends React.Component {
   }
 }
 
-class OrderMetadata extends React.Component {
+class OrderPanels extends React.Component {
   constructor(props) {
     super(props);
     this.paymentInfoRef = props.anchors.paymentInfoRef;
@@ -241,7 +240,7 @@ export default class OrderDetails extends React.Component {
                           <OrderStatistics order={data.metadata} />
                         </div>
                       </Container>
-                      <OrderMetadata data={data} anchors={this.anchors} />
+                      <OrderPanels data={data} anchors={this.anchors} />
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>

@@ -4,7 +4,7 @@ import { Grid, Segment, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
 import { EditButton, NewButton } from '@pages/backoffice/components/buttons';
-import { borrowingRequest as borrowingRequestApi } from '@api/ill';
+import { borrowingRequest as borrowingRequestApi } from '@api';
 import { ILLRoutes } from '@routes/urls';
 import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
 

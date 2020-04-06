@@ -7,7 +7,7 @@ import { toShortDateTime } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';
 import { getDisplayVal } from '@config/invenioConfig';
-import { OrderIcon } from '../icons';
+import { AcquisitionOrderIcon } from '@pages/backoffice/components/icons';
 
 export default class OrderListEntry extends Component {
   renderLeftColumn = order => {
@@ -20,7 +20,7 @@ export default class OrderListEntry extends Component {
         </Item.Description>
         <Item.Description>
           <label>status </label>
-          {getDisplayVal('orders.statuses', order.metadata.status)}
+          {getDisplayVal('acqOrders.statuses', order.metadata.status)}
         </Item.Description>
         <Item.Description>
           <label>vendor </label>
@@ -31,11 +31,11 @@ export default class OrderListEntry extends Component {
           </Link>
         </Item.Description>
         <Item.Description>
-          <label>total</label>
+          <label>total </label>
           {formatPrice(order.metadata.grand_total_main_currency)}
           {order.metadata.grand_total.currency !==
           order.metadata.grand_total_main_currency.currency
-            ? `(${formatPrice(order.metadata.grand_total)})`
+            ? ` (${formatPrice(order.metadata.grand_total)})`
             : ''}
         </Item.Description>
       </>
@@ -58,7 +58,7 @@ export default class OrderListEntry extends Component {
         key={documentPid}
         value={`${orderLine.copies_ordered}x`}
       >
-        Document {documentLink} - {medium}
+        {documentLink} - {medium}
         {patronPid && (
           <>
             {' '}
@@ -77,7 +77,7 @@ export default class OrderListEntry extends Component {
     if (this.props.renderMiddleColumn) {
       return this.props.renderMiddleColumn(order);
     }
-    const showMax = invenioConfig.orders.maxShowOrderLines;
+    const showMax = invenioConfig.acqOrders.maxShowOrderLines;
     const orderLines = order.metadata.order_lines;
     return (
       <List as="ol">
@@ -136,7 +136,7 @@ export default class OrderListEntry extends Component {
             to={AcquisitionRoutes.orderDetailsFor(order.metadata.pid)}
             data-test={`navigate-${order.metadata.pid}`}
           >
-            <OrderIcon />
+            <AcquisitionOrderIcon />
             Order: {order.metadata.pid}
           </Item.Header>
           <Grid highlight={3}>

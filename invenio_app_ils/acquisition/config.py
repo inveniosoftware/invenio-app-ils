@@ -8,6 +8,7 @@
 """Configuration for Invenio ILS acquisition module."""
 
 from invenio_indexer.api import RecordIndexer
+from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.permissions import backoffice_permission, deny_all
 
@@ -92,4 +93,77 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
     ),
+)
+
+RECORDS_REST_SORT_OPTIONS = dict(
+    acq_orders=dict(  # OrderSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
+        order_date=dict(
+            fields=["order_date"],
+            title="Order date",
+            default_order="desc",
+            order=2,
+        ),
+        grand_total=dict(
+            fields=["grand_total_main_currency.value"],
+            title="Total",
+            default_order="desc",
+            order=3,
+        ),
+        received_date=dict(
+            fields=["received_date"],
+            title="Received date",
+            default_order="desc",
+            order=4,
+        ),
+        expected_delivery_date=dict(
+            fields=["expected_delivery_date"],
+            title="Expected delivery date",
+            default_order="desc",
+            order=5,
+        ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=6,
+        ),
+    ),
+    acq_vendors=dict(  # VendorSearch.Meta.index
+        name=dict(fields=["name"], title="Name", default_order="asc", order=1),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
+        ),
+    ),
+)
+
+FACET_VENDOR_LIMIT = 5
+
+RECORDS_REST_FACETS = dict(
+    acq_orders=dict(  # OrderSearch.Meta.index
+        aggs=dict(
+            status=dict(terms=dict(field="status")),
+            vendor=dict(
+                terms=dict(
+                    field="vendor.name.keyword", size=FACET_VENDOR_LIMIT
+                )
+            ),
+            payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
+            medium=dict(terms=dict(field="order_lines.medium")),
+        ),
+        post_filters=dict(
+            status=terms_filter("status"),
+            vendor=terms_filter("vendor.name.keyword"),
+            payment_mode=terms_filter("order_lines.payment_mode"),
+            medium=terms_filter("order_lines.medium"),
+        ),
+    )
 )
