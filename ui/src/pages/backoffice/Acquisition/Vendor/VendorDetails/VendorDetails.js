@@ -96,7 +96,6 @@ class VendorHeader extends React.Component {
         title={data.metadata.name}
         pid={data.metadata.pid}
         icon={<VendorIcon />}
-        recordType="Vendor"
       >
         <label>Vendor</label> #{data.metadata.pid}
         <CopyButton text={data.metadata.pid} />

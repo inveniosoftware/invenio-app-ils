@@ -8,7 +8,7 @@ import {
 import { DocumentTitle } from '@components/Document';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
+import _isEmpty from 'lodash/isEmpty';
 import { RelationLanguagesModal } from '../RelationLanguages';
 
 export default class RelationLanguage extends Component {
@@ -18,16 +18,17 @@ export default class RelationLanguage extends Component {
   }
 
   viewDetails = ({ row }) => {
-    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
     return (
-      <SeriesDetailsLink pidValue={row.pid_value}>{titleCmp}</SeriesDetailsLink>
+      <SeriesDetailsLink pidValue={row.pid_value}>
+        <DocumentTitle metadata={row.record_metadata} />
+      </SeriesDetailsLink>
     );
   };
 
   removeHandler = ({ row }) => {
     const { seriesDetails } = this.props;
 
-    if (!isEmpty(seriesDetails)) {
+    if (!_isEmpty(seriesDetails)) {
       return (
         <RelationRemover
           referrer={seriesDetails}
@@ -40,7 +41,7 @@ export default class RelationLanguage extends Component {
   };
 
   languagesFormatter = ({ row }) => {
-    return <SeriesLanguages metadata={row.record_fields} />;
+    return <SeriesLanguages metadata={row.record_metadata} />;
   };
 
   render() {

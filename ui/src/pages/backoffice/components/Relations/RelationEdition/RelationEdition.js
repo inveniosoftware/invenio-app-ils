@@ -21,7 +21,7 @@ export default class RelationEdition extends Component {
   }
 
   viewDetails = ({ row }) => {
-    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
+    const titleCmp = <DocumentTitle metadata={row.record_metadata} />;
     if (row.pid_type === 'docid')
       return (
         <DocumentDetailsLink pidValue={row.pid_value}>
@@ -54,9 +54,9 @@ export default class RelationEdition extends Component {
 
   recTypeFormatter = ({ row }) => {
     if (row.pid_type === 'docid') {
-      return row.record_fields.document_type;
+      return row.record_metadata.document_type;
     } else if (row.pid_type === 'serid') {
-      return row.record_fields.mode_of_issuance;
+      return row.record_metadata.mode_of_issuance;
     }
   };
 
@@ -70,7 +70,7 @@ export default class RelationEdition extends Component {
       { title: 'Type', field: 'pid_type', formatter: this.recTypeFormatter },
       {
         title: 'Edition',
-        field: 'record_fields.edition',
+        field: 'record_metadata.edition',
       },
       { title: 'Actions', field: '', formatter: this.removeHandler },
     ];

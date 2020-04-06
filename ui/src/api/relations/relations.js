@@ -1,10 +1,10 @@
 import { http } from '@api/base';
 import {
-  add as parentChildAdd,
-  remove as parentChildRemove,
+  add as addParentChild,
+  remove as removeParentChild,
 } from './parentChild';
-import { add as siblingsAdd, remove as siblingsRemove } from './siblings';
-import { add as sequenceAdd, remove as sequenceRemove } from './sequence';
+import { add as addSibling, remove as removeSibling } from './siblings';
+import { add as addSequence, remove as removeSequence } from './sequence';
 
 // this should be refactored at some point and this file should disappear.
 // the specific APIs parentChild, sequence and siblings should be used instead.
@@ -21,18 +21,18 @@ const apiSelector = relationType => {
   let payload;
   if (isParentChild) {
     payload = {
-      add: parentChildAdd,
-      remove: parentChildRemove,
+      add: addParentChild,
+      remove: removeParentChild,
     };
   } else if (isSibling) {
     payload = {
-      add: siblingsAdd,
-      remove: siblingsRemove,
+      add: addSibling,
+      remove: removeSibling,
     };
   } else if (isSequence) {
     payload = {
-      add: sequenceAdd,
-      remove: sequenceRemove,
+      add: addSequence,
+      remove: removeSequence,
     };
   } else {
     throw TypeError(`Unknown relation type ${relationType}`);

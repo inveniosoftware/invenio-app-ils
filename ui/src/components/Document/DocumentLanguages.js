@@ -14,8 +14,6 @@ export const DocumentLanguages = ({
     return null;
   }
 
-  const labelCmp = withLabel ? <label>languages </label> : null;
-
   const languagesCmp = (
     <List horizontal className={'document-languages-list'}>
       {languages.map((language, index) => {
@@ -33,7 +31,7 @@ export const DocumentLanguages = ({
 
   return (
     <>
-      {labelCmp}
+      {withLabel && <label>languages </label>}
       {languagesCmp}
     </>
   );

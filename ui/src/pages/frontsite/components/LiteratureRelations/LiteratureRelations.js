@@ -32,7 +32,7 @@ export class LiteratureRelations extends Component {
         <div key={rel.pid_value}>
           This is part of the monograph{' '}
           <Link to={this.getLinkTo(rel)}>
-            {rel.record_fields.title} {volume && `(vol: ${volume})`}
+            {rel.record_metadata.title} {volume && `(vol: ${volume})`}
           </Link>
         </div>
       );
@@ -51,7 +51,7 @@ export class LiteratureRelations extends Component {
       return (
         <React.Fragment key={rel.pid_value}>
           <Link to={this.getLinkTo(rel)}>
-            {rel.record_fields.title} {volume && `(vol: ${volume})`}
+            {rel.record_metadata.title} {volume && `(vol: ${volume})`}
           </Link>
         </React.Fragment>
       );
@@ -76,7 +76,7 @@ export class LiteratureRelations extends Component {
 
     const items = relations.map(rel => (
       <Link key={rel.pid_value} to={this.getLinkTo(rel)}>
-        {rel.record_fields.languages.join(' ')}
+        {rel.record_metadata.languages.join(' ')}
       </Link>
     ));
 
@@ -100,7 +100,7 @@ export class LiteratureRelations extends Component {
     const items = relations.map(rel => {
       return (
         <Link key={rel.pid_value} to={this.getLinkTo(rel)}>
-          <DocumentEdition metadata={rel.record_fields} />
+          <DocumentEdition metadata={rel.record_metadata} />
         </Link>
       );
     });

@@ -18,9 +18,11 @@ export default class RelationMultipart extends Component {
   }
 
   viewDetails = ({ row }) => {
-    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
+    console.log(row);
     return (
-      <SeriesDetailsLink pidValue={row.pid_value}>{titleCmp}</SeriesDetailsLink>
+      <SeriesDetailsLink pidValue={row.pid_value}>
+        <DocumentTitle metadata={row.record_metadata} />
+      </SeriesDetailsLink>
     );
   };
 

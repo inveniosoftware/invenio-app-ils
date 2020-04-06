@@ -1,6 +1,10 @@
 import { toShortDate } from '@api/date';
 import { CopyButton, SeriesAuthors } from '@components';
-import { DocumentCover, DocumentTags } from '@components/Document';
+import {
+  DocumentCover,
+  DocumentTags,
+  DocumentTitle,
+} from '@components/Document';
 import { DetailsHeader, SeriesIcon } from '@pages/backoffice/components';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
 import { FrontSiteRoutes } from '@routes/urls';
@@ -37,7 +41,7 @@ export class SeriesHeader extends Component {
             <Header.Subheader>
               {data.metadata.mode_of_issuance}
             </Header.Subheader>
-            {data.metadata.title}
+            <DocumentTitle metadata={data.metadata} />
           </>
         }
         subTitle={<SeriesAuthors metadata={data.metadata} prefix={'by '} />}
@@ -49,7 +53,6 @@ export class SeriesHeader extends Component {
             <SeriesIcon />
           )
         }
-        recordType="Document"
         recordInfo={recordInfo}
       >
         <DocumentTags metadata={data.metadata} />

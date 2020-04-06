@@ -49,7 +49,6 @@ export class ItemHeader extends Component {
         }
         pid={data.metadata.pid}
         icon={<ItemIcon />}
-        recordType="Document"
         recordInfo={recordInfo}
       />
     );

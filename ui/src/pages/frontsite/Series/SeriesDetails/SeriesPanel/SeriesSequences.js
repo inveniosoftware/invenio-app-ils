@@ -14,7 +14,7 @@ export default class SeriesSequences extends Component {
             <List.Item key={idx}>
               <List.Content>
                 <Link to={FrontSiteRoutes.seriesDetailsFor(sequence.pid_value)}>
-                  {sequence.record_fields.title}
+                  {sequence.record_metadata.title}
                 </Link>
               </List.Content>
             </List.Item>

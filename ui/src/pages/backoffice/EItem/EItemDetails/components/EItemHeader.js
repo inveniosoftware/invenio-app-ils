@@ -50,7 +50,6 @@ export class EItemHeader extends Component {
         }
         pid={data.metadata.pid}
         icon={<EItemIcon />}
-        recordType="Document"
         recordInfo={recordInfo}
       />
     );

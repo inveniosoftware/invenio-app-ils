@@ -25,7 +25,6 @@ export default class PatronHeader extends Component {
         subTitle={''}
         pid={data.metadata.id}
         icon={<PatronIcon />}
-        recordType="Patron"
         recordInfo={recordInfo}
       />
     );

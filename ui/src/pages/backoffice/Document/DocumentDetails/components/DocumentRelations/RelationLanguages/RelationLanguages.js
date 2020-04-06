@@ -18,10 +18,9 @@ export default class RelationLanguage extends Component {
   }
 
   viewDetails = ({ row }) => {
-    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
     return (
       <DocumentDetailsLink pidValue={row.pid_value}>
-        {titleCmp}
+        <DocumentTitle metadata={row.record_metadata} />
       </DocumentDetailsLink>
     );
   };
@@ -42,7 +41,7 @@ export default class RelationLanguage extends Component {
   };
 
   languagesFormatter = ({ row }) => {
-    return <DocumentLanguages metadata={row.record_fields} />;
+    return <DocumentLanguages metadata={row.record_metadata} />;
   };
 
   render() {

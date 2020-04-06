@@ -49,7 +49,6 @@ export class DocumentHeader extends Component {
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
         icon={<DocumentCover document={data} imageSize="huge" />}
-        recordType="Document"
         recordInfo={recordInfo}
       >
         <DocumentTags metadata={data.metadata} />

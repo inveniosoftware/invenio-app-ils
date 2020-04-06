@@ -17,10 +17,9 @@ export default class RelationOther extends Component {
   }
 
   viewDetails = ({ row }) => {
-    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
     return (
       <DocumentDetailsLink pidValue={row.pid_value}>
-        {titleCmp}
+        <DocumentTitle metadata={row.record_metadata} />
       </DocumentDetailsLink>
     );
   };
