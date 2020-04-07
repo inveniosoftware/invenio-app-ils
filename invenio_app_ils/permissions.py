@@ -96,12 +96,21 @@ def loan_extend_circulation_permission(loan):
         abort(401)
 
     if current_user.id == int(loan["patron_pid"]):
-        loan = loan.replace_refs()
-        if loan.get("document").get("circulation").get("overbooked"):
-            raise InvalidLoanExtendError("This document is overbooked!")
-
+        Document = current_app_ils.document_record_cls
+        document_rec = Document.get_record_by_pid(loan["document_pid"])
+        document = document_rec.replace_refs()
+        is_overbooked = document.get("circulation", {}).get("overbooked")
+        if is_overbooked == None:
+            # NOTE: this should never happen, if it happens it means that the
+            # document does not have `circulation.overbooked` field. Fix it!
+            abort(500)
+        elif is_overbooked == True:
+            raise InvalidLoanExtendError(
+                "The extension cannot be automatically accepted due to high"
+                "demand for this literature. Please contact the library to"
+                "request a loan extension."
+            )
     return LoanOwnerPermission(loan)
-
 
 class LoanOwnerPermission(Permission):
     """Return Permission to evaluate if the current user owns the loan."""

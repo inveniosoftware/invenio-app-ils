@@ -50,15 +50,6 @@ export default class ExtendButton extends Component {
     );
   }
 
-  validateDocumentOverbook() {
-    const isOverbooked = _get(
-      this.props.loan,
-      'metadata.document.circulation.overbooked',
-      false
-    );
-    return !isOverbooked;
-  }
-
   validate = () => {
     if (!this.validateExtendUrl())
       return { isValid: false, msg: ExtendButton.INFO_MESSAGES.extendUrl };
@@ -76,12 +67,6 @@ export default class ExtendButton extends Component {
       return {
         isValid: false,
         msg: ExtendButton.INFO_MESSAGES.maxExtensions,
-      };
-
-    if (!this.validateDocumentOverbook())
-      return {
-        isValid: false,
-        msg: ExtendButton.INFO_MESSAGES.documentOverbook,
       };
 
     return { isValid: true, msg: '' };

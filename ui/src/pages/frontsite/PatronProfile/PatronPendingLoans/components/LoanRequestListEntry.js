@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '@routes/urls';
-import { Button, Grid, Icon, Item, Popup } from 'semantic-ui-react';
-import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { toShortDate } from '@api/date';
-import _get from 'lodash/get';
+import { DocumentAuthors, DocumentItemCover } from '@components/Document';
+import { FrontSiteRoutes } from '@routes/urls';
 import _has from 'lodash/has';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Icon, Item, Popup } from 'semantic-ui-react';
 
 export class LoanRequestListEntry extends Component {
   render() {
     const { loan } = this.props;
+
     return (
       <Item key={loan.metadata.pid} data-test={loan.metadata.pid}>
         <DocumentItemCover
@@ -44,21 +44,6 @@ export class LoanRequestListEntry extends Component {
                   trigger={<Icon name={'info'} />}
                 />
               </Item.Meta>
-              <Item.Description>
-                {_get(
-                  loan,
-                  'metadata.document.circulation.has_items_on_site',
-                  0
-                ) > 0 ? (
-                  <>
-                    You can also read it on-site only
-                    <Popup
-                      content={'Click on the cover to find the location'}
-                      trigger={<Icon name={'info'} />}
-                    />
-                  </>
-                ) : null}
-              </Item.Description>
             </Grid.Column>
             <Grid.Column
               textAlign={'right'}
