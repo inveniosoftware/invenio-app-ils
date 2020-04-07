@@ -462,11 +462,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         </Popup>
                                       </div>
                                     </ItemMeta>
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      />
-                                    </ItemDescription>
                                   </div>
                                 </GridColumn>
                                 <GridColumn
@@ -786,11 +781,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         </Popup>
                                       </div>
                                     </ItemMeta>
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      />
-                                    </ItemDescription>
                                   </div>
                                 </GridColumn>
                                 <GridColumn
