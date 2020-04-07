@@ -50,7 +50,7 @@ export class DocumentContent extends Component {
       },
       {
         key: 'document-series',
-        title: 'Series',
+        title: 'Part of series',
         content: (
           <Accordion.Content>
             <div ref={anchors.seriesRef} id="document-series">
@@ -61,7 +61,7 @@ export class DocumentContent extends Component {
       },
       {
         key: 'document-siblings',
-        title: 'Related',
+        title: 'Relations',
         content: (
           <Accordion.Content>
             <div ref={anchors.relatedRef} id="document-siblings">

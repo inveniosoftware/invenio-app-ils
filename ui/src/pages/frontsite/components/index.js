@@ -5,3 +5,4 @@ export { Footer } from './Footer';
 export { Identifiers, IdentifierRows } from './Identifiers';
 export { ILSMenu } from './ILSMenu';
 export { Notes } from './Notes';
+export { LiteratureRelations } from './LiteratureRelations';

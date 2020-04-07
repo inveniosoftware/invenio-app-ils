@@ -1,13 +1,7 @@
-import { http, apiConfig } from '../base';
+import { http, apiConfig } from '@api/base';
 import { serializer } from './serializer';
-import {
-  parentChildRelationPayload,
-  prepareSumQuery,
-  recordToPidType,
-  sequenceRelationPayload,
-  siblingRelationPayload,
-} from '../utils';
-import last from 'lodash/last';
+import { prepareSumQuery } from '@api/utils';
+import { add as addRelation, remove as removeRelation } from '@api/relations';
 
 const seriesURL = '/series/';
 
@@ -37,78 +31,20 @@ const update = async (seriesPid, data) => {
 
 const createRelation = async (
   referrer,
-  selectedRelatedList,
+  relatedList,
   relationType,
-  extraRelationField = {}
+  extra = {}
 ) => {
-  let newRelationsPayload = [];
-  if (relationType === 'serial' || relationType === 'multipart_monograph') {
-    const payload = parentChildRelationPayload(
-      relationType,
-      extraRelationField,
-      last(selectedRelatedList),
-      referrer
-    );
-    newRelationsPayload.push(payload);
-  } else if (relationType === 'other') {
-    newRelationsPayload.push(
-      siblingRelationPayload(
-        relationType,
-        extraRelationField,
-        last(selectedRelatedList)
-      )
-    );
-  } else if (relationType === 'sequence') {
-    newRelationsPayload.push(
-      sequenceRelationPayload(
-        referrer,
-        last(selectedRelatedList),
-        extraRelationField
-      )
-    );
-  } else {
-    selectedRelatedList.map(selection =>
-      newRelationsPayload.push(
-        siblingRelationPayload(relationType, extraRelationField, selection)
-      )
-    );
-  }
-
-  const resp = await http.post(
-    `${seriesURL}${referrer.metadata.pid}/relations`,
-    newRelationsPayload
-  );
+  const url = `${seriesURL}${referrer.metadata.pid}`;
+  const resp = addRelation(url, referrer, relatedList, relationType, extra);
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };
 
-const deleteRelation = async (referrer, related) => {
-  let deleteRequestPayload = {};
-  if (
-    related.relation_type === 'language' ||
-    related.relation_type === 'other' ||
-    related.relation_type === 'edition'
-  ) {
-    deleteRequestPayload = {
-      pid: related.pid,
-      pid_type: related.pid_type,
-      relation_type: related.relation_type,
-    };
-  } else {
-    deleteRequestPayload = {
-      parent_pid: related.pid,
-      parent_pid_type: related.pid_type,
-      child_pid: referrer.metadata.pid,
-      child_pid_type: recordToPidType(referrer),
-      relation_type: related.relation_type,
-    };
-  }
-  const resp = await http.delete(
-    `${seriesURL}${referrer.metadata.pid}/relations`,
-    {
-      data: deleteRequestPayload,
-    }
-  );
+const deleteRelation = async (referrer, relation) => {
+  const url = `${seriesURL}${referrer.metadata.pid}`;
+  const relationType = relation.relation_type;
+  const resp = removeRelation(url, referrer, relation, relationType);
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };
@@ -146,7 +82,7 @@ class QueryBuilder {
       [
         'relations.serial.pid_type:serid',
         `NOT (pid:${pids})`,
-        `relations.serial.pid:${pids}`,
+        `relations.serial.pid_value:${pids}`,
       ].join(' AND ')
     );
     return this;

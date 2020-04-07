@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 export class SeriesDetailsLink extends Component {
   render() {
-    const { seriesPid, ...uiProps } = this.props;
+    const { pidValue, ...uiProps } = this.props;
     return (
       <Link
-        to={BackOfficeRoutes.seriesDetailsFor(this.props.seriesPid)}
-        data-test={seriesPid}
+        to={BackOfficeRoutes.seriesDetailsFor(pidValue)}
+        data-test={pidValue}
         {...uiProps}
       >
         {this.props.children}
@@ -19,5 +19,5 @@ export class SeriesDetailsLink extends Component {
 }
 
 SeriesDetailsLink.propTypes = {
-  seriesPid: PropTypes.string.isRequired,
+  pidValue: PropTypes.string.isRequired,
 };

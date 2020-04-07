@@ -11,7 +11,7 @@ export default class OpenAccessLabel extends Component {
     return (
       openAccess && (
         <>
-          <Label size={size || 'large'} color="green">
+          <Label size={size} color="green">
             <Icon name="lock open" />
             Open access
           </Label>
@@ -24,5 +24,9 @@ export default class OpenAccessLabel extends Component {
 
 OpenAccessLabel.propTypes = {
   openAccess: PropTypes.bool.isRequired,
-  size: PropTypes.bool,
+  size: PropTypes.string,
+};
+
+OpenAccessLabel.defaultProps = {
+  size: 'large',
 };

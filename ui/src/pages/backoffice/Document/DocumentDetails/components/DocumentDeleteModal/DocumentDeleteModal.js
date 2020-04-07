@@ -6,7 +6,7 @@ import {
 import { invenioConfig } from '@config';
 import { DeleteRecordModal } from '@pages/backoffice/components';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
-import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
+import { formatPidTypeToName } from '@pages/backoffice/components/utils';
 import { BackOfficeRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

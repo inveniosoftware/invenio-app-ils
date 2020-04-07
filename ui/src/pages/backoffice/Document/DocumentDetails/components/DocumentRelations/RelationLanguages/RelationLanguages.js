@@ -5,16 +5,22 @@ import {
   ExistingRelations,
   RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
+import { DocumentTitle } from '@components/Document';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { RelationLanguagesModal } from '../RelationLanguages';
 
 export default class RelationLanguage extends Component {
+  constructor(props) {
+    super(props);
+    this.relationType = 'language';
+  }
+
   viewDetails = ({ row }) => {
     return (
-      <DocumentDetailsLink documentPid={row.pid}>
-        {row.title}
+      <DocumentDetailsLink pidValue={row.pid_value}>
+        <DocumentTitle metadata={row.record_metadata} />
       </DocumentDetailsLink>
     );
   };
@@ -27,6 +33,7 @@ export default class RelationLanguage extends Component {
         <RelationRemover
           referrer={documentDetails}
           related={row}
+          relationType={row.relation_type}
           buttonContent={'Remove relation'}
         />
       );
@@ -34,15 +41,16 @@ export default class RelationLanguage extends Component {
   };
 
   languagesFormatter = ({ row }) => {
-    return <DocumentLanguages metadata={row} />;
+    return <DocumentLanguages metadata={row.record_metadata} />;
   };
 
   render() {
     const { relations, showMaxRows, isLoading, error } = this.props;
-    const languages = relations['language'] || [];
+    const languages = relations[this.relationType] || [];
 
     const columns = [
-      { title: 'Title', field: 'title', formatter: this.viewDetails },
+      { title: 'PID', field: 'pid_value' },
+      { title: 'Title', field: '', formatter: this.viewDetails },
       {
         title: 'Language(s)',
         field: 'languages',
@@ -54,7 +62,7 @@ export default class RelationLanguage extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <RelationLanguagesModal relationType={'language'} />
+          <RelationLanguagesModal relationType={this.relationType} />
 
           <ExistingRelations
             rows={languages}

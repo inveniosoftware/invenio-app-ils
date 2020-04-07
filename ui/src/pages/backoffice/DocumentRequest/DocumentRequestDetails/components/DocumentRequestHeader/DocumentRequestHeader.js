@@ -53,7 +53,6 @@ export default class DocumentRequestHeader extends Component {
         subTitle={this.patronLink(data.metadata.patron)}
         pid={data.metadata.pid}
         icon={<DocumentRequestIcon />}
-        recordType="DocumentRequest"
         recordInfo={this.recordInfo()}
       />
     );

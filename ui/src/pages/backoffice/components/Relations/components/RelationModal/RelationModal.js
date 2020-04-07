@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class RelationModal extends Component {
   constructor(props) {
@@ -29,15 +30,12 @@ export default class RelationModal extends Component {
       extraRelationField,
       referrerRecord,
     } = this.props;
-
-    delete extraRelationField.required;
-
     this.setState({ isLoading: true });
     this.props.createRelations(
       referrerRecord,
       selections,
       relationType,
-      extraRelationField
+      extraRelationField.field
     );
     this.setState({ isLoading: false });
     this.toggle();
@@ -52,6 +50,11 @@ export default class RelationModal extends Component {
       selections,
       extraRelationField,
     } = this.props;
+    const hasSelectedRelations = !_isEmpty(selections);
+    const extraFieldIsValid =
+      _isEmpty(extraRelationField) ||
+      _get(extraRelationField, 'options.isValid', true);
+    const isSelectionValid = hasSelectedRelations && extraFieldIsValid;
 
     return (
       <Modal
@@ -84,11 +87,7 @@ export default class RelationModal extends Component {
           <Button
             positive
             loading={isLoading}
-            disabled={
-              isEmpty(selections) ||
-              (isEmpty(extraRelationField) && extraRelationField.required) ||
-              isLoading
-            }
+            disabled={!isSelectionValid || isLoading}
             icon="checkmark"
             labelPosition="right"
             content="Confirm and save"
@@ -107,6 +106,7 @@ RelationModal.propTypes = {
     .isRequired,
   isLoading: PropTypes.bool.isRequired,
   referrerRecord: PropTypes.object.isRequired,
+  relationType: PropTypes.string.isRequired,
   extraRelationField: PropTypes.object.isRequired,
 
   selections: PropTypes.array.isRequired,

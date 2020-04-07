@@ -3,12 +3,13 @@ import { DocumentLanguages } from '@components/Document';
 import { DocumentSelectListEntry } from '@pages/backoffice/components/Document';
 import {
   RelationModal,
+  RelationSelector,
   RelationSummary,
   SingleSelection,
-  RelationSelector,
 } from '@pages/backoffice/components/Relations';
-import React, { Component } from 'react';
+import _isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Container,
   Divider,
@@ -55,7 +56,14 @@ export default class RelationOtherModal extends Component {
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
         referrerRecord={documentDetails}
-        extraRelationField={{ note: this.state.note, required: true }}
+        extraRelationField={{
+          field: {
+            note: this.state.note,
+          },
+          options: {
+            isValid: !_isEmpty(this.state.note),
+          },
+        }}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -64,7 +72,7 @@ export default class RelationOtherModal extends Component {
               <Form.Group>
                 <Container className="spaced">
                   <RelationSelector
-                    relations={this.props.relations.other}
+                    existingRelations={this.props.relations.other}
                     mode={'single'}
                     optionsQuery={documentApi.list}
                     resultRenderer={this.selectResultRender}

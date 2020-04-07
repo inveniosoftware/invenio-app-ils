@@ -25,11 +25,11 @@ class QueryBuilder {
     }
     if (moi === 'SERIAL') {
       this.withSeriesQuery.push(
-        `relations.serial.pid:${prepareSumQuery(seriesPid)}`
+        `relations.serial.pid_value:${prepareSumQuery(seriesPid)}`
       );
     } else {
       this.withSeriesQuery.push(
-        `relations.multipart_monograph.pid:${prepareSumQuery(seriesPid)}`
+        `relations.multipart_monograph.pid_value:${prepareSumQuery(seriesPid)}`
       );
     }
     return this;

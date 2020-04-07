@@ -15,7 +15,7 @@ export default class RelationRemover extends Component {
     const { related, referrer } = this.props;
 
     this.setState({ modalOpen: false });
-    this.props.deleteRelations(referrer, related);
+    this.props.deleteRelation(referrer, related);
   };
 
   render() {
@@ -53,20 +53,15 @@ export default class RelationRemover extends Component {
 
 RelationRemover.propTypes = {
   /* pid of the record calling this remover */
-  /* TODO PID AS OBJECT */
   referrer: PropTypes.object.isRequired,
   /* destination to be removed */
   related: PropTypes.object.isRequired,
 
   /* supplied by reducer */
-  deleteRelations: PropTypes.func.isRequired,
+  deleteRelation: PropTypes.func.isRequired,
   buttonContent: PropTypes.string.isRequired,
 
   modalTrigger: PropTypes.node,
   modalHeader: PropTypes.string,
   modalContent: PropTypes.string,
-};
-
-RelationRemover.defaultProps = {
-  relationPayloadType: 'parent',
 };

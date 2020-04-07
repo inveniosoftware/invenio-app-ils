@@ -1,10 +1,11 @@
+import { LiteratureRelations } from '@pages/frontsite/components';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { DocumentRelations, DocumentInfo } from './index';
-import { DocumentTableOfContent } from './DocumentTableOfContent';
-import { DocumentConference } from './DocumentConference';
 import { Notes } from '../Notes';
+import { DocumentConference } from './DocumentConference';
+import { DocumentTableOfContent } from './DocumentTableOfContent';
+import { DocumentInfo } from './index';
 
 export class DocumentMetadataAccordion extends Component {
   constructor(props) {
@@ -35,10 +36,7 @@ export class DocumentMetadataAccordion extends Component {
           Details
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 'details'}>
-          <DocumentRelations
-            relations={this.metadata.relations}
-            documentType={this.metadata.document_type}
-          />
+          <LiteratureRelations relations={this.metadata.relations} />
           <DocumentInfo metadata={this.metadata} />
         </Accordion.Content>
 

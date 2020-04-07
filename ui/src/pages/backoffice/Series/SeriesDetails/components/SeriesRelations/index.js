@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import SeriesSiblingsComponent from './SeriesSiblings';
+import SeriesRelationsComponent from './SeriesRelations';
 
 const mapStateToProps = state => ({
   seriesDetails: state.seriesDetails.data,
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
   relations: state.recordRelations.data,
 });
 
-export const SeriesSiblings = connect(
+export const SeriesRelations = connect(
   mapStateToProps,
   null
-)(SeriesSiblingsComponent);
+)(SeriesRelationsComponent);

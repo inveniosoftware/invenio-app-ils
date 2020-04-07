@@ -47,7 +47,7 @@ export class HitsSearch extends Component {
   };
 
   search = debounce(async searchQuery => {
-    const serialize = this.props.serializer;
+    const serializer = this.props.serializer;
     try {
       const queryString = this.props.alwaysWildcard
         ? searchQuery + '*'
@@ -55,9 +55,9 @@ export class HitsSearch extends Component {
       const response = await this.props.query(queryString);
       let results = [];
 
-      if (serialize) {
+      if (serializer) {
         for (let hit of response.data.hits) {
-          results.push(serialize(hit));
+          results.push(serializer(hit));
         }
         if (this.props.onResults) {
           this.props.onResults(results);

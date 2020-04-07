@@ -1,14 +1,15 @@
+import { LiteratureRelations } from '@pages/frontsite/components';
+import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { DocumentRelations, DocumentInfo } from './index';
-import { DocumentTableOfContent } from './DocumentTableOfContent';
+import { Identifiers } from '../Identifiers';
+import { Notes } from '../Notes';
 import { DocumentConference } from './DocumentConference';
 import { DocumentLinks } from './DocumentLinks';
-import { Notes } from '../Notes';
-import _get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import { Identifiers } from '../Identifiers';
+import { DocumentTableOfContent } from './DocumentTableOfContent';
+import { DocumentInfo } from './index';
 
 export class DocumentMetadataTabs extends Component {
   constructor(props) {
@@ -22,10 +23,7 @@ export class DocumentMetadataTabs extends Component {
         menuItem: 'Details',
         render: () => (
           <Tab.Pane attached={false}>
-            <DocumentRelations
-              relations={this.document.relations}
-              documentType={this.document.document_type}
-            />
+            <LiteratureRelations relations={this.document.relations} />
             <DocumentInfo metadata={this.document} />
           </Tab.Pane>
         ),
@@ -36,7 +34,7 @@ export class DocumentMetadataTabs extends Component {
           <Tab.Pane attached={false}>
             <Identifiers
               identifiers={
-                isEmpty(this.document.identifiers)
+                _isEmpty(this.document.identifiers)
                   ? this.document.alternative_identifiers
                   : this.document.identifiers.concat(
                       this.document.alternative_identifiers

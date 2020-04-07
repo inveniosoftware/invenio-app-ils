@@ -36,8 +36,8 @@ export class ItemHeader extends Component {
             <Header.Subheader>Medium: {data.metadata.medium}</Header.Subheader>
             {data.metadata.barcode}:{' '}
             <DocumentTitle
-              document={data.metadata.document}
-              short={true}
+              metadata={data.metadata.document}
+              titleOnly={true}
               truncate={true}
             />
           </>
@@ -49,7 +49,6 @@ export class ItemHeader extends Component {
         }
         pid={data.metadata.pid}
         icon={<ItemIcon />}
-        recordType="Document"
         recordInfo={recordInfo}
       />
     );

@@ -1,14 +1,15 @@
+import { LiteratureRelations } from '@pages/frontsite/components';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import {
-  SeriesAllTitles,
-  SeriesInfo,
-  SeriesAlternativeTitles,
-  SeriesLinks,
-} from './';
 import { Identifiers } from '../Identifiers';
 import { Notes } from '../Notes';
+import {
+  SeriesAllTitles,
+  SeriesAlternativeTitles,
+  SeriesInfo,
+  SeriesLinks,
+} from './';
 
 export class SeriesMetadataAccordion extends Component {
   state = { activeIndex: 'details' };
@@ -35,6 +36,7 @@ export class SeriesMetadataAccordion extends Component {
           Details
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 'details'}>
+          <LiteratureRelations relations={this.metadata.relations} />
           <SeriesInfo metadata={metadata} />
           <SeriesAlternativeTitles metadata={metadata} />
         </Accordion.Content>

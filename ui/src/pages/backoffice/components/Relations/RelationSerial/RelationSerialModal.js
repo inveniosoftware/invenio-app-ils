@@ -53,7 +53,7 @@ export default class RelationSerialModal extends Component {
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
         referrerRecord={recordDetails}
-        extraRelationField={{ volume: this.state.volume }}
+        extraRelationField={{ field: { volume: this.state.volume } }}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -63,11 +63,10 @@ export default class RelationSerialModal extends Component {
                 <Container className="spaced">
                   <RelationSelector
                     mode={'single'}
-                    relations={this.props.relations.serial || {}}
+                    existingRelations={this.props.relations.serial || {}}
                     optionsQuery={seriesApi.serials}
                     resultRenderer={this.selectResultRender}
                     referrerRecordPid={recordDetails.metadata.pid}
-                    relationType={this.props.relationType}
                   />
                 </Container>
               </Form.Group>

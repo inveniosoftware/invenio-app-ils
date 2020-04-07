@@ -1,15 +1,15 @@
 import { recordToPidType } from '@api/utils';
-import { BackOfficeRoutes } from '@routes/urls';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Card, Icon } from 'semantic-ui-react';
 import {
   DocumentAuthors,
   DocumentCover,
-  DocumentEdition,
+  DocumentTitle,
 } from '@components/Document';
+import { BackOfficeRoutes } from '@routes/urls';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Card, Icon } from 'semantic-ui-react';
 
 export class DocumentCard extends Component {
   render() {
@@ -28,15 +28,14 @@ export class DocumentCard extends Component {
         )}
         <Card.Content>
           <Card.Header as={Link} to={linkTo} target="_blank">
-            {data.metadata.title}
+            <DocumentTitle
+              metadata={data.metadata}
+              truncate={true}
+              titleOnly={true}
+            />
           </Card.Header>
           <Card.Meta>
             <DocumentAuthors metadata={data.metadata} />
-            <div>
-              <DocumentEdition document={data} />
-              {data.metadata.publication_year &&
-                `(${data.metadata.publication_year})`}
-            </div>
           </Card.Meta>
         </Card.Content>
         {!isEmpty(extra) && <Card.Content extra>{extra}</Card.Content>}

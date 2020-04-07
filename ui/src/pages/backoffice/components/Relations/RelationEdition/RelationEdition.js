@@ -8,22 +8,31 @@ import {
   ExistingRelations,
   RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
+import { DocumentTitle } from '@components/Document';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { RelationEditionModal } from '../RelationEdition';
 
 export default class RelationEdition extends Component {
+  constructor(props) {
+    super(props);
+    this.relationType = 'edition';
+  }
+
   viewDetails = ({ row }) => {
+    const titleCmp = <DocumentTitle metadata={row.record_metadata} />;
     if (row.pid_type === 'docid')
       return (
-        <DocumentDetailsLink documentPid={row.pid}>
-          {row.title}
+        <DocumentDetailsLink pidValue={row.pid_value}>
+          {titleCmp}
         </DocumentDetailsLink>
       );
     else if (row.pid_type === 'serid') {
       return (
-        <SeriesDetailsLink seriesPid={row.pid}>{row.title}</SeriesDetailsLink>
+        <SeriesDetailsLink pidValue={row.pid_value}>
+          {titleCmp}
+        </SeriesDetailsLink>
       );
     }
   };
@@ -36,6 +45,7 @@ export default class RelationEdition extends Component {
         <RelationRemover
           referrer={recordDetails}
           related={row}
+          relationType={row.relation_type}
           buttonContent={'Remove relation'}
         />
       );
@@ -44,22 +54,23 @@ export default class RelationEdition extends Component {
 
   recTypeFormatter = ({ row }) => {
     if (row.pid_type === 'docid') {
-      return row.document_type;
+      return row.record_metadata.document_type;
     } else if (row.pid_type === 'serid') {
-      return row.mode_of_issuance;
+      return row.record_metadata.mode_of_issuance;
     }
   };
 
   render() {
     const { relations, showMaxRows, isLoading, error } = this.props;
-    const editions = relations['edition'] || [];
+    const editions = relations[this.relationType] || [];
 
     const columns = [
-      { title: 'Title', field: 'title', formatter: this.viewDetails },
+      { title: 'PID', field: 'pid_value' },
+      { title: 'Title', field: '', formatter: this.viewDetails },
       { title: 'Type', field: 'pid_type', formatter: this.recTypeFormatter },
       {
         title: 'Edition',
-        field: 'edition',
+        field: 'record_metadata.edition',
       },
       { title: 'Actions', field: '', formatter: this.removeHandler },
     ];
@@ -68,7 +79,7 @@ export default class RelationEdition extends Component {
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <RelationEditionModal
-            relationType={'edition'}
+            relationType={this.relationType}
             recordDetails={this.props.recordDetails}
           />
 

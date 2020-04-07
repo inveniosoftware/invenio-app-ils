@@ -14,7 +14,7 @@ export default class ResultsTableBody extends Component {
 
   renderRow = (columns, rows) => {
     return rows.map((row, rowIndex) => {
-      const identifier = row.pid ? row.pid : row.id;
+      const identifier = row.pid ? row.pid : row.id ? row.id : row.pid_value;
       return (
         <Table.Row key={identifier} data-test={identifier}>
           {columns.map((col, idx) => (

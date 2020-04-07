@@ -28,7 +28,6 @@ export class DetailsHeader extends React.Component {
 DetailsHeader.propTypes = {
   icon: PropTypes.node,
   pid: PropTypes.string,
-  recordType: PropTypes.string,
   subTitle: PropTypes.any,
   recordInfo: PropTypes.any,
   title: PropTypes.any,

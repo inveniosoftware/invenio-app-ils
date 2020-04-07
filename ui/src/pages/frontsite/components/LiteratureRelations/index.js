@@ -1,0 +1,1 @@
+export { LiteratureRelations } from './LiteratureRelations';

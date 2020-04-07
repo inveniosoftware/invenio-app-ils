@@ -1,4 +1,4 @@
-import { series as seriesApi } from '../series';
+import { series as seriesApi } from './series';
 
 describe('Series query builder tests', () => {
   it('should build query string with a mode of issuance', () => {

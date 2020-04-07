@@ -17,14 +17,12 @@ import isEmpty from 'lodash/isEmpty';
 export default class DocumentsDetails extends Component {
   constructor(props) {
     super(props);
-    this.fetchDocumentsDetails = this.props.fetchDocumentsDetails;
     this.state = { searchQuery: '' };
     this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
-    this.props.fetchDocumentsDetails(this.props.match.params.documentPid);
-    this.documentViewed();
+    this.fetchDocumentsDetails(this.props.match.params.documentPid);
   }
 
   componentDidUpdate(prevProps) {
@@ -32,8 +30,14 @@ export default class DocumentsDetails extends Component {
     const samePidFromRouter =
       prevProps.match.params.documentPid === documentPid;
     if (!samePidFromRouter) {
-      this.props.fetchDocumentsDetails(documentPid);
+      this.fetchDocumentsDetails(documentPid);
     }
+  }
+
+  fetchDocumentsDetails(documentPid) {
+    this.props.fetchDocumentsDetails(documentPid);
+
+    this.documentViewed();
   }
 
   documentViewed = async () => {

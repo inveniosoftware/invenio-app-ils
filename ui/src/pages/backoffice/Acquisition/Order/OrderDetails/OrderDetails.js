@@ -72,7 +72,6 @@ class OrderHeader extends React.Component {
         subTitle={<>From vendor: {vendorLink}</>}
         pid={data.metadata.pid}
         icon={<OrderIcon />}
-        recordType="Order"
         recordInfo={recordInfo}
       />
     );

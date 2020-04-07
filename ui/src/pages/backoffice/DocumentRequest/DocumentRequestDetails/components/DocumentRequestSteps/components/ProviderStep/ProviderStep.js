@@ -106,7 +106,6 @@ class IllProvider extends Component {
 
   onSelectResult = async data => {
     // NOTE: do the same things as AcqProvider.onSelectResult()
-    console.log('Selected ILL data', data);
   };
 
   render() {

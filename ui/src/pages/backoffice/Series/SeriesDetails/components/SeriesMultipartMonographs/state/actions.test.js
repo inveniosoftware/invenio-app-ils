@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../actions';
-import { initialState } from '../reducer';
-import * as types from '../types';
+import * as actions from './actions';
+import { initialState } from './reducer';
+import * as types from './types';
 import { series as seriesApi } from '@api';
 
 const middlewares = [thunk];
@@ -47,7 +47,7 @@ describe('Series Series tests', () => {
 
       store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid_value:123'
       );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
@@ -62,7 +62,7 @@ describe('Series Series tests', () => {
 
       await store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid_value:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
@@ -77,7 +77,7 @@ describe('Series Series tests', () => {
 
       await store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid_value:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });

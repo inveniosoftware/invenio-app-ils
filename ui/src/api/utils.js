@@ -67,58 +67,6 @@ export const schemaToPidType = schema => {
   }
 };
 
-export const sequenceRelationPayload = (
-  referrer,
-  selectedRelated,
-  extraRelationField
-) => {
-  /* it means that the referrer is continued by the selection */
-  if (extraRelationField.type === 'next') {
-    return {
-      next_pid: selectedRelated.metadata.pid,
-      next_pid_type: recordToPidType(selectedRelated),
-      previous_pid: referrer.metadata.pid,
-      previous_pid_type: recordToPidType(referrer),
-      relation_type: 'sequence',
-    };
-  } else if (extraRelationField.type === 'previous') {
-    return {
-      next_pid: referrer.metadata.pid,
-      next_pid_type: recordToPidType(referrer),
-      previous_pid: selectedRelated.metadata.pid,
-      previous_pid_type: recordToPidType(selectedRelated),
-      relation_type: 'sequence',
-    };
-  } else {
-    throw TypeError('Wrong sequence type. Should be previous or next.');
-  }
-};
-
-export const parentChildRelationPayload = (
-  relationType,
-  extra,
-  parent,
-  child
-) => {
-  return {
-    parent_pid: parent.metadata.pid,
-    parent_pid_type: recordToPidType(parent),
-    child_pid: child.metadata.pid,
-    child_pid_type: recordToPidType(child),
-    relation_type: relationType,
-    ...extra,
-  };
-};
-
-export const siblingRelationPayload = (relationType, extra, second) => {
-  return {
-    pid: second.metadata.pid,
-    pid_type: recordToPidType(second),
-    relation_type: relationType,
-    ...extra,
-  };
-};
-
 export const formatPrice = (price, includeCurrency = true) => {
   if (!price) return null;
 
