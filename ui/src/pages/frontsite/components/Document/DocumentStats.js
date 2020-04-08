@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Icon, Table, Message } from 'semantic-ui-react';
 import { stats } from '@api/stats';
 import { recordToPidType, withCancel } from '@api/utils';
 import _get from 'lodash/get';
+import React, { Component } from 'react';
+import { Icon, Message, Table } from 'semantic-ui-react';
 
 export class DocumentStats extends Component {
   constructor(props) {
@@ -37,9 +37,7 @@ export class DocumentStats extends Component {
         count: '-',
         unique_count: '-',
       });
-      if (this._isMounted) {
-        this.setState({ downloads: downloads, views: views });
-      }
+      this.setState({ downloads: downloads, views: views });
     } catch (error) {
       // the promise might have been cancelled on Unmount
     }

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import { withCancel } from '@api/utils';
+import { Error, Loader } from '@components';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Divider, Header, Icon } from 'semantic-ui-react';
-import { Loader, Error } from '@components';
 import { BookCard } from '../../components';
 
 export default class BookGroup extends Component {
@@ -19,17 +20,23 @@ export default class BookGroup extends Component {
     this.fetchData();
   }
 
+  componentWillUnmount() {
+    this.cancellableFetchStats && this.cancellableFetchStats.cancel();
+  }
+
   fetchData = async () => {
     this.setState({ isLoading: true });
+
+    this.cancellableFetchStats = withCancel(
+      this.props.fetchDataMethod(this.props.fetchDataQuery)
+    );
     try {
-      const response = await this.props.fetchDataMethod(
-        this.props.fetchDataQuery
-      );
-      this.setState({ data: response.data });
+      const response = await this.cancellableFetchStats.promise;
+      this.setState({ data: response.data, isLoading: false });
     } catch (error) {
-      this.setState({ error: error });
-    } finally {
-      this.setState({ isLoading: false });
+      if (error !== 'UNMOUNTED') {
+        this.setState({ error: error, isLoading: false });
+      }
     }
   };
 
