@@ -1,7 +1,7 @@
-import isEmpty from 'lodash/isEmpty';
-import _get from 'lodash/get';
-import _set from 'lodash/set';
 import { invenioConfig } from '@config';
+import _get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import _set from 'lodash/set';
 import { fromISO } from './date';
 
 export const prepareDateQuery = (field, date, dateFrom, dateTo) => {
@@ -123,10 +123,8 @@ export const withCancel = promise => {
 
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
-      val =>
-        isCancelled ? reject('The promise has been cancelled') : resolve(val),
-      error =>
-        isCancelled ? reject('The promise has been cancelled') : reject(error)
+      val => (isCancelled ? reject('UNMOUNTED') : resolve(val)),
+      error => (isCancelled ? reject('UNMOUNTED') : reject(error))
     );
   });
 
