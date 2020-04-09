@@ -50,3 +50,13 @@
     opacity: 0.7;
   }
 }
+
+
+.ui.loading.segment.fs-segment-transparent {
+    color: @textColor !important;
+}
+
+.ui.loading.segment.fs-segment-transparent:before {
+    background: @loaderDimmerColor;
+}
+

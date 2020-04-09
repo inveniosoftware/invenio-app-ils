@@ -93,6 +93,76 @@ const searchConfig = {
     },
     sortOrder: ['asc', 'desc'],
   },
+  documents_frontsite: {
+    filters: [
+      {
+        title: 'Document types',
+        field: 'document_type',
+        aggName: 'doctype',
+      },
+      {
+        title: 'Availability',
+        field: 'circulation.has_items_for_loan',
+        aggName: 'availability',
+      },
+      {
+        title: 'Tags',
+        field: 'tags',
+        aggName: 'tag',
+      },
+      {
+        title: 'Languages',
+        field: 'languages',
+        aggName: 'language',
+      },
+      {
+        title: 'Relations',
+        field: 'relations',
+        aggName: 'relation',
+      },
+      {
+        title: 'Medium',
+        field: 'stock.mediums',
+        aggName: 'medium',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+        },
+        {
+          default_order: 'asc',
+          field: 'available_items',
+          order: 3,
+          title: 'Available copies',
+        },
+        {
+          default_order: 'desc',
+          field: 'mostloaned',
+          order: 4,
+          title: 'Most loaned',
+        },
+        {
+          default_order: 'desc',
+          field: 'publication_year',
+          order: 5,
+          title: 'Publication year',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
   documentRequests: {
     filters: [
       {

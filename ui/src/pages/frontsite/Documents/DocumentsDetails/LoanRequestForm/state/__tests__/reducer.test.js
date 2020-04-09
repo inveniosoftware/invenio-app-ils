@@ -27,6 +27,7 @@ describe('Loan Request Form reducer test', () => {
       isLoading: false,
       data: createdLoan,
       hasError: false,
+      isSuccessful: true,
     });
   });
 

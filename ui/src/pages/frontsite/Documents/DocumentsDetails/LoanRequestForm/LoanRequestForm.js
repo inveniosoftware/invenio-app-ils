@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
-import { Error } from '@components/Error';
+import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { DatePicker } from '@components';
 import PropTypes from 'prop-types';
 import { invenioConfig } from '@config';
@@ -30,6 +29,8 @@ export default class LoanRequestForm extends Component {
     this.state['deliveryMethod'] = this.withDeliveryMethod
       ? this.deliveryMethods[0].value
       : null;
+
+    this.props.initializeState();
   }
 
   requestLoanButton = () => {
@@ -109,22 +110,35 @@ export default class LoanRequestForm extends Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { error, hasError, isSuccessful } = this.props;
     return (
-      <Error error={error}>
-        <Form>
-          {this.renderDeliveryMethodSelector()}
-          {this.renderOptionalRequestExpirationDate()}
-          <Form.Button primary fluid onClick={this.handleSubmit}>
-            Request
-          </Form.Button>
-        </Form>
-      </Error>
+      <Form>
+        {this.renderDeliveryMethodSelector()}
+        {this.renderOptionalRequestExpirationDate()}
+        {hasError && (
+          <Message
+            negative
+            header="Error"
+            content={error.response.data.message}
+          />
+        )}
+        {isSuccessful && (
+          <Message
+            positive
+            header="Success"
+            content="You have requested to loan this book."
+          />
+        )}
+        <Form.Button type="button" primary fluid onClick={this.handleSubmit}>
+          Request
+        </Form.Button>
+      </Form>
     );
   }
 }
 
 LoanRequestForm.propTypes = {
   requestLoanForDocument: PropTypes.func.isRequired,
+  initializeState: PropTypes.func.isRequired,
   document: PropTypes.object.isRequired,
 };

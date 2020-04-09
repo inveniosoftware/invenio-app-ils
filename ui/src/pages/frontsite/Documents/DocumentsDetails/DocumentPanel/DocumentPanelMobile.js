@@ -47,7 +47,10 @@ export default class DocumentPanelMobile extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column mobile={16}>
-              <DocumentCirculation />
+              <DocumentCirculation
+                documentDetails={this.props.documentDetails}
+                isLoading={isLoading}
+              />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

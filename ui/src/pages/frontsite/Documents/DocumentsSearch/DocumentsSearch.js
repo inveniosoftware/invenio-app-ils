@@ -102,7 +102,9 @@ export class DocumentsSearch extends Component {
                 <ResultsLoader renderElement={this.renderLoader}>
                   <Grid.Column width={3} className="search-aggregations">
                     <Header content={'Filter by'} />
-                    <SearchAggregationsCards modelName={'documents'} />
+                    <SearchAggregationsCards
+                      modelName={'documents_frontsite'}
+                    />
                   </Grid.Column>
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />

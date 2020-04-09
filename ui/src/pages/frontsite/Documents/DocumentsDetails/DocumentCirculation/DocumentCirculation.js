@@ -119,9 +119,12 @@ export default class DocumentCirculation extends Component {
   renderEItems = () => {};
 
   render() {
-    const { isLoading, documentDetails } = this.props;
+    const { documentDetails, isLoading, loanRequestIsLoading } = this.props;
     return (
-      <Segment className={'highlighted'}>
+      <Segment
+        loading={loanRequestIsLoading}
+        className="highlighted fs-segment-transparent"
+      >
         <ILSImagePlaceholder style={{ height: 400 }} isLoading={isLoading}>
           <DocumentEItems
             document={documentDetails}
