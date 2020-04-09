@@ -113,6 +113,7 @@ install_requires = [
     # --- extra deps of ILS -----------------------------------------------
     "invenio-circulation>=1.0.0a21,<1.1.0",
     "invenio-stats>=1.0.0a17",
+    "invenio-pages>=1.0.0a5",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "sentry-sdk>=0.10.2",
@@ -154,6 +155,7 @@ setup(
             "setup = invenio_app_ils.cli:setup",
             'stats = invenio_stats.cli:stats',
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
+            "fixtures = invenio_app_ils.cli:fixtures",
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",

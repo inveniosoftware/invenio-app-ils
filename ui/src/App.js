@@ -6,7 +6,6 @@ import { Login, ConfirmEmail } from '@authentication/pages';
 import { FrontSite, BackOffice } from '@routes/components';
 import { AuthenticationRoutes, BackOfficeRoutes } from '@routes/urls';
 import history from './history';
-import { NotFound } from '@components';
 import { AuthenticationGuard, UnAuthorized } from '@authentication/components';
 import PropTypes from 'prop-types';
 
@@ -47,7 +46,6 @@ export default class App extends Component {
               roles={['admin', 'librarian']}
             />
             <FrontSite {...this.props} />
-            <Route component={NotFound} />
           </Switch>
         </Router>
       </SetUserInfo>

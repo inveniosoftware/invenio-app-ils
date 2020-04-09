@@ -1,3 +1,4 @@
+import { NotFound } from '@components';
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { BackOfficeRoutes, AcquisitionRoutes, ILLRoutes } from '@routes/urls';
@@ -248,6 +249,9 @@ export default class extends Component {
           component={BorrowingRequestDetails}
         />
         <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
     );
   }
