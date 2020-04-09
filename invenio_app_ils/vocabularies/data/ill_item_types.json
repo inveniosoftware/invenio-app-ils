@@ -1,0 +1,12 @@
+[
+  {
+    "type": "ill_item_type",
+    "key": "ELECTRONIC",
+    "text": "Electronic"
+  },
+  {
+    "type": "ill_item_type",
+    "key": "PHYSICAL_COPY",
+    "text": "Physical copy"
+  }
+]

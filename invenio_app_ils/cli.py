@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -806,6 +806,13 @@ class BorrowingRequestGenerator(Generator):
         """Get a random library PID if the state is ACCEPTED."""
         return random.choice(self.holder.pids("libraries", "pid"))
 
+    def random_price(self, currency, min_value=10.0):
+        """Generate random price."""
+        return {
+            "currency": currency,
+            "value": round(min_value + random.random() * 100, 2),
+        }
+
     def generate(self):
         """Generate."""
         size = self.holder.borrowing_requests["total"]
@@ -818,18 +825,31 @@ class BorrowingRequestGenerator(Generator):
                 "library_pid": self.random_library_pid(),
                 "document_pid": self.random_document_pid(),
                 "patron_pid": random.choice(self.holder.patrons_pids),
-                "type": "Hardcover",
+                "type": "ELECTRONIC",
                 "notes": lorem.sentence(),
             }
-            obj["request_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
-            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
-            obj["received_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
-            obj["loan_end_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
+
+            t = now + timedelta(days=400)
+            if obj["status"] != "PENDING":
+                obj["request_date"] = self.random_date(now, t).date().isoformat()
+                obj["expected_delivery_date"] = self.random_date(now, t).date().isoformat()
+                obj["received_date"] = self.random_date(now, t).date().isoformat()
+                obj["payment"] = {
+                    "debit_cost_main_currency": self.random_price("CHF"),
+                    "debit_cost": self.random_price("EUR"),
+                    "debit_date": self.random_date(now, t).date().isoformat(),
+                    "debit_note": "Charged in euro",
+                    "mode": "CREDIT_CARD",
+                }
+                obj["total_main_currency"] = self.random_price("CHF")
+                obj["total"] = self.random_price("EUR")
+
+            if obj["status"] in ["ON_LOAN", "RETURNED"]:
+                obj["loan_end_date"] = self.random_date(now, t).date().isoformat()
+
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
-            if obj["status"] == ["ON_LOAN", "RETURNED"]:
-                # skip these statuses because they need a loan created
-                continue
+
             objs.append(obj)
 
         self.holder.borrowing_requests["objs"] = objs
@@ -886,18 +906,16 @@ class VendorGenerator(Generator):
 class OrderGenerator(Generator):
     """Order generator."""
 
-    CURRENCIES = ["CHF", "EUR"]
-
     def random_date(self, start, end):
         """Generate random date between two dates."""
         delta = end - start
         int_delta = (delta.days * 24 * 3600) + delta.seconds
         return start + timedelta(seconds=random.randrange(int_delta))
 
-    def random_price(self, currency=None, min_value=10.0):
+    def random_price(self, currency, min_value=10.0):
         """Generate random price."""
         return {
-            "currency": random.choice(self.CURRENCIES) if currency is None else currency,
+            "currency": currency,
             "value": round(min_value + random.random() * 100, 2),
         }
 
@@ -920,8 +938,8 @@ class OrderGenerator(Generator):
                 payment_mode="CREDIT_CARD",
                 purchase_type="PERPETUAL",
                 recipient="PATRON",
-                total_price=self.random_price(),
-                unit_price=self.random_price(),
+                total_price=self.random_price("EUR"),
+                unit_price=self.random_price("EUR"),
             )
 
     def generate(self):
@@ -933,11 +951,6 @@ class OrderGenerator(Generator):
             order_date = self.random_date(datetime(2010, 1, 1), now)
             status = random.choice(Order.STATUSES)
             order_lines = list(self.random_order_lines(status))
-            grand_total = self.random_price(min_value=50.0)
-            grand_total_main_currency = {
-                "currency": "CHF",
-                "value": grand_total["value"] * 1.10 if grand_total["currency"] == "EUR" else grand_total["value"],
-            }
             obj = {
                 "pid": self.create_pid(),
                 "created_by_pid": self.holder.librarian_pid,
@@ -945,8 +958,8 @@ class OrderGenerator(Generator):
                 "status": status,
                 "order_date": order_date.date().isoformat(),
                 "notes": lorem.sentence(),
-                "grand_total": grand_total,
-                "grand_total_main_currency": grand_total_main_currency,
+                "grand_total": self.random_price("EUR", min_value=50.0),
+                "grand_total_main_currency": self.random_price("CHF", min_value=60.0),
                 "funds": list(set(lorem.sentence().split())),
                 "payment": {
                     "mode": "CREDIT_CARD",

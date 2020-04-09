@@ -11,12 +11,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Accordion,
   Container,
   Divider,
   Grid,
+  Header,
   Label,
+  Message,
   Ref,
+  Segment,
   Sticky,
 } from 'semantic-ui-react';
 import { OrderInformation } from './OrderInformation';
@@ -88,6 +90,14 @@ class ActionMenu extends React.Component {
       <div className={'bo-action-menu'}>
         <EditButton fluid to={AcquisitionRoutes.orderEditFor(order.pid)} />
 
+        <Message size="small">
+          <Message.Header>Order deletion</Message.Header>
+          <p>
+            Orders cannot be deleted. You can cancel this order by changing its
+            status when editing.
+          </p>
+        </Message>
+
         <Divider horizontal>Navigation</Divider>
 
         <ScrollingMenu offset={this.props.offset}>
@@ -106,59 +116,40 @@ class ActionMenu extends React.Component {
 class OrderPanels extends React.Component {
   constructor(props) {
     super(props);
+    this.orderTopRef = props.anchors.orderTopRef;
     this.paymentInfoRef = props.anchors.paymentInfoRef;
     this.orderLinesRef = props.anchors.orderLinesRef;
   }
 
   render() {
     const { data } = this.props;
-    const panels = [
-      {
-        key: 'order-info',
-        title: 'Order information',
-        content: (
-          <Accordion.Content>
-            <OrderInformation order={data.metadata} />
-          </Accordion.Content>
-        ),
-      },
-      {
-        key: 'payment-info',
-        title: 'Payment information',
-        content: (
-          <Accordion.Content>
-            <div ref={this.paymentInfoRef} id="payment">
-              <PaymentInformation order={data.metadata} />
-            </div>
-          </Accordion.Content>
-        ),
-      },
-      {
-        key: 'order-lines',
-        title: 'Order lines',
-        content: (
-          <Accordion.Content>
-            <div ref={this.orderLinesRef} id="details">
-              <OrderLines lines={data.metadata.resolved_order_lines} />
-            </div>
-          </Accordion.Content>
-        ),
-      },
-    ];
-    const defaultIndexes =
-      data.metadata.status === 'CANCELLED' ? [0] : [0, 1, 2];
-
     return (
-      <Container>
-        <Accordion
-          fluid
-          styled
-          className="highlighted"
-          panels={panels}
-          exclusive={false}
-          defaultActiveIndex={defaultIndexes}
-        />
-      </Container>
+      <>
+        <Header as="h3" attached="top">
+          Order information
+        </Header>
+        <Segment attached className="bo-metadata-segment">
+          <div ref={this.orderTopRef} id="order-info">
+            <OrderInformation order={data.metadata} />
+          </div>
+        </Segment>
+        <Header as="h3" attached="top">
+          Payment Information
+        </Header>
+        <Segment attached className="bo-metadata-segment">
+          <div ref={this.paymentInfoRef} id="payment-info">
+            <PaymentInformation order={data.metadata} />
+          </div>
+        </Segment>
+        <Header as="h3" attached="top">
+          Order lines
+        </Header>
+        <Segment attached className="bo-metadata-segment">
+          <div ref={this.orderLinesRef} id="order-lines">
+            <OrderLines lines={data.metadata.resolved_order_lines} />
+          </div>
+        </Segment>
+      </>
     );
   }
 }
@@ -211,9 +202,7 @@ export default class OrderDetails extends React.Component {
                   <Grid columns={2}>
                     <Grid.Column width={13}>
                       <Container fluid className="spaced">
-                        <div ref={this.orderTopRef}>
-                          <OrderStatistics order={data.metadata} />
-                        </div>
+                        <OrderStatistics order={data.metadata} />
                       </Container>
                       <OrderPanels data={data} anchors={this.anchors} />
                     </Grid.Column>

@@ -22,6 +22,7 @@ export const invenioConfig = {
     loanRequestStates: ['PENDING'],
     requestDuration: 60,
   },
+  defaultCurrency: 'CHF',
   defaultResultsSize: 15,
   documents: {
     frontsiteMaxLinks: 5, // maximum number of links to show on details page
@@ -77,7 +78,6 @@ export const invenioConfig = {
   },
   max_results_window: 10000,
   acqOrders: {
-    defaultCurrency: 'CHF',
     maxShowOrderLines: 3,
     statuses: [
       { value: 'CANCELLED', text: 'Cancelled' },
@@ -125,6 +125,8 @@ export const invenioConfig = {
   rest_mimetype_query_arg_name: 'format',
   support_email: 'info@inveniosoftware.org',
   vocabularies: {
+    currencies: 'currencies',
+    language: 'language',
     document: {
       alternativeIdentifier: {
         scheme: 'alternative_identifier_scheme',
@@ -164,15 +166,17 @@ export const invenioConfig = {
       identifier: {
         scheme: 'series_identifier_scheme',
       },
-      language: 'language',
     },
-    order: {
-      currencies: 'currencies',
+    acqOrders: {
       acq_medium: 'acq_medium',
       acq_order_line_payment_mode: 'acq_order_line_payment_mode',
       acq_order_line_purchase_type: 'acq_order_line_purchase_type',
       acq_payment_mode: 'acq_payment_mode',
       acq_recipient: 'acq_recipient',
+    },
+    illBorrowingRequests: {
+      ill_item_type: 'ill_item_type',
+      ill_payment_mode: 'ill_payment_mode',
     },
   },
 };

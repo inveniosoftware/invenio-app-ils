@@ -3,8 +3,8 @@ import _set from 'lodash/set';
 import { fromISO, toISODate } from '../date';
 import { recordResponseSerializer } from '../utils';
 
-const BrwReqSeriaizers = {
-  ORDER_DATE_FIELDS: [
+const BrwReqSerializers = {
+  DATE_FIELDS: [
     'expected_delivery_date',
     'extension.request_date',
     'loan_end_date',
@@ -14,7 +14,7 @@ const BrwReqSeriaizers = {
   ],
   responseSerializer: function(hit) {
     const result = recordResponseSerializer(hit, function(metadata) {
-      BrwReqSeriaizers.ORDER_DATE_FIELDS.forEach(field => {
+      BrwReqSerializers.DATE_FIELDS.forEach(field => {
         const dateStr = _get(metadata, field);
         if (dateStr) {
           _set(metadata, field, fromISO(dateStr));
@@ -24,7 +24,7 @@ const BrwReqSeriaizers = {
     return result;
   },
   requestSerializer: function(data) {
-    BrwReqSeriaizers.ORDER_DATE_FIELDS.forEach(field => {
+    BrwReqSerializers.DATE_FIELDS.forEach(field => {
       const dateObj = _get(data, field);
       if (dateObj) {
         _set(data, field, toISODate(dateObj));
@@ -41,8 +41,8 @@ const LibrarySerializers = {
 };
 
 export const brwReqSerializer = {
-  fromJSON: BrwReqSeriaizers.responseSerializer,
-  toJSON: BrwReqSeriaizers.requestSerializer,
+  fromJSON: BrwReqSerializers.responseSerializer,
+  toJSON: BrwReqSerializers.requestSerializer,
 };
 
 export const librarySerializer = {

@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import { document as documentApi, patron as patronApi } from '@api';
+import {
+  serializeDocument,
+  serializePatron,
+} from '@components/ESSelector/serializer';
+import { invenioConfig } from '@config';
 import {
   ArrayField,
   BooleanField,
@@ -10,18 +15,9 @@ import {
   TextField,
   VocabularyField,
 } from '@forms';
-import { document as documentApi, patron as patronApi } from '@api';
-import { invenioConfig } from '@config';
-import { serializePatron } from '@components/ESSelector/serializer';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
-
-const serializeDocument = doc => {
-  return {
-    id: doc.metadata.pid,
-    key: doc.metadata.pid,
-    title: doc.metadata.title,
-  };
-};
 
 export class OrderLines extends Component {
   renderArrayItem = ({ arrayPath, indexPath, ...arrayHelpers }) => {
@@ -44,11 +40,13 @@ export class OrderLines extends Component {
               label="Order Line Unit Price"
               fieldPath={`${arrayPath}.${indexPath}.unit_price`}
               currencies={currencies}
+              defaultCurrency={invenioConfig.defaultCurrency}
             />
             <PriceField
               label="Order Line Total Price"
               fieldPath={`${arrayPath}.${indexPath}.total_price`}
               currencies={currencies}
+              defaultCurrency={invenioConfig.defaultCurrency}
             />
           </GroupField>
 
@@ -65,7 +63,7 @@ export class OrderLines extends Component {
           />
           <GroupField widths="equal">
             <VocabularyField
-              type={invenioConfig.vocabularies.order.acq_recipient}
+              type={invenioConfig.vocabularies.acqOrders.acq_recipient}
               fieldPath={`${arrayPath}.${indexPath}.recipient`}
               label="Recipient"
               placeholder="Select recipient..."
@@ -91,7 +89,7 @@ export class OrderLines extends Component {
               fieldPath={`${arrayPath}.${indexPath}.copies_received`}
             />
             <VocabularyField
-              type={invenioConfig.vocabularies.order.acq_medium}
+              type={invenioConfig.vocabularies.acqOrders.acq_medium}
               fieldPath={`${arrayPath}.${indexPath}.medium`}
               label="Medium"
               placeholder="Select medium..."
@@ -110,22 +108,22 @@ export class OrderLines extends Component {
               fieldPath={`${arrayPath}.${indexPath}.is_patron_suggestion`}
               toggle
             />
-            <SelectorField
-              emptyHeader="No patron selected"
-              emptyDescription="Please select a patron."
-              fieldPath={`${arrayPath}.${indexPath}.patron`}
-              errorPath={`${arrayPath}.${indexPath}.patron_pid`}
-              label="Patron"
-              placeholder="Search for a patron..."
-              query={patronApi.list}
-              serializer={serializePatron}
-            />
           </GroupField>
+          <SelectorField
+            emptyHeader="No patron selected"
+            emptyDescription="Please select a patron."
+            fieldPath={`${arrayPath}.${indexPath}.patron`}
+            errorPath={`${arrayPath}.${indexPath}.patron_pid`}
+            label="Patron"
+            placeholder="Search for a patron..."
+            query={patronApi.list}
+            serializer={serializePatron}
+          />
 
           <GroupField widths="equal">
             <VocabularyField
               type={
-                invenioConfig.vocabularies.order.acq_order_line_payment_mode
+                invenioConfig.vocabularies.acqOrders.acq_order_line_payment_mode
               }
               fieldPath={`${arrayPath}.${indexPath}.payment_mode`}
               label="Payment mode"
@@ -133,7 +131,8 @@ export class OrderLines extends Component {
             />
             <VocabularyField
               type={
-                invenioConfig.vocabularies.order.acq_order_line_purchase_type
+                invenioConfig.vocabularies.acqOrders
+                  .acq_order_line_purchase_type
               }
               fieldPath={`${arrayPath}.${indexPath}.purchase_type`}
               label="Purchase Type"
@@ -160,8 +159,8 @@ export class OrderLines extends Component {
       <ArrayField
         fieldPath="resolved_order_lines"
         defaultNewValue={{
-          unit_price: { currency: invenioConfig.acqOrders.defaultCurrency },
-          total_price: { currency: invenioConfig.acqOrders.defaultCurrency },
+          unit_price: { currency: invenioConfig.defaultCurrency },
+          total_price: { currency: invenioConfig.defaultCurrency },
         }}
         renderArrayItem={this.renderArrayItem}
         addButtonLabel="Add new order line"
@@ -169,3 +168,7 @@ export class OrderLines extends Component {
     );
   }
 }
+
+OrderLines.propTypes = {
+  currencies: PropTypes.array.isRequired,
+};

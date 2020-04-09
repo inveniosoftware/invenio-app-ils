@@ -186,7 +186,7 @@
       "title": "Order total in the main currency"
     },
     "type": {
-      "title": "The type of the item requested, normally physical or electronic",
+      "title": "The type of the item requested, normally physical or electronic (Vocabulary)",
       "type": "string"
     },
     "updated_by": {

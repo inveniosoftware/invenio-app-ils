@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FastField, Field, getIn } from 'formik';
 import { Form, Dropdown, Input, Label } from 'semantic-ui-react';
-import { invenioConfig } from '@config';
 
 // Wrapped Dropdown so we submit the selected value of the dropdown with the form
 const DropdownField = ({
@@ -37,7 +36,12 @@ export class PriceField extends Component {
   }
 
   renderCurrencyLabel = () => {
-    const { currencies, fieldPath, canSelectCurrency } = this.props;
+    const {
+      currencies,
+      fieldPath,
+      defaultCurrency,
+      canSelectCurrency,
+    } = this.props;
     return canSelectCurrency ? (
       <Field
         options={currencies}
@@ -45,29 +49,27 @@ export class PriceField extends Component {
         component={DropdownField}
       />
     ) : (
-      <Label name={`${fieldPath}.currency`}>
-        {invenioConfig.orders.defaultCurrency}
-      </Label>
+      <Label name={`${fieldPath}.currency`}>{defaultCurrency}</Label>
     );
   };
 
   renderFormField = props => {
     const {
-      currencies,
       fieldPath,
+      currencies,
+      defaultCurrency,
+      canSelectCurrency,
       inline,
-      optimized,
       label,
       required,
-      initialValues,
-      canSelectCurrency,
+      optimized,
       ...uiProps
     } = this.props;
     const {
       form: { values, handleChange, handleBlur, errors, status },
     } = props;
     return (
-      <Form.Field inline={inline} required>
+      <Form.Field inline={inline} required={required}>
         <label>{label}</label>
         <Input
           fluid
@@ -101,12 +103,18 @@ export class PriceField extends Component {
 
 PriceField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
+  currencies: PropTypes.array.isRequired,
+  defaultCurrency: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  canSelectCurrency: PropTypes.bool,
+  required: PropTypes.bool,
   inline: PropTypes.bool,
   optimized: PropTypes.bool,
 };
 
 PriceField.defaultProps = {
   canSelectCurrency: true,
+  required: false,
   inline: false,
   optimized: true,
 };

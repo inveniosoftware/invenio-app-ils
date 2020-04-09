@@ -7,7 +7,7 @@ export class DetailsHeader extends React.Component {
     const { icon, subTitle, title } = this.props;
     return (
       <Grid columns={2}>
-        <Grid.Column width={13}>
+        <Grid.Column width={12}>
           <Header as="h1">
             {icon}
             <Header.Content>
@@ -17,7 +17,7 @@ export class DetailsHeader extends React.Component {
           </Header>
           {this.props.children}
         </Grid.Column>
-        <Grid.Column width={3} floated="right" textAlign="right">
+        <Grid.Column width={4} floated="right" textAlign="right">
           {this.props.recordInfo}
         </Grid.Column>
       </Grid>

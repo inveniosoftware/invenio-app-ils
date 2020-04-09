@@ -1,29 +1,16 @@
 import { fromISO } from '@api/date';
-import { serializer } from './serializer';
+import { documentSerializer } from './serializer';
 
-const stringDate = '2018-01-01T11:05:00+01:00';
+const stringDateTime = '2018-01-01T11:05:00+01:00';
+const stringDate = '2018-11-22';
+const objDate = fromISO(stringDate);
 
 describe('Document object serialization', () => {
-  it('should serialize dates', () => {
-    const serialized = serializer.fromJSON({
+  it('should serialize dates from response', () => {
+    const serialized = documentSerializer.fromJSON({
       id: 123,
-      updated: stringDate,
-      created: stringDate,
-      metadata: {},
-    });
-
-    expect(serialized).toEqual({
-      id: 123,
-      created: fromISO(stringDate),
-      updated: fromISO(stringDate),
-    });
-  });
-
-  it('should serialize all fields', () => {
-    const serialized = serializer.fromJSON({
-      id: 123,
-      updated: stringDate,
-      created: stringDate,
+      updated: stringDateTime,
+      created: stringDateTime,
       links: 'test',
       metadata: {
         pid: '123',
@@ -38,15 +25,15 @@ describe('Document object serialization', () => {
     expect(serialized).toEqual({
       pid: '123',
       id: 123,
-      updated: fromISO(stringDate),
-      created: fromISO(stringDate),
+      updated: fromISO(stringDateTime),
+      created: fromISO(stringDateTime),
       links: 'test',
       metadata: {
         pid: '123',
         authors: ['A', 'B'],
         title: 'p',
         circulation: {
-          next_available_date: new Date(stringDate).toDateString(),
+          next_available_date: objDate,
         },
       },
     });

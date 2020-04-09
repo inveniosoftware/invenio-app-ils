@@ -1,4 +1,3 @@
-import { toShortDate } from '@api/date';
 import { DocumentAuthors } from '@components';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
 import { MetadataTable } from '@pages/backoffice/components';
@@ -66,7 +65,7 @@ export class DocumentMetadataGeneral extends Component {
 
     return [
       { name: 'Publisher', value: document.metadata.imprint.publisher },
-      { name: 'Date', value: toShortDate(document.metadata.imprint.date) },
+      { name: 'Date', value: document.metadata.imprint.date },
       { name: 'Place', value: document.metadata.imprint.place },
       { name: 'Reprint date', value: document.metadata.imprint.reprint_date },
     ];

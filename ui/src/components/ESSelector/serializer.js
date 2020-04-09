@@ -6,16 +6,27 @@ export const serializeError = error => ({
   extra: '',
 });
 
-export const serializeDocument = doc => ({
-  id: doc.metadata.pid,
-  key: doc.metadata.pid,
-  title: doc.metadata.title,
-  description: `Authors: ${doc.metadata.authors.map(
-    author => author.full_name
-  )}`,
-  extra: `Document #${doc.metadata.pid}`,
-  metadata: doc.metadata,
-});
+export const serializeDocument = doc => {
+  const {
+    pid,
+    title,
+    edition,
+    publication_year: year,
+    document_type: docType,
+  } = doc.metadata;
+  const descriptions = [];
+  edition && descriptions.push(`Edition: ${edition}`);
+  year && descriptions.push(`Year: ${year}`);
+  docType && descriptions.push(`Type: ${docType}`);
+  return {
+    id: pid,
+    key: pid,
+    title: title,
+    description: descriptions.join(' - '),
+    extra: `Document #${pid}`,
+    metadata: doc.metadata,
+  };
+};
 
 export const serializeEItem = eitem => ({
   id: eitem.metadata.pid,
@@ -71,31 +82,33 @@ export const serializePatron = patron => ({
   metadata: patron.metadata,
 });
 
-export const serializeSeries = series => ({
-  id: series.metadata.pid,
-  key: series.metadata.pid,
-  title: series.metadata.title,
-  description: `Mode of Issuance: ${series.metadata.mode_of_issuance}`,
-  extra: `Series #${series.metadata.pid}`,
-  metadata: series.metadata,
-});
-
-export const serializeSeriesLanguages = series => ({
-  id: series.metadata.pid,
-  key: series.metadata.pid,
-  title: series.metadata.title,
-  description: `Language: ${series.metadata.languages}`,
-  extra: `Series #${series.metadata.pid}`,
-  metadata: series.metadata,
-});
-
-export const serializeLibrary = library => {
+export const serializeSeries = series => {
+  const {
+    pid,
+    title,
+    edition,
+    publication_year: year,
+    mode_of_issuance: moi,
+  } = series.metadata;
+  const descriptions = [];
+  edition && descriptions.push(`Edition: ${edition}`);
+  year && descriptions.push(`Year: ${year}`);
+  moi && descriptions.push(`Mode of Issuance: ${moi}`);
   return {
-    id: library.metadata.pid,
-    key: library.metadata.pid,
-    title: library.metadata.name,
+    id: pid,
+    key: pid,
+    title: title,
+    description: descriptions.join(' - '),
+    extra: `Series #${pid}`,
+    metadata: series.metadata,
   };
 };
+
+export const serializeLibrary = library => ({
+  id: library.metadata.pid,
+  key: library.metadata.pid,
+  title: library.metadata.name,
+});
 
 export const serializeVendor = vendor => ({
   id: vendor.metadata.pid,

@@ -1,10 +1,4 @@
-import {
-  DELETE_HAS_ERROR,
-  DELETE_IS_LOADING,
-  HAS_ERROR,
-  IS_LOADING,
-  SUCCESS,
-} from './types';
+import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 
 export const initialState = {
   data: {},
@@ -15,7 +9,6 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case DELETE_IS_LOADING:
     case IS_LOADING:
       return { ...state, isLoading: true };
     case SUCCESS:
@@ -26,7 +19,6 @@ export default (state = initialState, action) => {
         isLoading: false,
         hasError: false,
       };
-    case DELETE_HAS_ERROR:
     case HAS_ERROR:
       return {
         ...state,

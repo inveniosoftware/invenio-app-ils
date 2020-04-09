@@ -1,10 +1,5 @@
+import { AccordionField, GroupField, StringField } from '@forms';
 import React, { Component } from 'react';
-import {
-  AccordionField,
-  StringField,
-  GroupField,
-  DateInputField,
-} from '@forms';
 
 export class Imprint extends Component {
   render() {
@@ -20,7 +15,7 @@ export class Imprint extends Component {
                 fieldPath={'imprint.publisher'}
                 optimized
               />
-              <DateInputField
+              <StringField
                 label="Date of publication"
                 fieldPath={'imprint.date'}
                 optimized
@@ -32,7 +27,7 @@ export class Imprint extends Component {
                 fieldPath={'imprint.place'}
                 optimized
               />
-              <DateInputField
+              <StringField
                 label="Date of reprint"
                 fieldPath={'imprint.reprint_date'}
                 optimized

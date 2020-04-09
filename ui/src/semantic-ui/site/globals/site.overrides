@@ -163,6 +163,10 @@ form {
     flex: 1;
     padding: 1.5em;
   }
+
+  .document-title{
+    display: inline-block;
+  }
 }
 
 .generate-margins(@max, @direction, @alias, @i: 5) when (@i =< @max) {

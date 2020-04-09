@@ -405,7 +405,7 @@ const searchConfig = {
           default_order: 'desc',
           field: 'grand_total',
           order: 3,
-          title: `Total (${invenioConfig.acqOrders.defaultCurrency})`,
+          title: `Total (${invenioConfig.defaultCurrency})`,
         },
         {
           default_order: 'desc',

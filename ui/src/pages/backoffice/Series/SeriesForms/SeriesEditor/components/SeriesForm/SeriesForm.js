@@ -127,7 +127,7 @@ export class SeriesForm extends Component {
         <LanguageField
           multiple
           fieldPath="languages"
-          type={invenioConfig.vocabularies.series.language}
+          type={invenioConfig.vocabularies.language}
         />
         <StringField label="Edition" fieldPath="edition" />
         <StringField fieldPath="publisher" label="Publisher" />

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import { acqVendor as vendorApi } from '@api';
+import { serializeVendor } from '@components/ESSelector/serializer';
+import { invenioConfig } from '@config';
 import {
   DateInputField,
   GroupField,
@@ -8,9 +10,8 @@ import {
   StringField,
   TextField,
 } from '@forms';
-import { invenioConfig } from '@config';
-import { serializeVendor } from '@components/ESSelector/serializer';
-import { acqVendor as vendorApi } from '@api';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export class OrderInfo extends Component {
   render() {
@@ -54,15 +55,17 @@ export class OrderInfo extends Component {
         </GroupField>
 
         <PriceField
-          label="Grand Total"
+          label="Total"
           fieldPath="grand_total"
           currencies={currencies}
+          defaultCurrency={invenioConfig.defaultCurrency}
         />
         <PriceField
-          label="Grand Total Main Currency"
+          label="Total Main Currency"
           fieldPath="grand_total_main_currency"
           currencies={currencies}
           canSelectCurrency={false}
+          defaultCurrency={invenioConfig.defaultCurrency}
         />
         <DateInputField
           label="Received date"
@@ -75,3 +78,7 @@ export class OrderInfo extends Component {
     );
   }
 }
+
+OrderInfo.propTypes = {
+  currencies: PropTypes.array.isRequired,
+};
