@@ -14,3 +14,4 @@ export { stats, circulationStats } from './stats';
 export { vocabulary } from './vocabularies/vocabulary';
 export { acqOrder, acqVendor } from './acquisition';
 export { illBorrowingRequest, illLibrary } from './ill';
+export { page } from './staticPages';

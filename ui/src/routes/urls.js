@@ -1,5 +1,12 @@
 import { generatePath } from 'react-router-dom';
 
+const adminConfig = {
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? '/admin'
+      : `${process.env.REACT_APP_BACKEND_DEV_BASE_URL}/admin`,
+};
+
 const AuthenticationBase = '/';
 
 const AuthenticationRoutesList = {
@@ -205,6 +212,11 @@ const ILLRoutesGenerators = {
 export const ILLRoutes = {
   ...ILLRoutesList,
   ...ILLRoutesGenerators,
+};
+
+export const adminRoutes = {
+  admin: adminConfig.baseURL,
+  staticPages: `${adminConfig.baseURL}/pages`,
 };
 
 export const DetailsRouteByPidTypeFor = pidType => {

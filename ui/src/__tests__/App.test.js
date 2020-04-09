@@ -29,7 +29,6 @@ beforeEach(() => {
 it('should render backoffice application', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-
     <Provider store={store}>
       <App />
     </Provider>,

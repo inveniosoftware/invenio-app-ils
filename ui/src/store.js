@@ -1,5 +1,6 @@
 import { recordRelationsReducer } from '@pages/backoffice/components/Relations/reducer';
 import { relationSelectorReducer } from '@pages/backoffice/components/Relations/reducer';
+import {staticPageReducer} from "@pages/frontsite/StaticPage/reducer";
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -120,6 +121,7 @@ const rootReducer = combineReducers({
   seriesDocuments: seriesDocumentsReducer,
   seriesMultipartMonographs: seriesMultipartMonographsReducer,
   seriesRelations: seriesRelationsReducer,
+  staticPage: staticPageReducer,
   statsMostLoanedDocuments: mostLoanedDocumentsReducer,
   vendorDetails: vendorDetailsReducer,
 });

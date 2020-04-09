@@ -1,3 +1,5 @@
+import { AuthenticationGuard } from '@authentication/components';
+import AdminMenu from './AdminMenu';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -179,12 +181,18 @@ class Sidebar extends Component {
             </Menu.Menu>
           </Menu.Item>
         </Menu>
-        <Divider />
+        <Divider horizontal>Other</Divider>
         <Menu text vertical className="bo-menu">
           <Menu.Item as={Link} to={FrontSiteRoutes.home}>
             Go to Home Page
           </Menu.Item>
         </Menu>
+        <AuthenticationGuard
+          silent={true}
+          authorizedComponent={() => <AdminMenu />}
+          roles={['admin']}
+          loginComponent={() => <></>}
+        />
       </>
     );
   }

@@ -17,6 +17,7 @@ from random import randint
 import arrow
 import click
 import lorem
+import pkg_resources
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
@@ -24,6 +25,7 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
+from invenio_pages import Page
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_search import current_search
@@ -973,7 +975,6 @@ class OrderGenerator(Generator):
         db.session.commit()
         return recs
 
-
 @click.group()
 def demo():
     """Demo data CLI."""
@@ -1242,6 +1243,39 @@ def create_userprofile_for(email, username, full_name):
         db.session.commit()
 
 
+@click.group()
+def fixtures():
+    """Create initial data and demo records."""
+
+
+@fixtures.command()
+@with_appcontext
+def pages():
+    """Register CDS static pages."""
+    def page_data(page):
+        return pkg_resources.resource_stream(
+            'invenio_app_ils', os.path.join('templates/static_pages', page)
+        ).read().decode('utf8')
+
+    pages = [
+        Page(url='/about',
+             title='About',
+             description='About',
+             content=page_data('about.html'),
+             template_name='invenio_pages/default.html'),
+        Page(url='/contact',
+             title='Contact',
+             description='Contact',
+             content=page_data('contact.html'),
+             template_name='invenio_pages/default.html'),
+    ]
+    with db.session.begin_nested():
+        Page.query.delete()
+        db.session.add_all(pages)
+    db.session.commit()
+    click.echo('static pages created :)')
+
+
 @click.command()
 @click.option("--recreate-db", is_flag=True, help="Recreating DB.")
 @click.option(
@@ -1354,5 +1388,7 @@ def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
     # Generate demo data
     if not skip_demo_data:
         run_command("demo data")
+
+    run_command("fixtures pages")
 
     click.secho("ils setup finished successfully", fg="blue")
