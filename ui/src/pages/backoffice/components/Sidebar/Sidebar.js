@@ -17,21 +17,23 @@ class Sidebar extends Component {
       ? this.removeTrailingSlashes(this.props.location.pathname)
       : '';
     const overviewActive = activePath === BackOfficeRoutes.home;
-    const borrowingRequestsActive =
-      activePath === ILLRoutes.borrowingRequestList;
-    const itemsActive = activePath === BackOfficeRoutes.itemsList;
-    const eitemsActive = activePath === BackOfficeRoutes.eitemsList;
-    const loansActive = activePath === BackOfficeRoutes.loansList;
-    const locationsActive = activePath === BackOfficeRoutes.locationsList;
-    const librariesActive = activePath === ILLRoutes.libraryList;
-    const documentsActive = activePath === BackOfficeRoutes.documentsList;
-    const documentRequestsActive =
-      activePath === BackOfficeRoutes.documentRequestsList;
-    const ordersActive = activePath === AcquisitionRoutes.ordersList;
-    const vendorsActive = activePath === AcquisitionRoutes.vendorsList;
-    const patronsActive = activePath === BackOfficeRoutes.patronsList;
-    const seriesActive = activePath === BackOfficeRoutes.seriesList;
-    const statsActive = activePath === BackOfficeRoutes.stats.home;
+    const borrowingRequestsActive = activePath.includes(
+      ILLRoutes.borrowingRequestList
+    );
+    const itemsActive = activePath.includes(BackOfficeRoutes.itemsList);
+    const eitemsActive = activePath.includes(BackOfficeRoutes.eitemsList);
+    const loansActive = activePath.includes(BackOfficeRoutes.loansList);
+    const locationsActive = activePath.includes(BackOfficeRoutes.locationsList);
+    const librariesActive = activePath.includes(ILLRoutes.libraryList);
+    const documentsActive = activePath.includes(BackOfficeRoutes.documentsList);
+    const documentRequestsActive = activePath.includes(
+      BackOfficeRoutes.documentRequestsList
+    );
+    const ordersActive = activePath.includes(AcquisitionRoutes.ordersList);
+    const vendorsActive = activePath.includes(AcquisitionRoutes.vendorsList);
+    const patronsActive = activePath.includes(BackOfficeRoutes.patronsList);
+    const seriesActive = activePath.includes(BackOfficeRoutes.seriesList);
+    const statsActive = activePath.includes(BackOfficeRoutes.stats.home);
     return (
       <>
         <Header as="h3" className="bo-menu-header">
