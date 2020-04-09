@@ -1,21 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Item, List } from 'semantic-ui-react';
-import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
-import { toShortDateTime } from '@api/date';
+import { toShortDate } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';
 import { getDisplayVal } from '@config/invenioConfig';
 import { AcquisitionOrderIcon } from '@pages/backoffice/components/icons';
+import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Item, List } from 'semantic-ui-react';
 
 export default class OrderListEntry extends Component {
   renderLeftColumn = order => {
+    const totalMainCurrency = formatPrice(
+      order.metadata.grand_total_main_currency
+    );
+    const total = order.metadata.grand_total
+      ? ` (${formatPrice(order.metadata.grand_total)})`
+      : '';
     return (
       <>
         <Item.Description>
           <Item.Meta>
-            Ordered: {toShortDateTime(order.metadata.order_date)}
+            Ordered: {toShortDate(order.metadata.order_date)}
           </Item.Meta>
         </Item.Description>
         <Item.Description>
@@ -32,11 +38,8 @@ export default class OrderListEntry extends Component {
         </Item.Description>
         <Item.Description>
           <label>total </label>
-          {formatPrice(order.metadata.grand_total_main_currency)}
-          {order.metadata.grand_total.currency !==
-          order.metadata.grand_total_main_currency.currency
-            ? ` (${formatPrice(order.metadata.grand_total)})`
-            : ''}
+          {totalMainCurrency}
+          {total}
         </Item.Description>
       </>
     );
@@ -97,7 +100,11 @@ export default class OrderListEntry extends Component {
     if (this.props.renderRightColumn) {
       return this.props.renderRightColumn(order);
     }
-    const { received_date, expected_delivery_date, payment } = order.metadata;
+    const {
+      received_date: receivedDate,
+      expected_delivery_date: expectedDeliveryDate,
+      payment,
+    } = order.metadata;
     return (
       <List verticalAlign="middle" className={'document-circulation'}>
         <List.Item>
@@ -106,18 +113,18 @@ export default class OrderListEntry extends Component {
           </List.Content>
           <List.Content>payment mode</List.Content>
         </List.Item>
-        {received_date && (
+        {receivedDate && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(received_date)}</strong>
+              <strong>{toShortDate(receivedDate)}</strong>
             </List.Content>
             <List.Content>received</List.Content>
           </List.Item>
         )}
-        {expected_delivery_date && (
+        {expectedDeliveryDate && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(expected_delivery_date)}</strong>
+              <strong>{toShortDate(expectedDeliveryDate)}</strong>
             </List.Content>
             <List.Content>expected</List.Content>
           </List.Item>

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Item, List } from 'semantic-ui-react';
-import { ILLRoutes, BackOfficeRoutes } from '@routes/urls';
-import { toShortDateTime } from '@api/date';
+import { toShortDate } from '@api/date';
 import { getDisplayVal } from '@config/invenioConfig';
 import { ILLBorrowingRequestIcon } from '@pages/backoffice/components/icons';
+import { BackOfficeRoutes, ILLRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Item, List } from 'semantic-ui-react';
 
 export default class BorrowingRequestListEntry extends Component {
   renderLeftColumn = brwReqMetadata => {
@@ -19,7 +19,7 @@ export default class BorrowingRequestListEntry extends Component {
       <>
         {loanEndDate ? (
           <Item.Description>
-            <Item.Meta>Loan end date: {toShortDateTime(loanEndDate)}</Item.Meta>
+            <Item.Meta>Loan end date: {toShortDate(loanEndDate)}</Item.Meta>
           </Item.Description>
         ) : (
           <br />
@@ -94,7 +94,7 @@ export default class BorrowingRequestListEntry extends Component {
         {requestDate && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(requestDate)}</strong>
+              <strong>{toShortDate(requestDate)}</strong>
             </List.Content>
             <List.Content>requested</List.Content>
           </List.Item>
@@ -102,7 +102,7 @@ export default class BorrowingRequestListEntry extends Component {
         {receivedDate && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(receivedDate)}</strong>
+              <strong>{toShortDate(receivedDate)}</strong>
             </List.Content>
             <List.Content>received</List.Content>
           </List.Item>
@@ -110,7 +110,7 @@ export default class BorrowingRequestListEntry extends Component {
         {expectedDeliveryDate && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(expectedDeliveryDate)}</strong>
+              <strong>{toShortDate(expectedDeliveryDate)}</strong>
             </List.Content>
             <List.Content>expected</List.Content>
           </List.Item>

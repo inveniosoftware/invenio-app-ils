@@ -2,26 +2,27 @@ import { toShortDate } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';
 import { MetadataTable } from '@pages/backoffice/components';
+import { PropTypes } from 'prop-types';
 import React from 'react';
-import { Grid, Icon, Popup } from 'semantic-ui-react';
+import { Grid, Header, Icon, Popup, Segment } from 'semantic-ui-react';
 
-export class PaymentInformation extends React.Component {
+class Payment extends React.Component {
   render() {
-    const order = this.props.order;
-    const payment = order.payment;
+    const { brwReq } = this.props;
+    const payment = brwReq.payment;
     const leftTable = [
       {
         name: `Total (${invenioConfig.defaultCurrency})`,
-        value: formatPrice(order.grand_total_main_currency),
+        value: formatPrice(brwReq.total_main_currency),
       },
       {
         name:
-          order.grand_total && order.grand_total.currency
-            ? `Total (${order.grand_total.currency})`
+          brwReq.total && brwReq.total.currency
+            ? `Total (${brwReq.total.currency})`
             : 'Total',
-        value: formatPrice(order.grand_total),
+        value: formatPrice(brwReq.total),
       },
-      { name: 'Mode', value: payment.mode },
+      { name: 'Payment mode', value: payment.mode },
       {
         name: (
           <>
@@ -68,3 +69,24 @@ export class PaymentInformation extends React.Component {
     );
   }
 }
+
+export class BorrowingRequestPayment extends React.Component {
+  render() {
+    const brwReq = this.props.brwReq;
+
+    return (
+      <>
+        <Header as="h3" attached="top">
+          Payment information
+        </Header>
+        <Segment attached className="bo-metadata-segment">
+          <Payment brwReq={brwReq} />
+        </Segment>
+      </>
+    );
+  }
+}
+
+BorrowingRequestPayment.propTypes = {
+  brwReq: PropTypes.object.isRequired,
+};

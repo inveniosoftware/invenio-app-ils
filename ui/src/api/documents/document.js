@@ -1,5 +1,5 @@
 import { http, apiConfig } from '@api/base';
-import { serializer } from './serializer';
+import { documentSerializer as serializer } from './serializer';
 import { prepareSumQuery } from '@api/utils';
 import { add as addRelation, remove as removeRelation } from '@api/relations';
 

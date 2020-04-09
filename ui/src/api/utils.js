@@ -70,14 +70,15 @@ export const schemaToPidType = schema => {
 export const formatPrice = (price, includeCurrency = true) => {
   if (!price) return null;
 
-  const options = includeCurrency
-    ? {
-        style: 'currency',
-        currency: price.currency,
-      }
-    : {
-        maximumFractionDigits: 2,
-      };
+  const options =
+    price.currency && includeCurrency
+      ? {
+          style: 'currency',
+          currency: price.currency,
+        }
+      : {
+          maximumFractionDigits: 2,
+        };
 
   return new Intl.NumberFormat(invenioConfig.i18n.priceLocale, options).format(
     price.value

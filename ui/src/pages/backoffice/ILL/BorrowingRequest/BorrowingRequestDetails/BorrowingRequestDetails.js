@@ -1,7 +1,10 @@
 import { toShortDate } from '@api/date';
 import { CopyButton, CreatedBy, Error, Loader } from '@components';
 import { DetailsHeader, EditButton } from '@pages/backoffice/components';
-import { ScrollingMenu } from '@pages/backoffice/components/buttons/ScrollingMenu';
+import {
+  ScrollingMenu,
+  ScrollingMenuItem,
+} from '@pages/backoffice/components/buttons/ScrollingMenu';
 import { ILLBorrowingRequestIcon } from '@pages/backoffice/components/icons';
 import { ILLRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
@@ -12,15 +15,17 @@ import {
   Divider,
   Grid,
   Label,
+  Message,
   Ref,
   Sticky,
 } from 'semantic-ui-react';
+import { BorrowingRequestMetadata } from './BorrowingRequestMetadata';
+import { BorrowingRequestPayment } from './BorrowingRequestPayment';
+import { BorrowingRequestStatistics } from './BorrowingRequestStatistics';
 
 class BorrowingRequestHeader extends React.Component {
   renderStatus(status) {
     switch (status) {
-      case 'CANCELLED':
-        return <Label color="grey">Cancelled</Label>;
       case 'PENDING':
         return <Label color="yellow">Pending</Label>;
       case 'REQUESTED':
@@ -29,42 +34,44 @@ class BorrowingRequestHeader extends React.Component {
         return <Label color="green">On loan</Label>;
       case 'RETURNED':
         return <Label color="grey">Returned</Label>;
+      case 'CANCELLED':
+        return <Label color="grey">Cancelled</Label>;
       default:
         throw new Error(`Unknown status: ${status}`);
     }
   }
 
   render() {
-    const { data } = this.props;
-    const library = data.metadata.library;
+    const { brwReq } = this.props;
+    const library = brwReq.library;
     const libraryLink = (
       <Link to={ILLRoutes.libraryDetailsFor(library.pid)}>{library.name}</Link>
     );
-    const pid = data.metadata.pid;
+    const pid = brwReq.pid;
     const recordInfo = (
       <>
         <label>Borrowing request</label> #{pid} <CopyButton text={pid} />
-        {data.metadata.created_by && (
+        {brwReq.created_by && (
           <>
             <br />
             <label className="muted">Created by</label>{' '}
-            <CreatedBy metadata={data.metadata} />
+            <CreatedBy brwReq={brwReq} />
           </>
         )}
         <br />
-        <label>Request date</label> {toShortDate(data.metadata.request_date)}
+        <label>Request date</label>{' '}
+        {brwReq.request_date ? toShortDate(brwReq.request_date) : '-'}
       </>
     );
     return (
       <DetailsHeader
         title={
           <>
-            Borrowing request #{data.metadata.pid}{' '}
-            {this.renderStatus(data.metadata.status)}
+            Borrowing request #{brwReq.pid} {this.renderStatus(brwReq.status)}
           </>
         }
         subTitle={<>From library: {libraryLink}</>}
-        pid={data.metadata.pid}
+        pid={brwReq.pid}
         icon={<ILLBorrowingRequestIcon />}
         recordType="BorrowingRequest"
         recordInfo={recordInfo}
@@ -75,16 +82,31 @@ class BorrowingRequestHeader extends React.Component {
 
 class ActionMenu extends React.Component {
   render() {
-    const brwReq = this.props.data.metadata;
+    const { brwReq } = this.props;
 
     return (
       <div className={'bo-action-menu'}>
         <EditButton fluid to={ILLRoutes.borrowingRequestEditFor(brwReq.pid)} />
 
+        <Message size="small">
+          <Message.Header>Borrowing request deletion</Message.Header>
+          <p>
+            Borrowing requests cannot be deleted. You can cancel this borrowing
+            request by changing its status when editing.
+          </p>
+        </Message>
+
         <Divider horizontal>Navigation</Divider>
 
         <ScrollingMenu offset={this.props.offset}>
-          {/* coming soon */}
+          <ScrollingMenuItem
+            elementId="request-info"
+            label="Request information"
+          />
+          <ScrollingMenuItem
+            elementId="payment-info"
+            label="Payment information"
+          />
         </ScrollingMenu>
       </div>
     );
@@ -97,10 +119,8 @@ export default class BorrowingRequestDetails extends Component {
 
     this.headerRef = React.createRef();
     this.menuRef = React.createRef();
-    this.brwReqTopRef = React.createRef();
-    this.anchors = {
-      brwReqTopRef: this.brwReqTopRef,
-    };
+    this.requestTopRef = React.createRef();
+    this.paymentInfoRef = React.createRef();
   }
 
   componentDidMount() {
@@ -120,14 +140,15 @@ export default class BorrowingRequestDetails extends Component {
 
   render() {
     const { isLoading, error, data } = this.props;
+    const metadata = data.metadata || {};
     return (
       <div ref={this.headerRef}>
-        <Container>
+        <Container fluid>
           <Loader isLoading={isLoading}>
             <Error error={error}>
               <Sticky context={this.headerRef} className="solid-background">
                 <Container fluid className="spaced">
-                  <BorrowingRequestHeader data={data} />
+                  <BorrowingRequestHeader brwReq={metadata} />
                 </Container>
                 <Divider />
               </Sticky>
@@ -137,17 +158,21 @@ export default class BorrowingRequestDetails extends Component {
                   <Grid columns={2}>
                     <Grid.Column width={13}>
                       <Container fluid className="spaced">
-                        <div ref={this.brwReqTopRef}>
-                          {/* <OrderStatistics order={data.metadata} /> */}
-                        </div>
+                        <BorrowingRequestStatistics brwReq={metadata} />
                       </Container>
-                      <Container fluid className="spaced">
-                        {/* <BorrowingRequestInformation brwReq={data.metadata} /> */}
+                      <Container>
+                        <div ref={this.requestTopRef} id="request-info">
+                          <BorrowingRequestMetadata brwReq={metadata} />
+                        </div>
+                        <br />
+                        <div ref={this.paymentInfoRef} id="payment-info">
+                          <BorrowingRequestPayment brwReq={metadata} />
+                        </div>
                       </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>
-                        <ActionMenu data={data} offset={-150} />
+                        <ActionMenu brwReq={metadata} offset={-150} />
                       </Sticky>
                     </Grid.Column>
                   </Grid>

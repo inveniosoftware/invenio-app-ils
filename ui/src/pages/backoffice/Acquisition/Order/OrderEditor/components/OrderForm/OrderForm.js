@@ -43,10 +43,33 @@ export class OrderForm extends Component {
     this.fetchCurrencies();
   }
 
+  get buttons() {
+    const isEditing = this.props.pid;
+    if (isEditing) {
+      return [
+        {
+          name: 'update',
+          content: 'Update order',
+          primary: true,
+          type: 'submit',
+        },
+      ];
+    }
+
+    return [
+      {
+        name: 'create',
+        content: 'Create order',
+        primary: true,
+        type: 'submit',
+      },
+    ];
+  }
+
   query = () => {
     const searchQuery = vocabularyApi
       .query()
-      .withType(invenioConfig.vocabularies.order.currencies)
+      .withType(invenioConfig.vocabularies.currencies)
       .qs();
     return vocabularyApi.list(searchQuery);
   };
@@ -89,15 +112,8 @@ export class OrderForm extends Component {
   };
 
   getDefaultValues() {
-    const defaultCurrency = invenioConfig.acqOrders.defaultCurrency;
     return {
       create_by: sessionManager.user.id,
-      grand_total: { currency: defaultCurrency },
-      grand_total_main_currency: { currency: defaultCurrency },
-      payment: {
-        debit_cost: { currency: defaultCurrency },
-        debit_cost_main_currency: { currency: defaultCurrency },
-      },
     };
   }
 
@@ -113,8 +129,9 @@ export class OrderForm extends Component {
         successCallback={this.successCallback}
         successSubmitMessage={this.props.successSubmitMessage}
         title={this.props.title}
-        pid={this.props.pid ? this.props.pid : undefined}
+        pid={this.props.pid}
         submitSerializer={orderSubmitSerializer}
+        buttons={this.buttons}
       >
         <Grid columns="equal">
           <Grid.Row stretched>

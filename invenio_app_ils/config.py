@@ -1393,6 +1393,8 @@ ILS_VOCABULARIES = [
     "country",
     "currencies",
     "identifier_scheme",
+    "ill_item_type",
+    "ill_payment_mode",
     "language",
     "license",
     "series_identifier_scheme",

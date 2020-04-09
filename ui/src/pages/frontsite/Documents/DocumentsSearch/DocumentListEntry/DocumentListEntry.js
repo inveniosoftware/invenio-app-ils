@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import { Grid, Item, List, Label } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '@routes/urls';
-import Truncate from 'react-truncate';
+import {
+  DocumentAuthors,
+  DocumentItemCover,
+  DocumentLanguages,
+} from '@components/Document';
 import { DocumentTags } from '@components/Document/DocumentTags';
+import { FrontSiteRoutes } from '@routes/urls';
 import isEmpty from 'lodash/isEmpty';
-import { DocumentItemCover, DocumentLanguages } from '@components/Document';
-import { DocumentAuthors } from '@components/Document';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Truncate from 'react-truncate';
+import { Grid, Item, Label, List } from 'semantic-ui-react';
 
 export default class DocumentListEntry extends Component {
   constructor(props) {

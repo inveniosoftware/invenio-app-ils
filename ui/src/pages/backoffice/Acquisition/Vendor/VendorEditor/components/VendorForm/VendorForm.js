@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash/pick';
 import { getIn } from 'formik';
 import { StringField, TextField } from '@forms';
 import { acqVendor as vendorApi } from '@api';
@@ -10,9 +9,27 @@ import { BaseForm } from '@forms';
 import { Segment } from 'semantic-ui-react';
 
 export class VendorForm extends Component {
-  prepareData = data => {
-    return pick(data, ['name', 'address', 'email', 'phone', 'notes']);
-  };
+  get buttons() {
+    const isEditing = this.props.pid;
+    const buttons = isEditing
+      ? [
+          {
+            name: 'update',
+            content: 'Update vendor',
+            primary: true,
+            type: 'submit',
+          },
+        ]
+      : [
+          {
+            name: 'create',
+            content: 'Create vendor',
+            primary: true,
+            type: 'submit',
+          },
+        ];
+    return buttons;
+  }
 
   createVendor = data => {
     return vendorApi.create(data);
@@ -31,15 +48,14 @@ export class VendorForm extends Component {
   render() {
     return (
       <BaseForm
-        initialValues={
-          this.props.data ? this.prepareData(this.props.data.metadata) : {}
-        }
+        initialValues={this.props.data ? this.props.data.metadata : {}}
         editApiMethod={this.updateVendor}
         createApiMethod={this.createVendor}
         successCallback={this.successCallback}
         successSubmitMessage={this.props.successSubmitMessage}
         title={this.props.title}
-        pid={this.props.pid ? this.props.pid : undefined}
+        pid={this.props.pid}
+        buttons={this.buttons}
       >
         <Segment raised>
           <StringField label="Name" fieldPath="name" required />

@@ -1,16 +1,17 @@
 import React from 'react';
+import { getDisplayVal } from '@config/invenioConfig';
 import PropTypes from 'prop-types';
 import { Statistic } from 'semantic-ui-react';
 import { formatPrice } from '@api/utils';
 import { toShortDate } from '@api/date';
 
 export class OrderStatistics extends React.Component {
-  renderStatusCancelled() {
+  renderStatusCancelled(status) {
     return (
       <Statistic color="grey">
-        <Statistic.Value>Cancelled</Statistic.Value>
+        <Statistic.Value>{status}</Statistic.Value>
         <Statistic.Label>
-          Reason: {this.props.order.cancel_reason}
+          Reason: {this.props.order.cancel_reason || '-'}
         </Statistic.Label>
       </Statistic>
     );
@@ -38,21 +39,23 @@ export class OrderStatistics extends React.Component {
     );
   }
 
-  renderStatusPending() {
+  renderStatusPending(status) {
     return (
       <Statistic>
         <Statistic.Label>Status</Statistic.Label>
-        <Statistic.Value>Pending</Statistic.Value>
+        <Statistic.Value>{status}</Statistic.Value>
       </Statistic>
     );
   }
 
   renderStatus() {
-    switch (this.props.order.status) {
+    const { status } = this.props.order;
+    const humanReadableStatus = getDisplayVal('acqOrders.statuses', status);
+    switch (status) {
       case 'CANCELLED':
-        return this.renderStatusCancelled();
+        return this.renderStatusCancelled(humanReadableStatus);
       case 'PENDING':
-        return this.renderStatusPending();
+        return this.renderStatusPending(humanReadableStatus);
       case 'ORDERED':
         return this.renderStatusOrdered();
       case 'RECEIVED':

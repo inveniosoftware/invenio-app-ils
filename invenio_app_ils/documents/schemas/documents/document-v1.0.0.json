@@ -347,7 +347,6 @@
       "additionalProperties": false,
       "properties": {
         "date": {
-          "format": "date",
           "minLength": 1,
           "title": "Date of publication",
           "type": "string"
@@ -362,7 +361,6 @@
           "type": "string"
         },
         "reprint_date": {
-          "format": "date",
           "minLength": 1,
           "title": "Date of reprint",
           "type": "string"
@@ -525,7 +523,6 @@
       "uniqueItems": true
     },
     "publication_year": {
-      "format": "date",
       "minLength": 1,
       "title": "Year of the publication of the record",
       "type": "string"

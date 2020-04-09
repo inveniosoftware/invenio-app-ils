@@ -1,0 +1,12 @@
+[
+  {
+    "type": "ill_payment_mode",
+    "key": "CREDIT_CARD",
+    "text": "Credit Card"
+  },
+  {
+    "type": "ill_payment_mode",
+    "key": "INTERNAL_PURCHASE_REQUISITION",
+    "text": "Internal Purchase Requisition"
+  }
+]

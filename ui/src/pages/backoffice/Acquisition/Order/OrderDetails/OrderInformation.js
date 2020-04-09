@@ -1,8 +1,9 @@
-import React from 'react';
-import { Grid } from 'semantic-ui-react';
 import { toShortDate } from '@api/date';
+import { CreatedBy, UpdatedBy } from '@components';
 import { MetadataTable } from '@pages/backoffice/components';
 import { PropTypes } from 'prop-types';
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
 
 export class OrderInformation extends React.Component {
   dateOrDefault = value => {
@@ -23,12 +24,14 @@ export class OrderInformation extends React.Component {
     const rightTable = [
       { name: 'Vendor', value: order.vendor.name },
       { name: 'Funds', value: order.funds ? order.funds.join(', ') : null },
+      { name: 'Created by', value: <CreatedBy metadata={order} /> },
+      { name: 'Updated by', value: <UpdatedBy metadata={order} /> },
       { name: 'Notes', value: order.notes },
     ];
     order.status === 'CANCELLED' &&
       rightTable.push({ name: 'Cancel reason', value: order.cancel_reason });
     return (
-      <Grid columns={2} id="payment-info">
+      <Grid columns={2}>
         <Grid.Row>
           <Grid.Column>
             <MetadataTable labelWidth={5} rows={leftTable} />

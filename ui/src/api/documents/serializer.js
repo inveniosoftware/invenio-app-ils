@@ -1,33 +1,33 @@
-import isEmpty from 'lodash/isEmpty';
-import { fromISO } from '../date';
+import _get from 'lodash/get';
+import _set from 'lodash/set';
+import { fromISO, toISODate } from '../date';
+import { recordResponseSerializer } from '../utils';
 
-function serializeResponse(hit) {
-  let result = {};
-  if (!isEmpty(hit)) {
-    result['id'] = hit.id;
-    result['created'] = fromISO(hit.created);
-    result['updated'] = fromISO(hit.updated);
-    if (hit.links) {
-      result['links'] = hit.links;
-    }
-    if (!isEmpty(hit.metadata)) {
-      result['metadata'] = hit.metadata;
-      if (!isEmpty(hit.metadata.circulation.next_available_date)) {
-        result['metadata']['circulation']['next_available_date'] = new Date(
-          result['metadata']['circulation']['next_available_date']
-        ).toDateString();
+const DocumentSerializers = {
+  DATE_FIELDS: ['circulation.next_available_date'],
+  responseSerializer: function(hit) {
+    const result = recordResponseSerializer(hit, function(metadata) {
+      DocumentSerializers.DATE_FIELDS.forEach(field => {
+        const dateStr = _get(metadata, field);
+        if (dateStr) {
+          _set(metadata, field, fromISO(dateStr));
+        }
+      });
+    });
+    return result;
+  },
+  requestSerializer: function(data) {
+    DocumentSerializers.DATE_FIELDS.forEach(field => {
+      const dateObj = _get(data, field);
+      if (dateObj) {
+        _set(data, field, toISODate(dateObj));
       }
-      result['pid'] = hit.metadata.pid;
-    }
-    if (!isEmpty(hit.metadata.imprint)) {
-      hit.metadata.imprint.date = hit.metadata.imprint.date
-        ? fromISO(hit.metadata.imprint.date)
-        : null;
-    }
-  }
-  return result;
-}
+    });
+    return data;
+  },
+};
 
-export const serializer = {
-  fromJSON: serializeResponse,
+export const documentSerializer = {
+  fromJSON: DocumentSerializers.responseSerializer,
+  toJSON: DocumentSerializers.requestSerializer,
 };

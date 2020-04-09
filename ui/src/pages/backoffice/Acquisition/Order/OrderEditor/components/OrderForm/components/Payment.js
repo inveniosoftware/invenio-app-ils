@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { invenioConfig } from '@config';
 import {
   DateInputField,
   GroupField,
@@ -7,8 +7,9 @@ import {
   TextField,
   VocabularyField,
 } from '@forms';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Funds } from './Funds';
-import { invenioConfig } from '@config';
 
 export class Payment extends Component {
   render() {
@@ -19,12 +20,14 @@ export class Payment extends Component {
           label="Debit Cost"
           fieldPath="payment.debit_cost"
           currencies={currencies}
+          defaultCurrency={invenioConfig.defaultCurrency}
         />
         <PriceField
           label="Debit Cost in Main Currency"
           fieldPath="payment.debit_cost_main_currency"
           currencies={currencies}
           canSelectCurrency={false}
+          defaultCurrency={invenioConfig.defaultCurrency}
         />
         <DateInputField
           label="Debit Date"
@@ -33,7 +36,7 @@ export class Payment extends Component {
         />
         <GroupField widths="equal">
           <VocabularyField
-            type={invenioConfig.vocabularies.order.acq_payment_mode}
+            type={invenioConfig.vocabularies.acqOrders.acq_payment_mode}
             fieldPath={'payment.mode'}
             label="Payment mode"
             placeholder="Select payment mode..."
@@ -50,3 +53,7 @@ export class Payment extends Component {
     );
   }
 }
+
+Payment.propTypes = {
+  currencies: PropTypes.array.isRequired,
+};
