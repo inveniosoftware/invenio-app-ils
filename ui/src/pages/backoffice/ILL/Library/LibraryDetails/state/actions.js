@@ -1,9 +1,9 @@
 import { illLibrary as libraryApi } from '@api';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
-import { ES_DELAY } from '@config';
 import { goTo } from '@history';
 import { ILLRoutes } from '@routes/urls';
 import {
@@ -43,29 +43,26 @@ export const deleteLibrary = pid => {
       type: DELETE_IS_LOADING,
     });
 
-    await libraryApi
-      .delete(pid)
-      .then(response => {
-        dispatch({
-          type: DELETE_SUCCESS,
-          payload: { pid: pid },
-        });
-        dispatch(
-          sendSuccessNotification(
-            'Success!',
-            `The library ${pid} has been deleted.`
-          )
-        );
-        setTimeout(() => {
-          goTo(ILLRoutes.libraryList);
-        }, ES_DELAY);
-      })
-      .catch(error => {
-        dispatch({
-          type: DELETE_HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      await libraryApi.delete(pid);
+      await delay();
+      dispatch({
+        type: DELETE_SUCCESS,
+        payload: { pid: pid },
       });
+      dispatch(
+        sendSuccessNotification(
+          'Success!',
+          `The library ${pid} has been deleted.`
+        )
+      );
+      goTo(ILLRoutes.libraryList);
+    } catch (error) {
+      dispatch({
+        type: DELETE_HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

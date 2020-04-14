@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ES_DELAY } from '@config';
+import { delay } from '@api/utils';
 import {
   IS_LOADING,
   SUCCESS,
@@ -47,6 +47,7 @@ export const deleteItem = itemPid => {
 
     try {
       await itemApi.delete(itemPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { itemPid: itemPid },
@@ -57,9 +58,7 @@ export const deleteItem = itemPid => {
           `The item ${itemPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        goTo(BackOfficeRoutes.itemsList);
-      }, ES_DELAY);
+      goTo(BackOfficeRoutes.itemsList);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,
@@ -87,6 +86,7 @@ export const checkoutItem = (
         patronPid,
         { force: force }
       );
+      await delay();
       const { pid } = response.data.metadata;
       const linkToLoan = (
         <p>
@@ -97,9 +97,7 @@ export const checkoutItem = (
         </p>
       );
       dispatch(sendSuccessNotification('Success!', linkToLoan));
-      setTimeout(() => {
-        dispatch(fetchItemDetails(itemPid));
-      }, ES_DELAY);
+      dispatch(fetchItemDetails(itemPid));
     } catch (error) {
       dispatch({
         type: HAS_ERROR,

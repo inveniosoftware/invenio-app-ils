@@ -1,9 +1,9 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { invenioConfig } from '@config';
 import { loan as loanApi } from '@api';
 import { sendErrorNotification } from '@components/Notifications';
+import { invenioConfig } from '@config';
+import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 
-const selectQuery = (patronPid, page = 1) => {
+const selectQuery = (patronPid, page) => {
   return loanApi
     .query()
     .withPatronPid(patronPid)
@@ -13,25 +13,24 @@ const selectQuery = (patronPid, page = 1) => {
     .qs();
 };
 
-export const fetchPatronPastLoans = (patronPid, page) => {
+export const fetchPatronPastLoans = (patronPid, { page = 1 } = {}) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    await loanApi
-      .list(selectQuery(patronPid, page))
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await loanApi.list(selectQuery(patronPid, page));
+
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

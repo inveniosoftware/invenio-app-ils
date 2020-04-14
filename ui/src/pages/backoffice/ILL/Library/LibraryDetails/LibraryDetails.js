@@ -21,6 +21,7 @@ import {
   Sticky,
 } from 'semantic-ui-react';
 import { LibraryInformation } from './LibraryInformation';
+import { goTo } from '@history';
 
 const DeleteLibraryButton = props => {
   return (
@@ -38,10 +39,7 @@ class ActionMenu extends React.Component {
     const brwReqRefProps = {
       refType: 'Borrowing Requests',
       onRefClick: brwReqPid =>
-        window.open(
-          ILLRoutes.borrowinRequestDetailsFor(brwReqPid),
-          `_brwReq_${brwReqPid}`
-        ),
+        goTo(ILLRoutes.borrowinRequestDetailsFor(brwReqPid)),
       getRefData: () =>
         brwReqApi.list(
           brwReqApi

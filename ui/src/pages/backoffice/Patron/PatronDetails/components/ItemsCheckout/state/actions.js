@@ -1,9 +1,9 @@
 import { loan as loanApi } from '@api';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
-import { ES_DELAY } from '@config';
 import { fetchPatronCurrentLoans } from '@state/PatronCurrentLoans/actions';
 import { IS_LOADING as CURRENT_LOANS_IS_LOADING } from '@state/PatronCurrentLoans/types';
 import { CLEAR_SEARCH } from '../../ItemsSearch/state/types';
@@ -37,15 +37,14 @@ export const checkoutItem = (
       dispatch({
         type: CURRENT_LOANS_IS_LOADING,
       });
-      setTimeout(() => {
-        dispatch(fetchPatronCurrentLoans(patronPid));
-        dispatch(
-          sendSuccessNotification(
-            'Loan Created',
-            'The new loan was successfully created.'
-          )
-        );
-      }, ES_DELAY);
+      await delay();
+      dispatch(fetchPatronCurrentLoans(patronPid));
+      dispatch(
+        sendSuccessNotification(
+          'Loan Created',
+          'The new loan was successfully created.'
+        )
+      );
     } catch (error) {
       dispatch({
         type: HAS_ERROR,

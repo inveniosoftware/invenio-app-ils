@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import _startCase from 'lodash/startCase';
-import { Loader, Error, ResultsTable, Pagination } from '@components';
 import { dateFormatter } from '@api/date';
-import { FrontSiteRoutes } from '@routes/urls';
-import { Button, Header, Item } from 'semantic-ui-react';
+import { Error, Loader, Pagination, ResultsTable } from '@components';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
-import { NoResultsMessage } from '../../components/NoResultsMessage';
-import { invenioConfig, ES_DELAY } from '@config';
-import { PatronCancelModal } from '../components';
+import { ES_DELAY, invenioConfig } from '@config';
+import { FrontSiteRoutes } from '@routes/urls';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import _startCase from 'lodash/startCase';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Header, Item } from 'semantic-ui-react';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
+import { PatronCancelModal } from '../components';
 
 export default class PatronCurrentDocumentRequests extends Component {
   state = {
@@ -19,18 +19,14 @@ export default class PatronCurrentDocumentRequests extends Component {
     cancelModal: { isOpen: false, btnClasses: undefined, data: undefined },
   };
 
-  constructor(props) {
-    super(props);
-    this.fetchPatronDocumentRequests = this.props.fetchPatronDocumentRequests;
-    this.patronPid = this.props.patronPid;
-  }
-
   componentDidMount() {
-    this.fetchPatronDocumentRequests(this.patronPid);
+    this.props.fetchPatronDocumentRequests(this.props.patronPid);
   }
 
   onPageChange = activePage => {
-    this.fetchPatronDocumentRequests(this.patronPid, activePage);
+    this.props.fetchPatronDocumentRequests(this.props.patronPid, {
+      page: activePage,
+    });
     this.setState({ activePage: activePage });
   };
 
@@ -121,7 +117,7 @@ export default class PatronCurrentDocumentRequests extends Component {
       reject_reason: invenioConfig.documentRequests.rejectTypes.userCancel,
     });
     setTimeout(() => {
-      this.fetchPatronDocumentRequests(this.props.patronPid).then(res => {
+      this.props.fetchPatronDocumentRequests(this.props.patronPid).then(res => {
         if (!_has(this.state, 'cancelModal.btnClasses.remove')) return;
         this.state.cancelModal.btnClasses.remove('disabled');
         this.state.cancelModal.btnClasses.remove('loading');
@@ -160,7 +156,10 @@ export default class PatronCurrentDocumentRequests extends Component {
             <PatronCancelModal
               open={this.state.cancelModal.isOpen}
               headerContent={'Are you sure you want to cancel your request?'}
-              documentTitle={_get(this.state.cancelModal.data, 'metadata.title')}
+              documentTitle={_get(
+                this.state.cancelModal.data,
+                'metadata.title'
+              )}
               onCloseModal={this.onCloseCancelModal}
               onCancelAction={this.onCancelRequestClick}
             />

@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import {
-  DELETE_IS_LOADING,
-  DELETE_SUCCESS,
-  DELETE_HAS_ERROR,
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-} from './types';
-import { ES_DELAY } from '@config';
-import { goTo } from '@history';
 import { document as documentApi, loan as loanApi } from '@api';
-import { DateTime } from 'luxon';
 import { toShortDate } from '@api/date';
-import { BackOfficeRoutes } from '@routes/urls';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
+import { goTo } from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
+import { DateTime } from 'luxon';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  DELETE_HAS_ERROR,
+  DELETE_IS_LOADING,
+  DELETE_SUCCESS,
+  HAS_ERROR,
+  IS_LOADING,
+  SUCCESS,
+} from './types';
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {
@@ -25,21 +25,19 @@ export const fetchDocumentDetails = documentPid => {
       type: IS_LOADING,
     });
 
-    await documentApi
-      .get(documentPid)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await documentApi.get(documentPid);
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };
 
@@ -51,6 +49,7 @@ export const deleteDocument = documentPid => {
 
     try {
       await documentApi.delete(documentPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { documentPid: documentPid },
@@ -61,9 +60,7 @@ export const deleteDocument = documentPid => {
           `The document ${documentPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        goTo(BackOfficeRoutes.documentsList);
-      }, ES_DELAY);
+      goTo(BackOfficeRoutes.documentsList);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,
@@ -126,6 +123,7 @@ export const requestLoanForPatron = (
         requestStartDate: today,
         deliveryMethod: deliveryMethod,
       });
+      await delay();
       const loanPid = response.data.pid;
       const linkToLoan = (
         <p>
@@ -136,9 +134,7 @@ export const requestLoanForPatron = (
         </p>
       );
       dispatch(sendSuccessNotification('Success!', linkToLoan));
-      setTimeout(() => {
-        dispatch(fetchDocumentDetails(documentPid));
-      }, ES_DELAY);
+      dispatch(fetchDocumentDetails(documentPid));
     } catch (error) {
       dispatch({
         type: HAS_ERROR,

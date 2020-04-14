@@ -4,6 +4,7 @@ import {
   loan as loanApi,
 } from '@api';
 import { invenioConfig } from '@config';
+import { goTo } from '@history';
 import { DeleteRecordModal } from '@pages/backoffice/components';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
 import { formatPidTypeToName } from '@pages/backoffice/components/utils';
@@ -45,18 +46,15 @@ export default class DocumentDeleteModal extends Component {
   }
 
   handleOnLoanRefClick(loanPid) {
-    const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
-    window.open(navUrl, `_loan_${loanPid}`);
+    goTo(BackOfficeRoutes.loanDetailsFor(loanPid));
   }
 
   handleOnItemRefClick(itemPid) {
-    const navUrl = BackOfficeRoutes.itemDetailsFor(itemPid);
-    window.open(navUrl, `_item_${itemPid}`);
+    goTo(BackOfficeRoutes.itemDetailsFor(itemPid));
   }
 
   handleOnRequestRefClick(docReqPid) {
-    const navUrl = BackOfficeRoutes.documentRequestDetailsFor(docReqPid);
-    window.open(navUrl, `_document_request_${docReqPid}`);
+    goTo(BackOfficeRoutes.documentRequestDetailsFor(docReqPid));
   }
   /**
    * Used to create all the references for de

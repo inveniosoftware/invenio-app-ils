@@ -1,17 +1,17 @@
-import { ES_DELAY } from '@config';
-import {
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-  DELETE_IS_LOADING,
-  DELETE_SUCCESS,
-  DELETE_HAS_ERROR,
-} from './types';
 import { internalLocation as internalLocationApi } from '@api';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
+import {
+  DELETE_HAS_ERROR,
+  DELETE_IS_LOADING,
+  DELETE_SUCCESS,
+  HAS_ERROR,
+  IS_LOADING,
+  SUCCESS,
+} from './types';
 
 export const fetchInternalLocations = () => {
   return async dispatch => {
@@ -42,6 +42,7 @@ export const deleteInternalLocation = ilocPid => {
 
     try {
       await internalLocationApi.delete(ilocPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { internalLocationPid: ilocPid },
@@ -52,9 +53,7 @@ export const deleteInternalLocation = ilocPid => {
           `The internal location ${ilocPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        dispatch(fetchInternalLocations());
-      }, ES_DELAY);
+      dispatch(fetchInternalLocations());
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,

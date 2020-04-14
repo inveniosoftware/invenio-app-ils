@@ -77,7 +77,6 @@ describe('Delete item tests', () => {
   });
 
   it('should dispatch a success action when item delete succeeds', async () => {
-    jest.useFakeTimers();
     mockDelete.mockResolvedValue({ data: { itemPid: 1 } });
     const expectedAction = {
       type: types.DELETE_SUCCESS,
@@ -85,7 +84,6 @@ describe('Delete item tests', () => {
     };
 
     await store.dispatch(actions.deleteItem(1));
-    jest.runAllTimers();
     expect(mockDelete).toHaveBeenCalled();
     expect(store.getActions()[1]).toEqual(expectedAction);
   });

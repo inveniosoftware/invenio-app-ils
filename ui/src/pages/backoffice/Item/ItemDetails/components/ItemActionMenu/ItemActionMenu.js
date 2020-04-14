@@ -3,6 +3,7 @@ import { recordToPidType } from '@api/utils';
 import { ESSelectorModal } from '@components/ESSelector';
 import { serializePatron } from '@components/ESSelector/serializer';
 import { invenioConfig } from '@config';
+import { goTo } from '@history';
 import {
   DeleteRecordModal,
   EditButton,
@@ -24,8 +25,7 @@ export default class ItemActionMenu extends Component {
   }
 
   handleOnRefClick(loanPid) {
-    const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
-    window.open(navUrl, `_loan_${loanPid}`);
+    goTo(BackOfficeRoutes.loanDetailsFor(loanPid));
   }
 
   createRefProps(itemPid) {

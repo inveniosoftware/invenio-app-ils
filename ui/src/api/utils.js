@@ -1,4 +1,4 @@
-import { invenioConfig } from '@config';
+import { ES_DELAY, invenioConfig } from '@config';
 import _get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
@@ -117,7 +117,7 @@ export const recordResponseSerializer = (hit, customSerializer = null) => {
  * Wrap a promise to be cancellable and avoid potential memory leaks
  * https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
  * @param promise the promise to wrap
- * @returns {Object} an object containing the promise to resolve and a `cancel` fn to reject the promise.
+ * @returns {Object} an object containing the promise to resolve and a `cancel` fn to reject the promise
  */
 export const withCancel = promise => {
   let isCancelled = false;
@@ -135,4 +135,13 @@ export const withCancel = promise => {
       isCancelled = true;
     },
   };
+};
+
+/**
+ * Wrap a promise with the Elasticsearch delay timeout
+ * @param promise the promise to wrap
+ * @returns the delayed promise
+ */
+export const delay = async () => {
+  return await new Promise(resolve => setTimeout(resolve, ES_DELAY));
 };

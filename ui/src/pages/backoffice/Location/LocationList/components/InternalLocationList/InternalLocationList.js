@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { item as itemApi } from '@api';
 import { Error, Loader, ResultsTable } from '@components';
-import { Button } from 'semantic-ui-react';
+import { goTo } from '@history';
 import { NewButton } from '@pages/backoffice/components/buttons';
-import { DeleteRecordModal } from '../../../../../backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import { DeleteRecordModal } from '../../../../../backoffice/components';
 
 export default class InternalLocationList extends Component {
   constructor(props) {
@@ -20,8 +21,7 @@ export default class InternalLocationList extends Component {
   }
 
   handleOnRefClick(itemPid) {
-    const navUrl = BackOfficeRoutes.itemEditFor(itemPid);
-    window.open(navUrl, `_edit_item_${itemPid}`);
+    goTo(BackOfficeRoutes.itemEditFor(itemPid));
   }
 
   createRefProps(ilocPid) {

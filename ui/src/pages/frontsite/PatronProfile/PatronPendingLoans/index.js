@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronPendingLoans: (patronPid, page, size) =>
-    dispatch(fetchPatronPendingLoans(patronPid, page, size)),
+  fetchPatronPendingLoans: (patronPid, optionalParams = {}) =>
+    dispatch(fetchPatronPendingLoans(patronPid, optionalParams)),
   performLoanAction: (actionURL, documentPid, patronPid, optionalParams = {}) =>
     dispatch(
       performLoanAction(actionURL, documentPid, patronPid, optionalParams)
