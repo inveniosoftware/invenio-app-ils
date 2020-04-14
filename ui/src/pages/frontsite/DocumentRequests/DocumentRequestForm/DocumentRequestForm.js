@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { getIn } from 'formik';
-import { Container, Header, Segment } from 'semantic-ui-react';
+import { documentRequest as documentRequestApi } from '@api';
+import { delay } from '@api/utils';
 import {
   BaseForm,
+  GroupField,
   StringField,
   TextField,
   YearInputField,
-  GroupField,
 } from '@forms';
-import * as Yup from 'yup';
-import { FrontSiteRoutes } from '@routes/urls';
-import { documentRequest as documentRequestApi } from '@api';
 import { goTo } from '@history';
+import { FrontSiteRoutes } from '@routes/urls';
+import { getIn } from 'formik';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Header, Segment } from 'semantic-ui-react';
+import * as Yup from 'yup';
 
 const ERROR_MSGS = {
   publication_year: 'Not a valid year',
@@ -42,6 +43,12 @@ export default class DocumentRequestForm extends Component {
     };
   };
 
+  createDocumentRequest = async data => {
+    const response = await documentRequestApi.create(data);
+    await delay();
+    return response;
+  };
+
   onSubmitSuccess = () => {
     goTo(FrontSiteRoutes.patronProfile);
   };
@@ -54,7 +61,7 @@ export default class DocumentRequestForm extends Component {
         submitSerializer={this.onSerializeSubmit}
         successCallback={this.onSubmitSuccess}
         successSubmitMessage="Your book request has been sent to the library."
-        createApiMethod={documentRequestApi.create}
+        createApiMethod={this.createDocumentRequest}
       >
         <StringField
           fieldPath="title"

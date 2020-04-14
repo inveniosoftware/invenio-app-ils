@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronPendingLoans: (patronPid, page) =>
-    dispatch(fetchPatronPendingLoans(patronPid, page)),
+  fetchPatronPendingLoans: patronPid =>
+    dispatch(fetchPatronPendingLoans(patronPid)),
 });
 
 export const PatronPendingLoans = connect(

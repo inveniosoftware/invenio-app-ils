@@ -1,24 +1,23 @@
-import { dateFormatter } from '@api/date';
-import { DocumentTitle } from '@components/Document';
-import {
-  ItemDetailsLink,
-  LoanDetailsLink,
-} from '@pages/backoffice/components/buttons/ViewDetailsButtons';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Loader, Error, ResultsTable } from '@components';
 import { loan as loanApi } from '@api';
+import { dateFormatter } from '@api/date';
+import { Error, Loader, ResultsTable } from '@components';
+import { DocumentTitle } from '@components/Document';
 import { invenioConfig } from '@config';
-import { BackOfficeRoutes } from '@routes/urls';
 import {
   DocumentDetailsLink,
   SeeAllButton,
 } from '@pages/backoffice/components/buttons';
-import _get from 'lodash/get';
+import {
+  ItemDetailsLink,
+  LoanDetailsLink,
+} from '@pages/backoffice/components/buttons/ViewDetailsButtons';
+import { BackOfficeRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export default class PatronPastLoans extends Component {
   componentDidMount() {
-    const patronPid = _get(this.props, 'patronDetails.user_pid', null);
+    const patronPid = this.props.patronDetails.user_pid;
     this.props.fetchPatronPastLoans(patronPid);
   }
 

@@ -1,19 +1,19 @@
-import {
-  DELETE_IS_LOADING,
-  DELETE_SUCCESS,
-  DELETE_HAS_ERROR,
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-} from './types';
-import { ES_DELAY } from '@config';
-import { goTo } from '@history';
 import { series as seriesApi } from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
+import { goTo } from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
+import {
+  DELETE_HAS_ERROR,
+  DELETE_IS_LOADING,
+  DELETE_SUCCESS,
+  HAS_ERROR,
+  IS_LOADING,
+  SUCCESS,
+} from './types';
 
 export const deleteSeries = seriesPid => {
   return async dispatch => {
@@ -23,6 +23,7 @@ export const deleteSeries = seriesPid => {
 
     try {
       await seriesApi.delete(seriesPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { seriesPid: seriesPid },
@@ -33,9 +34,7 @@ export const deleteSeries = seriesPid => {
           `The series ${seriesPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        goTo(BackOfficeRoutes.seriesList);
-      }, ES_DELAY);
+      goTo(BackOfficeRoutes.seriesList);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,

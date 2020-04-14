@@ -1,3 +1,11 @@
+import { documentRequest as documentRequestApi } from '@api';
+import { delay } from '@api/utils';
+import {
+  sendErrorNotification,
+  sendSuccessNotification,
+} from '@components/Notifications';
+import { goTo } from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   DELETE_HAS_ERROR,
   DELETE_IS_LOADING,
@@ -6,14 +14,6 @@ import {
   IS_LOADING,
   SUCCESS,
 } from './types';
-import { documentRequest as documentRequestApi } from '@api';
-import {
-  sendSuccessNotification,
-  sendErrorNotification,
-} from '@components/Notifications';
-import { goTo } from '@history';
-import { BackOfficeRoutes } from '@routes/urls';
-import { ES_DELAY } from '@config';
 
 export const fetchDocumentRequestDetails = documentRequestPid => {
   return async dispatch => {
@@ -44,6 +44,7 @@ export const deleteRequest = requestPid => {
 
     try {
       await documentRequestApi.delete(requestPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { requestPid: requestPid },
@@ -54,9 +55,7 @@ export const deleteRequest = requestPid => {
           `Document request ${requestPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        goTo(BackOfficeRoutes.documentRequestsList);
-      }, ES_DELAY);
+      goTo(BackOfficeRoutes.documentRequestsList);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,

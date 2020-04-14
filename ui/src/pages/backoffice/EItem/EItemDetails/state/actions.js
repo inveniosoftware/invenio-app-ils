@@ -1,9 +1,9 @@
 import { eitem as eitemApi } from '@api';
+import { delay } from '@api/utils';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
-import { ES_DELAY } from '@config';
 import { goTo } from '@history';
 import { BackOfficeRoutes } from '@routes/urls';
 import {
@@ -23,6 +23,7 @@ export const deleteEItem = eitemPid => {
 
     try {
       await eitemApi.delete(eitemPid);
+      await delay();
       dispatch({
         type: DELETE_SUCCESS,
         payload: { eitemPid: eitemPid },
@@ -30,12 +31,10 @@ export const deleteEItem = eitemPid => {
       dispatch(
         sendSuccessNotification(
           'Success!',
-          `The EItem ${eitemPid} has been deleted.`
+          `The E-Item ${eitemPid} has been deleted.`
         )
       );
-      setTimeout(() => {
-        goTo(BackOfficeRoutes.eitemsList);
-      }, ES_DELAY);
+      goTo(BackOfficeRoutes.eitemsList);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,

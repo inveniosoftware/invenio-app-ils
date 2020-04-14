@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronDocumentRequests: (patronPid, page) =>
-    dispatch(fetchPatronDocumentRequests(patronPid, page)),
+  fetchPatronDocumentRequests: (patronPid, optionalParams = {}) =>
+    dispatch(fetchPatronDocumentRequests(patronPid, optionalParams)),
   rejectRequest: (pid, data) => dispatch(rejectRequest(pid, data)),
 });
 

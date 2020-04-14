@@ -13,21 +13,22 @@ export default class PatronCurrentLoans extends Component {
   constructor(props) {
     super(props);
     this.extendLoan = this.props.extendLoan;
-    this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
     this.patronPid = this.props.patronPid;
     this.state = { activePage: 1 };
   }
 
   componentDidMount() {
-    this.fetchPatronCurrentLoans(
-      this.patronPid,
-      this.state.activePage,
-      PAGE_SIZE
-    );
+    this.props.fetchPatronCurrentLoans(this.patronPid, {
+      page: this.state.activePage,
+      size: PAGE_SIZE,
+    });
   }
 
   onPageChange = activePage => {
-    this.fetchPatronCurrentLoans(this.patronPid, activePage, PAGE_SIZE);
+    this.props.fetchPatronCurrentLoans(this.patronPid, {
+      page: activePage,
+      size: PAGE_SIZE,
+    });
     this.setState({ activePage: activePage });
   };
 
@@ -54,11 +55,10 @@ export default class PatronCurrentLoans extends Component {
                 loan={entry}
                 extendLoan={this.extendLoan}
                 onExtendSuccess={() => {
-                  this.fetchPatronCurrentLoans(
-                    this.patronPid,
-                    this.state.activePage,
-                    PAGE_SIZE
-                  );
+                  this.props.fetchPatronCurrentLoans(this.patronPid, {
+                    page: this.state.activePage,
+                    size: PAGE_SIZE,
+                  });
                 }}
               />
             ))}
@@ -110,5 +110,7 @@ PatronCurrentLoans.propTypes = {
   patronPid: PropTypes.string.isRequired,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired,
   showMaxRows: PropTypes.number,
 };

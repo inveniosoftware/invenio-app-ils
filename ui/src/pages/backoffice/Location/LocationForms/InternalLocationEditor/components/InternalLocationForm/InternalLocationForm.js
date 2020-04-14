@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import pick from 'lodash/pick';
-import { SelectorField, StringField, TextField } from '@forms';
-import { internalLocation as internalLocationApi } from '@api/locations/internalLocation';
-import { BackOfficeRoutes } from '@routes/urls';
-import { goTo } from '@history';
-import { BaseForm } from '@forms';
 import { location as locationApi } from '@api';
+import { internalLocation as internalLocationApi } from '@api/locations/internalLocation';
+import { delay } from '@api/utils';
 import { serializeLocation } from '@components/ESSelector/serializer';
+import { BaseForm, SelectorField, StringField, TextField } from '@forms';
+import { goTo } from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
+import pick from 'lodash/pick';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export class InternalLocationForm extends Component {
   constructor(props) {
@@ -28,12 +28,16 @@ export class InternalLocationForm extends Component {
     ]);
   };
 
-  updateInternalLocation = (pid, data) => {
-    return internalLocationApi.update(pid, data);
+  updateInternalLocation = async (pid, data) => {
+    const response = await internalLocationApi.update(pid, data);
+    await delay();
+    return response;
   };
 
   createInternalLocation = async data => {
-    return internalLocationApi.create(data);
+    const response = internalLocationApi.create(data);
+    await delay();
+    return response;
   };
 
   successCallback = () => goTo(BackOfficeRoutes.locationsList);

@@ -26,15 +26,17 @@ export default class PatronPendingLoans extends Component {
   }
 
   componentDidMount() {
-    this.fetchPatronPendingLoans(
-      this.patronPid,
-      this.state.activePage,
-      PAGE_SIZE
-    );
+    this.fetchPatronPendingLoans(this.patronPid, {
+      page: this.state.activePage,
+      size: PAGE_SIZE,
+    });
   }
 
   onPageChange = activePage => {
-    this.fetchPatronPendingLoans(this.patronPid, activePage, PAGE_SIZE);
+    this.fetchPatronPendingLoans(this.patronPid, {
+      page: activePage,
+      size: PAGE_SIZE,
+    });
     this.setState({ activePage: activePage });
   };
 
@@ -159,4 +161,6 @@ PatronPendingLoans.propTypes = {
   patronPid: PropTypes.string.isRequired,
   fetchPatronPendingLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired,
 };

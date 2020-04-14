@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Icon, Popup } from 'semantic-ui-react';
-import { invenioConfig, ES_DELAY } from '@config';
+import { delay } from '@api/utils';
+import { invenioConfig } from '@config';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Button, Icon, Popup } from 'semantic-ui-react';
 
 const expireDays = invenioConfig.circulation.loanWillExpireDays;
 
@@ -27,9 +28,8 @@ export default class ExtendButton extends Component {
     const extendUrl = _get(loan, 'availableActions.extend');
 
     await this.props.extendLoan(extendUrl, document.pid, patronPid);
-    setTimeout(() => {
-      onExtendSuccess();
-    }, ES_DELAY);
+    await delay();
+    onExtendSuccess();
   };
 
   validateExtendUrl() {

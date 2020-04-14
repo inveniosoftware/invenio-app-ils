@@ -1,26 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { acqOrder as orderApi } from '@api';
+import { CopyButton, Error, Loader } from '@components';
+import { goTo } from '@history';
 import {
-  Container,
-  Accordion,
-  Ref,
-  Divider,
-  Sticky,
-  Icon,
-  Grid,
-} from 'semantic-ui-react';
-import { CopyButton, Loader, Error } from '@components';
-import { VendorInformation } from './VendorInformation';
-import {
+  DeleteRecordModal,
   DetailsHeader,
   EditButton,
-  DeleteRecordModal,
 } from '@pages/backoffice/components';
-import { AcquisitionRoutes } from '@routes/urls';
-import { acqOrder as orderApi } from '@api';
-import { AcquisitionVendorIcon } from '@pages/backoffice/components/icons';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
+import { AcquisitionVendorIcon } from '@pages/backoffice/components/icons';
+import { AcquisitionRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Accordion,
+  Container,
+  Divider,
+  Grid,
+  Icon,
+  Ref,
+  Sticky,
+} from 'semantic-ui-react';
+import { VendorInformation } from './VendorInformation';
 
 const DeleteVendorButton = props => {
   return (
@@ -37,11 +38,7 @@ class ActionMenu extends React.Component {
   createRefProps(vendorPid) {
     const orderRefProps = {
       refType: 'Order',
-      onRefClick: orderPid =>
-        window.open(
-          AcquisitionRoutes.orderDetailsFor(orderPid),
-          `_order_${orderPid}`
-        ),
+      onRefClick: orderPid => goTo(AcquisitionRoutes.orderDetailsFor(orderPid)),
       getRefData: () =>
         orderApi.list(
           orderApi

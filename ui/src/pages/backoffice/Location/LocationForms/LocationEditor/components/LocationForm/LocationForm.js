@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import pick from 'lodash/pick';
-import { StringField, TextField } from '@forms';
 import { location as locationApi } from '@api/locations/location';
-import { BackOfficeRoutes } from '@routes/urls';
+import { delay } from '@api/utils';
+import { BaseForm, StringField, TextField } from '@forms';
 import { goTo } from '@history';
-import { BaseForm } from '@forms';
+import { BackOfficeRoutes } from '@routes/urls';
+import pick from 'lodash/pick';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export class LocationForm extends Component {
   constructor(props) {
@@ -19,12 +19,16 @@ export class LocationForm extends Component {
     return pick(data, ['name', 'address', 'email', 'phone', 'notes']);
   };
 
-  updateLocation = (pid, data) => {
-    return locationApi.update(pid, data);
+  updateLocation = async (pid, data) => {
+    const response = await locationApi.update(pid, data);
+    await delay();
+    return response;
   };
 
-  createLocation = data => {
-    return locationApi.create(data);
+  createLocation = async data => {
+    const response = await locationApi.create(data);
+    await delay();
+    return response;
   };
 
   successCallback = () => goTo(BackOfficeRoutes.locationsList);

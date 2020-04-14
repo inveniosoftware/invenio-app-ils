@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 
@@ -11,3 +12,7 @@ export default function PatronMetadata(props) {
     </>
   );
 }
+
+PatronMetadata.propTypes = {
+  user: PropTypes.object.isRequired,
+};

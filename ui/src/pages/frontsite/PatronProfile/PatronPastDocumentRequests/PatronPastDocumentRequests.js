@@ -12,17 +12,18 @@ import { NoResultsMessage } from '../../components/NoResultsMessage';
 export default class PatronPastDocumentRequests extends Component {
   constructor(props) {
     super(props);
-    this.fetchPatronDocumentRequests = this.props.fetchPatronDocumentRequests;
     this.patronPid = this.props.patronPid;
     this.state = { activePage: 1 };
   }
 
   componentDidMount() {
-    this.fetchPatronDocumentRequests(this.patronPid);
+    this.props.fetchPatronDocumentRequests(this.patronPid);
   }
 
   onPageChange = activePage => {
-    this.fetchPatronDocumentRequests(this.patronPid, activePage);
+    this.props.fetchPatronDocumentRequests(this.patronPid, {
+      page: activePage,
+    });
     this.setState({ activePage: activePage });
   };
 

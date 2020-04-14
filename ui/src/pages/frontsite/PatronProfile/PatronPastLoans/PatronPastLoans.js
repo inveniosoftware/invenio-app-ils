@@ -62,17 +62,16 @@ class PastLoanListEntry extends Component {
 export default class PatronPastLoans extends Component {
   constructor(props) {
     super(props);
-    this.fetchPatronPastLoans = this.props.fetchPatronPastLoans;
     this.patronPid = this.props.patronPid;
     this.state = { activePage: 1 };
   }
 
   componentDidMount() {
-    this.fetchPatronPastLoans(this.patronPid);
+    this.props.fetchPatronPastLoans(this.patronPid);
   }
 
   onPageChange = activePage => {
-    this.fetchPatronPastLoans(this.patronPid, activePage);
+    this.props.fetchPatronPastLoans(this.patronPid, { page: activePage });
     this.setState({ activePage: activePage });
   };
 

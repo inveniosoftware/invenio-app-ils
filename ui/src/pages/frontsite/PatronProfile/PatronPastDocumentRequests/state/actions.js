@@ -1,9 +1,8 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { documentRequest as documentRequestApi } from '@api';
 import { sendErrorNotification } from '@components/Notifications';
-import { ES_DELAY } from '@config';
+import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 
-const selectQuery = (patronPid, page = 1) => {
+const selectQuery = (patronPid, page) => {
   return documentRequestApi
     .query()
     .withPatronPid(patronPid)
@@ -15,13 +14,16 @@ const selectQuery = (patronPid, page = 1) => {
 
 export const fetchPatronPastDocumentRequests = (
   patronPid,
-  page,
-  delayed = false
+  { page = 1 } = {}
 ) => {
-  const query = selectQuery(patronPid, page);
-  const fetchRequests = async (patronPid, dispatch) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
     try {
-      const response = await documentRequestApi.list(query);
+      const response = await documentRequestApi.list(
+        selectQuery(patronPid, page)
+      );
       dispatch({
         type: SUCCESS,
         payload: response.data,
@@ -32,25 +34,6 @@ export const fetchPatronPastDocumentRequests = (
         payload: error,
       });
       dispatch(sendErrorNotification(error));
-    }
-  };
-
-  function delayedFetch(patronPid, dispatch) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(() => {
-        resolve(fetchRequests(patronPid, dispatch));
-      }, ES_DELAY);
-    });
-  }
-
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    if (delayed) {
-      await delayedFetch(patronPid, dispatch);
-    } else {
-      await fetchRequests(patronPid, dispatch);
     }
   };
 };

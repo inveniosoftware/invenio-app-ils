@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { Form, Button, Header, Container } from 'semantic-ui-react';
-import { ES_DELAY } from '@config';
 import { ErrorMessage } from '../ErrorMessage';
 
 export class BaseForm extends Component {
@@ -24,15 +23,13 @@ export class BaseForm extends Component {
         ? await this.props.editApiMethod(this.props.pid, submitValues)
         : await this.props.createApiMethod(submitValues);
 
-      setTimeout(() => {
-        this.props.sendSuccessNotification(
-          'Success!',
-          this.props.successSubmitMessage
-        );
-        if (this.props.successCallback) {
-          this.props.successCallback(response, submitButton);
-        }
-      }, ES_DELAY);
+      this.props.sendSuccessNotification(
+        'Success!',
+        this.props.successSubmitMessage
+      );
+      if (this.props.successCallback) {
+        this.props.successCallback(response, submitButton);
+      }
     } catch (error) {
       const errors = getIn(error, 'response.data.errors', []);
 
@@ -127,6 +124,7 @@ BaseForm.propTypes = {
   initialValues: PropTypes.object,
   successSubmitMessage: PropTypes.string,
   successCallback: PropTypes.func,
+  sendSuccessNotification: PropTypes.func.isRequired,
   createApiMethod: PropTypes.func,
   editApiMethod: PropTypes.func,
   submitSerializer: PropTypes.func,
