@@ -93,7 +93,7 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
                 content="Filter by"
               />
               <SearchAggregationsCards
-                modelName="documents_frontsite"
+                modelName="documents"
               />
             </GridColumn>
             <GridColumn

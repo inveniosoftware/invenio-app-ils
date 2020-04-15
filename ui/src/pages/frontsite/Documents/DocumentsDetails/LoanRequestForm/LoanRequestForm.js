@@ -29,7 +29,9 @@ export default class LoanRequestForm extends Component {
     this.state['deliveryMethod'] = this.withDeliveryMethod
       ? this.deliveryMethods[0].value
       : null;
+  }
 
+  componentDidMount() {
     this.props.initializeState();
   }
 
