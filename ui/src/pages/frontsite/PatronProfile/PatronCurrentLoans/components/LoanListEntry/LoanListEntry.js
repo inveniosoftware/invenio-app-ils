@@ -62,14 +62,14 @@ export class LoanListEntry extends Component {
                 {isLoanOverdue ? (
                   <OverdueLabel />
                 ) : (
-                  <ReturnLabel endDate={loan.metadata.end_date}></ReturnLabel>
+                  <ReturnLabel endDate={loan.metadata.end_date} />
                 )}
                 <br />
                 <ExtendButton
                   loan={loan}
                   extendLoan={extendLoan}
                   onExtendSuccess={onExtendSuccess}
-                ></ExtendButton>
+                />
               </Item.Description>
             </Grid.Column>
           </Grid>

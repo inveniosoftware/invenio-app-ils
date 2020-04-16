@@ -1,8 +1,13 @@
+import {
+  InfoMessage,
+  OverdueLoanSendMailModal,
+} from '@pages/backoffice/components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Button } from 'semantic-ui-react';
+import { List, Button, Grid } from 'semantic-ui-react';
 import { omit } from 'lodash/object';
 import { CancelModal } from '@components/CancelModal';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class LoanActions extends Component {
   constructor(props) {
@@ -51,27 +56,43 @@ export default class LoanActions extends Component {
       item_pid,
       patron_pid,
     } = this.props.loanDetails.metadata;
-    if (availableActions) {
+
+    const loanActions = !_isEmpty(availableActions) && (
+      <List horizontal>
+        {this.renderAvailableActions(
+          pid,
+          patron_pid,
+          document_pid,
+          item_pid,
+          availableActions
+        )}
+      </List>
+    );
+    const sendReminderButton = this.props.loanDetails.metadata.is_overdue && (
+      <OverdueLoanSendMailModal
+        loan={this.props.loanDetails}
+        buttonTriggerText="Send return reminder"
+      />
+    );
+    if (
+      !_isEmpty(availableActions) ||
+      this.props.loanDetails.metadata.is_overdue
+    ) {
       return (
-        <List horizontal>
-          {Object.keys(availableActions).length ? (
-            this.renderAvailableActions(
-              pid,
-              patron_pid,
-              document_pid,
-              item_pid,
-              availableActions
-            )
-          ) : (
-            <List.Header as="h3">No actions available</List.Header>
-          )}
-        </List>
+        <Grid columns={2}>
+          <Grid.Column width={12}>{loanActions}</Grid.Column>
+          <Grid.Column width={4} textAlign="right">
+            {sendReminderButton}
+          </Grid.Column>
+        </Grid>
       );
     } else {
       return (
-        <List horizontal>
-          <List.Header as="h3">No actions available</List.Header>
-        </List>
+        <InfoMessage
+          fluid
+          header={'No actions available.'}
+          content={"The loan can't be changed in it's current state."}
+        />
       );
     }
   }

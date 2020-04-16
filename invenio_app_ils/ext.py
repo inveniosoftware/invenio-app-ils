@@ -22,7 +22,7 @@ from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from .documents.api import DOCUMENT_PID_TYPE
 from .files.receivers import register_files_signals
 from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
-    ITEM_PID_TYPE, PATRON_PID_TYPE, SERIES_PID_TYPE
+    ITEM_PID_TYPE, LOCATION_PID_TYPE, PATRON_PID_TYPE, SERIES_PID_TYPE
 
 
 def handle_rest_exceptions(exception):
@@ -110,6 +110,21 @@ class _InvenioAppIlsState(object):
     def internal_location_indexer(self):
         """Return an internal location indexer instance."""
         return self.indexer_by_pid_type(INTERNAL_LOCATION_PID_TYPE)
+
+    @cached_property
+    def location_record_cls(self):
+        """Return the location record class."""
+        return self.record_class_by_pid_type(LOCATION_PID_TYPE)
+
+    @cached_property
+    def location_search_cls(self):
+        """Return the location search cls."""
+        return self.search_by_pid_type(LOCATION_PID_TYPE)
+
+    @cached_property
+    def location_indexer(self):
+        """Return the location indexer instance."""
+        return self.indexer_by_pid_type(LOCATION_PID_TYPE)
 
     @cached_property
     def item_record_cls(self):

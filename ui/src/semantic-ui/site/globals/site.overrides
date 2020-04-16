@@ -18,6 +18,14 @@
   padding: 1rem;
 }
 
+.pt-default{
+ padding-top: 1em;
+}
+
+.pb-default{
+ padding-bottom: 1em;
+}
+
 .no-border {
   border: 0 !important;
 }
@@ -167,6 +175,11 @@ form {
   .document-title{
     display: inline-block;
   }
+
+  .bo-details-header-status-labels{
+    display: inline-block;
+    margin-left: 1em;
+  }
 }
 
 .generate-margins(@max, @direction, @alias, @i: 5) when (@i =< @max) {
@@ -176,7 +189,7 @@ form {
     .generate-margins(@max, @direction, @alias, (@i + 5));
   }
 
-  .generate-margins(20, right, r);
-  .generate-margins(20, left, l);
-  .generate-margins(20, bottom, b);
-  .generate-margins(20, top, t);
+  .generate-margins(30, right, r);
+  .generate-margins(30, left, l);
+  .generate-margins(30, bottom, b);
+  .generate-margins(30, top, t);

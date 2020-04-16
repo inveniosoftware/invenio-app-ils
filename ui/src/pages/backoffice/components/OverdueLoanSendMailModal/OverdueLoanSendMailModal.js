@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import { Header, Modal, Button, Icon } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -27,7 +29,7 @@ export default class OverdueLoanSendMailModal extends Component {
       className="send-overdue-reminder-button"
     >
       <Icon name="mail" />
-      Reminder
+      {this.props.buttonTriggerText ? this.props.buttonTriggerText : 'Reminder'}
     </Button>
   );
 
@@ -86,3 +88,8 @@ export default class OverdueLoanSendMailModal extends Component {
     );
   }
 }
+
+OverdueLoanSendMailModal.propTypes = {
+  loan: PropTypes.object.isRequired,
+  buttonTriggerText: PropTypes.string,
+};

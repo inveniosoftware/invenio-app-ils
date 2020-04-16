@@ -5,12 +5,14 @@ import { Icon, Message } from 'semantic-ui-react';
 
 export default class InfoMessage extends Component {
   render() {
+    const { header, content, children, ...uiProps } = this.props;
     return (
-      <Message icon info data-test={'no-results'}>
+      <Message icon info data-test={'no-results'} {...uiProps}>
         <Icon name="info circle" />
         <Message.Content>
-          <Message.Header>{this.props.header}</Message.Header>
-          <p>{this.props.content}</p>
+          <Message.Header>{header}</Message.Header>
+          <p>{content}</p>
+          {children}
         </Message.Content>
       </Message>
     );
@@ -19,5 +21,5 @@ export default class InfoMessage extends Component {
 
 InfoMessage.propTypes = {
   header: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
 };

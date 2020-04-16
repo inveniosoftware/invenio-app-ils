@@ -163,7 +163,7 @@ def item_record(app):
 def loan_params():
     """Params for API REST payload."""
     return dict(
-        transaction_user_pid="user_pid",
+        transaction_user_pid="4",
         patron_pid="1",
         document_pid="docid-1",
         item_pid=dict(type="pitmid", value="itemid-2"),
