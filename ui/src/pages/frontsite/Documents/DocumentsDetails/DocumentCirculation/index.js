@@ -3,8 +3,7 @@ import DocumentCirculationComponent from './DocumentCirculation';
 import { showTab } from '../state/actions';
 
 const mapStateToProps = state => ({
-  documentDetails: state.documentDetailsFront.data,
-  isLoading: state.documentDetailsFront.isLoading,
+  loanRequestIsLoading: state.loanRequestForm.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

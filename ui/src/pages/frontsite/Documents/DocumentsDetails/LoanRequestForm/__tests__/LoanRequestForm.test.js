@@ -51,6 +51,7 @@ describe('DocumentMetadata tests', () => {
       <LoanRequestForm
         document={document}
         requestLoanForDocument={mockRequestLoanForDocument}
+        initializeState={() => {}}
       />
     );
 

@@ -1,14 +1,17 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR, INITIAL } from './types';
 
 export const initialState = {
-  isLoading: true,
+  isLoading: false,
   hasError: false,
+  isSuccessful: false,
   data: { hits: [], total: 0 },
   error: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case INITIAL:
+      return { ...initialState };
     case IS_LOADING:
       return { ...state, isLoading: true };
     case SUCCESS:
@@ -18,6 +21,7 @@ export default (state = initialState, action) => {
         data: action.payload,
         error: {},
         hasError: false,
+        isSuccessful: true,
       };
     case HAS_ERROR:
       return {
@@ -25,6 +29,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
         hasError: true,
+        isSuccessful: false,
       };
     default:
       return state;

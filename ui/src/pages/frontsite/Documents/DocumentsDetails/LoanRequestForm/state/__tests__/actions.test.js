@@ -17,9 +17,7 @@ loanApi.doRequest = mockDoRequest;
 
 const response = { data: { ...testData[0] } };
 const expectedPayload = {
-  content: 'You have requested to loan this book.',
-  title: 'Success!',
-  type: 'success',
+  ...testData[0],
 };
 sessionManager.user = { id: '2', locationPid: '2' };
 const documentPid = '123';
@@ -108,7 +106,7 @@ describe('Loan Request form actions', () => {
 
       const expectedActions = [
         {
-          type: 'notifications/ADD',
+          type: 'requestLoan/SUCCESS',
           payload: expectedPayload,
         },
       ];

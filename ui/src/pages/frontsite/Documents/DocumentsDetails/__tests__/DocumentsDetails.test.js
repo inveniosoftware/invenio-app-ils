@@ -10,6 +10,7 @@ jest.mock('../DocumentPanel', () => {
     DocumentPanel: () => null,
   };
 });
+
 jest.mock('../DocumentMetadata', () => {
   return {
     DocumentMetadata: () => null,

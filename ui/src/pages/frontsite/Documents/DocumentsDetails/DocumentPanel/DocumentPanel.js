@@ -48,7 +48,10 @@ export default class DocumentPanel extends Component {
                   </ILSParagraphPlaceholder>
                 </Grid.Column>
                 <Grid.Column>
-                  <DocumentCirculation />
+                  <DocumentCirculation
+                    documentDetails={this.props.documentDetails}
+                    isLoading={isLoading}
+                  />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
