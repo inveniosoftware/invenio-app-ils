@@ -37,7 +37,7 @@ export class EItemHeader extends Component {
           <>
             {data.metadata.pid}:{' '}
             <DocumentTitle
-              document={data.metadata.document}
+              metadata={data.metadata.document}
               short={true}
               truncate={true}
             />

@@ -46,7 +46,7 @@ export default class PatronPendingLoans extends Component {
         to={BackOfficeRoutes.documentDetailsFor(row.metadata.document_pid)}
         data-test={row.metadata.pid}
       >
-        <DocumentTitle document={row.metadata.document} />
+        <DocumentTitle metadata={row.metadata.document} />
       </Link>
     );
   };

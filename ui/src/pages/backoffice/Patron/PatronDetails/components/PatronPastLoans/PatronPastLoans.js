@@ -43,8 +43,8 @@ export default class PatronPastLoans extends Component {
 
   viewDocument = ({ row }) => {
     return (
-      <DocumentDetailsLink documentPid={row.pid}>
-        <DocumentTitle document={row.metadata.document} />
+      <DocumentDetailsLink pidValue={row.pid}>
+        <DocumentTitle metadata={row.metadata.document} />
       </DocumentDetailsLink>
     );
   };
