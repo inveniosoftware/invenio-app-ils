@@ -30,7 +30,6 @@ export class LoanListEntry extends Component {
       >
         <DocumentItemCover
           size="mini"
-          src={loan.metadata.document.edition}
           metadata={loan.metadata.document}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
