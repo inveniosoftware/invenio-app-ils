@@ -55,7 +55,7 @@ class BorrowingRequestHeader extends React.Component {
           <>
             <br />
             <label className="muted">Created by</label>{' '}
-            <CreatedBy brwReq={brwReq} />
+            <CreatedBy metadata={brwReq} />
           </>
         )}
         <br />
@@ -67,7 +67,10 @@ class BorrowingRequestHeader extends React.Component {
       <DetailsHeader
         title={
           <>
-            Borrowing request #{brwReq.pid} {this.renderStatus(brwReq.status)}
+            Borrowing request #{brwReq.pid}{' '}
+            <div className="bo-details-header-status-labels">
+              {this.renderStatus(brwReq.status)}{' '}
+            </div>
           </>
         }
         subTitle={<>From library: {libraryLink}</>}

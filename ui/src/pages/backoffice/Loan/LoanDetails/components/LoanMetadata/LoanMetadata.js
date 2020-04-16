@@ -1,83 +1,84 @@
 import { invenioConfig } from '@config';
+import { getDisplayVal } from '@config/invenioConfig';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { ItemMetadata } from '../ItemMetadata';
-import { LoanActions } from '../LoanActions';
-import { AvailableItems } from '../AvailableItems';
+import { Grid, Icon, Label } from 'semantic-ui-react';
 import {
-  OverdueLoanSendMailModal,
   MetadataTable,
+  PatronDetailsLink,
+  LocationsLink,
+  ItemIcon,
+  DocumentIcon,
+  PatronIcon,
 } from '@pages/backoffice/components';
 import isEmpty from 'lodash/isEmpty';
-import { toShortDateTime } from '@api/date';
+import { toShortDate, toShortDateTime } from '@api/date';
 import { LoanLinkToItem } from '../../../../components/Loan';
+import { DocumentTitle } from '@components/Document';
 
 export default class LoanMetadata extends Component {
-  constructor(props) {
-    super(props);
-    const isRequest = invenioConfig.circulation.loanRequestStates.includes(
-      this.props.loanDetails.metadata.state
-    );
-    this.state = {
-      isAvailableItemsVisible: isRequest,
-    };
-  }
-
-  showAvailableItems = (newState = true) => {
-    this.setState({ isAvailableItemsVisible: newState });
-  };
-
-  isItemDeleted = () => {
-    const data = this.props.loanDetails;
-    return isEmpty(data.metadata.item) && data.metadata.item_pid;
-  };
-
-  renderItem() {
-    const data = this.props.loanDetails;
-    return (
-      !isEmpty(data.metadata.item) && (
-        <ItemMetadata
-          item={data.metadata.item}
-          loanState={data.metadata.state}
-          changeItemClickHandler={this.showAvailableItems}
-        />
-      )
-    );
-  }
-
-  renderDeletedItem() {
-    const data = this.props.loanDetails;
-    return (
-      this.isItemDeleted() && (
-        <Message
-          warning
-          icon="trash alternate"
-          header={`Item deleted`}
-          content={`The item ${data.metadata.item_pid.value} assigned to this loan has been deleted.`}
-        />
-      )
-    );
-  }
-
   prepareLeftData(data) {
-    const rows = [
-      { name: 'Document pid', value: data.metadata.document_pid },
+    return [
       {
-        name: 'Item pid',
+        name: 'State',
+        value: (
+          <Label basic color="blue" size="tiny">
+            {getDisplayVal('circulation.statuses', data.metadata.state)}
+          </Label>
+        ),
+      },
+      {
+        name: (
+          <>
+            <DocumentIcon />
+            Document
+          </>
+        ),
+        value: <DocumentTitle metadata={data.metadata.document} />,
+      },
+      {
+        name: (
+          <>
+            <ItemIcon />
+            Physical copy
+          </>
+        ),
         value: data.metadata.item_pid ? (
           <LoanLinkToItem itemPid={data.metadata.item_pid}>
-            {data.metadata.item_pid.value}
+            {data.metadata.item_pid && data.metadata.item_pid.type === 'illbid'
+              ? 'ILL'
+              : data.metadata.item.barcode}
           </LoanLinkToItem>
         ) : (
           '-'
         ),
       },
-      { name: 'Patron pid', value: data.metadata.patron_pid },
-      { name: 'Pickup Location pid', value: data.metadata.pickup_location_pid },
-      { name: 'State', value: data.metadata.state },
+      {
+        name: (
+          <>
+            <PatronIcon />
+            Patron
+          </>
+        ),
+        value: (
+          <PatronDetailsLink patronPid={data.metadata.patron_pid}>
+            {data.metadata.patron.name}
+          </PatronDetailsLink>
+        ),
+      },
+      {
+        name: 'Pickup location',
+        value: (
+          <LocationsLink locationPid={data.metadata.pickup_location_pid}>
+            {data.metadata.pickup_location.name}
+          </LocationsLink>
+        ),
+      },
+      {
+        name: 'Delivery',
+        value: this.getDelivery(data.metadata.delivery),
+      },
     ];
-    return rows;
   }
 
   getDelivery(delivery) {
@@ -94,11 +95,38 @@ export default class LoanMetadata extends Component {
         name: 'Transaction date',
         value: toShortDateTime(data.metadata.transaction_date),
       },
-      {
-        name: 'Delivery',
-        value: this.getDelivery(data.metadata.delivery),
-      },
     ];
+    if (
+      invenioConfig.circulation.loanRequestStates.includes(data.metadata.state)
+    ) {
+      rows.push(
+        {
+          name: 'Period of interest starts',
+          value: toShortDateTime(data.metadata.request_start_date),
+        },
+        {
+          name: 'Period of interest ends',
+          value: toShortDate(data.metadata.request_expire_date),
+        }
+      );
+    } else {
+      rows.push(
+        {
+          name: 'Start date',
+          value: toShortDate(data.metadata.start_date),
+        },
+        {
+          name: 'End date',
+          value: (
+            <>
+              {toShortDate(data.metadata.end_date)}
+              {data.metadata.is_overdue && <Icon name="warning" />}
+            </>
+          ),
+        }
+      );
+    }
+    rows.push({ name: 'Extensions', value: data.metadata.extension_count });
     if (state === 'CANCELLED' && !isEmpty(reason)) {
       rows.push({
         name: 'Cancel Reason',
@@ -108,53 +136,19 @@ export default class LoanMetadata extends Component {
     return rows;
   }
 
-  renderLoan() {
+  render() {
     const data = this.props.loanDetails;
     const leftRows = this.prepareLeftData(data);
     const rightRows = this.prepareRightData(data);
     return (
       <Grid padded columns={2}>
-        <Grid.Column width={16}>
-          <Header as="h1">Loan - {data.pid}</Header>
+        <Grid.Column>
+          <MetadataTable key="left" rows={leftRows} />
         </Grid.Column>
         <Grid.Column>
-          <MetadataTable rows={leftRows} />
-        </Grid.Column>
-        <Grid.Column>
-          <MetadataTable rows={rightRows} />
-          {this.renderMailButton()}
+          <MetadataTable key="right" rows={rightRows} />
         </Grid.Column>
       </Grid>
-    );
-  }
-
-  renderMailButton() {
-    const loan = this.props.loanDetails;
-    return loan.metadata.is_overdue && <OverdueLoanSendMailModal loan={loan} />;
-  }
-
-  renderAvailableItems() {
-    return (
-      this.state.isAvailableItemsVisible && (
-        <>
-          {this.isItemDeleted() && <Divider />}
-          <AvailableItems loan={this.props.loanDetails} />
-        </>
-      )
-    );
-  }
-
-  render() {
-    return (
-      <Segment>
-        {this.renderLoan()}
-        <Divider />
-        <LoanActions />
-        <Divider />
-        {this.renderItem()}
-        {this.renderDeletedItem()}
-        {this.renderAvailableItems()}
-      </Segment>
     );
   }
 }

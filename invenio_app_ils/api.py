@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from invenio_accounts.models import User
 from invenio_pidstore.errors import PersistentIdentifierError
 
@@ -48,19 +49,9 @@ def get_document_pid_by_item_pid(item_pid):
     return rec.get("document_pid")
 
 
-def get_location_pid_by_item_pid(item_pid):
-    """Retrieve Location PID given an Item PID."""
-    if item_pid["type"] not in [BORROWING_REQUEST_PID_TYPE, ITEM_PID_TYPE]:
-        raise UnknownItemPidTypeError(pid_type=item_pid["type"])
-
-    if item_pid["type"] == BORROWING_REQUEST_PID_TYPE:
-        # return a fake location in case of ILL
-        return BORROWING_REQUEST_PID_TYPE
-
-    Item = current_app_ils.item_record_cls
-    item_rec = Item.get_record_by_pid(item_pid["value"])
-    item = item_rec.replace_refs()
-    return item["internal_location"]["location"]["pid"]
+def get_default_location(item_pid):
+    """Return default location."""
+    return current_app.config["ILS_DEFAULT_LOCATION_PID"]
 
 
 def item_exists(item_pid):

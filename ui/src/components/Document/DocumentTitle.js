@@ -50,7 +50,13 @@ export const DocumentTitle = ({ metadata, titleOnly, truncate }) => {
 
   const cmp = <div className="document-title">{titleCmp}</div>;
 
-  return truncate ? <Truncate ellipsis={'... '}>{cmp}</Truncate> : cmp;
+  return truncate ? (
+    <Truncate lines={2} ellipsis={'... '}>
+      {cmp}
+    </Truncate>
+  ) : (
+    cmp
+  );
 };
 
 DocumentTitle.propTypes = {

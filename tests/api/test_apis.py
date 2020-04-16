@@ -11,8 +11,7 @@ import pytest
 from invenio_accounts.models import User
 
 from invenio_app_ils.api import get_document_pid_by_item_pid, \
-    get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
-    patron_exists
+    get_item_pids_by_document_pid, item_exists, patron_exists
 from invenio_app_ils.documents.api import Document
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord, Series
@@ -31,14 +30,6 @@ def test_get_document_pid_by_item_pid(testdata):
     item_pid = dict(type=ITEM_PID_TYPE, value=first_item_pid)
     doc_pid = get_document_pid_by_item_pid(item_pid)
     assert doc_pid == "docid-1"
-
-
-def test_get_location_pid_by_item_pid(testdata):
-    """Test retrieve Location PID for the given Item."""
-    first_item_pid = testdata["items"][0]["pid"]
-    item_pid = dict(type=ITEM_PID_TYPE, value=first_item_pid)
-    loc_pid = get_location_pid_by_item_pid(item_pid)
-    assert loc_pid == "locid-1"
 
 
 def test_item_exists(testdata):

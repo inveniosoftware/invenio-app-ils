@@ -21,6 +21,18 @@ export const invenioConfig = {
     loanCompletedStates: ['ITEM_RETURNED'],
     loanRequestStates: ['PENDING'],
     requestDuration: 60,
+    statuses: [
+      { value: 'ITEM_RETURNED', text: 'Item returned' },
+      { value: 'ITEM_AT_DESK', text: 'Item at desk' },
+      { value: 'ITEM_ON_LOAN', text: 'Item on loan' },
+      {
+        value: 'ITEM_IN_TRANSIT_FOR_PICKUP',
+        text: 'Item in transit for pickup',
+      },
+      { value: 'ITEM_IN_TRANSIT_TO_HOUSE', text: 'Item in transit to house' },
+      { value: 'CANCELLED', text: 'Cancelled' },
+      { value: 'PENDING', text: 'Pending' },
+    ],
   },
   defaultCurrency: 'CHF',
   defaultResultsSize: 15,
@@ -87,6 +99,10 @@ export const invenioConfig = {
     ],
   },
   illBorrowingRequests: {
+    pendingStatuses: ['PENDING'],
+    requestedStatuses: ['REQUESTED'],
+    activeStatuses: ['ON_LOAN'],
+    completedStatuses: ['CANCELLED', 'RETURNED'],
     statuses: [
       { value: 'CANCELLED', text: 'Cancelled' },
       { value: 'PENDING', text: 'Pending' },

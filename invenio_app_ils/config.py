@@ -77,10 +77,9 @@ from .api import (  # isort:skip
     document_exists,
     get_document_pid_by_item_pid,
     get_item_pids_by_document_pid,
-    get_location_pid_by_item_pid,
     item_exists,
     patron_exists,
-)
+    get_default_location)
 from .circulation.utils import (  # isort:skip
     circulation_default_extension_duration,
     circulation_default_extension_max_count,
@@ -741,7 +740,7 @@ CIRCULATION_ITEM_EXISTS = item_exists
 
 CIRCULATION_DOCUMENT_EXISTS = document_exists
 
-CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
+CIRCULATION_ITEM_LOCATION_RETRIEVER = get_default_location
 
 CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
 

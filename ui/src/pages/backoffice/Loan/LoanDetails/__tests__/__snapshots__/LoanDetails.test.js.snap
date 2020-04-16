@@ -1,13 +1,132 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoanDetails tests should load the details component 1`] = `
-<Container>
-  <Loader>
-    <Error>
-      <Container>
-        <LoanMetadata />
-      </Container>
-    </Error>
-  </Loader>
-</Container>
+<div>
+  <Container
+    fluid={true}
+  >
+    <Loader
+      isLoading={false}
+    >
+      <Error
+        error={Object {}}
+      >
+        <Sticky
+          active={true}
+          bottomOffset={0}
+          className="solid-background"
+          context={
+            Object {
+              "current": null,
+            }
+          }
+          offset={0}
+          scrollContext={[Window]}
+        >
+          <Container
+            className="spaced"
+            fluid={true}
+          >
+            <LoanHeader
+              data={
+                Object {
+                  "metadata": Object {
+                    "document_pid": "docid-1",
+                    "end_date": "2018-07-28",
+                    "item_pid": Object {},
+                    "patron": Object {
+                      "email": "patron1@test.ch",
+                    },
+                    "patron_pid": "1",
+                    "pickup_location_pid": "1",
+                    "pid": "loanid-1",
+                    "request_expire_date": "2019-06-28",
+                    "request_start_date": "2018-06-28",
+                    "start_date": "2018-06-28",
+                    "state": "PENDING",
+                    "transaction_date": "2018-06-29",
+                    "transaction_location_pid": "1",
+                  },
+                }
+              }
+            />
+          </Container>
+          <Divider />
+        </Sticky>
+        <Container
+          fluid={true}
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": null,
+              }
+            }
+          >
+            <Grid
+              columns={2}
+            >
+              <GridColumn
+                width={13}
+              >
+                <Container
+                  className="spaced"
+                >
+                  <Container
+                    className="spaced"
+                  >
+                    <Loan />
+                    <CurrentItem />
+                    <AvailableItems
+                      loan={
+                        Object {
+                          "metadata": Object {
+                            "document_pid": "docid-1",
+                            "end_date": "2018-07-28",
+                            "item_pid": Object {},
+                            "patron": Object {
+                              "email": "patron1@test.ch",
+                            },
+                            "patron_pid": "1",
+                            "pickup_location_pid": "1",
+                            "pid": "loanid-1",
+                            "request_expire_date": "2019-06-28",
+                            "request_start_date": "2018-06-28",
+                            "start_date": "2018-06-28",
+                            "state": "PENDING",
+                            "transaction_date": "2018-06-29",
+                            "transaction_location_pid": "1",
+                          },
+                        }
+                      }
+                    />
+                  </Container>
+                </Container>
+              </GridColumn>
+              <GridColumn
+                width={3}
+              >
+                <Sticky
+                  active={true}
+                  bottomOffset={0}
+                  context={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                  offset={200}
+                  scrollContext={[Window]}
+                >
+                  <LoanActionMenu
+                    offset={-200}
+                  />
+                </Sticky>
+              </GridColumn>
+            </Grid>
+          </Ref>
+        </Container>
+      </Error>
+    </Loader>
+  </Container>
+</div>
 `;

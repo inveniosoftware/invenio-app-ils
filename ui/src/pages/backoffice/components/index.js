@@ -10,7 +10,13 @@ export { EditButton, NewButton, SeeAllButton } from './buttons';
 export * from './icons';
 export { DetailsHeader } from './DetailsHeader';
 export { KeyValueTable } from './KeyValueTable';
-export { SeriesDetailsLink, DocumentDetailsLink } from './buttons';
+export {
+  SeriesDetailsLink,
+  DocumentDetailsLink,
+  PatronDetailsLink,
+  LocationsLink,
+  BorrowingRequestDetailsLink,
+} from './buttons';
 export { InfoMessage } from './InfoMessage';
 export { RestrictedAccessLabel } from './RestrictedAccessLabel';
 export { OpenAccessLabel } from './OpenAccessLabel';

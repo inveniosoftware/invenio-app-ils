@@ -1,7 +1,8 @@
+import InfoMessage from '@pages/backoffice/components/InfoMessage/InfoMessage';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Button, Header, Message, Segment } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '@components';
 import { item as itemApi } from '@api';
 import { invenioConfig } from '@config';
@@ -37,7 +38,6 @@ export default class AvailableItems extends Component {
     return (
       <Button
         size="mini"
-        color="teal"
         onClick={() => {
           const itemPid = {
             type: recordToPidType(item),
@@ -46,7 +46,7 @@ export default class AvailableItems extends Component {
           this.assignItemToLoan(itemPid, this.props.loan.pid);
         }}
       >
-        assign
+        replace current physical copy
       </Button>
     );
   }
@@ -77,23 +77,10 @@ export default class AvailableItems extends Component {
     );
   }
 
-  viewDetails = ({ row }) => {
-    return (
-      <Button
-        as={Link}
-        to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
-        data-test={row.metadata.pid}
-      />
-    );
-  };
-
   renderTable() {
     const { data } = this.props;
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
+      { title: 'PID', field: 'metadata.pid' },
       {
         title: 'Barcode',
         field: 'metadata.barcode',
@@ -119,20 +106,44 @@ export default class AvailableItems extends Component {
         data={data.hits}
         columns={columns}
         totalHitsCount={data.total}
-        title={'Available items'}
-        name={'available items'}
+        name={'available physical copies'}
         seeAllComponent={this.seeAllButton()}
+        renderEmptyResultsElement={this.renderEmptyResults}
       />
     );
   }
+
+  renderEmptyResults = () => {
+    return (
+      <div className="pt-default pb-default">
+        <InfoMessage
+          header={'No physical copies available.'}
+          content="Currently document has no eligible physical copies to fulfil this loan."
+        />
+      </div>
+    );
+  };
 
   rowActionButton = ({ row }) => {
     const { loan } = this.props;
     const isRequested = invenioConfig.circulation.loanRequestStates.includes(
       loan.metadata.state
     );
+    const isCompleted = invenioConfig.circulation.loanCompletedStates.includes(
+      loan.metadata.state
+    );
+    const isCancelled = invenioConfig.circulation.loanCancelledStates.includes(
+      loan.metadata.state
+    );
+
     if (isRequested) {
       return this.checkoutItemButton(row, loan);
+    } else if (isCompleted || isCancelled) {
+      return (
+        <Message compact info size="tiny">
+          You can't change the physical copy <br /> once the loan is completed
+        </Message>
+      );
     } else {
       return this.assignItemButton(row);
     }
@@ -141,9 +152,20 @@ export default class AvailableItems extends Component {
   render() {
     const { isLoading, error } = this.props;
     return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable()}</Error>
-      </Loader>
+      <>
+        <Header as="h3" attached="top">
+          Available physical copies
+        </Header>
+        <Segment
+          attached
+          className="bo-metadata-segment no-padding"
+          id="available-items"
+        >
+          <Loader isLoading={isLoading}>
+            <Error error={error}>{this.renderTable()}</Error>
+          </Loader>
+        </Segment>
+      </>
     );
   }
 }
