@@ -115,7 +115,7 @@ export class OrderLines extends React.Component {
     }
 
     return (
-      <Item.Group divided className="bo-order-lines">
+      <Item.Group divided className="bo-order-lines" id="order-lines">
         {lines.map((line, index) => (
           <OrderLine key={line.document_pid} index={index} line={line} />
         ))}
