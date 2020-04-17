@@ -55,7 +55,7 @@ export class PaymentInformation extends React.Component {
       { name: 'Note', value: payment.debit_note },
     ];
     return (
-      <Grid columns={2}>
+      <Grid columns={2} id="payment-info">
         <Grid.Row>
           <Grid.Column>
             <MetadataTable labelWidth={5} rows={leftTable} />

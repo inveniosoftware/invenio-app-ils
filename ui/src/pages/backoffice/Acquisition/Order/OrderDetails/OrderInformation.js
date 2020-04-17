@@ -31,7 +31,7 @@ export class OrderInformation extends React.Component {
     order.status === 'CANCELLED' &&
       rightTable.push({ name: 'Cancel reason', value: order.cancel_reason });
     return (
-      <Grid columns={2}>
+      <Grid columns={2} id="order-info">
         <Grid.Row>
           <Grid.Column>
             <MetadataTable labelWidth={5} rows={leftTable} />

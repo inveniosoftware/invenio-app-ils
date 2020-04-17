@@ -114,13 +114,6 @@ class ActionMenu extends React.Component {
 }
 
 class OrderPanels extends React.Component {
-  constructor(props) {
-    super(props);
-    this.orderTopRef = props.anchors.orderTopRef;
-    this.paymentInfoRef = props.anchors.paymentInfoRef;
-    this.orderLinesRef = props.anchors.orderLinesRef;
-  }
-
   render() {
     const { data } = this.props;
     return (
@@ -129,25 +122,19 @@ class OrderPanels extends React.Component {
           Order information
         </Header>
         <Segment attached className="bo-metadata-segment">
-          <div ref={this.orderTopRef} id="order-info">
-            <OrderInformation order={data.metadata} />
-          </div>
+          <OrderInformation order={data.metadata} />
         </Segment>
         <Header as="h3" attached="top">
           Payment Information
         </Header>
         <Segment attached className="bo-metadata-segment">
-          <div ref={this.paymentInfoRef} id="payment-info">
-            <PaymentInformation order={data.metadata} />
-          </div>
+          <PaymentInformation order={data.metadata} />
         </Segment>
         <Header as="h3" attached="top">
           Order lines
         </Header>
         <Segment attached className="bo-metadata-segment">
-          <div ref={this.orderLinesRef} id="order-lines">
-            <OrderLines lines={data.metadata.resolved_order_lines} />
-          </div>
+          <OrderLines lines={data.metadata.resolved_order_lines} />
         </Segment>
       </>
     );
@@ -158,16 +145,8 @@ export default class OrderDetails extends React.Component {
   constructor(props) {
     super(props);
 
-    this.paymentInfoRef = React.createRef();
-    this.orderLinesRef = React.createRef();
-    this.orderTopRef = React.createRef();
     this.headerRef = React.createRef();
     this.menuRef = React.createRef();
-    this.anchors = {
-      paymentInfoRef: this.paymentInfoRef,
-      orderLinesRef: this.orderLinesRef,
-      orderTopRef: this.orderTopRef,
-    };
   }
 
   componentDidMount() {
@@ -204,7 +183,7 @@ export default class OrderDetails extends React.Component {
                       <Container fluid className="spaced">
                         <OrderStatistics order={data.metadata} />
                       </Container>
-                      <OrderPanels data={data} anchors={this.anchors} />
+                      <OrderPanels data={data} />
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>

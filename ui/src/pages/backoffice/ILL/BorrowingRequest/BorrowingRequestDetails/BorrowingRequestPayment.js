@@ -79,7 +79,7 @@ export class BorrowingRequestPayment extends React.Component {
         <Header as="h3" attached="top">
           Payment information
         </Header>
-        <Segment attached className="bo-metadata-segment">
+        <Segment attached className="bo-metadata-segment" id="payment-info">
           <Payment brwReq={brwReq} />
         </Segment>
       </>

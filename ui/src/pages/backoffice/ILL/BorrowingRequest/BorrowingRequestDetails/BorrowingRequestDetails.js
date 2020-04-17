@@ -119,8 +119,6 @@ export default class BorrowingRequestDetails extends Component {
 
     this.headerRef = React.createRef();
     this.menuRef = React.createRef();
-    this.requestTopRef = React.createRef();
-    this.paymentInfoRef = React.createRef();
   }
 
   componentDidMount() {
@@ -161,13 +159,8 @@ export default class BorrowingRequestDetails extends Component {
                         <BorrowingRequestStatistics brwReq={metadata} />
                       </Container>
                       <Container>
-                        <div ref={this.requestTopRef} id="request-info">
-                          <BorrowingRequestMetadata brwReq={metadata} />
-                        </div>
-                        <br />
-                        <div ref={this.paymentInfoRef} id="payment-info">
-                          <BorrowingRequestPayment brwReq={metadata} />
-                        </div>
+                        <BorrowingRequestMetadata brwReq={metadata} />
+                        <BorrowingRequestPayment brwReq={metadata} />
                       </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
