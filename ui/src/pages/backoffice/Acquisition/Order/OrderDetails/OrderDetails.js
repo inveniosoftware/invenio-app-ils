@@ -181,12 +181,14 @@ export default class OrderDetails extends React.Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <Container fluid className="spaced">
-                        <OrderStatistics order={data.metadata} />
-                        <br />
-                        <OrderSteps order={data.metadata} />
+                      <Container className="spaced">
+                        <Container className="spaced">
+                          <OrderStatistics order={data.metadata} />
+                          <br />
+                          <OrderSteps order={data.metadata} />
+                        </Container>
+                        <OrderPanels data={data} />
                       </Container>
-                      <OrderPanels data={data} />
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>

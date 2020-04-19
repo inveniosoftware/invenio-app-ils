@@ -159,7 +159,7 @@ export default class BorrowingRequestDetails extends Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <Container fluid className="spaced">
+                      <Container className="spaced">
                         <BorrowingRequestStatistics brwReq={metadata} />
                         <br />
                         <BorrowingRequestSteps brwReq={metadata} />

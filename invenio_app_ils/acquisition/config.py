@@ -45,7 +45,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
+            ),
         },
         list_route="/acquisition/orders/",
         item_route="/acquisition/orders/<{0}:pid_value>".format(

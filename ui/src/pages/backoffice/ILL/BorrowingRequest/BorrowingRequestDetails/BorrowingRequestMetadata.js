@@ -5,14 +5,14 @@ import { MetadataTable } from '@pages/backoffice/components';
 import {
   DocumentIcon,
   ILLLibraryIcon,
-  LoanIcon,
   PatronIcon,
 } from '@pages/backoffice/components/icons';
 import { BackOfficeRoutes, ILLRoutes } from '@routes/urls';
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Divider, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
+import { BorrowingRequestPatronLoan } from './components';
 
 class Loan extends React.Component {
   dateOrDefault = value => {
@@ -21,7 +21,7 @@ class Loan extends React.Component {
 
   render() {
     const { brwReq } = this.props;
-    const leftTable = [
+    const table = [
       {
         name: 'Library',
         value: (
@@ -35,8 +35,6 @@ class Loan extends React.Component {
         value: brwReq.type,
       },
       { name: 'Requested on', value: this.dateOrDefault(brwReq.request_date) },
-    ];
-    const rightTable = [
       {
         name: 'Expected delivery',
         value: this.dateOrDefault(brwReq.expected_delivery_date),
@@ -47,40 +45,18 @@ class Loan extends React.Component {
       },
     ];
     return (
-      <Grid columns={2}>
+      <Grid columns={2} relaxed>
         <Grid.Row>
           <Grid.Column>
-            <MetadataTable labelWidth={5} rows={leftTable} />
+            <Divider horizontal>InterLibrary Loan</Divider>
+            <MetadataTable labelWidth={5} rows={table} />
           </Grid.Column>
           <Grid.Column>
-            <MetadataTable labelWidth={5} rows={rightTable} />
+            <Divider horizontal>Patron Loan</Divider>
+            <BorrowingRequestPatronLoan brwReq={brwReq} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    );
-  }
-}
-
-class PatronLoan extends React.Component {
-  renderLoanLink(loanPid) {
-    return loanPid ? (
-      <Link to={BackOfficeRoutes.loanDetailsFor(loanPid)}>
-        <LoanIcon /> {loanPid}
-      </Link>
-    ) : (
-      '-'
-    );
-  }
-
-  render() {
-    // const { brwReq } = this.props;
-    return (
-      <Message info>
-        <Message.Content>
-          <Message.Header>Patron loan</Message.Header>
-          Coming soon!
-        </Message.Content>
-      </Message>
     );
   }
 }
@@ -134,13 +110,11 @@ export class BorrowingRequestMetadata extends React.Component {
     return (
       <>
         <Header as="h3" attached="top">
-          Order information
+          Request information
         </Header>
         <Segment attached className="bo-metadata-segment" id="request-info">
           <Metadata brwReq={brwReq} />
-          <Divider horizontal>Loan</Divider>
           <Loan brwReq={brwReq} />
-          <PatronLoan brwReq={brwReq} />
         </Segment>
       </>
     );

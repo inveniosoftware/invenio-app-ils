@@ -11,7 +11,6 @@ from invenio_records_rest.serializers.csv import CSVSerializer
 from invenio_records_rest.serializers.json import JSONSerializer
 
 from invenio_app_ils.records.serializers.item import ItemJSONSerializer
-from invenio_app_ils.records.serializers.loan import LoanJSONSerializer
 from invenio_app_ils.schemas.json import ILSRecordSchemaJSONV1
 
 from invenio_records_rest.serializers.response import (  # isort:skip
@@ -46,12 +45,3 @@ item_v1_response = record_responsify(item_v1, "application/json")
 
 item_v1_search = search_responsify(item_v1, "application/json")
 """JSON response builder that filters item circulation status."""
-
-loan_v1 = LoanJSONSerializer(ILSRecordSchemaJSONV1, replace_refs=True)
-"""Loan v1 serializer."""
-
-loan_v1_response = record_responsify(loan_v1, 'application/json')
-"""JSON response builder decorates loan."""
-
-loan_v1_search = search_responsify(loan_v1, 'application/json')
-"""JSON response builder decorates loan."""

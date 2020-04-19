@@ -77,7 +77,7 @@ export class PriceField extends Component {
           step="any"
           min="0"
           label={this.renderCurrencyLabel()}
-          labelPosition="right"
+          labelPosition="left"
           id={`${fieldPath}.value`}
           name={`${fieldPath}.value`}
           onChange={handleChange}

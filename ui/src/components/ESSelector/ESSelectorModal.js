@@ -57,7 +57,7 @@ export default class ESSelectorModal extends Component {
           <Button
             positive
             icon="checkmark"
-            labelPosition="right"
+            labelPosition="left"
             content={
               this.props.saveButtonContent
                 ? this.props.saveButtonContent

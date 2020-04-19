@@ -89,7 +89,7 @@ export default class RelationModal extends Component {
             loading={isLoading}
             disabled={!isSelectionValid || isLoading}
             icon="checkmark"
-            labelPosition="right"
+            labelPosition="left"
             content="Confirm and save"
             onClick={this.onSave}
           />
