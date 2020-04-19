@@ -1,5 +1,8 @@
 import { http, apiConfig } from '../base';
-import { brwReqSerializer as serializer } from './serializers';
+import {
+  brwReqSerializer as serializer,
+  brwReqCreateLoanSerializer as createLoanSerializer,
+} from './serializers';
 
 const borrowingRequestUrl = '/ill/borrowing-requests/';
 
@@ -21,6 +24,19 @@ const update = async (borrowingRequestPid, data) => {
   const payload = serializer.toJSON(data);
   const resp = await http.put(
     `${borrowingRequestUrl}${borrowingRequestPid}`,
+    payload
+  );
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const createLoan = async (borrowingRequestPid, loanStartDate, loanEndDate) => {
+  const payload = createLoanSerializer.toJSON({
+    loan_start_date: loanStartDate,
+    loan_end_date: loanEndDate,
+  });
+  const resp = await http.post(
+    `${borrowingRequestUrl}${borrowingRequestPid}/create-loan`,
     payload
   );
   resp.data = serializer.fromJSON(resp.data);
@@ -91,6 +107,7 @@ export const borrowingRequest = {
   get: get,
   list: list,
   update: update,
+  createLoan: createLoan,
   query: queryBuilder,
   url: borrowingRequestUrl,
 };

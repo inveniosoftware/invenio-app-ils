@@ -10,7 +10,7 @@
 from __future__ import unicode_literals
 
 import json
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 import arrow
 from flask import url_for
@@ -71,8 +71,11 @@ def test_brw_reqs_create_loan_fails_on_wrong_status(
     def _assert_fail_when_status(pid, status):
         _update_brwreq_with_new_status(pid, status)
 
-        future = datetime.now() + timedelta(days=15)
-        data = dict(loan_end_date=future.isoformat())
+        now = arrow.utcnow()
+        future = now + timedelta(days=15)
+        data = dict(
+            loan_start_date=now.isoformat(), loan_end_date=future.isoformat()
+        )
         _assert_create_loan_action_fails(pid, data, client, json_headers)
 
     pid = _create_new_brwreq()
@@ -98,12 +101,23 @@ def test_brw_reqs_create_loan_fails_on_wrong_loan_end_date(
 
     # wrong format date
     future = now + timedelta(days=5)
-    data = dict(loan_end_date=future.isoformat())
+    data = dict(
+        loan_start_date=now.isoformat(),
+        loan_end_date=future.date().isoformat(),
+    )
+    _assert_create_loan_action_fails(pid, data, client, json_headers)
+    data = dict(
+        loan_start_date=now.date().isoformat(),
+        loan_end_date=future.isoformat(),
+    )
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
     # past date
     past = now - timedelta(days=15)
-    data = dict(loan_end_date=past.date().isoformat())
+    data = dict(
+        loan_start_date=now.date().isoformat(),
+        loan_end_date=past.date().isoformat(),
+    )
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
 
@@ -122,8 +136,12 @@ def test_brw_reqs_create_loan_fails_on_loan_pid_already_attached(
     db.session.commit()
 
     # already with a loan pid for some reasons
-    future = arrow.utcnow() + timedelta(days=5)
-    data = dict(loan_end_date=future.date().isoformat())
+    now = arrow.utcnow()
+    future = now + timedelta(days=5)
+    data = dict(
+        loan_start_date=now.date().isoformat(),
+        loan_end_date=future.date().isoformat(),
+    )
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
 
@@ -138,8 +156,9 @@ def test_brw_reqs_create_loan_succeeds(
     pid = "illbid-2"
 
     now = arrow.utcnow()
+    start = (now + timedelta(days=3)).date().isoformat()
     future = (now + timedelta(days=5)).date().isoformat()
-    data = dict(loan_end_date=future)
+    data = dict(loan_start_date=start, loan_end_date=future)
     res = _create_loan_action(pid, data, client, json_headers)
     assert res.status_code == 200
     brw_req = res.get_json()["metadata"]
@@ -157,7 +176,7 @@ def test_brw_reqs_create_loan_succeeds(
 
     # make sure the loan is created with the data from the ILL
     assert loan["item_pid"] == dict(type=BORROWING_REQUEST_PID_TYPE, value=pid)
-    assert loan["start_date"] == now.date().isoformat()
+    assert loan["start_date"] == start
     assert loan["end_date"] == future
     assert loan["document_pid"] == brw_req["document_pid"]
     assert loan["patron_pid"] == brw_req["patron_pid"]

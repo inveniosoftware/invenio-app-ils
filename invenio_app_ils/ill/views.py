@@ -86,7 +86,7 @@ class CreateLoanResource(ILLActionResource):
             )
 
         record["loan_end_date"] = data["loan_end_date"]
-        record.create_loan()
+        record.create_loan(start_date=data["loan_start_date"])
 
         record.commit()
         db.session.commit()

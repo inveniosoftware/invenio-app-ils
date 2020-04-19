@@ -40,13 +40,16 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.ill.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            )
+                "invenio_app_ils.ill.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.ill.serializers:csv_v1_search"
+            ),
         },
         list_route="/ill/borrowing-requests/",
         item_route="/ill/borrowing-requests/<{0}:pid_value>".format(

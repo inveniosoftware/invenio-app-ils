@@ -174,7 +174,9 @@ export default class LibraryDetails extends React.Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <LibraryDetailsInner data={data} />
+                      <Container className="spaced">
+                        <LibraryDetailsInner data={data} />
+                      </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>

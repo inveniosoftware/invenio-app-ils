@@ -864,14 +864,16 @@ CIRCULATION_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:loan_v1_response"
+                "invenio_app_ils.circulation.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:loan_v1_search"
+                "invenio_app_ils.circulation.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": (
+                "invenio_app_ils.circulation.serializers:csv_v1_search"
+            ),
         },
         list_route="/circulation/loans/",
         item_route="/circulation/loans/<{0}:pid_value>".format(

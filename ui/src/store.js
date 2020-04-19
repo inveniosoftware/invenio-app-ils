@@ -1,6 +1,6 @@
 import { recordRelationsReducer } from '@pages/backoffice/components/Relations/reducer';
 import { relationSelectorReducer } from '@pages/backoffice/components/Relations/reducer';
-import {staticPageReducer} from "@pages/frontsite/StaticPage/reducer";
+import { staticPageReducer } from '@pages/frontsite/StaticPage/reducer';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -65,6 +65,7 @@ import {
   borrowingRequestDetailsReducer,
   libraryDetailsReducer,
 } from '@pages/backoffice/ILL';
+import { borrowingRequestCreateLoanReducer } from '@pages/backoffice/ILL/BorrowingRequest/BorrowingRequestDetails/components/BorrowingRequestPatronLoan/reducer';
 import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,
@@ -79,6 +80,7 @@ const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
   authenticationManagement: authenticationReducer,
   borrowingRequestDetails: borrowingRequestDetailsReducer,
+  borrowingRequestCreateLoan: borrowingRequestCreateLoanReducer,
   deleteRecordModal: deleteRecordModalReducer,
   recordRelationsSelections: relationSelectorReducer,
   recordRelations: recordRelationsReducer,

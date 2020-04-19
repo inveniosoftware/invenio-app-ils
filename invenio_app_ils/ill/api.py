@@ -135,7 +135,10 @@ class BorrowingRequest(IlsRecord):
         self.build_resolver_fields(self)
 
     def create_loan(
-        self, transaction_location_pid=None, transaction_user_pid=None
+        self,
+        start_date=arrow.utcnow(),
+        transaction_location_pid=None,
+        transaction_user_pid=None,
     ):
         """Create a new loan out of this borrowing request.
 
@@ -145,6 +148,7 @@ class BorrowingRequest(IlsRecord):
         borrowing request does not already have a loan attached and the initial
         status is valid.
 
+        :param start_date: the start date of the loan. Defaults to now.
         :param transaction_location_pid: the location pid of the transaction
             that will be stored in the loan. If not passed, the current one
             will be used.
@@ -163,6 +167,7 @@ class BorrowingRequest(IlsRecord):
 
         item_pid = dict(type=self._pid_type, value=self["pid"])
         pid, loan = checkout_loan(
+            start_date=start_date,
             end_date=self["loan_end_date"],
             document_pid=self["document_pid"],
             item_pid=item_pid,
