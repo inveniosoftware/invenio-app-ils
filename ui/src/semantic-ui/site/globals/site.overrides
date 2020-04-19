@@ -94,9 +94,13 @@ form {
 }
 
 .spaced {
-    margin-top: 2em !important;
-    margin-bottom: 2em !important;
-  }
+  margin-top: 2em !important;
+  margin-bottom: 2em !important;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
 
 
 /* FRONTSITE */

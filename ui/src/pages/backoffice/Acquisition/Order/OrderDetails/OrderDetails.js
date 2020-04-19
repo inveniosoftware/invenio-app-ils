@@ -25,6 +25,7 @@ import { OrderInformation } from './OrderInformation';
 import { OrderLines } from './OrderLines';
 import { OrderStatistics } from './OrderStatistics';
 import { PaymentInformation } from './PaymentInformation';
+import { OrderSteps } from './OrderSteps';
 
 class OrderHeader extends React.Component {
   renderStatus(status) {
@@ -182,6 +183,8 @@ export default class OrderDetails extends React.Component {
                     <Grid.Column width={13}>
                       <Container fluid className="spaced">
                         <OrderStatistics order={data.metadata} />
+                        <br />
+                        <OrderSteps order={data.metadata} />
                       </Container>
                       <OrderPanels data={data} />
                     </Grid.Column>

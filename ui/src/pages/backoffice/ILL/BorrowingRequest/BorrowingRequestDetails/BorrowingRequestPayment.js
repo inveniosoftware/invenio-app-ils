@@ -74,13 +74,15 @@ class Payment extends React.Component {
 export class BorrowingRequestPayment extends React.Component {
   render() {
     const brwReq = this.props.brwReq;
+    const paymentInfo = !_isEmpty(brwReq.payment);
     return (
       <>
         <Header as="h3" attached="top">
           Payment information
         </Header>
         <Segment attached className="bo-metadata-segment" id="payment-info">
-          {!_isEmpty(brwReq.payment) && <Payment brwReq={brwReq} />}
+          {paymentInfo && <Payment brwReq={brwReq} />}
+          {!paymentInfo && `No payment information`}
         </Segment>
       </>
     );
