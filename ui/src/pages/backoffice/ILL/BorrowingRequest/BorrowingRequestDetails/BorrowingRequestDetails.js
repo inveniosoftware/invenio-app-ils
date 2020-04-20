@@ -22,6 +22,7 @@ import {
 import { BorrowingRequestMetadata } from './BorrowingRequestMetadata';
 import { BorrowingRequestPayment } from './BorrowingRequestPayment';
 import { BorrowingRequestStatistics } from './BorrowingRequestStatistics';
+import { BorrowingRequestSteps } from './BorrowingRequestSteps';
 
 class BorrowingRequestHeader extends React.Component {
   renderStatus(status) {
@@ -160,8 +161,8 @@ export default class BorrowingRequestDetails extends Component {
                     <Grid.Column width={13}>
                       <Container fluid className="spaced">
                         <BorrowingRequestStatistics brwReq={metadata} />
-                      </Container>
-                      <Container>
+                        <br />
+                        <BorrowingRequestSteps brwReq={metadata} />
                         <BorrowingRequestMetadata brwReq={metadata} />
                         <BorrowingRequestPayment brwReq={metadata} />
                       </Container>

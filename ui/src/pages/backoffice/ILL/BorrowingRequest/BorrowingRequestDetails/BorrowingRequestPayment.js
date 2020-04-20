@@ -2,10 +2,10 @@ import { toShortDate } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';
 import { MetadataTable } from '@pages/backoffice/components';
+import _isEmpty from 'lodash/isEmpty';
 import { PropTypes } from 'prop-types';
 import React from 'react';
-import { Grid, Header, Icon, Popup, Segment } from 'semantic-ui-react';
-import _isEmpty from 'lodash/isEmpty';
+import { Grid, Header, Icon, Message, Popup, Segment } from 'semantic-ui-react';
 
 class Payment extends React.Component {
   render() {
@@ -74,13 +74,19 @@ class Payment extends React.Component {
 export class BorrowingRequestPayment extends React.Component {
   render() {
     const brwReq = this.props.brwReq;
+    const paymentInfo = !_isEmpty(brwReq.payment);
     return (
       <>
         <Header as="h3" attached="top">
           Payment information
         </Header>
         <Segment attached className="bo-metadata-segment" id="payment-info">
-          {!_isEmpty(brwReq.payment) && <Payment brwReq={brwReq} />}
+          {paymentInfo && <Payment brwReq={brwReq} />}
+          {!paymentInfo && (
+            <Message>
+              <Message.Content>No payment information</Message.Content>
+            </Message>
+          )}
         </Segment>
       </>
     );

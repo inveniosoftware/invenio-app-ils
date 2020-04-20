@@ -91,6 +91,7 @@ export const invenioConfig = {
   max_results_window: 10000,
   acqOrders: {
     maxShowOrderLines: 3,
+    orderedValidStatuses: ['PENDING', 'ORDERED', 'RECEIVED'],
     statuses: [
       { value: 'CANCELLED', text: 'Cancelled' },
       { value: 'RECEIVED', text: 'Received' },
@@ -99,6 +100,7 @@ export const invenioConfig = {
     ],
   },
   illBorrowingRequests: {
+    orderedValidStatuses: ['PENDING', 'REQUESTED', 'ON_LOAN', 'RETURNED'],
     pendingStatuses: ['PENDING'],
     requestedStatuses: ['REQUESTED'],
     activeStatuses: ['ON_LOAN'],
