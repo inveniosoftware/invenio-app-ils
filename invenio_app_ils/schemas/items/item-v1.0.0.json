@@ -69,13 +69,11 @@
     "isbn": {
       "properties": {
         "description": {
-          "minLength": 1,
           "title": "Free text, used to describe the document to ISBN refers to.",
           "type": "string"
         },
         "value": {
           "minLength": 1,
-          "pattern": "^\\d*[0-9X]$",
           "type": "string"
         }
       },

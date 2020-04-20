@@ -32,6 +32,7 @@ from invenio_stats.queries import ESTermsQuery
 
 from invenio_app_ils.circulation.indexer import LoanIndexer
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
+from invenio_app_ils.documents.covers_builder import build_default_cover_urls
 from invenio_app_ils.documents.indexer import DocumentIndexer
 from invenio_app_ils.eitems.indexer import EItemIndexer
 from invenio_app_ils.internal_locations.indexer import InternalLocationIndexer
@@ -56,6 +57,7 @@ from .documents.search import DocumentSearch
 from .facets import date_range_filter, default_value_when_missing_filter, \
     keyed_range_filter, not_empty_object_or_list_filter, overdue_agg, \
     overdue_loans_filter
+from .records.permissions import record_read_permission_factory
 from .records.views import UserInfoResource
 
 from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
@@ -130,9 +132,6 @@ from .records.api import (  # isort:skip
     Patron,
     Series,
     Vocabulary,
-)
-from .records.permissions import (  # isort:skip
-    record_read_permission_factory,
 )
 from .search.api import (  # isort:skip
     EItemSearch,
@@ -373,12 +372,12 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:literature_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:literature_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
@@ -520,12 +519,12 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:literature_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:literature_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
@@ -701,12 +700,12 @@ RECORDS_REST_ENDPOINTS = dict(
                            ":search_factory_literature",
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:literature_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:literature_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
@@ -1423,3 +1422,7 @@ query and record fetch.
 
 ILS_DEFAULT_LOCATION_PID = "1"
 """Default ils library location pid."""
+
+
+ILS_LITERATURE_COVER_URLS_BUILDER = build_default_cover_urls
+"""Default implementation for building cover urls in document seriliazer."""

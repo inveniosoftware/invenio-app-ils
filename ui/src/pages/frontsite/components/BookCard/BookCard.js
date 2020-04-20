@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
 import { FrontSiteRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { DocumentAuthors, DocumentCover } from '@components/Document';
@@ -19,7 +20,12 @@ export class BookCard extends Component {
 
   renderImage = () => {
     const { data, volume } = this.props;
-    const image = <DocumentCover document={data} imageSize={'small'} />;
+    const image = (
+      <DocumentCover
+        coverUrl={_get(data, 'metadata.cover_urls.medium', '')}
+        imageSize={'small'}
+      />
+    );
 
     if (volume) {
       return (

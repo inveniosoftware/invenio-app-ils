@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Item, Label } from 'semantic-ui-react';
 import { toShortDate } from '@api/date';
-import { FrontSiteRoutes } from '@routes/urls';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { ExtensionCount } from '@pages/frontsite/components/Loan';
+import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Item, Label } from 'semantic-ui-react';
 import { ExtendButton } from '../';
 
 const OverdueLabel = () => (
@@ -30,7 +31,8 @@ export class LoanListEntry extends Component {
       >
         <DocumentItemCover
           size="mini"
-          metadata={loan.metadata.document}
+          isRestricted={_get(loan, 'metadata.document.restricted', false)}
+          coverUrl={_get(loan, 'metadata.document.cover_urls.medium')}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid

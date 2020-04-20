@@ -1,17 +1,17 @@
-import DocumentItemCover from '@components/Document/DocumentItemCover';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '@routes/urls';
-import DocumentCirculation from './DocumentCirculation';
 import {
   DocumentAuthors,
   DocumentEdition,
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
+import DocumentItemCover from '@components/Document/DocumentItemCover';
+import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
+import DocumentCirculation from './DocumentCirculation';
 
 export default class DocumentListEntry extends Component {
   renderMiddleColumn = document => {
@@ -100,8 +100,8 @@ export default class DocumentListEntry extends Component {
         <div className={'item-image-wrapper'}>
           <DocumentItemCover
             linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
-            metadata={document.metadata}
-            coverUrl={document.metadata.edition}
+            isRestricted={_get(document, 'metadata.restricted', false)}
+            coverUrl={_get(document, 'metadata.cover_urls.large')}
           />
           <Header disabled as="h6" className={'document-type tiny ellipsis'}>
             {document.metadata.document_type}

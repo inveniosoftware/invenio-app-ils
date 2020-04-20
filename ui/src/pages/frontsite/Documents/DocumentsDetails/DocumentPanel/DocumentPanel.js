@@ -1,15 +1,13 @@
+import { Abstract } from '@components';
+import { DocumentAuthors, DocumentCover } from '@components/Document';
+import { ILSHeaderPlaceholder, ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
+import { DocumentTitle } from '@pages/frontsite/components/Document';
+import _get from 'lodash/get';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Responsive } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 import { DocumentCirculation } from '../DocumentCirculation';
-import {
-  ILSHeaderPlaceholder,
-  ILSParagraphPlaceholder,
-} from '@components/ILSPlaceholder';
-import { DocumentTitle } from '@pages/frontsite/components/Document';
 import { DocumentPanelMobile } from './index';
-import { DocumentAuthors, DocumentCover } from '@components/Document';
-import { Abstract } from '@components';
 
 export default class DocumentPanel extends Component {
   render() {
@@ -24,7 +22,12 @@ export default class DocumentPanel extends Component {
             <Grid columns={3}>
               <Grid.Row>
                 <Grid.Column>
-                  <DocumentCover document={doc} />
+                  <DocumentCover
+                    coverUrl={
+                      isLoading ? '' : _get(doc, 'metadata.cover_urls.large')
+                    }
+                    placeholderStyle={{ width: 350, height: 500 }}
+                  />
                 </Grid.Column>
                 <Grid.Column>
                   <ILSHeaderPlaceholder isLoading={isLoading}>

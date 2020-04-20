@@ -177,6 +177,26 @@ class InternalLocationGenerator(Generator):
 class ItemGenerator(Generator):
     """Item Generator."""
 
+    # There are two formats isbn10 and isbn13
+    isbns = [
+        "0002154129",
+        "978-1-60309-422-1",
+        "978-1-936561-69-8",
+        "978-1-60309-382-8",
+        "978-1-60309-425-2",
+        "978-1-60309-427-6",
+        "978-1-60309-428-3",
+        "978-1-60309-454-2",
+        "978-1-60309-100-8",
+        "978-1-891830-81-5",
+        "978-1-60309-271-5",
+        "978-1-891830-12-9",
+        "978-1-891830-92-1",
+        "978-1-60309-455-9",
+        "978-1-60309-012-4",
+        "978-1-60309-057-5",
+    ]
+
     def generate(self):
         """Generate."""
         size = self.holder.items["total"]
@@ -187,6 +207,10 @@ class ItemGenerator(Generator):
         objs = [
             {
                 "pid": self.create_pid(),
+                "isbn": {
+                    "description": "isbn code of the item",
+                    "value": random.choice(self.isbns)
+                },
                 "document_pid": random.choice(doc_pids),
                 "internal_location_pid": random.choice(iloc_pids),
                 "legacy_id": "{}".format(randint(100000, 999999)),

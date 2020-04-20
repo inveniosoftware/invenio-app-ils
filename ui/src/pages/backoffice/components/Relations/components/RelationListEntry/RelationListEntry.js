@@ -6,8 +6,9 @@ import {
   DocumentTitle,
 } from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
-import React, { Component } from 'react';
+import _get from 'lodash/get';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Icon, Item } from 'semantic-ui-react';
 
@@ -21,7 +22,11 @@ export class RelationListEntry extends Component {
         : BackOfficeRoutes.seriesDetailsFor(record.metadata.pid);
     const cover =
       recordType === 'docid' ? (
-        <DocumentItemCover metadata={record.metadata} linkTo={linkTo} />
+        <DocumentItemCover
+          isRestricted={_get(record, 'metadata.restricted', false)}
+          linkTo={linkTo}
+          coverUrl={_get(record, 'metadata.cover_urls.medium')}
+        />
       ) : (
         <Icon name="clone outline" size="huge" color="grey" />
       );

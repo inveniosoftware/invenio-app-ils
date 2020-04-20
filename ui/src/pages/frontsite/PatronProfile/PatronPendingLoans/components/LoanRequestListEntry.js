@@ -1,6 +1,7 @@
 import { toShortDate } from '@api/date';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import _has from 'lodash/has';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -15,7 +16,8 @@ export class LoanRequestListEntry extends Component {
       <Item key={loan.metadata.pid} data-test={loan.metadata.pid}>
         <DocumentItemCover
           size="mini"
-          metadata={loan.metadata.document}
+          isRestricted={_get(loan, 'metadata.document.restricted', false)}
+          coverUrl={_get(loan, 'metadata.document.cover_urls.medium')}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid
