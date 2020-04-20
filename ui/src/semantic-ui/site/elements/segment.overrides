@@ -2,8 +2,8 @@
          Site Overrides
 *******************************/
 
-.bo-patron-details-tab{
-  .ui.segment.active.tab{
+.bo-patron-details-tab {
+  .ui.segment.active.tab {
     border: 0;
     padding-left: 0;
     padding-right: 0;
@@ -26,6 +26,12 @@
     &.tab {
       background-color: inherit;
       padding: 0;
+    }
+
+    &.background-transparent {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.65);
     }
   }
 
@@ -53,10 +59,10 @@
 
 
 .ui.loading.segment.fs-segment-transparent {
-    color: @textColor !important;
+  color: @textColor !important;
 }
 
 .ui.loading.segment.fs-segment-transparent:before {
-    background: @loaderDimmerColor;
+  background: @loaderDimmerColor;
 }
 

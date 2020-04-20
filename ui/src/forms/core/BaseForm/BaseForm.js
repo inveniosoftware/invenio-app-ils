@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import { Form, Button, Header, Container } from 'semantic-ui-react';
+import { Form, Button, Header } from 'semantic-ui-react';
 import { ErrorMessage } from '../ErrorMessage';
 
 export class BaseForm extends Component {
@@ -63,28 +63,24 @@ export class BaseForm extends Component {
   renderButtons = (isSubmitting, submitForm, values) => {
     const buttons = getIn(this.props, 'buttons', []);
 
-    return (
-      <>
-        {buttons.map(({ name, ...props }) => (
-          <Button
-            key={name}
-            name={name}
-            disabled={isSubmitting}
-            type="button"
-            onClick={(event, button) =>
-              this.submitForm(event, button.name, submitForm, values)
-            }
-            {...props}
-          />
-        ))}
-      </>
-    );
+    return buttons.map(({ name, ...props }) => (
+      <Button
+        key={name}
+        name={name}
+        disabled={isSubmitting}
+        type="button"
+        onClick={(event, button) =>
+          this.submitForm(event, button.name, submitForm, values)
+        }
+        {...props}
+      />
+    ));
   };
 
   render() {
     const { buttons, initialValues, title } = this.props;
     return (
-      <Container>
+      <>
         <Header textAlign="center">{title}</Header>
         <Formik
           initialValues={initialValues}
@@ -100,7 +96,6 @@ export class BaseForm extends Component {
             >
               <ErrorMessage />
               {this.props.children}
-
               {buttons ? (
                 this.renderButtons(isSubmitting, submitForm, values)
               ) : (
@@ -115,7 +110,7 @@ export class BaseForm extends Component {
             </Form>
           )}
         </Formik>
-      </Container>
+      </>
     );
   }
 }

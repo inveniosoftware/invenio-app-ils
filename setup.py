@@ -122,6 +122,7 @@ install_requires = [
     # needed to have namedtuple json serialized as dict
     "simplejson>=3",
     "webargs>=5.5.2,<6.0",
+    "wtforms==2.2.1",
 ]
 
 packages = find_packages()

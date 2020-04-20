@@ -23,7 +23,7 @@ export default class LoginWithLocalAccount extends Component {
     return [
       {
         name: 'login',
-        content: 'Log In',
+        content: 'Sign in',
         primary: true,
         type: 'submit',
         fluid: true,
@@ -95,7 +95,7 @@ export default class LoginWithLocalAccount extends Component {
 
   render() {
     return (
-      <Container id="login-with-local-account-form" className={'spaced'}>
+      <Container fluid id="login-with-local-account-form" className="spaced">
         {this.renderForm()}
       </Container>
     );

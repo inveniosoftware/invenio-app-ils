@@ -9,7 +9,8 @@ export default class LoginWithOauthButton extends Component {
     return (
       <Button
         fluid
-        inverted
+        icon
+        labelPosition="left"
         {...restProps}
         onClick={() =>
           authenticationService.loginWithOauthProvider(

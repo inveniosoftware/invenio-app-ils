@@ -30,6 +30,15 @@
   border: 0 !important;
 }
 
+.no-margin {
+  margin: 0 !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+
 .default-margin-top {
   margin-top: @defaultMarginValue !important;
 }
@@ -54,7 +63,7 @@
   color: @success;
 }
 
-.warning {
+.warning-color {
   color: @warning;
 }
 
@@ -102,6 +111,15 @@ form {
   text-transform: uppercase;
 }
 
+a {
+  &.alternative {
+    color: @altLinkColor
+  }
+  &.disabled{
+    cursor: default;
+    color: @disabledTextColor;
+  }
+}
 
 /* FRONTSITE */
 

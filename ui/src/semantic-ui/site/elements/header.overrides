@@ -8,6 +8,13 @@
   }
 
   .ui.header {
+    &.massive{
+      font-size: 3em;
+    }
+    &.greetings{
+      margin-bottom:0;
+      margin-top: 0.1em;
+    }
     &.fs-headline-header {
       color: white;
       margin: 0;

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
 import { LoginWithOauthButton } from '@authentication/components';
+import { authenticationService } from '@authentication/services';
+import React, { Component } from 'react';
 import { OAUTH_PROVIDERS } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
 import { goTo } from '@history';
+import { Container } from 'semantic-ui-react';
 import { parseParams } from '../../../../utils';
 
 export default class LoginWithOauthProviders extends Component {
@@ -20,19 +22,18 @@ export default class LoginWithOauthProviders extends Component {
   render() {
     const params = parseParams(window.location.search);
     this.checkIfOauthLoginResponse(params);
-
-    return OAUTH_PROVIDERS.map(provider => {
-      const { label, name, ...restProps } = provider;
-      return (
+    const { label, name, ...restProps } = OAUTH_PROVIDERS['github'];
+    return (
+      <Container fluid>
         <LoginWithOauthButton
           key={name}
           content={label}
           name={name}
           nextUrl={params.next || FrontSiteRoutes.home}
-          secondary
+          color="black"
           {...restProps}
         />
-      );
-    });
+      </Container>
+    );
   }
 }
