@@ -4,6 +4,48 @@ import { Icon, Segment, Step } from 'semantic-ui-react';
 import { getDisplayVal, invenioConfig } from '@config/invenioConfig';
 import { LoanIcon } from '@pages/backoffice/components';
 
+class BorrowingRequestStep extends Component {
+  render() {
+    const {
+      status,
+      currentStatus,
+      disabled,
+      icon,
+      iconName,
+      description,
+    } = this.props;
+    return (
+      <Step
+        active={currentStatus === status}
+        disabled={disabled || isBefore(currentStatus, status)}
+      >
+        {icon}
+        {iconName && <Icon name={iconName} />}
+        <Step.Content>
+          <Step.Title className="uppercase">{toLabel(status)}</Step.Title>
+          {description && <Step.Description>{description}</Step.Description>}
+        </Step.Content>
+      </Step>
+    );
+  }
+}
+
+BorrowingRequestStep.propTypes = {
+  status: PropTypes.string.isRequired,
+  currentStatus: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  description: PropTypes.string,
+  icon: PropTypes.element,
+  iconName: PropTypes.string,
+};
+
+BorrowingRequestStep.defaultProps = {
+  disabled: false,
+  description: null,
+  icon: null,
+  iconName: null,
+};
+
 const toLabel = status => {
   return getDisplayVal('illBorrowingRequests.statuses', status);
 };
@@ -16,74 +58,6 @@ const isBefore = (currentStatus, status) => {
   );
 };
 
-const Pending = ({ currentStatus, disabled }) => {
-  const status = 'PENDING';
-  return (
-    <Step
-      active={currentStatus === status}
-      disabled={disabled || isBefore(currentStatus, status)}
-    >
-      <Icon name="hourglass half" />
-      <Step.Content>
-        <Step.Title className="uppercase">{toLabel(status)}</Step.Title>
-        <Step.Description>New request created</Step.Description>
-      </Step.Content>
-    </Step>
-  );
-};
-
-const Requested = ({ currentStatus, disabled }) => {
-  const status = 'REQUESTED';
-  return (
-    <Step
-      active={currentStatus === status}
-      disabled={disabled || isBefore(currentStatus, status)}
-    >
-      <Icon name="tasks" />
-      <Step.Content>
-        <Step.Title className="uppercase">{toLabel(status)}</Step.Title>
-        <Step.Description>
-          Item requested to the external library
-        </Step.Description>
-      </Step.Content>
-    </Step>
-  );
-};
-
-const OnLoan = ({ currentStatus, disabled }) => {
-  const status = 'ON_LOAN';
-  return (
-    <Step
-      active={currentStatus === status}
-      disabled={disabled || isBefore(currentStatus, status)}
-    >
-      <LoanIcon />
-      <Step.Content>
-        <Step.Title className="uppercase">{toLabel(status)}</Step.Title>
-        <Step.Description>Item on loan to a patron</Step.Description>
-      </Step.Content>
-    </Step>
-  );
-};
-
-const Returned = ({ currentStatus, disabled }) => {
-  const status = 'RETURNED';
-  return (
-    <Step
-      active={currentStatus === status}
-      disabled={disabled || isBefore(currentStatus, status)}
-    >
-      <Icon name="check" />
-      <Step.Content>
-        <Step.Title className="uppercase">{toLabel(status)}</Step.Title>
-        <Step.Description>
-          Item returned to the external library
-        </Step.Description>
-      </Step.Content>
-    </Step>
-  );
-};
-
 export class BorrowingRequestSteps extends Component {
   render() {
     const currentStatus = this.props.brwReq.status;
@@ -91,10 +65,34 @@ export class BorrowingRequestSteps extends Component {
     return (
       <Segment>
         <Step.Group size="mini" fluid widths={4}>
-          <Pending currentStatus={currentStatus} disabled={allDisabled} />
-          <Requested currentStatus={currentStatus} disabled={allDisabled} />
-          <OnLoan currentStatus={currentStatus} disabled={allDisabled} />
-          <Returned currentStatus={currentStatus} disabled={allDisabled} />
+          <BorrowingRequestStep
+            status={'PENDING'}
+            currentStatus={currentStatus}
+            disabled={allDisabled}
+            iconName={'hourglass half'}
+            description={'New request created'}
+          />
+          <BorrowingRequestStep
+            status={'REQUESTED'}
+            currentStatus={currentStatus}
+            disabled={allDisabled}
+            iconName={'tasks'}
+            description={'Item requested to the external library'}
+          />
+          <BorrowingRequestStep
+            status={'ON_LOAN'}
+            currentStatus={currentStatus}
+            disabled={allDisabled}
+            icon={<LoanIcon />}
+            description={'Item on loan to a patron'}
+          />
+          <BorrowingRequestStep
+            status={'RETURNED'}
+            currentStatus={currentStatus}
+            disabled={allDisabled}
+            iconName={'check'}
+            description={'Item returned to the external library'}
+          />
         </Step.Group>
       </Segment>
     );
