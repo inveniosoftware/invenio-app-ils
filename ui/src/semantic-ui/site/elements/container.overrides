@@ -33,6 +33,49 @@
   }
 }
 
+
+.ui.container {
+  &.error-page{
+    min-height: 80vh;
+  }
+
+  &.auth-page {
+    background-color: rgba(0, 0, 0, .3);
+    background-image: @loginBackground;
+
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: darken;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+
+    &:before {
+      @blur: 10px;
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: darken;
+      position: fixed;
+      background-color: rgba(0, 0, 0, .3);
+      background-image: @loginBackground;
+      content: "";
+      -webkit-filter: blur(@blur);
+      -moz-filter: blur(@blur);
+      -o-filter: blur(@blur);
+      -ms-filter: blur(@blur);
+      filter: blur(@blur);
+      width: 100%;
+      height: 100%;
+    }
+   > .container{
+     display: block;
+   }
+  }
+}
+
+
 /* Desktop, Tablet */
 /* Frontsite */
 @{fs-parent-selector} {

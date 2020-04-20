@@ -64,7 +64,7 @@ export class DocumentEditor extends Component {
         params: { documentPid },
       },
     } = this.props;
-    const isEditForm = documentPid ? true : false;
+    const isEditForm = !!documentPid;
     return (
       <>
         {isEditForm ? (

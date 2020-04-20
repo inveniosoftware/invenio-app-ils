@@ -1,3 +1,4 @@
+import { NotFound } from '@components';
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -46,6 +47,9 @@ export default class App extends Component {
               roles={['admin', 'librarian']}
             />
             <FrontSite {...this.props} />
+            <Route>
+              <NotFound />
+            </Route>
           </Switch>
         </Router>
       </SetUserInfo>

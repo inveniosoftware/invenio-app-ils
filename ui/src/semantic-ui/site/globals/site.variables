@@ -25,8 +25,10 @@
 @highlightBorder          : 2px solid @fsPrimaryColor;
 @defaultPaddingValue      : 2em;
 @defaultMarginValue       : 1em;
-@headlineBackground: url("@{imagesFolder}/old-books-436498_1920.jpg");
+@headlineBackground       : url("@{imagesFolder}/old-books-436498_1920.jpg");
+@loginBackground          : url("@{imagesFolder}/login.png");
 @boSidebarWidth           : 230px;
+@altLinkColor             : @fsPrimaryColor;
 
 /* Dot background elements */
 @dot-bg-color                : rgba(159, 158, 169, 0.6);
