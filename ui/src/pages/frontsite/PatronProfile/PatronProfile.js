@@ -5,6 +5,7 @@ import { PatronCurrentLoans } from './PatronCurrentLoans';
 import { PatronPendingLoans } from './PatronPendingLoans';
 import { PatronPastLoans } from './PatronPastLoans';
 import { PatronCurrentDocumentRequests } from './PatronCurrentDocumentRequests';
+import { PatronCurrentBorrowingRequests } from './PatronCurrentBorrowingRequests';
 import { PatronOverview } from './PatronOverview';
 import { PatronPastDocumentRequests } from './PatronPastDocumentRequests';
 import { UnAuthorized } from '@authentication/components/UnAuthorized';
@@ -20,6 +21,7 @@ export default class PatronProfile extends Component {
           <Tab.Pane>
             <PatronCurrentLoans patronPid={currentUser.id} />
             <PatronPendingLoans patronPid={currentUser.id} />
+            <PatronCurrentBorrowingRequests patronPid={currentUser.id} />
             <PatronCurrentDocumentRequests patronPid={currentUser.id} />
           </Tab.Pane>
         ),

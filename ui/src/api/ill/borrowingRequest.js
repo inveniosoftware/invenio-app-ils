@@ -3,6 +3,7 @@ import {
   brwReqSerializer as serializer,
   brwReqCreateLoanSerializer as createLoanSerializer,
 } from './serializers';
+import { prepareSumQuery } from '../utils';
 
 const borrowingRequestUrl = '/ill/borrowing-requests/';
 
@@ -54,10 +55,21 @@ const list = async query => {
 
 class QueryBuilder {
   constructor() {
+    this.page = '';
     this.patronQuery = [];
     this.libraryQuery = [];
     this.libraryPidQuery = [];
+    this.size = '';
     this.sortByQuery = '';
+    this.stateQuery = [];
+  }
+
+  withState(state) {
+    if (!state) {
+      throw TypeError('State argument missing');
+    }
+    this.stateQuery.push(`status:${prepareSumQuery(state)}`);
+    return this;
   }
 
   withPatron(patronPid) {
@@ -65,6 +77,16 @@ class QueryBuilder {
       throw TypeError('Patron PID argument missing');
     }
     this.patronQuery.push(`patron_pid:${patronPid}`);
+    return this;
+  }
+
+  withSize(size) {
+    if (size > 0) this.size = `&size=${size}`;
+    return this;
+  }
+
+  withPage(page = 0) {
+    if (page > 0) this.page = `&page=${page}`;
     return this;
   }
 
@@ -92,8 +114,9 @@ class QueryBuilder {
   qs() {
     const searchCriteria = this.patronQuery
       .concat(this.libraryQuery, this.libraryPidQuery)
+      .concat(this.stateQuery)
       .join(' AND ');
-    return `${searchCriteria}${this.sortByQuery}`;
+    return `(${searchCriteria})${this.sortByQuery}${this.size}${this.page}`;
   }
 }
 

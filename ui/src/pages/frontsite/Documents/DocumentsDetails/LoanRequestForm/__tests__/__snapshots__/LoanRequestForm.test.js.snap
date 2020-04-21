@@ -355,8 +355,9 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                           tabIndex="0"
                           type="text"
                         >
-                          <div
-                            className="ui left icon input"
+                          <Input
+                            aria-describedby={null}
+                            autoComplete="off"
                             data-test=""
                           >
                             <Icon
@@ -364,9 +365,24 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                               key=".0"
                               name="calendar"
                             >
-                              <i
-                                aria-hidden="true"
-                                className="calendar icon"
+                              <Icon
+                                as="i"
+                                key=".0"
+                                name="calendar"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="calendar icon"
+                                  onClick={[Function]}
+                                />
+                              </Icon>
+                              <input
+                                aria-describedby={null}
+                                autoComplete="off"
+                                key=".1"
+                                name="selectedDate"
+                                onBlur={[Function]}
+                                onChange={[Function]}
                                 onClick={[Function]}
                               />
                             </Icon>
@@ -429,17 +445,12 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               primary={true}
               type="button"
             >
-              <Ref
-                innerRef={
-                  Object {
-                    "current": <button
-                      class="ui fluid primary button"
-                      type="button"
-                    >
-                      Request
-                    </button>,
-                  }
-                }
+              <Button
+                aria-describedby={null}
+                as="button"
+                fluid={true}
+                onClick={[Function]}
+                primary={true}
               >
                 <RefFindNode
                   innerRef={
@@ -458,15 +469,21 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     onClick={[Function]}
                     type="button"
                   >
-                    Request
-                  </button>
-                </RefFindNode>
-              </Ref>
-            </Button>
-          </div>
-        </FormField>
-      </FormButton>
-    </form>
-  </Form>
+                    <button
+                      aria-describedby={null}
+                      className="ui fluid primary button"
+                      onClick={[Function]}
+                    >
+                      Request
+                    </button>
+                  </RefFindNode>
+                </Ref>
+              </Button>
+            </div>
+          </FormField>
+        </FormButton>
+      </form>
+    </Form>
+  </Error>
 </LoanRequestForm>
 `;
