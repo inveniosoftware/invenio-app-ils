@@ -43,15 +43,9 @@ extras_require = {
     "postgresql": [
         "invenio-db[postgresql,versioning]{}".format(invenio_db_version),
     ],
-    "mysql": [
-        "invenio-db[mysql,versioning]{}".format(invenio_db_version),
-    ],
-    "sqlite": [
-        "invenio-db[versioning]{}".format(invenio_db_version),
-    ],
-    "vocabulary": [
-        "pycountry>=19.8.18",
-    ],
+    "mysql": ["invenio-db[mysql,versioning]{}".format(invenio_db_version),],
+    "sqlite": ["invenio-db[versioning]{}".format(invenio_db_version),],
+    "vocabulary": ["pycountry>=19.8.18",],
 }
 
 extras_require["all"] = []
@@ -75,33 +69,33 @@ install_requires = [
     "Flask-Debugtoolbar>=0.10.1",
     "Flask-Login==0.4.1",
     # --- `invenio` to fix broken deps -------------------------------------
-    #"invenio[base,auth]==3.2.0a9",
+    # "invenio[base,auth]==3.2.0a9",
     # NOTE: put back invenio[base,auth]>=3.3.0 when released and remove this
-    'Flask>=1.0.4',
-    'invenio-app>=1.2.3,<1.3.0',
-    'invenio-base>=1.2.0,<1.3.0',
-    'invenio-cache>=1.0.0,<1.1.0',
-    'invenio-celery>=1.1.1,<1.3.0',
-    'invenio-config>=1.0.2,<1.1.0',
+    "Flask>=1.0.4",
+    "invenio-app>=1.2.3,<1.3.0",
+    "invenio-base>=1.2.0,<1.3.0",
+    "invenio-cache>=1.0.0,<1.1.0",
+    "invenio-celery>=1.1.1,<1.3.0",
+    "invenio-config>=1.0.2,<1.1.0",
     "invenio-i18n>=1.1.1,<1.3.0",
     # --- `base` bundle to fix broken deps ---------------------------------
     # NOTE: put back invenio[base,auth]>=3.3.0 when released and remove this
-    'invenio-admin>=1.1.1,<1.3.0',
-    'invenio-assets>=1.1.3,<1.2.0',
-    'invenio-formatter>=1.0.2,<1.1.0',
-    'invenio-logging>=1.1.0,<1.3.0',
-    'invenio-mail>=1.0.2,<1.1.0',
-    'invenio-rest>=1.1.0,<1.3.0',
-    'invenio-theme>=1.1.4,<1.2.0',
+    "invenio-admin>=1.1.1,<1.3.0",
+    "invenio-assets>=1.1.3,<1.2.0",
+    "invenio-formatter>=1.0.2,<1.1.0",
+    "invenio-logging>=1.1.0,<1.3.0",
+    "invenio-mail>=1.0.2,<1.1.0",
+    "invenio-rest>=1.1.0,<1.3.0",
+    "invenio-theme>=1.1.4,<1.2.0",
     # --- `auth` bundle to fix broken deps ---------------------------------
     # NOTE: put back invenio[base,auth]>=3.3.0 when released
-    'invenio-access>=1.3.0,<1.4.0',
+    "invenio-access>=1.3.0,<1.4.0",
     # NOTE: put me back when topical branches removed
     #'invenio-accounts>=1.1.1,<1.3.0',
-    'invenio-oauth2server>=1.0.3,<1.3.0',
+    "invenio-oauth2server>=1.0.3,<1.3.0",
     # NOTE: put me back when topical branches removed
     #'invenio-oauthclient>=1.1.3,<1.3.0',
-    'invenio-userprofiles>=1.0.1,<1.2.0',
+    "invenio-userprofiles>=1.0.1,<1.2.0",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
@@ -122,6 +116,7 @@ install_requires = [
     # needed to have namedtuple json serialized as dict
     "simplejson>=3",
     "webargs>=5.5.2,<6.0",
+    "wtforms==2.2.1",
 ]
 
 packages = find_packages()
@@ -153,7 +148,7 @@ setup(
             "demo = invenio_app_ils.cli:demo",
             "patrons = invenio_app_ils.cli:patrons",
             "setup = invenio_app_ils.cli:setup",
-            'stats = invenio_stats.cli:stats',
+            "stats = invenio_stats.cli:stats",
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
             "fixtures = invenio_app_ils.cli:fixtures",
         ],
@@ -185,7 +180,7 @@ setup(
             "documents = invenio_app_ils.documents.schemas",
             "document_requests = invenio_app_ils.document_requests.schemas",
             "acquisition = invenio_app_ils.acquisition.schemas",
-            "ill = invenio_app_ils.ill.schemas"
+            "ill = invenio_app_ils.ill.schemas",
         ],
         "invenio_search.mappings": [
             "document_requests = invenio_app_ils.document_requests.mappings",
@@ -272,7 +267,7 @@ setup(
             "ils_indexer_rec_relations = invenio_app_ils.records_relations.indexer",
             "ils_indexer_series = invenio_app_ils.series.indexer",
             "ils_circulation_mails = invenio_app_ils.circulation.mail.tasks",
-        ]
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,
