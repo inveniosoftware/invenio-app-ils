@@ -197,6 +197,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     authors = fields.List(fields.Nested(AuthorSchema), required=True)
     conference_info = fields.Nested(ConferenceInfoSchema)
     copyrights = fields.List(fields.Nested(CopyrightsSchema))
+    cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     curated = fields.Bool()
     document_type = fields.Str()

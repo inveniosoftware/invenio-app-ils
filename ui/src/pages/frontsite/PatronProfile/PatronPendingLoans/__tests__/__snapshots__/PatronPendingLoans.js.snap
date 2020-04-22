@@ -217,7 +217,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         data-test="loanid-1"
                       >
                         <DocumentItemCover
-                          coverUrl="42"
+                          coverUrl=""
                           disabled={true}
                           isRestricted={false}
                           linkTo="/literature/docid-1"
@@ -242,7 +242,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             label={null}
                             onError={[Function]}
                             size="mini"
-                            src="42"
+                            src=""
                             to="/literature/docid-1"
                           >
                             <Image
@@ -264,7 +264,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               label={null}
                               onError={[Function]}
                               size="mini"
-                              src="42"
+                              src=""
                               to="/literature/docid-1"
                               ui={true}
                               wrapped={true}
@@ -287,7 +287,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                     onError={[Function]}
                                   >
                                     <img
-                                      src="42"
+                                      src=""
                                     />
                                   </a>
                                 </LinkAnchor>
@@ -527,7 +527,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         data-test="loanid-2"
                       >
                         <DocumentItemCover
-                          coverUrl="42"
+                          coverUrl=""
                           disabled={true}
                           isRestricted={false}
                           linkTo="/literature/docid-1"
@@ -552,7 +552,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             label={null}
                             onError={[Function]}
                             size="mini"
-                            src="42"
+                            src=""
                             to="/literature/docid-1"
                           >
                             <Image
@@ -574,7 +574,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               label={null}
                               onError={[Function]}
                               size="mini"
-                              src="42"
+                              src=""
                               to="/literature/docid-1"
                               ui={true}
                               wrapped={true}
@@ -597,7 +597,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                     onError={[Function]}
                                   >
                                     <img
-                                      src="42"
+                                      src=""
                                     />
                                   </a>
                                 </LinkAnchor>

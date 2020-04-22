@@ -15,7 +15,7 @@ export class DocumentCover extends Component {
 }
 
 DocumentCover.propTypes = {
-  coverUrl: PropTypes.string.isRequired,
+  coverUrl: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   imageSize: PropTypes.string,
   placeholderStyle: PropTypes.object,

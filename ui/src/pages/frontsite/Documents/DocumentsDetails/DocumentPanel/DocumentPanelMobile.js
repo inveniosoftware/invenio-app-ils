@@ -22,7 +22,7 @@ export default class DocumentPanelMobile extends Component {
               <DocumentCover
                 imageSize={'medium'}
                 placeholderStyle={{ width: 350, height: 400 }}
-                coverUrl={_get(doc, 'metadata.cover_urls.large')}
+                coverUrl={_get(doc, 'metadata.cover_metadata.urls.large')}
               />
               <ILSHeaderPlaceholder isLoading={isLoading} center="true">
                 <DocumentTitle />

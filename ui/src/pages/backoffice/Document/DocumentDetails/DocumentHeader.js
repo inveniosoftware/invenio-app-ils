@@ -50,7 +50,7 @@ export class DocumentHeader extends Component {
         pid={data.metadata.pid}
         icon={
           <DocumentCover
-            coverUrl={_get(data, 'metadata.cover_urls.large')}
+            coverUrl={_get(data, 'metadata.cover_metadata.urls.large')}
             imageSize="huge"
           />
         }

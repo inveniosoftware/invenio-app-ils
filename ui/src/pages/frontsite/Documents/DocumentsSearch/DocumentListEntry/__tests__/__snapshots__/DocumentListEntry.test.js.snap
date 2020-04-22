@@ -3,7 +3,7 @@
 exports[`should render correctly 1`] = `
 <Item>
   <DocumentItemCover
-    coverUrl="42"
+    coverUrl=""
     disabled={true}
     isRestricted={false}
     linkTo="/literature/13"

@@ -32,7 +32,7 @@ from invenio_stats.queries import ESTermsQuery
 
 from invenio_app_ils.circulation.indexer import LoanIndexer
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
-from invenio_app_ils.documents.covers_builder import build_default_cover_urls
+from invenio_app_ils.documents.covers_builder import build_ils_demo_cover_urls
 from invenio_app_ils.documents.indexer import DocumentIndexer
 from invenio_app_ils.eitems.indexer import EItemIndexer
 from invenio_app_ils.internal_locations.indexer import InternalLocationIndexer
@@ -372,14 +372,14 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_response"
+                "invenio_app_ils.literature.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_search"
+                "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -519,14 +519,14 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_response"
+                "invenio_app_ils.literature.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_search"
+                "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -700,14 +700,14 @@ RECORDS_REST_ENDPOINTS = dict(
                            ":search_factory_literature",
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_response"
+                "invenio_app_ils.literature.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:literature_v1_search"
+                "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -1424,5 +1424,5 @@ ILS_DEFAULT_LOCATION_PID = "1"
 """Default ils library location pid."""
 
 
-ILS_LITERATURE_COVER_URLS_BUILDER = build_default_cover_urls
+ILS_LITERATURE_COVER_URLS_BUILDER = build_ils_demo_cover_urls
 """Default implementation for building cover urls in document seriliazer."""

@@ -70,7 +70,7 @@ export default class DocumentListEntry extends Component {
     const image = (
       <DocumentItemCover
         size="mini"
-        coverUrl={_get(this, 'metadata.cover_urls.large')}
+        coverUrl={_get(this, 'metadata.cover_metadata.urls.medium')}
         isRestricted={_get(this, 'metadata.restricted', false)}
         disabled
         linkTo={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}

@@ -39,7 +39,7 @@ DocumentItemCover.propTypes = {
 };
 
 DocumentItemCover.defaultProps = {
-  coverUrl: '42',
+  coverUrl: '',
   isRestricted: false,
   size: 'tiny',
 };

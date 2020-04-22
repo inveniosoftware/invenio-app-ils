@@ -17,7 +17,7 @@ export class LoanRequestListEntry extends Component {
         <DocumentItemCover
           size="mini"
           isRestricted={_get(loan, 'metadata.document.restricted', false)}
-          coverUrl={_get(loan, 'metadata.document.cover_urls.medium')}
+          coverUrl={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid

@@ -25,7 +25,7 @@ export class DocumentCard extends Component {
         {recordToPidType(data) === 'docid' ? (
           <DocumentCover
             imageSize="tiny"
-            coverUrl={_get(data, 'metadata.cover_urls.medium')}
+            coverUrl={_get(data, 'metadata.cover_metadata.urls.medium')}
           />
         ) : (
           <Icon name="clone outline" size="huge" color="grey" />

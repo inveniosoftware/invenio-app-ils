@@ -22,7 +22,7 @@ export class BookCard extends Component {
     const { data, volume } = this.props;
     const image = (
       <DocumentCover
-        coverUrl={_get(data, 'metadata.cover_urls.medium', '')}
+        coverUrl={_get(data, 'metadata.cover_metadata.urls.medium', '')}
         imageSize={'small'}
       />
     );

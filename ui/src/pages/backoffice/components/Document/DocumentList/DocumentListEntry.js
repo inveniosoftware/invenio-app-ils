@@ -101,7 +101,7 @@ export default class DocumentListEntry extends Component {
           <DocumentItemCover
             linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
             isRestricted={_get(document, 'metadata.restricted', false)}
-            coverUrl={_get(document, 'metadata.cover_urls.large')}
+            coverUrl={_get(document, 'metadata.cover_metadata.urls.medium')}
           />
           <Header disabled as="h6" className={'document-type tiny ellipsis'}>
             {document.metadata.document_type}

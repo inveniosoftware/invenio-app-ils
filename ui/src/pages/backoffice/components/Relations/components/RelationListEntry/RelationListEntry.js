@@ -25,7 +25,7 @@ export class RelationListEntry extends Component {
         <DocumentItemCover
           isRestricted={_get(record, 'metadata.restricted', false)}
           linkTo={linkTo}
-          coverUrl={_get(record, 'metadata.cover_urls.medium')}
+          coverUrl={_get(record, 'metadata.cover_metadata.urls.medium')}
         />
       ) : (
         <Icon name="clone outline" size="huge" color="grey" />

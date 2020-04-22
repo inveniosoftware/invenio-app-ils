@@ -19,7 +19,7 @@ class PastLoanListEntry extends Component {
       <Item key={loan.metadata.pid}>
         <DocumentItemCover
           size="mini"
-          coverUrl={_get(loan, 'metadata.document.cover_urls.medium')}
+          coverUrl={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
           isRestricted={_get(loan, 'metadata.document.restricted', false)}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(

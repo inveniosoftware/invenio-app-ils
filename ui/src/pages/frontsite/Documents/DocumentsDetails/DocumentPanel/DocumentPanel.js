@@ -1,6 +1,9 @@
 import { Abstract } from '@components';
 import { DocumentAuthors, DocumentCover } from '@components/Document';
-import { ILSHeaderPlaceholder, ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
+import {
+  ILSHeaderPlaceholder,
+  ILSParagraphPlaceholder,
+} from '@components/ILSPlaceholder';
 import { DocumentTitle } from '@pages/frontsite/components/Document';
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
@@ -23,9 +26,7 @@ export default class DocumentPanel extends Component {
               <Grid.Row>
                 <Grid.Column>
                   <DocumentCover
-                    coverUrl={
-                      isLoading ? '' : _get(doc, 'metadata.cover_urls.large')
-                    }
+                    coverUrl={_get(doc, 'metadata.cover_metadata.urls.large')}
                     placeholderStyle={{ width: 350, height: 500 }}
                   />
                 </Grid.Column>
