@@ -32,13 +32,12 @@ class AuthenticationService {
     return http.post(logoutUrl);
   };
 
-  fetchProfile = () => {
-    return http.get('/me').then(res => {
-      if (_has(res, 'data.id')) {
-        res.data.id = res.data.id.toString();
-      }
-      return res;
-    });
+  fetchProfile = async () => {
+    const res = await http.get('/me');
+    if (_has(res, 'data.id')) {
+      res.data.id = res.data.id.toString();
+    }
+    return res;
   };
 
   confirmUser = token => {

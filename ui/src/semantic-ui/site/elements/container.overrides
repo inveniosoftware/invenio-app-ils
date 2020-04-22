@@ -10,6 +10,12 @@
     margin-top: 2em !important;
     margin-bottom: 2em !important;
   }
+  &.top-spaced {
+    margin-top: 2em !important;
+  }
+  &.bottom-spaced {
+    margin-bottom: 2em !important;
+  }
 }
 
 /* Mobile */
@@ -94,6 +100,12 @@
 
     &.spaced {
       margin-top: 2em !important;
+      margin-bottom: 2em !important;
+    }
+    &.top-spaced {
+      margin-top: 2em !important;
+    }
+    &.bottom-spaced {
       margin-bottom: 2em !important;
     }
 

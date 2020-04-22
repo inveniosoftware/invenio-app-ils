@@ -59,7 +59,7 @@ export default class LoginWithLocalAccount extends Component {
     }
   };
 
-  onSuccess = response => {
+  onSuccess = () => {
     const params = parseParams(window.location.search);
     this.props.fetchUserProfile();
     this.props.clearNotifications();
@@ -95,7 +95,11 @@ export default class LoginWithLocalAccount extends Component {
 
   render() {
     return (
-      <Container fluid id="login-with-local-account-form" className="spaced">
+      <Container
+        fluid
+        id="login-with-local-account-form"
+        className="bottom-spaced"
+      >
         {this.renderForm()}
       </Container>
     );

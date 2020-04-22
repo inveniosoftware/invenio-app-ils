@@ -56,9 +56,7 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
     suggestionApi={null}
     urlHandlerApi={
       Object {
-        "customHandler": null,
-        "enabled": true,
-        "overrideConfig": Object {},
+        "enabled": false,
       }
     }
   >

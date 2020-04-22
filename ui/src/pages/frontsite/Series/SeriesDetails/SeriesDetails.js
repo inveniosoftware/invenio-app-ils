@@ -79,14 +79,14 @@ export default class SeriesDetails extends React.Component {
                 <Grid.Column width={3} textAlign="right">
                   {!isEmpty(series.metadata) && (
                     <AuthenticationGuard
+                      silent={true}
                       authorizedComponent={() => (
                         <Link
                           to={BackOfficeRoutes.seriesDetailsFor(
                             series.metadata.pid
                           )}
                         >
-                          open in backoffice&nbsp;
-                          <Icon name="cogs" />
+                          open in backoffice <Icon name="cogs" />
                         </Link>
                       )}
                       roles={['admin', 'librarian']}

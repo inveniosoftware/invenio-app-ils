@@ -135,21 +135,19 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
-const list = query => {
-  return http.get(`${documentRequestURL}?q=${query}`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
+const list = async query => {
+  const response = await http.get(`${documentRequestURL}?q=${query}`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
+  return response;
 };
 
-const count = query => {
-  return http.get(`${documentRequestURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
-  });
+const count = async query => {
+  const response = await http.get(`${documentRequestURL}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 export const documentRequest = {

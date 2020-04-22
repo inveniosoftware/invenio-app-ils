@@ -10,7 +10,7 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.permissions import backoffice_permission, deny_all
 
 from .api import BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER, \
     BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_FETCHER, LIBRARY_PID_MINTER, \
@@ -59,9 +59,10 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=deny_all,
     ),
     illlid=dict(
         pid_type=LIBRARY_PID_TYPE,
@@ -89,6 +90,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,

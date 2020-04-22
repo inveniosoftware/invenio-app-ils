@@ -103,8 +103,7 @@ export default class DocumentsDetails extends Component {
                           this.props.documentDetails.metadata.pid
                         )}
                       >
-                        open in backoffice&nbsp;
-                        <Icon name="cogs" />
+                        open in backoffice <Icon name="cogs" />
                       </Link>
                     )}
                     roles={['admin', 'librarian']}

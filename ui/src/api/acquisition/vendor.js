@@ -3,11 +3,10 @@ import { vendorSerializer as serializer } from './serializers';
 
 const vendorURL = '/acquisition/vendors/';
 
-const get = pid => {
-  return http.get(`${vendorURL}${pid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async pid => {
+  const response = await http.get(`${vendorURL}${pid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 const create = async data => {
@@ -35,11 +34,10 @@ const list = async query => {
   return response;
 };
 
-const count = query => {
-  return http.get(`${vendorURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
-  });
+const count = async query => {
+  const response = await http.get(`${vendorURL}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 class QueryBuilder {

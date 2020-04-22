@@ -7,10 +7,9 @@ import {
 const borrowingRequestUrl = '/ill/borrowing-requests/';
 
 const get = async pid => {
-  return http.get(`${borrowingRequestUrl}${pid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+  const response = await http.get(`${borrowingRequestUrl}${pid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 const create = async data => {

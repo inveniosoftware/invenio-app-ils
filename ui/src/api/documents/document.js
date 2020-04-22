@@ -5,11 +5,10 @@ import { add as addRelation, remove as removeRelation } from '@api/relations';
 
 const documentURL = '/documents/';
 
-const get = documentPid => {
-  return http.get(`${documentURL}${documentPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async documentPid => {
+  const response = await http.get(`${documentURL}${documentPid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 const create = async data => {
@@ -171,11 +170,10 @@ const list = async query => {
   return response;
 };
 
-const count = query => {
-  return http.get(`${documentURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
-  });
+const count = async query => {
+  const response = await http.get(`${documentURL}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 export const document = {

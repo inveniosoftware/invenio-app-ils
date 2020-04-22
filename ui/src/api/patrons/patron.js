@@ -8,21 +8,19 @@ const listUrl = '/patrons/';
 // `invenio_accounts_rest` users endpoint to retrieve
 // individual patron's information.
 
-const get = patronPid => {
-  return http.get(`${listUrl}?q=id:${patronPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data.hits.hits[0]);
-    return response;
-  });
+const get = async patronPid => {
+  const response = await http.get(`${listUrl}?q=id:${patronPid}`);
+  response.data = serializer.fromJSON(response.data.hits.hits[0]);
+  return response;
 };
 
-const list = queryText => {
-  return http.get(`${listUrl}?q=${queryText}*`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
+const list = async queryText => {
+  const response = await http.get(`${listUrl}?q=${queryText}*`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
+  return response;
 };
 
 export const patron = {

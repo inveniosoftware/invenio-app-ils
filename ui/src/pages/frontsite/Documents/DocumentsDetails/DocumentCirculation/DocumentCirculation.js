@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { Divider, Header, List, Segment, Popup } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { eitem as eitemApi, file as fileApi } from '@api';
+import { toShortDate } from '@api/date';
 import { RedirectToLoginButton } from '@authentication/components';
-import { LoanRequestForm } from '../LoanRequestForm';
 import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 import { ILSImagePlaceholder } from '@components/ILSPlaceholder';
-import { eitem as eitemApi, file as fileApi } from '@api';
 import { invenioConfig } from '@config';
 import { DocumentLinks } from '@pages/frontsite/components/Document/DocumentLinks';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Divider, Header, List, Popup, Segment } from 'semantic-ui-react';
+import { LoanRequestForm } from '../LoanRequestForm';
 
 class DocumentEItems extends Component {
   prepareLinks(eitems) {
@@ -90,7 +91,8 @@ class BookAvailability extends Component {
         <List.Item>
           <List.Icon name={'info'} />
           <List.Content>
-            Available for loan from <b>{circulationData.next_available_date}</b>
+            Available for loan from{' '}
+            <b>{toShortDate(circulationData.next_available_date)}</b>
           </List.Content>
         </List.Item>
       );
@@ -109,7 +111,7 @@ class BookAvailability extends Component {
 
 export default class DocumentCirculation extends Component {
   loginToLoan = () => {
-    return <RedirectToLoginButton content={'Login to loan'} fluid positive />;
+    return <RedirectToLoginButton content={'Sign in to loan'} fluid positive />;
   };
 
   renderLoanRequestForm = () => {

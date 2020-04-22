@@ -27,5 +27,5 @@ RedirectToLoginButton.propTypes = {
 };
 
 RedirectToLoginButton.defaultProps = {
-  content: 'Login',
+  content: 'Sign in',
 };
