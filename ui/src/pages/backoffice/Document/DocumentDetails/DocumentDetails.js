@@ -1,20 +1,18 @@
-import { DocumentContent } from './DocumentContent';
-import { DocumentHeader } from './DocumentHeader';
-import React, { Component } from 'react';
+import { Error, Loader } from '@components';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Container, Divider, Grid, Ref, Sticky } from 'semantic-ui-react';
-import { Loader, Error } from '@components';
 import {
-  DocumentMetadata,
   DocumentActionMenu,
+  DocumentMetadata,
   DocumentSummary,
 } from './components';
+import { DocumentContent } from './DocumentContent';
+import { DocumentHeader } from './DocumentHeader';
 
 export default class DocumentDetails extends Component {
   constructor(props) {
     super(props);
-    this.fetchDocumentDetails = this.props.fetchDocumentDetails;
-
     this.menuRef = React.createRef();
     this.headerRef = React.createRef();
 
@@ -38,7 +36,7 @@ export default class DocumentDetails extends Component {
     const samePidFromRouter =
       prevProps.match.params.documentPid === documentPid;
     if (!samePidFromRouter) {
-      this.props.fetchDocumentsDetails(documentPid);
+      this.props.fetchDocumentDetails(documentPid);
     }
   }
 
@@ -92,5 +90,9 @@ export default class DocumentDetails extends Component {
 }
 
 DocumentDetails.propTypes = {
+  // Redux
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+  data: PropTypes.object,
   fetchDocumentDetails: PropTypes.func.isRequired,
 };
