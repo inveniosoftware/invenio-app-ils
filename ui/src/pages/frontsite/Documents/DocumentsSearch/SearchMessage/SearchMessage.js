@@ -25,10 +25,10 @@ export default class SearchMessage extends Component {
         <Icon name="info circle" />
         <Message.Content>
           <Message.Header>
-            Couldn't find the book you were looking for?
+            Couldn't find the literature you were looking for?
           </Message.Header>
-          Please fill in the {requestFormLink} to request a new book from the
-          library.
+          Please fill in the {requestFormLink} to request a new literature from
+          the library.
         </Message.Content>
       </Message>
     );

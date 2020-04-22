@@ -22,10 +22,16 @@ from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.api import Loan
+from invenio_circulation.config import _LOANID_CONVERTER
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
+    CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.transitions.transitions import CreatedToPending, \
+    ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned, ToCancelled, \
+    ToItemOnLoan
 from invenio_oauthclient.contrib import cern
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
-from invenio_records_rest.utils import deny_all
+from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
@@ -45,103 +51,47 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
+from .api import get_default_location, patron_exists
 from .circulation.jsonresolvers.loan import document_resolver, item_resolver, \
     loan_patron_resolver
 from .circulation.search import IlsLoansSearch
+from .circulation.utils import circulation_build_document_ref, \
+    circulation_build_item_ref, circulation_build_patron_ref, \
+    circulation_can_be_requested, circulation_default_extension_duration, \
+    circulation_default_extension_max_count, \
+    circulation_default_loan_duration, circulation_is_loan_duration_valid, \
+    circulation_loan_will_expire_days, \
+    circulation_transaction_location_validator, \
+    circulation_transaction_user_validator
 from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
     DOCUMENT_REQUEST_PID_MINTER, DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .document_requests.search import DocumentRequestSearch
 from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
-    DOCUMENT_PID_TYPE, Document
+    DOCUMENT_PID_TYPE, Document, document_exists
 from .documents.search import DocumentSearch
 from .facets import date_range_filter, default_value_when_missing_filter, \
     keyed_range_filter, not_empty_object_or_list_filter, overdue_agg, \
     overdue_loans_filter
+from .ill.api import can_item_circulate
+from .items.api import get_document_pid_by_item_pid, \
+    get_item_pids_by_document_pid, item_exists
+from .permissions import DocumentRequestOwnerPermission, LoanOwnerPermission, \
+    authenticated_user_permission, backoffice_permission, \
+    loan_extend_circulation_permission, views_permissions_factory
+from .pidstore.pids import EITEM_PID_FETCHER, EITEM_PID_MINTER, \
+    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_FETCHER, \
+    INTERNAL_LOCATION_PID_MINTER, INTERNAL_LOCATION_PID_TYPE, \
+    ITEM_PID_FETCHER, ITEM_PID_MINTER, ITEM_PID_TYPE, LOCATION_PID_FETCHER, \
+    LOCATION_PID_MINTER, LOCATION_PID_TYPE, PATRON_PID_FETCHER, \
+    PATRON_PID_MINTER, PATRON_PID_TYPE, SERIES_PID_FETCHER, \
+    SERIES_PID_MINTER, SERIES_PID_TYPE, VOCABULARY_PID_FETCHER, \
+    VOCABULARY_PID_MINTER, VOCABULARY_PID_TYPE
+from .records.api import EItem, InternalLocation, Item, Location, Patron, \
+    Series, Vocabulary
 from .records.permissions import record_read_permission_factory
 from .records.views import UserInfoResource
-
-from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
-from invenio_circulation.pidstore.pids import (  # isort:skip
-    CIRCULATION_LOAN_FETCHER,
-    CIRCULATION_LOAN_MINTER,
-    CIRCULATION_LOAN_PID_TYPE,
-)
-from invenio_circulation.transitions.transitions import (  # isort:skip
-    ToItemOnLoan,
-    CreatedToPending,
-    ItemOnLoanToItemReturned,
-    ItemOnLoanToItemOnLoan,
-    ToCancelled,
-)
-
-from .api import (  # isort:skip
-    can_item_circulate,
-    document_exists,
-    get_document_pid_by_item_pid,
-    get_item_pids_by_document_pid,
-    item_exists,
-    patron_exists,
-    get_default_location)
-from .circulation.utils import (  # isort:skip
-    circulation_default_extension_duration,
-    circulation_default_extension_max_count,
-    circulation_default_loan_duration,
-    circulation_is_loan_duration_valid,
-    circulation_build_item_ref,
-    circulation_build_patron_ref,
-    circulation_can_be_requested,
-    circulation_build_document_ref, circulation_loan_will_expire_days,
-    circulation_transaction_location_validator,
-    circulation_transaction_user_validator)
-from .permissions import (  # isort:skip
-    authenticated_user_permission,
-    backoffice_permission,
-    loan_extend_circulation_permission,
-    DocumentRequestOwnerPermission,
-    LoanOwnerPermission,
-    views_permissions_factory,
-)
-from .pidstore.pids import (  # isort:skip
-    EITEM_PID_FETCHER,
-    EITEM_PID_MINTER,
-    EITEM_PID_TYPE,
-    INTERNAL_LOCATION_PID_FETCHER,
-    INTERNAL_LOCATION_PID_MINTER,
-    INTERNAL_LOCATION_PID_TYPE,
-    ITEM_PID_FETCHER,
-    ITEM_PID_MINTER,
-    ITEM_PID_TYPE,
-    LOCATION_PID_FETCHER,
-    LOCATION_PID_MINTER,
-    LOCATION_PID_TYPE,
-    PATRON_PID_FETCHER,
-    PATRON_PID_MINTER,
-    PATRON_PID_TYPE,
-    SERIES_PID_FETCHER,
-    SERIES_PID_MINTER,
-    SERIES_PID_TYPE,
-    VOCABULARY_PID_FETCHER,
-    VOCABULARY_PID_MINTER,
-    VOCABULARY_PID_TYPE,
-)
-from .records.api import (  # isort:skip
-    EItem,
-    InternalLocation,
-    Item,
-    Location,
-    Patron,
-    Series,
-    Vocabulary,
-)
-from .search.api import (  # isort:skip
-    EItemSearch,
-    InternalLocationSearch,
-    ItemSearch,
-    LocationSearch,
-    PatronsSearch,
-    SeriesSearch,
-    VocabularySearch,
-)
+from .search.api import EItemSearch, InternalLocationSearch, ItemSearch, \
+    LocationSearch, PatronsSearch, SeriesSearch, VocabularySearch
 
 
 def _(x):
@@ -153,15 +103,12 @@ def _(x):
 # OAuth
 ###############################################################################
 OAUTH_REMOTE_APP = cern.REMOTE_REST_APP
-OAUTH_REMOTE_APP["authorized_redirect_url"] = '/login'
-OAUTH_REMOTE_APP["error_redirect_url"] = '/login'
-OAUTHCLIENT_REST_REMOTE_APPS = dict(
-    cern=OAUTH_REMOTE_APP,
-)
+OAUTH_REMOTE_APP["authorized_redirect_url"] = "/login"
+OAUTH_REMOTE_APP["error_redirect_url"] = "/login"
+OAUTHCLIENT_REST_REMOTE_APPS = dict(cern=OAUTH_REMOTE_APP)
 
 CERN_APP_CREDENTIALS = dict(
-    consumer_key='CHANGE_ME',
-    consumer_secret='CHANGE_ME',
+    consumer_key="CHANGE_ME", consumer_secret="CHANGE_ME"
 )
 
 # Rate limiting
@@ -270,14 +217,14 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(days=1),
     },
     "stats-process-events": {
-        'task': 'invenio_stats.tasks.process_events',
-        'schedule': timedelta(minutes=30),
-        'args': [('record-view', 'file-download')],
+        "task": "invenio_stats.tasks.process_events",
+        "schedule": timedelta(minutes=30),
+        "args": [("record-view", "file-download")],
     },
     "stats-aggregate-events": {
-        'task': 'invenio_stats.tasks.aggregate_events',
-        'schedule': timedelta(hours=3),
-        'args': [('record-view-agg', 'file-download-agg')],
+        "task": "invenio_stats.tasks.aggregate_events",
+        "schedule": timedelta(hours=3),
+        "args": [("record-view-agg", "file-download-agg")],
     },
 }
 
@@ -343,9 +290,7 @@ _LOCID_CONVERTER = (
 _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
-_DREQID_CONVERTER = (
-    'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
-)
+_DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
 )
@@ -368,7 +313,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.documents.loaders:document_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -391,6 +336,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
+        list_permission_factory_imp=allow_all,  # auth via search filter
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -403,9 +349,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Item,
         indexer_class=ItemIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.records.loaders:item_loader"
-            ),
+            "application/json": ("invenio_app_ils.records.loaders:item_loader")
         },
         record_serializers={
             "application/json": (
@@ -427,7 +371,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
+        read_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -442,7 +387,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:eitem_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -464,7 +409,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
+        read_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -479,7 +425,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:location_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -500,7 +446,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
+        read_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -515,7 +462,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:series_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -538,6 +485,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
+        list_permission_factory_imp=allow_all,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -552,7 +500,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:internal_location_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -576,6 +524,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -607,8 +556,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        list_permission_factory_imp=backoffice_permission,
         read_permission_factory_imp=deny_all,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
@@ -621,11 +570,11 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
         search_factory_imp="invenio_app_ils.search.permissions"
-                           ":search_factory_filter_by_patron",
+        ":search_factory_filter_by_patron",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.document_requests.loaders:document_request_loader"
-            ),
+            )
         },
         record_serializers={
             "application/json": (
@@ -650,7 +599,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=DocumentRequestOwnerPermission,
-        list_permission_factory_imp=authenticated_user_permission,
+        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
         create_permission_factory_imp=authenticated_user_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -678,13 +627,14 @@ RECORDS_REST_ENDPOINTS = dict(
             "json": "application/json",
         },
         item_route="/vocabularies/<pid({}):pid_value>".format(
-            VOCABULARY_PID_TYPE),
+            VOCABULARY_PID_TYPE
+        ),
         list_route="/vocabularies/",
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        list_permission_factory_imp=backoffice_permission,
         read_permission_factory_imp=deny_all,
+        list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
@@ -697,7 +647,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=LITERATURE_PID_FETCHER,
         search_class=LiteratureSearch,
         search_factory_imp="invenio_app_ils.literature.search"
-                           ":search_factory_literature",
+        ":search_factory_literature",
         record_serializers={
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_response"
@@ -721,6 +671,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=deny_all,
+        list_permission_factory_imp=allow_all,  # auth via search filter
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
@@ -743,7 +694,9 @@ CIRCULATION_ITEM_LOCATION_RETRIEVER = get_default_location
 
 CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
 
-CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = circulation_transaction_location_validator
+CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = (
+    circulation_transaction_location_validator
+)
 
 CIRCULATION_TRANSACTION_USER_VALIDATOR = circulation_transaction_user_validator
 
@@ -764,7 +717,7 @@ CIRCULATION_POLICIES = dict(
         max_count=circulation_default_extension_max_count,
     ),
     request=dict(can_be_requested=circulation_can_be_requested),
-    upcoming_return_range=circulation_loan_will_expire_days
+    upcoming_return_range=circulation_loan_will_expire_days,
 )
 
 CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
@@ -853,7 +806,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.search.permissions"
-                           ":search_factory_filter_by_patron",
+        ":search_factory_filter_by_patron",
         record_class=Loan,
         indexer_class=LoanIndexer,
         record_loaders={
@@ -883,10 +836,10 @@ CIRCULATION_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=LoanOwnerPermission,
+        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=authenticated_user_permission,
     )
 )
 
@@ -895,10 +848,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
 RECORDS_REST_SORT_OPTIONS = dict(
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -909,10 +859,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     documents=dict(  # DocumentSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -941,10 +888,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     eitems=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -955,10 +899,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     items=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -972,19 +913,19 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["-request_expire_date"],
             title="Request expire date",
             default_order="desc",
-            order=1
+            order=1,
         ),
         end_date=dict(
             fields=["-end_date"],
             title="Loan end date",
             default_order="desc",
-            order=2
+            order=2,
         ),
         start_date=dict(
             fields=["-start_date"],
             title="Loan start date",
             default_order="desc",
-            order=3
+            order=3,
         ),
         extensions=dict(
             fields=["extension_count"],
@@ -993,10 +934,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=4,
         ),
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=5,
+            fields=["_updated"], title="Newest", default_order="asc", order=5
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -1011,14 +949,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
             title="Best match",
             default_order="asc",
             order=1,
-        ),
+        )
     ),
     series=dict(  # SeriesSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -1044,9 +979,7 @@ RECORDS_REST_FACETS = dict(
             tag=dict(terms=dict(field="tags", size=FACET_TAG_LIMIT)),
             language=dict(terms=dict(field="languages")),
             doctype=dict(terms=dict(field="document_type")),
-            relation=dict(
-                terms=dict(field="relation_types")
-            ),
+            relation=dict(terms=dict(field="relation_types")),
             availability=dict(
                 range=dict(
                     field="circulation.has_items_for_loan",
@@ -1086,18 +1019,14 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="circulation.state", missing="NOT_ON_LOAN")
             ),
             restrictions=dict(terms=dict(field="circulation_restriction")),
-            location=dict(
-                terms=dict(field="internal_location.location.name"),
-            ),
-            internal_location=dict(
-                terms=dict(field="internal_location.name")
-            ),
+            location=dict(terms=dict(field="internal_location.location.name")),
+            internal_location=dict(terms=dict(field="internal_location.name")),
         ),
-        filters=dict(
-        ),
+        filters=dict(),
         post_filters=dict(
             circulation=default_value_when_missing_filter(
-                "circulation.state", "NOT_ON_LOAN"),
+                "circulation.state", "NOT_ON_LOAN"
+            ),
             status=terms_filter("status"),
             medium=terms_filter("medium"),
             restrictions=terms_filter("circulation_restriction"),
@@ -1121,12 +1050,12 @@ RECORDS_REST_FACETS = dict(
                         ),
                     )
                 )
-            )
+            ),
         ),
         post_filters=dict(
             access=terms_filter("open_access"),
-            has_files=not_empty_object_or_list_filter("files.file_id")
-        )
+            has_files=not_empty_object_or_list_filter("files.file_id"),
+        ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
         aggs=dict(
@@ -1146,9 +1075,7 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             moi=dict(terms=dict(field="mode_of_issuance")),
             language=dict(terms=dict(field="languages")),
-            relation=dict(
-                terms=dict(field="relation_types")
-            ),
+            relation=dict(terms=dict(field="relation_types")),
         ),
         post_filters=dict(
             moi=terms_filter("mode_of_issuance"),
@@ -1240,8 +1167,11 @@ SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
 
 SEQUENCE_RELATION_TYPES = [SEQUENCE_RELATION]
 
-ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES \
-    + SIBLINGS_RELATION_TYPES + SEQUENCE_RELATION_TYPES
+ILS_PIDRELATIONS_TYPES = (
+    PARENT_CHILD_RELATION_TYPES
+    + SIBLINGS_RELATION_TYPES
+    + SEQUENCE_RELATION_TYPES
+)
 
 # The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
 ALLOWED_HTML_TAGS = []
@@ -1249,130 +1179,126 @@ ALLOWED_HTML_TAGS = []
 # Stats
 # =====
 STATS_EVENTS = {
-    'file-download': {
-        'signal': 'invenio_files_rest.signals.file_downloaded',
-        'templates': 'invenio_app_ils.stats.file_download',
-        'event_builders': [
-            'invenio_app_ils.event_builders:eitem_event_builder',
-            'invenio_stats.contrib.event_builders.file_download_event_builder',
+    "file-download": {
+        "signal": "invenio_files_rest.signals.file_downloaded",
+        "templates": "invenio_app_ils.stats.file_download",
+        "event_builders": [
+            "invenio_app_ils.event_builders:eitem_event_builder",
+            "invenio_stats.contrib.event_builders.file_download_event_builder",
         ],
-        'cls': EventsIndexer,
-        'params': {
-            'preprocessors': [
-                'invenio_stats.processors:flag_robots',
-                lambda doc: doc if not doc['is_robot'] else None,
-                'invenio_stats.processors:flag_machines',
-                'invenio_stats.processors:anonymize_user',
-                'invenio_stats.contrib.event_builders:build_file_unique_id',
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_stats.processors:flag_robots",
+                lambda doc: doc if not doc["is_robot"] else None,
+                "invenio_stats.processors:flag_machines",
+                "invenio_stats.processors:anonymize_user",
+                "invenio_stats.contrib.event_builders:build_file_unique_id",
             ],
-            'double_click_window': 30,
-            'suffix': '%Y-%m',
+            "double_click_window": 30,
+            "suffix": "%Y-%m",
         },
     },
-    'record-view': {
-        'signal': 'invenio_app_ils.signals.record_viewed',
-        'templates': 'invenio_stats.contrib.record_view',
-        'event_builders': [
-            'invenio_stats.contrib.event_builders.record_view_event_builder',
+    "record-view": {
+        "signal": "invenio_app_ils.signals.record_viewed",
+        "templates": "invenio_stats.contrib.record_view",
+        "event_builders": [
+            "invenio_stats.contrib.event_builders.record_view_event_builder"
         ],
-        'cls': EventsIndexer,
-        'params': {
-            'preprocessors': [
-                'invenio_stats.processors:flag_robots',
-                lambda doc: doc if not doc['is_robot'] else None,
-                'invenio_stats.processors:flag_machines',
-                'invenio_stats.processors:anonymize_user',
-                'invenio_stats.contrib.event_builders:build_record_unique_id',
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_stats.processors:flag_robots",
+                lambda doc: doc if not doc["is_robot"] else None,
+                "invenio_stats.processors:flag_machines",
+                "invenio_stats.processors:anonymize_user",
+                "invenio_stats.contrib.event_builders:build_record_unique_id",
             ],
-            'double_click_window': 30,
-            'suffix': '%Y-%m',
+            "double_click_window": 30,
+            "suffix": "%Y-%m",
         },
     },
 }
 
 STATS_AGGREGATIONS = {
-    'file-download-agg': dict(
-        templates='invenio_app_ils.stats.aggregations.aggr_file_download',
+    "file-download-agg": dict(
+        templates="invenio_app_ils.stats.aggregations.aggr_file_download",
         cls=StatAggregator,
         params=dict(
-            event='file-download',
-            field='file_id',
-            interval='day',
-            index_interval='month',
+            event="file-download",
+            field="file_id",
+            interval="day",
+            index_interval="month",
             copy_fields=dict(
-                bucket_id='bucket_id',
-                file_id='file_id',
-                file_key='file_key',
-                size='size',
-                eitem_pid='eitem_pid',
-                document_pid='document_pid',
+                bucket_id="bucket_id",
+                file_id="file_id",
+                file_key="file_key",
+                size="size",
+                eitem_pid="eitem_pid",
+                document_pid="document_pid",
             ),
             metric_fields=dict(
-                unique_count=('cardinality', 'unique_session_id',
-                              {'precision_threshold': 1000}),
-            )
-        )
+                unique_count=(
+                    "cardinality",
+                    "unique_session_id",
+                    {"precision_threshold": 1000},
+                )
+            ),
+        ),
     ),
-    'record-view-agg': dict(
-        templates='invenio_stats.contrib.aggregations.aggr_record_view',
+    "record-view-agg": dict(
+        templates="invenio_stats.contrib.aggregations.aggr_record_view",
         cls=StatAggregator,
         params=dict(
-            event='record-view',
-            field='pid_value',
-            interval='day',
-            index_interval='month',
-            copy_fields=dict(
-                pid_type='pid_type',
-                pid_value='pid_value',
-            ),
+            event="record-view",
+            field="pid_value",
+            interval="day",
+            index_interval="month",
+            copy_fields=dict(pid_type="pid_type", pid_value="pid_value"),
             metric_fields=dict(
-                unique_count=('cardinality', 'unique_session_id',
-                              {'precision_threshold': 1000}),
+                unique_count=(
+                    "cardinality",
+                    "unique_session_id",
+                    {"precision_threshold": 1000},
+                )
             ),
-        )
+        ),
     ),
 }
 
 STATS_QUERIES = {
-    'file-download-by-document': dict(
+    "file-download-by-document": dict(
         cls=ESTermsQuery,
         permission_factory=None,
         params=dict(
-            index='stats-file-download',
+            index="stats-file-download",
             copy_fields=dict(
-                bucket_id='bucket_id',
-                file_id='file_id',
-                file_key='file_key',
-                size='size',
-                eitem_pid='eitem_pid',
-                document_pid='document_pid',
+                bucket_id="bucket_id",
+                file_id="file_id",
+                file_key="file_key",
+                size="size",
+                eitem_pid="eitem_pid",
+                document_pid="document_pid",
             ),
-            required_filters=dict(
-                document_pid='document_pid',
-            ),
+            required_filters=dict(document_pid="document_pid"),
             metric_fields=dict(
-                count=('sum', 'count', {}),
-                unique_count=('sum', 'unique_count', {}),
-            )
+                count=("sum", "count", {}),
+                unique_count=("sum", "unique_count", {}),
+            ),
         ),
     ),
-    'record-view': dict(
+    "record-view": dict(
         cls=ESTermsQuery,
         permission_factory=None,
         params=dict(
-            index='stats-record-view',
-            copy_fields=dict(
-                pid_type='pid_type',
-                pid_value='pid_value',
-            ),
-            required_filters=dict(
-                pid_value='pid_value',
-            ),
+            index="stats-record-view",
+            copy_fields=dict(pid_type="pid_type", pid_value="pid_value"),
+            required_filters=dict(pid_value="pid_value"),
             metric_fields=dict(
-                count=('sum', 'count', {}),
-                unique_count=('sum', 'unique_count', {}),
-            )
-        )
+                count=("sum", "count", {}),
+                unique_count=("sum", "unique_count", {}),
+            ),
+        ),
     ),
 }
 

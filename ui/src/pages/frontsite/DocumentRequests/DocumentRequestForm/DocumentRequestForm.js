@@ -1,5 +1,6 @@
 import { documentRequest as documentRequestApi } from '@api';
 import { delay } from '@api/utils';
+import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 import {
   BaseForm,
   GroupField,
@@ -127,17 +128,26 @@ export default class DocumentRequestForm extends Component {
     );
   }
 
-  render() {
+  renderAuthorized() {
     return (
       <Container id="document-request" className={'spaced'}>
-        <Header as="h1">Request new book</Header>
-        <p>Fill in the form below to request a new book from the library.</p>
+        <Header as="h1">Request new literature</Header>
         <p>
-          You can see all your book requests on your{' '}
+          Fill in the form below to request a new literature from the library.
+        </p>
+        <p>
+          You can see all your requests on your{' '}
           <Link to={FrontSiteRoutes.patronProfile}>profile</Link> page.
         </p>
         <Segment>{this.renderForm()}</Segment>
       </Container>
+    );
+  }
+  render() {
+    return (
+      <AuthenticationGuard
+        authorizedComponent={() => this.renderAuthorized()}
+      />
     );
   }
 }

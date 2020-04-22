@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
+import { Notifications } from '@components/Notifications';
+import { ENABLE_LOCAL_ACCOUNT_LOGIN, ENABLE_OAUTH_LOGIN } from '@config';
+import { goTo } from '@history';
+import { FrontSiteRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
-
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  Container,
+  Divider,
   Grid,
   Header,
-  Divider,
-  Segment,
-  Container,
   Icon,
   Image,
   Popup,
+  Segment,
 } from 'semantic-ui-react';
-import { Notifications } from '@components/Notifications';
-import { ENABLE_LOCAL_ACCOUNT_LOGIN, ENABLE_OAUTH_LOGIN } from '@config';
-import { FrontSiteRoutes } from '@routes/urls';
-import { goTo } from '@history';
-import { LoginWithLocalAccount } from './components';
-import { parseParams } from '../../utils';
-import { LoginWithOauthProviders } from './components/LoginWithOauthProviders';
 import logo from '../../../semantic-ui/site/images/logo-invenio-ils.svg';
+import { parseParams } from '../../utils';
+import { LoginWithLocalAccount } from './components';
+import { LoginWithOauthProviders } from './components/LoginWithOauthProviders';
 
 class LoginPage extends Component {
   componentDidMount() {
@@ -53,7 +52,7 @@ class LoginPage extends Component {
       <Popup
         content="Not implemented yet!"
         trigger={
-          <Link className="disabled" to="">
+          <Link className="disabled" to={'#'}>
             here
           </Link>
         }
@@ -98,7 +97,7 @@ class LoginPage extends Component {
                     >
                       <Grid.Row>
                         <Grid.Column stretched width={8} textAlign="right">
-                          <Header size="huge" className="inline-block">
+                          <Header className="inline-block massive">
                             Hello!
                           </Header>
                         </Grid.Column>

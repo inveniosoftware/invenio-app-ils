@@ -51,11 +51,11 @@ def document_ref_builder(app, item_pid):
     )
 
 
-def user_login(client, user, users):
+def user_login(client, username, users):
     """Util function to log in user."""
     user_logout(client)
-    if user != "anonymous":
-        user = User.query.get(users[user].id)
+    if username != "anonymous":
+        user = User.query.get(users[username].id)
         login_user_via_session(client, user)
         return user
 

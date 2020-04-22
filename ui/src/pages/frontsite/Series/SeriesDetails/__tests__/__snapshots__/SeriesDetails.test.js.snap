@@ -60,6 +60,7 @@ exports[`SeriesDetailsContainer tests should load the details component 1`] = `
                   "librarian",
                 ]
               }
+              silent={true}
             />
           </GridColumn>
         </Grid>

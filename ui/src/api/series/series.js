@@ -5,11 +5,10 @@ import { add as addRelation, remove as removeRelation } from '@api/relations';
 
 const seriesURL = '/series/';
 
-const get = seriesPid => {
-  return http.get(`${seriesURL}${seriesPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async seriesPid => {
+  const resp = await http.get(`${seriesURL}${seriesPid}`);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
 };
 
 const create = async data => {
@@ -118,14 +117,13 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
-const list = query => {
-  return http.get(`${seriesURL}?q=${query}`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
+const list = async query => {
+  const response = await http.get(`${seriesURL}?q=${query}`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
+  return response;
 };
 
 const serials = searchText => {
@@ -144,11 +142,10 @@ const multipartMonographs = query => {
   );
 };
 
-const count = query => {
-  return http.get(`${seriesURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
-  });
+const count = async query => {
+  const response = await http.get(`${seriesURL}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 export const series = {

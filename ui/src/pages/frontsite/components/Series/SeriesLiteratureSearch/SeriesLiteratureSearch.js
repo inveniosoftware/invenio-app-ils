@@ -63,7 +63,11 @@ export class SeriesLiteratureSearch extends React.Component {
         <Divider horizontal>
           Literatures in this {metadata.mode_of_issuance.toUpperCase()}
         </Divider>
-        <ReactSearchKit searchApi={api} history={history}>
+        <ReactSearchKit
+          searchApi={api}
+          history={history}
+          urlHandlerApi={{ enabled: false }}
+        >
           <Container className="series-details-search-container">
             <SearchBar renderElement={this.renderSearchBar} />
           </Container>

@@ -7,7 +7,6 @@ import { PatronPastLoans } from './PatronPastLoans';
 import { PatronCurrentDocumentRequests } from './PatronCurrentDocumentRequests';
 import { PatronOverview } from './PatronOverview';
 import { PatronPastDocumentRequests } from './PatronPastDocumentRequests';
-import { UnAuthorized } from '@authentication/components/UnAuthorized';
 import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 
 export default class PatronProfile extends Component {
@@ -58,7 +57,6 @@ export default class PatronProfile extends Component {
     return (
       <AuthenticationGuard
         authorizedComponent={() => this.renderWhenAuthorised()}
-        unAuthorizedComponent={UnAuthorized}
       />
     );
   }

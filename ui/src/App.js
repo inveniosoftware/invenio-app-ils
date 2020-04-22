@@ -24,7 +24,10 @@ const mapDispatchToProps = dispatch => ({
   fetchUserProfile: () => dispatch(fetchUserProfile()),
 });
 
-const SetUserInfo = connect(null, mapDispatchToProps)(SetUserInfoComponent);
+const SetUserInfo = connect(
+  null,
+  mapDispatchToProps
+)(SetUserInfoComponent);
 
 export default class App extends Component {
   render() {
@@ -38,7 +41,6 @@ export default class App extends Component {
             <AuthenticationGuard
               path={AuthenticationRoutes.confirmEmail}
               authorizedComponent={ConfirmEmail}
-              unAuthorizedComponent={UnAuthorized}
             />
             <AuthenticationGuard
               path={BackOfficeRoutes.home}

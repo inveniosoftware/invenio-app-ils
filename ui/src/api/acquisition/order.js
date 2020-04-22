@@ -3,11 +3,10 @@ import { orderSerializer as serializer } from './serializers';
 
 const orderURL = '/acquisition/orders/';
 
-const get = pid => {
-  return http.get(`${orderURL}${pid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async pid => {
+  const response = await http.get(`${orderURL}${pid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 const create = async data => {
@@ -33,11 +32,10 @@ const list = async query => {
   return response;
 };
 
-const count = query => {
-  return http.get(`${orderURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
-  });
+const count = async query => {
+  const response = await http.get(`${orderURL}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 class QueryBuilder {

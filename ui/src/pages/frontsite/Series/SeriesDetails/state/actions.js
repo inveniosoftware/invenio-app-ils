@@ -7,19 +7,17 @@ export const fetchSeriesDetails = pid => {
       type: IS_LOADING,
     });
 
-    await seriesApi
-      .get(pid)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
+    try {
+      const response = await seriesApi.get(pid);
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+    }
   };
 };

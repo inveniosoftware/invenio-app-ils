@@ -16,11 +16,13 @@ from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.circulation.api import checkout_loan
-from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.errors import RecordHasReferencesError, \
+    UnknownItemPidTypeError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.ill.errors import ILLError
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
 
 LIBRARY_PID_TYPE = "illlid"
@@ -178,3 +180,19 @@ class BorrowingRequest(IlsRecord):
         self["loan_pid"] = pid.pid_value
         self["status"] = "ON_LOAN"
         return pid, loan
+
+
+def can_item_circulate(item_pid):
+    """Return True if Item can circulate."""
+    from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+    if item_pid["type"] not in [BORROWING_REQUEST_PID_TYPE, ITEM_PID_TYPE]:
+        raise UnknownItemPidTypeError(pid_type=item_pid["type"])
+
+    if item_pid["type"] == BORROWING_REQUEST_PID_TYPE:
+        return True
+
+    Item = current_app_ils.item_record_cls
+    item = Item.get_record_by_pid(item_pid["value"])
+    if item:
+        return item["status"] == "CAN_CIRCULATE"
+    return False

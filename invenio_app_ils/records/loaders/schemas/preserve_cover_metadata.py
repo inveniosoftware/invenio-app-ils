@@ -7,12 +7,10 @@
 
 """Preserve cover metadata."""
 
-from flask import has_request_context
-
 
 def preserve_cover_metadata(data, prev_record):
     """Preserver cover metadata if they exist."""
-    if not has_request_context() or prev_record is None:
+    if prev_record is None:
         return data
 
     data["cover_metadata"] = prev_record.get("cover_metadata", {})

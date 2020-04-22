@@ -11,6 +11,7 @@ from functools import partial
 
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
+from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
@@ -154,3 +155,13 @@ class Document(IlsRecordWithRelations):
             )
 
         return super(Document, self).delete(**kwargs)
+
+
+def document_exists(document_pid):
+    """Return True if the Document exists given a PID."""
+    Document = current_app_ils.document_record_cls
+    try:
+        Document.get_record_by_pid(document_pid)
+    except PersistentIdentifierError:
+        return False
+    return True
