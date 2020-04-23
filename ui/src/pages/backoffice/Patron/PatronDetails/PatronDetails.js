@@ -19,6 +19,8 @@ import {
   PatronActionMenu,
   PatronHeader,
   PatronPastLoans,
+  PatronCurrentBorrowingRequests,
+  PatronPastBorrowingRequests,
 } from './components';
 
 export default class PatronDetails extends Component {
@@ -94,6 +96,16 @@ export default class PatronDetails extends Component {
                             <PatronPendingLoans />
                           </Segment>
                           <Header attached="top" as={'h3'}>
+                            Patron's current borrowing requests
+                          </Header>
+                          <Segment
+                            attached
+                            id="borrowing-requests"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronCurrentBorrowingRequests />
+                          </Segment>
+                          <Header attached="top" as={'h3'}>
                             Patron's literature requests
                           </Header>
                           <Segment
@@ -112,6 +124,16 @@ export default class PatronDetails extends Component {
                             className="bo-metadata-segment no-padding"
                           >
                             <PatronPastLoans />
+                          </Segment>
+                          <Header attached="top" as={'h3'}>
+                            Patron's borrowing requests history
+                          </Header>
+                          <Segment
+                            attached
+                            id="borrowing-requests-history"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronPastBorrowingRequests />
                           </Segment>
                         </Container>
                       </Container>

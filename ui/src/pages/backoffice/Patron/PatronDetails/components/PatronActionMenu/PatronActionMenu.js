@@ -14,10 +14,18 @@ export default class PatronActionMenu extends Component {
           <ScrollingMenuItem label="Current loans" elementId="current-loans" />
           <ScrollingMenuItem label="Loan requests" elementId="loan-requests" />
           <ScrollingMenuItem
+            label="Borrowing requests"
+            elementId="borrowing-requests"
+          />
+          <ScrollingMenuItem
             label="Literature requests"
             elementId="literature-requests"
           />
           <ScrollingMenuItem label="Loans history" elementId="loans-history" />
+          <ScrollingMenuItem
+            label="Borrowing requests history"
+            elementId="borrowing-requests-history"
+          />
         </ScrollingMenu>
       </div>
     );

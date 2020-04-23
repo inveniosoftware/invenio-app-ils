@@ -93,6 +93,19 @@ exports[`PatronDetails tests should load the details component 1`] = `
                       as="h3"
                       attached="top"
                     >
+                      Patron's current borrowing requests
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="borrowing-requests"
+                    >
+                      <PatronCurrentBorrowingRequests />
+                    </Segment>
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
                       Patron's literature requests
                     </Header>
                     <Segment
@@ -114,6 +127,19 @@ exports[`PatronDetails tests should load the details component 1`] = `
                       id="loans-history"
                     >
                       <PatronPastLoans />
+                    </Segment>
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
+                      Patron's borrowing requests history
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="borrowing-requests-history"
+                    >
+                      <PatronPastBorrowingRequests />
                     </Segment>
                   </Container>
                 </Container>

@@ -6,6 +6,6 @@ describe('Document request query builder tests', () => {
       .query()
       .withState('PENDING')
       .qs();
-    expect(query).toEqual('(state:"PENDING")');
+    expect(query).toEqual('(state:PENDING)');
   });
 });

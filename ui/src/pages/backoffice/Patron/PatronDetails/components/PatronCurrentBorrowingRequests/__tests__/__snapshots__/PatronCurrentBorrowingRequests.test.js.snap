@@ -1,0 +1,2350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronCurrentBorrowingRequests tests should load the details component 1`] = `
+<Loader>
+  <Error>
+    <ResultsTable
+      columns={
+        Array [
+          Object {
+            "formatter": [Function],
+            "title": "PID",
+          },
+          Object {
+            "formatter": [Function],
+            "title": "Document",
+          },
+          Object {
+            "formatter": [Function],
+            "title": "Library",
+          },
+          Object {
+            "field": "created",
+            "formatter": [Function],
+            "title": "Created on",
+          },
+          Object {
+            "field": "metadata.status",
+            "title": "State",
+          },
+          Object {
+            "field": "metadata.request_date",
+            "formatter": [Function],
+            "title": "Requested on",
+          },
+          Object {
+            "field": "metadata.expected_delivery_date",
+            "formatter": [Function],
+            "title": "Expected delivery",
+          },
+          Object {
+            "field": "metadata.received_date",
+            "formatter": [Function],
+            "title": "Received on",
+          },
+        ]
+      }
+      currentPage={1}
+      data={Array []}
+      headerActionComponent={null}
+      name="borrowing requests"
+      paginationComponent={null}
+      seeAllComponent={
+        <SeeAllButton
+          disabled={false}
+          fluid={false}
+          to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+        />
+      }
+      showAllResults={false}
+      showMaxRows={5}
+      singleLine={false}
+      subtitle=""
+      title=""
+      totalHitsCount={0}
+    />
+  </Error>
+</Loader>
+`;
+
+exports[`PatronCurrentBorrowingRequests tests should render patron borrowing requests 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PatronCurrentBorrowingRequests
+      data={
+        Object {
+          "hits": Array [
+            Object {
+              "id": 1,
+              "metadata": Object {
+                "document": Object {
+                  "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                  "abstract": "This is an abstract",
+                  "authors": Array [
+                    Object {
+                      "full_name": "Jack E. Davis",
+                    },
+                  ],
+                  "document_type": "BOOK",
+                  "edition": "1",
+                  "keywords": Object {
+                    "source": "X",
+                    "value": "Patata",
+                  },
+                  "languages": Array [
+                    "en",
+                  ],
+                  "pid": "docid-1",
+                  "publication_year": "1950",
+                  "title": "The Gulf: The Making of An American Sea",
+                },
+                "document_pid": "docid-1",
+                "library": Object {
+                  "name": "Library 1",
+                  "pid": "illlid-1",
+                },
+                "library_pid": "illlid-1",
+                "patron_pid": "1",
+                "pid": "illbid-1",
+                "status": "PENDING",
+                "type": "PHYSICAL",
+              },
+              "pid": "borrowing-request1",
+            },
+            Object {
+              "id": 2,
+              "metadata": Object {
+                "document": Object {
+                  "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                  "abstract": "This is an abstract",
+                  "authors": Array [
+                    Object {
+                      "full_name": "Jack E. Davis",
+                    },
+                  ],
+                  "document_type": "BOOK",
+                  "edition": "1",
+                  "keywords": Object {
+                    "source": "X",
+                    "value": "Patata",
+                  },
+                  "languages": Array [
+                    "en",
+                  ],
+                  "pid": "docid-1",
+                  "publication_year": "1950",
+                  "title": "The Gulf: The Making of An American Sea",
+                },
+                "document_pid": "docid-2",
+                "library": Object {
+                  "name": "Library 2",
+                  "pid": "illlid-2",
+                },
+                "library_pid": "illlid-1",
+                "patron_pid": "1",
+                "pid": "illbid-2",
+                "status": "REQUESTED",
+                "type": "ELECTRONIC",
+              },
+              "pid": "borrowing-request2",
+            },
+          ],
+          "total": 2,
+        }
+      }
+      fetchPatronCurrentBorrowingRequests={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "2",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      loanState=""
+      patronDetails={
+        Object {
+          "user_pid": "2",
+        }
+      }
+      showMaxRequests={5}
+    >
+      <Loader>
+        <Error>
+          <ResultsTable
+            columns={
+              Array [
+                Object {
+                  "formatter": [Function],
+                  "title": "PID",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Document",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Library",
+                },
+                Object {
+                  "field": "created",
+                  "formatter": [Function],
+                  "title": "Created on",
+                },
+                Object {
+                  "field": "metadata.status",
+                  "title": "State",
+                },
+                Object {
+                  "field": "metadata.request_date",
+                  "formatter": [Function],
+                  "title": "Requested on",
+                },
+                Object {
+                  "field": "metadata.expected_delivery_date",
+                  "formatter": [Function],
+                  "title": "Expected delivery",
+                },
+                Object {
+                  "field": "metadata.received_date",
+                  "formatter": [Function],
+                  "title": "Received on",
+                },
+              ]
+            }
+            currentPage={1}
+            data={
+              Array [
+                Object {
+                  "id": 1,
+                  "metadata": Object {
+                    "document": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                      "abstract": "This is an abstract",
+                      "authors": Array [
+                        Object {
+                          "full_name": "Jack E. Davis",
+                        },
+                      ],
+                      "document_type": "BOOK",
+                      "edition": "1",
+                      "keywords": Object {
+                        "source": "X",
+                        "value": "Patata",
+                      },
+                      "languages": Array [
+                        "en",
+                      ],
+                      "pid": "docid-1",
+                      "publication_year": "1950",
+                      "title": "The Gulf: The Making of An American Sea",
+                    },
+                    "document_pid": "docid-1",
+                    "library": Object {
+                      "name": "Library 1",
+                      "pid": "illlid-1",
+                    },
+                    "library_pid": "illlid-1",
+                    "patron_pid": "1",
+                    "pid": "illbid-1",
+                    "status": "PENDING",
+                    "type": "PHYSICAL",
+                  },
+                  "pid": "borrowing-request1",
+                },
+                Object {
+                  "id": 2,
+                  "metadata": Object {
+                    "document": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                      "abstract": "This is an abstract",
+                      "authors": Array [
+                        Object {
+                          "full_name": "Jack E. Davis",
+                        },
+                      ],
+                      "document_type": "BOOK",
+                      "edition": "1",
+                      "keywords": Object {
+                        "source": "X",
+                        "value": "Patata",
+                      },
+                      "languages": Array [
+                        "en",
+                      ],
+                      "pid": "docid-1",
+                      "publication_year": "1950",
+                      "title": "The Gulf: The Making of An American Sea",
+                    },
+                    "document_pid": "docid-2",
+                    "library": Object {
+                      "name": "Library 2",
+                      "pid": "illlid-2",
+                    },
+                    "library_pid": "illlid-1",
+                    "patron_pid": "1",
+                    "pid": "illbid-2",
+                    "status": "REQUESTED",
+                    "type": "ELECTRONIC",
+                  },
+                  "pid": "borrowing-request2",
+                },
+              ]
+            }
+            headerActionComponent={null}
+            name="borrowing requests"
+            paginationComponent={null}
+            seeAllComponent={
+              <SeeAllButton
+                disabled={false}
+                fluid={false}
+                to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+              />
+            }
+            showAllResults={false}
+            showMaxRows={5}
+            singleLine={false}
+            subtitle=""
+            title=""
+            totalHitsCount={2}
+          >
+            <Table
+              as="table"
+              compact={true}
+              name="borrowing requests"
+              selectable={true}
+              striped={true}
+              subtitle=""
+              title=""
+              unstackable={true}
+            >
+              <table
+                className="ui selectable striped unstackable compact table"
+                name="borrowing requests"
+                subtitle=""
+                title=""
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      Object {
+                        "formatter": [Function],
+                        "title": "PID",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Document",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Library",
+                      },
+                      Object {
+                        "field": "created",
+                        "formatter": [Function],
+                        "title": "Created on",
+                      },
+                      Object {
+                        "field": "metadata.status",
+                        "title": "State",
+                      },
+                      Object {
+                        "field": "metadata.request_date",
+                        "formatter": [Function],
+                        "title": "Requested on",
+                      },
+                      Object {
+                        "field": "metadata.expected_delivery_date",
+                        "formatter": [Function],
+                        "title": "Expected delivery",
+                      },
+                      Object {
+                        "field": "metadata.received_date",
+                        "formatter": [Function],
+                        "title": "Received on",
+                      },
+                    ]
+                  }
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            key="PID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                PID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Document"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Document
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Library"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Library
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Created on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Created on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="State"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                State
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Requested on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Requested on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Expected delivery"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Expected delivery
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Received on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Received on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  columns={
+                    Array [
+                      Object {
+                        "formatter": [Function],
+                        "title": "PID",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Document",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Library",
+                      },
+                      Object {
+                        "field": "created",
+                        "formatter": [Function],
+                        "title": "Created on",
+                      },
+                      Object {
+                        "field": "metadata.status",
+                        "title": "State",
+                      },
+                      Object {
+                        "field": "metadata.request_date",
+                        "formatter": [Function],
+                        "title": "Requested on",
+                      },
+                      Object {
+                        "field": "metadata.expected_delivery_date",
+                        "formatter": [Function],
+                        "title": "Expected delivery",
+                      },
+                      Object {
+                        "field": "metadata.received_date",
+                        "formatter": [Function],
+                        "title": "Received on",
+                      },
+                    ]
+                  }
+                  rows={
+                    Array [
+                      Object {
+                        "id": 1,
+                        "metadata": Object {
+                          "document": Object {
+                            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                            "abstract": "This is an abstract",
+                            "authors": Array [
+                              Object {
+                                "full_name": "Jack E. Davis",
+                              },
+                            ],
+                            "document_type": "BOOK",
+                            "edition": "1",
+                            "keywords": Object {
+                              "source": "X",
+                              "value": "Patata",
+                            },
+                            "languages": Array [
+                              "en",
+                            ],
+                            "pid": "docid-1",
+                            "publication_year": "1950",
+                            "title": "The Gulf: The Making of An American Sea",
+                          },
+                          "document_pid": "docid-1",
+                          "library": Object {
+                            "name": "Library 1",
+                            "pid": "illlid-1",
+                          },
+                          "library_pid": "illlid-1",
+                          "patron_pid": "1",
+                          "pid": "illbid-1",
+                          "status": "PENDING",
+                          "type": "PHYSICAL",
+                        },
+                        "pid": "borrowing-request1",
+                      },
+                      Object {
+                        "id": 2,
+                        "metadata": Object {
+                          "document": Object {
+                            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                            "abstract": "This is an abstract",
+                            "authors": Array [
+                              Object {
+                                "full_name": "Jack E. Davis",
+                              },
+                            ],
+                            "document_type": "BOOK",
+                            "edition": "1",
+                            "keywords": Object {
+                              "source": "X",
+                              "value": "Patata",
+                            },
+                            "languages": Array [
+                              "en",
+                            ],
+                            "pid": "docid-1",
+                            "publication_year": "1950",
+                            "title": "The Gulf: The Making of An American Sea",
+                          },
+                          "document_pid": "docid-2",
+                          "library": Object {
+                            "name": "Library 2",
+                            "pid": "illlid-2",
+                          },
+                          "library_pid": "illlid-1",
+                          "patron_pid": "1",
+                          "pid": "illbid-2",
+                          "status": "REQUESTED",
+                          "type": "ELECTRONIC",
+                        },
+                        "pid": "borrowing-request2",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="borrowing-request1"
+                        key="borrowing-request1"
+                      >
+                        <tr
+                          className=""
+                          data-test="borrowing-request1"
+                        >
+                          <TableCell
+                            as="td"
+                            data-label="PID"
+                            data-test="0-borrowing-request1"
+                            key="0-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="PID"
+                              data-test="0-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="url/illbid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/url/illbid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/url/illbid-1"
+                                    onClick={[Function]}
+                                  >
+                                    illbid-1
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Document"
+                            data-test="1-borrowing-request1"
+                            key="1-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Document"
+                              data-test="1-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="url/docid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/url/docid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/url/docid-1"
+                                    onClick={[Function]}
+                                  >
+                                    <DocumentTitle
+                                      metadata={
+                                        Object {
+                                          "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                          "abstract": "This is an abstract",
+                                          "authors": Array [
+                                            Object {
+                                              "full_name": "Jack E. Davis",
+                                            },
+                                          ],
+                                          "document_type": "BOOK",
+                                          "edition": "1",
+                                          "keywords": Object {
+                                            "source": "X",
+                                            "value": "Patata",
+                                          },
+                                          "languages": Array [
+                                            "en",
+                                          ],
+                                          "pid": "docid-1",
+                                          "publication_year": "1950",
+                                          "title": "The Gulf: The Making of An American Sea",
+                                        }
+                                      }
+                                      titleOnly={false}
+                                      truncate={false}
+                                    >
+                                      <div
+                                        className="document-title"
+                                      >
+                                        The Gulf: The Making of An American Sea
+                                         
+                                        <EditionTitleCmp
+                                          metadata={
+                                            Object {
+                                              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                              "abstract": "This is an abstract",
+                                              "authors": Array [
+                                                Object {
+                                                  "full_name": "Jack E. Davis",
+                                                },
+                                              ],
+                                              "document_type": "BOOK",
+                                              "edition": "1",
+                                              "keywords": Object {
+                                                "source": "X",
+                                                "value": "Patata",
+                                              },
+                                              "languages": Array [
+                                                "en",
+                                              ],
+                                              "pid": "docid-1",
+                                              "publication_year": "1950",
+                                              "title": "The Gulf: The Making of An American Sea",
+                                            }
+                                          }
+                                        >
+                                          (
+                                          <DocumentEdition
+                                            metadata={
+                                              Object {
+                                                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                                "abstract": "This is an abstract",
+                                                "authors": Array [
+                                                  Object {
+                                                    "full_name": "Jack E. Davis",
+                                                  },
+                                                ],
+                                                "document_type": "BOOK",
+                                                "edition": "1",
+                                                "keywords": Object {
+                                                  "source": "X",
+                                                  "value": "Patata",
+                                                },
+                                                "languages": Array [
+                                                  "en",
+                                                ],
+                                                "pid": "docid-1",
+                                                "publication_year": "1950",
+                                                "title": "The Gulf: The Making of An American Sea",
+                                              }
+                                            }
+                                            withLabel={false}
+                                          >
+                                            ed. 1
+                                          </DocumentEdition>
+                                           - 
+                                          1950
+                                          )
+                                        </EditionTitleCmp>
+                                      </div>
+                                    </DocumentTitle>
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Library"
+                            data-test="2-borrowing-request1"
+                            key="2-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Library"
+                              data-test="2-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="/backoffice/ill/libraries/illlid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/backoffice/ill/libraries/illlid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/backoffice/ill/libraries/illlid-1"
+                                    onClick={[Function]}
+                                  >
+                                    Library 1
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Created on"
+                            data-test="3-borrowing-request1"
+                            key="3-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Created on"
+                              data-test="3-borrowing-request1"
+                            />
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="State"
+                            data-test="4-borrowing-request1"
+                            key="4-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="State"
+                              data-test="4-borrowing-request1"
+                            >
+                              PENDING
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Requested on"
+                            data-test="5-borrowing-request1"
+                            key="5-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Requested on"
+                              data-test="5-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Expected delivery"
+                            data-test="6-borrowing-request1"
+                            key="6-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Expected delivery"
+                              data-test="6-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Received on"
+                            data-test="7-borrowing-request1"
+                            key="7-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Received on"
+                              data-test="7-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="borrowing-request2"
+                        key="borrowing-request2"
+                      >
+                        <tr
+                          className=""
+                          data-test="borrowing-request2"
+                        >
+                          <TableCell
+                            as="td"
+                            data-label="PID"
+                            data-test="0-borrowing-request2"
+                            key="0-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="PID"
+                              data-test="0-borrowing-request2"
+                            >
+                              <Link
+                                data-test="illbid-2"
+                                to="url/illbid-2"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-2"
+                                  href="/url/illbid-2"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-2"
+                                    href="/url/illbid-2"
+                                    onClick={[Function]}
+                                  >
+                                    illbid-2
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Document"
+                            data-test="1-borrowing-request2"
+                            key="1-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Document"
+                              data-test="1-borrowing-request2"
+                            >
+                              <Link
+                                data-test="illbid-2"
+                                to="url/docid-2"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-2"
+                                  href="/url/docid-2"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-2"
+                                    href="/url/docid-2"
+                                    onClick={[Function]}
+                                  >
+                                    <DocumentTitle
+                                      metadata={
+                                        Object {
+                                          "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                          "abstract": "This is an abstract",
+                                          "authors": Array [
+                                            Object {
+                                              "full_name": "Jack E. Davis",
+                                            },
+                                          ],
+                                          "document_type": "BOOK",
+                                          "edition": "1",
+                                          "keywords": Object {
+                                            "source": "X",
+                                            "value": "Patata",
+                                          },
+                                          "languages": Array [
+                                            "en",
+                                          ],
+                                          "pid": "docid-1",
+                                          "publication_year": "1950",
+                                          "title": "The Gulf: The Making of An American Sea",
+                                        }
+                                      }
+                                      titleOnly={false}
+                                      truncate={false}
+                                    >
+                                      <div
+                                        className="document-title"
+                                      >
+                                        The Gulf: The Making of An American Sea
+                                         
+                                        <EditionTitleCmp
+                                          metadata={
+                                            Object {
+                                              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                              "abstract": "This is an abstract",
+                                              "authors": Array [
+                                                Object {
+                                                  "full_name": "Jack E. Davis",
+                                                },
+                                              ],
+                                              "document_type": "BOOK",
+                                              "edition": "1",
+                                              "keywords": Object {
+                                                "source": "X",
+                                                "value": "Patata",
+                                              },
+                                              "languages": Array [
+                                                "en",
+                                              ],
+                                              "pid": "docid-1",
+                                              "publication_year": "1950",
+                                              "title": "The Gulf: The Making of An American Sea",
+                                            }
+                                          }
+                                        >
+                                          (
+                                          <DocumentEdition
+                                            metadata={
+                                              Object {
+                                                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                                "abstract": "This is an abstract",
+                                                "authors": Array [
+                                                  Object {
+                                                    "full_name": "Jack E. Davis",
+                                                  },
+                                                ],
+                                                "document_type": "BOOK",
+                                                "edition": "1",
+                                                "keywords": Object {
+                                                  "source": "X",
+                                                  "value": "Patata",
+                                                },
+                                                "languages": Array [
+                                                  "en",
+                                                ],
+                                                "pid": "docid-1",
+                                                "publication_year": "1950",
+                                                "title": "The Gulf: The Making of An American Sea",
+                                              }
+                                            }
+                                            withLabel={false}
+                                          >
+                                            ed. 1
+                                          </DocumentEdition>
+                                           - 
+                                          1950
+                                          )
+                                        </EditionTitleCmp>
+                                      </div>
+                                    </DocumentTitle>
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Library"
+                            data-test="2-borrowing-request2"
+                            key="2-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Library"
+                              data-test="2-borrowing-request2"
+                            >
+                              <Link
+                                data-test="illbid-2"
+                                to="/backoffice/ill/libraries/illlid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-2"
+                                  href="/backoffice/ill/libraries/illlid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-2"
+                                    href="/backoffice/ill/libraries/illlid-1"
+                                    onClick={[Function]}
+                                  >
+                                    Library 2
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Created on"
+                            data-test="3-borrowing-request2"
+                            key="3-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Created on"
+                              data-test="3-borrowing-request2"
+                            />
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="State"
+                            data-test="4-borrowing-request2"
+                            key="4-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="State"
+                              data-test="4-borrowing-request2"
+                            >
+                              REQUESTED
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Requested on"
+                            data-test="5-borrowing-request2"
+                            key="5-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Requested on"
+                              data-test="5-borrowing-request2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Expected delivery"
+                            data-test="6-borrowing-request2"
+                            key="6-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Expected delivery"
+                              data-test="6-borrowing-request2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Received on"
+                            data-test="7-borrowing-request2"
+                            key="7-borrowing-request2"
+                          >
+                            <td
+                              className=""
+                              data-label="Received on"
+                              data-test="7-borrowing-request2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={8}
+                  currentPage={1}
+                  paginationComponent={null}
+                  seeAllComponent={
+                    <SeeAllButton
+                      disabled={false}
+                      fluid={false}
+                      to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                    />
+                  }
+                  showAllResults={false}
+                  showMaxRows={5}
+                />
+              </table>
+            </Table>
+          </ResultsTable>
+        </Error>
+      </Loader>
+    </PatronCurrentBorrowingRequests>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`PatronCurrentBorrowingRequests tests should render show a message with no user borrowing requests 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PatronCurrentBorrowingRequests
+      data={
+        Object {
+          "hits": Array [],
+          "total": 0,
+        }
+      }
+      fetchPatronCurrentBorrowingRequests={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "2",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      loanState=""
+      patronDetails={
+        Object {
+          "user_pid": "2",
+        }
+      }
+      showMaxRequests={5}
+    >
+      <Loader>
+        <Error>
+          <ResultsTable
+            columns={
+              Array [
+                Object {
+                  "formatter": [Function],
+                  "title": "PID",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Document",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Library",
+                },
+                Object {
+                  "field": "created",
+                  "formatter": [Function],
+                  "title": "Created on",
+                },
+                Object {
+                  "field": "metadata.status",
+                  "title": "State",
+                },
+                Object {
+                  "field": "metadata.request_date",
+                  "formatter": [Function],
+                  "title": "Requested on",
+                },
+                Object {
+                  "field": "metadata.expected_delivery_date",
+                  "formatter": [Function],
+                  "title": "Expected delivery",
+                },
+                Object {
+                  "field": "metadata.received_date",
+                  "formatter": [Function],
+                  "title": "Received on",
+                },
+              ]
+            }
+            currentPage={1}
+            data={Array []}
+            headerActionComponent={null}
+            name="borrowing requests"
+            paginationComponent={null}
+            seeAllComponent={
+              <SeeAllButton
+                disabled={false}
+                fluid={false}
+                to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+              />
+            }
+            showAllResults={false}
+            showMaxRows={5}
+            singleLine={false}
+            subtitle=""
+            title=""
+            totalHitsCount={0}
+          >
+            <Message
+              data-test="no-results"
+              icon={true}
+              info={true}
+            >
+              <div
+                className="ui icon info message"
+                data-test="no-results"
+              >
+                <MessageContent>
+                  <div
+                    className="content"
+                  >
+                    <MessageHeader>
+                      <div
+                        className="header"
+                      >
+                        No results found
+                      </div>
+                    </MessageHeader>
+                    There are no 
+                    borrowing requests
+                    .
+                  </div>
+                </MessageContent>
+              </div>
+            </Message>
+          </ResultsTable>
+        </Error>
+      </Loader>
+    </PatronCurrentBorrowingRequests>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`PatronCurrentBorrowingRequests tests should render the see all button when showing only a few patron borrowing requests 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PatronCurrentBorrowingRequests
+      data={
+        Object {
+          "hits": Array [
+            Object {
+              "id": 1,
+              "metadata": Object {
+                "document": Object {
+                  "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                  "abstract": "This is an abstract",
+                  "authors": Array [
+                    Object {
+                      "full_name": "Jack E. Davis",
+                    },
+                  ],
+                  "document_type": "BOOK",
+                  "edition": "1",
+                  "keywords": Object {
+                    "source": "X",
+                    "value": "Patata",
+                  },
+                  "languages": Array [
+                    "en",
+                  ],
+                  "pid": "docid-1",
+                  "publication_year": "1950",
+                  "title": "The Gulf: The Making of An American Sea",
+                },
+                "document_pid": "docid-1",
+                "library": Object {
+                  "name": "Library 1",
+                  "pid": "illlid-1",
+                },
+                "library_pid": "illlid-1",
+                "patron_pid": "1",
+                "pid": "illbid-1",
+                "status": "PENDING",
+                "type": "PHYSICAL",
+              },
+              "pid": "borrowing-request1",
+            },
+            Object {
+              "id": 2,
+              "metadata": Object {
+                "document": Object {
+                  "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                  "abstract": "This is an abstract",
+                  "authors": Array [
+                    Object {
+                      "full_name": "Jack E. Davis",
+                    },
+                  ],
+                  "document_type": "BOOK",
+                  "edition": "1",
+                  "keywords": Object {
+                    "source": "X",
+                    "value": "Patata",
+                  },
+                  "languages": Array [
+                    "en",
+                  ],
+                  "pid": "docid-1",
+                  "publication_year": "1950",
+                  "title": "The Gulf: The Making of An American Sea",
+                },
+                "document_pid": "docid-2",
+                "library": Object {
+                  "name": "Library 2",
+                  "pid": "illlid-2",
+                },
+                "library_pid": "illlid-1",
+                "patron_pid": "1",
+                "pid": "illbid-2",
+                "status": "REQUESTED",
+                "type": "ELECTRONIC",
+              },
+              "pid": "borrowing-request2",
+            },
+          ],
+          "total": 2,
+        }
+      }
+      fetchPatronCurrentBorrowingRequests={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "2",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      patronDetails={
+        Object {
+          "user_pid": "2",
+        }
+      }
+      showMaxRequests={1}
+    >
+      <Loader>
+        <Error>
+          <ResultsTable
+            columns={
+              Array [
+                Object {
+                  "formatter": [Function],
+                  "title": "PID",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Document",
+                },
+                Object {
+                  "formatter": [Function],
+                  "title": "Library",
+                },
+                Object {
+                  "field": "created",
+                  "formatter": [Function],
+                  "title": "Created on",
+                },
+                Object {
+                  "field": "metadata.status",
+                  "title": "State",
+                },
+                Object {
+                  "field": "metadata.request_date",
+                  "formatter": [Function],
+                  "title": "Requested on",
+                },
+                Object {
+                  "field": "metadata.expected_delivery_date",
+                  "formatter": [Function],
+                  "title": "Expected delivery",
+                },
+                Object {
+                  "field": "metadata.received_date",
+                  "formatter": [Function],
+                  "title": "Received on",
+                },
+              ]
+            }
+            currentPage={1}
+            data={
+              Array [
+                Object {
+                  "id": 1,
+                  "metadata": Object {
+                    "document": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                      "abstract": "This is an abstract",
+                      "authors": Array [
+                        Object {
+                          "full_name": "Jack E. Davis",
+                        },
+                      ],
+                      "document_type": "BOOK",
+                      "edition": "1",
+                      "keywords": Object {
+                        "source": "X",
+                        "value": "Patata",
+                      },
+                      "languages": Array [
+                        "en",
+                      ],
+                      "pid": "docid-1",
+                      "publication_year": "1950",
+                      "title": "The Gulf: The Making of An American Sea",
+                    },
+                    "document_pid": "docid-1",
+                    "library": Object {
+                      "name": "Library 1",
+                      "pid": "illlid-1",
+                    },
+                    "library_pid": "illlid-1",
+                    "patron_pid": "1",
+                    "pid": "illbid-1",
+                    "status": "PENDING",
+                    "type": "PHYSICAL",
+                  },
+                  "pid": "borrowing-request1",
+                },
+                Object {
+                  "id": 2,
+                  "metadata": Object {
+                    "document": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                      "abstract": "This is an abstract",
+                      "authors": Array [
+                        Object {
+                          "full_name": "Jack E. Davis",
+                        },
+                      ],
+                      "document_type": "BOOK",
+                      "edition": "1",
+                      "keywords": Object {
+                        "source": "X",
+                        "value": "Patata",
+                      },
+                      "languages": Array [
+                        "en",
+                      ],
+                      "pid": "docid-1",
+                      "publication_year": "1950",
+                      "title": "The Gulf: The Making of An American Sea",
+                    },
+                    "document_pid": "docid-2",
+                    "library": Object {
+                      "name": "Library 2",
+                      "pid": "illlid-2",
+                    },
+                    "library_pid": "illlid-1",
+                    "patron_pid": "1",
+                    "pid": "illbid-2",
+                    "status": "REQUESTED",
+                    "type": "ELECTRONIC",
+                  },
+                  "pid": "borrowing-request2",
+                },
+              ]
+            }
+            headerActionComponent={null}
+            name="borrowing requests"
+            paginationComponent={null}
+            seeAllComponent={
+              <SeeAllButton
+                disabled={false}
+                fluid={false}
+                to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+              />
+            }
+            showAllResults={false}
+            showMaxRows={1}
+            singleLine={false}
+            subtitle=""
+            title=""
+            totalHitsCount={2}
+          >
+            <Table
+              as="table"
+              compact={true}
+              name="borrowing requests"
+              selectable={true}
+              striped={true}
+              subtitle=""
+              title=""
+              unstackable={true}
+            >
+              <table
+                className="ui selectable striped unstackable compact table"
+                name="borrowing requests"
+                subtitle=""
+                title=""
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      Object {
+                        "formatter": [Function],
+                        "title": "PID",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Document",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Library",
+                      },
+                      Object {
+                        "field": "created",
+                        "formatter": [Function],
+                        "title": "Created on",
+                      },
+                      Object {
+                        "field": "metadata.status",
+                        "title": "State",
+                      },
+                      Object {
+                        "field": "metadata.request_date",
+                        "formatter": [Function],
+                        "title": "Requested on",
+                      },
+                      Object {
+                        "field": "metadata.expected_delivery_date",
+                        "formatter": [Function],
+                        "title": "Expected delivery",
+                      },
+                      Object {
+                        "field": "metadata.received_date",
+                        "formatter": [Function],
+                        "title": "Received on",
+                      },
+                    ]
+                  }
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            key="PID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                PID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Document"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Document
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Library"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Library
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Created on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Created on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="State"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                State
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Requested on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Requested on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Expected delivery"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Expected delivery
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Received on"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Received on
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  columns={
+                    Array [
+                      Object {
+                        "formatter": [Function],
+                        "title": "PID",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Document",
+                      },
+                      Object {
+                        "formatter": [Function],
+                        "title": "Library",
+                      },
+                      Object {
+                        "field": "created",
+                        "formatter": [Function],
+                        "title": "Created on",
+                      },
+                      Object {
+                        "field": "metadata.status",
+                        "title": "State",
+                      },
+                      Object {
+                        "field": "metadata.request_date",
+                        "formatter": [Function],
+                        "title": "Requested on",
+                      },
+                      Object {
+                        "field": "metadata.expected_delivery_date",
+                        "formatter": [Function],
+                        "title": "Expected delivery",
+                      },
+                      Object {
+                        "field": "metadata.received_date",
+                        "formatter": [Function],
+                        "title": "Received on",
+                      },
+                    ]
+                  }
+                  rows={
+                    Array [
+                      Object {
+                        "id": 1,
+                        "metadata": Object {
+                          "document": Object {
+                            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                            "abstract": "This is an abstract",
+                            "authors": Array [
+                              Object {
+                                "full_name": "Jack E. Davis",
+                              },
+                            ],
+                            "document_type": "BOOK",
+                            "edition": "1",
+                            "keywords": Object {
+                              "source": "X",
+                              "value": "Patata",
+                            },
+                            "languages": Array [
+                              "en",
+                            ],
+                            "pid": "docid-1",
+                            "publication_year": "1950",
+                            "title": "The Gulf: The Making of An American Sea",
+                          },
+                          "document_pid": "docid-1",
+                          "library": Object {
+                            "name": "Library 1",
+                            "pid": "illlid-1",
+                          },
+                          "library_pid": "illlid-1",
+                          "patron_pid": "1",
+                          "pid": "illbid-1",
+                          "status": "PENDING",
+                          "type": "PHYSICAL",
+                        },
+                        "pid": "borrowing-request1",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="borrowing-request1"
+                        key="borrowing-request1"
+                      >
+                        <tr
+                          className=""
+                          data-test="borrowing-request1"
+                        >
+                          <TableCell
+                            as="td"
+                            data-label="PID"
+                            data-test="0-borrowing-request1"
+                            key="0-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="PID"
+                              data-test="0-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="url/illbid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/url/illbid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/url/illbid-1"
+                                    onClick={[Function]}
+                                  >
+                                    illbid-1
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Document"
+                            data-test="1-borrowing-request1"
+                            key="1-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Document"
+                              data-test="1-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="url/docid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/url/docid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/url/docid-1"
+                                    onClick={[Function]}
+                                  >
+                                    <DocumentTitle
+                                      metadata={
+                                        Object {
+                                          "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                          "abstract": "This is an abstract",
+                                          "authors": Array [
+                                            Object {
+                                              "full_name": "Jack E. Davis",
+                                            },
+                                          ],
+                                          "document_type": "BOOK",
+                                          "edition": "1",
+                                          "keywords": Object {
+                                            "source": "X",
+                                            "value": "Patata",
+                                          },
+                                          "languages": Array [
+                                            "en",
+                                          ],
+                                          "pid": "docid-1",
+                                          "publication_year": "1950",
+                                          "title": "The Gulf: The Making of An American Sea",
+                                        }
+                                      }
+                                      titleOnly={false}
+                                      truncate={false}
+                                    >
+                                      <div
+                                        className="document-title"
+                                      >
+                                        The Gulf: The Making of An American Sea
+                                         
+                                        <EditionTitleCmp
+                                          metadata={
+                                            Object {
+                                              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                              "abstract": "This is an abstract",
+                                              "authors": Array [
+                                                Object {
+                                                  "full_name": "Jack E. Davis",
+                                                },
+                                              ],
+                                              "document_type": "BOOK",
+                                              "edition": "1",
+                                              "keywords": Object {
+                                                "source": "X",
+                                                "value": "Patata",
+                                              },
+                                              "languages": Array [
+                                                "en",
+                                              ],
+                                              "pid": "docid-1",
+                                              "publication_year": "1950",
+                                              "title": "The Gulf: The Making of An American Sea",
+                                            }
+                                          }
+                                        >
+                                          (
+                                          <DocumentEdition
+                                            metadata={
+                                              Object {
+                                                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                                "abstract": "This is an abstract",
+                                                "authors": Array [
+                                                  Object {
+                                                    "full_name": "Jack E. Davis",
+                                                  },
+                                                ],
+                                                "document_type": "BOOK",
+                                                "edition": "1",
+                                                "keywords": Object {
+                                                  "source": "X",
+                                                  "value": "Patata",
+                                                },
+                                                "languages": Array [
+                                                  "en",
+                                                ],
+                                                "pid": "docid-1",
+                                                "publication_year": "1950",
+                                                "title": "The Gulf: The Making of An American Sea",
+                                              }
+                                            }
+                                            withLabel={false}
+                                          >
+                                            ed. 1
+                                          </DocumentEdition>
+                                           - 
+                                          1950
+                                          )
+                                        </EditionTitleCmp>
+                                      </div>
+                                    </DocumentTitle>
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Library"
+                            data-test="2-borrowing-request1"
+                            key="2-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Library"
+                              data-test="2-borrowing-request1"
+                            >
+                              <Link
+                                data-test="illbid-1"
+                                to="/backoffice/ill/libraries/illlid-1"
+                              >
+                                <LinkAnchor
+                                  data-test="illbid-1"
+                                  href="/backoffice/ill/libraries/illlid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    data-test="illbid-1"
+                                    href="/backoffice/ill/libraries/illlid-1"
+                                    onClick={[Function]}
+                                  >
+                                    Library 1
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Created on"
+                            data-test="3-borrowing-request1"
+                            key="3-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Created on"
+                              data-test="3-borrowing-request1"
+                            />
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="State"
+                            data-test="4-borrowing-request1"
+                            key="4-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="State"
+                              data-test="4-borrowing-request1"
+                            >
+                              PENDING
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Requested on"
+                            data-test="5-borrowing-request1"
+                            key="5-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Requested on"
+                              data-test="5-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Expected delivery"
+                            data-test="6-borrowing-request1"
+                            key="6-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Expected delivery"
+                              data-test="6-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-label="Received on"
+                            data-test="7-borrowing-request1"
+                            key="7-borrowing-request1"
+                          >
+                            <td
+                              className=""
+                              data-label="Received on"
+                              data-test="7-borrowing-request1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={8}
+                  currentPage={1}
+                  paginationComponent={null}
+                  seeAllComponent={
+                    <SeeAllButton
+                      disabled={false}
+                      fluid={false}
+                      to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                    />
+                  }
+                  showAllResults={false}
+                  showMaxRows={1}
+                >
+                  <TableFooter
+                    as="tfoot"
+                    data-test="footer"
+                    fullWidth={true}
+                  >
+                    <TableHeader
+                      as="tfoot"
+                      data-test="footer"
+                      fullWidth={true}
+                    >
+                      <tfoot
+                        className="full-width"
+                        data-test="footer"
+                      >
+                        <TableRow
+                          as="tr"
+                          cellAs="td"
+                        >
+                          <tr
+                            className=""
+                          >
+                            <TableHeaderCell
+                              as="th"
+                              colSpan={9}
+                              textAlign="right"
+                            >
+                              <TableCell
+                                as="th"
+                                className=""
+                                colSpan={9}
+                                textAlign="right"
+                              >
+                                <th
+                                  className="right aligned"
+                                  colSpan={9}
+                                >
+                                  <span
+                                    className="results-table-compact-summary"
+                                  >
+                                    Showing entries 
+                                    1
+                                    -
+                                    1
+                                     of 
+                                    2
+                                     
+                                  </span>
+                                  <span>
+                                    <SeeAllButton
+                                      disabled={false}
+                                      fluid={false}
+                                      to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                    >
+                                      <Button
+                                        as={
+                                          Object {
+                                            "$$typeof": Symbol(react.forward_ref),
+                                            "displayName": "Link",
+                                            "propTypes": Object {
+                                              "innerRef": [Function],
+                                              "onClick": [Function],
+                                              "replace": [Function],
+                                              "target": [Function],
+                                              "to": [Function],
+                                            },
+                                            "render": [Function],
+                                          }
+                                        }
+                                        disabled={false}
+                                        fluid={false}
+                                        size="tiny"
+                                        to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                      >
+                                        <Ref
+                                          innerRef={
+                                            Object {
+                                              "current": <a
+                                                class="ui tiny button"
+                                                href="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                                role="button"
+                                              >
+                                                See all
+                                              </a>,
+                                            }
+                                          }
+                                        >
+                                          <RefForward
+                                            innerRef={
+                                              Object {
+                                                "current": <a
+                                                  class="ui tiny button"
+                                                  href="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                                  role="button"
+                                                >
+                                                  See all
+                                                </a>,
+                                              }
+                                            }
+                                          >
+                                            <Link
+                                              className="ui tiny button"
+                                              onClick={[Function]}
+                                              role="button"
+                                              to="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                            >
+                                              <LinkAnchor
+                                                className="ui tiny button"
+                                                href="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                                navigate={[Function]}
+                                                onClick={[Function]}
+                                                role="button"
+                                              >
+                                                <a
+                                                  className="ui tiny button"
+                                                  href="/backoffice/ill/borrowing-requests?q=(patron_pid:2 AND status:(PENDING OR REQUESTED OR ON_LOAN))"
+                                                  onClick={[Function]}
+                                                  role="button"
+                                                >
+                                                  See all
+                                                </a>
+                                              </LinkAnchor>
+                                            </Link>
+                                          </RefForward>
+                                        </Ref>
+                                      </Button>
+                                    </SeeAllButton>
+                                  </span>
+                                  <span />
+                                </th>
+                              </TableCell>
+                            </TableHeaderCell>
+                          </tr>
+                        </TableRow>
+                      </tfoot>
+                    </TableHeader>
+                  </TableFooter>
+                </ResultsTableFooter>
+              </table>
+            </Table>
+          </ResultsTable>
+        </Error>
+      </Loader>
+    </PatronCurrentBorrowingRequests>
+  </Router>
+</BrowserRouter>
+`;
