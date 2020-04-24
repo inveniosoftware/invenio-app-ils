@@ -1,8 +1,9 @@
+import { DocumentAuthors } from '@components/Document';
+import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Divider, Table } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { DocumentAuthors } from '@components/Document';
-import isEmpty from 'lodash/isEmpty';
 import { IdentifierRows } from '../Identifiers';
 
 export class DocumentInfo extends Component {
@@ -25,6 +26,23 @@ export class DocumentInfo extends Component {
     return null;
   }
 
+  renderKeywords() {
+    const keywordsValue = _get(this.metadata, 'keywords.value');
+    const keywordsSource = _get(this.metadata, 'keywords.source');
+    const keywords =
+      keywordsValue && keywordsSource
+        ? `${keywordsValue} (${keywordsSource})`
+        : keywordsValue
+        ? keywordsValue
+        : '';
+    return keywords ? (
+      <Table.Row>
+        <Table.Cell>Keywords</Table.Cell>
+        <Table.Cell>{keywords}</Table.Cell>
+      </Table.Row>
+    ) : null;
+  }
+
   renderSpecificIdentifiers(scheme) {
     const identifiers = this.metadata.identifiers
       ? this.metadata.identifiers.filter(
@@ -32,7 +50,7 @@ export class DocumentInfo extends Component {
         )
       : null;
 
-    if (!isEmpty(identifiers)) {
+    if (!_isEmpty(identifiers)) {
       return <IdentifierRows identifiers={identifiers} />;
     }
     return null;
@@ -59,12 +77,7 @@ export class DocumentInfo extends Component {
               <Table.Cell>{this.metadata.edition}</Table.Cell>
             </Table.Row>
             {this.renderLanguages()}
-            <Table.Row>
-              <Table.Cell>Keywords</Table.Cell>
-              <Table.Cell>
-                {this.metadata.keywords.value} ({this.metadata.keywords.source})
-              </Table.Cell>
-            </Table.Row>
+            {this.renderKeywords()}
             {this.renderSpecificIdentifiers('ISBN')}
             {this.renderSpecificIdentifiers('DOI')}
           </Table.Body>

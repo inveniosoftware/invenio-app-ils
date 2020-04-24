@@ -88,5 +88,5 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     document_pid = fields.Str(required=True)  # TODO: validate
     files = fields.List(fields.Nested(FileSchema))
     internal_notes = fields.Str()
-    open_access = fields.Bool(default=True)
+    open_access = fields.Bool(missing=True)
     urls = fields.List(fields.Nested(EItemUrlsSchema))

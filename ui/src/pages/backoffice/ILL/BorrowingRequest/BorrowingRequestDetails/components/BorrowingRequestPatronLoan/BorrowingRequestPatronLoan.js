@@ -36,7 +36,7 @@ class CreateLoanButton extends React.Component {
 
     let description =
       'Create a new loan for the patron when you have received the requested item.';
-    let isEnabled = true;
+    let isEnabled = !this.props.isLoading;
     if (!hasRequestedStatus && !hasAlreadyLoan) {
       description = `To create a new loan, change the borrowing request status to REQUESTED.`;
       isEnabled = false;
@@ -55,6 +55,7 @@ class CreateLoanButton extends React.Component {
               <Grid.Column width={6} textAlign={'center'}>
                 <Button
                   icon
+                  loading={this.props.isLoading}
                   positive
                   size="small"
                   labelPosition="left"
@@ -75,6 +76,7 @@ class CreateLoanButton extends React.Component {
 
 CreateLoanButton.propTypes = {
   brwReq: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   onNewLoanClicked: PropTypes.func.isRequired,
 };
 
@@ -121,6 +123,7 @@ class CreateLoan extends React.Component {
       startDate,
       endDate
     );
+    this.handleCloseModal();
   };
 
   transformError = error => {
@@ -133,8 +136,18 @@ class CreateLoan extends React.Component {
       <>
         <CreateLoanButton
           brwReq={brwReq}
+          isLoading={isLoading}
           onNewLoanClicked={this.handleOpenModal}
         />
+
+        {hasError && (
+          <Message
+            error
+            header="Something went wrong"
+            content={this.transformError(error)}
+          />
+        )}
+
         <Modal open={this.state.modalOpen}>
           <Modal.Header>Create a new loan</Modal.Header>
           <Modal.Content>
@@ -170,20 +183,12 @@ class CreateLoan extends React.Component {
                 date.
               </i>
             </Form>
-            {hasError && (
-              <Message
-                error
-                header="Something went wrong"
-                content={this.transformError(error)}
-              />
-            )}
           </Modal.Content>
           <Modal.Actions key={'modalActions'}>
             <Button onClick={this.handleCloseModal}>Cancel</Button>
             <Button
               positive
-              loading={isLoading}
-              disabled={!this.isSelectionValid() || isLoading}
+              disabled={!this.isSelectionValid()}
               icon="checkmark"
               labelPosition="left"
               content="Create"

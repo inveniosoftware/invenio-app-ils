@@ -68,7 +68,7 @@ export default class PatronPendingLoans extends Component {
     return (
       <NoResultsMessage
         messageHeader={'No loan requests'}
-        messageContent={'Currently you do not have any loan requests'}
+        messageContent={'You do not currently have any loan request.'}
       />
     );
   }

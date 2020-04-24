@@ -220,6 +220,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                 >
                                   <Count
                                     dispatch={[Function]}
+                                    label={[Function]}
                                     loading={true}
                                     renderElement={[Function]}
                                     totalResults={0}
@@ -254,8 +255,9 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     }
                                   >
                                     <ResultsPerPage
-                                      currentSize={10}
+                                      currentSize={15}
                                       defaultValue={15}
+                                      label={[Function]}
                                       loading={true}
                                       renderElement={null}
                                       setInitialState={[Function]}
@@ -370,6 +372,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     currentSortBy="mostrecent"
                                     defaultValue="mostrecent"
                                     defaultValueOnEmptyString="mostrecent"
+                                    label={[Function]}
                                     loading={true}
                                     renderElement={[Function]}
                                     setInitialState={[Function]}
@@ -444,6 +447,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                   <SortOrder
                                     currentSortOrder="asc"
                                     defaultValue="asc"
+                                    label={[Function]}
                                     loading={true}
                                     renderElement={null}
                                     setInitialState={[Function]}
@@ -506,8 +510,8 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                             <div>
                               <Connect(Pagination)>
                                 <Pagination
-                                  currentPage={1}
-                                  currentSize={10}
+                                  currentPage={10}
+                                  currentSize={15}
                                   defaultValue={10}
                                   loading={true}
                                   options={

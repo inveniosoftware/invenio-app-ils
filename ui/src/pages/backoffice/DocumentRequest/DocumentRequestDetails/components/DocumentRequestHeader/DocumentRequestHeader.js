@@ -49,7 +49,11 @@ export default class DocumentRequestHeader extends Component {
     const { data } = this.props;
     return (
       <DetailsHeader
-        title={<>Book Request {this.renderStatus(data.metadata.state)}</>}
+        title={
+          <>
+            Request for new literature {this.renderStatus(data.metadata.state)}
+          </>
+        }
         subTitle={this.patronLink(data.metadata.patron)}
         pid={data.metadata.pid}
         icon={<DocumentRequestIcon />}

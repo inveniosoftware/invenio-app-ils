@@ -71,8 +71,8 @@ export default class PatronCurrentLoans extends Component {
     }
     return (
       <NoResultsMessage
-        messageHeader={'No loans'}
-        messageContent={'Currently you do not have any literature on loan'}
+        messageHeader={'No ongoing loans'}
+        messageContent={'You do not currently have any ongoing loan.'}
       />
     );
   }

@@ -63,10 +63,9 @@ export default class PatronCurrentDocumentRequests extends Component {
   renderNoResults = () => {
     return (
       <NoResultsMessage
-        messageHeader={'Requests for new literature'}
+        messageHeader={'No requests for new literature'}
         messageContent={
-          'You did not create any request for literature, ' +
-          'that is not available at the library.'
+          'You do not currently have any request for new literature.'
         }
       />
     );
@@ -136,7 +135,7 @@ export default class PatronCurrentDocumentRequests extends Component {
       <>
         <Header
           as={'h2'}
-          content={'Your literature requests'}
+          content={'Your requests for new literature'}
           className={'highlight'}
           textAlign={'center'}
         />
