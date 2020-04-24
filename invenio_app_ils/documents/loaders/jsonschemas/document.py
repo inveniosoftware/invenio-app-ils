@@ -12,6 +12,8 @@ from marshmallow import EXCLUDE, Schema, fields, pre_load
 
 from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
     set_changed_by
+from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
+    preserve_cover_metadata
 
 
 class IdentifierSchema(Schema):
@@ -197,6 +199,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     authors = fields.List(fields.Nested(AuthorSchema), required=True)
     conference_info = fields.Nested(ConferenceInfoSchema)
     copyrights = fields.List(fields.Nested(CopyrightsSchema))
+    cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     curated = fields.Bool()
     document_type = fields.Str()
@@ -222,7 +225,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     urls = fields.List(fields.Nested(UrlSchema))
 
     @pre_load
-    def set_changed_by(self, data, **kwargs):
-        """Automatically set `created_by` and `updated_by`."""
+    def preload_fields(self, data, **kwargs):
+        """Automatically inject system fields."""
         record = self.context.get("record")
-        return set_changed_by(data, record)
+        data.update(set_changed_by(data, record))
+        data.update(preserve_cover_metadata(data, record))
+        return data

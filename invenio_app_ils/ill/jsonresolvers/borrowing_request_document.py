@@ -31,7 +31,14 @@ def jsonresolver_loader(url_map):
         """Return the Document record."""
         Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(document_pid)
-        return pick(document, "pid", "title", "edition", "publication_year")
+        return pick(
+            document,
+            "cover_metadata",
+            "edition",
+            "pid",
+            "publication_year"
+            "title",
+        )
 
     def borrowing_request_resolver(request_pid):
         """Return the Document record for the given Brw Request or raise."""

@@ -32,7 +32,13 @@ def jsonresolver_loader(url_map):
         Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(document_pid)
         return pick(
-            document, "pid", "title", "edition", "publication_year", "authors"
+            document,
+            "authors",
+            "cover_metadata"
+            "edition",
+            "pid",
+            "publication_year",
+            "title",
         )
 
     def document_resolver(eitem_pid):

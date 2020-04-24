@@ -217,19 +217,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         data-test="loanid-1"
                       >
                         <DocumentItemCover
-                          coverUrl="42"
+                          coverUrl=""
                           disabled={true}
+                          isRestricted={false}
                           linkTo="/literature/docid-1"
-                          metadata={
-                            Object {
-                              "circulation": Object {
-                                "has_items_on_site": 0,
-                              },
-                              "document_type": "book",
-                              "pid": "5",
-                              "title": "Test",
-                            }
-                          }
                           size="mini"
                         >
                           <ItemImage
@@ -251,7 +242,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             label={null}
                             onError={[Function]}
                             size="mini"
-                            src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                            src=""
                             to="/literature/docid-1"
                           >
                             <Image
@@ -273,7 +264,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               label={null}
                               onError={[Function]}
                               size="mini"
-                              src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                              src=""
                               to="/literature/docid-1"
                               ui={true}
                               wrapped={true}
@@ -296,7 +287,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                     onError={[Function]}
                                   >
                                     <img
-                                      src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                                      src=""
                                     />
                                   </a>
                                 </LinkAnchor>
@@ -536,19 +527,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         data-test="loanid-2"
                       >
                         <DocumentItemCover
-                          coverUrl="42"
+                          coverUrl=""
                           disabled={true}
+                          isRestricted={false}
                           linkTo="/literature/docid-1"
-                          metadata={
-                            Object {
-                              "circulation": Object {
-                                "has_items_on_site": 0,
-                              },
-                              "document_type": "book",
-                              "pid": "6",
-                              "title": "Test 2",
-                            }
-                          }
                           size="mini"
                         >
                           <ItemImage
@@ -570,7 +552,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             label={null}
                             onError={[Function]}
                             size="mini"
-                            src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                            src=""
                             to="/literature/docid-1"
                           >
                             <Image
@@ -592,7 +574,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               label={null}
                               onError={[Function]}
                               size="mini"
-                              src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                              src=""
                               to="/literature/docid-1"
                               ui={true}
                               wrapped={true}
@@ -615,7 +597,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                     onError={[Function]}
                                   >
                                     <img
-                                      src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                                      src=""
                                     />
                                   </a>
                                 </LinkAnchor>

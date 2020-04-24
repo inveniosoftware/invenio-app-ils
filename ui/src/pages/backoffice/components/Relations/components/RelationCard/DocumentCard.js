@@ -5,7 +5,8 @@ import {
   DocumentTitle,
 } from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
-import isEmpty from 'lodash/isEmpty';
+import _isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,7 +23,10 @@ export class DocumentCard extends Component {
           {data.metadata.document_type || data.metadata.mode_of_issuance}
         </Card.Meta>
         {recordToPidType(data) === 'docid' ? (
-          <DocumentCover imageSize="tiny" document={data} />
+          <DocumentCover
+            imageSize="tiny"
+            coverUrl={_get(data, 'metadata.cover_metadata.urls.medium')}
+          />
         ) : (
           <Icon name="clone outline" size="huge" color="grey" />
         )}
@@ -38,7 +42,7 @@ export class DocumentCard extends Component {
             <DocumentAuthors metadata={data.metadata} />
           </Card.Meta>
         </Card.Content>
-        {!isEmpty(extra) && <Card.Content extra>{extra}</Card.Content>}
+        {!_isEmpty(extra) && <Card.Content extra>{extra}</Card.Content>}
       </Card>
     );
   }

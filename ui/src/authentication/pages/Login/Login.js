@@ -52,7 +52,11 @@ class LoginPage extends Component {
     const notImplementedPopup = (
       <Popup
         content="Not implemented yet!"
-        trigger={<Link className="disabled">here</Link>}
+        trigger={
+          <Link className="disabled" to="">
+            here
+          </Link>
+        }
       />
     );
 
@@ -94,7 +98,7 @@ class LoginPage extends Component {
                     >
                       <Grid.Row>
                         <Grid.Column stretched width={8} textAlign="right">
-                          <Header size="massive" className="inline-block">
+                          <Header size="huge" className="inline-block">
                             Hello!
                           </Header>
                         </Grid.Column>
@@ -145,19 +149,16 @@ class LoginPage extends Component {
                         </Grid.Column>
                       </Grid.Row>
                     </Grid>
-
                     <p>
                       To sign in, choose your preferred method in the right
                       panel.
                     </p>
-                    <p>
-                      <Container className="spaced">
-                        <Header as="h3">Sign up now</Header>
-                        <p>
-                          Don't have an account? Sign up {notImplementedPopup}
-                        </p>
-                      </Container>
-                    </p>
+                    <Container className="spaced">
+                      <Header as="h3">Sign up now</Header>
+                      <p>
+                        Don't have an account? Sign up {notImplementedPopup}
+                      </p>
+                    </Container>
                   </Grid.Column>
                   <Grid.Column
                     mobile={16}

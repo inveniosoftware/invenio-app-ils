@@ -29,7 +29,7 @@ def jsonresolver_loader(url_map):
 
     def document_resolver(order_line, doc):
         """Resolve the Document for the given Order Line."""
-        order_line["document"] = pick(doc, 'pid', 'title')
+        order_line["document"] = pick(doc, 'cover_metadata', 'pid', 'title')
         return doc
 
     def order_lines_resolver(order_pid):

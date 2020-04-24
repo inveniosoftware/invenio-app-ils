@@ -27,6 +27,7 @@ def jsonresolver_loader(url_map):
             circulation = item.get("circulation", {})
             obj = {
                 "pid": item.get("pid"),
+                "isbn": item.get("isbn"),
                 "internal_location_pid": item.get("internal_location_pid"),
                 "circulation_restriction": item.get("circulation_restriction"),
                 "barcode": item.get("barcode"),
@@ -35,11 +36,12 @@ def jsonresolver_loader(url_map):
                 "description": item.get("description"),
                 "shelf": item.get("shelf"),
                 "internal_location": {
+                    "name": item.get("internal_location", {}).get("name", ''),
                     "location": {
                         "name": item.get("internal_location", {})
-                                    .get("location", {}).get("name", '')
+                                    .get("location", {})
+                                    .get("name", '')
                     },
-                    "name": item.get("internal_location", {}).get("name", '')
                 }
             }
             if circulation:

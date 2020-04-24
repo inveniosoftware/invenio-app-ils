@@ -5,6 +5,7 @@ import {
 } from '@components/Document';
 import { DocumentTags } from '@components/Document/DocumentTags';
 import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -69,8 +70,8 @@ export default class DocumentListEntry extends Component {
     const image = (
       <DocumentItemCover
         size="mini"
-        coverUrl={this.metadata.edition}
-        metadata={this.metadata}
+        coverUrl={_get(this, 'metadata.cover_metadata.urls.medium')}
+        isRestricted={_get(this, 'metadata.restricted', false)}
         disabled
         linkTo={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}
       />

@@ -15,6 +15,8 @@ from invenio_app_ils.documents.loaders.jsonschemas.document import AlternativeTi
     IdentifierSchema, InternalNoteSchema, UrlSchema
 from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
     set_changed_by
+from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
+    preserve_cover_metadata
 
 
 class AccessUrlSchema(Schema):
@@ -44,6 +46,7 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     access_urls = fields.Nested(AccessUrlSchema, many=True)
     alternative_titles = fields.Nested(AlternativeTitleSchema, many=True)
     authors = fields.List(fields.Str())
+    cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     edition = fields.Str()
     identifiers = fields.Nested(IdentifierSchema, many=True)
@@ -60,7 +63,9 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     urls = fields.Nested(UrlSchema, many=True)
 
     @pre_load
-    def set_changed_by(self, data, **kwargs):
-        """Automatically set `created_by` and `updated_by`."""
+    def preload_fields(self, data, **kwargs):
+        """Automatically inject system fields."""
         record = self.context.get("record")
-        return set_changed_by(data, record)
+        data.update(set_changed_by(data, record))
+        data.update(preserve_cover_metadata(data, record))
+        return data

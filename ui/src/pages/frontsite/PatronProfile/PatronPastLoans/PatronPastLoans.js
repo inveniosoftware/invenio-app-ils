@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Loader, Error, Pagination } from '@components';
 import { toShortDate } from '@api/date';
-import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '@routes/urls';
+import { Error, Loader, Pagination } from '@components';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
-import { ExtensionCount } from '@pages/frontsite/components/Loan';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
-import { NoResultsMessage } from '../../components/NoResultsMessage';
+import { ExtensionCount } from '@pages/frontsite/components/Loan';
+import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 class PastLoanListEntry extends Component {
   render() {
@@ -18,8 +19,8 @@ class PastLoanListEntry extends Component {
       <Item key={loan.metadata.pid}>
         <DocumentItemCover
           size="mini"
-          src={loan.metadata.document.edition}
-          metadata={loan.metadata.document}
+          coverUrl={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
+          isRestricted={_get(loan, 'metadata.document.restricted', false)}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid

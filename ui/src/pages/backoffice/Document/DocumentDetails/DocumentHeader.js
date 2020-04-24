@@ -13,6 +13,7 @@ import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Icon } from 'semantic-ui-react';
+import _get from 'lodash/get';
 
 export class DocumentHeader extends Component {
   render() {
@@ -47,7 +48,12 @@ export class DocumentHeader extends Component {
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
-        icon={<DocumentCover document={data} imageSize="huge" />}
+        icon={
+          <DocumentCover
+            coverUrl={_get(data, 'metadata.cover_metadata.urls.large')}
+            imageSize="huge"
+          />
+        }
         recordInfo={recordInfo}
       >
         <DocumentTags metadata={data.metadata} />

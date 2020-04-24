@@ -73,8 +73,10 @@ def document_resolver(loan_pid):
         obj = pick(
             document,
             "authors",
-            "edition",
+            "cover_metadata",
             "document_type",
+            "edition",
+            "identifiers",
             "open_access",
             "pid",
             "publication_year",
