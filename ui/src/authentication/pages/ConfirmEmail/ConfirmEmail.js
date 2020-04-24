@@ -23,7 +23,7 @@ const Confirmed = ({ isConfirmed }) => {
         <Link className="alternative" to={FrontSiteRoutes.home}>
           home page
         </Link>{' '}
-        to browse out catalogue
+        to browse the library catalogue
       </Message.Content>
     </Message>
   ) : (

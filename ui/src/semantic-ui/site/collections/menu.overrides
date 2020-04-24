@@ -22,10 +22,22 @@
     &.mobile-header-menu {
       display: block;
       border-top: @highlightBorder;
+      height: @headerMenuHeight;
+
+      > .ui.container{
+        height: 100%;
+        align-items: center;
+      }
     }
 
     &.header-menu {
       border-top: @highlightBorder;
+      height: @headerMenuHeight;
+
+      > .ui.container{
+        height: 100%;
+        align-items: center;
+      }
     }
 
     &.vertical {
