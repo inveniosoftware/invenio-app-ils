@@ -86,7 +86,7 @@ export class DocumentRequestSearch extends Component {
   render() {
     return (
       <>
-        <Header as="h2">Literature requests</Header>
+        <Header as="h2">Requests for new literature</Header>
 
         <ReactSearchKit searchApi={this.searchApi} history={history}>
           <Container fluid className="spaced">

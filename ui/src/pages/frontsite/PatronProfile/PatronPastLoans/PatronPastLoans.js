@@ -116,7 +116,7 @@ export default class PatronPastLoans extends Component {
     return (
       <NoResultsMessage
         messageHeader={'No past loans'}
-        messageContent={'Currently you do not have any past loans'}
+        messageContent={'You do not have any past loan.'}
       />
     );
   };

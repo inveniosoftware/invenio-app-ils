@@ -5,7 +5,7 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
   <Divider
     horizontal={true}
   >
-    Literatures in this 
+    Literature in this 
     MULTIPART_MONOGRAPH
   </Divider>
   <ReactSearchKit

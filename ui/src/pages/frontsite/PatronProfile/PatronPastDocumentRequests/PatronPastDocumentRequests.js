@@ -62,8 +62,8 @@ export default class PatronPastDocumentRequests extends Component {
   renderEmpty = () => {
     return (
       <NoResultsMessage
-        messageHeader={'No past requests'}
-        messageContent={'You have no past literature requests.'}
+        messageHeader={'No past requests for new literature'}
+        messageContent={'You have no past requests for new literature.'}
       />
     );
   };
@@ -84,7 +84,7 @@ export default class PatronPastDocumentRequests extends Component {
       <>
         <Header
           as={'h2'}
-          content={'Past literature requests'}
+          content={'Your past requests for new literature'}
           className={'highlight'}
           textAlign={'center'}
         />

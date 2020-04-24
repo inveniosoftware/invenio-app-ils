@@ -46,7 +46,7 @@ export default class SectionServices extends Component {
                     <Icon name={'warehouse'} /> Interlibrary loan
                   </Card.Header>
                   <Card.Description>
-                    If you don't find a book, an article or other documents in
+                    If you do not find a book, an article or other documents in
                     our catalog, we can see if an other library have it and do
                     an interlibrary loan for you.
                   </Card.Description>

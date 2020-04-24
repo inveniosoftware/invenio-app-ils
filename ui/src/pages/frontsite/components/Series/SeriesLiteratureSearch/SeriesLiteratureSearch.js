@@ -61,7 +61,7 @@ export class SeriesLiteratureSearch extends React.Component {
     return (
       <>
         <Divider horizontal>
-          Literatures in this {metadata.mode_of_issuance.toUpperCase()}
+          Literature in this {metadata.mode_of_issuance.toUpperCase()}
         </Divider>
         <ReactSearchKit
           searchApi={api}

@@ -1,8 +1,8 @@
 import { illBorrowingRequest as borrowingRequestApi } from '@api';
 import { delay } from '@api/utils';
 import { sendSuccessNotification } from '@components/Notifications';
-import { SUCCESS } from '../../../state/types';
-import { HAS_ERROR, IS_LOADING } from './types';
+import { SUCCESS as FETCH_SUCCESS } from '../../../state/types';
+import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 
 export const borrowingRequestCreateLoan = (
   borrowingRequestPid,
@@ -21,10 +21,13 @@ export const borrowingRequestCreateLoan = (
         loanEndDate
       );
       await delay();
+      dispatch({
+        type: SUCCESS,
+      });
       // the response contains the updated borrowing request,
       // push it to the fetch redux action to re-render the component
       dispatch({
-        type: SUCCESS,
+        type: FETCH_SUCCESS,
         payload: response.data,
       });
       dispatch(

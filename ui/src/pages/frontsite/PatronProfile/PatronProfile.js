@@ -1,13 +1,12 @@
+import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 import React, { Component } from 'react';
-import { Container, Icon, Tab, Menu } from 'semantic-ui-react';
-import { PatronMetadata } from './PatronMetadata';
-import { PatronCurrentLoans } from './PatronCurrentLoans';
-import { PatronPendingLoans } from './PatronPendingLoans';
-import { PatronPastLoans } from './PatronPastLoans';
+import { Container, Header, Icon, Menu, Tab } from 'semantic-ui-react';
 import { PatronCurrentDocumentRequests } from './PatronCurrentDocumentRequests';
+import { PatronCurrentLoans } from './PatronCurrentLoans';
 import { PatronOverview } from './PatronOverview';
 import { PatronPastDocumentRequests } from './PatronPastDocumentRequests';
-import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
+import { PatronPastLoans } from './PatronPastLoans';
+import { PatronPendingLoans } from './PatronPendingLoans';
 
 export default class PatronProfile extends Component {
   tabs = () => {
@@ -42,7 +41,7 @@ export default class PatronProfile extends Component {
   renderWhenAuthorised = () => {
     return (
       <Container className={'spaced'}>
-        <PatronMetadata />
+        <Header as="h2">Your activity</Header>
         <PatronOverview />
         <Tab
           menu={{ secondary: true, pointing: true, size: 'huge' }}

@@ -75,19 +75,16 @@ export default class DocumentItems extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      activeLibrary: null,
+      activeInternalLocation: null,
+    };
+
     if (props.documentDetails.metadata.items) {
       const onShelf = props.documentDetails.metadata.items.on_shelf;
       if (!isEmpty(onShelf)) {
         const library = Object.keys(onShelf)[0];
-        this.state = {
-          activeLibrary: library,
-          activeInternalLocation: null,
-        };
-      } else {
-        this.state = {
-          activeLibrary: null,
-          activeInternalLocation: null,
-        };
+        this.state.activeLibrary = library;
       }
     }
   }

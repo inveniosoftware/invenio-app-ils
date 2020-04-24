@@ -341,6 +341,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                         className="field"
                       >
                         <Input
+                          aria-describedby={null}
                           autoComplete="off"
                           data-test=""
                           icon={true}
@@ -371,6 +372,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                               />
                             </Icon>
                             <input
+                              aria-describedby={null}
                               autoComplete="off"
                               key=".1"
                               name="selectedDate"
@@ -423,6 +425,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
             className="field"
           >
             <Button
+              aria-describedby={null}
               as="button"
               fluid={true}
               onClick={[Function]}
@@ -454,6 +457,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                   }
                 >
                   <button
+                    aria-describedby={null}
                     className="ui fluid primary button"
                     onClick={[Function]}
                     type="button"
