@@ -551,7 +551,7 @@ class SeriesGenerator(Generator):
         for _ in range(randint(1, 2)):
             obj["identifiers"].append(dict(
                 scheme="ISBN",
-                value=self.random_issn()
+                value=random.choice(DocumentGenerator.ISBNS)
             ))
 
     def random_serial(self, obj):
@@ -618,6 +618,10 @@ class SeriesGenerator(Generator):
             authors = random.sample(DocumentGenerator.AUTHORS, len(DocumentGenerator.AUTHORS))
             obj = {
                 "pid": self.create_pid(),
+                "cover_metadata": {
+                    "isbn": random.choice(DocumentGenerator.ISBNS),
+                    "urls": {},
+                },
                 "mode_of_issuance": moi,
                 "title": lorem.sentence(),
                 "authors": [author["full_name"] for author in authors],

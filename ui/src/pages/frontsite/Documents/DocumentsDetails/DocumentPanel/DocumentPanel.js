@@ -26,6 +26,7 @@ export default class DocumentPanel extends Component {
               <Grid.Row>
                 <Grid.Column>
                   <DocumentCover
+                    isLoading={isLoading}
                     coverUrl={_get(doc, 'metadata.cover_metadata.urls.large')}
                     placeholderStyle={{ width: 350, height: 500 }}
                   />

@@ -8,16 +8,6 @@
 """Document configuration callbacks."""
 
 
-def build_default_cover_urls(metadata):
-    """Build default ulrs for literature, documents & series."""
-    default_url = "/images/placeholder-portrait.png"
-    return {
-        "small": "{0}".format(default_url),
-        "medium": "{0}".format(default_url),
-        "large": "{0}".format(default_url),
-    }
-
-
 def build_ils_demo_cover_urls(metadata):
     """Build working ulrs for demo data."""
     default_url = "http://covers.openlibrary.org/b/isbn"

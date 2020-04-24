@@ -1,5 +1,4 @@
 import { LoginWithOauthButton } from '@authentication/components';
-import { authenticationService } from '@authentication/services';
 import React, { Component } from 'react';
 import { OAUTH_PROVIDERS } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
