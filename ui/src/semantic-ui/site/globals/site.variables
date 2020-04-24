@@ -21,7 +21,7 @@
 ********************************/
 
 
-@headerMenuHeight         : 69px;
+@headerMenuHeight         : 73px;
 @highlightBorder          : 2px solid @fsPrimaryColor;
 @defaultPaddingValue      : 2em;
 @defaultMarginValue       : 1em;
