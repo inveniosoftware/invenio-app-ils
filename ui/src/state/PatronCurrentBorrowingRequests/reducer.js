@@ -1,10 +1,4 @@
-import {
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-  CHANGE_SORT_BY,
-  CHANGE_SORT_ORDER,
-} from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 
 export const initialState = {
   isLoading: true,
@@ -33,17 +27,6 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
         hasError: true,
-      };
-    case CHANGE_SORT_BY:
-      return {
-        ...state,
-        sortBy: action.payload,
-        sortOrder: initialState.sortOrder,
-      };
-    case CHANGE_SORT_ORDER:
-      return {
-        ...state,
-        sortOrder: action.payload,
       };
     default:
       return state;

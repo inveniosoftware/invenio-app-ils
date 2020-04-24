@@ -49,7 +49,7 @@ export const toShortDate = date => {
 /**
  *  Serializes date for display in tables
  */
-export function dateFormatter({ col, row }) {
+export function dateFormatter({ col, row }, defaultValue = null) {
   const dateField = _get(row, col.field);
-  return dateField ? toShortDate(fromISO(dateField)) : null;
+  return dateField ? toShortDate(fromISO(dateField)) : defaultValue;
 }

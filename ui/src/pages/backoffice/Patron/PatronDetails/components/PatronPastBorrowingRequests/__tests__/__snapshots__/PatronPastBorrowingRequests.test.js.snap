@@ -855,7 +855,9 @@ exports[`PatronPastBorrowingRequests tests should render patron borrowing reques
                               data-label="Requested on"
                               data-test="5-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -869,7 +871,9 @@ exports[`PatronPastBorrowingRequests tests should render patron borrowing reques
                               data-label="Received on"
                               data-test="6-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>
@@ -1105,7 +1109,9 @@ exports[`PatronPastBorrowingRequests tests should render patron borrowing reques
                               data-label="Requested on"
                               data-test="5-borrowing-request2"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -1119,7 +1125,9 @@ exports[`PatronPastBorrowingRequests tests should render patron borrowing reques
                               data-label="Received on"
                               data-test="6-borrowing-request2"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>
@@ -2053,7 +2061,9 @@ exports[`PatronPastBorrowingRequests tests should render the see all button when
                               data-label="Requested on"
                               data-test="5-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -2067,7 +2077,9 @@ exports[`PatronPastBorrowingRequests tests should render the see all button when
                               data-label="Received on"
                               data-test="6-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>

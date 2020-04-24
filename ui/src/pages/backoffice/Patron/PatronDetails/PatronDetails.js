@@ -96,7 +96,7 @@ export default class PatronDetails extends Component {
                             <PatronPendingLoans />
                           </Segment>
                           <Header attached="top" as={'h3'}>
-                            Patron's current borrowing requests
+                            Patron's current interlibrary loans
                           </Header>
                           <Segment
                             attached
@@ -106,7 +106,7 @@ export default class PatronDetails extends Component {
                             <PatronCurrentBorrowingRequests />
                           </Segment>
                           <Header attached="top" as={'h3'}>
-                            Patron's literature requests
+                            Patron's requests for new literatures
                           </Header>
                           <Segment
                             attached
@@ -126,7 +126,7 @@ export default class PatronDetails extends Component {
                             <PatronPastLoans />
                           </Segment>
                           <Header attached="top" as={'h3'}>
-                            Patron's borrowing requests history
+                            Patron's interlibrary loans history
                           </Header>
                           <Segment
                             attached

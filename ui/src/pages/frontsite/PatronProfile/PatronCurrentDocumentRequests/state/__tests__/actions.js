@@ -38,24 +38,21 @@ beforeEach(() => {
 
 describe('Patron document requests tests', () => {
   describe('fetch Patron document requests tests', () => {
-    it('should dispatch a loading action when fetching patron document requests', done => {
+    it('should dispatch a loading action when fetching patron document requests', async () => {
       mockFetchPatronDocumentRequests.mockResolvedValue(mockResponse);
 
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
-        expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronDocumentRequests(2));
+      expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
+        '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
+      );
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch a success action when patron document requests fetch succeeds', done => {
+    it('should dispatch a success action when patron document requests fetch succeeds', async () => {
       mockFetchPatronDocumentRequests.mockResolvedValue(mockResponse);
 
       const expectedAction = {
@@ -63,17 +60,14 @@ describe('Patron document requests tests', () => {
         payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
-        expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronDocumentRequests(2));
+      expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
+        '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
+      );
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch an error action when patron document requests fetch fails', done => {
+    it('should dispatch an error action when patron document requests fetch fails', async () => {
       mockFetchPatronDocumentRequests.mockRejectedValue([500, 'Error']);
 
       const expectedAction = {
@@ -81,31 +75,25 @@ describe('Patron document requests tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
-        expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronDocumentRequests(2));
+      expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
+        '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
+      );
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch a delayed loading action when fetching patron document requests', done => {
+    it('should dispatch a delayed loading action when fetching patron document requests', async () => {
       mockFetchPatronDocumentRequests.mockResolvedValue(mockResponse);
 
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronDocumentRequests(2)).then(e => {
-        expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronDocumentRequests(2));
+      expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
+        '(patron_pid:2 AND state:PENDING)&sort=-mostrecent&page=1'
+      );
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
   });
 });

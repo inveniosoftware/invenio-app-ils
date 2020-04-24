@@ -42,27 +42,4 @@ describe('Fetch pending borrowing requests reducer', () => {
       hasError: true,
     });
   });
-
-  it('should change sortBy and reset sortOrder states on change sort by action', () => {
-    const action = {
-      type: types.CHANGE_SORT_BY,
-      payload: 'transaction_date',
-    };
-    expect(reducer(initialState, action)).toEqual({
-      ...initialState,
-      sortBy: 'transaction_date',
-      sortOrder: initialState.sortOrder,
-    });
-  });
-
-  it('should change sortOrder state on change sort order action', () => {
-    const action = {
-      type: types.CHANGE_SORT_ORDER,
-      payload: 'desc',
-    };
-    expect(reducer(initialState, action)).toEqual({
-      ...initialState,
-      sortOrder: 'desc',
-    });
-  });
 });

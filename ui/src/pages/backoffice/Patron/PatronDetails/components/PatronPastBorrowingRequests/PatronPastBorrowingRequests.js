@@ -8,7 +8,6 @@ import { illBorrowingRequest as borrowingRequestApi } from '@api';
 import { invenioConfig } from '@config';
 import { ILLRoutes, BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
-import _get from 'lodash/get';
 
 export default class PatronPastBorrowingRequests extends Component {
   componentDidMount() {
@@ -64,7 +63,7 @@ export default class PatronPastBorrowingRequests extends Component {
   };
 
   viewDate = date => {
-    return <>{_get(date.row, date.col.field) ? dateFormatter(date) : '-'}</>;
+    return <> {dateFormatter({ ...date }, '-')} </>;
   };
 
   renderTable(data) {
@@ -125,10 +124,13 @@ export default class PatronPastBorrowingRequests extends Component {
 }
 
 PatronPastBorrowingRequests.propTypes = {
+  showMaxRequests: PropTypes.number,
+  // from redux
   patronDetails: PropTypes.object,
   fetchPatronPastBorrowingRequests: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  showMaxRequests: PropTypes.number,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object,
 };
 
 PatronPastBorrowingRequests.defaultProps = {

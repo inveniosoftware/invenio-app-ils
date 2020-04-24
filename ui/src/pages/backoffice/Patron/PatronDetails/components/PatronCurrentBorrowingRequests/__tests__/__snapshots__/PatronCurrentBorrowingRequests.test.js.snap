@@ -890,7 +890,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Requested on"
                               data-test="5-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -904,7 +906,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Expected delivery"
                               data-test="6-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -918,7 +922,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Received on"
                               data-test="7-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>
@@ -1154,7 +1160,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Requested on"
                               data-test="5-borrowing-request2"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -1168,7 +1176,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Expected delivery"
                               data-test="6-borrowing-request2"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -1182,7 +1192,9 @@ exports[`PatronCurrentBorrowingRequests tests should render patron borrowing req
                               data-label="Received on"
                               data-test="7-borrowing-request2"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>
@@ -2151,7 +2163,9 @@ exports[`PatronCurrentBorrowingRequests tests should render the see all button w
                               data-label="Requested on"
                               data-test="5-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -2165,7 +2179,9 @@ exports[`PatronCurrentBorrowingRequests tests should render the see all button w
                               data-label="Expected delivery"
                               data-test="6-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                           <TableCell
@@ -2179,7 +2195,9 @@ exports[`PatronCurrentBorrowingRequests tests should render the see all button w
                               data-label="Received on"
                               data-test="7-borrowing-request1"
                             >
+                               
                               -
+                               
                             </td>
                           </TableCell>
                         </tr>

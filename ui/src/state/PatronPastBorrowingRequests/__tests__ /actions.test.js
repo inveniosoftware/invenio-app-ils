@@ -37,24 +37,21 @@ beforeEach(() => {
 
 describe('Patron borrowing requests tests', () => {
   describe('fetch Patron borrowing requests tests', () => {
-    it('should dispatch a loading action when fetching patron borrowing requests', done => {
+    it('should dispatch a loading action when fetching patron borrowing requests', async () => {
       mockFetchUserBorrowingRequest.mockResolvedValue(mockResponse);
 
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronPastBorrowingRequests(2)).then(() => {
-        expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
-          '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronPastBorrowingRequests(2));
+      expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
+        '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
+      );
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch a success action when patron borrowing requests fetch succeeds', done => {
+    it('should dispatch a success action when patron borrowing requests fetch succeeds', async () => {
       mockFetchUserBorrowingRequest.mockResolvedValue(mockResponse);
 
       const expectedAction = {
@@ -62,17 +59,14 @@ describe('Patron borrowing requests tests', () => {
         payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchPatronPastBorrowingRequests(2)).then(() => {
-        expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
-          '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronPastBorrowingRequests(2));
+      expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
+        '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
+      );
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch an error action when patron borrowing requests fetch fails', done => {
+    it('should dispatch an error action when patron borrowing requests fetch fails', async () => {
       mockFetchUserBorrowingRequest.mockRejectedValue([500, 'Error']);
 
       const expectedAction = {
@@ -80,14 +74,11 @@ describe('Patron borrowing requests tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPatronPastBorrowingRequests(2)).then(() => {
-        expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
-          '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchPatronPastBorrowingRequests(2));
+      expect(mockFetchUserBorrowingRequest).toHaveBeenCalledWith(
+        '(patron_pid:2 AND status:(CANCELLED OR RETURNED))&page=1'
+      );
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });

@@ -21,19 +21,21 @@ export const fetchPatronPastBorrowingRequests = (
     dispatch({
       type: IS_LOADING,
     });
-    await BorrowingRequestApi.list(selectQuery(patronPid, page, size))
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await BorrowingRequestApi.list(
+        selectQuery(patronPid, page, size)
+      );
+
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

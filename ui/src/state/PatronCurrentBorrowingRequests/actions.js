@@ -2,12 +2,13 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { invenioConfig } from '@config';
 import { illBorrowingRequest as BorrowingRequestApi } from '@api';
 import { sendErrorNotification } from '@components/Notifications';
+import _difference from 'lodash/difference';
 
 const selectQuery = (patronPid, page = 1, size) => {
-  const statuses = invenioConfig.illBorrowingRequests.pendingStatuses.concat(
-    invenioConfig.illBorrowingRequests.requestedStatuses.concat(
-      invenioConfig.illBorrowingRequests.activeStatuses
-    )
+  const illConfig = invenioConfig.illBorrowingRequests;
+  const statuses = _difference(
+    illConfig.orderedValidStatuses,
+    illConfig.completedStatuses
   );
   return BorrowingRequestApi.query()
     .withPatron(patronPid)
@@ -26,19 +27,21 @@ export const fetchPatronCurrentBorrowingRequests = (
     dispatch({
       type: IS_LOADING,
     });
-    await BorrowingRequestApi.list(selectQuery(patronPid, page, size))
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await BorrowingRequestApi.list(
+        selectQuery(patronPid, page, size)
+      );
+
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

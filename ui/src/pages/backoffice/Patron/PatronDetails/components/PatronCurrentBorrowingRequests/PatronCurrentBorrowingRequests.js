@@ -8,7 +8,7 @@ import { illBorrowingRequest as borrowingRequestApi } from '@api';
 import { invenioConfig } from '@config';
 import { ILLRoutes, BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
-import _get from 'lodash/get';
+import _difference from 'lodash/difference';
 
 export default class PatronCurrentBorrowingRequests extends Component {
   componentDidMount() {
@@ -19,10 +19,10 @@ export default class PatronCurrentBorrowingRequests extends Component {
   }
 
   seeAllButton = () => {
-    const statuses = invenioConfig.illBorrowingRequests.pendingStatuses.concat(
-      invenioConfig.illBorrowingRequests.requestedStatuses.concat(
-        invenioConfig.illBorrowingRequests.activeStatuses
-      )
+    const illConfig = invenioConfig.illBorrowingRequests;
+    const statuses = _difference(
+      illConfig.orderedValidStatuses,
+      illConfig.completedStatuses
     );
     const patronPid = this.props.patronDetails.user_pid;
     const path = ILLRoutes.borrowingRequestListWithQuery(
@@ -69,7 +69,7 @@ export default class PatronCurrentBorrowingRequests extends Component {
   };
 
   viewDate = date => {
-    return <>{_get(date.row, date.col.field) ? dateFormatter(date) : '-'}</>;
+    return <> {dateFormatter({ ...date }, '-')} </>;
   };
 
   renderTable(data) {
@@ -135,10 +135,13 @@ export default class PatronCurrentBorrowingRequests extends Component {
 }
 
 PatronCurrentBorrowingRequests.propTypes = {
+  showMaxRequests: PropTypes.number,
+  // from redux
   patronDetails: PropTypes.object,
   fetchPatronCurrentBorrowingRequests: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  showMaxRequests: PropTypes.number,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object,
 };
 
 PatronCurrentBorrowingRequests.defaultProps = {

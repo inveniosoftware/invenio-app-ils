@@ -93,7 +93,7 @@ exports[`PatronDetails tests should load the details component 1`] = `
                       as="h3"
                       attached="top"
                     >
-                      Patron's current borrowing requests
+                      Patron's current interlibrary loans
                     </Header>
                     <Segment
                       attached={true}
@@ -106,7 +106,7 @@ exports[`PatronDetails tests should load the details component 1`] = `
                       as="h3"
                       attached="top"
                     >
-                      Patron's literature requests
+                      Patron's requests for new literatures
                     </Header>
                     <Segment
                       attached={true}
@@ -132,7 +132,7 @@ exports[`PatronDetails tests should load the details component 1`] = `
                       as="h3"
                       attached="top"
                     >
-                      Patron's borrowing requests history
+                      Patron's interlibrary loans history
                     </Header>
                     <Segment
                       attached={true}

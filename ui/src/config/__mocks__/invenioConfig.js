@@ -37,6 +37,7 @@ export const invenioConfig = {
     ],
   },
   illBorrowingRequests: {
+    orderedValidStatuses: ['PENDING', 'REQUESTED', 'ON_LOAN', 'RETURNED'],
     pendingStatuses: ['PENDING'],
     requestedStatuses: ['REQUESTED'],
     activeStatuses: ['ON_LOAN'],
