@@ -7,7 +7,11 @@ const selectQuery = (patronPid, page) => {
   return loanApi
     .query()
     .withPatronPid(patronPid)
-    .withState(invenioConfig.circulation.loanCompletedStates)
+    .withState(
+      invenioConfig.circulation.loanCompletedStates.concat(
+        invenioConfig.circulation.loanCancelledStates
+      )
+    )
     .withPage(page)
     .sortByNewest()
     .qs();
