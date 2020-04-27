@@ -11,19 +11,22 @@ export default class PatronActionMenu extends Component {
       <div className={'bo-action-menu'}>
         <ScrollingMenu offset={this.props.offset}>
           <ScrollingMenuItem label="Checkout" elementId="patron-checkout" />
-          <ScrollingMenuItem label="Current loans" elementId="current-loans" />
-          <ScrollingMenuItem label="Loan requests" elementId="loan-requests" />
+          <ScrollingMenuItem label="Ongoing loans" elementId="ongoing-loans" />
           <ScrollingMenuItem
-            label="Borrowing requests"
-            elementId="borrowing-requests"
+            label="Pending loan requests"
+            elementId="loan-requests"
           />
           <ScrollingMenuItem
-            label="Literature requests"
+            label="Ongoing interlibrary loans"
+            elementId="ongoing-borrowing-requests"
+          />
+          <ScrollingMenuItem
+            label="Requests for new literature"
             elementId="literature-requests"
           />
           <ScrollingMenuItem label="Loans history" elementId="loans-history" />
           <ScrollingMenuItem
-            label="Borrowing requests history"
+            label="Interlibrary loans history"
             elementId="borrowing-requests-history"
           />
         </ScrollingMenu>

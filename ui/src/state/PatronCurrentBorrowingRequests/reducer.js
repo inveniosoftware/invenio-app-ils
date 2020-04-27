@@ -5,8 +5,6 @@ export const initialState = {
   hasError: false,
   data: { hits: [], total: 0 },
   error: {},
-  sortBy: 'transaction_date',
-  sortOrder: 'asc',
 };
 
 export default (state = initialState, action) => {
