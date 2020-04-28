@@ -7,7 +7,6 @@ assignees: ''
 
 ---
 
-Epic link: <here>
+Epic link (if applicable)
 
-**Description**
-Insert here a complete description of the issue
+## Description
