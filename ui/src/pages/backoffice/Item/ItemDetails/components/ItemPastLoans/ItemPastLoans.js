@@ -17,9 +17,7 @@ export default class ItemPastLoans extends Component {
 
   seeAllButton = () => {
     const { pid } = this.props.itemDetails;
-    const loanStates = invenioConfig.circulation.loanCompletedStates.concat(
-      invenioConfig.circulation.loanCancelledStates
-    );
+    const loanStates = invenioConfig.circulation.loanCompletedStates;
     const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()

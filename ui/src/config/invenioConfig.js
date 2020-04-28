@@ -17,8 +17,7 @@ export const invenioConfig = {
       'ITEM_IN_TRANSIT_FOR_PICKUP',
       'ITEM_IN_TRANSIT_TO_HOUSE',
     ],
-    loanCancelledStates: ['CANCELLED'],
-    loanCompletedStates: ['ITEM_RETURNED'],
+    loanCompletedStates: ['ITEM_RETURNED', 'CANCELLED'],
     loanRequestStates: ['PENDING'],
     requestDuration: 60,
     statuses: [
