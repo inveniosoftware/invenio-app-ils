@@ -239,7 +239,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                     className="field"
                                   >
                                     <Input
-                                      aria-describedby={null}
                                       autoComplete="off"
                                       data-test=""
                                       icon={true}
@@ -270,7 +269,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                           />
                                         </Icon>
                                         <input
-                                          aria-describedby={null}
                                           autoComplete="off"
                                           key=".1"
                                           name="selectedDate"
@@ -422,7 +420,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                     className="field"
                                   >
                                     <Input
-                                      aria-describedby={null}
                                       autoComplete="off"
                                       data-test=""
                                       icon={true}
@@ -453,7 +450,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                           />
                                         </Icon>
                                         <input
-                                          aria-describedby={null}
                                           autoComplete="off"
                                           key=".1"
                                           name="selectedDate"

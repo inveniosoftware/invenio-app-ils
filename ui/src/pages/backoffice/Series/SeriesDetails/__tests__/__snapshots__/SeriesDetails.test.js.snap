@@ -127,7 +127,7 @@ exports[`SeriesDetails tests should load the details component 1`] = `
                             <div
                               id="series-relations"
                             >
-                              <UNDEFINED />
+                              <Memo(Connect(SeriesSiblings)) />
                             </div>
                           </AccordionContent>,
                           "key": "series-relations",
