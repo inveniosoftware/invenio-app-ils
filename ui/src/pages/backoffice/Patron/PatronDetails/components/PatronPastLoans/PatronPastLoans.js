@@ -72,6 +72,10 @@ export default class PatronPastLoans extends Component {
         formatter: this.viewItem,
       },
       {
+        title: 'State',
+        field: 'metadata.state',
+      },
+      {
         title: 'Start date',
         field: 'metadata.start_date',
         formatter: dateFormatter,

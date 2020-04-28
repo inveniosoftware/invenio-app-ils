@@ -10,6 +10,8 @@ import {
   patronDocumentRequestsReducer,
   patronPastLoansReducer,
   patronPendingLoansReducer,
+  patronCurrentBorrowingRequestsReducer,
+  patronPastBorrowingRequestsReducer,
 } from './state';
 import { authenticationReducer } from '@authentication/reducer';
 import {
@@ -117,6 +119,8 @@ const rootReducer = combineReducers({
   patronItemsCheckout: patronItemCheckoutReducer,
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,
+  patronCurrentBorrowingRequests: patronCurrentBorrowingRequestsReducer,
+  patronPastBorrowingRequests: patronPastBorrowingRequestsReducer,
   pendingOverdueDocuments: pendingOverdueDocumentsReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDetailsFront: seriesDetailsFrontReducer,
