@@ -6,17 +6,19 @@ import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Item, Label } from 'semantic-ui-react';
+import { Grid, Item, Popup, Icon, Header } from 'semantic-ui-react';
 import { ExtendButton } from '../';
 
 const OverdueLabel = () => (
-  <h4>Your loan is overdue. Please return the book as soon as possible!</h4>
+  <h4>
+    Your loan is overdue. Please return the literature as soon as possible!
+  </h4>
 );
 
 const ReturnLabel = ({ endDate }) => (
   <h4>
     Please return the literature before date{' '}
-    <Label className={'bkg-primary'}>{toShortDate(endDate)}</Label>
+    <Header size="large">{toShortDate(endDate)}</Header>
   </h4>
 );
 
@@ -44,8 +46,19 @@ export class LoanListEntry extends Component {
             as={Link}
             to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
           >
-            {loan.metadata.document.title}
+            {loan.metadata.document.title}{' '}
+            {loan.metadata.item_pid.type === 'illbid' && (
+              <Popup
+                content={
+                  'This loan involves 3rd party library, please return on time'
+                }
+                trigger={
+                  <Icon name={'exclamation circle'} size="large" color="red" />
+                }
+              />
+            )}
           </Item.Header>
+
           <Grid columns={2}>
             <Grid.Column mobile={16} tablet={8} computer={8}>
               <Item.Meta>
@@ -67,11 +80,13 @@ export class LoanListEntry extends Component {
                   <ReturnLabel endDate={loan.metadata.end_date} />
                 )}
                 <br />
-                <ExtendButton
-                  loan={loan}
-                  extendLoan={extendLoan}
-                  onExtendSuccess={onExtendSuccess}
-                />
+                {loan.metadata.item_pid.type !== 'illbid' && (
+                  <ExtendButton
+                    loan={loan}
+                    extendLoan={extendLoan}
+                    onExtendSuccess={onExtendSuccess}
+                  />
+                )}
               </Item.Description>
             </Grid.Column>
           </Grid>
