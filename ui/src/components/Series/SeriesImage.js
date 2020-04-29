@@ -8,7 +8,7 @@ export const SeriesImage = ({ fluid, metadata, size, ...props }) => {
       centered
       wrapped
       fluid={fluid}
-      src="/images/placeholder.png"
+      src={metadata.cover_metadata.urls.large}
       size={fluid ? undefined : size}
       {...props}
     />
