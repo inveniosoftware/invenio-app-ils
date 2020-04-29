@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
 import Truncate from 'react-truncate';
 import { SeriesAuthors } from '@components';
-import { SeriesLanguages, SeriesImage } from '@components/Series';
+import { SeriesLanguages, SeriesCover } from '@components/Series';
+import _get from 'lodash/get';
 
 export default class SeriesListEntry extends Component {
   constructor(props) {
@@ -21,7 +22,9 @@ export default class SeriesListEntry extends Component {
         as={Link}
         to={FrontSiteRoutes.seriesDetailsFor(this.metadata.pid)}
       >
-        <SeriesImage metadata={this.metadata} />
+        <SeriesCover
+          coverUrl={_get(this, 'metadata.cover_metadata.urls.medium')}
+        />
       </Item.Image>
     );
 

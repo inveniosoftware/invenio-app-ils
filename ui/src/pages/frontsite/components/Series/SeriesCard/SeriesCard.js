@@ -1,14 +1,19 @@
-import { SeriesAuthors, SeriesImage } from '@components/Series';
+import { SeriesAuthors, SeriesCover } from '@components/Series';
 import { goTo } from '@history';
 import { FrontSiteRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Card, Label } from 'semantic-ui-react';
+import _get from 'lodash/get';
 
 export class SeriesCard extends Component {
   renderImage = () => {
     const { data, volume } = this.props;
-    const image = <SeriesImage metadata={data.metadata} />;
+    const image = (
+      <SeriesCover
+        coverUrl={_get(data, 'metadata.cover_metadata.urls.large')}
+      />
+    );
 
     if (volume) {
       return (

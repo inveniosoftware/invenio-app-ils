@@ -189,7 +189,14 @@ class InvenioAppIls(object):
             Blueprint(
                 "invenio_app_ils_mail",
                 __name__,
-                template_folder="templates"
+                template_folder="templates",
+            )
+        )
+        app.register_blueprint(
+            Blueprint(
+                "invenio_app_ils_static",
+                __name__,
+                static_folder="static",
             )
         )
         # disable warnings being logged to Sentry
