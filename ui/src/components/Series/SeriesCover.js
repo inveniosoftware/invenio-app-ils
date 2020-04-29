@@ -2,26 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'semantic-ui-react';
 
-export const SeriesImage = ({ fluid, metadata, size, ...props }) => {
+export const SeriesCover = ({ coverUrl, fluid, size, ...props }) => {
   return (
     <Image
       centered
       wrapped
       fluid={fluid}
-      src="/images/placeholder.png"
+      src={coverUrl}
       size={fluid ? undefined : size}
       {...props}
     />
   );
 };
 
-SeriesImage.propTypes = {
+SeriesCover.propTypes = {
   fluid: PropTypes.bool,
-  metadata: PropTypes.object,
+  coverUrl: PropTypes.string,
   size: PropTypes.string,
 };
 
-SeriesImage.defaultProps = {
+SeriesCover.defaultProps = {
   fluid: false,
   size: 'small',
 };

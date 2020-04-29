@@ -333,7 +333,7 @@ class DocumentGenerator(Generator):
         obj = {
             "pid": self.create_pid(),
             "title": lorem.sentence(),
-            "cover_metadata": {"isbn": random.choice(self.ISBNS), "urls": {}},
+            "cover_metadata": {"ISBN": random.choice(self.ISBNS), "urls": {}},
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
             "document_type": random.choice(Document.DOCUMENT_TYPES),
@@ -619,7 +619,7 @@ class SeriesGenerator(Generator):
             obj = {
                 "pid": self.create_pid(),
                 "cover_metadata": {
-                    "isbn": random.choice(DocumentGenerator.ISBNS),
+                    "ISBN": random.choice(DocumentGenerator.ISBNS),
                     "urls": {},
                 },
                 "mode_of_issuance": moi,

@@ -1,4 +1,4 @@
 export { SeriesAuthors } from './SeriesAuthors';
-export { SeriesImage } from './SeriesImage';
+export { SeriesCover } from './SeriesCover';
 export { SeriesLanguages } from './SeriesLanguages';
 export { SeriesModeOfIssuance } from './SeriesModeOfIssuance';

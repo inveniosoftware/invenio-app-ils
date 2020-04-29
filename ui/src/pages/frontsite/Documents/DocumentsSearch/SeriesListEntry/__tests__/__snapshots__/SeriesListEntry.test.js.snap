@@ -20,21 +20,8 @@ exports[`should render correctly 1`] = `
     floated="left"
     to="/series/serid-1"
   >
-    <SeriesImage
+    <SeriesCover
       fluid={false}
-      metadata={
-        Object {
-          "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
-          "abstract": "This is a multipart monograph",
-          "authors": Array [
-            "Einstein, Albert",
-            "Stachel, John J et al.",
-          ],
-          "mode_of_issuance": "MULTIPART_MONOGRAPH",
-          "pid": "serid-1",
-          "title": "The Gulf: The Making of An American Sea",
-        }
-      }
       size="small"
     />
   </ItemImage>

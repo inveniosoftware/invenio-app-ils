@@ -38,13 +38,13 @@ from invenio_stats.queries import ESTermsQuery
 
 from invenio_app_ils.circulation.indexer import LoanIndexer
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
-from invenio_app_ils.documents.covers_builder import build_ils_demo_cover_urls
 from invenio_app_ils.documents.indexer import DocumentIndexer
 from invenio_app_ils.eitems.indexer import EItemIndexer
 from invenio_app_ils.internal_locations.indexer import InternalLocationIndexer
 from invenio_app_ils.items.indexer import ItemIndexer
 from invenio_app_ils.literature.api import LITERATURE_PID_FETCHER, \
     LITERATURE_PID_MINTER, LITERATURE_PID_TYPE
+from invenio_app_ils.literature.covers_builder import build_ils_demo_cover_urls
 from invenio_app_ils.literature.search import LiteratureSearch
 from invenio_app_ils.locations.indexer import LocationIndexer
 from invenio_app_ils.patrons.indexer import PatronIndexer

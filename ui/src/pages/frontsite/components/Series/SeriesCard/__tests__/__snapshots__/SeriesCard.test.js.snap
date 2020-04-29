@@ -40,22 +40,8 @@ exports[`SeriesCard tests should go to book details when clicking on a book 1`] 
           Series
         </div>
       </CardMeta>
-      <SeriesImage
+      <SeriesCover
         fluid={false}
-        metadata={
-          Object {
-            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
-            "abstract": "This is a multipart monograph",
-            "authors": Array [
-              "Author1",
-              "Author2",
-            ],
-            "edition": "12",
-            "mode_of_issuance": "SERIAL",
-            "pid": "serid-1",
-            "title": "Lorem",
-          }
-        }
         size="small"
       >
         <Image
@@ -63,19 +49,16 @@ exports[`SeriesCard tests should go to book details when clicking on a book 1`] 
           centered={true}
           fluid={false}
           size="small"
-          src="/images/placeholder.png"
           ui={true}
           wrapped={true}
         >
           <div
             className="ui small centered image"
           >
-            <img
-              src="/images/placeholder.png"
-            />
+            <img />
           </div>
         </Image>
-      </SeriesImage>
+      </SeriesCover>
       <CardContent>
         <div
           className="content"
@@ -211,22 +194,8 @@ exports[`SeriesCard tests should render the SeriesCard 1`] = `
           Series
         </div>
       </CardMeta>
-      <SeriesImage
+      <SeriesCover
         fluid={false}
-        metadata={
-          Object {
-            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
-            "abstract": "This is a multipart monograph",
-            "authors": Array [
-              "Author1",
-              "Author2",
-            ],
-            "edition": "12",
-            "mode_of_issuance": "SERIAL",
-            "pid": "serid-1",
-            "title": "Lorem",
-          }
-        }
         size="small"
       >
         <Image
@@ -234,19 +203,16 @@ exports[`SeriesCard tests should render the SeriesCard 1`] = `
           centered={true}
           fluid={false}
           size="small"
-          src="/images/placeholder.png"
           ui={true}
           wrapped={true}
         >
           <div
             className="ui small centered image"
           >
-            <img
-              src="/images/placeholder.png"
-            />
+            <img />
           </div>
         </Image>
-      </SeriesImage>
+      </SeriesCover>
       <CardContent>
         <div
           className="content"
