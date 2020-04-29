@@ -8,9 +8,7 @@ export const fetchPastLoans = itemPid => {
     dispatch({
       type: IS_LOADING,
     });
-    const loanStates = invenioConfig.circulation.loanCompletedStates.concat(
-      invenioConfig.circulation.loanCancelledStates
-    );
+    const loanStates = invenioConfig.circulation.loanCompletedStates;
     await loanApi
       .list(
         loanApi

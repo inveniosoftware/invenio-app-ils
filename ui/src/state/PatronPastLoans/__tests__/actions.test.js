@@ -43,7 +43,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
+      '(patron_pid:2 AND state:(ITEM_RETURNED OR CANCELLED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[0]).toEqual(expectedAction);
   });
@@ -56,7 +56,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
+      '(patron_pid:2 AND state:(ITEM_RETURNED OR CANCELLED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[1]).toEqual(expectedAction);
   });
@@ -69,7 +69,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
+      '(patron_pid:2 AND state:(ITEM_RETURNED OR CANCELLED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[1]).toEqual(expectedAction);
   });
@@ -81,7 +81,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
+      '(patron_pid:2 AND state:(ITEM_RETURNED OR CANCELLED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[0]).toEqual(expectedAction);
   });

@@ -132,13 +132,10 @@ export default class AvailableItems extends Component {
     const isCompleted = invenioConfig.circulation.loanCompletedStates.includes(
       loan.metadata.state
     );
-    const isCancelled = invenioConfig.circulation.loanCancelledStates.includes(
-      loan.metadata.state
-    );
 
     if (isRequested) {
       return this.checkoutItemButton(row, loan);
-    } else if (isCompleted || isCancelled) {
+    } else if (isCompleted) {
       return (
         <Message compact info size="tiny">
           You can't change the physical copy <br /> once the loan is completed
