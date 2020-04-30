@@ -42,22 +42,20 @@ class DocumentItem extends Component {
                 ) && item.circulation ? (
                 <span className={'danger'}> On loan </span>
               ) : (
-                getDisplayVal('items.statuses', item.status).text
+                getDisplayVal('items.statuses', item.status)
               )}
             </Grid.Column>
 
             <Grid.Column width={6}>
               <List.Description>
                 <label>Medium</label>{' '}
-                {getDisplayVal('items.mediums', item.medium).text}
+                {getDisplayVal('items.mediums', item.medium)}
                 <br />
                 <label>Restrictions</label>{' '}
-                {item.circulation_restriction
-                  ? getDisplayVal(
-                      'items.circulationRestrictions',
-                      item.circulation_restriction
-                    ).text
-                  : 'None'}
+                {getDisplayVal(
+                  'items.circulationRestrictions',
+                  item.circulation_restriction
+                )}
               </List.Description>
             </Grid.Column>
           </Grid>

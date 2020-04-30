@@ -12,7 +12,7 @@ def build_ils_demo_cover_urls(metadata):
     """Build working ulrs for demo data."""
     default_url = "http://covers.openlibrary.org/b/isbn"
     cover_meta = metadata.get("cover_metadata", {})
-    isbn = cover_meta.get("isbn", "")
+    isbn = cover_meta.get("ISBN", "")
     return {
         "small": "{url}/{isbn}-S.jpg".format(url=default_url, isbn=isbn),
         "medium": "{url}/{isbn}-M.jpg".format(url=default_url, isbn=isbn),

@@ -46,9 +46,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.records.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
         list_route="/acquisition/orders/",
         item_route="/acquisition/orders/<{0}:pid_value>".format(
@@ -103,10 +101,7 @@ RECORDS_REST_ENDPOINTS = dict(
 RECORDS_REST_SORT_OPTIONS = dict(
     acq_orders=dict(  # OrderSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         order_date=dict(
             fields=["order_date"],
@@ -140,7 +135,9 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     acq_vendors=dict(  # VendorSearch.Meta.index
-        name=dict(fields=["name"], title="Name", default_order="asc", order=1),
+        name=dict(
+            fields=["name"], title="Name", default_order="desc", order=1
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",

@@ -171,7 +171,7 @@ class Item(_Item):
         "THREE_WEEKS",
         "FOUR_WEEKS",
     ]
-    MEDIUMS = ["NOT_SPECIFIED", "PAPER", "CDROM", "DVD", "VHS"]
+    MEDIUMS = ["NOT_SPECIFIED", "PAPER", "CDROM", "DVD", "VHS", "PAPERBACK", "HARDCOVER"]
 
     @classmethod
     def build_resolver_fields(cls, data):

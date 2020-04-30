@@ -47,9 +47,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.ill.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.ill.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
         },
         list_route="/ill/borrowing-requests/",
         item_route="/ill/borrowing-requests/<{0}:pid_value>".format(
@@ -100,10 +98,7 @@ RECORDS_REST_ENDPOINTS = dict(
 RECORDS_REST_SORT_OPTIONS = dict(
     ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"],
-            title="Newest",
-            default_order="asc",
-            order=1,
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         request_date=dict(
             fields=["request_date"],
@@ -137,7 +132,9 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     ill_libraries=dict(  # LibrarySearch.Meta.index
-        name=dict(fields=["name"], title="Name", default_order="asc", order=1),
+        name=dict(
+            fields=["name"], title="Name", default_order="desc", order=1
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",

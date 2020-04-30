@@ -22,16 +22,19 @@ export default class SeriesDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.seriesPid) {
-        this.props.fetchSeriesDetails(location.state.seriesPid);
-      }
-    });
-    this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
+    this.fetchSeriesDetails(this.props.match.params.seriesPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const seriesPid = this.props.match.params.seriesPid;
+    const samePidFromRouter = prevProps.match.params.seriesPid === seriesPid;
+    if (!samePidFromRouter) {
+      this.fetchSeriesDetails(seriesPid);
+    }
+  }
+
+  fetchSeriesDetails(seriesPid) {
+    this.props.fetchSeriesDetails(seriesPid);
   }
 
   breadcrumbs = () => [

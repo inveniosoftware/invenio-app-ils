@@ -60,7 +60,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
@@ -110,7 +110,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
@@ -162,7 +162,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
@@ -192,7 +192,7 @@ const searchConfig = {
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
-          default_order: 'asc',
+          default_order: 'desc',
         },
         {
           field: 'bestmatch',
@@ -210,7 +210,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
@@ -286,7 +286,7 @@ const searchConfig = {
           field: 'mostrecent',
           order: 4,
           title: 'Newest',
-          default_order: 'asc',
+          default_order: 'desc',
         },
         {
           field: 'extensions',
@@ -329,7 +329,7 @@ const searchConfig = {
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
-          default_order: 'asc',
+          default_order: 'desc',
         },
         {
           field: 'bestmatch',
@@ -390,7 +390,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',
@@ -478,7 +478,7 @@ const searchConfig = {
       onEmptyQuery: 'mostrecent',
       values: [
         {
-          default_order: 'asc',
+          default_order: 'desc',
           field: 'mostrecent',
           order: 1,
           title: 'Newest',

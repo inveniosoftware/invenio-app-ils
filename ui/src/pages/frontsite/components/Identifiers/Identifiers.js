@@ -29,7 +29,7 @@ export const IdentifierRows = ({ includeSchemes, identifiers }) => {
   const idsByScheme = {};
   for (const id of identifiers) {
     // Only include whitelisted schemes if includeSchemes is set
-    if (!includeSchemes || includeSchemes.includes(id.scheme)) {
+    if (includeSchemes.length === 0 || includeSchemes.includes(id.scheme)) {
       const value = { value: id.value, material: id.material };
       if (id.scheme in idsByScheme) {
         idsByScheme[id.scheme].push(value);
@@ -67,4 +67,8 @@ export const IdentifierRows = ({ includeSchemes, identifiers }) => {
 IdentifierRows.propTypes = {
   includeSchemes: PropTypes.array,
   identifiers: PropTypes.array,
+};
+
+IdentifierRows.defaultProps = {
+  includeSchemes: [],
 };

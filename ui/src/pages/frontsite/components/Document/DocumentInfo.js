@@ -1,6 +1,5 @@
 import { DocumentAuthors } from '@components/Document';
 import _get from 'lodash/get';
-import _isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Divider, Table } from 'semantic-ui-react';
@@ -48,9 +47,9 @@ export class DocumentInfo extends Component {
       ? this.metadata.identifiers.filter(
           identifier => identifier.scheme === scheme
         )
-      : null;
+      : [];
 
-    if (!_isEmpty(identifiers)) {
+    if (identifiers.length > 0) {
       return <IdentifierRows identifiers={identifiers} />;
     }
     return null;

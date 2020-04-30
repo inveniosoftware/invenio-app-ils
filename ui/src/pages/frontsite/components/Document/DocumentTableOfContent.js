@@ -33,7 +33,11 @@ export class DocumentTableOfContent extends Component {
 }
 
 DocumentTableOfContent.propTypes = {
-  toc: PropTypes.array.isRequired,
+  toc: PropTypes.array,
   abstract: PropTypes.string.isRequired,
   alternative_abstracts: PropTypes.array,
+};
+
+DocumentTableOfContent.defaultProps = {
+  toc: [],
 };
