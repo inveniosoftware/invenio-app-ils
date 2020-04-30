@@ -340,7 +340,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                   values={
                                     Array [
                                       Object {
-                                        "defaultValue": "asc",
+                                        "defaultValue": "desc",
                                         "text": "Newest",
                                         "value": "mostrecent",
                                       },
@@ -381,7 +381,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     values={
                                       Array [
                                         Object {
-                                          "defaultValue": "asc",
+                                          "defaultValue": "desc",
                                           "text": "Newest",
                                           "value": "mostrecent",
                                         },

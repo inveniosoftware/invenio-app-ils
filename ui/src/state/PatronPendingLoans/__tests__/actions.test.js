@@ -46,7 +46,7 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:(PENDING))&page=1'
+          '(patron_pid:2 AND state:(PENDING))&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -64,7 +64,7 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:(PENDING))&page=1'
+          '(patron_pid:2 AND state:(PENDING))&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -82,7 +82,7 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:(PENDING))&page=1'
+          '(patron_pid:2 AND state:(PENDING))&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

@@ -10,6 +10,7 @@ const selectQuery = (patronPid, page, size) => {
     .withState(invenioConfig.circulation.loanRequestStates)
     .withSize(size)
     .withPage(page)
+    .sortByNewest()
     .qs();
 };
 

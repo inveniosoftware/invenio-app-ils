@@ -1,6 +1,5 @@
 import { LiteratureRelations } from '@pages/frontsite/components';
 import _get from 'lodash/get';
-import _isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react';
@@ -18,6 +17,8 @@ export class DocumentMetadataTabs extends Component {
   }
 
   renderTabPanes = () => {
+    const identifiers = _get(this.document, 'identifiers', []);
+    const altIdentifiers = _get(this.document, 'alternative_identifiers', []);
     const panes = [
       {
         menuItem: 'Details',
@@ -32,15 +33,7 @@ export class DocumentMetadataTabs extends Component {
         menuItem: 'Identifiers',
         render: () => (
           <Tab.Pane attached={false}>
-            <Identifiers
-              identifiers={
-                _isEmpty(this.document.identifiers)
-                  ? this.document.alternative_identifiers
-                  : this.document.identifiers.concat(
-                      this.document.alternative_identifiers
-                    )
-              }
-            />
+            <Identifiers identifiers={identifiers.concat(altIdentifiers)} />
           </Tab.Pane>
         ),
       },

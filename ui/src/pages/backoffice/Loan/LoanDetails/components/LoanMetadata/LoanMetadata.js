@@ -17,6 +17,21 @@ import { LoanLinkToItem } from '../../../../components/Loan';
 import { DocumentTitle } from '@components/Document';
 
 export default class LoanMetadata extends Component {
+  getPickupLocation(metadata) {
+    return metadata.pickup_location_pid && metadata.pickup_location ? (
+      <LocationsLink locationPid={metadata.pickup_location_pid}>
+        {metadata.pickup_location.name}
+      </LocationsLink>
+    ) : null;
+  }
+
+  getDelivery(delivery) {
+    if (delivery && 'method' in delivery) {
+      return invenioConfig.circulation.deliveryMethods[delivery.method];
+    }
+    return 'NOT PROVIDED';
+  }
+
   prepareLeftData(data) {
     return [
       {
@@ -68,24 +83,13 @@ export default class LoanMetadata extends Component {
       },
       {
         name: 'Pickup location',
-        value: (
-          <LocationsLink locationPid={data.metadata.pickup_location_pid}>
-            {data.metadata.pickup_location.name}
-          </LocationsLink>
-        ),
+        value: this.getPickupLocation(data.metadata),
       },
       {
         name: 'Delivery',
         value: this.getDelivery(data.metadata.delivery),
       },
     ];
-  }
-
-  getDelivery(delivery) {
-    if (delivery && 'method' in delivery) {
-      return invenioConfig.circulation.deliveryMethods[delivery.method];
-    }
-    return 'NOT PROVIDED';
   }
 
   prepareRightData(data) {

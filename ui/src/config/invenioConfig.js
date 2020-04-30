@@ -76,6 +76,8 @@ export const invenioConfig = {
       { value: 'CDROM', text: 'CD-ROM' },
       { value: 'DVD', text: 'DVD' },
       { value: 'VHS', text: 'VHS' },
+      { value: 'PAPERBACK', text: 'Paperback' },
+      { value: 'HARDCOVER', text: 'Hardcover' },
     ],
     statuses: [
       { value: 'CAN_CIRCULATE', text: 'Can circulate' },

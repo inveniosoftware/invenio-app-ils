@@ -848,7 +848,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
 RECORDS_REST_SORT_OPTIONS = dict(
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -859,7 +859,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     documents=dict(  # DocumentSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -888,7 +888,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     eitems=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -899,7 +899,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     items=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -934,7 +934,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=4,
         ),
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=5
+            fields=["_updated"], title="Newest", default_order="desc", order=5
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -953,7 +953,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     series=dict(  # SeriesSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"], title="Newest", default_order="desc", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],

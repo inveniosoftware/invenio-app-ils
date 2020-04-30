@@ -9,9 +9,8 @@
 
 
 def preserve_cover_metadata(data, prev_record):
-    """Preserver cover metadata if they exist."""
-    if prev_record is None:
-        return data
+    """Preserve cover metadata if they existed."""
+    if "cover_metadata" not in data and prev_record:
+        data["cover_metadata"] = prev_record.get("cover_metadata", {})
 
-    data["cover_metadata"] = prev_record.get("cover_metadata", {})
     return data

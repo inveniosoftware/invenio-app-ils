@@ -28,7 +28,7 @@ def get_related_records(series_pid):
     for relation_type, related_records in relations.items():
         for obj in related_records:
             rec = IlsRecord.get_record_by_pid(
-                obj["pid"], pid_type=obj["pid_type"]
+                obj["pid_value"], pid_type=obj["pid_type"]
             )
             referenced.append(dict(pid_type=obj["pid_type"], record=rec))
     return referenced
