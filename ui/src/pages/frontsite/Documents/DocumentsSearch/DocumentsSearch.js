@@ -84,7 +84,10 @@ export class DocumentsSearch extends Component {
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'documents'} />
+                    <SearchControls
+                      modelName={'documents'}
+                      displayLayoutSwitcher={true}
+                    />
                     <ResultsMultiLayout
                       resultsListCmp={() => <DocumentSearchResultsList />}
                       resultsGridCmp={() => <DocumentSearchResultsGrid />}

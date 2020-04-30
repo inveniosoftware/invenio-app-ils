@@ -16,13 +16,14 @@ import {
   Error,
   InvenioSearchApi,
   ReactSearchKit,
-  ResultsList,
   ResultsLoader,
   SearchBar,
+  ResultsMultiLayout,
 } from 'react-searchkit';
 import { Container, Divider, Loader, Responsive } from 'semantic-ui-react';
 import { qsBuilderForSeries } from './RequestSerializer';
-import { SeriesLiteratureResultsList } from './SeriesLiteratureResultsList';
+import SeriesLiteratureResultsList from './SeriesLiteratureResultsList';
+import SeriesLiteratureSearchResultsGrid from './SeriesLiteratureSearchResultsGrid';
 import { SeriesLiteratureSearchMobile } from './SeriesLiteratureSearchMobile';
 
 export class SeriesLiteratureSearch extends React.Component {
@@ -79,8 +80,12 @@ export class SeriesLiteratureSearch extends React.Component {
 
               <Responsive minWidth={Responsive.onlyComputer.minWidth}>
                 <SearchControls
-                  layoutToggle={this.renderResultsLayoutOptions}
                   modelName="literature"
+                  displayLayoutSwitcher={true}
+                />
+                <ResultsMultiLayout
+                  resultsListCmp={() => <SeriesLiteratureResultsList />}
+                  resultsGridCmp={() => <SeriesLiteratureSearchResultsGrid />}
                 />
               </Responsive>
               <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
@@ -89,14 +94,6 @@ export class SeriesLiteratureSearch extends React.Component {
                   modelName="literature"
                 />
               </Responsive>
-              <ResultsList
-                renderElement={results => (
-                  <SeriesLiteratureResultsList
-                    metadata={metadata}
-                    results={results}
-                  />
-                )}
-              />
               <SearchFooter />
             </ResultsLoader>
           </Responsive>

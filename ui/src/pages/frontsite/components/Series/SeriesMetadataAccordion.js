@@ -36,7 +36,7 @@ export class SeriesMetadataAccordion extends Component {
           Details
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 'details'}>
-          <LiteratureRelations relations={this.metadata.relations} />
+          <LiteratureRelations relations={metadata.relations} />
           <SeriesInfo metadata={metadata} />
           <SeriesAlternativeTitles metadata={metadata} />
         </Accordion.Content>

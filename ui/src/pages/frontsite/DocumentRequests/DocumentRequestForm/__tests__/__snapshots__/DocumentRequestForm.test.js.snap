@@ -342,6 +342,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -394,23 +395,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   placeholder="Title"
                                   required={true}
                                 >
-                                  <FastField
+                                  <FormikConnect(FastFieldInner)
                                     component={[Function]}
                                     name="title"
                                   >
-                                    <Component
-                                      field={
-                                        Object {
-                                          "name": "title",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "value": "",
-                                        }
-                                      }
-                                      form={
+                                    <FastFieldInner
+                                      component={[Function]}
+                                      formik={
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -452,28 +447,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                           },
                                         }
                                       }
+                                      name="title"
                                     >
-                                      <FormField
-                                        inline={false}
+                                      <Component
+                                        field={
+                                          Object {
+                                            "name": "title",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "value": "",
+                                          }
+                                        }
+                                        form={
+                                          Object {
+                                            "dirty": false,
+                                            "errors": Object {},
+                                            "getFieldHelpers": [Function],
+                                            "getFieldMeta": [Function],
+                                            "getFieldProps": [Function],
+                                            "handleBlur": [Function],
+                                            "handleChange": [Function],
+                                            "handleReset": [Function],
+                                            "handleSubmit": [Function],
+                                            "initialErrors": Object {},
+                                            "initialStatus": undefined,
+                                            "initialTouched": Object {},
+                                            "initialValues": Object {
+                                              "title": "",
+                                            },
+                                            "isSubmitting": false,
+                                            "isValid": true,
+                                            "isValidating": false,
+                                            "registerField": [Function],
+                                            "resetForm": [Function],
+                                            "setErrors": [Function],
+                                            "setFieldError": [Function],
+                                            "setFieldTouched": [Function],
+                                            "setFieldValue": [Function],
+                                            "setFormikState": [Function],
+                                            "setStatus": [Function],
+                                            "setSubmitting": [Function],
+                                            "setTouched": [Function],
+                                            "setValues": [Function],
+                                            "status": undefined,
+                                            "submitCount": 0,
+                                            "submitForm": [Function],
+                                            "touched": Object {},
+                                            "unregisterField": [Function],
+                                            "validateField": [Function],
+                                            "validateForm": [Function],
+                                            "validateOnBlur": true,
+                                            "validateOnChange": true,
+                                            "validateOnMount": false,
+                                            "values": Object {
+                                              "title": "",
+                                            },
+                                          }
+                                        }
                                       >
-                                        <div
-                                          className="field"
+                                        <FormField
+                                          inline={false}
                                         >
-                                          <FormInput
-                                            as={[Function]}
-                                            control={[Function]}
-                                            error={null}
-                                            fluid={true}
-                                            id="title"
-                                            label="Title"
-                                            name="title"
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            placeholder="Title"
-                                            required={true}
-                                            value=""
+                                          <div
+                                            className="field"
                                           >
-                                            <FormField
+                                            <FormInput
+                                              as={[Function]}
                                               control={[Function]}
                                               error={null}
                                               fluid={true}
@@ -486,47 +525,65 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                               required={true}
                                               value=""
                                             >
-                                              <div
-                                                className="required field"
+                                              <FormField
+                                                control={[Function]}
+                                                error={null}
+                                                fluid={true}
+                                                id="title"
+                                                label="Title"
+                                                name="title"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Title"
+                                                required={true}
+                                                value=""
                                               >
-                                                <label
-                                                  htmlFor="title"
+                                                <div
+                                                  className="required field"
                                                 >
-                                                  Title
-                                                </label>
-                                                <Input
-                                                  fluid={true}
-                                                  id="title"
-                                                  name="title"
-                                                  onBlur={[Function]}
-                                                  onChange={[Function]}
-                                                  placeholder="Title"
-                                                  required={true}
-                                                  type="text"
-                                                  value=""
-                                                >
-                                                  <div
-                                                    className="ui fluid input"
+                                                  <label
+                                                    htmlFor="title"
                                                   >
-                                                    <input
-                                                      id="title"
-                                                      name="title"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Title"
-                                                      required={true}
-                                                      type="text"
-                                                      value=""
-                                                    />
-                                                  </div>
-                                                </Input>
-                                              </div>
-                                            </FormField>
-                                          </FormInput>
-                                        </div>
-                                      </FormField>
-                                    </Component>
-                                  </FastField>
+                                                    Title
+                                                  </label>
+                                                  <Input
+                                                    aria-describedby={null}
+                                                    aria-invalid={true}
+                                                    fluid={true}
+                                                    id="title"
+                                                    name="title"
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    placeholder="Title"
+                                                    required={true}
+                                                    type="text"
+                                                    value=""
+                                                  >
+                                                    <div
+                                                      className="ui fluid input"
+                                                    >
+                                                      <input
+                                                        aria-describedby={null}
+                                                        aria-invalid={true}
+                                                        id="title"
+                                                        name="title"
+                                                        onBlur={[Function]}
+                                                        onChange={[Function]}
+                                                        placeholder="Title"
+                                                        required={true}
+                                                        type="text"
+                                                        value=""
+                                                      />
+                                                    </div>
+                                                  </Input>
+                                                </div>
+                                              </FormField>
+                                            </FormInput>
+                                          </div>
+                                        </FormField>
+                                      </Component>
+                                    </FastFieldInner>
+                                  </FormikConnect(FastFieldInner)>
                                 </StringField>
                                 <StringField
                                   fieldPath="journal_title"
@@ -535,23 +592,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   optimized={true}
                                   placeholder="Journal title"
                                 >
-                                  <FastField
+                                  <FormikConnect(FastFieldInner)
                                     component={[Function]}
                                     name="journal_title"
                                   >
-                                    <Component
-                                      field={
-                                        Object {
-                                          "name": "journal_title",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "value": undefined,
-                                        }
-                                      }
-                                      form={
+                                    <FastFieldInner
+                                      component={[Function]}
+                                      formik={
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -593,27 +644,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                           },
                                         }
                                       }
+                                      name="journal_title"
                                     >
-                                      <FormField
-                                        inline={false}
+                                      <Component
+                                        field={
+                                          Object {
+                                            "name": "journal_title",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "value": undefined,
+                                          }
+                                        }
+                                        form={
+                                          Object {
+                                            "dirty": false,
+                                            "errors": Object {},
+                                            "getFieldHelpers": [Function],
+                                            "getFieldMeta": [Function],
+                                            "getFieldProps": [Function],
+                                            "handleBlur": [Function],
+                                            "handleChange": [Function],
+                                            "handleReset": [Function],
+                                            "handleSubmit": [Function],
+                                            "initialErrors": Object {},
+                                            "initialStatus": undefined,
+                                            "initialTouched": Object {},
+                                            "initialValues": Object {
+                                              "title": "",
+                                            },
+                                            "isSubmitting": false,
+                                            "isValid": true,
+                                            "isValidating": false,
+                                            "registerField": [Function],
+                                            "resetForm": [Function],
+                                            "setErrors": [Function],
+                                            "setFieldError": [Function],
+                                            "setFieldTouched": [Function],
+                                            "setFieldValue": [Function],
+                                            "setFormikState": [Function],
+                                            "setStatus": [Function],
+                                            "setSubmitting": [Function],
+                                            "setTouched": [Function],
+                                            "setValues": [Function],
+                                            "status": undefined,
+                                            "submitCount": 0,
+                                            "submitForm": [Function],
+                                            "touched": Object {},
+                                            "unregisterField": [Function],
+                                            "validateField": [Function],
+                                            "validateForm": [Function],
+                                            "validateOnBlur": true,
+                                            "validateOnChange": true,
+                                            "validateOnMount": false,
+                                            "values": Object {
+                                              "title": "",
+                                            },
+                                          }
+                                        }
                                       >
-                                        <div
-                                          className="field"
+                                        <FormField
+                                          inline={false}
                                         >
-                                          <FormInput
-                                            as={[Function]}
-                                            control={[Function]}
-                                            error={null}
-                                            fluid={true}
-                                            id="journal_title"
-                                            label="Journal title"
-                                            name="journal_title"
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            placeholder="Journal title"
-                                            value=""
+                                          <div
+                                            className="field"
                                           >
-                                            <FormField
+                                            <FormInput
+                                              as={[Function]}
                                               control={[Function]}
                                               error={null}
                                               fluid={true}
@@ -625,45 +721,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                               placeholder="Journal title"
                                               value=""
                                             >
-                                              <div
-                                                className="field"
+                                              <FormField
+                                                control={[Function]}
+                                                error={null}
+                                                fluid={true}
+                                                id="journal_title"
+                                                label="Journal title"
+                                                name="journal_title"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Journal title"
+                                                value=""
                                               >
-                                                <label
-                                                  htmlFor="journal_title"
+                                                <div
+                                                  className="field"
                                                 >
-                                                  Journal title
-                                                </label>
-                                                <Input
-                                                  fluid={true}
-                                                  id="journal_title"
-                                                  name="journal_title"
-                                                  onBlur={[Function]}
-                                                  onChange={[Function]}
-                                                  placeholder="Journal title"
-                                                  type="text"
-                                                  value=""
-                                                >
-                                                  <div
-                                                    className="ui fluid input"
+                                                  <label
+                                                    htmlFor="journal_title"
                                                   >
-                                                    <input
-                                                      id="journal_title"
-                                                      name="journal_title"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Journal title"
-                                                      type="text"
-                                                      value=""
-                                                    />
-                                                  </div>
-                                                </Input>
-                                              </div>
-                                            </FormField>
-                                          </FormInput>
-                                        </div>
-                                      </FormField>
-                                    </Component>
-                                  </FastField>
+                                                    Journal title
+                                                  </label>
+                                                  <Input
+                                                    aria-describedby={null}
+                                                    aria-invalid={true}
+                                                    fluid={true}
+                                                    id="journal_title"
+                                                    name="journal_title"
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    placeholder="Journal title"
+                                                    type="text"
+                                                    value=""
+                                                  >
+                                                    <div
+                                                      className="ui fluid input"
+                                                    >
+                                                      <input
+                                                        aria-describedby={null}
+                                                        aria-invalid={true}
+                                                        id="journal_title"
+                                                        name="journal_title"
+                                                        onBlur={[Function]}
+                                                        onChange={[Function]}
+                                                        placeholder="Journal title"
+                                                        type="text"
+                                                        value=""
+                                                      />
+                                                    </div>
+                                                  </Input>
+                                                </div>
+                                              </FormField>
+                                            </FormInput>
+                                          </div>
+                                        </FormField>
+                                      </Component>
+                                    </FastFieldInner>
+                                  </FormikConnect(FastFieldInner)>
                                 </StringField>
                                 <StringField
                                   fieldPath="authors"
@@ -672,23 +785,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   optimized={true}
                                   placeholder="Authors"
                                 >
-                                  <FastField
+                                  <FormikConnect(FastFieldInner)
                                     component={[Function]}
                                     name="authors"
                                   >
-                                    <Component
-                                      field={
-                                        Object {
-                                          "name": "authors",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "value": undefined,
-                                        }
-                                      }
-                                      form={
+                                    <FastFieldInner
+                                      component={[Function]}
+                                      formik={
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -730,27 +837,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                           },
                                         }
                                       }
+                                      name="authors"
                                     >
-                                      <FormField
-                                        inline={false}
+                                      <Component
+                                        field={
+                                          Object {
+                                            "name": "authors",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "value": undefined,
+                                          }
+                                        }
+                                        form={
+                                          Object {
+                                            "dirty": false,
+                                            "errors": Object {},
+                                            "getFieldHelpers": [Function],
+                                            "getFieldMeta": [Function],
+                                            "getFieldProps": [Function],
+                                            "handleBlur": [Function],
+                                            "handleChange": [Function],
+                                            "handleReset": [Function],
+                                            "handleSubmit": [Function],
+                                            "initialErrors": Object {},
+                                            "initialStatus": undefined,
+                                            "initialTouched": Object {},
+                                            "initialValues": Object {
+                                              "title": "",
+                                            },
+                                            "isSubmitting": false,
+                                            "isValid": true,
+                                            "isValidating": false,
+                                            "registerField": [Function],
+                                            "resetForm": [Function],
+                                            "setErrors": [Function],
+                                            "setFieldError": [Function],
+                                            "setFieldTouched": [Function],
+                                            "setFieldValue": [Function],
+                                            "setFormikState": [Function],
+                                            "setStatus": [Function],
+                                            "setSubmitting": [Function],
+                                            "setTouched": [Function],
+                                            "setValues": [Function],
+                                            "status": undefined,
+                                            "submitCount": 0,
+                                            "submitForm": [Function],
+                                            "touched": Object {},
+                                            "unregisterField": [Function],
+                                            "validateField": [Function],
+                                            "validateForm": [Function],
+                                            "validateOnBlur": true,
+                                            "validateOnChange": true,
+                                            "validateOnMount": false,
+                                            "values": Object {
+                                              "title": "",
+                                            },
+                                          }
+                                        }
                                       >
-                                        <div
-                                          className="field"
+                                        <FormField
+                                          inline={false}
                                         >
-                                          <FormInput
-                                            as={[Function]}
-                                            control={[Function]}
-                                            error={null}
-                                            fluid={true}
-                                            id="authors"
-                                            label="Authors"
-                                            name="authors"
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            placeholder="Authors"
-                                            value=""
+                                          <div
+                                            className="field"
                                           >
-                                            <FormField
+                                            <FormInput
+                                              as={[Function]}
                                               control={[Function]}
                                               error={null}
                                               fluid={true}
@@ -762,45 +914,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                               placeholder="Authors"
                                               value=""
                                             >
-                                              <div
-                                                className="field"
+                                              <FormField
+                                                control={[Function]}
+                                                error={null}
+                                                fluid={true}
+                                                id="authors"
+                                                label="Authors"
+                                                name="authors"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Authors"
+                                                value=""
                                               >
-                                                <label
-                                                  htmlFor="authors"
+                                                <div
+                                                  className="field"
                                                 >
-                                                  Authors
-                                                </label>
-                                                <Input
-                                                  fluid={true}
-                                                  id="authors"
-                                                  name="authors"
-                                                  onBlur={[Function]}
-                                                  onChange={[Function]}
-                                                  placeholder="Authors"
-                                                  type="text"
-                                                  value=""
-                                                >
-                                                  <div
-                                                    className="ui fluid input"
+                                                  <label
+                                                    htmlFor="authors"
                                                   >
-                                                    <input
-                                                      id="authors"
-                                                      name="authors"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Authors"
-                                                      type="text"
-                                                      value=""
-                                                    />
-                                                  </div>
-                                                </Input>
-                                              </div>
-                                            </FormField>
-                                          </FormInput>
-                                        </div>
-                                      </FormField>
-                                    </Component>
-                                  </FastField>
+                                                    Authors
+                                                  </label>
+                                                  <Input
+                                                    aria-describedby={null}
+                                                    aria-invalid={true}
+                                                    fluid={true}
+                                                    id="authors"
+                                                    name="authors"
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    placeholder="Authors"
+                                                    type="text"
+                                                    value=""
+                                                  >
+                                                    <div
+                                                      className="ui fluid input"
+                                                    >
+                                                      <input
+                                                        aria-describedby={null}
+                                                        aria-invalid={true}
+                                                        id="authors"
+                                                        name="authors"
+                                                        onBlur={[Function]}
+                                                        onChange={[Function]}
+                                                        placeholder="Authors"
+                                                        type="text"
+                                                        value=""
+                                                      />
+                                                    </div>
+                                                  </Input>
+                                                </div>
+                                              </FormField>
+                                            </FormInput>
+                                          </div>
+                                        </FormField>
+                                      </Component>
+                                    </FastFieldInner>
+                                  </FormikConnect(FastFieldInner)>
                                 </StringField>
                                 <GroupField
                                   border={false}
@@ -824,6 +993,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -880,23 +1050,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="ISBN"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="isbn"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "isbn",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -938,27 +1102,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="isbn"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "isbn",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="isbn"
-                                                      label="ISBN"
-                                                      name="isbn"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="ISBN"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -970,45 +1179,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="ISBN"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="isbn"
+                                                          label="ISBN"
+                                                          name="isbn"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="ISBN"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="isbn"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            ISBN
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="isbn"
-                                                            name="isbn"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="ISBN"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="isbn"
                                                             >
-                                                              <input
-                                                                id="isbn"
-                                                                name="isbn"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="ISBN"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              ISBN
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="isbn"
+                                                              name="isbn"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="ISBN"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="isbn"
+                                                                  name="isbn"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="ISBN"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                           <StringField
                                             fieldPath="issn"
@@ -1017,23 +1243,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="ISSN"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="issn"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "issn",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1075,27 +1295,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="issn"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "issn",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="issn"
-                                                      label="ISSN"
-                                                      name="issn"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="ISSN"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1107,45 +1372,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="ISSN"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="issn"
+                                                          label="ISSN"
+                                                          name="issn"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="ISSN"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="issn"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            ISSN
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="issn"
-                                                            name="issn"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="ISSN"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="issn"
                                                             >
-                                                              <input
-                                                                id="issn"
-                                                                name="issn"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="ISSN"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              ISSN
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="issn"
+                                                              name="issn"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="ISSN"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="issn"
+                                                                  name="issn"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="ISSN"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                         </div>
                                       </FormGroup>
@@ -1174,6 +1456,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -1230,23 +1513,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="Edition number"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="edition"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "edition",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1288,27 +1565,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="edition"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "edition",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="edition"
-                                                      label="Edition"
-                                                      name="edition"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Edition number"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1320,45 +1642,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="Edition number"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="edition"
+                                                          label="Edition"
+                                                          name="edition"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="Edition number"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="edition"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            Edition
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="edition"
-                                                            name="edition"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="Edition number"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="edition"
                                                             >
-                                                              <input
-                                                                id="edition"
-                                                                name="edition"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="Edition number"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              Edition
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="edition"
+                                                              name="edition"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="Edition number"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="edition"
+                                                                  name="edition"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Edition number"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                           <StringField
                                             fieldPath="volume"
@@ -1367,23 +1706,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="Volume number"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="volume"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "volume",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1425,27 +1758,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="volume"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "volume",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="volume"
-                                                      label="Volume"
-                                                      name="volume"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Volume number"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1457,45 +1835,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="Volume number"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="volume"
+                                                          label="Volume"
+                                                          name="volume"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="Volume number"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="volume"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            Volume
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="volume"
-                                                            name="volume"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="Volume number"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="volume"
                                                             >
-                                                              <input
-                                                                id="volume"
-                                                                name="volume"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="Volume number"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              Volume
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="volume"
+                                                              name="volume"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="Volume number"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="volume"
+                                                                  name="volume"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Volume number"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                           <StringField
                                             fieldPath="issue"
@@ -1504,23 +1899,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="Issue number"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="issue"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "issue",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1562,27 +1951,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="issue"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "issue",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="issue"
-                                                      label="Issue"
-                                                      name="issue"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Issue number"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1594,45 +2028,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="Issue number"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="issue"
+                                                          label="Issue"
+                                                          name="issue"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="Issue number"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="issue"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            Issue
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="issue"
-                                                            name="issue"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="Issue number"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="issue"
                                                             >
-                                                              <input
-                                                                id="issue"
-                                                                name="issue"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="Issue number"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              Issue
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="issue"
+                                                              name="issue"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="Issue number"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="issue"
+                                                                  name="issue"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Issue number"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                           <StringField
                                             fieldPath="standard_number"
@@ -1641,23 +2092,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="Standard number"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="standard_number"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "standard_number",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1699,27 +2144,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="standard_number"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "standard_number",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="standard_number"
-                                                      label="Standard number"
-                                                      name="standard_number"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Standard number"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1731,45 +2221,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="Standard number"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="standard_number"
+                                                          label="Standard number"
+                                                          name="standard_number"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="Standard number"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="standard_number"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            Standard number
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="standard_number"
-                                                            name="standard_number"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="Standard number"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="standard_number"
                                                             >
-                                                              <input
-                                                                id="standard_number"
-                                                                name="standard_number"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="Standard number"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              Standard number
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="standard_number"
+                                                              name="standard_number"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="Standard number"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="standard_number"
+                                                                  name="standard_number"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Standard number"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                         </div>
                                       </FormGroup>
@@ -1798,6 +2305,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -1854,23 +2362,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                             optimized={true}
                                             placeholder="Page number"
                                           >
-                                            <FastField
+                                            <FormikConnect(FastFieldInner)
                                               component={[Function]}
                                               name="page"
                                             >
-                                              <Component
-                                                field={
-                                                  Object {
-                                                    "name": "page",
-                                                    "onBlur": [Function],
-                                                    "onChange": [Function],
-                                                    "value": undefined,
-                                                  }
-                                                }
-                                                form={
+                                              <FastFieldInner
+                                                component={[Function]}
+                                                formik={
                                                   Object {
                                                     "dirty": false,
                                                     "errors": Object {},
+                                                    "getFieldHelpers": [Function],
                                                     "getFieldMeta": [Function],
                                                     "getFieldProps": [Function],
                                                     "handleBlur": [Function],
@@ -1912,27 +2414,72 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     },
                                                   }
                                                 }
+                                                name="page"
                                               >
-                                                <FormField
-                                                  inline={false}
+                                                <Component
+                                                  field={
+                                                    Object {
+                                                      "name": "page",
+                                                      "onBlur": [Function],
+                                                      "onChange": [Function],
+                                                      "value": undefined,
+                                                    }
+                                                  }
+                                                  form={
+                                                    Object {
+                                                      "dirty": false,
+                                                      "errors": Object {},
+                                                      "getFieldHelpers": [Function],
+                                                      "getFieldMeta": [Function],
+                                                      "getFieldProps": [Function],
+                                                      "handleBlur": [Function],
+                                                      "handleChange": [Function],
+                                                      "handleReset": [Function],
+                                                      "handleSubmit": [Function],
+                                                      "initialErrors": Object {},
+                                                      "initialStatus": undefined,
+                                                      "initialTouched": Object {},
+                                                      "initialValues": Object {
+                                                        "title": "",
+                                                      },
+                                                      "isSubmitting": false,
+                                                      "isValid": true,
+                                                      "isValidating": false,
+                                                      "registerField": [Function],
+                                                      "resetForm": [Function],
+                                                      "setErrors": [Function],
+                                                      "setFieldError": [Function],
+                                                      "setFieldTouched": [Function],
+                                                      "setFieldValue": [Function],
+                                                      "setFormikState": [Function],
+                                                      "setStatus": [Function],
+                                                      "setSubmitting": [Function],
+                                                      "setTouched": [Function],
+                                                      "setValues": [Function],
+                                                      "status": undefined,
+                                                      "submitCount": 0,
+                                                      "submitForm": [Function],
+                                                      "touched": Object {},
+                                                      "unregisterField": [Function],
+                                                      "validateField": [Function],
+                                                      "validateForm": [Function],
+                                                      "validateOnBlur": true,
+                                                      "validateOnChange": true,
+                                                      "validateOnMount": false,
+                                                      "values": Object {
+                                                        "title": "",
+                                                      },
+                                                    }
+                                                  }
                                                 >
-                                                  <div
-                                                    className="field"
+                                                  <FormField
+                                                    inline={false}
                                                   >
-                                                    <FormInput
-                                                      as={[Function]}
-                                                      control={[Function]}
-                                                      error={null}
-                                                      fluid={true}
-                                                      id="page"
-                                                      label="Page"
-                                                      name="page"
-                                                      onBlur={[Function]}
-                                                      onChange={[Function]}
-                                                      placeholder="Page number"
-                                                      value=""
+                                                    <div
+                                                      className="field"
                                                     >
-                                                      <FormField
+                                                      <FormInput
+                                                        as={[Function]}
                                                         control={[Function]}
                                                         error={null}
                                                         fluid={true}
@@ -1944,45 +2491,62 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                         placeholder="Page number"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="field"
+                                                        <FormField
+                                                          control={[Function]}
+                                                          error={null}
+                                                          fluid={true}
+                                                          id="page"
+                                                          label="Page"
+                                                          name="page"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder="Page number"
+                                                          value=""
                                                         >
-                                                          <label
-                                                            htmlFor="page"
+                                                          <div
+                                                            className="field"
                                                           >
-                                                            Page
-                                                          </label>
-                                                          <Input
-                                                            fluid={true}
-                                                            id="page"
-                                                            name="page"
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            placeholder="Page number"
-                                                            type="text"
-                                                            value=""
-                                                          >
-                                                            <div
-                                                              className="ui fluid input"
+                                                            <label
+                                                              htmlFor="page"
                                                             >
-                                                              <input
-                                                                id="page"
-                                                                name="page"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder="Page number"
-                                                                type="text"
-                                                                value=""
-                                                              />
-                                                            </div>
-                                                          </Input>
-                                                        </div>
-                                                      </FormField>
-                                                    </FormInput>
-                                                  </div>
-                                                </FormField>
-                                              </Component>
-                                            </FastField>
+                                                              Page
+                                                            </label>
+                                                            <Input
+                                                              aria-describedby={null}
+                                                              aria-invalid={true}
+                                                              fluid={true}
+                                                              id="page"
+                                                              name="page"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              placeholder="Page number"
+                                                              type="text"
+                                                              value=""
+                                                            >
+                                                              <div
+                                                                className="ui fluid input"
+                                                              >
+                                                                <input
+                                                                  aria-describedby={null}
+                                                                  aria-invalid={true}
+                                                                  id="page"
+                                                                  name="page"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Page number"
+                                                                  type="text"
+                                                                  value=""
+                                                                />
+                                                              </div>
+                                                            </Input>
+                                                          </div>
+                                                        </FormField>
+                                                      </FormInput>
+                                                    </div>
+                                                  </FormField>
+                                                </Component>
+                                              </FastFieldInner>
+                                            </FormikConnect(FastFieldInner)>
                                           </StringField>
                                           <YearInputField
                                             fieldPath="publication_year"
@@ -2011,6 +2575,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     Object {
                                                       "dirty": false,
                                                       "errors": Object {},
+                                                      "getFieldHelpers": [Function],
                                                       "getFieldMeta": [Function],
                                                       "getFieldProps": [Function],
                                                       "handleBlur": [Function],
@@ -2171,6 +2736,8 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                                     className="field"
                                                                   >
                                                                     <Input
+                                                                      aria-describedby={null}
+                                                                      aria-invalid={true}
                                                                       autoComplete="off"
                                                                       data-test=""
                                                                       icon={true}
@@ -2202,6 +2769,8 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                                           />
                                                                         </Icon>
                                                                         <input
+                                                                          aria-describedby={null}
+                                                                          aria-invalid={true}
                                                                           autoComplete="off"
                                                                           id="publication_year"
                                                                           key=".1"
@@ -2269,6 +2838,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                         Object {
                                           "dirty": false,
                                           "errors": Object {},
+                                          "getFieldHelpers": [Function],
                                           "getFieldMeta": [Function],
                                           "getFieldProps": [Function],
                                           "handleBlur": [Function],
@@ -2349,6 +2919,8 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                   Note
                                                 </label>
                                                 <TextArea
+                                                  aria-describedby={null}
+                                                  aria-invalid={true}
                                                   as="textarea"
                                                   id="note"
                                                   name="note"
@@ -2362,6 +2934,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                     innerRef={
                                                       Object {
                                                         "current": <textarea
+                                                          aria-invalid="true"
                                                           id="note"
                                                           name="note"
                                                           placeholder="Notes for the library"
@@ -2374,6 +2947,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                       innerRef={
                                                         Object {
                                                           "current": <textarea
+                                                            aria-invalid="true"
                                                             id="note"
                                                             name="note"
                                                             placeholder="Notes for the library"
@@ -2383,6 +2957,8 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                       }
                                                     >
                                                       <textarea
+                                                        aria-describedby={null}
+                                                        aria-invalid={true}
                                                         id="note"
                                                         name="note"
                                                         onBlur={[Function]}

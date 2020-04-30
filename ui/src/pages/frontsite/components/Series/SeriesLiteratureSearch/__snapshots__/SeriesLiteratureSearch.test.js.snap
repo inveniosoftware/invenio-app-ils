@@ -83,7 +83,12 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
           minWidth={992}
         >
           <SearchControls
+            displayLayoutSwitcher={true}
             modelName="literature"
+          />
+          <Connect(ResultsMultiLayout)
+            resultsGridCmp={[Function]}
+            resultsListCmp={[Function]}
           />
         </Responsive>
         <Responsive
@@ -94,9 +99,6 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
             modelName="literature"
           />
         </Responsive>
-        <Connect(ResultsList)
-          renderElement={[Function]}
-        />
         <SearchFooter />
       </Connect(ResultsLoader)>
     </Responsive>

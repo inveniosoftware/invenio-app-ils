@@ -15,10 +15,11 @@ export class SearchControls extends Component {
         <Responsive {...Responsive.onlyComputer}>
           <Grid columns={3} className={'search-controls'}>
             <Grid.Column largeScreen={5} computer={6}>
-              <div style={{ marginBottom: '10px' }}>
-                <LayoutSwitcher defaultLayout="grid" />
-              </div>
-
+              {this.props.displayLayoutSwitcher ? (
+                <div className="layout-switcher">
+                  <LayoutSwitcher defaultLayout="grid" />
+                </div>
+              ) : null}
               <Grid>
                 <Grid.Column width={12}>
                   <Count label={cmp => <div>{cmp} results found</div>} />

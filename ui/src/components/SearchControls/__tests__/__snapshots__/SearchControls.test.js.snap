@@ -14,17 +14,6 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
         computer={6}
         largeScreen={5}
       >
-        <div
-          style={
-            Object {
-              "marginBottom": "10px",
-            }
-          }
-        >
-          <Connect(LayoutSwitcher)
-            defaultLayout="grid"
-          />
-        </div>
         <Grid>
           <GridColumn
             width={12}
@@ -188,31 +177,6 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                       <div
                         className="six wide computer five wide large screen column"
                       >
-                        <div
-                          style={
-                            Object {
-                              "marginBottom": "10px",
-                            }
-                          }
-                        >
-                          <Connect(LayoutSwitcher)
-                            defaultLayout="grid"
-                          >
-                            <LayoutSwitcher
-                              currentLayout="grid"
-                              defaultLayout="grid"
-                              loading={true}
-                              renderElement={null}
-                              setInitialState={[Function]}
-                              totalResults={0}
-                              updateLayout={[Function]}
-                            >
-                              <ShouldRender
-                                condition={false}
-                              />
-                            </LayoutSwitcher>
-                          </Connect(LayoutSwitcher)>
-                        </div>
                         <Grid>
                           <div
                             className="ui grid"
