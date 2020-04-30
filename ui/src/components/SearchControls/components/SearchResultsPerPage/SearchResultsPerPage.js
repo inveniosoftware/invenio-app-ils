@@ -8,12 +8,11 @@ export default class SearchResultsPerPage extends Component {
   render() {
     return (
       <>
-        Show{' '}
         <ResultsPerPage
           values={this.searchConfig.RESULTS_PER_PAGE}
           defaultValue={this.searchConfig.RESULTS_PER_PAGE[0].value}
-        />{' '}
-        results per page
+          label={cmp => <> Show {cmp} results per page</>}
+        />
       </>
     );
   }
