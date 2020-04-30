@@ -25,7 +25,9 @@ export default class SectionServices extends Component {
                     the Library when your order is ready
                   </Card.Description>
                 </Card.Content>
-                <Button basic>Catalog</Button>
+                <Button basic inverted>
+                  Catalog
+                </Button>
               </Card>
               <Card className={'advert-card'}>
                 <Card.Content>
@@ -38,7 +40,9 @@ export default class SectionServices extends Component {
                     you.
                   </Card.Description>
                 </Card.Content>
-                <Button basic>Request purchase</Button>
+                <Button basic inverted>
+                  Request purchase
+                </Button>
               </Card>
               <Card className={'advert-card'}>
                 <Card.Content>
@@ -51,7 +55,9 @@ export default class SectionServices extends Component {
                     an interlibrary loan for you.
                   </Card.Description>
                 </Card.Content>
-                <Button basic>Request ILL</Button>
+                <Button basic inverted>
+                  Request ILL
+                </Button>
               </Card>
               <Card className={'advert-card'}>
                 <Card.Content>
@@ -64,7 +70,9 @@ export default class SectionServices extends Component {
                     leaving your desk!
                   </Card.Description>
                 </Card.Content>
-                <Button basic>E-books catalog</Button>
+                <Button basic inverted>
+                  E-books catalog
+                </Button>
               </Card>
             </Card.Group>
           </Container>
