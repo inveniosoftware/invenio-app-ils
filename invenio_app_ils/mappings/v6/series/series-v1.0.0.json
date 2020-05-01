@@ -112,6 +112,9 @@
         "note": {
           "type": "text"
         },
+        "publication_year": {
+          "type": "keyword"
+        },
         "publisher": {
           "fields": {
             "keyword": {

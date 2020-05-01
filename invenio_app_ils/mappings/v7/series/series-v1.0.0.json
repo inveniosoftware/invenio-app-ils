@@ -108,6 +108,9 @@
       "mode_of_issuance": {
         "type": "keyword"
       },
+      "publication_year": {
+        "type": "keyword"
+      },
       "publisher": {
         "fields": {
           "keyword": {
