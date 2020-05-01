@@ -13,6 +13,7 @@ module.exports = {
       '@routes': path.resolve(__dirname, 'src/routes/'),
       '@authentication': path.resolve(__dirname, 'src/authentication/'),
       '@history': path.resolve(__dirname, 'src/history/'),
+      '@override': path.resolve(__dirname, 'src/override'),
     },
   },
   jest: {
@@ -27,6 +28,7 @@ module.exports = {
         '^@routes(.*)$': '<rootDir>/src/routes$1',
         '^@authentication(.*)$': '<rootDir>/src/authentication$1',
         '^@history(.*)$': '<rootDir>/src/history$1',
+        '^@override(.*)$': '<rootDir>/src/override$1',
         '^@testData(.*)$': '<rootDir>/../tests/data$1',
       },
     },

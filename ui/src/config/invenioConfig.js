@@ -1,4 +1,5 @@
 import _get from 'lodash/get';
+import _merge from 'lodash/merge';
 
 export const invenioConfig = {
   authors: {
@@ -204,3 +205,19 @@ export function getDisplayVal(configField, value) {
   return _get(invenioConfig, configField).find(entry => entry.value === value)
     .text;
 }
+
+class ConfigStore {
+  constructor(initialConfig) {
+    this.config = initialConfig || {};
+  }
+
+  override(obj) {
+    _merge(this.config, obj);
+  }
+
+  get(key, defaultValue = undefined) {
+    return _get(this.config, key, defaultValue);
+  }
+}
+
+export const configStore = new ConfigStore(invenioConfig);
