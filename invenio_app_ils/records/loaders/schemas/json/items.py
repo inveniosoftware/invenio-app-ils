@@ -23,6 +23,18 @@ class ISBNSchema(Schema):
     value = fields.Str(required=True)
 
 
+class PriceSchema(Schema):
+    """Price schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    currency = fields.Str(required=True)
+    value = fields.Number(required=True)
+
+
 class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     """Item schema."""
 
@@ -31,6 +43,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
+    acquisition_pid = fields.Str()
     barcode = fields.Str()
     circulation_restriction = fields.Str()  # TODO: this should be an enum
     description = fields.Str()
@@ -43,6 +56,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     medium = fields.Str()  # TODO: this should be an enum
     number_of_pages = fields.Int()
     physical_description = fields.Str()
+    price = fields.Nested(PriceSchema)
     shelf = fields.Str()
     status = fields.Str()  # TODO: this should be an enum
 

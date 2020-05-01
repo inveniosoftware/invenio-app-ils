@@ -18,6 +18,10 @@
     "$schema": {
       "type": "string"
     },
+    "acquisition_pid": {
+      "type": "string",
+      "title": "The persistent identifier of the acquisition"
+    },
     "barcode": {
       "type": "string",
       "title": "The barcode of this Item"
@@ -101,6 +105,21 @@
     "pid": {
       "type": "string",
       "title": "The persistent identifier of this Item"
+    },
+    "price": {
+      "properties": {
+        "currency": {
+          "title": "Currency of the price (Vocabulary)",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Price value",
+          "type": "number"
+        }
+      },
+
+      "type": "object"
     },
     "physical_description": {
       "title": "Physical description of an item",

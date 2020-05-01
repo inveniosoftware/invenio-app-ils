@@ -1,5 +1,6 @@
 import MetadataTable from '@pages/backoffice/components/MetadataTable/MetadataTable';
 import React from 'react';
+import { formatPrice } from '@api/utils';
 import { Component } from 'react';
 import ShowMore from 'react-show-more';
 import { Grid, Segment, Header } from 'semantic-ui-react';
@@ -19,6 +20,14 @@ export default class ItemMetadata extends Component {
       {
         name: 'Loan restrictions',
         value: itemDetails.metadata.circulation_restriction,
+      },
+      {
+        name: 'Acquisition pid',
+        value: itemDetails.metadata.acquisition_pid,
+      },
+      {
+        name: `Price (${itemDetails.metadata.price.currency})`,
+        value: formatPrice(itemDetails.metadata.price),
       },
       { name: 'Medium', value: itemDetails.metadata.medium },
       { name: 'Status', value: itemDetails.metadata.status },

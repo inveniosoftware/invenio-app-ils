@@ -12,6 +12,7 @@
       "_updated": {
         "type": "date"
       },
+      "acquisition_pid": { "type": "keyword" },
       "barcode": {
         "type": "keyword"
       },
@@ -120,6 +121,17 @@
       },
       "pid": {
         "type": "keyword"
+      },
+      "price": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
       },
       "shelf": {
         "type": "text"

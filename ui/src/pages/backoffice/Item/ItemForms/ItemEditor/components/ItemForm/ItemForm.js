@@ -10,6 +10,7 @@ import {
   GroupField,
   SelectorField,
   AccordionField,
+  PriceField,
 } from '@forms';
 import { item as itemApi } from '@api/items/item';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -24,12 +25,52 @@ import {
   serializeDocument,
   serializeInternalLocation,
 } from '@components/ESSelector/serializer';
+import { vocabulary as vocabularyApi } from '@api';
 
 export class ItemForm extends Component {
   config = invenioConfig.items;
+  state = {
+    currencies: [],
+  };
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  query = () => {
+    const searchQuery = vocabularyApi
+      .query()
+      .withType(invenioConfig.vocabularies.currencies)
+      .qs();
+    return vocabularyApi.list(searchQuery);
+  };
+
+  serializer = hit => ({
+    key: hit.metadata.key,
+    value: hit.metadata.key,
+    text: hit.metadata.key,
+  });
+
+  fetchCurrencies = async () => {
+    try {
+      const response = await this.query();
+      const currencies = response.data.hits.map(hit => this.serializer(hit));
+      this.setState({ isLoading: false, currencies: currencies, error: null });
+    } catch (error) {
+      this.setState({
+        isloading: false,
+        options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
+        error: {
+          content: 'Failed to load currencies.',
+          pointing: 'above',
+        },
+      });
+    }
+  };
 
   prepareData = data => {
     return pick(data, [
+      'acquisition_pid',
       'barcode',
       'circulation_restriction',
       'description',
@@ -44,6 +85,7 @@ export class ItemForm extends Component {
       'medium',
       'number_of_pages',
       'physical_description',
+      'price',
       'shelf',
       'status',
     ]);
@@ -120,6 +162,15 @@ export class ItemForm extends Component {
           serializer={serializeInternalLocation}
         />
         <TextField label="Internal Notes" fieldPath="internal_notes" rows={5} />
+        <StringField label="Acquisition Pid" fieldPath="acquisition_pid" />
+        {this.state.currencies.length > 0 && (
+          <PriceField
+            label="Price"
+            fieldPath="price"
+            currencies={this.state.currencies}
+            defaultCurrency={invenioConfig.defaultCurrency}
+          />
+        )}
         <AccordionField
           label="ISBN"
           fieldPath="isbn"
