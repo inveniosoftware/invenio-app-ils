@@ -40,6 +40,7 @@ export class SeriesForm extends Component {
       'languages',
       'mode_of_issuance',
       'note',
+      'publication_year',
       'publisher',
       'title',
       'urls',
@@ -116,6 +117,7 @@ export class SeriesForm extends Component {
             },
           ]}
         />
+        <StringField label="Publication year" fieldPath="publication_year" />
         <TextField label="Abstract" fieldPath="abstract" rows={10} />
         <ArrayField
           fieldPath="authors"

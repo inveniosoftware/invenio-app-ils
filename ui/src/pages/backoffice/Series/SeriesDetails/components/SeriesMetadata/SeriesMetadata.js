@@ -25,6 +25,10 @@ export default class SeriesMetadata extends Component {
         value: <SeriesAuthors metadata={seriesDetails.metadata} />,
       },
       {
+        name: 'Publication Year',
+        value: seriesDetails.metadata.publication_year,
+      },
+      {
         name: 'Mode of Issuance',
         value: seriesDetails.metadata.mode_of_issuance,
       },

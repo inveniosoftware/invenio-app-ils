@@ -169,6 +169,11 @@
       "type": "string",
       "title": "Publisher name"
     },
+    "publication_year": {
+      "minLength": 1,
+      "title": "Year of the publication of the series",
+      "type": "string"
+    },
     "relations_metadata": {
       "type": "object",
       "title": "Metadata to describe relations",
