@@ -52,10 +52,8 @@ export default class SearchSortBy extends Component {
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           {this.searchConfig.SORT_BY.length > 0 ? (
             <>
-              <label>
-                {this.props.prefix ? this.props.prefix + ' ' : null}
-              </label>
               <SortBy
+                label={cmp => <> Sort by {cmp}</>}
                 values={this.searchConfig.SORT_BY}
                 defaultValue={this.searchConfig.SORT_BY[0].value}
                 defaultValueOnEmptyString={
@@ -86,6 +84,5 @@ export default class SearchSortBy extends Component {
 }
 
 SearchSortBy.propTypes = {
-  prefix: PropTypes.string,
   modelName: PropTypes.string.isRequired,
 };

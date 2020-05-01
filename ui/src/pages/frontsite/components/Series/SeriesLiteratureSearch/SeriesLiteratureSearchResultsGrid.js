@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { BookCard } from '@pages/frontsite/components/BookCard';
 import { Card, Responsive } from 'semantic-ui-react';
 import { ResultsGrid } from 'react-searchkit';
@@ -38,7 +37,3 @@ export default class SeriesLiteratureSearchResultsGrid extends Component {
     return <ResultsGrid renderElement={this.renderResultsGrid} />;
   }
 }
-
-SeriesLiteratureSearchResultsGrid.propTypes = {
-  metadata: PropTypes.object.isRequired,
-};

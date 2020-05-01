@@ -16,13 +16,10 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
       >
         <Grid>
           <GridColumn
-            width={4}
-          />
-          <GridColumn
             width={12}
           >
             <Connect(Count)
-              renderElement={[Function]}
+              label={[Function]}
             />
             <SearchResultsPerPage
               modelName="documents"
@@ -54,7 +51,6 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
         >
           <SearchSortBy
             modelName="documents"
-            prefix="Sort by "
           />
           <SearchSortOrder
             modelName="documents"
@@ -159,24 +155,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
           updateQueryState={[Function]}
         >
           <SearchControls
-            layoutToggle={
-              [MockFunction] {
-                "calls": Array [
-                  Array [],
-                  Array [],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              }
-            }
+            layoutToggle={[MockFunction]}
             modelName="documents"
           >
             <Responsive
@@ -203,26 +182,19 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                             className="ui grid"
                           >
                             <GridColumn
-                              width={4}
-                            >
-                              <div
-                                className="four wide column"
-                              />
-                            </GridColumn>
-                            <GridColumn
                               width={12}
                             >
                               <div
                                 className="twelve wide column"
                               >
                                 <Connect(Count)
-                                  renderElement={[Function]}
+                                  label={[Function]}
                                 >
                                   <Count
                                     dispatch={[Function]}
                                     label={[Function]}
                                     loading={true}
-                                    renderElement={[Function]}
+                                    renderElement={null}
                                     totalResults={0}
                                   >
                                     <ShouldRender
@@ -233,10 +205,9 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                 <SearchResultsPerPage
                                   modelName="documents"
                                 >
-                                  Show
-                                   
                                   <Connect(ResultsPerPage)
                                     defaultValue={15}
+                                    label={[Function]}
                                     values={
                                       Array [
                                         Object {
@@ -285,8 +256,6 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                       />
                                     </ResultsPerPage>
                                   </Connect(ResultsPerPage)>
-                                   
-                                  results per page
                                 </SearchResultsPerPage>
                               </div>
                             </GridColumn>
@@ -323,19 +292,16 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                         >
                           <SearchSortBy
                             modelName="documents"
-                            prefix="Sort by "
                           >
                             <Responsive
                               getWidth={[Function]}
                               minWidth={768}
                             >
                               <div>
-                                <label>
-                                  Sort by  
-                                </label>
                                 <Connect(SortBy)
                                   defaultValue="mostrecent"
                                   defaultValueOnEmptyString="mostrecent"
+                                  label={[Function]}
                                   renderElement={[Function]}
                                   values={
                                     Array [

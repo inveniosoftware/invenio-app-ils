@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Container,
-  Grid,
-  Icon,
-  Header,
-  Responsive,
-  Loader,
-} from 'semantic-ui-react';
+import { Container, Grid, Header, Responsive, Loader } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
   ResultsLoader,
   Error,
   InvenioSearchApi,
+  ResultsMultiLayout,
 } from 'react-searchkit';
 import {
   Error as IlsError,
@@ -43,7 +36,7 @@ export class DocumentsSearch extends Component {
       response: { reject: responseRejectInterceptor },
     },
   });
-  state = { activeIndex: 0, isLayoutGrid: true };
+  state = { activeIndex: 0 };
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
@@ -53,22 +46,6 @@ export class DocumentsSearch extends Component {
         executeSearch={executeSearch}
         placeholder={'Search for records...'}
       />
-    );
-  };
-
-  renderResultsLayoutOptions = () => {
-    const toggleLayout = () => {
-      this.setState({ isLayoutGrid: !this.state.isLayoutGrid });
-    };
-    return (
-      <Button.Group basic icon className={'search-layout-toggle'}>
-        <Button disabled={this.state.isLayoutGrid} onClick={toggleLayout}>
-          <Icon name="grid layout" />
-        </Button>
-        <Button disabled={!this.state.isLayoutGrid} onClick={toggleLayout}>
-          <Icon name="list layout" />
-        </Button>
-      </Button.Group>
     );
   };
 
@@ -106,18 +83,15 @@ export class DocumentsSearch extends Component {
                   </Grid.Column>
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />
-
                     <Error renderElement={this.renderError} />
-
                     <SearchControls
-                      layoutToggle={this.renderResultsLayoutOptions}
                       modelName={'documents'}
+                      displayLayoutSwitcher={true}
                     />
-                    {this.state.isLayoutGrid ? (
-                      <DocumentSearchResultsGrid />
-                    ) : (
-                      <DocumentSearchResultsList />
-                    )}
+                    <ResultsMultiLayout
+                      resultsListCmp={() => <DocumentSearchResultsList />}
+                      resultsGridCmp={() => <DocumentSearchResultsGrid />}
+                    />
                     <Container fluid className={'search-results-footer'}>
                       <SearchFooter />
                       <Container className={'search-results-message'}>

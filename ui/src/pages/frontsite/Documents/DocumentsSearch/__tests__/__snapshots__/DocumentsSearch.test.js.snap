@@ -105,10 +105,13 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
                 renderElement={[Function]}
               />
               <SearchControls
-                layoutToggle={[Function]}
+                displayLayoutSwitcher={true}
                 modelName="documents"
               />
-              <DocumentSearchResultsGrid />
+              <Connect(ResultsMultiLayout)
+                resultsGridCmp={[Function]}
+                resultsListCmp={[Function]}
+              />
               <Container
                 className="search-results-footer"
                 fluid={true}

@@ -5,12 +5,11 @@ export class ResultsSort extends Component {
   render() {
     return this.props.searchConfig.SORT_BY.length ? (
       <div className={'search-results-page-size'}>
-        Show{' '}
         <ResultsPerPage
           values={this.props.searchConfig.RESULTS_PER_PAGE}
           defaultValue={this.props.searchConfig.RESULTS_PER_PAGE[0].value}
-        />{' '}
-        results per page
+          label={cmp => <> Show {cmp} results per page</>}
+        />
         <div className={'search-results-sort-options'}>
           Sort by:{' '}
           <SortBy

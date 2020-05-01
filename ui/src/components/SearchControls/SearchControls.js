@@ -1,4 +1,4 @@
-import { Count } from 'react-searchkit';
+import { Count, LayoutSwitcher } from 'react-searchkit';
 import React, { Component } from 'react';
 import { Grid, Responsive } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -9,28 +9,20 @@ import { SearchControlsMobile } from './SearchControlsMobile';
 import { SearchPagination } from './components';
 
 export class SearchControls extends Component {
-  renderCount = totalResults => {
-    return (
-      <div className={'search-results-counter'}>
-        {totalResults} results found
-      </div>
-    );
-  };
-
   render() {
     return (
       <>
         <Responsive {...Responsive.onlyComputer}>
           <Grid columns={3} className={'search-controls'}>
             <Grid.Column largeScreen={5} computer={6}>
+              {this.props.displayLayoutSwitcher ? (
+                <div className="layout-switcher">
+                  <LayoutSwitcher defaultLayout="grid" />
+                </div>
+              ) : null}
               <Grid>
-                {this.props.layoutToggle ? (
-                  <Grid.Column width={4}>
-                    {this.props.layoutToggle()}
-                  </Grid.Column>
-                ) : null}
                 <Grid.Column width={12}>
-                  <Count renderElement={this.renderCount} />
+                  <Count label={cmp => <div>{cmp} results found</div>} />
                   <SearchResultsPerPage modelName={this.props.modelName} />
                 </Grid.Column>
               </Grid>
@@ -52,10 +44,7 @@ export class SearchControls extends Component {
               className={'search-sort-options-column'}
             >
               <div className={'sort-by-filters'}>
-                <SearchSortBy
-                  modelName={this.props.modelName}
-                  prefix={'Sort by '}
-                />
+                <SearchSortBy modelName={this.props.modelName} />
                 <SearchSortOrder modelName={this.props.modelName} />
               </div>
             </Grid.Column>
