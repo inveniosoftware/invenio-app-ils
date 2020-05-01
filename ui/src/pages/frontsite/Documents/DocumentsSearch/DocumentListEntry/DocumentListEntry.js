@@ -1,8 +1,5 @@
-import {
-  DocumentAuthors,
-  DocumentItemCover,
-  DocumentLanguages,
-} from '@components/Document';
+import { DocumentAuthors, DocumentLanguages } from '@components/Document';
+import { LiteratureCover } from '@components';
 import { DocumentTags } from '@components/Document/DocumentTags';
 import { FrontSiteRoutes } from '@routes/urls';
 import _get from 'lodash/get';
@@ -68,12 +65,12 @@ export default class DocumentListEntry extends Component {
   renderImage = () => {
     const { volume } = this.props;
     const image = (
-      <DocumentItemCover
-        size="mini"
-        coverUrl={_get(this, 'metadata.cover_metadata.urls.medium')}
+      <LiteratureCover
+        asItem={true}
         isRestricted={_get(this, 'metadata.restricted', false)}
-        disabled
         linkTo={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}
+        size="small"
+        url={_get(this, 'metadata.cover_metadata.urls.medium')}
       />
     );
 

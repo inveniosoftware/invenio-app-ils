@@ -1,19 +1,20 @@
 import { toShortDate } from '@api/date';
-import { CopyButton, CreatedBy, DocumentAuthors } from '@components';
 import {
-  DocumentCover,
-  DocumentTags,
-  DocumentTitle,
-} from '@components/Document';
+  CopyButton,
+  CreatedBy,
+  DocumentAuthors,
+  LiteratureCover,
+} from '@components';
+import { DocumentTags, DocumentTitle } from '@components/Document';
 import {
   DetailsHeader,
   RestrictedAccessLabel,
 } from '@pages/backoffice/components';
 import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Icon } from 'semantic-ui-react';
-import _get from 'lodash/get';
 
 export class DocumentHeader extends Component {
   render() {
@@ -48,10 +49,10 @@ export class DocumentHeader extends Component {
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
-        icon={
-          <DocumentCover
-            coverUrl={_get(data, 'metadata.cover_metadata.urls.large')}
-            imageSize="huge"
+        image={
+          <LiteratureCover
+            size="tiny"
+            url={_get(data, 'metadata.cover_metadata.urls.medium')}
           />
         }
         recordInfo={recordInfo}

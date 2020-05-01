@@ -130,7 +130,10 @@ export class EItemSearch extends Component {
                   </Grid>
                   <EmptyResults renderElement={this.renderEmptyResults} />
                   <Error renderElement={this.renderError} />
-                  <SearchControls modelName={'eitems'} />
+                  <SearchControls
+                    modelName={'eitems'}
+                    withLayoutSwitcher={false}
+                  />
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                   <ResultsList renderElement={this.renderEitemList} />
                   <SearchFooter />

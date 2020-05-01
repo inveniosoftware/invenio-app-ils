@@ -79,20 +79,14 @@ export class SeriesLiteratureSearch extends React.Component {
               <Error renderElement={this.renderError} />
 
               <Responsive minWidth={Responsive.onlyComputer.minWidth}>
-                <SearchControls
-                  modelName="literature"
-                  displayLayoutSwitcher={true}
-                />
+                <SearchControls modelName="literature" />
                 <ResultsMultiLayout
                   resultsListCmp={() => <SeriesLiteratureResultsList />}
                   resultsGridCmp={() => <SeriesLiteratureSearchResultsGrid />}
                 />
               </Responsive>
               <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
-                <SearchControlsMobile
-                  layoutToggle={this.renderResultsLayoutOptions}
-                  modelName="literature"
-                />
+                <SearchControlsMobile modelName="literature" />
               </Responsive>
               <SearchFooter />
             </ResultsLoader>

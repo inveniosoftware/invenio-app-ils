@@ -56,40 +56,27 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
           BOOK
         </div>
       </CardMeta>
-      <DocumentCover
-        coverUrl=""
-        imageSize="small"
-        isLoading={false}
-        placeholderStyle={
-          Object {
-            "height": 500,
-            "width": 350,
-          }
-        }
+      <LiteratureCover
+        asItem={false}
+        isRestricted={false}
+        linkTo={null}
+        size="small"
+        url={null}
       >
-        <ILSImagePlaceholder
-          isLoading={false}
-          style={
-            Object {
-              "height": 500,
-              "width": 350,
-            }
-          }
-        >
-          <Image
-            as="img"
-            centered={true}
-            size="small"
-            src=""
-            ui={true}
+        <Placeholder>
+          <div
+            className="ui placeholder"
           >
-            <img
-              className="ui small centered image"
-              src=""
-            />
-          </Image>
-        </ILSImagePlaceholder>
-      </DocumentCover>
+            <PlaceholderImage
+              square={true}
+            >
+              <div
+                className="square image"
+              />
+            </PlaceholderImage>
+          </div>
+        </Placeholder>
+      </LiteratureCover>
       <CardContent>
         <div
           className="content"
@@ -268,40 +255,27 @@ exports[`BookCard tests should render the BookCard 1`] = `
           BOOK
         </div>
       </CardMeta>
-      <DocumentCover
-        coverUrl=""
-        imageSize="small"
-        isLoading={false}
-        placeholderStyle={
-          Object {
-            "height": 500,
-            "width": 350,
-          }
-        }
+      <LiteratureCover
+        asItem={false}
+        isRestricted={false}
+        linkTo={null}
+        size="small"
+        url={null}
       >
-        <ILSImagePlaceholder
-          isLoading={false}
-          style={
-            Object {
-              "height": 500,
-              "width": 350,
-            }
-          }
-        >
-          <Image
-            as="img"
-            centered={true}
-            size="small"
-            src=""
-            ui={true}
+        <Placeholder>
+          <div
+            className="ui placeholder"
           >
-            <img
-              className="ui small centered image"
-              src=""
-            />
-          </Image>
-        </ILSImagePlaceholder>
-      </DocumentCover>
+            <PlaceholderImage
+              square={true}
+            >
+              <div
+                className="square image"
+              />
+            </PlaceholderImage>
+          </div>
+        </Placeholder>
+      </LiteratureCover>
       <CardContent>
         <div
           className="content"

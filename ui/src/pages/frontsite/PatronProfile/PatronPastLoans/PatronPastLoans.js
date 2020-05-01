@@ -1,6 +1,6 @@
 import { toShortDate } from '@api/date';
-import { Error, Loader, Pagination } from '@components';
-import { DocumentAuthors, DocumentItemCover } from '@components/Document';
+import { Error, LiteratureCover, Loader, Pagination } from '@components';
+import { DocumentAuthors } from '@components/Document';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { ExtensionCount } from '@pages/frontsite/components/Loan';
 import { FrontSiteRoutes } from '@routes/urls';
@@ -17,14 +17,14 @@ class PastLoanListEntry extends Component {
     const { loan } = this.props;
     return (
       <Item key={loan.metadata.pid}>
-        <DocumentItemCover
-          size="mini"
-          coverUrl={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
+        <LiteratureCover
+          asItem={true}
           isRestricted={_get(loan, 'metadata.document.restricted', false)}
-          disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid
           )}
+          size="tiny"
+          url={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
         />
 
         <Item.Content>

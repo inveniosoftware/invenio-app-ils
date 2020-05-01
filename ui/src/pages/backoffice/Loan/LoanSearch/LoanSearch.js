@@ -93,7 +93,10 @@ export class LoanSearch extends Component {
                 <Grid.Column width={13}>
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                   <Error renderElement={this.renderError} />
-                  <SearchControls modelName={'loans'} />
+                  <SearchControls
+                    modelName={'loans'}
+                    withLayoutSwitcher={false}
+                  />
                   <ResultsList renderElement={this.renderLoanList} />
                   <SearchFooter />
                 </Grid.Column>

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Grid, Item, List, Label } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { LiteratureCover, SeriesAuthors } from '@components';
+import { SeriesLanguages } from '@components/Series';
 import { FrontSiteRoutes } from '@routes/urls';
-import Truncate from 'react-truncate';
-import { SeriesAuthors } from '@components';
-import { SeriesLanguages, SeriesCover } from '@components/Series';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Truncate from 'react-truncate';
+import { Grid, Item, Label, List } from 'semantic-ui-react';
 
 export default class SeriesListEntry extends Component {
   constructor(props) {
@@ -22,8 +22,10 @@ export default class SeriesListEntry extends Component {
         as={Link}
         to={FrontSiteRoutes.seriesDetailsFor(this.metadata.pid)}
       >
-        <SeriesCover
-          coverUrl={_get(this, 'metadata.cover_metadata.urls.medium')}
+        <LiteratureCover
+          asItem={true}
+          size={'small'}
+          url={_get(this, 'metadata.cover_metadata.urls.medium')}
         />
       </Item.Image>
     );

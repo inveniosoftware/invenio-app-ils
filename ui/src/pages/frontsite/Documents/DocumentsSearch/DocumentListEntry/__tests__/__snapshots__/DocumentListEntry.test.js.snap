@@ -2,12 +2,12 @@
 
 exports[`should render correctly 1`] = `
 <Item>
-  <DocumentItemCover
-    coverUrl=""
-    disabled={true}
+  <LiteratureCover
+    asItem={true}
     isRestricted={false}
     linkTo="/literature/13"
-    size="mini"
+    size="small"
+    url={null}
   />
   <ItemContent>
     <ItemMeta>

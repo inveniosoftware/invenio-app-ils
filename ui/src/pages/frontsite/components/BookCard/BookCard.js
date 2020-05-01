@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Card, Label } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
-import _get from 'lodash/get';
-import { FrontSiteRoutes } from '@routes/urls';
-import { goTo } from '@history';
-import { DocumentAuthors, DocumentCover } from '@components/Document';
 import { toShortDate } from '@api/date';
+import { LiteratureCover } from '@components';
+import { DocumentAuthors } from '@components/Document';
+import { goTo } from '@history';
+import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Card, Label } from 'semantic-ui-react';
 
 export class BookCard extends Component {
   renderLabels = meta => {
@@ -21,9 +22,9 @@ export class BookCard extends Component {
   renderImage = () => {
     const { data, volume } = this.props;
     const image = (
-      <DocumentCover
-        coverUrl={_get(data, 'metadata.cover_metadata.urls.medium', '')}
-        imageSize={'small'}
+      <LiteratureCover
+        size={'small'}
+        url={_get(data, 'metadata.cover_metadata.urls.medium')}
       />
     );
 

@@ -110,7 +110,10 @@ export class DocumentRequestSearch extends Component {
                   </Grid>
                   <SearchEmptyResults />
                   <Error renderElement={this.renderError} />
-                  <SearchControls modelName={'documentRequests'} />
+                  <SearchControls
+                    modelName={'documentRequests'}
+                    withLayoutSwitcher={false}
+                  />
                   <ResultsList renderElement={this.renderResultsList} />
                   <SearchFooter />
                 </Grid.Column>

@@ -111,7 +111,10 @@ export class BorrowingRequestSearch extends Component {
                   </Grid>
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                   <Error renderElement={this.renderError} />
-                  <SearchControls modelName={'illBorrowingRequests'} />
+                  <SearchControls
+                    modelName={'illBorrowingRequests'}
+                    withLayoutSwitcher={false}
+                  />
                   <ResultsList
                     renderElement={this.renderBorrowingRequestsList}
                   />

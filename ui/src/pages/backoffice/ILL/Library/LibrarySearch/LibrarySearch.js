@@ -100,7 +100,10 @@ export class LibrarySearch extends Component {
                     </Grid>
                     <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'illLibraries'} />
+                    <SearchControls
+                      modelName={'illLibraries'}
+                      withLayoutSwitcher={false}
+                    />
                     <ResultsList renderElement={this.renderLibraryList} />
                     <SearchFooter />
                   </Grid.Column>

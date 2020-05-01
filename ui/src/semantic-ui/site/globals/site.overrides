@@ -161,10 +161,6 @@ a {
   span.secondary {
     color: @fsSecondaryColor;
   }
-
-  .layout-switcher {
-    margin-bottom: 2em !important;
-  }
 }
 
 /* BACKOFFICE */

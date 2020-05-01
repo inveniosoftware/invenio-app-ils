@@ -7,33 +7,31 @@ import { findVolume } from '..';
 import { ResultsList } from 'react-searchkit';
 
 export default class DocumentSearchResultsList extends Component {
-  renderResultsList = results => {
-    return results.length ? (
-      <Item.Group>
-        {results.map(result => {
-          const volume = findVolume(
-            result,
-            result.metadata ? result.metadata.pid : null
-          );
-          return recordToPidType(result) === 'docid' ? (
-            <DocumentListEntry
-              key={result.metadata.pid}
-              data-test={result.metadata.pid}
-              metadata={result.metadata}
-              volume={volume}
-            />
-          ) : (
-            <SeriesListEntry
-              key={result.metadata.pid}
-              data-test={result.metadata.pid}
-              metadata={result.metadata}
-              volume={volume}
-            />
-          );
-        })}
-      </Item.Group>
-    ) : null;
-  };
+  renderResultsList = results => (
+    <Item.Group>
+      {results.map(result => {
+        const volume = findVolume(
+          result,
+          result.metadata ? result.metadata.pid : null
+        );
+        return recordToPidType(result) === 'docid' ? (
+          <DocumentListEntry
+            key={result.metadata.pid}
+            data-test={result.metadata.pid}
+            metadata={result.metadata}
+            volume={volume}
+          />
+        ) : (
+          <SeriesListEntry
+            key={result.metadata.pid}
+            data-test={result.metadata.pid}
+            metadata={result.metadata}
+            volume={volume}
+          />
+        );
+      })}
+    </Item.Group>
+  );
 
   render() {
     return <ResultsList renderElement={this.renderResultsList} />;

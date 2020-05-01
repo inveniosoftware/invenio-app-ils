@@ -1,12 +1,13 @@
 import { toShortDate } from '@api/date';
-import { DocumentAuthors, DocumentItemCover } from '@components/Document';
+import { LiteratureCover } from '@components';
+import { DocumentAuthors } from '@components/Document';
 import { ExtensionCount } from '@pages/frontsite/components/Loan';
 import { FrontSiteRoutes } from '@routes/urls';
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Item, Popup, Icon, Header } from 'semantic-ui-react';
+import { Grid, Header, Icon, Item, Popup } from 'semantic-ui-react';
 import { ExtendButton } from '../';
 
 const OverdueLabel = () => (
@@ -31,14 +32,14 @@ export class LoanListEntry extends Component {
         className={isLoanOverdue ? 'bkg-danger' : ''}
         key={loan.metadata.pid}
       >
-        <DocumentItemCover
-          size="mini"
+        <LiteratureCover
+          asItem={true}
           isRestricted={_get(loan, 'metadata.document.restricted', false)}
-          coverUrl={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
-          disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid
           )}
+          size="tiny"
+          url={_get(loan, 'metadata.document.cover_metadata.urls.medium')}
         />
 
         <Item.Content>

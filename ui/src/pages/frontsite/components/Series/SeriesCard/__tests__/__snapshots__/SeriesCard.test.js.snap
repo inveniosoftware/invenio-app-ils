@@ -40,25 +40,27 @@ exports[`SeriesCard tests should go to book details when clicking on a book 1`] 
           Series
         </div>
       </CardMeta>
-      <SeriesCover
-        fluid={false}
+      <LiteratureCover
+        asItem={false}
+        isRestricted={false}
+        linkTo={null}
         size="small"
+        url={null}
       >
-        <Image
-          as="img"
-          centered={true}
-          fluid={false}
-          size="small"
-          ui={true}
-          wrapped={true}
-        >
+        <Placeholder>
           <div
-            className="ui small centered image"
+            className="ui placeholder"
           >
-            <img />
+            <PlaceholderImage
+              square={true}
+            >
+              <div
+                className="square image"
+              />
+            </PlaceholderImage>
           </div>
-        </Image>
-      </SeriesCover>
+        </Placeholder>
+      </LiteratureCover>
       <CardContent>
         <div
           className="content"
@@ -194,25 +196,27 @@ exports[`SeriesCard tests should render the SeriesCard 1`] = `
           Series
         </div>
       </CardMeta>
-      <SeriesCover
-        fluid={false}
+      <LiteratureCover
+        asItem={false}
+        isRestricted={false}
+        linkTo={null}
         size="small"
+        url={null}
       >
-        <Image
-          as="img"
-          centered={true}
-          fluid={false}
-          size="small"
-          ui={true}
-          wrapped={true}
-        >
+        <Placeholder>
           <div
-            className="ui small centered image"
+            className="ui placeholder"
           >
-            <img />
+            <PlaceholderImage
+              square={true}
+            >
+              <div
+                className="square image"
+              />
+            </PlaceholderImage>
           </div>
-        </Image>
-      </SeriesCover>
+        </Placeholder>
+      </LiteratureCover>
       <CardContent>
         <div
           className="content"

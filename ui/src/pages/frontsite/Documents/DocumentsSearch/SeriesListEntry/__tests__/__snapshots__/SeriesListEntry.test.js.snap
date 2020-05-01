@@ -20,9 +20,12 @@ exports[`should render correctly 1`] = `
     floated="left"
     to="/series/serid-1"
   >
-    <SeriesCover
-      fluid={false}
+    <LiteratureCover
+      asItem={true}
+      isRestricted={false}
+      linkTo={null}
       size="small"
+      url={null}
     />
   </ItemImage>
   <ItemContent>

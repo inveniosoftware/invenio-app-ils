@@ -10,18 +10,19 @@ import { SearchPagination } from './components';
 
 export class SearchControls extends Component {
   render() {
+    const { withLayoutSwitcher, defaultLayout } = this.props;
     return (
       <>
         <Responsive {...Responsive.onlyComputer}>
           <Grid columns={3} className={'search-controls'}>
             <Grid.Column largeScreen={5} computer={6}>
-              {this.props.displayLayoutSwitcher ? (
-                <div className="layout-switcher">
-                  <LayoutSwitcher defaultLayout="grid" />
-                </div>
-              ) : null}
-              <Grid>
-                <Grid.Column width={12}>
+              <Grid columns={2}>
+                {withLayoutSwitcher && (
+                  <Grid.Column width={6}>
+                    <LayoutSwitcher defaultLayout={defaultLayout} />
+                  </Grid.Column>
+                )}
+                <Grid.Column width={10}>
                   <Count label={cmp => <div>{cmp} results found</div>} />
                   <SearchResultsPerPage modelName={this.props.modelName} />
                 </Grid.Column>
@@ -66,6 +67,12 @@ export class SearchControls extends Component {
 }
 
 SearchControls.propTypes = {
-  layoutToggle: PropTypes.func,
   modelName: PropTypes.string.isRequired,
+  withLayoutSwitcher: PropTypes.bool,
+  defaultLayout: PropTypes.oneOf(['grid', 'list']),
+};
+
+SearchControls.defaultProps = {
+  withLayoutSwitcher: true,
+  defaultLayout: 'grid',
 };

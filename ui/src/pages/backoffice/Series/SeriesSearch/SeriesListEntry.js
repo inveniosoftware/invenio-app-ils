@@ -1,8 +1,8 @@
-import { SeriesAuthors } from '@components';
+import { LiteratureCover, SeriesAuthors } from '@components';
 import {
+  DocumentEdition,
   DocumentLanguages,
   DocumentTags,
-  DocumentEdition,
 } from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
@@ -13,6 +13,15 @@ import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 
 export class SeriesListEntry extends Component {
+  renderImage = series => (
+    <LiteratureCover
+      asItem={true}
+      linkTo={BackOfficeRoutes.seriesDetailsFor(series.pid)}
+      size={'tiny'}
+      url={_get(series, 'cover_metadata.urls.medium')}
+    />
+  );
+
   renderMiddleColumn = series => {
     if (this.props.renderMiddleColumn) {
       return this.props.renderMiddleColumn(series);
@@ -87,6 +96,7 @@ export class SeriesListEntry extends Component {
       : series.metadata.identifiers[0];
     return (
       <Item>
+        {this.renderImage(series.metadata)}
         <Item.Content>
           <Header disabled size={'tiny'} className={'document-type'}>
             {series.metadata.mode_of_issuance}

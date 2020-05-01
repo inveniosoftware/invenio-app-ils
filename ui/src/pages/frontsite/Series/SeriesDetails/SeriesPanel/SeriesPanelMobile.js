@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { Abstract, LiteratureCover } from '@components';
 import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
-import { SeriesTitle, SeriesAccess } from '@pages/frontsite/components/Series';
-import { SeriesAuthors, SeriesCover } from '@components/Series';
-import { Abstract } from '@components';
+import { SeriesAuthors } from '@components/Series';
+import { SeriesAccess, SeriesTitle } from '@pages/frontsite/components/Series';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Grid, Header } from 'semantic-ui-react';
 
 export default class SeriesPanelMobile extends Component {
   render() {
@@ -21,9 +21,9 @@ export default class SeriesPanelMobile extends Component {
         <Grid>
           <Grid.Row>
             <Grid.Column mobile={16} textAlign="center">
-              <SeriesCover
-                coverUrl={_get(series, 'metadata.cover_metadata.urls.medium')}
+              <LiteratureCover
                 size="medium"
+                url={_get(series, 'metadata.cover_metadata.urls.medium')}
               />
               <ILSHeaderPlaceholder isLoading={isLoading} center="true">
                 <SeriesTitle />

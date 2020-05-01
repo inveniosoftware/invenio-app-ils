@@ -1,12 +1,14 @@
 import { toShortDate } from '@api/date';
-import { CopyButton, CreatedBy, SeriesAuthors } from '@components';
 import {
-  DocumentCover,
-  DocumentTags,
-  DocumentTitle,
-} from '@components/Document';
-import { DetailsHeader, SeriesIcon } from '@pages/backoffice/components';
+  CopyButton,
+  CreatedBy,
+  LiteratureCover,
+  SeriesAuthors,
+} from '@components';
+import { DocumentTags, DocumentTitle } from '@components/Document';
+import { DetailsHeader } from '@pages/backoffice/components';
 import { FrontSiteRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Icon } from 'semantic-ui-react';
@@ -45,12 +47,11 @@ export class SeriesHeader extends Component {
         }
         subTitle={<SeriesAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
-        icon={
-          data.metadata.coverUrl ? (
-            <DocumentCover document={data} imageSize="huge" />
-          ) : (
-            <SeriesIcon />
-          )
+        image={
+          <LiteratureCover
+            size="tiny"
+            url={_get(data, 'metadata.cover_metadata.urls.medium')}
+          />
         }
         recordInfo={recordInfo}
       >

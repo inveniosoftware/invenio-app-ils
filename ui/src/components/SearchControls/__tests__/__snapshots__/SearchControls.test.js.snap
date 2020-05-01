@@ -14,9 +14,18 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
         computer={6}
         largeScreen={5}
       >
-        <Grid>
+        <Grid
+          columns={2}
+        >
           <GridColumn
-            width={12}
+            width={6}
+          >
+            <Connect(LayoutSwitcher)
+              defaultLayout="grid"
+            />
+          </GridColumn>
+          <GridColumn
+            width={10}
           >
             <Connect(Count)
               label={[Function]}
@@ -155,8 +164,9 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
           updateQueryState={[Function]}
         >
           <SearchControls
-            layoutToggle={[MockFunction]}
+            defaultLayout="grid"
             modelName="documents"
+            withLayoutSwitcher={true}
           >
             <Responsive
               getWidth={[Function]}
@@ -177,15 +187,42 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                       <div
                         className="six wide computer five wide large screen column"
                       >
-                        <Grid>
+                        <Grid
+                          columns={2}
+                        >
                           <div
-                            className="ui grid"
+                            className="ui two column grid"
                           >
                             <GridColumn
-                              width={12}
+                              width={6}
                             >
                               <div
-                                className="twelve wide column"
+                                className="six wide column"
+                              >
+                                <Connect(LayoutSwitcher)
+                                  defaultLayout="grid"
+                                >
+                                  <LayoutSwitcher
+                                    currentLayout="grid"
+                                    defaultLayout="grid"
+                                    loading={true}
+                                    renderElement={null}
+                                    setInitialState={[Function]}
+                                    totalResults={0}
+                                    updateLayout={[Function]}
+                                  >
+                                    <ShouldRender
+                                      condition={false}
+                                    />
+                                  </LayoutSwitcher>
+                                </Connect(LayoutSwitcher)>
+                              </div>
+                            </GridColumn>
+                            <GridColumn
+                              width={10}
+                            >
+                              <div
+                                className="ten wide column"
                               >
                                 <Connect(Count)
                                   label={[Function]}

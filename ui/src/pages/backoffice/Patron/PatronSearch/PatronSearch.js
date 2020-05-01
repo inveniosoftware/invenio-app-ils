@@ -122,7 +122,10 @@ export class PatronSearch extends Component {
                   <Grid.Column>
                     <SearchEmptyResults />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'patrons'} />
+                    <SearchControls
+                      modelName={'patrons'}
+                      withLayoutSwitcher={false}
+                    />
                     <ResultsList renderElement={this.renderResultsTable} />
                     <SearchFooter />
                   </Grid.Column>

@@ -1,10 +1,6 @@
 import { recordToPidType } from '@api/utils';
-import { DocumentAuthors, SeriesAuthors } from '@components';
-import {
-  DocumentEdition,
-  DocumentItemCover,
-  DocumentTitle,
-} from '@components/Document';
+import { DocumentAuthors, LiteratureCover, SeriesAuthors } from '@components';
+import { DocumentEdition, DocumentTitle } from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
@@ -22,10 +18,12 @@ export class RelationListEntry extends Component {
         : BackOfficeRoutes.seriesDetailsFor(record.metadata.pid);
     const cover =
       recordType === 'docid' ? (
-        <DocumentItemCover
+        <LiteratureCover
+          asItem={true}
           isRestricted={_get(record, 'metadata.restricted', false)}
           linkTo={linkTo}
-          coverUrl={_get(record, 'metadata.cover_metadata.urls.medium')}
+          size={'tiny'}
+          url={_get(record, 'metadata.cover_metadata.urls.medium')}
         />
       ) : (
         <Icon name="clone outline" size="huge" color="grey" />

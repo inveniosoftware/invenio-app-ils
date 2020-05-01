@@ -121,7 +121,10 @@ export class OrderSearch extends Component {
                     </Grid>
                     <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'acqOrders'} />
+                    <SearchControls
+                      modelName={'acqOrders'}
+                      withLayoutSwitcher={false}
+                    />
                     <ResultsList renderElement={this.renderOrderList} />
                     <SearchFooter />
                   </Grid.Column>

@@ -216,85 +216,27 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         className="item"
                         data-test="loanid-1"
                       >
-                        <DocumentItemCover
-                          coverUrl=""
-                          disabled={true}
+                        <LiteratureCover
+                          asItem={true}
                           isRestricted={false}
                           linkTo="/literature/docid-1"
-                          size="mini"
+                          size="tiny"
+                          url={null}
                         >
-                          <ItemImage
-                            as={
-                              Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "Link",
-                                "propTypes": Object {
-                                  "innerRef": [Function],
-                                  "onClick": [Function],
-                                  "replace": [Function],
-                                  "target": [Function],
-                                  "to": [Function],
-                                },
-                                "render": [Function],
-                              }
-                            }
-                            disabled={true}
-                            label={null}
-                            onError={[Function]}
-                            size="mini"
-                            src=""
-                            to="/literature/docid-1"
-                          >
-                            <Image
-                              as={
-                                Object {
-                                  "$$typeof": Symbol(react.forward_ref),
-                                  "displayName": "Link",
-                                  "propTypes": Object {
-                                    "innerRef": [Function],
-                                    "onClick": [Function],
-                                    "replace": [Function],
-                                    "target": [Function],
-                                    "to": [Function],
-                                  },
-                                  "render": [Function],
-                                }
-                              }
-                              disabled={true}
-                              label={null}
-                              onError={[Function]}
-                              size="mini"
-                              src=""
-                              to="/literature/docid-1"
-                              ui={true}
-                              wrapped={true}
+                          <Placeholder>
+                            <div
+                              className="ui placeholder"
                             >
-                              <Link
-                                className="ui mini disabled image"
-                                onError={[Function]}
-                                to="/literature/docid-1"
+                              <PlaceholderImage
+                                square={true}
                               >
-                                <LinkAnchor
-                                  className="ui mini disabled image"
-                                  href="/literature/docid-1"
-                                  navigate={[Function]}
-                                  onError={[Function]}
-                                >
-                                  <a
-                                    className="ui mini disabled image"
-                                    href="/literature/docid-1"
-                                    onClick={[Function]}
-                                    onError={[Function]}
-                                  >
-                                    <img
-                                      src=""
-                                    />
-                                  </a>
-                                </LinkAnchor>
-                              </Link>
-                            </Image>
-                          </ItemImage>
-                        </DocumentItemCover>
+                                <div
+                                  className="square image"
+                                />
+                              </PlaceholderImage>
+                            </div>
+                          </Placeholder>
+                        </LiteratureCover>
                         <ItemContent>
                           <div
                             className="content"
@@ -526,85 +468,27 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         className="item"
                         data-test="loanid-2"
                       >
-                        <DocumentItemCover
-                          coverUrl=""
-                          disabled={true}
+                        <LiteratureCover
+                          asItem={true}
                           isRestricted={false}
                           linkTo="/literature/docid-1"
-                          size="mini"
+                          size="tiny"
+                          url={null}
                         >
-                          <ItemImage
-                            as={
-                              Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "Link",
-                                "propTypes": Object {
-                                  "innerRef": [Function],
-                                  "onClick": [Function],
-                                  "replace": [Function],
-                                  "target": [Function],
-                                  "to": [Function],
-                                },
-                                "render": [Function],
-                              }
-                            }
-                            disabled={true}
-                            label={null}
-                            onError={[Function]}
-                            size="mini"
-                            src=""
-                            to="/literature/docid-1"
-                          >
-                            <Image
-                              as={
-                                Object {
-                                  "$$typeof": Symbol(react.forward_ref),
-                                  "displayName": "Link",
-                                  "propTypes": Object {
-                                    "innerRef": [Function],
-                                    "onClick": [Function],
-                                    "replace": [Function],
-                                    "target": [Function],
-                                    "to": [Function],
-                                  },
-                                  "render": [Function],
-                                }
-                              }
-                              disabled={true}
-                              label={null}
-                              onError={[Function]}
-                              size="mini"
-                              src=""
-                              to="/literature/docid-1"
-                              ui={true}
-                              wrapped={true}
+                          <Placeholder>
+                            <div
+                              className="ui placeholder"
                             >
-                              <Link
-                                className="ui mini disabled image"
-                                onError={[Function]}
-                                to="/literature/docid-1"
+                              <PlaceholderImage
+                                square={true}
                               >
-                                <LinkAnchor
-                                  className="ui mini disabled image"
-                                  href="/literature/docid-1"
-                                  navigate={[Function]}
-                                  onError={[Function]}
-                                >
-                                  <a
-                                    className="ui mini disabled image"
-                                    href="/literature/docid-1"
-                                    onClick={[Function]}
-                                    onError={[Function]}
-                                  >
-                                    <img
-                                      src=""
-                                    />
-                                  </a>
-                                </LinkAnchor>
-                              </Link>
-                            </Image>
-                          </ItemImage>
-                        </DocumentItemCover>
+                                <div
+                                  className="square image"
+                                />
+                              </PlaceholderImage>
+                            </div>
+                          </Placeholder>
+                        </LiteratureCover>
                         <ItemContent>
                           <div
                             className="content"

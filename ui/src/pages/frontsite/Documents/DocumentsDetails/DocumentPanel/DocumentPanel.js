@@ -1,5 +1,5 @@
-import { Abstract } from '@components';
-import { DocumentAuthors, DocumentCover } from '@components/Document';
+import { Abstract, LiteratureCover } from '@components';
+import { DocumentAuthors } from '@components/Document';
 import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
@@ -25,10 +25,8 @@ export default class DocumentPanel extends Component {
             <Grid columns={3}>
               <Grid.Row>
                 <Grid.Column>
-                  <DocumentCover
-                    isLoading={isLoading}
-                    coverUrl={_get(doc, 'metadata.cover_metadata.urls.large')}
-                    placeholderStyle={{ width: 350, height: 500 }}
+                  <LiteratureCover
+                    url={_get(doc, 'metadata.cover_metadata.urls.large')}
                   />
                 </Grid.Column>
                 <Grid.Column>

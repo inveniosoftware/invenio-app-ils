@@ -44,12 +44,8 @@ describe('SearchControls tests', () => {
     }
   });
 
-  const layoutToggleMock = jest.fn();
-
   it('should load the SearchControls component', () => {
-    const component = shallow(
-      <SearchControls modelName={'documents'} layoutToggle={layoutToggleMock} />
-    );
+    const component = shallow(<SearchControls modelName={'documents'} />);
     expect(component).toMatchSnapshot();
   });
 
@@ -57,10 +53,7 @@ describe('SearchControls tests', () => {
     component = mount(
       <Provider store={store}>
         <ReactSearchKit searchApi={searchApi}>
-          <SearchControls
-            modelName={'documents'}
-            layoutToggle={layoutToggleMock}
-          />
+          <SearchControls modelName={'documents'} />
         </ReactSearchKit>
       </Provider>
     );

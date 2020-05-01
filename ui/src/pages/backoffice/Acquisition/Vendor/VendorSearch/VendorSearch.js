@@ -102,7 +102,10 @@ export class VendorSearch extends Component {
                     </Grid>
                     <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                     <Error renderElement={this.renderError} />
-                    <SearchControls modelName={'acqVendors'} />
+                    <SearchControls
+                      modelName={'acqVendors'}
+                      withLayoutSwitcher={false}
+                    />
                     <ResultsList renderElement={this.renderVendorList} />
                     <SearchFooter />
                   </Grid.Column>

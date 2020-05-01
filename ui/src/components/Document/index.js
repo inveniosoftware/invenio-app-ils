@@ -4,5 +4,3 @@ export { DocumentTags } from './DocumentTags';
 export { DocumentToc } from './DocumentToc';
 export { DocumentTitle } from './DocumentTitle';
 export { DocumentEdition } from './DocumentEdition';
-export { DocumentCover } from './DocumentCover';
-export { default as DocumentItemCover } from './DocumentItemCover';

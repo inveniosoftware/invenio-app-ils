@@ -83,8 +83,9 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
           minWidth={992}
         >
           <SearchControls
-            displayLayoutSwitcher={true}
+            defaultLayout="grid"
             modelName="literature"
+            withLayoutSwitcher={true}
           />
           <Connect(ResultsMultiLayout)
             resultsGridCmp={[Function]}

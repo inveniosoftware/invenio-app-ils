@@ -1,16 +1,27 @@
+import { random } from 'lodash/number';
 import React, { Component } from 'react';
 import { Item, Placeholder } from 'semantic-ui-react';
-import {random} from 'lodash/number';
 
 export class ILSParagraphPlaceholder extends Component {
   renderLines = () => {
     const lines = [];
-    const lineLengths = ['full', 'very long', 'long', 'medium', 'short', 'very short'];
+    const lineLengths = [
+      'full',
+      'very long',
+      'long',
+      'medium',
+      'short',
+      'very short',
+    ];
     for (let i = 0; i < this.props.linesNumber; i++) {
       lines.push(
         <Placeholder.Line
           key={i}
-          length={this.props.lineLength ? this.props.lineLength : lineLengths[random(lineLengths.length-1)]}
+          length={
+            this.props.lineLength
+              ? this.props.lineLength
+              : lineLengths[random(lineLengths.length - 1)]
+          }
         />
       );
     }

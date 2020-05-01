@@ -105,8 +105,9 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
                 renderElement={[Function]}
               />
               <SearchControls
-                displayLayoutSwitcher={true}
+                defaultLayout="grid"
                 modelName="documents"
+                withLayoutSwitcher={true}
               />
               <Connect(ResultsMultiLayout)
                 resultsGridCmp={[Function]}

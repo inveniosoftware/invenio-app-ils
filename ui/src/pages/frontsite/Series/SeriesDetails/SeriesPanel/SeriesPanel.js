@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Grid, Responsive } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { Abstract, LiteratureCover } from '@components';
 import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
-import { SeriesTitle, SeriesAccess } from '@pages/frontsite/components/Series';
-import { SeriesPanelMobile, SeriesSequences } from './index';
-import { SeriesAuthors, SeriesCover } from '@components/Series';
-import { Abstract } from '@components';
+import { SeriesAuthors } from '@components/Series';
+import { SeriesAccess, SeriesTitle } from '@pages/frontsite/components/Series';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Grid, Responsive } from 'semantic-ui-react';
+import { SeriesPanelMobile, SeriesSequences } from './index';
 
 export default class SeriesPanel extends Component {
   render() {
@@ -24,12 +24,8 @@ export default class SeriesPanel extends Component {
             <Grid>
               <Grid.Row>
                 <Grid.Column width={5}>
-                  <SeriesCover
-                    fluid
-                    coverUrl={_get(
-                      series,
-                      'metadata.cover_metadata.urls.large'
-                    )}
+                  <LiteratureCover
+                    url={_get(series, 'metadata.cover_metadata.urls.large')}
                   />
                 </Grid.Column>
                 <Grid.Column width={6}>

@@ -1,10 +1,10 @@
+import { LiteratureCover } from '@components';
 import {
   DocumentAuthors,
   DocumentEdition,
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
-import DocumentItemCover from '@components/Document/DocumentItemCover';
 import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
@@ -98,10 +98,12 @@ export default class DocumentListEntry extends Component {
     return (
       <Item>
         <div className={'item-image-wrapper'}>
-          <DocumentItemCover
-            linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
+          <LiteratureCover
+            asItem={true}
             isRestricted={_get(document, 'metadata.restricted', false)}
-            coverUrl={_get(document, 'metadata.cover_metadata.urls.medium')}
+            linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
+            size="tiny"
+            url={_get(document, 'metadata.cover_metadata.urls.medium')}
           />
           <Header disabled as="h6" className={'document-type tiny ellipsis'}>
             {document.metadata.document_type}

@@ -134,7 +134,10 @@ export class SeriesSearch extends Component {
                   </Grid>
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                   <Error renderElement={this.renderError} />
-                  <SearchControls modelName={'series'} />
+                  <SearchControls
+                    modelName={'series'}
+                    withLayoutSwitcher={false}
+                  />
                   <ResultsList renderElement={this.renderSeriesList} />
                   <SearchFooter />
                 </Grid.Column>

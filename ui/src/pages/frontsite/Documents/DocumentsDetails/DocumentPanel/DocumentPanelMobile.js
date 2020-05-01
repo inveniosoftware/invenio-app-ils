@@ -1,7 +1,13 @@
-import { Abstract } from '@components';
-import { DocumentAuthors, DocumentCover } from '@components/Document';
-import { ILSHeaderPlaceholder, ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
-import { DocumentTags, DocumentTitle } from '@pages/frontsite/components/Document';
+import { Abstract, LiteratureCover } from '@components';
+import { DocumentAuthors } from '@components/Document';
+import {
+  ILSHeaderPlaceholder,
+  ILSParagraphPlaceholder,
+} from '@components/ILSPlaceholder';
+import {
+  DocumentTags,
+  DocumentTitle,
+} from '@pages/frontsite/components/Document';
 import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -19,10 +25,9 @@ export default class DocumentPanelMobile extends Component {
         <Grid>
           <Grid.Row>
             <Grid.Column mobile={16} textAlign={'center'}>
-              <DocumentCover
-                imageSize={'medium'}
-                placeholderStyle={{ width: 350, height: 400 }}
-                coverUrl={_get(doc, 'metadata.cover_metadata.urls.large')}
+              <LiteratureCover
+                size={'medium'}
+                url={_get(doc, 'metadata.cover_metadata.urls.medium')}
               />
               <ILSHeaderPlaceholder isLoading={isLoading} center="true">
                 <DocumentTitle />
