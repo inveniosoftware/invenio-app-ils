@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../actions';
-import { initialState } from '../reducer';
-import * as types from '../types';
+import * as actions from './actions';
+import { initialState } from './reducer';
+import * as types from './types';
 import { illBorrowingRequest as illBorrowingRequestApi } from '@api';
 
 jest.mock('@config/invenioConfig');

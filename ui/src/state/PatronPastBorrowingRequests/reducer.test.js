@@ -1,5 +1,5 @@
-import reducer, { initialState } from '../reducer';
-import * as types from '../types';
+import reducer, { initialState } from './reducer';
+import * as types from './types';
 
 describe('Fetch past borrowing requests reducer', () => {
   it('should have initial state', () => {
