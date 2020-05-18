@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,
   documentDetails: state.documentDetailsFront.data,
   hasError: state.documentDetailsFront.hasError,
+  error: state.documentDetailsFront.error,
 });
 
 export const DocumentsDetailsContainer = connect(

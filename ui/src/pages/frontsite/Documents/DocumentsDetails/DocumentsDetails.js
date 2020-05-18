@@ -6,7 +6,7 @@ import { Container, Grid, Icon, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
 import { goTo } from '@history';
 import { FrontSiteRoutes, BackOfficeRoutes } from '@routes/urls';
-import { SearchBar, Error } from '@components';
+import { SearchBar, Error, NotFound, Forbidden } from '@components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
@@ -63,7 +63,14 @@ export default class DocumentsDetails extends Component {
   ];
 
   render() {
-    const { isLoading, error, documentDetails } = this.props;
+    const { isLoading, hasError, error, documentDetails } = this.props;
+    if (hasError) {
+      if (error.response.status === 403) {
+        return <Forbidden />;
+      } else if (error.response.status === 404) {
+        return <NotFound />;
+      }
+    }
     return (
       <>
         <Container fluid className="document-details-search-container">
