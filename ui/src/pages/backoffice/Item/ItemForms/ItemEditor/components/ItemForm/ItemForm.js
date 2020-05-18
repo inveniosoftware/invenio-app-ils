@@ -26,10 +26,7 @@ import {
   serializeInternalLocation,
 } from '@components/ESSelector/serializer';
 import { vocabulary as vocabularyApi } from '@api';
-<<<<<<< HEAD
 import { withCancel } from '@api/utils';
-=======
->>>>>>> Item: add fields price and acquisition pid
 
 export class ItemForm extends Component {
   config = invenioConfig.items;
@@ -41,13 +38,10 @@ export class ItemForm extends Component {
     this.fetchCurrencies();
   }
 
-<<<<<<< HEAD
   componentWillUnmount() {
     this.cancellableFetchData && this.cancellableFetchData.cancel();
   }
 
-=======
->>>>>>> Item: add fields price and acquisition pid
   query = () => {
     const searchQuery = vocabularyApi
       .query()
