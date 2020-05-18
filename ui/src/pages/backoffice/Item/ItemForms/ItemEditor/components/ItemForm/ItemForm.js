@@ -26,6 +26,7 @@ import {
   serializeInternalLocation,
 } from '@components/ESSelector/serializer';
 import { vocabulary as vocabularyApi } from '@api';
+import { withCancel } from '@api/utils';
 
 export class ItemForm extends Component {
   config = invenioConfig.items;
@@ -35,6 +36,10 @@ export class ItemForm extends Component {
 
   componentDidMount() {
     this.fetchCurrencies();
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchData && this.cancellableFetchData.cancel();
   }
 
   query = () => {
@@ -52,19 +57,22 @@ export class ItemForm extends Component {
   });
 
   fetchCurrencies = async () => {
+    this.cancellableFetchData = withCancel(this.query());
     try {
-      const response = await this.query();
+      const response = await this.cancellableFetchData.promise;
       const currencies = response.data.hits.map(hit => this.serializer(hit));
       this.setState({ isLoading: false, currencies: currencies, error: null });
     } catch (error) {
-      this.setState({
-        isloading: false,
-        options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
-        error: {
-          content: 'Failed to load currencies.',
-          pointing: 'above',
-        },
-      });
+      if (error !== 'UNMOUNTED') {
+        this.setState({
+          isloading: false,
+          options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
+          error: {
+            content: 'Failed to load currencies.',
+            pointing: 'above',
+          },
+        });
+      }
     }
   };
 

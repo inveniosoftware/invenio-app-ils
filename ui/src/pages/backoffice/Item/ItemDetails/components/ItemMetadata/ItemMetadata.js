@@ -15,7 +15,7 @@ export default class ItemMetadata extends Component {
   render() {
     const { itemDetails } = this.props;
 
-    const metadata = [
+    let metadata = [
       { name: 'Barcode', value: itemDetails.metadata.barcode },
       {
         name: 'Loan restrictions',
@@ -25,10 +25,6 @@ export default class ItemMetadata extends Component {
         name: 'Acquisition pid',
         value: itemDetails.metadata.acquisition_pid,
       },
-      {
-        name: `Price (${itemDetails.metadata.price.currency})`,
-        value: formatPrice(itemDetails.metadata.price),
-      },
       { name: 'Medium', value: itemDetails.metadata.medium },
       { name: 'Status', value: itemDetails.metadata.status },
       { name: 'Legacy ID', value: itemDetails.metadata.legacy_id },
@@ -37,6 +33,14 @@ export default class ItemMetadata extends Component {
         value: itemDetails.metadata.legacy_library_id,
       },
     ];
+
+    if (itemDetails.metadata.price) {
+      // insert after acquisition pid
+      metadata.splice(3, 0, {
+        name: `Price (${itemDetails.metadata.price.currency})`,
+        value: formatPrice(itemDetails.metadata.price),
+      });
+    }
 
     return (
       <>

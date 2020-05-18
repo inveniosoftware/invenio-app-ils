@@ -4,6 +4,7 @@ import { vocabulary as vocabularyApi } from '@api';
 import { SelectField } from './SelectField';
 import { invenioConfig } from '@config';
 import { AccordionField } from './AccordionField';
+import { withCancel } from '@api/utils';
 
 export class VocabularyField extends React.Component {
   constructor(props) {
@@ -14,6 +15,15 @@ export class VocabularyField extends React.Component {
       error: null,
       options: [],
     };
+  }
+
+  componentDidMount() {
+    const serializer = this.props.serializer || this.serializer;
+    this.fetchVocabularies(serializer);
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchData && this.cancellableFetchData.cancel();
   }
 
   query = () => {
@@ -32,27 +42,26 @@ export class VocabularyField extends React.Component {
   });
 
   fetchVocabularies = async serializer => {
+    this.cancellableFetchData = withCancel(this.query());
     try {
-      const response = await this.query();
+      const response = await this.cancellableFetchData.promise;
       const options = response.data.hits.map(hit => serializer(hit));
-
       this.setState({ isLoading: false, options: options, error: null });
     } catch (error) {
-      this.setState({
-        isloading: false,
-        options: [{ key: '', value: '', text: 'Failed to load vocabularies.' }],
-        error: {
-          content: 'Failed to load vocabularies.',
-          pointing: 'above',
-        },
-      });
+      if (error !== 'UNMOUNTED') {
+        this.setState({
+          isloading: false,
+          options: [
+            { key: '', value: '', text: 'Failed to load vocabularies.' },
+          ],
+          error: {
+            content: 'Failed to load vocabularies.',
+            pointing: 'above',
+          },
+        });
+      }
     }
   };
-
-  componentDidMount() {
-    const serializer = this.props.serializer || this.serializer;
-    this.fetchVocabularies(serializer);
-  }
 
   render() {
     const {
