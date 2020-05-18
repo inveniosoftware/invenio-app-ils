@@ -7,6 +7,7 @@ export { DocumentAuthors } from './Document';
 export { EmailLink } from './EmailLink';
 export { EmptyMessage } from './EmptyMessage';
 export { Error } from './Error';
+export { Forbidden } from './Forbidden/Forbidden';
 export { InfoPopup } from './InfoPopup';
 export { LiteratureCover } from './LiteratureCover';
 export { Loader } from './Loader';
