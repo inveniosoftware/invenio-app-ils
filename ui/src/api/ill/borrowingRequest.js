@@ -1,9 +1,10 @@
-import { http, apiConfig } from '../base';
-import {
-  brwReqSerializer as serializer,
-  brwReqCreateLoanSerializer as createLoanSerializer,
-} from './serializers';
+import { sessionManager } from '@authentication/services';
+import { apiConfig, http } from '../base';
 import { prepareSumQuery } from '../utils';
+import {
+  brwReqPatronLoanCreateSerializer as patronLoanCreateSerializer,
+  brwReqSerializer as serializer,
+} from './serializers';
 
 const borrowingRequestUrl = '/ill/borrowing-requests/';
 
@@ -30,13 +31,20 @@ const update = async (borrowingRequestPid, data) => {
   return resp;
 };
 
-const createLoan = async (borrowingRequestPid, loanStartDate, loanEndDate) => {
-  const payload = createLoanSerializer.toJSON({
+const patronLoanCreate = async (
+  borrowingRequestPid,
+  loanStartDate,
+  loanEndDate
+) => {
+  const currentUser = sessionManager.user;
+  const payload = patronLoanCreateSerializer.toJSON({
     loan_start_date: loanStartDate,
     loan_end_date: loanEndDate,
+    transaction_location_pid: `${currentUser.locationPid}`,
+    transaction_user_pid: `${currentUser.id}`,
   });
   const resp = await http.post(
-    `${borrowingRequestUrl}${borrowingRequestPid}/create-loan`,
+    `${borrowingRequestUrl}${borrowingRequestPid}/patron-loan/create`,
     payload
   );
   resp.data = serializer.fromJSON(resp.data);
@@ -129,7 +137,7 @@ export const borrowingRequest = {
   get: get,
   list: list,
   update: update,
-  createLoan: createLoan,
+  patronLoanCreate: patronLoanCreate,
   query: queryBuilder,
   url: borrowingRequestUrl,
 };

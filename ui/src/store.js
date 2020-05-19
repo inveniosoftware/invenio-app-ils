@@ -67,7 +67,7 @@ import {
   borrowingRequestDetailsReducer,
   libraryDetailsReducer,
 } from '@pages/backoffice/ILL';
-import { borrowingRequestCreateLoanReducer } from '@pages/backoffice/ILL/BorrowingRequest/BorrowingRequestDetails/components/BorrowingRequestPatronLoan/reducer';
+import { borrowingRequestPatronLoanCreateReducer } from '@pages/backoffice/ILL/BorrowingRequest/BorrowingRequestDetails/components/BorrowingRequestPatronLoan/reducer';
 import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,
@@ -82,7 +82,7 @@ const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
   authenticationManagement: authenticationReducer,
   borrowingRequestDetails: borrowingRequestDetailsReducer,
-  borrowingRequestCreateLoan: borrowingRequestCreateLoanReducer,
+  borrowingRequestPatronLoanCreate: borrowingRequestPatronLoanCreateReducer,
   deleteRecordModal: deleteRecordModalReducer,
   recordRelationsSelections: relationSelectorReducer,
   recordRelations: recordRelationsReducer,

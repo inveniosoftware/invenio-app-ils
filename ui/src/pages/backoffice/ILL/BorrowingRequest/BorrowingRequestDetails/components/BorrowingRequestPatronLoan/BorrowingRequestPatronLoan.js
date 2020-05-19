@@ -32,7 +32,7 @@ class CreateLoanButton extends React.Component {
     }
 
     const hasRequestedStatus = brwReq.status === 'REQUESTED';
-    const hasAlreadyLoan = brwReq.loan_pid;
+    const hasAlreadyLoan = _get(brwReq, 'patron_loan.pid', false);
 
     let description =
       'Create a new loan for the patron when you have received the requested item.';
@@ -118,7 +118,7 @@ class CreateLoan extends React.Component {
   handleCreateLoan = () => {
     const startDate = fromISO(this.state.startDate);
     const endDate = fromISO(this.state.endDate);
-    this.props.borrowingRequestCreateLoan(
+    this.props.borrowingRequestPatronLoanCreate(
       this.props.brwReq.pid,
       startDate,
       endDate
@@ -207,7 +207,7 @@ CreateLoan.propTypes = {
   error: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
-  borrowingRequestCreateLoan: PropTypes.func.isRequired,
+  borrowingRequestPatronLoanCreate: PropTypes.func.isRequired,
 };
 
 export default class BorrowingRequestPatronLoan extends React.Component {
@@ -223,10 +223,10 @@ export default class BorrowingRequestPatronLoan extends React.Component {
 
   render() {
     const { brwReq } = this.props;
-    const loanPid = brwReq.loan_pid;
-    const loanStartDate = _get(brwReq, 'loan.start_date');
-    const loanEndDate = _get(brwReq, 'loan.end_date');
-    const loanStatus = _get(brwReq, 'loan.state');
+    const loanPid = _get(brwReq, 'patron_loan.pid');
+    const loanStartDate = _get(brwReq, 'patron_loan.loan.start_date');
+    const loanEndDate = _get(brwReq, 'patron_loan.loan.end_date');
+    const loanStatus = _get(brwReq, 'patron_loan.loan.state');
 
     const leftTable = [
       {
@@ -278,5 +278,5 @@ BorrowingRequestPatronLoan.propTypes = {
   error: PropTypes.object,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
-  borrowingRequestCreateLoan: PropTypes.func.isRequired,
+  borrowingRequestPatronLoanCreate: PropTypes.func.isRequired,
 };

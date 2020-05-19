@@ -90,31 +90,16 @@
       "title": "The persistent identifier of the Document",
       "type": "string"
     },
+    "due_date": {
+      "format": "date",
+      "title": "Due date of the ILL borrowing request",
+      "type": "string"
+    },
     "expected_delivery_date": {
       "format": "date",
       "minLength": 1,
       "title": "Expected delivery date of the item requested",
       "type": "string"
-    },
-    "extension": {
-      "properties": {
-        "notes": {
-          "title": "The notes of the extension",
-          "type": "string"
-        },
-        "request_date": {
-          "format": "date",
-          "minLength": 1,
-          "title": "Date of the extension request",
-          "type": "string"
-        },
-        "status": {
-          "title": "Status of the extension",
-          "type": "string"
-        }
-      },
-      "title": "Patron loan extensions",
-      "type": "object"
     },
     "library": {
       "properties": {
@@ -127,15 +112,6 @@
     },
     "library_pid": {
       "title": "The persistent identifier of the lending library",
-      "type": "string"
-    },
-    "loan_end_date": {
-      "format": "date",
-      "title": "Ending date of the ILL borrowing request",
-      "type": "string"
-    },
-    "loan_pid": {
-      "title": "The persistent identifier of the loan created from this borrowing request",
       "type": "string"
     },
     "notes": {
@@ -157,6 +133,32 @@
     "payment": {
       "$ref": "#/definitions/payment",
       "title": "ILL borrowing request payment"
+    },
+    "patron_loan": {
+      "extension": {
+        "properties": {
+          "notes": {
+            "title": "The notes of the extension",
+            "type": "string"
+          },
+          "request_date": {
+            "format": "date",
+            "minLength": 1,
+            "title": "Date of the extension request",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status of the extension",
+            "type": "string"
+          }
+        },
+        "title": "Patron loan extensions",
+        "type": "object"
+      },
+      "pid": {
+        "title": "The persistent identifier of the loan created from this borrowing request",
+        "type": "string"
+      }
     },
     "pid": {
       "title": "The persistent identifier of ILL borrowing request",

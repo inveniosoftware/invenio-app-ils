@@ -96,15 +96,7 @@ export class OrderInfo extends Component {
             fieldPath="received_date"
             optimized
           />
-        </GroupField>
-
-        <GroupField widths="equal">
-          <StringField label="Loan PID" fieldPath="loan_pid" />
-          <DateInputField
-            label="Loan end date"
-            fieldPath="loan_end_date"
-            optimized
-          />
+          <DateInputField label="Due Date" fieldPath="due_date" optimized />
         </GroupField>
 
         <GroupField widths="equal">

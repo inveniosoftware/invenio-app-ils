@@ -1,1 +1,1 @@
-export { default as borrowingRequestCreateLoanReducer } from './state/reducer';
+export { default as borrowingRequestPatronLoanCreateReducer } from './state/reducer';

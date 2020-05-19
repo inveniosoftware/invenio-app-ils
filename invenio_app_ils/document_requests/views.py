@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint
+from flask import Blueprint, current_app
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import need_record_permission, pass_record
@@ -18,8 +18,7 @@ from invenio_rest.errors import FieldError
 
 from invenio_app_ils.errors import DocumentRequestError
 from invenio_app_ils.mail.tasks import send_document_request_status_mail
-from invenio_app_ils.permissions import DocumentRequestOwnerPermission, \
-    need_permissions
+from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.proxies import current_app_ils
 
 from .api import DOCUMENT_REQUEST_PID_TYPE
@@ -224,7 +223,10 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
 
     def reject_permission_factory(self, record):
         """Reject permission factory."""
-        return DocumentRequestOwnerPermission(record)
+        action = "document-request-decline"
+        permissions = current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"]
+        view_permission = permissions(action)
+        return view_permission(record)
 
     @pass_record
     @need_record_permission("reject_permission_factory")

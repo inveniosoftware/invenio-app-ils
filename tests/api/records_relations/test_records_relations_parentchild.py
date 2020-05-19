@@ -12,9 +12,8 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
 
+from ..helpers import user_login
 from .helpers import recrel_assert_record_relations, \
     recrel_choose_endpoints_and_do_request
 
@@ -447,8 +446,7 @@ def test_parent_child_relations(client, json_headers, testdata, users):
         status_code=401,
     )
 
-    user = users["librarian"]
-    login_user_via_session(client, user=User.query.get(user.id))
+    user_login(client, "librarian", users)
 
     # only one test method to speed up tests and avoid testdata recreation at
     # each test. As drawback, testdata is not cleaned between each test, so

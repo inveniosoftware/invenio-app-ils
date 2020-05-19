@@ -118,9 +118,9 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=4,
         ),
-        loan_end_date=dict(
-            fields=["loan_end_date"],
-            title="Loan end date",
+        due_date=dict(
+            fields=["due_date"],
+            title="Due date",
             default_order="desc",
             order=5,
         ),

@@ -43,6 +43,10 @@ class Loan extends React.Component {
         name: 'Received on',
         value: this.dateOrDefault(brwReq.received_date),
       },
+      {
+        name: 'Due date',
+        value: this.dateOrDefault(brwReq.due_date),
+      },
     ];
     return (
       <Grid columns={2} relaxed>

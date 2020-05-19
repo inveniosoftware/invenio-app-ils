@@ -101,7 +101,7 @@ exports[`DocumentItems tests should render item 1`] = `
           "id": "2",
           "metadata": Object {
             "barcode": "123456789-2",
-            "circulation_restriction": "NO_RESTRICTION",
+            "circulation_restriction": "ONE_WEEK",
             "document": Object {
               "title": "Document 2 title",
             },
@@ -193,7 +193,7 @@ exports[`DocumentItems tests should render item 1`] = `
               "id": "2",
               "metadata": Object {
                 "barcode": "123456789-2",
-                "circulation_restriction": "NO_RESTRICTION",
+                "circulation_restriction": "ONE_WEEK",
                 "document": Object {
                   "title": "Document 2 title",
                 },
@@ -472,7 +472,7 @@ exports[`DocumentItems tests should render item 1`] = `
                     "id": "2",
                     "metadata": Object {
                       "barcode": "123456789-2",
-                      "circulation_restriction": "NO_RESTRICTION",
+                      "circulation_restriction": "ONE_WEEK",
                       "document": Object {
                         "title": "Document 2 title",
                       },
@@ -706,7 +706,7 @@ exports[`DocumentItems tests should render item 1`] = `
                           data-label="Restrictions"
                           data-test="5-item2"
                         >
-                          NO_RESTRICTION
+                          ONE_WEEK
                         </td>
                       </TableCell>
                       <TableCell
@@ -899,7 +899,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
           "id": "2",
           "metadata": Object {
             "barcode": "123456789-2",
-            "circulation_restriction": "NO_RESTRICTION",
+            "circulation_restriction": "ONE_WEEK",
             "document": Object {
               "title": "Document 2 title",
             },
@@ -991,7 +991,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
               "id": "2",
               "metadata": Object {
                 "barcode": "123456789-2",
-                "circulation_restriction": "NO_RESTRICTION",
+                "circulation_restriction": "ONE_WEEK",
                 "document": Object {
                   "title": "Document 2 title",
                 },

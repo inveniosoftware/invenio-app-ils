@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 
-import { borrowingRequestCreateLoan } from './state/actions';
+import { borrowingRequestPatronLoanCreate } from './state/actions';
 import BorrowingRequestPatronLoanComponent from './BorrowingRequestPatronLoan';
 
 const mapStateToProps = state => ({
-  isLoading: state.borrowingRequestCreateLoan.isLoading,
-  error: state.borrowingRequestCreateLoan.error,
-  hasError: state.borrowingRequestCreateLoan.hasError,
+  isLoading: state.borrowingRequestPatronLoanCreate.isLoading,
+  error: state.borrowingRequestPatronLoanCreate.error,
+  hasError: state.borrowingRequestPatronLoanCreate.hasError,
 });
 
 const mapDispatchToProps = dispatch => ({
-  borrowingRequestCreateLoan: (brwReqPid, loanStartDate, loanEndDate) =>
-    dispatch(borrowingRequestCreateLoan(brwReqPid, loanStartDate, loanEndDate)),
+  borrowingRequestPatronLoanCreate: (brwReqPid, loanStartDate, loanEndDate) =>
+    dispatch(
+      borrowingRequestPatronLoanCreate(brwReqPid, loanStartDate, loanEndDate)
+    ),
 });
 
 export const BorrowingRequestPatronLoan = connect(

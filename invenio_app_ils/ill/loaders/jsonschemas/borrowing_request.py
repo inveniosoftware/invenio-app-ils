@@ -46,7 +46,7 @@ class PaymentSchema(Schema):
 
 
 class ExtensionSchema(Schema):
-    """Extension schema."""
+    """Schema for the extension of the loan of the patron."""
 
     class Meta:
         """Meta attributes for the schema."""
@@ -54,8 +54,17 @@ class ExtensionSchema(Schema):
         unknown = EXCLUDE
 
     notes = fields.Str()
-    request_date = DateString()
-    status = fields.Str(required=True)  # TODO: validate
+
+
+class PatronLoanSchema(Schema):
+    """Schema for the loan of the patron."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    extension = fields.Nested(ExtensionSchema)
 
 
 class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
@@ -69,13 +78,13 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     cancel_reason = fields.Str()
     created_by = fields.Nested(ChangedBySchema)
     document_pid = fields.Str(required=True)
+    due_date = DateString()
     expected_delivery_date = DateString()
-    extension = fields.Nested(ExtensionSchema)
     library_pid = fields.Str(required=True)  # TODO: validate
-    loan_end_date = DateString()
     notes = fields.Str()
     patron_pid = fields.Str(required=True)
     payment = fields.Nested(PaymentSchema)
+    patron_loan = fields.Nested(PatronLoanSchema)
     received_date = DateString()
     request_date = DateString()
     status = fields.Str(

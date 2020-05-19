@@ -43,13 +43,13 @@ export class BorrowingRequestStatistics extends React.Component {
     }
   }
 
-  renderLoanEnds() {
-    const { loan_end_date: loanEndDate } = this.props.brwReq;
+  renderDueDate() {
+    const { due_date: dueDate } = this.props.brwReq;
     return (
       <Statistic>
-        <Statistic.Label>Loan ends</Statistic.Label>
+        <Statistic.Label>Due date</Statistic.Label>
         <Statistic.Value>
-          {loanEndDate ? toShortDate(loanEndDate) : '-'}
+          {dueDate ? toShortDate(dueDate) : '-'}
         </Statistic.Value>
       </Statistic>
     );
@@ -61,7 +61,7 @@ export class BorrowingRequestStatistics extends React.Component {
     return (
       <Statistic.Group widths={widths} className="detail-statistics">
         {this.renderStatus()}
-        {status !== 'CANCELLED' && this.renderLoanEnds()}
+        {status !== 'CANCELLED' && this.renderDueDate()}
       </Statistic.Group>
     );
   }

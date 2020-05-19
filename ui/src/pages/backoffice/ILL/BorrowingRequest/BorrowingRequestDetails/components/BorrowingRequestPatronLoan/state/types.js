@@ -1,3 +1,3 @@
-export const SUCCESS = 'borrowingRequestCreateLoan/SUCCESS';
-export const IS_LOADING = 'borrowingRequestCreateLoan/IS_LOADING';
-export const HAS_ERROR = 'borrowingRequestCreateLoan/HAS_ERROR';
+export const SUCCESS = 'borrowingRequestPatronLoanCreate/SUCCESS';
+export const IS_LOADING = 'borrowingRequestPatronLoanCreate/IS_LOADING';
+export const HAS_ERROR = 'borrowingRequestPatronLoanCreate/HAS_ERROR';

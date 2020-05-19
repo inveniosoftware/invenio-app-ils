@@ -59,19 +59,10 @@ def circulation_build_document_ref(loan_pid, loan):
     }
 
 
-def circulation_default_loan_duration(loan):
-    """Return a default loan duration in timedelta."""
-    return timedelta(days=30)
-
-
-def circulation_default_extension_duration(loan):
-    """Return a default extension duration in timedelta."""
-    return timedelta(days=30)
-
-
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
-    # NOTE: If user is admin or librarian always have 1 extra extension count.
+    # NOTE: If user is admin or librarian it should be unlimited.
+    # Set it has 1 more than the current.
     if has_request_context() and backoffice_permission().allows(g.identity):
         return loan.get("extension_count", 0) + 1
     return 3
