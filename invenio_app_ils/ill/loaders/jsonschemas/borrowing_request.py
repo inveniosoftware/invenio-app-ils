@@ -14,18 +14,7 @@ from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
     set_changed_by
-
-
-class PriceSchema(Schema):
-    """Price schema."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    currency = fields.Str(required=True)
-    value = fields.Number(required=True)
+from invenio_app_ils.records.loaders.schemas.price import PriceSchema
 
 
 class PaymentSchema(Schema):

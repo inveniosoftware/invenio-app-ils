@@ -32,15 +32,15 @@ class CreateLoanButton extends React.Component {
     }
 
     const hasRequestedStatus = brwReq.status === 'REQUESTED';
-    const hasAlreadyLoan = _get(brwReq, 'patron_loan.pid', false);
+    const hasLoan = _get(brwReq, 'patron_loan.pid', false);
 
     let description =
       'Create a new loan for the patron when you have received the requested item.';
     let isEnabled = !this.props.isLoading;
-    if (!hasRequestedStatus && !hasAlreadyLoan) {
+    if (!hasRequestedStatus && !hasLoan) {
       description = `To create a new loan, change the borrowing request status to REQUESTED.`;
       isEnabled = false;
-    } else if (!hasRequestedStatus && hasAlreadyLoan) {
+    } else if (!hasRequestedStatus && hasLoan) {
       description =
         'The borrowing request has already a loan. To create a new one, edit the request and remove the loan PID.';
       isEnabled = false;

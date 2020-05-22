@@ -27,11 +27,11 @@ def circulation_build_item_ref(loan_pid, loan):
     """Build $ref for the Item attached to the Loan."""
     return {
         "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
-                "item".format(
-                    scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                    host=current_app.config["JSONSCHEMAS_HOST"],
-                    loan_pid=loan_pid,
-                )
+        "item".format(
+            scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+            host=current_app.config["JSONSCHEMAS_HOST"],
+            loan_pid=loan_pid,
+        )
     }
 
 
@@ -39,11 +39,11 @@ def circulation_build_patron_ref(loan_pid, loan):
     """Build $ref for the Patron of the Loan."""
     return {
         "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
-                "patron".format(
-                    scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                    host=current_app.config["JSONSCHEMAS_HOST"],
-                    loan_pid=loan_pid,
-                )
+        "patron".format(
+            scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+            host=current_app.config["JSONSCHEMAS_HOST"],
+            loan_pid=loan_pid,
+        )
     }
 
 
@@ -51,20 +51,21 @@ def circulation_build_document_ref(loan_pid, loan):
     """Build $ref for the Document attached to the Loan."""
     return {
         "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
-                "document".format(
-                    scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                    host=current_app.config["JSONSCHEMAS_HOST"],
-                    loan_pid=loan_pid,
-                )
+        "document".format(
+            scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+            host=current_app.config["JSONSCHEMAS_HOST"],
+            loan_pid=loan_pid,
+        )
     }
 
 
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
-    # NOTE: If user is admin or librarian it should be unlimited.
-    # Set it has 1 more than the current.
-    if has_request_context() and backoffice_permission().allows(g.identity):
-        return loan.get("extension_count", 0) + 1
+    is_admin_or_librarian = has_request_context() and \
+                            backoffice_permission().allows(g.identity)
+    if is_admin_or_librarian:
+        unlimited = loan.get("extension_count", 0) + 1
+        return unlimited
     return 3
 
 
@@ -89,13 +90,16 @@ def circulation_overdue_loan_days(loan):
 def circulation_loan_will_expire_days():
     """Return a number of days before a loan expires."""
     return arrow.utcnow() + timedelta(
-        days=current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"])
+        days=current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"]
+    )
 
 
 def circulation_transaction_location_validator(transaction_location_pid):
     """Validate that the given transaction location PID is valid."""
-    return transaction_location_pid == current_app.config[
-        "ILS_DEFAULT_LOCATION_PID"]
+    return (
+        transaction_location_pid
+        == current_app.config["ILS_DEFAULT_LOCATION_PID"]
+    )
 
 
 def circulation_transaction_user_validator(transaction_user_pid):

@@ -79,7 +79,7 @@ def request_loan(
         raise PatronHasRequestOnDocumentError(patron_pid, document_pid)
     _validate_delivery(kwargs.get("delivery"))
 
-    transaction_user_pid = transaction_user_pid or current_user.id
+    transaction_user_pid = transaction_user_pid or str(current_user.id)
 
     # create a new loan
     record_uuid = uuid.uuid4()
@@ -149,7 +149,7 @@ def checkout_loan(
     if force:
         _set_item_to_can_circulate(item_pid)
 
-    transaction_user_pid = transaction_user_pid or current_user.id
+    transaction_user_pid = transaction_user_pid or str(current_user.id)
 
     # create a new loan
     record_uuid = uuid.uuid4()

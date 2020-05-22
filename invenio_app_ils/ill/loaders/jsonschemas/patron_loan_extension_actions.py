@@ -28,8 +28,10 @@ def validate_statuses(record):
     ext_status = (
         record.get("patron_loan", {}).get("extension", {}).get("status")
     )
+    # status = None is valid, no extension requested yet
+    has_status = ext_status is not None
     is_valid = ext_status in BorrowingRequest.EXTENSION_STATUSES
-    if ext_status and not is_valid:
+    if has_status and not is_valid:
         # should never happen, a status that is not in the valid ones
         raise ValidationError(
             "The current extension status ({}) is invalid.".format(ext_status)
@@ -52,13 +54,13 @@ class RequestExtensionSchemaV1(InvenioBaseSchema):
         ext_status = validate_statuses(record)
         if ext_status == "PENDING":
             raise ValidationError(
-                "The extension of this interlibrary loan has been already "
+                "An extension for this interlibrary loan has already been "
                 "requested."
             )
         elif ext_status == "DECLINED":
             raise ValidationError(
                 "Cannot request an extension for this interlibrary loan "
-                "because it has been previously declined."
+                "because the most recent extension request has been declined."
             )
         return data
 
