@@ -95,7 +95,9 @@ export class OrderForm extends Component {
       if (error !== 'UNMOUNTED') {
         this.setState({
           isloading: false,
-          options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
+          currencies: [
+            { key: '', value: '', text: 'Failed to load currencies.' },
+          ],
           error: {
             content: 'Failed to load currencies.',
             pointing: 'above',

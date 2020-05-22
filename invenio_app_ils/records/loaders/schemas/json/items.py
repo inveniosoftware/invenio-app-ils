@@ -10,6 +10,8 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields
 
+from invenio_app_ils.records.loaders.schemas.price import PriceSchema
+
 
 class ISBNSchema(Schema):
     """ISBN schema."""
@@ -21,18 +23,6 @@ class ISBNSchema(Schema):
 
     description = fields.Str()
     value = fields.Str(required=True)
-
-
-class PriceSchema(Schema):
-    """Price schema."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    currency = fields.Str(required=True)
-    value = fields.Number(required=True)
 
 
 class ItemSchemaV1(RecordMetadataSchemaJSONV1):

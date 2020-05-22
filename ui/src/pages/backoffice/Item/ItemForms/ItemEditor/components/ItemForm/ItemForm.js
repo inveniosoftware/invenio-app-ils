@@ -31,7 +31,9 @@ import { withCancel } from '@api/utils';
 export class ItemForm extends Component {
   config = invenioConfig.items;
   state = {
+    isLoading: true,
     currencies: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -66,7 +68,9 @@ export class ItemForm extends Component {
       if (error !== 'UNMOUNTED') {
         this.setState({
           isloading: false,
-          options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
+          currencies: [
+            { key: '', value: '', text: 'Failed to load currencies.' },
+          ],
           error: {
             content: 'Failed to load currencies.',
             pointing: 'above',

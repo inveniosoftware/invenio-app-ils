@@ -4,6 +4,8 @@ import { formatPrice } from '@api/utils';
 import { Component } from 'react';
 import ShowMore from 'react-show-more';
 import { Grid, Segment, Header } from 'semantic-ui-react';
+import _get from 'lodash/get';
+import { invenioConfig } from '@config';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -23,7 +25,19 @@ export default class ItemMetadata extends Component {
       },
       {
         name: 'Acquisition pid',
-        value: itemDetails.metadata.acquisition_pid,
+        value: _get(itemDetails, 'metadata.acquisition_pid', '-'),
+      },
+      {
+        name: itemDetails.metadata.price
+          ? `Price (${_get(
+              itemDetails,
+              'metadata.price.currency',
+              invenioConfig.defaultCurrency
+            )})`
+          : 'Price',
+        value: itemDetails.metadata.price
+          ? formatPrice(itemDetails.metadata.price)
+          : '-',
       },
       { name: 'Medium', value: itemDetails.metadata.medium },
       { name: 'Status', value: itemDetails.metadata.status },
@@ -33,14 +47,6 @@ export default class ItemMetadata extends Component {
         value: itemDetails.metadata.legacy_library_id,
       },
     ];
-
-    if (itemDetails.metadata.price) {
-      // insert after acquisition pid
-      metadata.splice(3, 0, {
-        name: `Price (${itemDetails.metadata.price.currency})`,
-        value: formatPrice(itemDetails.metadata.price),
-      });
-    }
 
     return (
       <>
