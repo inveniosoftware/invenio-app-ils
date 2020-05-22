@@ -23,6 +23,7 @@
   .button-show-more {
     color: @fsPrimaryColor;
     font-weight: bold;
+    cursor:pointer;
   }
 
   .ui.button {
