@@ -191,7 +191,7 @@ class _PatronLoan:
             transaction_location_pid
             or current_app.config["ILS_DEFAULT_LOCATION_PID"]
         )
-        transaction_user_pid = transaction_user_pid or current_user.id
+        transaction_user_pid = transaction_user_pid or str(current_user.id)
         if arrow.get(end_date) < arrow.now():
             raise ILLError("The loan end date cannot be in the past.")
 
@@ -245,7 +245,7 @@ class _PatronLoanExtension:
             transaction_location_pid
             or current_app.config["ILS_DEFAULT_LOCATION_PID"]
         )
-        transaction_user_pid = transaction_user_pid or current_user.id
+        transaction_user_pid = transaction_user_pid or str(current_user.id)
 
         item_pid = dict(type=self.record._pid_type, value=self.record["pid"])
         current_circulation.circulation.trigger(
@@ -325,8 +325,10 @@ def circulation_default_extension_duration(loan, initial_loan):
     item_pid = loan["item_pid"]
     validator = validate_item_pid(item_pid)
     if validator.is_brw_req:
-        new_end_date_already_set = loan["end_date"] == initial_loan["end_date"]
-        if new_end_date_already_set:
+        is_new_end_date_already_changed = (
+            loan["end_date"] == initial_loan["end_date"]
+        )
+        if is_new_end_date_already_changed:
             # the loan has been already changed with a new end_date
             # return 0 to avoid to add again a new duration to the end_date
             return timedelta(days=0)
