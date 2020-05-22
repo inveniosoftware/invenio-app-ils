@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 stages:
   - test
-  - ui-test
   - deploy
 
 notifications:
@@ -18,6 +17,8 @@ services:
   - rabbitmq
 
 language: python
+
+fast_finish: true
 
 cache:
   - pip
@@ -35,13 +36,16 @@ env:
     - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
     - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
     - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
-
+  - TESTS_MODULE=api/acquisition
+  - TESTS_MODULE=api/circulation
+  - TESTS_MODULE=api/document_requests
+    
 python:
   - "3.6"
 
 before_install:
-  - "nvm install 8; nvm use 8"
-  - "npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0"
+  - "nvm install 13; nvm use 13"
+  - "npm install -g node-sass@4.13.1 clean-css@3.4.19 uglify-js@2.7.3"
   - "mkdir /tmp/elasticsearch"
   - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
   - "/tmp/elasticsearch/bin/elasticsearch &"
@@ -53,32 +57,21 @@ before_install:
   - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
-  - "travis_retry pip install -r requirements.txt" # temporary solution until oauth related branches will be merged
+  - "travis_retry pip install -r requirements.txt"
   - "travis_retry pip install -e .[$EXTRAS]"
   - "./scripts/build_assets"
 
+before_script:
+  - "./run-tests-style.sh"
+
 script:
-  - "./run-tests.sh"
+  - "./run-tests.sh $TESTS_MODULE"
 
 after_success:
   - coveralls
 
 jobs:
-  fast_finish: true
   include:
-    - stage: ui-test
-      language: node_js
-      node_js:
-        - 8
-      cache:
-        directories:
-          - node_modules
-      before_install:
-        - cd "./ui"
-      install:
-        - npm install
-      script:
-        - npm run test:ci
     - stage: deploy
       script: skip
       deploy:

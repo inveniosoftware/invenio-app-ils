@@ -58,7 +58,7 @@ def create_app():
     return create_api
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def json_headers():
     """JSON headers."""
     return [
@@ -140,7 +140,7 @@ def testdata(app, db, es_clear, users):
     }
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def item_record(app):
     """Fixture to return an Item payload."""
     return {
@@ -159,7 +159,7 @@ def item_record(app):
     }
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def loan_params():
     """Params for API REST payload."""
     return dict(
@@ -172,7 +172,7 @@ def loan_params():
     )
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def example_message_factory():
     """A basic functional test message loader."""
 
@@ -221,7 +221,7 @@ def testdata_most_loaned(app, db, es_clear):
     }
 
 
-@pytest.yield_fixture()
+@pytest.yield_fixture(scope="module")
 def bucket(bucket_from_dir):
     """Create temporary bucket fixture."""
     with tempfile.TemporaryDirectory(prefix="ils-test-") as temp_dir:
@@ -229,7 +229,7 @@ def bucket(bucket_from_dir):
         yield bucket
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def with_access(app):
     """Enable explicit permission check (`_access`)."""
     app.config["ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"] = True

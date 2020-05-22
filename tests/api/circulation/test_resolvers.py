@@ -24,3 +24,11 @@ def test_loan_item_resolver_for_empty_item_pid(app, testdata):
     loan = Loan.get_record_by_pid(loan_pid)
     loan = loan.replace_refs()
     assert loan["item"] == dict()
+
+
+def test_loan_document_resolver(app, testdata):
+    """Test item resolving from loan."""
+    loan_pid = testdata["loans"][1]["pid"]
+    loan = Loan.get_record_by_pid(loan_pid)
+    loan = loan.replace_refs()
+    assert loan["document"]["pid"] == loan["document_pid"]
