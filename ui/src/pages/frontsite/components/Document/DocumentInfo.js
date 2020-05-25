@@ -71,7 +71,7 @@ export class DocumentInfo extends Component {
                 <DocumentAuthors
                   metadata={this.metadata}
                   popupDisplay={true}
-                  authorsLimit={3}
+                  authorsLimit={20}
                 />
               </Table.Cell>
             </Table.Row>

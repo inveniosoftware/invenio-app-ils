@@ -8,7 +8,8 @@
   }
 
   .document-authors-list-height {
-    max-height: 1vh; 
+    max-height: 10vh; 
+    overflow-y: scroll;
   }
 
 

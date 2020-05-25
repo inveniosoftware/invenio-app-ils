@@ -77,15 +77,20 @@ export class DocumentAuthors extends Component {
       authorsLimit,
     } = this.props;
     const otherAuthors = otherAuthorsDisplay ? otherAuthorsDisplay : 'et al.';
-    let authors = [...metadata.authors];
-    if (authorsLimit && !this.state.expanded) {
-      authors = authors.slice(0, authorsLimit);
-    }
+
+    let authors = metadata.authors;
     let classes = 'document-authors-list-wrapper';
-    classes =
-      metadata.authors.length > 3
-        ? classes + ' document-authors-list-height'
-        : classes;
+    if (metadata && metadata.authors) {
+      authors = [...metadata.authors];
+      classes =
+        metadata.authors.length > 300 && this.state.expanded
+          ? classes + ' document-authors-list-height'
+          : classes;
+      if (authorsLimit && !this.state.expanded) {
+        authors = authors.slice(0, authorsLimit);
+      }
+    }
+
     return (
       <div className={classes}>
         {prefix ? prefix + ' ' : null}

@@ -37,6 +37,7 @@ export default class DocumentPanelMobile extends Component {
                   prefix={'by '}
                   listItemAs={'h4'}
                   metadata={doc.metadata}
+                  authorsLimit={10}
                 />
               </ILSParagraphPlaceholder>
               <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
