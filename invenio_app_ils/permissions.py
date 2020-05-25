@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -100,34 +100,25 @@ def loan_extend_circulation_permission(loan):
         document_rec = Document.get_record_by_pid(loan["document_pid"])
         document = document_rec.replace_refs()
         is_overbooked = document.get("circulation", {}).get("overbooked")
-        if is_overbooked == None:
+        if is_overbooked is None:
             # NOTE: this should never happen, if it happens it means that the
             # document does not have `circulation.overbooked` field. Fix it!
             abort(500)
-        elif is_overbooked == True:
+        elif is_overbooked:
             raise InvalidLoanExtendError(
                 "The extension cannot be automatically accepted due to high"
                 "demand for this literature. Please contact the library to"
                 "request a loan extension."
             )
-    return LoanOwnerPermission(loan)
-
-class LoanOwnerPermission(Permission):
-    """Return Permission to evaluate if the current user owns the loan."""
-
-    def __init__(self, record):
-        """Constructor."""
-        super(LoanOwnerPermission, self).__init__(
-            UserNeed(int(record["patron_pid"])), backoffice_access_action
-        )
+    return PatronOwnerPermission(loan)
 
 
-class DocumentRequestOwnerPermission(Permission):
-    """Return Permission to evaluate if the current user owns the request."""
+class PatronOwnerPermission(Permission):
+    """Return Permission to evaluate if the current user owns the record."""
 
     def __init__(self, record):
         """Constructor."""
-        super(DocumentRequestOwnerPermission, self).__init__(
+        super(PatronOwnerPermission, self).__init__(
             UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
 
@@ -150,8 +141,18 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "document-request-actions":
         return backoffice_permission()
+    elif action == "document-request-decline":
+        # return a factory that accepts a record as parameter
+        return PatronOwnerPermission
     elif action == "bucket-create":
         return backoffice_permission()
-    elif action == "ill-create-loan":
+    elif action == "ill-brwreq-patron-loan-create":
+        return backoffice_permission()
+    elif action == "ill-brwreq-patron-loan-extension-request":
+        # return a factory that accepts a record as parameter
+        return PatronOwnerPermission
+    elif action == "ill-brwreq-patron-loan-extension-accept":
+        return backoffice_permission()
+    elif action == "ill-brwreq-patron-loan-extension-decline":
         return backoffice_permission()
     return deny_all()

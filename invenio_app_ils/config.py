@@ -57,10 +57,8 @@ from .circulation.jsonresolvers.loan import document_resolver, item_resolver, \
 from .circulation.search import IlsLoansSearch
 from .circulation.utils import circulation_build_document_ref, \
     circulation_build_item_ref, circulation_build_patron_ref, \
-    circulation_can_be_requested, circulation_default_extension_duration, \
-    circulation_default_extension_max_count, \
-    circulation_default_loan_duration, circulation_is_loan_duration_valid, \
-    circulation_loan_will_expire_days, \
+    circulation_can_be_requested, circulation_default_extension_max_count, \
+    circulation_is_loan_duration_valid, circulation_loan_will_expire_days, \
     circulation_transaction_location_validator, \
     circulation_transaction_user_validator
 from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
@@ -72,10 +70,12 @@ from .documents.search import DocumentSearch
 from .facets import date_range_filter, default_value_when_missing_filter, \
     keyed_range_filter, not_empty_object_or_list_filter, overdue_agg, \
     overdue_loans_filter
-from .ill.api import can_item_circulate
+from .ill.api import can_item_circulate, \
+    circulation_default_extension_duration, \
+    circulation_default_loan_duration
 from .items.api import get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, item_exists
-from .permissions import DocumentRequestOwnerPermission, LoanOwnerPermission, \
+from .permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
     loan_extend_circulation_permission, views_permissions_factory
 from .pidstore.pids import EITEM_PID_FETCHER, EITEM_PID_MINTER, \
@@ -598,7 +598,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=DocumentRequestOwnerPermission,
+        read_permission_factory_imp=PatronOwnerPermission,
         list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
         create_permission_factory_imp=authenticated_user_permission,
         update_permission_factory_imp=backoffice_permission,
@@ -771,7 +771,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="CANCELLED",
             trigger="cancel",
             transition=ToCancelled,
-            permission_factory=LoanOwnerPermission,
+            permission_factory=PatronOwnerPermission,
         ),
     ],
     "ITEM_ON_LOAN": [
@@ -835,7 +835,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=LoanOwnerPermission,
+        read_permission_factory_imp=PatronOwnerPermission,
         list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=backoffice_permission,

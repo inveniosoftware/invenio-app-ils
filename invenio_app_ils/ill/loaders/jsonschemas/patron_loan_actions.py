@@ -10,11 +10,15 @@
 import arrow
 from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import DateString
-from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, ValidationError, post_load, validates
+from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
+from marshmallow import EXCLUDE, ValidationError, fields, post_load, \
+    pre_load, validates
+
+from invenio_app_ils.circulation.loaders.schemas.json.base import \
+    transaction_location_pid_validator
 
 
-class CreateLoanSchemaV1(RecordMetadataSchemaJSONV1):
+class CreateLoanSchemaV1(InvenioBaseSchema):
     """Schema for Borrowing Request create loan action."""
 
     class Meta:
@@ -24,6 +28,26 @@ class CreateLoanSchemaV1(RecordMetadataSchemaJSONV1):
 
     loan_start_date = DateString(required=True)
     loan_end_date = DateString(required=True)
+    transaction_location_pid = fields.Str(required=True)
+
+    @pre_load
+    def validate_statuses(self, data, **kwargs):
+        """Validate status and that the loan does not exist yet."""
+        record = self.context["record"]
+        if record["status"] != "REQUESTED":
+            raise ValidationError(
+                "A loan can be created only when the borrowing request is in "
+                "requested status."
+            )
+
+        loan_pid = record.get("patron_loan", {}).get("pid")
+        if loan_pid:
+            raise ValidationError(
+                "This borrowing request {} has already a loan ({}).".format(
+                    record["pid"], loan_pid
+                )
+            )
+        return data
 
     @validates("loan_start_date")
     def validate_loan_start_date(self, value, **kwargs):
@@ -43,7 +67,12 @@ class CreateLoanSchemaV1(RecordMetadataSchemaJSONV1):
                 field_names=["loan_end_date"],
             )
 
-    @post_load()
+    @validates("transaction_location_pid")
+    def validate_transaction_location_pid(self, value, **kwargs):
+        """Validate transaction_location_pid field."""
+        transaction_location_pid_validator(value)
+
+    @post_load
     def postload_checks(self, data, **kwargs):
         """Validate dates values."""
         start = arrow.get(data["loan_start_date"]).date()

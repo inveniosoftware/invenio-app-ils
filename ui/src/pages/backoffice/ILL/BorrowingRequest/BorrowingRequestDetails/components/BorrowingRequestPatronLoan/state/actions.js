@@ -4,7 +4,7 @@ import { sendSuccessNotification } from '@components/Notifications';
 import { SUCCESS as FETCH_SUCCESS } from '../../../state/types';
 import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 
-export const borrowingRequestCreateLoan = (
+export const borrowingRequestPatronLoanCreate = (
   borrowingRequestPid,
   loanStartDate,
   loanEndDate
@@ -15,7 +15,7 @@ export const borrowingRequestCreateLoan = (
     });
 
     try {
-      const response = await borrowingRequestApi.createLoan(
+      const response = await borrowingRequestApi.patronLoanCreate(
         borrowingRequestPid,
         loanStartDate,
         loanEndDate

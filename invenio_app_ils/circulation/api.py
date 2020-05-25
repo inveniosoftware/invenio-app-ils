@@ -9,9 +9,11 @@
 
 import uuid
 from copy import deepcopy
+from datetime import timedelta
 
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
+from flask_login import current_user
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
@@ -67,7 +69,7 @@ def request_loan(
     document_pid,
     patron_pid,
     transaction_location_pid,
-    transaction_user_pid,
+    transaction_user_pid=None,
     **kwargs
 ):
     """Create a new loan and trigger the first transition to PENDING."""
@@ -76,6 +78,8 @@ def request_loan(
     ):
         raise PatronHasRequestOnDocumentError(patron_pid, document_pid)
     _validate_delivery(kwargs.get("delivery"))
+
+    transaction_user_pid = transaction_user_pid or str(current_user.id)
 
     # create a new loan
     record_uuid = uuid.uuid4()
@@ -117,7 +121,7 @@ def checkout_loan(
     item_pid,
     patron_pid,
     transaction_location_pid,
-    transaction_user_pid,
+    transaction_user_pid=None,
     force=False,
     **kwargs
 ):
@@ -145,6 +149,8 @@ def checkout_loan(
     if force:
         _set_item_to_can_circulate(item_pid)
 
+    transaction_user_pid = transaction_user_pid or str(current_user.id)
+
     # create a new loan
     record_uuid = uuid.uuid4()
     new_loan = dict(
@@ -164,3 +170,19 @@ def checkout_loan(
     )
 
     return pid, loan
+
+
+def circulation_default_loan_duration_for_item(item):
+    """Transform circulation restrictions to timedelta for the given item."""
+    value = item.get("circulation_restriction", "NO_RESTRICTION")
+    if value == "ONE_WEEK":
+        return timedelta(weeks=1)
+    elif value == "TWO_WEEKS":
+        return timedelta(weeks=2)
+    elif value == "THREE_WEEKS":
+        return timedelta(weeks=3)
+    elif value == "FOUR_WEEKS":
+        return timedelta(weeks=4)
+    else:
+        # default: NO_RESTRICTION
+        return timedelta(weeks=4)

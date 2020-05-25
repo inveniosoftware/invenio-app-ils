@@ -139,10 +139,12 @@ def test_checkout_loader_start_end_dates(
     """Test that start and end dates request parameters."""
     librarian = users["librarian"]
     user_login(client, "librarian", users)
+    item_pid = dict(type="pitmid", value="itemid-61")
     url = url_for("invenio_app_ils_circulation.loan_checkout")
+    # fake duration for first item
     loan_duration_timedelta = app.config["CIRCULATION_POLICIES"]["checkout"][
         "duration_default"
-    ]("")
+    ](dict(item_pid=item_pid), dict())
     now = arrow.utcnow()
 
     # it should succeed when no start/end dates provided
@@ -150,7 +152,7 @@ def test_checkout_loader_start_end_dates(
     end_date = (now + loan_duration_timedelta).date().isoformat()
 
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = dict(type="pitmid", value="itemid-61")
+    params["item_pid"] = item_pid
     params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202

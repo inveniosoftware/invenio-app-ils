@@ -12,12 +12,10 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
 
 from invenio_app_ils.documents.api import Document
 
-from ..helpers import get_test_record
+from ..helpers import get_test_record, user_login
 from .helpers import recrel_assert_record_relations, \
     recrel_choose_endpoints_and_do_request
 
@@ -600,8 +598,7 @@ def test_siblings_relations(client, json_headers, testdata, users):
         status_code=401,
     )
 
-    user = users["librarian"]
-    login_user_via_session(client, user=User.query.get(user.id))
+    user_login(client, "librarian", users)
 
     # docid-1 --language--> docid-2 and docid-6
     _test_sibl_language_relation(client, json_headers)

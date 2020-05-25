@@ -46,22 +46,11 @@
       "document_pid": {
         "type": "keyword"
       },
-      "expected_delivery_date": {
+      "due_date": {
         "type": "date"
       },
-      "extension": {
-        "properties": {
-          "notes": {
-            "type": "text"
-          },
-          "request_date": {
-            "type": "date"
-          },
-          "status": {
-            "type": "keyword"
-          }
-        },
-        "type": "object"
+      "expected_delivery_date": {
+        "type": "date"
       },
       "library": {
         "properties": {
@@ -80,12 +69,6 @@
         "type": "object"
       },
       "library_pid": {
-        "type": "keyword"
-      },
-      "loan_end_date": {
-        "type": "date"
-      },
-      "loan_pid": {
         "type": "keyword"
       },
       "notes": {
@@ -107,6 +90,28 @@
       },
       "patron_pid": {
         "type": "keyword"
+      },
+      "patron_loan": {
+        "properties": {
+          "extension": {
+            "properties": {
+              "notes": {
+                "type": "text"
+              },
+              "request_date": {
+                "type": "date"
+              },
+              "status": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
       },
       "payment": {
         "properties": {

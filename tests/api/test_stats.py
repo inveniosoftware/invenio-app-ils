@@ -12,8 +12,7 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
+from tests.api.helpers import user_login
 
 
 def _most_loaned_request(client, json_headers, from_date=None, to_date=None):
@@ -47,8 +46,7 @@ def assert_most_loaned(client, json_headers, from_date, to_date, expect):
 def test_stats_most_loaned_documents(client, json_headers,
                                      testdata_most_loaned, users):
     """Test most loaned documents API endpoint."""
-    user = users['librarian']
-    login_user_via_session(client, user=User.query.get(user.id))
+    user_login(client, "librarian", users)
 
     # Dates covering all loans
     assert_most_loaned(

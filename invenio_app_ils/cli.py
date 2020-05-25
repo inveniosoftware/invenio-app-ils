@@ -870,6 +870,7 @@ class BorrowingRequestGenerator(Generator):
                 obj["request_date"] = self.random_date(now, t).date().isoformat()
                 obj["expected_delivery_date"] = self.random_date(now, t).date().isoformat()
                 obj["received_date"] = self.random_date(now, t).date().isoformat()
+                obj["due_date"] = self.random_date(now, t).date().isoformat()
                 obj["payment"] = {
                     "debit_cost_main_currency": self.random_price("CHF"),
                     "debit_cost": self.random_price("EUR"),
@@ -879,9 +880,6 @@ class BorrowingRequestGenerator(Generator):
                 }
                 obj["total_main_currency"] = self.random_price("CHF")
                 obj["total"] = self.random_price("EUR")
-
-            if obj["status"] in ["ON_LOAN", "RETURNED"]:
-                obj["loan_end_date"] = self.random_date(now, t).date().isoformat()
 
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()

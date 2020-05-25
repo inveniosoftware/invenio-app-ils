@@ -12,10 +12,8 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
 
-from ..helpers import get_test_record
+from ..helpers import get_test_record, user_login
 from .helpers import recrel_assert_record_relations, \
     recrel_choose_endpoints_and_do_request
 
@@ -263,8 +261,7 @@ def test_sequence_relations(client, json_headers, testdata, users):
         status_code=401,
     )
 
-    user = users["librarian"]
-    login_user_via_session(client, user=User.query.get(user.id))
+    user_login(client, "librarian", users)
 
     # serid-1 -> serid-2 (serid-1 is the previous of serid-2)
     _test_sequence(client, json_headers)

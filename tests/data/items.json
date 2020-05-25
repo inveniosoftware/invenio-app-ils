@@ -14,7 +14,7 @@
     "barcode": "123456789-2",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-2",
-    "circulation_restriction": "NO_RESTRICTION",
+    "circulation_restriction": "ONE_WEEK",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}
@@ -25,7 +25,7 @@
     "barcode": "123456789-3",
     "document_pid": "docid-2",
     "internal_location_pid": "ilocid-1",
-    "circulation_restriction": "NO_RESTRICTION",
+    "circulation_restriction": "TWO_WEEKS",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}
@@ -35,7 +35,7 @@
     "barcode": "123456789-4",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-2",
-    "circulation_restriction": "NO_RESTRICTION",
+    "circulation_restriction": "THREE_WEEKS",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}
@@ -45,7 +45,7 @@
     "barcode": "123456789-5",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
-    "circulation_restriction": "NO_RESTRICTION",
+    "circulation_restriction": "FOUR_WEEKS",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}

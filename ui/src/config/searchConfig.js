@@ -503,9 +503,9 @@ const searchConfig = {
         },
         {
           default_order: 'desc',
-          field: 'loan_end_date',
+          field: 'due_date',
           order: 5,
-          title: 'Loan end date',
+          title: 'Due date',
         },
         {
           default_order: 'asc',

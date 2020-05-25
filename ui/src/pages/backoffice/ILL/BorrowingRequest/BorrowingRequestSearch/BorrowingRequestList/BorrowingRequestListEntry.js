@@ -10,29 +10,26 @@ import { Grid, Item, List } from 'semantic-ui-react';
 export default class BorrowingRequestListEntry extends Component {
   renderLeftColumn = brwReqMetadata => {
     const {
-      loan_end_date: loanEndDate,
       status,
-      library_pid,
+      library_pid: libraryPid,
       library,
+      due_date: dueDate,
     } = brwReqMetadata;
     return (
       <>
-        {loanEndDate ? (
-          <Item.Description>
-            <Item.Meta>Loan end date: {toShortDate(loanEndDate)}</Item.Meta>
-          </Item.Description>
-        ) : (
-          <br />
-        )}
         <Item.Description>
           <label>status </label>
           {getDisplayVal('illBorrowingRequests.statuses', status)}
         </Item.Description>
         <Item.Description>
           <label>library </label>
-          <Link to={ILLRoutes.libraryDetailsFor(library_pid)}>
+          <Link to={ILLRoutes.libraryDetailsFor(libraryPid)}>
             {library.name}
           </Link>
+        </Item.Description>
+        <Item.Description>
+          <label>due date </label>
+          {dueDate ? toShortDate(dueDate) : '-'}
         </Item.Description>
       </>
     );
@@ -87,7 +84,6 @@ export default class BorrowingRequestListEntry extends Component {
       request_date: requestDate,
       received_date: receivedDate,
       expected_delivery_date: expectedDeliveryDate,
-      payment,
     } = brwReqMetadata;
     return (
       <List verticalAlign="middle" className={'document-circulation'}>
@@ -113,14 +109,6 @@ export default class BorrowingRequestListEntry extends Component {
               <strong>{toShortDate(expectedDeliveryDate)}</strong>
             </List.Content>
             <List.Content>expected</List.Content>
-          </List.Item>
-        )}
-        {payment && (
-          <List.Item>
-            <List.Content floated="right">
-              <strong>{payment.mode}</strong>
-            </List.Content>
-            <List.Content>payment mode</List.Content>
           </List.Item>
         )}
       </List>

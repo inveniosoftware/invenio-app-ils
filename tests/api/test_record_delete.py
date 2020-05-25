@@ -8,16 +8,12 @@
 """Test record delete."""
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
+from tests.api.helpers import user_login
 
 
 def test_delete_location(client, users, json_headers, testdata):
     """Test DELETE existing location."""
-    login_user_via_session(
-        client,
-        email=User.query.get(users["admin"].id).email
-    )
+    user_login(client, "admin", users)
 
     location_pid = 'locid-1'
     url = url_for('invenio_records_rest.locid_item', pid_value=location_pid)
@@ -32,10 +28,7 @@ def test_delete_location(client, users, json_headers, testdata):
 
 def test_delete_internal_location(client, users, json_headers, testdata):
     """Test DELETE existing internal_location."""
-    login_user_via_session(
-        client,
-        email=User.query.get(users["admin"].id).email
-    )
+    user_login(client, "admin", users)
 
     internal_location_pid = 'ilocid-1'
     url = url_for(

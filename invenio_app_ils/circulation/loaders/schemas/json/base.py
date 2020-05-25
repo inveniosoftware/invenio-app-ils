@@ -9,11 +9,23 @@
 
 from flask import current_app
 from flask_babelex import lazy_gettext as _
-from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
+from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import ValidationError, fields, validates
 
 
-class LoanBaseSchemaV1(RecordMetadataSchemaJSONV1):
+def transaction_location_pid_validator(value):
+    """Validate transaction_location_pid field."""
+    transaction_location_is_valid = current_app.config[
+        "CIRCULATION_TRANSACTION_LOCATION_VALIDATOR"
+    ]
+    if not transaction_location_is_valid(value):
+        raise ValidationError(
+            _("The loan `transaction_location_pid` is not valid."),
+            field_names=["transaction_location_pid"],
+        )
+
+
+class LoanBaseSchemaV1(InvenioBaseSchema):
     """Loan common schema."""
 
     class Meta:
@@ -27,28 +39,8 @@ class LoanBaseSchemaV1(RecordMetadataSchemaJSONV1):
     patron_pid = fields.Str(required=True)
     pickup_location_pid = fields.Str()
     transaction_location_pid = fields.Str(required=True)
-    transaction_user_pid = fields.Str(required=True)
 
     @validates("transaction_location_pid")
     def validate_transaction_location_pid(self, value, **kwargs):
         """Validate transaction_location_pid field."""
-        transaction_location_is_valid = current_app.config[
-            "CIRCULATION_TRANSACTION_LOCATION_VALIDATOR"
-        ]
-        if not transaction_location_is_valid(value):
-            raise ValidationError(
-                _("The loan `transaction_location_pid` is not valid."),
-                field_names=["transaction_location_pid"],
-            )
-
-    @validates("transaction_user_pid")
-    def validate_transaction_user_pid(self, value, **kwargs):
-        """Validate transaction_user_pid field."""
-        transaction_user_is_valid = current_app.config[
-            "CIRCULATION_TRANSACTION_USER_VALIDATOR"
-        ]
-        if not transaction_user_is_valid(value):
-            raise ValidationError(
-                _("The loan `transaction_user_pid` is not valid."),
-                field_names=["transaction_user_pid"],
-            )
+        transaction_location_pid_validator(value)

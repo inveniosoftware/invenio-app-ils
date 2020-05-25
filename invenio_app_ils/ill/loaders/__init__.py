@@ -10,9 +10,20 @@
 from invenio_app_ils.records.loaders import ils_marshmallow_loader
 
 from .jsonschemas.borrowing_request import BorrowingRequestSchemaV1
-from .jsonschemas.create_loan import CreateLoanSchemaV1
 from .jsonschemas.library import LibrarySchemaV1
+from .jsonschemas.patron_loan_actions import CreateLoanSchemaV1
+from .jsonschemas.patron_loan_extension_actions import AcceptExtensionSchemaV1, \
+    DeclineExtensionSchemaV1, RequestExtensionSchemaV1
 
 borrowing_request_loader = ils_marshmallow_loader(BorrowingRequestSchemaV1)
-create_loan_loader = ils_marshmallow_loader(CreateLoanSchemaV1)
+patron_loan_create_action_loader = ils_marshmallow_loader(CreateLoanSchemaV1)
+patron_loan_extension_request_loader = ils_marshmallow_loader(
+    RequestExtensionSchemaV1
+)
+patron_loan_extension_accept_loader = ils_marshmallow_loader(
+    AcceptExtensionSchemaV1
+)
+patron_loan_extension_decline_loader = ils_marshmallow_loader(
+    DeclineExtensionSchemaV1
+)
 library_loader = ils_marshmallow_loader(LibrarySchemaV1)
