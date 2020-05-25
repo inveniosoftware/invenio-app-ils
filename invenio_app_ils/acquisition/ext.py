@@ -7,19 +7,14 @@
 
 """Invenio acquisition module for Integrated Library System app."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
+from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
+
+from invenio_app_ils.ext import handle_rest_exceptions
 
 from . import config
 from .api import ORDER_PID_TYPE, VENDOR_PID_TYPE
-
-
-def handle_rest_exceptions(exception):
-    """Handle Invenio REST exceptions."""
-    current_app.logger.exception(exception)
-    return exception.get_response()
 
 
 class _InvenioIlsAcquisitionState(object):
@@ -31,17 +26,17 @@ class _InvenioIlsAcquisitionState(object):
 
     def record_class_by_pid_type(self, pid_type):
         """Return a record class by pid type."""
-        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["record_class"]
 
     def search_class_by_pid_type(self, pid_type):
         """Return a search class by pid type."""
-        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["search_class"]
 
     def indexer_by_pid_type(self, pid_type):
         """Return an indexer instance by pid type."""
-        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["indexer_class"]()
 
     @cached_property
@@ -83,6 +78,7 @@ class InvenioIlsAcquisition(object):
         if app:
             self.app = app
             self.init_app(app)
+            app.errorhandler(RESTException)(handle_rest_exceptions)
 
     def init_app(self, app):
         """Flask application initialization."""

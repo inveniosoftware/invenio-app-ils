@@ -17,7 +17,6 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_rest.errors import FieldError
 
 from invenio_app_ils.errors import DocumentRequestError
-from invenio_app_ils.mail.tasks import send_document_request_status_mail
 from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.proxies import current_app_ils
 
@@ -25,6 +24,7 @@ from .api import DOCUMENT_REQUEST_PID_TYPE
 from .loaders import document_request_document_loader as dr_document_loader
 from .loaders import document_request_provider_loader as dr_provider_loader
 from .loaders import document_request_reject_loader as dr_reject_loader
+from .mail.tasks import send_document_request_status_mail
 
 
 def create_document_request_action_blueprint(app):
@@ -52,31 +52,28 @@ def create_document_request_action_blueprint(app):
             methods=methods,
         )
 
-    blueprint = Blueprint("ils_document_request", __name__, url_prefix="")
-
-    _add_view(
-        blueprint,
-        DocumentRequestAcceptResource,
-        'accept',
-        None,
+    blueprint = Blueprint(
+        "invenio_app_ils_document_requests",
+        __name__,
+        template_folder="templates",
+        url_prefix="",
     )
+
+    _add_view(blueprint, DocumentRequestAcceptResource, "accept", None)
     _add_view(
-        blueprint,
-        DocumentRequestRejectResource,
-        'reject',
-        dr_reject_loader
+        blueprint, DocumentRequestRejectResource, "reject", dr_reject_loader
     )
     _add_view(
         blueprint,
         DocumentRequestDocumentResource,
-        'document',
+        "document",
         dr_document_loader,
         ["POST", "DELETE"],
     )
     _add_view(
         blueprint,
         DocumentRequestProviderResource,
-        'provider',
+        "provider",
         dr_provider_loader,
         ["POST", "DELETE"],
     )
@@ -209,7 +206,7 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
                 "to be accepted."
             )
 
-        record["state"] = 'ACCEPTED'
+        record["state"] = "ACCEPTED"
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
@@ -260,7 +257,8 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
                 ),
                 errors=[
                     FieldError(
-                        field="document_pid", message="DocumentPID is required."
+                        field="document_pid",
+                        message="DocumentPID is required.",
                     )
                 ],
             )

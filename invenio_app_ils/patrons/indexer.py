@@ -13,6 +13,7 @@ from celery import shared_task
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_pid
 from invenio_indexer.api import RecordIndexer
 
@@ -22,7 +23,6 @@ from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.pidstore.pids import PATRON_PID_TYPE
-from invenio_app_ils.proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -30,7 +30,7 @@ lt_es7 = ES_VERSION[0] < 7
 def get_loans(patron_pid):
     """Get referenced loans."""
     referenced = []
-    loan_record_cls = current_app_ils.loan_record_cls
+    loan_record_cls = current_circulation.loan_record_cls
     for hit in search_by_patron_pid(patron_pid=patron_pid).scan():
         loan = loan_record_cls.get_record_by_pid(hit["pid"])
         referenced.append(

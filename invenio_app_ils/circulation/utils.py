@@ -90,8 +90,7 @@ def circulation_overdue_loan_days(loan):
 def circulation_loan_will_expire_days():
     """Return a number of days before a loan expires."""
     return arrow.utcnow() + timedelta(
-        days=current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"]
-    )
+        days=current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"])
 
 
 def circulation_transaction_location_validator(transaction_location_pid):

@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Circulation mail tasks."""
+"""ILS mail tasks."""
 
 import json
 
@@ -14,17 +14,17 @@ from celery.utils.log import get_task_logger
 from flask import current_app
 from invenio_mail.tasks import send_email
 
-from invenio_app_ils.mail.factory import message_factory
-from invenio_app_ils.proxies import current_app_ils
-
 celery_logger = get_task_logger(__name__)
 
 
 def send_ils_email(message, name="ils_mail"):
     """Send an email async with Invenio-Mail and log success / errors.
 
+    :param message: BlockTemplatedMessage mail message.
     :param name: The name used in the log message.
     """
+    message.recipients = get_recipients(message.recipients)
+
     full_data = message.__dict__
     dump = message.dump()
     log_msg = dict(
@@ -41,11 +41,11 @@ def send_ils_email(message, name="ils_mail"):
     )
 
 
-def get_recipients(patrons):
+def get_recipients(recipients):
     """Return test recipients when ILS_MAIL_ENABLE_TEST_RECIPIENTS is True."""
     if current_app.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"]:
         return current_app.config["ILS_MAIL_NOTIFY_TEST_RECIPIENTS"]
-    return patrons
+    return recipients
 
 
 @shared_task
@@ -76,14 +76,3 @@ def log_error_mail(request, exc, traceback, data, **kwargs):
         json.dumps(error, sort_keys=True),
         exc_info=exc
     )
-
-
-def send_document_request_status_mail(request):
-    """Send a document request email and format based on the request status."""
-    patron = current_app_ils.patron_cls.get_patron(request["patron_pid"])
-    msg = message_factory(
-        "invenio_app_ils.mail.loader:document_request_message_loader",
-        request,
-        recipients=get_recipients([patron.email])
-    )
-    send_ils_email(msg)

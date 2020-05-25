@@ -111,7 +111,7 @@ install_requires = [
     # --- `files` bundle with only invenio-files-rest ----------------------
     "invenio-files-rest>=1.0.6,<1.1.0",
     # --- extra deps of ILS -----------------------------------------------
-    "invenio-circulation>=1.0.0a23,<1.1.0",
+    "invenio-circulation>=1.0.0a24,<1.1.0",
     "invenio-stats>=1.0.0a17",
     "invenio-pages>=1.0.0a5",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
@@ -178,7 +178,8 @@ setup(
             "ils_files = invenio_app_ils.files.views:create_files_blueprint",
         ],
         "invenio_config.module": [
-            "00_invenio_app_ils = invenio_app_ils.config"
+            "00_invenio_app_ils = invenio_app_ils.config",
+            "00_invenio_app_ils_circulation = invenio_app_ils.circulation.config"
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
@@ -272,6 +273,7 @@ setup(
             "ils_indexer_locations = invenio_app_ils.locations.indexer",
             "ils_indexer_rec_relations = invenio_app_ils.records_relations.indexer",
             "ils_indexer_series = invenio_app_ils.series.indexer",
+            "ils_mails = invenio_app_ils.mail.tasks",
             "ils_circulation_mails = invenio_app_ils.circulation.mail.tasks",
         ]
     },

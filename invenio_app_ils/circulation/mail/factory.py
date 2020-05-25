@@ -17,5 +17,5 @@ from invenio_app_ils.mail.factory import message_factory
 def loan_message_factory():
     """Create a loan message factory."""
     return partial(
-        message_factory, current_app.config["ILS_MAIL_LOAN_MSG_LOADER"]
+        message_factory, current_app.config["ILS_CIRCULATION_MAIL_MSG_LOADER"]
     )

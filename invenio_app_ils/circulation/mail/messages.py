@@ -16,7 +16,7 @@ from invenio_app_ils.mail.messages import BlockTemplatedMessage
 class LoanMessage(BlockTemplatedMessage):
     """Loan message."""
 
-    templates_base_dir = "invenio_app_ils_mail/circulation"
+    templates_base_dir = "invenio_app_ils_circulation/mail"
 
     default_templates = dict(
         request="request.html",
@@ -34,7 +34,7 @@ class LoanMessage(BlockTemplatedMessage):
         self.loan = message_ctx.get("loan", {})
         templates = dict(
             self.default_templates,
-            **current_app.config["ILS_MAIL_LOAN_TEMPLATES"]
+            **current_app.config["ILS_CIRCULATION_MAIL_TEMPLATES"]
         )
         if not self.trigger or self.trigger not in templates:
             raise KeyError(

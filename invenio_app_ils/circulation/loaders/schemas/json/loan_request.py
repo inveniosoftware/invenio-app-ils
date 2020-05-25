@@ -27,7 +27,7 @@ def request_start_date_default():
 def request_expire_date_default():
     """Set default value for request_expire_date field."""
     duration_days = current_app.config[
-        "CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
+        "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
     ]
     duration = timedelta(days=duration_days)
     now = arrow.get().utcnow()
@@ -49,7 +49,7 @@ class LoanRequestDeliverySchemaV1(Schema):
     def validate_method(self, value,  **kwargs):
         """Validate the delivery method."""
         delivery_methods = list(
-            current_app.config["CIRCULATION_DELIVERY_METHODS"].keys()
+            current_app.config["ILS_CIRCULATION_DELIVERY_METHODS"].keys()
         )
         if value not in delivery_methods:
             raise ValidationError(_("Invalid loan request delivery method."))
@@ -68,7 +68,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         delivery = data.get("delivery")
         # if delivery methods is configured, it has to be a mandatory field
         if (
-            current_app.config.get("CIRCULATION_DELIVERY_METHODS", {})
+            current_app.config.get("ILS_CIRCULATION_DELIVERY_METHODS", {})
             and not delivery
         ):
             raise ValidationError(
@@ -81,7 +81,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         start = arrow.get(data["request_start_date"]).date()
         end = arrow.get(data["request_expire_date"]).date()
         duration_days = current_app.config[
-            "CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
+            "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
         ]
         duration = timedelta(days=duration_days)
 

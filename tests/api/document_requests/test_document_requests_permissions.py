@@ -30,19 +30,14 @@ from tests.api.helpers import user_login, validate_response
     ],
 )
 def test_get_document_request_endpoint(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test GET permissions."""
     user_login(client, user, users)
     url = url_for("invenio_records_rest.dreqid_item", pid_value=res_id)
     validate_response(
-        client, "get", url, json_headers, None, expected_resp_code)
+        client, "get", url, json_headers, None, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -55,20 +50,17 @@ def test_get_document_request_endpoint(
     ],
 )
 def test_document_request_add_document(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test add document to Document Request permissions."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_document", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_document", pid_value=res_id
+    )
     data = {"document_pid": "docid-1"}
     validate_response(
-        client, "post", url, json_headers, data, expected_resp_code)
+        client, "post", url, json_headers, data, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -81,20 +73,17 @@ def test_document_request_add_document(
     ],
 )
 def test_document_request_remove_document(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test remove document from Document Request permissions."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_document", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_document", pid_value=res_id
+    )
     data = {"document_pid": "docid-1"}
     validate_response(
-        client, "delete", url, json_headers, data, expected_resp_code)
+        client, "delete", url, json_headers, data, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -107,25 +96,22 @@ def test_document_request_remove_document(
     ],
 )
 def test_document_request_add_provider(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test add provider to Document Request permissions."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_provider", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_provider", pid_value=res_id
+    )
     data = {
         "physical_item_provider": {
             "pid": "acquisition-order-pid",
-            "pid_type": "acquisition"
+            "pid_type": "acquisition",
         }
     }
     validate_response(
-        client, "post", url, json_headers, data, expected_resp_code)
+        client, "post", url, json_headers, data, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -138,19 +124,16 @@ def test_document_request_add_provider(
     ],
 )
 def test_document_request_remove_provider(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test remove provider from Document Request permissions."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_provider", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_provider", pid_value=res_id
+    )
     validate_response(
-        client, "delete", url, json_headers, None, expected_resp_code)
+        client, "delete", url, json_headers, None, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -164,20 +147,17 @@ def test_document_request_remove_provider(
     ],
 )
 def test_document_request_accept(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test Document Request permissions to accept request."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_accept", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_accept", pid_value=res_id
+    )
     data = {"state": "ACCEPTED"}
     validate_response(
-        client, "post", url, json_headers, data, expected_resp_code)
+        client, "post", url, json_headers, data, expected_resp_code
+    )
 
 
 @pytest.mark.parametrize(
@@ -191,17 +171,14 @@ def test_document_request_accept(
     ],
 )
 def test_document_request_reject(
-    client,
-    json_headers,
-    testdata,
-    users,
-    user,
-    res_id,
-    expected_resp_code,
+    client, json_headers, testdata, users, user, res_id, expected_resp_code
 ):
     """Test Document Request permissions to reject request."""
     user_login(client, user, users)
-    url = url_for("ils_document_request.dreqid_reject", pid_value=res_id)
+    url = url_for(
+        "invenio_app_ils_document_requests.dreqid_reject", pid_value=res_id
+    )
     data = {"reject_reason": "USER_CANCEL"}
     validate_response(
-        client, "post", url, json_headers, data, expected_resp_code)
+        client, "post", url, json_headers, data, expected_resp_code
+    )

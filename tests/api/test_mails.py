@@ -8,159 +8,87 @@
 """Test email notifications."""
 
 import pytest
-from flask_security import login_user
-from invenio_circulation.api import Loan
-from invenio_circulation.proxies import current_circulation
 from jinja2.exceptions import TemplateError, TemplateNotFound
 
 from invenio_app_ils.circulation.mail.messages import BlockTemplatedMessage
-from invenio_app_ils.circulation.mail.tasks import send_loan_mail, \
-    send_loan_overdue_reminder_mail
-from invenio_app_ils.records.api import Patron
+from invenio_app_ils.mail.tasks import send_ils_email
 
 
-def test_block_templated_message_full(app):
+class TestMessage(BlockTemplatedMessage):
+    def __init__(self, *args, **kwargs):
+        template = kwargs.pop("template", "mail/subject_body_html.html")
+        kwargs.setdefault("sender", "sender@test.com")
+        kwargs.setdefault("recipients", ["recipient@test.com"])
+        super().__init__(template, **kwargs)
+
+
+def test_block_templated_message_full(app_with_mail):
     """Test that the subject, body and html are read correctly."""
-    with app.app_context():
-        blank = BlockTemplatedMessage("tests/subject_body_html.html")
+    with app_with_mail.app_context():
+        blank = BlockTemplatedMessage("mail/subject_body_html.html")
         assert blank.subject == "Test subject."
         assert blank.body == "Test body."
         assert blank.html == "Test html."
 
 
-def test_block_templated_message_body_same_as_html(app):
+def test_block_templated_message_body_same_as_html(app_with_mail):
     """Test that the subject and body are read correctly."""
-    with app.app_context():
-        blank = BlockTemplatedMessage("tests/subject_body.html")
+    with app_with_mail.app_context():
+        blank = BlockTemplatedMessage("mail/subject_body.html")
         assert blank.subject == "Test subject."
         assert blank.body == "Test body."
         assert blank.html == "Test body."
 
 
-def test_invalid_block_templated_message_templates(app):
+def test_invalid_block_templated_message_templates(app_with_mail):
     """Test invalid templates."""
-    with app.app_context():
+    with app_with_mail.app_context():
         with pytest.raises(TemplateError) as ex:
-            BlockTemplatedMessage("tests/blank.html")
+            BlockTemplatedMessage("mail/blank.html")
         assert "No block with name 'subject'" in str(ex.value)
 
         with pytest.raises(TemplateError) as ex:
-            BlockTemplatedMessage("tests/subject_only.html")
+            BlockTemplatedMessage("mail/subject_only.html")
         assert "No block with name 'body'" in str(ex.value)
 
 
-def test_block_template_with_missing_template(app):
+def test_block_template_with_missing_template(app_with_mail):
     """Test that a missing template raises an exception."""
-    with app.app_context():
+    with app_with_mail.app_context():
         with pytest.raises(TemplateNotFound):
-            BlockTemplatedMessage("tests/missing.html")
+            BlockTemplatedMessage("missing.html")
 
 
-def test_email_on_loan_checkout(app, users, testdata, loan_params, mocker):
-    """Test that an email is sent when an admin performs a loan checkout."""
-    app.config.update(CELERY_TASK_ALWAYS_EAGER=True)
-
-    loan_data = testdata["loans"][1]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
-    with app.extensions["mail"].record_messages() as outbox:
-        admin = users["admin"]
-        login_user(admin)
-
-        assert len(outbox) == 0
-        current_circulation.circulation.trigger(
-            loan, **dict(loan_params, trigger="checkout")
-        )
-        assert len(outbox) == 1
-
-
-def test_log_successful_mail_task(app, testdata, mocker, users):
+def test_log_successful_error_mail_task(app_with_mail, mocker):
     """Test that a successfully sent email is logged."""
-    app.config.update(CELERY_TASK_ALWAYS_EAGER=True)
-    mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
-        return_value=Patron(users["patron1"].id),
-    )
-    succ = mocker.patch(
-        "invenio_app_ils.mail.tasks.log_successful_mail"
-    )
-    loan = testdata["loans"][0]
+    succ = mocker.patch("invenio_app_ils.mail.tasks.log_successful_mail")
+    err = mocker.patch("invenio_app_ils.mail.tasks.log_error_mail")
 
     assert not succ.s.called
-    send_loan_mail("extend", loan)
-    assert succ.s.called
-
-
-def test_log_error_mail_task(app, testdata, mocker, users):
-    """Test that an error is logged on email send error."""
-    prev_sender = app.config["MAIL_NOTIFY_SENDER"]
-    app.config.update(
-        dict(CELERY_TASK_ALWAYS_EAGER=True, MAIL_NOTIFY_SENDER=[])
-    )
-    mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
-        return_value=Patron(users["patron1"].id),
-    )
-    err = mocker.patch("invenio_app_ils.mail.tasks.log_error_mail")
-    loan = testdata["loans"][0]
-
     assert not err.s.called
-    send_loan_mail("extend", loan)
+    send_ils_email(TestMessage())
+    assert succ.s.called
     assert err.s.called
 
-    # restore
-    app.config.update(MAIL_NOTIFY_SENDER=prev_sender)
 
-
-def test_example_loader(app, example_message_factory):
+def test_example_loader(app_with_mail, example_message_factory):
     """Test a function based message loader."""
     msg = example_message_factory("Subject", "Body")
     assert msg.subject == "Subject"
     assert msg.body == "Body"
 
 
-def test_email_on_overdue_loan(app, users, testdata, mocker):
-    """Test that an email is sent when an admin performs a loan checkout."""
-    app.config.update(CELERY_TASK_ALWAYS_EAGER=True)
-    mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
-        return_value=Patron(users["patron1"].id),
-    )
-    loan_data = testdata["loans"][-1]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
-    with app.extensions["mail"].record_messages() as outbox:
-        assert len(outbox) == 0
-        send_loan_overdue_reminder_mail(loan)
-        assert len(outbox) == 1
-
-
-def test_send_only_to_test_recipients(app, users, testdata, mocker):
+def test_send_only_to_test_recipients(app_with_mail, mocker):
     """Tests that send only to test recipients works."""
+    app_with_mail.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = True
 
-    class TestMessage(BlockTemplatedMessage):
-        def __init__(self, *args, **kwargs):
-            template = "tests/subject_body_html.html"
-            kwargs.pop("trigger", None)
-            kwargs.pop("message_ctx", {})
-            kwargs.setdefault("sender", app.config["MAIL_NOTIFY_SENDER"])
-            super().__init__(template, **kwargs)
+    msg = TestMessage(recipients=["realemail@test.com"])
 
-    app.config.update(
-        dict(
-            CELERY_TASK_ALWAYS_EAGER=True,
-            ILS_MAIL_LOAN_MSG_LOADER=TestMessage,
-            ILS_MAIL_ENABLE_TEST_RECIPIENTS=True
-        )
-    )
-    patron = Patron(users["patron1"].id)
-    mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
-        return_value=patron,
-    )
-    loan_data = testdata["loans"][-1]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
-    fake_recipients = app.config["ILS_MAIL_NOTIFY_TEST_RECIPIENTS"]
-    with app.extensions["mail"].record_messages() as outbox:
+    fake_recipients = app_with_mail.config["ILS_MAIL_NOTIFY_TEST_RECIPIENTS"]
+    with app_with_mail.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
-        send_loan_mail("trigger", loan, subject="Test", body="Test")
+        send_ils_email(msg)
         assert len(outbox) == 1
         assert outbox[0].recipients == fake_recipients
+
+    app_with_mail.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = False

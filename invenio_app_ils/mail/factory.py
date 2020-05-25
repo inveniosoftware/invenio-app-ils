@@ -7,8 +7,6 @@
 
 """ILS message factory."""
 
-from functools import partial
-
 from invenio_records_rest.utils import obj_or_import_string
 
 
