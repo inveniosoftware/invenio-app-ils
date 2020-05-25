@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -21,13 +21,6 @@ from datetime import timedelta
 from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
-from invenio_circulation.api import Loan
-from invenio_circulation.config import _LOANID_CONVERTER
-from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
-    CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
-from invenio_circulation.transitions.transitions import CreatedToPending, \
-    ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned, ToCancelled, \
-    ToItemOnLoan
 from invenio_oauthclient.contrib import cern
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
@@ -36,7 +29,6 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
 
-from invenio_app_ils.circulation.indexer import LoanIndexer
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
 from invenio_app_ils.documents.indexer import DocumentIndexer
 from invenio_app_ils.eitems.indexer import EItemIndexer
@@ -51,33 +43,17 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
-from .api import get_default_location, patron_exists
-from .circulation.jsonresolvers.loan import document_resolver, item_resolver, \
-    loan_patron_resolver
-from .circulation.search import IlsLoansSearch
-from .circulation.utils import circulation_build_document_ref, \
-    circulation_build_item_ref, circulation_build_patron_ref, \
-    circulation_can_be_requested, circulation_default_extension_max_count, \
-    circulation_is_loan_duration_valid, circulation_loan_will_expire_days, \
-    circulation_transaction_location_validator, \
-    circulation_transaction_user_validator
 from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
     DOCUMENT_REQUEST_PID_MINTER, DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .document_requests.search import DocumentRequestSearch
 from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
-    DOCUMENT_PID_TYPE, Document, document_exists
+    DOCUMENT_PID_TYPE, Document
 from .documents.search import DocumentSearch
-from .facets import date_range_filter, default_value_when_missing_filter, \
-    keyed_range_filter, not_empty_object_or_list_filter, overdue_agg, \
-    overdue_loans_filter
-from .ill.api import can_item_circulate, \
-    circulation_default_extension_duration, \
-    circulation_default_loan_duration
-from .items.api import get_document_pid_by_item_pid, \
-    get_item_pids_by_document_pid, item_exists
+from .facets import default_value_when_missing_filter, keyed_range_filter, \
+    not_empty_object_or_list_filter
 from .permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
-    loan_extend_circulation_permission, views_permissions_factory
+    views_permissions_factory
 from .pidstore.pids import EITEM_PID_FETCHER, EITEM_PID_MINTER, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_FETCHER, \
     INTERNAL_LOCATION_PID_MINTER, INTERNAL_LOCATION_PID_TYPE, \
@@ -98,6 +74,13 @@ def _(x):
     """Identity function used to trigger string extraction."""
     return x
 
+
+###############################################################################
+# Debug
+###############################################################################
+DEBUG = True
+DEBUG_TB_ENABLED = True
+DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 ###############################################################################
 # OAuth
@@ -122,27 +105,6 @@ RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
 BABEL_DEFAULT_LANGUAGE = "en"
 #: Default time zone
 BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
-#: Other supported languages (do not include the default language in list).
-I18N_LANGUAGES = [
-    # ('fr', _('French'))
-]
-
-# Base templates
-# ==============
-#: Global base template.
-BASE_TEMPLATE = "invenio_theme/page.html"
-#: Cover page base template (used for e.g. login/sign-up).
-COVER_TEMPLATE = "invenio_theme/page_cover.html"
-#: Footer base template.
-FOOTER_TEMPLATE = "invenio_theme/footer.html"
-#: Header base template.
-HEADER_TEMPLATE = "invenio_theme/header.html"
-#: Settings base template.
-SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
-
-# Theme configuration
-# ===================
-THEME_FRONTPAGE = False
 
 # Email configuration
 # ===================
@@ -157,22 +119,11 @@ MAIL_NOTIFY_CC = []
 #: Email BCC address(es) for email notification.
 MAIL_NOTIFY_BCC = []
 # Enable sending mail to test recipients.
-ILS_MAIL_ENABLE_TEST_RECIPIENTS = True
+ILS_MAIL_ENABLE_TEST_RECIPIENTS = False
 #: When ILS_MAIL_ENABLE_TEST_RECIPIENTS=True, all emails are sent here
 ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
-#: Loan status email templates
-ILS_MAIL_LOAN_TEMPLATES = {}
 #: Document request state email templates
 ILS_MAIL_DOCUMENT_REQUEST_TEMPLATES = {}
-#: Loan message loader
-ILS_MAIL_LOAN_MSG_LOADER = (
-    "invenio_app_ils.circulation.mail.loader:loan_message_loader"
-)
-#: Notification email for overdue loan sent automatically every X days
-ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL = 3
-
-#: Period of time in days, before loans expire, for notifications etc.
-ILS_LOAN_WILL_EXPIRE_DAYS = 7
 
 # Assets
 # ======
@@ -268,13 +219,6 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 
-###############################################################################
-# Debug
-###############################################################################
-DEBUG = True
-DEBUG_TB_ENABLED = True
-DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
 )
@@ -295,8 +239,9 @@ _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
 )
 
+###############################################################################
 # RECORDS REST
-# ============
+###############################################################################
 _RECORDS_REST_MAX_RESULT_WINDOW = 10000
 PIDSTORE_RECID_FIELD = "pid"
 # name of the URL arg to choose response serializer
@@ -324,7 +269,9 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "text/csv": (
+                "invenio_app_ils.literature.serializers:csv_v1_search"
+            ),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -473,7 +420,9 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "text/csv": (
+                "invenio_app_ils.literature.serializers:csv_v1_search"
+            ),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -657,7 +606,9 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "text/csv": (
+                "invenio_app_ils.literature.serializers:csv_v1_search"
+            ),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -676,171 +627,6 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
     ),
-)
-
-# CIRCULATION
-# ===========
-CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = get_item_pids_by_document_pid
-
-CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = get_document_pid_by_item_pid
-
-CIRCULATION_PATRON_EXISTS = patron_exists
-
-CIRCULATION_ITEM_EXISTS = item_exists
-
-CIRCULATION_DOCUMENT_EXISTS = document_exists
-
-CIRCULATION_ITEM_LOCATION_RETRIEVER = get_default_location
-
-CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
-
-CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = (
-    circulation_transaction_location_validator
-)
-
-CIRCULATION_TRANSACTION_USER_VALIDATOR = circulation_transaction_user_validator
-
-CIRCULATION_DELIVERY_METHODS = {
-    "PICKUP": "Pick it up at the library desk",
-    "DELIVERY": "Have it delivered to my office",
-}
-
-CIRCULATION_POLICIES = dict(
-    checkout=dict(
-        duration_default=circulation_default_loan_duration,
-        duration_validate=circulation_is_loan_duration_valid,
-        item_can_circulate=can_item_circulate,
-    ),
-    extension=dict(
-        from_end_date=True,
-        duration_default=circulation_default_extension_duration,
-        max_count=circulation_default_extension_max_count,
-    ),
-    request=dict(can_be_requested=circulation_can_be_requested),
-    upcoming_return_range=circulation_loan_will_expire_days,
-)
-
-CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
-
-CIRCULATION_ITEM_RESOLVING_PATH = (
-    "/api/resolver/circulation/loans/<loan_pid>/item"
-)
-
-CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
-
-CIRCULATION_DOCUMENT_REF_BUILDER = circulation_build_document_ref
-
-CIRCULATION_DOCUMENT_RESOLVING_PATH = (
-    "/api/resolver/circulation/loans/<loan_pid>/document"
-)
-
-CIRCULATION_DOCUMENT_RESOLVER_ENDPOINT = document_resolver
-
-CIRCULATION_PATRON_REF_BUILDER = circulation_build_patron_ref
-
-CIRCULATION_PATRON_RESOLVING_PATH = (
-    "/api/resolver/circulation/loans/<loan_pid>/patron"
-)
-
-CIRCULATION_PATRON_RESOLVER_ENDPOINT = loan_patron_resolver
-
-CIRCULATION_LOAN_TRANSITIONS = {
-    "CREATED": [
-        dict(
-            dest="PENDING",
-            trigger="request",
-            transition=CreatedToPending,
-            permission_factory=authenticated_user_permission,
-            assign_item=False,
-        ),
-        dict(
-            dest="ITEM_ON_LOAN",
-            trigger="checkout",
-            transition=ToItemOnLoan,
-            permission_factory=backoffice_permission,
-        ),
-    ],
-    "PENDING": [
-        dict(
-            dest="ITEM_ON_LOAN",
-            trigger="checkout",
-            transition=ToItemOnLoan,
-            permission_factory=backoffice_permission,
-        ),
-        dict(
-            dest="CANCELLED",
-            trigger="cancel",
-            transition=ToCancelled,
-            permission_factory=PatronOwnerPermission,
-        ),
-    ],
-    "ITEM_ON_LOAN": [
-        dict(
-            dest="ITEM_RETURNED",
-            trigger="checkin",
-            transition=ItemOnLoanToItemReturned,
-            permission_factory=backoffice_permission,
-            assign_item=False,
-        ),
-        dict(
-            dest="ITEM_ON_LOAN",
-            transition=ItemOnLoanToItemOnLoan,
-            trigger="extend",
-            permission_factory=loan_extend_circulation_permission,
-        ),
-        dict(
-            dest="CANCELLED",
-            trigger="cancel",
-            transition=ToCancelled,
-            permission_factory=backoffice_permission,
-        ),
-    ],
-    "ITEM_RETURNED": [],
-    "CANCELLED": [],
-}
-
-CIRCULATION_REST_ENDPOINTS = dict(
-    loanid=dict(
-        pid_type=CIRCULATION_LOAN_PID_TYPE,
-        pid_minter=CIRCULATION_LOAN_MINTER,
-        pid_fetcher=CIRCULATION_LOAN_FETCHER,
-        search_class=IlsLoansSearch,
-        search_factory_imp="invenio_app_ils.search.permissions"
-        ":search_factory_filter_by_patron",
-        record_class=Loan,
-        indexer_class=LoanIndexer,
-        record_loaders={
-            "application/json": (
-                "invenio_circulation.records.loaders:loan_loader"
-            )
-        },
-        record_serializers={
-            "application/json": (
-                "invenio_app_ils.circulation.serializers:json_v1_response"
-            )
-        },
-        search_serializers={
-            "application/json": (
-                "invenio_app_ils.circulation.serializers:json_v1_search"
-            ),
-            "text/csv": (
-                "invenio_app_ils.circulation.serializers:csv_v1_search"
-            ),
-        },
-        list_route="/circulation/loans/",
-        item_route="/circulation/loans/<{0}:pid_value>".format(
-            _LOANID_CONVERTER
-        ),
-        default_media_type="application/json",
-        links_factory_imp="invenio_circulation.links:loan_links_factory",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
-        error_handlers=dict(),
-        read_permission_factory_imp=PatronOwnerPermission,
-        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
-        create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
-    )
 )
 
 # RECORDS REST sort options
@@ -906,41 +692,6 @@ RECORDS_REST_SORT_OPTIONS = dict(
             title="Best match",
             default_order="asc",
             order=2,
-        ),
-    ),
-    loans=dict(  # IlsLoansSearch.Meta.index
-        expire_date=dict(
-            fields=["-request_expire_date"],
-            title="Request expire date",
-            default_order="desc",
-            order=1,
-        ),
-        end_date=dict(
-            fields=["-end_date"],
-            title="Loan end date",
-            default_order="desc",
-            order=2,
-        ),
-        start_date=dict(
-            fields=["-start_date"],
-            title="Loan start date",
-            default_order="desc",
-            order=3,
-        ),
-        extensions=dict(
-            fields=["extension_count"],
-            title="Extensions count",
-            default_order="asc",
-            order=4,
-        ),
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=5
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            default_order="asc",
-            order=6,
         ),
     ),
     patrons=dict(  # PatronsSearch.Meta.index
@@ -1056,20 +807,6 @@ RECORDS_REST_FACETS = dict(
             access=terms_filter("open_access"),
             has_files=not_empty_object_or_list_filter("files.file_id"),
         ),
-    ),
-    loans=dict(  # IlsLoansSearch.Meta.index
-        aggs=dict(
-            state=dict(terms=dict(field="state")),
-            delivery=dict(terms=dict(field="delivery.method")),
-            returns=overdue_agg,
-        ),
-        post_filters={
-            "state": terms_filter("state"),
-            "delivery": terms_filter("delivery.method"),
-            "returns.end_date": overdue_loans_filter("end_date"),
-            "loans_from_date": date_range_filter("start_date", "gte"),
-            "loans_to_date": date_range_filter("start_date", "lte"),
-        },
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(
@@ -1349,6 +1086,5 @@ query and record fetch.
 ILS_DEFAULT_LOCATION_PID = "1"
 """Default ils library location pid."""
 
-
 ILS_LITERATURE_COVER_URLS_BUILDER = build_ils_demo_cover_urls
-"""Default implementation for building cover urls in document seriliazer."""
+"""Default implementation for building cover urls in document serializer."""

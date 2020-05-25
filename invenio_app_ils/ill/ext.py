@@ -7,19 +7,14 @@
 
 """Invenio ILL module for Integrated Library System app."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
+from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
+
+from invenio_app_ils.ext import handle_rest_exceptions
 
 from . import config
 from .api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
-
-
-def handle_rest_exceptions(exception):
-    """Handle Invenio REST exceptions."""
-    current_app.logger.exception(exception)
-    return exception.get_response()
 
 
 class _InvenioIlsIllState(object):
@@ -30,15 +25,15 @@ class _InvenioIlsIllState(object):
         self.app = app
 
     def record_class_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
+        endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS', [])
         return endpoints[pid_type]['record_class']
 
     def search_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["search_class"]
 
     def indexer_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["indexer_class"]
 
     @cached_property
@@ -70,6 +65,7 @@ class InvenioIlsIll(object):
         if app:
             self.app = app
             self.init_app(app)
+            app.errorhandler(RESTException)(handle_rest_exceptions)
 
     def init_app(self, app):
         """Flask application initialization."""
@@ -82,13 +78,13 @@ class InvenioIlsIll(object):
         app.config.setdefault("RECORDS_REST_ENDPOINTS", {})
         app.config["RECORDS_REST_ENDPOINTS"].update(ill_endpoints)
 
-        acq_sort_options = getattr(config, "RECORDS_REST_SORT_OPTIONS")
+        ill_sort_options = getattr(config, "RECORDS_REST_SORT_OPTIONS")
         app.config.setdefault("RECORDS_REST_SORT_OPTIONS", {})
-        app.config["RECORDS_REST_SORT_OPTIONS"].update(acq_sort_options)
+        app.config["RECORDS_REST_SORT_OPTIONS"].update(ill_sort_options)
 
-        acq_facets = getattr(config, "RECORDS_REST_FACETS")
+        ill_facets = getattr(config, "RECORDS_REST_FACETS")
         app.config.setdefault("RECORDS_REST_FACETS", {})
-        app.config["RECORDS_REST_FACETS"].update(acq_facets)
+        app.config["RECORDS_REST_FACETS"].update(ill_facets)
 
         for k in dir(config):
             if k.startswith("ILS_ILL_"):

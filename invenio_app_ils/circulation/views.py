@@ -29,7 +29,10 @@ from .mail.tasks import send_loan_overdue_reminder_mail
 def create_circulation_blueprint(app):
     """Add circulation views to the blueprint."""
     blueprint = Blueprint(
-        "invenio_app_ils_circulation", __name__, url_prefix=""
+        "invenio_app_ils_circulation",
+        __name__,
+        template_folder="templates",
+        url_prefix="",
     )
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # Invenio-Circulation is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -12,11 +12,11 @@ from __future__ import absolute_import, print_function
 import logging
 
 from flask import Blueprint, current_app
-from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
 
 from . import config
+from .circulation import config as circulation_config
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from .documents.api import DOCUMENT_PID_TYPE
@@ -39,17 +39,17 @@ class _InvenioAppIlsState(object):
         self.app = app
 
     def record_class_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
-        return endpoints[pid_type]['record_class']
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        return endpoints[pid_type]["record_class"]
 
     def indexer_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
-        _cls = endpoints[pid_type]['indexer_class']
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        _cls = endpoints[pid_type]["indexer_class"]
         return _cls()
 
     def search_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
-        return endpoints[pid_type]['search_class']
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        return endpoints[pid_type]["search_class"]
 
     @cached_property
     def document_request_record_cls(self):
@@ -142,16 +142,6 @@ class _InvenioAppIlsState(object):
         return self.indexer_by_pid_type(ITEM_PID_TYPE)
 
     @cached_property
-    def loan_record_cls(self):
-        """Return the loan record class."""
-        return self.record_class_by_pid_type(CIRCULATION_LOAN_PID_TYPE)
-
-    @cached_property
-    def loan_indexer(self):
-        """Return a loan indexer instance."""
-        return self.indexer_by_pid_type(CIRCULATION_LOAN_PID_TYPE)
-
-    @cached_property
     def patron_cls(self):
         """Return the patron record class."""
         return self.record_class_by_pid_type(PATRON_PID_TYPE)
@@ -183,30 +173,22 @@ class InvenioAppIls(object):
 
     def init_app(self, app):
         """Flask application initialization."""
-        self.init_config(app)
-        app.extensions['invenio-app-ils'] = _InvenioAppIlsState(app)
+        self.update_config_records_rest(app)
+        app.extensions["invenio-app-ils"] = _InvenioAppIlsState(app)
         app.register_blueprint(
             Blueprint(
-                "invenio_app_ils_mail",
-                __name__,
-                template_folder="templates",
-            )
-        )
-        app.register_blueprint(
-            Blueprint(
-                "invenio_app_ils_static",
-                __name__,
-                static_folder="static",
+                "invenio_app_ils_static", __name__, static_folder="static"
             )
         )
         # disable warnings being logged to Sentry
         logging.getLogger("py.warnings").propagate = False
 
-    def init_config(self, app):
-        """Initialize configuration."""
-        for k in dir(config):
-            if k.startswith('ILS_'):
-                app.config.setdefault(k, getattr(config, k))
+    def update_config_records_rest(self, app):
+        """Merge overridden circ records rest into global records rest."""
+        for k in dir(circulation_config):
+            if k.startswith("ILS_CIRCULATION_RECORDS_REST_"):
+                records_rest = k.replace("ILS_CIRCULATION_", "")
+                app.config[records_rest].update(getattr(circulation_config, k))
 
 
 class InvenioAppIlsUI(InvenioAppIls):

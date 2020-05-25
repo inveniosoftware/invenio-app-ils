@@ -131,7 +131,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
 
     # it should fail when request duration over max
     params = deepcopy(NEW_LOAN)
-    days = app.config["CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
+    days = app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
     past_end_date = now + timedelta(days=days + 1)
     params["request_expire_date"] = past_end_date.date().isoformat()
     params["transaction_user_pid"] = str(user.id)
@@ -149,7 +149,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
     loan = res.get_json()["metadata"]
     now = arrow.utcnow()
     start_date = now.date().isoformat()
-    days = app.config["CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
+    days = app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
     end_date = (now + timedelta(days=days)).date().isoformat()
     assert loan["request_start_date"] == start_date
     assert loan["request_expire_date"] == end_date
@@ -162,8 +162,8 @@ def test_request_loan_with_or_without_delivery(
     url = url_for("invenio_app_ils_circulation.loan_request")
     user = user_login(client, "patron1", users)
 
-    previous_dev_methods = app.config["CIRCULATION_DELIVERY_METHODS"]
-    app.config["CIRCULATION_DELIVERY_METHODS"] = {}
+    previous_dev_methods = app.config["ILS_CIRCULATION_DELIVERY_METHODS"]
+    app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = {}
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-12"
     params["transaction_user_pid"] = str(user.id)
@@ -171,7 +171,7 @@ def test_request_loan_with_or_without_delivery(
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
-    app.config["CIRCULATION_DELIVERY_METHODS"] = {
+    app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = {
         "TEST_METHOD1": "",
         "TEST_METHOD2": "",
     }
@@ -182,7 +182,7 @@ def test_request_loan_with_or_without_delivery(
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
-    app.config["CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
+    app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
     params = deepcopy(NEW_LOAN)
     params["transaction_user_pid"] = str(user.id)
     del params["delivery"]
@@ -190,7 +190,7 @@ def test_request_loan_with_or_without_delivery(
     assert res.status_code == 400
     assert res.get_json()["message"] == "Validation error."
 
-    app.config["CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
+    app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
     params = deepcopy(NEW_LOAN)
     params["delivery"] = {"method": "NON_EXISTING_METHOD"}
     params["transaction_user_pid"] = str(user.id)
@@ -199,4 +199,4 @@ def test_request_loan_with_or_without_delivery(
     assert res.get_json()["message"] == "Validation error."
 
     # restore
-    app.config["CIRCULATION_DELIVERY_METHODS"] = previous_dev_methods
+    app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = previous_dev_methods

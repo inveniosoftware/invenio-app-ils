@@ -492,7 +492,7 @@ class LoanGenerator(Generator):
         librarian_pid = self.holder.librarian_pid
         doc_pids = self.holder.pids("documents", "pid")
         all_delivery_methods = list(
-            current_app.config["CIRCULATION_DELIVERY_METHODS"].keys()
+            current_app.config["ILS_CIRCULATION_DELIVERY_METHODS"].keys()
         )
         delivery = all_delivery_methods[randint(0, 1)]
 

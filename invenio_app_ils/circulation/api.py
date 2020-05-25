@@ -31,7 +31,7 @@ lt_es7 = ES_VERSION[0] < 7
 def _validate_delivery(delivery):
     """Validate `delivery` param."""
     methods = list(
-        current_app.config.get("CIRCULATION_DELIVERY_METHODS", {}).keys()
+        current_app.config.get("ILS_CIRCULATION_DELIVERY_METHODS", {}).keys()
     )
     if methods:
         if not delivery or delivery["method"] not in methods:
