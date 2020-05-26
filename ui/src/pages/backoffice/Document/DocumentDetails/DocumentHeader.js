@@ -47,7 +47,13 @@ export class DocumentHeader extends Component {
             <DocumentTitle metadata={data.metadata} />
           </>
         }
-        subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
+        subTitle={
+          <DocumentAuthors
+            metadata={data.metadata}
+            prefix={'by '}
+            authorsLimit={10}
+          />
+        }
         pid={data.metadata.pid}
         image={
           <LiteratureCover

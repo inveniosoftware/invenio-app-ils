@@ -296,6 +296,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         className="meta"
                                       >
                                         <DocumentAuthors
+                                          allFields={false}
+                                          authorsLimit={10}
                                           delimiter="; "
                                           metadata={
                                             Object {
@@ -307,9 +309,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                               "title": "Test",
                                             }
                                           }
+                                          scrollLimit={Infinity}
                                         >
                                           <div
-                                            className="document-authors-list-wrapper"
+                                            className="document-authors-list-wrapper undefined"
                                           />
                                         </DocumentAuthors>
                                         Requested on 
@@ -548,6 +551,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         className="meta"
                                       >
                                         <DocumentAuthors
+                                          allFields={false}
+                                          authorsLimit={10}
                                           delimiter="; "
                                           metadata={
                                             Object {
@@ -559,9 +564,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                               "title": "Test 2",
                                             }
                                           }
+                                          scrollLimit={Infinity}
                                         >
                                           <div
-                                            className="document-authors-list-wrapper"
+                                            className="document-authors-list-wrapper undefined"
                                           />
                                         </DocumentAuthors>
                                         Requested on 

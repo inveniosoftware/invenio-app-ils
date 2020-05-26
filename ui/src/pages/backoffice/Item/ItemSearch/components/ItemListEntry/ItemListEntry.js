@@ -52,6 +52,7 @@ export class ItemListEntry extends Component {
                 <DocumentAuthors
                   metadata={item.metadata.document}
                   prefix={'by '}
+                  authorsLimit={10}
                 />
                 <List>
                   <List.Item>

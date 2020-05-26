@@ -93,6 +93,8 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
               className="meta"
             >
               <DocumentAuthors
+                allFields={false}
+                authorsLimit={10}
                 delimiter="; "
                 metadata={
                   Object {
@@ -124,9 +126,10 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                     "title": "Lorem",
                   }
                 }
+                scrollLimit={Infinity}
               >
                 <div
-                  className="document-authors-list-wrapper"
+                  className="document-authors-list-wrapper "
                 >
                   <List
                     as=""
@@ -291,6 +294,8 @@ exports[`BookCard tests should render the BookCard 1`] = `
               className="meta"
             >
               <DocumentAuthors
+                allFields={false}
+                authorsLimit={10}
                 delimiter="; "
                 metadata={
                   Object {
@@ -322,9 +327,10 @@ exports[`BookCard tests should render the BookCard 1`] = `
                     "title": "Lorem",
                   }
                 }
+                scrollLimit={Infinity}
               >
                 <div
-                  className="document-authors-list-wrapper"
+                  className="document-authors-list-wrapper "
                 >
                   <List
                     as=""

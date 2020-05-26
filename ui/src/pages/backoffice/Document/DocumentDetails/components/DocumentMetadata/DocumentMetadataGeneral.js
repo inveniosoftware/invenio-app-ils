@@ -19,7 +19,16 @@ export class DocumentMetadataGeneral extends Component {
       { name: 'Title', value: document.metadata.title },
       {
         name: 'Authors',
-        value: <DocumentAuthors metadata={document.metadata} />,
+        value: (
+          <DocumentAuthors
+            metadata={document.metadata}
+            popupDisplay={true}
+            allFields={true}
+            authorsLimit={20}
+            scrollLimit={300}
+            expandable={true}
+          />
+        ),
       },
       { name: 'Publication year', value: document.metadata.publication_year },
       {

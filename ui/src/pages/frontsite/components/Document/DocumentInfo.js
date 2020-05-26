@@ -72,6 +72,8 @@ export class DocumentInfo extends Component {
                   metadata={this.metadata}
                   popupDisplay={true}
                   authorsLimit={20}
+                  scrollLimit={300}
+                  expandable={true}
                 />
               </Table.Cell>
             </Table.Row>

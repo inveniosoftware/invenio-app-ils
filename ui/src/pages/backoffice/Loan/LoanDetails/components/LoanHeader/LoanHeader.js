@@ -59,6 +59,7 @@ export default class LoanHeader extends Component {
             <DocumentAuthors
               metadata={data.metadata.document}
               prefix={'by: '}
+              authorsLimit={10}
             />
           </>
         }

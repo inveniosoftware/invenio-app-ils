@@ -45,7 +45,11 @@ export class EItemHeader extends Component {
         }
         subTitle={
           <>
-            <DocumentAuthors metadata={data.metadata.document} prefix={'by '} />
+            <DocumentAuthors
+              metadata={data.metadata.document}
+              prefix={'by '}
+              authorsLimit={10}
+            />
           </>
         }
         pid={data.metadata.pid}

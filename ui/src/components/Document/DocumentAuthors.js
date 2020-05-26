@@ -3,6 +3,95 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
+class Roles extends Component {
+  render() {
+    return (
+      <>
+        <span>{this.props.roles.join(', ')}</span>
+        <br />
+      </>
+    );
+  }
+}
+
+Roles.propTypes = {
+  roles: PropTypes.array.isRequired,
+};
+
+class Affiliations extends Component {
+  render() {
+    return (
+      <>
+        <span>
+          Aff. :{' '}
+          {this.props.affiliations
+            .map(item => {
+              return item.name;
+            })
+            .join(', ')}
+        </span>
+      </>
+    );
+  }
+}
+
+Affiliations.propTypes = {
+  affiliations: PropTypes.array.isRequired,
+};
+
+class AlternativeNames extends Component {
+  render() {
+    return (
+      <>
+        <br />
+        <span>Alter. names: {this.props.alternative_names.join(', ')}</span>
+        <br />
+      </>
+    );
+  }
+}
+
+AlternativeNames.propTypes = {
+  alternative_names: PropTypes.array.isRequired,
+};
+
+class Identifiers extends Component {
+  render() {
+    return (
+      <>
+        <span>
+          Ids:{' '}
+          {this.props.identifiers
+            .map(item => {
+              return `${item.value} (${item.scheme})`;
+            })
+            .join(', ')}
+        </span>
+        <br />
+      </>
+    );
+  }
+}
+
+Identifiers.propTypes = {
+  identifiers: PropTypes.array.isRequired,
+};
+
+class Type extends Component {
+  render() {
+    return (
+      <>
+        <span>Type: {this.props.type}</span>;
+        <br />
+      </>
+    );
+  }
+}
+
+Type.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
 export class DocumentAuthors extends Component {
   constructor(props) {
     super(props);
@@ -16,22 +105,19 @@ export class DocumentAuthors extends Component {
       <>
         {author.full_name}
         <br />
-        {!isEmpty(author.roles) && (
+        {author.roles ? <Roles roles={author.roles} /> : null}
+        {author.affiliations ? (
+          <Affiliations affiliations={author.affiliations} />
+        ) : null}
+        {this.props.allFields && (
           <>
-            <span>{author.roles.toString()}</span>
-            <br />
-          </>
-        )}
-        {!isEmpty(author.affiliations) && (
-          <>
-            <span>
-              Aff. :{' '}
-              {author.affiliations
-                .map(item => {
-                  return item.name;
-                })
-                .toString()}
-            </span>
+            {author.alternative_names ? (
+              <AlternativeNames alternative_names={author.alternative_names} />
+            ) : null}
+            {author.identifiers ? (
+              <Identifiers identifiers={author.identifiers} />
+            ) : null}
+            {author.type ? <Type type={author.type} /> : null}
           </>
         )}
       </>
@@ -46,7 +132,7 @@ export class DocumentAuthors extends Component {
           content={this.renderPopupContent(author)}
           position="top center"
           flowing
-          trigger={<Icon name="question circle outline" />}
+          trigger={<Icon name="info circle" />}
         />
       </>
     );
@@ -75,24 +161,26 @@ export class DocumentAuthors extends Component {
       popupDisplay,
       delimiter,
       authorsLimit,
+      scrollLimit,
+      expandable,
     } = this.props;
     const otherAuthors = otherAuthorsDisplay ? otherAuthorsDisplay : 'et al.';
 
     let authors = metadata.authors;
-    let classes = 'document-authors-list-wrapper';
+    let scrollableClass;
     if (metadata && metadata.authors) {
       authors = [...metadata.authors];
-      classes =
-        metadata.authors.length > 300 && this.state.expanded
-          ? classes + ' document-authors-list-height'
-          : classes;
+      scrollableClass =
+        metadata.authors.length > scrollLimit && this.state.expanded
+          ? 'expanded'
+          : '';
       if (authorsLimit && !this.state.expanded) {
         authors = authors.slice(0, authorsLimit);
       }
     }
 
     return (
-      <div className={classes}>
+      <div className={`document-authors-list-wrapper ${scrollableClass}`}>
         {prefix ? prefix + ' ' : null}
         {metadata && metadata.authors ? (
           <List
@@ -115,9 +203,11 @@ export class DocumentAuthors extends Component {
           </List>
         ) : null}
 
-        {authorsLimit &&
+        {metadata &&
+          metadata.authors &&
+          authorsLimit &&
           authorsLimit < metadata.authors.length &&
-          this.renderExpandButton()}
+          (expandable ? this.renderExpandButton() : ' et al.')}
       </div>
     );
   }
@@ -129,8 +219,15 @@ DocumentAuthors.propTypes = {
   otherAuthorsDisplay: PropTypes.string,
   listItemAs: PropTypes.string,
   delimiter: PropTypes.string.isRequired,
+  popupDisplay: PropTypes.bool,
+  expandable: PropTypes.bool,
+  scrollLimit: PropTypes.number,
+  authorsLimit: PropTypes.number,
+  allFields: PropTypes.bool,
 };
 
 DocumentAuthors.defaultProps = {
   delimiter: '; ',
+  scrollLimit: Infinity,
+  allFields: false,
 };

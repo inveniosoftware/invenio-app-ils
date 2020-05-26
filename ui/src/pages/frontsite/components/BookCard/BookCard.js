@@ -61,7 +61,7 @@ export class BookCard extends Component {
         <Card.Content>
           <Card.Header>{data.metadata.title}</Card.Header>
           <Card.Meta>
-            <DocumentAuthors metadata={data.metadata} />
+            <DocumentAuthors metadata={data.metadata} authorsLimit={10} />
             <div>
               {!isEmpty(data.metadata.imprints) ? (
                 <>

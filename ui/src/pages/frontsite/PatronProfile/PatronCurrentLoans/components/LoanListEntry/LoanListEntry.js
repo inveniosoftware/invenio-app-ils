@@ -63,7 +63,10 @@ export class LoanListEntry extends Component {
           <Grid columns={2}>
             <Grid.Column mobile={16} tablet={8} computer={8}>
               <Item.Meta>
-                <DocumentAuthors metadata={loan.metadata.document} />
+                <DocumentAuthors
+                  metadata={loan.metadata.document}
+                  authorsLimit={10}
+                />
                 Loaned on {toShortDate(loan.metadata.start_date)}
               </Item.Meta>
               <ExtensionCount count={loan.metadata.extension_count} />
