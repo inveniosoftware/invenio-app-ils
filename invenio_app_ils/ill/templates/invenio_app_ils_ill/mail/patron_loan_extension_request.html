@@ -1,0 +1,16 @@
+{% block subject %}
+InvenioILS: your loan extension request for "{{ document.title }}" has been registered.
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.email }},
+
+your loan extension request for "{{ document.full_title }}" has been registered and you should receive an answer soon.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan extension request for "{{ document.full_title }}" has been registered and you should receive an answer soon.
+{% endblock %}

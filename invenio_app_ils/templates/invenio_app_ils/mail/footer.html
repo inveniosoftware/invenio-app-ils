@@ -1,0 +1,13 @@
+{% block footer_plain %}
+You can see your ongoing and past loans in your profile page <{{ spa_routes.HOST }}{{ spa_routes.PATHS["profile"] }}>.
+
+Kind regards,
+InvenioILS
+{% endblock %}
+
+{% block footer_html %}
+You can see your ongoing and past loans in your <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['profile'] }}">profile page</a>.
+
+Kind regards,
+InvenioILS
+{% endblock %}

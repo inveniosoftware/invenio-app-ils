@@ -80,51 +80,62 @@ def _records_create_and_index(db, objs, cls, pid_type):
     db.session.commit()
     for rec in recs:
         indexer.index(rec)
+    return recs
 
 
 @pytest.fixture()
 def testdata(app, db, es_clear, users):
     """Create, index and return test data."""
-    locations = load_json_from_datadir("locations.json")
-    _records_create_and_index(db, locations, Location, LOCATION_PID_TYPE)
-
-    int_locs = load_json_from_datadir("internal_locations.json")
-    _records_create_and_index(
-        db, int_locs, InternalLocation, INTERNAL_LOCATION_PID_TYPE
+    data = load_json_from_datadir("locations.json")
+    locations = _records_create_and_index(
+        db, data, Location, LOCATION_PID_TYPE
     )
 
-    series_data = load_json_from_datadir("series.json")
-    _records_create_and_index(db, series_data, Series, SERIES_PID_TYPE)
-
-    documents = load_json_from_datadir("documents.json")
-    _records_create_and_index(db, documents, Document, DOCUMENT_PID_TYPE)
-
-    items = load_json_from_datadir("items.json")
-    _records_create_and_index(db, items, Item, ITEM_PID_TYPE)
-
-    eitems = load_json_from_datadir("eitems.json")
-    _records_create_and_index(db, eitems, EItem, EITEM_PID_TYPE)
-
-    loans = load_json_from_datadir("loans.json")
-    _records_create_and_index(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
-
-    doc_reqs = load_json_from_datadir("document_requests.json")
-    _records_create_and_index(
-        db, doc_reqs, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
+    data = load_json_from_datadir("internal_locations.json")
+    int_locs = _records_create_and_index(
+        db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE
     )
 
-    acq_vendors = load_json_from_datadir("acq_vendors.json")
-    _records_create_and_index(db, acq_vendors, Vendor, VENDOR_PID_TYPE)
+    data = load_json_from_datadir("series.json")
+    series = _records_create_and_index(db, data, Series, SERIES_PID_TYPE)
 
-    acq_orders = load_json_from_datadir("acq_orders.json")
-    _records_create_and_index(db, acq_orders, Order, ORDER_PID_TYPE)
+    data = load_json_from_datadir("documents.json")
+    documents = _records_create_and_index(
+        db, data, Document, DOCUMENT_PID_TYPE
+    )
 
-    ill_libraries = load_json_from_datadir("ill_libraries.json")
-    _records_create_and_index(db, ill_libraries, Library, LIBRARY_PID_TYPE)
+    data = load_json_from_datadir("items.json")
+    items = _records_create_and_index(db, data, Item, ITEM_PID_TYPE)
 
-    ill_brw_reqs = load_json_from_datadir("ill_borrowing_requests.json")
-    _records_create_and_index(
-        db, ill_brw_reqs, BorrowingRequest, BORROWING_REQUEST_PID_TYPE
+    data = load_json_from_datadir("eitems.json")
+    eitems = _records_create_and_index(db, data, EItem, EITEM_PID_TYPE)
+
+    data = load_json_from_datadir("loans.json")
+    loans = _records_create_and_index(
+        db, data, Loan, CIRCULATION_LOAN_PID_TYPE
+    )
+
+    data = load_json_from_datadir("document_requests.json")
+    doc_reqs = _records_create_and_index(
+        db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
+    )
+
+    data = load_json_from_datadir("acq_vendors.json")
+    acq_vendors = _records_create_and_index(
+        db, data, Vendor, VENDOR_PID_TYPE
+    )
+
+    data = load_json_from_datadir("acq_orders.json")
+    acq_orders = _records_create_and_index(db, data, Order, ORDER_PID_TYPE)
+
+    data = load_json_from_datadir("ill_libraries.json")
+    ill_libraries = _records_create_and_index(
+        db, data, Library, LIBRARY_PID_TYPE
+    )
+
+    data = load_json_from_datadir("ill_borrowing_requests.json")
+    ill_brw_reqs = _records_create_and_index(
+        db, data, BorrowingRequest, BORROWING_REQUEST_PID_TYPE
     )
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
@@ -135,9 +146,14 @@ def testdata(app, db, es_clear, users):
         "documents": documents,
         "internal_locations": int_locs,
         "items": items,
+        "eitems": eitems,
         "loans": loans,
         "locations": locations,
-        "series": series_data,
+        "series": series,
+        "acq_vendors": acq_vendors,
+        "acq_orders": acq_orders,
+        "ill_libraries": ill_libraries,
+        "ill_brw_reqs": ill_brw_reqs,
     }
 
 

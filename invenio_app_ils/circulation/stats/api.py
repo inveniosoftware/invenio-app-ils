@@ -7,16 +7,14 @@
 
 """APIs for ILS circulation statistics."""
 
-from invenio_circulation.proxies import current_circulation
-
+from invenio_app_ils.circulation.search import get_most_loaned_documents
 from invenio_app_ils.proxies import current_app_ils
 
 
 def fetch_most_loaned_documents(from_date, to_date, bucket_size):
     """Fetch the documents with the most loans within the date interval."""
     # Create loans aggregation
-    search_cls = current_circulation.loan_search_cls
-    most_loaned = search_cls().get_most_loaned_documents(
+    most_loaned = get_most_loaned_documents(
         from_date,
         to_date,
         bucket_size

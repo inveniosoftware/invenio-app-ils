@@ -9,9 +9,9 @@
 
 import pytest
 from elasticsearch import VERSION as ES_VERSION
-from invenio_circulation.proxies import current_circulation
 from tests.api.helpers import user_login
 
+from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
     ItemHasActiveLoanError
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
@@ -22,15 +22,13 @@ lt_es7 = ES_VERSION[0] < 7
 
 def test_update_item_status(client, users, json_headers, testdata, db):
     """Test update item status."""
+
     def get_active_loan_pid_and_item_pid():
-        LoanSearch = current_circulation.loan_search_cls
         for t in testdata["items"]:
             if t["status"] == "CAN_CIRCULATE":
                 item_pid = dict(type=ITEM_PID_TYPE, value=t["pid"])
                 active_loan = (
-                    LoanSearch().get_active_loan_by_item_pid(item_pid)
-                    .execute()
-                    .hits
+                    get_active_loan_by_item_pid(item_pid).execute().hits
                 )
                 total = (
                     active_loan.total if lt_es7 else active_loan.total.value

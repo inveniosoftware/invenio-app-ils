@@ -138,9 +138,11 @@ class LoanMailResource(IlsCirculationResource):
     @pass_record
     def post(self, pid, record, **kwargs):
         """Loan email post method."""
-        if not circulation_overdue_loan_days(record) > 0:
+        days_ago = circulation_overdue_loan_days(record)
+        is_overdue = days_ago > 0
+        if is_overdue:
             raise OverdueLoansMailError(description="This loan is not overdue")
-        send_loan_overdue_reminder_mail(record)
+        send_loan_overdue_reminder_mail(record, days_ago)
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )

@@ -21,12 +21,8 @@ from invenio_app_ils.proxies import current_app_ils
 
 def register_circulation_signals():
     """Register Circulation signal."""
-    loan_state_changed.connect(
-        send_email_after_loan_change, weak=False
-    )
-    loan_replace_item.connect(
-        index_after_loan_replace_item, weak=False
-    )
+    loan_state_changed.connect(send_email_after_loan_change, weak=False)
+    loan_replace_item.connect(index_after_loan_replace_item, weak=False)
 
 
 def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
@@ -52,4 +48,8 @@ def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
 
 def send_email_after_loan_change(_, initial_loan, loan, trigger):
     """Send email notification when the loan changes."""
-    send_loan_mail(trigger, loan, message_ctx=dict(initial_loan=initial_loan))
+    send_loan_mail(
+        loan_action=trigger,
+        loan=loan,
+        message_ctx=dict(initial_loan=initial_loan),
+    )

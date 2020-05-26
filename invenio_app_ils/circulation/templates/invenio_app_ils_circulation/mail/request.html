@@ -1,10 +1,15 @@
 {% block subject %}
-Request for "{{ document.title }}" registered
+InvenioILS: your loan request for "{{ document.title }}" has been registered.
 {% endblock %}
 
-
-{% block body %}
+{% block body_plain %}
 Dear {{ patron.email }},
 
-The request for "{{ document.title }}" has been registered.
+your loan request for "{{ document.full_title }}" has been registered.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan request for "{{ document.full_title }}" has been registered.
 {% endblock %}

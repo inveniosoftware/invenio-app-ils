@@ -5,28 +5,27 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Document requests mail tasks."""
+"""ILL mail tasks."""
 
-from invenio_app_ils.document_requests.mail.factory import \
-    document_request_message_creator_factory
+from invenio_app_ils.ill.mail.factory import ill_message_creator_factory
 from invenio_app_ils.mail.messages import get_common_message_ctx
 from invenio_app_ils.mail.tasks import send_ils_email
 
 
-def send_document_request_mail(request, action=None, message_ctx={}, **kwargs):
-    """Send a document request email.
+def send_ill_mail(record, action=None, message_ctx={}, **kwargs):
+    """Send an ILL email.
 
-    :param request: the document request record.
+    :param record: the borrowing request record.
     :param action: the action performed, if any.
     :param message_ctx: any other parameter to be passed as ctx in the msg.
     """
-    creator = document_request_message_creator_factory()
+    creator = ill_message_creator_factory()
 
-    message_ctx.update(get_common_message_ctx(record=request))
+    message_ctx.update(get_common_message_ctx(record=record))
     patron = message_ctx["patron"]
 
     msg = creator(
-        request,
+        record,
         action=action,
         message_ctx=message_ctx,
         recipients=[patron.email],

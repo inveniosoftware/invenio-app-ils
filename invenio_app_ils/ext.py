@@ -177,7 +177,10 @@ class InvenioAppIls(object):
         app.extensions["invenio-app-ils"] = _InvenioAppIlsState(app)
         app.register_blueprint(
             Blueprint(
-                "invenio_app_ils_static", __name__, static_folder="static"
+                "invenio_app_ils",
+                __name__,
+                static_folder="static",
+                template_folder="templates",
             )
         )
         # disable warnings being logged to Sentry

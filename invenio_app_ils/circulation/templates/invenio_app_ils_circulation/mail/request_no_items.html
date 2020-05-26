@@ -1,11 +1,17 @@
 {% block subject %}
-Request for "{{ document.title }}" registered
+InvenioILS: your loan request for "{{ document.title }}" has been registered.
 {% endblock %}
 
-
-{% block body %}
+{% block body_plain %}
 Dear {{ patron.email }},
 
-The request for "{{ document.title }}" has been registered but the are no available copies at the moment.
-You will be notified the requested document will be available.
+your loan request for "{{ document.full_title }}" has been registered. However, the are no available copies at the moment.
+We will notify you as soon as a copy will be available.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan request for "{{ document.full_title }}" has been registered. However, the are no available copies at the moment.
+We will notify you as soon as a copy will be available.
 {% endblock %}

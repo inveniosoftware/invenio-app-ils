@@ -25,43 +25,37 @@ class LoanMessage(BlockTemplatedMessage):
         checkin="checkin.html",
         extend="extend.html",
         cancel="cancel.html",
-        overdue_reminder="overdue.html",
+        overdue_reminder="overdue_reminder.html",
+        expiring_reminder="will_expire_in_reminder.html"
     )
 
-    def __init__(self, trigger, message_ctx, **kwargs):
-        """Create loan message based on the trigger."""
-        self.trigger = trigger
-        self.loan = message_ctx.get("loan", {})
+    def __init__(self, loan, action, message_ctx, **kwargs):
+        """Create loan message based on the loan action."""
+        self.loan = loan
+
         templates = dict(
             self.default_templates,
             **current_app.config["ILS_CIRCULATION_MAIL_TEMPLATES"]
         )
-        if not self.trigger or self.trigger not in templates:
+
+        if not action or action not in templates:
             raise KeyError(
-                "Invalid trigger argument `{0}` or not found in "
-                "templates `{1}`.".format(self.trigger, list(templates.keys()))
+                "Invalid loan action argument `{0}` or not found in "
+                "templates `{1}`.".format(
+                    action, list(templates.keys())
+                )
             )
 
-        sender = current_app.config["MAIL_NOTIFY_SENDER"]
-        bcc = current_app.config["MAIL_NOTIFY_BCC"]
-        cc = current_app.config["MAIL_NOTIFY_CC"]
-
+        name = self.get_template(action)
         super(LoanMessage, self).__init__(
-            template="{}/{}".format(
-                self.templates_base_dir,
-                templates[self.trigger_template]
-            ),
-            ctx=dict(**message_ctx, **kwargs),
-            sender=kwargs.pop("sender", sender),
-            cc=kwargs.pop("cc", cc),
-            bcc=kwargs.pop("bcc", bcc),
+            template="{}/{}".format(self.templates_base_dir, templates[name]),
+            ctx=dict(loan=dict(loan), **message_ctx, **kwargs),
             **kwargs
         )
 
-    @property
-    def trigger_template(self):
-        """Get the template filename based on the trigger."""
-        new_state = self.loan.get("state")
+    def get_template(self, action):
+        """Get the template filename based on the loan action."""
+        new_state = self.loan["state"]
         document_pid = self.loan.get("document_pid")
         is_request = (
             new_state in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
@@ -72,4 +66,11 @@ class LoanMessage(BlockTemplatedMessage):
             and not get_available_item_by_doc_pid(document_pid)
         ):
             return "request_no_items"
-        return self.trigger
+        return action
+
+    def dump(self):
+        """Dump loan email data."""
+        data = super().dump()
+        data["loan_pid"] = self.loan["pid"]
+        return data
+

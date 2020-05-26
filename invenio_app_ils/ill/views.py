@@ -23,12 +23,18 @@ from .loaders import patron_loan_create_action_loader, \
     patron_loan_extension_accept_loader, \
     patron_loan_extension_decline_loader, \
     patron_loan_extension_request_loader
+from .mail.tasks import send_ill_mail
 from .proxies import current_ils_ill
 
 
-def create_ill_actions_blueprint(app):
-    """Create ILL actions blueprint."""
-    blueprint = Blueprint("ils_ill_actions", __name__, url_prefix="")
+def create_ills_blueprint(app):
+    """Create ILL blueprint."""
+    blueprint = Blueprint(
+        "invenio_app_ils_ill",
+        __name__,
+        template_folder="templates",
+        url_prefix="",
+    )
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
     options = endpoints.get(BORROWING_REQUEST_PID_TYPE, {})
@@ -99,7 +105,8 @@ class PatronLoanCreateActionResource(ILLActionResource):
         data = self.loader()
 
         record.patron_loan.create(
-            start_date=data["loan_start_date"], end_date=data["loan_end_date"],
+            start_date=data["loan_start_date"],
+            end_date=data["loan_end_date"],
             transaction_location_pid=data["transaction_location_pid"],
         )
 
@@ -149,6 +156,7 @@ class RequestPatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
+        send_ill_mail(record, action="extension_requested")
         return self.make_response(pid, record, 200)
 
 
@@ -173,6 +181,7 @@ class AcceptPatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
+        send_ill_mail(record, action="extension_accepted")
         return self.make_response(pid, record, 200)
 
 
@@ -193,4 +202,5 @@ class DeclinePatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
+        send_ill_mail(record, action="extension_declined")
         return self.make_response(pid, record, 200)

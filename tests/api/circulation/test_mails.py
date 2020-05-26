@@ -7,13 +7,23 @@
 
 """Test email notifications on transitions."""
 
+import random
+from datetime import timedelta
+
+import arrow
+from flask import current_app
 from flask_security import login_user
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
+from invenio_indexer.api import RecordIndexer
+from invenio_search import current_search
 
-from invenio_app_ils.circulation.mail.tasks import \
-    send_loan_overdue_reminder_mail
 from invenio_app_ils.records.api import Patron
+
+from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
+    send_expiring_loans_mail_reminder,
+    send_overdue_loans_mail_reminder,
+)
 
 
 def test_email_on_loan_checkout(
@@ -33,15 +43,102 @@ def test_email_on_loan_checkout(
         assert len(outbox) == 1
 
 
-def test_email_on_overdue_loan(app_with_mail, users, testdata, mocker):
+def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
     """Test that an email is sent for a loan that is overdue."""
     mocker.patch(
         "invenio_app_ils.records.api.Patron.get_patron",
         return_value=Patron(users["patron1"].id),
     )
-    loan_data = testdata["loans"][-1]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
+
+    def prepare_data():
+        """Prepare data."""
+        days = current_app.config[
+            "ILS_CIRCULATION_MAIL_OVERDUE_REMINDER_INTERVAL"
+        ]
+        loans = testdata["loans"]
+
+        recs = []
+        now = arrow.utcnow()
+
+        def new_end_date(loan, date):
+            loan["end_date"] = date.date().isoformat()
+            loan["state"] = "ITEM_ON_LOAN"
+            loan.commit()
+            recs.append(loan)
+
+        # overdue loans
+        date = now - timedelta(days=days)
+        new_end_date(loans[0], date)
+
+        date = now - timedelta(days=days * 2)
+        new_end_date(loans[1], date)
+
+        # not overdue or overdue but not to be notified
+        remaining_not_overdue = loans[2:]
+        for loan in remaining_not_overdue:
+            days = random.choice([-1, 0, 1])
+            date = now - timedelta(days=days)
+            new_end_date(loan, date)
+        db.session.commit()
+
+        indexer = RecordIndexer()
+        for rec in recs:
+            indexer.index(rec)
+
+        current_search.flush_and_refresh(index="*")
+
+    prepare_data()
+
     with app_with_mail.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
-        send_loan_overdue_reminder_mail(loan)
-        assert len(outbox) == 1
+        send_overdue_loans_mail_reminder.apply_async()
+        assert len(outbox) == 2
+
+
+def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
+    """Test that an email is sent for a loan that is about to expire."""
+    mocker.patch(
+        "invenio_app_ils.records.api.Patron.get_patron",
+        return_value=Patron(users["patron1"].id),
+    )
+
+    def prepare_data():
+        """Prepare data."""
+        days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
+        loans = testdata["loans"]
+
+        recs = []
+        now = arrow.utcnow()
+
+        def new_end_date(loan, date):
+            loan["end_date"] = date.date().isoformat()
+            loan["state"] = "ITEM_ON_LOAN"
+            loan.commit()
+            recs.append(loan)
+
+        # expiring loans
+        date = now + timedelta(days=days)
+        new_end_date(loans[0], date)
+        new_end_date(loans[1], date)
+        new_end_date(loans[2], date)
+
+        # not expiring
+        remaining_not_overdue = loans[3:]
+        for loan in remaining_not_overdue:
+            days = random.choice([-2, -1, 0, 1, 2])
+            date = now + timedelta(days=days)
+            new_end_date(loan, date)
+        db.session.commit()
+
+        indexer = RecordIndexer()
+        for rec in recs:
+            indexer.index(rec)
+
+        current_search.flush_and_refresh(index="*")
+
+    prepare_data()
+
+    with app_with_mail.extensions["mail"].record_messages() as outbox:
+        assert len(outbox) == 0
+        send_expiring_loans_mail_reminder.apply_async()
+        assert len(outbox) == 3

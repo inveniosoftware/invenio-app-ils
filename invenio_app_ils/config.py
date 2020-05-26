@@ -122,8 +122,13 @@ MAIL_NOTIFY_BCC = []
 ILS_MAIL_ENABLE_TEST_RECIPIENTS = False
 #: When ILS_MAIL_ENABLE_TEST_RECIPIENTS=True, all emails are sent here
 ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
-#: Document request state email templates
-ILS_MAIL_DOCUMENT_REQUEST_TEMPLATES = {}
+
+#: Document request message creator class
+ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = (
+    "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"
+)
+#: Document request email templates
+ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
 
 # Assets
 # ======
@@ -146,10 +151,8 @@ ACCOUNTS_REST_CONFIRM_EMAIL_ENDPOINT = "/accounts/confirm-email"
 
 # Celery configuration
 # ====================
-
 BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of message broker for Celery (default is RabbitMQ).
-
 CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of backend for result storage (default is Redis).
 CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
@@ -163,7 +166,11 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.clean_session_table",
         "schedule": timedelta(minutes=60),
     },
-    "overdue_loans": {
+    "send_expiring_loans_loans": {
+        "task": "invenio_app_ils.circulation.mail.tasks.send_expiring_loans_mail_reminder",
+        "schedule": timedelta(days=1),
+    },
+    "send_overdue_loan_reminders": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
         "schedule": timedelta(days=1),
     },
@@ -214,6 +221,12 @@ SESSION_COOKIE_SECURE = True
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
+
+#: Single Page Application host and routes, useful in templates/emails
+SPA_HOST = "http://localhost:3000"
+SPA_PATHS = dict(
+    profile="/profile"
+)
 
 # OAI-PMH
 # =======

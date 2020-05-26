@@ -1,0 +1,21 @@
+{% block subject %}
+InvenioILS: your loan for "{{ document.title }}" is overdue!
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.email }},
+
+your loan on "{{ document.title }}" expired {{ days_ago }} days ago.
+
+You have reached the maximum period for loaning the literature. You are kindly requested
+to return it at the library or request an extension for your loan.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan on "{{ document.title }}" expired {{ days_ago }} days ago.
+
+You have reached the maximum period for loaning the literature. You are kindly requested
+to return it at the library or request an extension for your loan.
+{% endblock %}

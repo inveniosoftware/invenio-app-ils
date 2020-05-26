@@ -23,7 +23,7 @@ from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, \
 
 def _create_loan_action(pid, data, client, json_headers):
     """Send request to create a new loan from the ILL."""
-    url = url_for("ils_ill_actions.illbid_create_loan", pid_value=pid)
+    url = url_for("invenio_app_ils_ill.illbid_create_loan", pid_value=pid)
     data["transaction_location_pid"] = "1"
     return client.post(url, headers=json_headers, data=json.dumps(data))
 
