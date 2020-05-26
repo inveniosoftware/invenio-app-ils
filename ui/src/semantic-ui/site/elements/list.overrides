@@ -3,79 +3,91 @@
 *******************************/
 
 /* GLOBAL */
-  .document-authors-list-wrapper {
-    width: 100%;
+.document-authors-list-wrapper {
+  width: 100%;
+
+  &.expanded {
+    max-height: 5em;
+    overflow-y: scroll;
+  }
+}
+
+.ui.horizontal.list {
+  &.document-authors-list {
+    display: inline;
+  }
+}
+
+.ui.list {
+  &.document-items-location-filters {
+    padding: 0.5em;
   }
 
-
-
-  .ui.list {
-    &.document-items-location-filters {
-      padding: 0.5em;
+  &.horizontal {
+    &.document-authors-list,
+    &.document-languages-list {
+      .item {
+        margin-left: 0.5rem;
+      }
     }
+  }
+}
 
-    &.horizontal {
-      &.document-authors-list, &.document-languages-list {
+.ui.label {
+  .ui.list.horizontal.document-languages-list {
+    .item {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.ui.container.fs-search-body {
+  .ui.card {
+    .ui.list {
+      &.horizontal.document-authors-list {
         .item {
-          margin-left: 0.5rem;
+          margin-left: 0.1rem;
         }
       }
     }
   }
-
-  .ui.label {
-      .ui.list.horizontal.document-languages-list {
-        .item{
-          font-size: 0.9rem;
-        }
-      }
-    }
-
-  .ui.container.fs-search-body {
-    .ui.card {
-      .ui.list {
-        &.horizontal.document-authors-list {
-          .item {
-            margin-left: 0.1rem;
-          }
-        }
-      }
-    }
-  }
+}
 
 /* BACKOFFICE */
-@{bo-parent-selector}{
-    .ui.list{
-      .item {
-        >.content{
-          /* fix for semantic-ui list inside of accordion display */
-          padding: 0;
-        }
-      }
-      &.document-authors-list, &.document-languages-list,
-      &.document-circulation, &.document-relations{
-        font-size: 1em;
-        margin: 0;
-        .item{
-         padding: 0.1em;
-        }
-      }
-      &.document-circulation{
-       color: rgba(0,0,0,0.6);
-        i.icon{
-          margin-right: -0.2em;
-        }
+@{bo-parent-selector} {
+  .ui.list {
+    .item {
+      > .content {
+        /* fix for semantic-ui list inside of accordion display */
+        padding: 0;
       }
     }
-  .ui.items{
+    &.document-authors-list,
+    &.document-languages-list,
+    &.document-circulation,
+    &.document-relations {
+      font-size: 1em;
+      margin: 0;
+      .item {
+        padding: 0.1em;
+      }
+    }
+    &.document-circulation {
+      color: rgba(0, 0, 0, 0.6);
+      i.icon {
+        margin-right: -0.2em;
+      }
+    }
+  }
+  .ui.items {
     .item {
       .content {
         .meta {
           &.metadata-fields {
             .ui.list {
               margin-top: 0.2em;
-              .item{
-                 padding: 0.1em;
+              .item {
+                padding: 0.1em;
               }
             }
           }

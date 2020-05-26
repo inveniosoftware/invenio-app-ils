@@ -45,6 +45,7 @@ export class LoanListEntry extends Component {
                 <DocumentAuthors
                   metadata={loan.metadata.document}
                   prefix={'by '}
+                  authorsLimit={10}
                 />
               </Item.Meta>
             </Grid.Column>

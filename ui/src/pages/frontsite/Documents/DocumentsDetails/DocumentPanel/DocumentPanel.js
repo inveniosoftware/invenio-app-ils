@@ -41,6 +41,7 @@ export default class DocumentPanel extends Component {
                       prefix={'by '}
                       listItemAs={'h4'}
                       metadata={doc.metadata}
+                      authorsLimit={10}
                     />
                   </ILSParagraphPlaceholder>
                   <ILSParagraphPlaceholder

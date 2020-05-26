@@ -120,7 +120,11 @@ export default class DocumentListEntry extends Component {
           <Grid columns={3}>
             <Grid.Column computer={6} largeScreen={5}>
               <Item.Meta className={'document-authors'}>
-                <DocumentAuthors metadata={document.metadata} prefix={'by '} />
+                <DocumentAuthors
+                  metadata={document.metadata}
+                  prefix={'by '}
+                  authorsLimit={10}
+                />
               </Item.Meta>
               <DocumentLanguages
                 metadata={document.metadata}

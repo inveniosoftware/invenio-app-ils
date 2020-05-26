@@ -18,11 +18,11 @@
   }
 }
 
-
 @{fs-parent-selector} {
   .button-show-more {
     color: @fsPrimaryColor;
     font-weight: bold;
+    cursor: pointer;
   }
 
   .ui.button {
@@ -33,21 +33,19 @@
     &.basic.fs-button-sort-mobile {
       box-shadow: none;
       border: 0;
-
     }
 
     &.headline-quick-access {
       margin: 0.5em;
     }
   }
-
 }
 
 @{bo-parent-selector} {
-
   .button-show-more {
     color: @primaryColor;
     font-weight: bold;
+    cursor: pointer;
   }
 
   .bo-action-menu {
@@ -56,11 +54,9 @@
     }
   }
 
-
   .ui.button {
     &.send-overdue-reminder-button {
       background-color: @orange;
     }
   }
 }
-

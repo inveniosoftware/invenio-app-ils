@@ -68,7 +68,13 @@ export class DocumentInfo extends Component {
             <Table.Row>
               <Table.Cell>Authors</Table.Cell>
               <Table.Cell>
-                <DocumentAuthors metadata={this.metadata} />
+                <DocumentAuthors
+                  metadata={this.metadata}
+                  popupDisplay={true}
+                  authorsLimit={20}
+                  scrollLimit={300}
+                  expandable={true}
+                />
               </Table.Cell>
             </Table.Row>
             <Table.Row>

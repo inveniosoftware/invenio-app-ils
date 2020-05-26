@@ -93,6 +93,8 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
               className="meta"
             >
               <DocumentAuthors
+                allFields={false}
+                authorsLimit={10}
                 delimiter="; "
                 metadata={
                   Object {
@@ -124,11 +126,13 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                     "title": "Lorem",
                   }
                 }
+                scrollLimit={Infinity}
               >
                 <div
-                  className="document-authors-list-wrapper"
+                  className="document-authors-list-wrapper "
                 >
                   <List
+                    as=""
                     className="document-authors-list"
                     horizontal={true}
                   >
@@ -137,7 +141,6 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                       role="list"
                     >
                       <ListItem
-                        as=""
                         key="Key0"
                       >
                         <div
@@ -149,7 +152,6 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                         </div>
                       </ListItem>
                       <ListItem
-                        as=""
                         key="Key1"
                       >
                         <div
@@ -292,6 +294,8 @@ exports[`BookCard tests should render the BookCard 1`] = `
               className="meta"
             >
               <DocumentAuthors
+                allFields={false}
+                authorsLimit={10}
                 delimiter="; "
                 metadata={
                   Object {
@@ -323,11 +327,13 @@ exports[`BookCard tests should render the BookCard 1`] = `
                     "title": "Lorem",
                   }
                 }
+                scrollLimit={Infinity}
               >
                 <div
-                  className="document-authors-list-wrapper"
+                  className="document-authors-list-wrapper "
                 >
                   <List
+                    as=""
                     className="document-authors-list"
                     horizontal={true}
                   >
@@ -336,7 +342,6 @@ exports[`BookCard tests should render the BookCard 1`] = `
                       role="list"
                     >
                       <ListItem
-                        as=""
                         key="Key0"
                       >
                         <div
@@ -348,7 +353,6 @@ exports[`BookCard tests should render the BookCard 1`] = `
                         </div>
                       </ListItem>
                       <ListItem
-                        as=""
                         key="Key1"
                       >
                         <div

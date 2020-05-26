@@ -33,6 +33,7 @@ class EItemListEntry extends Component {
                 <DocumentAuthors
                   metadata={eitem.metadata.document}
                   prefix={'by '}
+                  authorsLimit={10}
                 />
               </Item.Meta>
               {eitem.metadata.doi && (

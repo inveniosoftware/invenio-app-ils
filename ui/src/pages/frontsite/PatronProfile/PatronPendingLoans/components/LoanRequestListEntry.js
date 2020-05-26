@@ -35,7 +35,10 @@ export class LoanRequestListEntry extends Component {
           <Grid columns={2}>
             <Grid.Column mobile={16} tablet={8} computer={8}>
               <Item.Meta>
-                <DocumentAuthors metadata={loan.metadata.document} />
+                <DocumentAuthors
+                  metadata={loan.metadata.document}
+                  authorsLimit={10}
+                />
                 Requested on {toShortDate(loan.metadata.request_start_date)}
                 <br />
                 Valid until {toShortDate(loan.metadata.request_expire_date)}

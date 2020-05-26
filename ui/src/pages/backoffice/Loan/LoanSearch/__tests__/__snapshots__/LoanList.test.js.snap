@@ -231,6 +231,8 @@ exports[`LoanList tests should load the LoanList component 2`] = `
                                   </h5>
                                 </Header>
                                 <DocumentAuthors
+                                  allFields={false}
+                                  authorsLimit={10}
                                   delimiter="; "
                                   metadata={
                                     Object {
@@ -238,9 +240,10 @@ exports[`LoanList tests should load the LoanList component 2`] = `
                                     }
                                   }
                                   prefix="by "
+                                  scrollLimit={Infinity}
                                 >
                                   <div
-                                    className="document-authors-list-wrapper"
+                                    className="document-authors-list-wrapper undefined"
                                   >
                                     by  
                                   </div>
