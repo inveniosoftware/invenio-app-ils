@@ -10,6 +10,8 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields
 
+from invenio_app_ils.records.loaders.schemas.price import PriceSchema
+
 
 class ISBNSchema(Schema):
     """ISBN schema."""
@@ -31,6 +33,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
+    acquisition_pid = fields.Str()
     barcode = fields.Str()
     circulation_restriction = fields.Str()  # TODO: this should be an enum
     description = fields.Str()
@@ -43,6 +46,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     medium = fields.Str()  # TODO: this should be an enum
     number_of_pages = fields.Int()
     physical_description = fields.Str()
+    price = fields.Nested(PriceSchema)
     shelf = fields.Str()
     status = fields.Str()  # TODO: this should be an enum
 

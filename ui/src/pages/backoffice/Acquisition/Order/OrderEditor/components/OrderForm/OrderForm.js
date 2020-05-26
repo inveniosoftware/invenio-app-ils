@@ -12,6 +12,7 @@ import { vocabulary as vocabularyApi } from '@api';
 import { invenioConfig } from '@config';
 import { sessionManager } from '@authentication/services';
 import _has from 'lodash/has';
+import { withCancel } from '@api/utils';
 
 const orderSubmitSerializer = values => {
   const submitValues = { ...values };
@@ -41,6 +42,10 @@ export class OrderForm extends Component {
 
   componentDidMount() {
     this.fetchCurrencies();
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchData && this.cancellableFetchData.cancel();
   }
 
   get buttons() {
@@ -81,19 +86,24 @@ export class OrderForm extends Component {
   });
 
   fetchCurrencies = async () => {
+    this.cancellableFetchData = withCancel(this.query());
     try {
-      const response = await this.query();
+      const response = await this.cancellableFetchData.promise;
       const currencies = response.data.hits.map(hit => this.serializer(hit));
       this.setState({ isLoading: false, currencies: currencies, error: null });
     } catch (error) {
-      this.setState({
-        isloading: false,
-        options: [{ key: '', value: '', text: 'Failed to load currencies.' }],
-        error: {
-          content: 'Failed to load currencies.',
-          pointing: 'above',
-        },
-      });
+      if (error !== 'UNMOUNTED') {
+        this.setState({
+          isloading: false,
+          currencies: [
+            { key: '', value: '', text: 'Failed to load currencies.' },
+          ],
+          error: {
+            content: 'Failed to load currencies.',
+            pointing: 'above',
+          },
+        });
+      }
     }
   };
 

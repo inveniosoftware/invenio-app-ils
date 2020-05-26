@@ -4,6 +4,7 @@ import { vocabulary as vocabularyApi } from '@api';
 import { SelectField } from './SelectField';
 import { invenioConfig } from '@config';
 import { AccordionField } from './AccordionField';
+import { withCancel } from '@api/utils';
 
 export class VocabularyField extends React.Component {
   constructor(props) {
@@ -12,8 +13,17 @@ export class VocabularyField extends React.Component {
     this.state = {
       isLoading: true,
       error: null,
-      options: [],
+      entries: [],
     };
+  }
+
+  componentDidMount() {
+    const serializer = this.props.serializer || this.serializer;
+    this.fetchVocabularies(serializer);
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchData && this.cancellableFetchData.cancel();
   }
 
   query = () => {
@@ -32,27 +42,26 @@ export class VocabularyField extends React.Component {
   });
 
   fetchVocabularies = async serializer => {
+    this.cancellableFetchData = withCancel(this.query());
     try {
-      const response = await this.query();
-      const options = response.data.hits.map(hit => serializer(hit));
-
-      this.setState({ isLoading: false, options: options, error: null });
+      const response = await this.cancellableFetchData.promise;
+      const entries = response.data.hits.map(hit => serializer(hit));
+      this.setState({ isLoading: false, entries: entries, error: null });
     } catch (error) {
-      this.setState({
-        isloading: false,
-        options: [{ key: '', value: '', text: 'Failed to load vocabularies.' }],
-        error: {
-          content: 'Failed to load vocabularies.',
-          pointing: 'above',
-        },
-      });
+      if (error !== 'UNMOUNTED') {
+        this.setState({
+          isloading: false,
+          entries: [
+            { key: '', value: '', text: 'Failed to load vocabularies.' },
+          ],
+          error: {
+            content: 'Failed to load vocabularies.',
+            pointing: 'above',
+          },
+        });
+      }
     }
   };
-
-  componentDidMount() {
-    const serializer = this.props.serializer || this.serializer;
-    this.fetchVocabularies(serializer);
-  }
 
   render() {
     const {
@@ -64,7 +73,7 @@ export class VocabularyField extends React.Component {
       type,
       ...uiProps
     } = this.props;
-    const { isLoading, options } = this.state;
+    const { isLoading, entries } = this.state;
     const noResultsMessage = isLoading
       ? 'Loading options...'
       : `No ${type} vocabularies found.`;
@@ -75,7 +84,7 @@ export class VocabularyField extends React.Component {
         label={accordion ? null : label}
         multiple={multiple}
         error={this.state.error}
-        options={options}
+        options={entries}
         loading={isLoading}
         upward={false}
         noResultsMessage={noResultsMessage}
