@@ -1297,21 +1297,17 @@ def fixtures():
 @with_appcontext
 def pages():
     """Register CDS static pages."""
-    def page_data(page):
-        return pkg_resources.resource_stream(
-            'invenio_app_ils', os.path.join('templates/static_pages', page)
-        ).read().decode('utf8')
-
     pages = [
         Page(url='/about',
              title='About',
              description='About',
-             content=page_data('about.html'),
+             content='InvenioILS about page',
              template_name='invenio_pages/default.html'),
         Page(url='/contact',
              title='Contact',
              description='Contact',
-             content=page_data('contact.html'),
+             content='You can contact InvenioILS developers on '
+                     '<a href="https://gitter.im/inveniosoftware/invenio">our chatroom</a>',
              template_name='invenio_pages/default.html'),
     ]
     with db.session.begin_nested():
