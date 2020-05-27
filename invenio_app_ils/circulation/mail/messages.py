@@ -46,14 +46,14 @@ class LoanMessage(BlockTemplatedMessage):
                 )
             )
 
-        name = self.get_template(action)
+        name = self.get_template_name(action)
         super(LoanMessage, self).__init__(
             template="{}/{}".format(self.templates_base_dir, templates[name]),
             ctx=dict(loan=dict(loan), **message_ctx, **kwargs),
             **kwargs
         )
 
-    def get_template(self, action):
+    def get_template_name(self, action):
         """Get the template filename based on the loan action."""
         new_state = self.loan["state"]
         document_pid = self.loan.get("document_pid")

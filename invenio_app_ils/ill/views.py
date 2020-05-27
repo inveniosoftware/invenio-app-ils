@@ -27,7 +27,7 @@ from .mail.tasks import send_ill_mail
 from .proxies import current_ils_ill
 
 
-def create_ills_blueprint(app):
+def create_ill_blueprint(app):
     """Create ILL blueprint."""
     blueprint = Blueprint(
         "invenio_app_ils_ill",

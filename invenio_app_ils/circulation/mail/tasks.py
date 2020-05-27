@@ -23,10 +23,10 @@ from invenio_app_ils.mail.tasks import send_ils_email
 celery_logger = get_task_logger(__name__)
 
 
-def send_loan_mail(loan_action, loan, message_ctx={}, **kwargs):
+def send_loan_mail(action, loan, message_ctx={}, **kwargs):
     """Send loan email message asynchronously and log the result in Celery.
 
-    :param loan_action: the triggered loan action.
+    :param action: the triggered loan action.
     :param loan: the loan record.
     :param message_ctx: any other parameter to be passed as ctx in the msg.
     """
@@ -37,7 +37,7 @@ def send_loan_mail(loan_action, loan, message_ctx={}, **kwargs):
 
     msg = creator(
         loan,
-        action=loan_action,
+        action=action,
         message_ctx=message_ctx,
         recipients=[patron.email],
         **kwargs,
@@ -48,7 +48,7 @@ def send_loan_mail(loan_action, loan, message_ctx={}, **kwargs):
 def send_loan_overdue_reminder_mail(loan, days_ago):
     """Send loan overdue email."""
     send_loan_mail(
-        loan_action="overdue_reminder",
+        action="overdue_reminder",
         loan=loan,
         message_ctx=dict(days_ago=days_ago),
     )
@@ -69,7 +69,7 @@ def send_overdue_loans_mail_reminder():
 def send_expiring_loan_reminder_mail(loan, expiring_in_days):
     """Send reminder email."""
     send_loan_mail(
-        loan_action="expiring_reminder",
+        action="expiring_reminder",
         loan=loan,
         message_ctx=dict(expiring_in_days=expiring_in_days),
     )
