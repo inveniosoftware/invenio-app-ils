@@ -1,0 +1,75 @@
+[
+  {
+    "pid": "1",
+    "shelf": "530.145.26 DEL",
+    "medium": "paper",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065507",
+    "legacy_id": "2706047",
+    "document_pid": "d1",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "pid": "2",
+    "shelf": "004.421.5 DEL",
+    "medium": "paper",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065300",
+    "legacy_id": "2705205",
+    "document_pid": "d2",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "pid": "3",
+    "shelf": "530.12 EIN",
+    "medium": "paper",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065527",
+    "legacy_id": "2704388",
+    "document_pid": "d3",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+
+  {
+    "pid": "4",
+    "shelf": "82-3 JAC",
+    "medium": "paper",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00064755",
+    "legacy_id": "2703680",
+    "document_pid": "d4",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "pid": "5",
+    "shelf": "004.438.REDUCE GRO",
+    "medium": "paper",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065289",
+    "legacy_id": "2702176",
+    "document_pid": "d5",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "pid": "6",
+    "shelf": "CATANIA 2018",
+    "medium": "paper",
+    "status": "FOR_REFERENC_ONLY",
+    "barcode": "CM-B00065528",
+    "legacy_id": "2704389",
+    "document_pid": "d6",
+    "internal_location_pid": "ilocid-1",
+    "legacy_library_id": "12",
+    "circulation_restriction": ""
+  }
+]
