@@ -136,7 +136,10 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
     acq_vendors=dict(  # VendorSearch.Meta.index
         name=dict(
-            fields=["name"], title="Name", default_order="desc", order=1
+            fields=["name.keyword"],
+            title="Name",
+            default_order="desc",
+            order=1
         ),
         bestmatch=dict(
             fields=["-_score"],

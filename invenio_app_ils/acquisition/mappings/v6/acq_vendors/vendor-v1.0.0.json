@@ -20,6 +20,11 @@
           "type": "text"
         },
         "name": {
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          },
           "type": "text"
         },
         "notes": {
