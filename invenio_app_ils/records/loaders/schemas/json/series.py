@@ -7,6 +7,7 @@
 
 """Series schema for marshmallow loader."""
 
+from flask import current_app
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import EXCLUDE, Schema, fields, pre_load
@@ -49,6 +50,7 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     edition = fields.Str()
+    extensions = fields.Method('dump_extensions', 'load_extensions')
     identifiers = fields.Nested(IdentifierSchema, many=True)
     internal_notes = fields.Nested(InternalNoteSchema, many=True)
     isbn = fields.List(fields.Str())
@@ -62,6 +64,22 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     title = fields.Str(required=True)
     updated_by = fields.Nested(ChangedBySchema)
     urls = fields.Nested(UrlSchema, many=True)
+
+    def dump_extensions(self, obj):
+        """Dumps the extensions value.
+
+        :params obj: content of the object's 'extensions' field
+        """
+        ExtensionSchema = current_app.series_metadata_extensions.to_schema()
+        return ExtensionSchema().dump(obj)
+
+    def load_extensions(self, value):
+        """Loads the 'extensions' field.
+
+        :params value: content of the input's 'extensions' field
+        """
+        ExtensionSchema = current_app.series_metadata_extensions.to_schema()
+        return ExtensionSchema().load(value)
 
     @pre_load
     def preload_fields(self, data, **kwargs):
