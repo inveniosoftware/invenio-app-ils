@@ -1,6 +1,5 @@
 [
   {
-    "pid": "1",
     "title": "An eventful journey to unification of all the fundamental forces",
     "authors": [
       {
@@ -26,11 +25,16 @@
       "isbn": "9789811210143",
       "urls": {}
     },
+    "identifiers": [
+      {
+        "scheme": "ISBN",
+        "value": "9789811210143"
+      }
+    ],
     "number_of_pages": "159",
     "publication_year": "2020"
   },
   {
-    "pid": "2",
     "title": "Introduction to cryptography",
     "authors": [
       {
@@ -58,7 +62,6 @@
     "publication_year": "2002"
   },
   {
-    "pid": "3",
     "title": "Sidelights on relativity",
     "authors": [
       {
@@ -83,11 +86,16 @@
       "isbn": "9780486245119",
       "urls": {}
     },
+    "identifiers": [
+      {
+        "scheme": "ISBN",
+        "value": "9780486245119"
+      }
+    ],
     "number_of_pages": "56",
     "publication_year": "1983"
   },
   {
-    "pid": "4",
     "title": "Big Bang",
     "authors": [
       {
@@ -112,11 +120,16 @@
       "isbn": "9782226442703",
       "urls": {}
     },
+    "identifiers": [
+      {
+        "scheme": "ISBN",
+        "value": "9782226442703"
+      }
+    ],
     "number_of_pages": "232",
     "publication_year": "2019"
   },
   {
-    "pid": "5",
     "title": "Using REDUCE in high energy physics",
     "authors": [
       {
@@ -141,11 +154,16 @@
       "isbn": "9780521019521",
       "urls": {}
     },
+    "identifiers": [
+      {
+        "scheme": "ISBN",
+        "value": "9780521019521"
+      }
+    ],
     "number_of_pages": "384",
     "publication_year": "2005"
   },
   {
-    "pid": "6",
     "title": "Proceedings of the 23rd International Workshop on ECR Ion Sources",
     "authors": [
       {
@@ -169,6 +187,12 @@
       "isbn": "9783954501960",
       "urls": {}
     },
+    "identifiers": [
+      {
+        "scheme": "ISBN",
+        "value": "9783954501960"
+      }
+    ],
     "conference_info": {
       "year": 2018,
       "dates": "10 - 14 Sep. 2018",
