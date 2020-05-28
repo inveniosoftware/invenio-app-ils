@@ -7,7 +7,6 @@
 
 stages:
   - test
-  - ui-test
   - deploy
 
 notifications:
@@ -26,8 +25,6 @@ env:
   global:
     - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.tar.gz"
     - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
-    - ES_HOST=127.0.0.1
-    - NODE_PATH=src
   matrix:
     - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
     - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
@@ -66,19 +63,6 @@ after_success:
 jobs:
   fast_finish: true
   include:
-    - stage: ui-test
-      language: node_js
-      node_js:
-        - 8
-      cache:
-        directories:
-          - node_modules
-      before_install:
-        - cd "./ui"
-      install:
-        - npm install
-      script:
-        - npm run test:ci
     - stage: deploy
       script: skip
       deploy:

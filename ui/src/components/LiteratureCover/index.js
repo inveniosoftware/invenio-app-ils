@@ -1,1 +1,0 @@
-export { LiteratureCover } from './LiteratureCover';

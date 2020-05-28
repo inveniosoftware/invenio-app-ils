@@ -25,13 +25,6 @@ services:
     links:
       - web-ui
       - web-api
-      - react-ui
-  react-ui:
-    extends:
-      file: docker-services.yml
-      service: react-ui
-    volumes:
-      - react_static_data:/opt/invenio_app_ils/react-assets
   # UI Application
   web-ui:
     extends:
@@ -103,4 +96,3 @@ services:
       service: es
 volumes:
   static_data:
-  react_static_data:

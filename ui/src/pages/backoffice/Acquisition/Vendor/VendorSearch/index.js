@@ -1,1 +1,0 @@
-export { VendorSearch } from './VendorSearch';
