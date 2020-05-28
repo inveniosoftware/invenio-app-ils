@@ -1,1 +1,0 @@
-export { DocumentSearch } from './DocumentSearch';

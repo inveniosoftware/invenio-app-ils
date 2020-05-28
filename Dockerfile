@@ -11,11 +11,6 @@ RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y git curl vim npm
 RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
 
-# Install Node
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
-RUN npm update
-
 RUN python -m site
 RUN python -m site --user-site
 

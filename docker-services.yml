@@ -24,10 +24,6 @@ services:
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://test:psw@db/ils"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
-  react-ui:
-    build:
-      context: ./ui/
-    image: invenio_app_ils-react-ui
   lb:
     build: ./docker/haproxy/
     image: invenio_app_ils-lb

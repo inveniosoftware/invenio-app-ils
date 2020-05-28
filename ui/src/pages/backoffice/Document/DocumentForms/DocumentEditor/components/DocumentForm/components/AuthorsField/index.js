@@ -1,1 +1,0 @@
-export { AuthorsField } from './AuthorsField';

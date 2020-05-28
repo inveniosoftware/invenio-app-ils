@@ -1,8 +1,0 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@bottomLabelDistance: 0.5em;
-@fsStatisticPadding: 0.5em;
-
-@valueSize: 3.5rem;

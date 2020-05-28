@@ -1,1 +1,0 @@
-export { DocumentRequestForm } from './DocumentRequestForm';

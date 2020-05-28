@@ -1,1 +1,0 @@
-export { SeriesSelectListEntry } from './SeriesSelectListEntry';
