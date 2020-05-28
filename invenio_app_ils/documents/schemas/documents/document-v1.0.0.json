@@ -298,6 +298,23 @@
       },
       "type": "object"
     },
+    "extensions": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": ["boolean", "number", "string"]
+            }
+          },
+          { "type": "boolean" },
+          { "type": "number" },
+          { "type": "string" }
+        ]
+      },
+      "description": "Configured additional metadata",
+      "type": "object"
+    },
     "extra_data": {
       "type": "object"
     },

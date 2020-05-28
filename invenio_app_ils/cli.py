@@ -345,6 +345,13 @@ class DocumentGenerator(Generator):
         obj = {
             "pid": self.create_pid(),
             "title": lorem.sentence(),
+            "extensions": {
+                "accelerator_experiments:accelerator": "LHCb",
+                "accelerator_experiments:institution": "CERN",
+                "accelerator_experiments:project": "Myon energy detection",
+                "standard_status:CERN_applicability": "applicable",
+                "standard_status:standard_validity": "published"
+            },
             "cover_metadata": {"ISBN": random.choice(self.ISBNS), "urls": {}},
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
