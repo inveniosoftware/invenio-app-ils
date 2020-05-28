@@ -1,0 +1,18 @@
+{% block subject %}
+InvenioILS: your literature request {{ request.pid }} has been declined.
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.email }},
+
+your literature request {{ request.pid }} has been declined because the literature you are looking for
+has not been found.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your literature request {{ request.pid }} has been declined because the literature you are looking for
+has not been found.
+{% endblock %}

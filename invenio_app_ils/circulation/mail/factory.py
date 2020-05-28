@@ -11,11 +11,17 @@ from functools import partial
 
 from flask import current_app
 
+from invenio_app_ils.circulation.mail.messages import LoanMessage
 from invenio_app_ils.mail.factory import message_factory
 
 
-def loan_message_factory():
-    """Create a loan message factory."""
+def loan_message_creator_factory():
+    """Loan message factory creator."""
     return partial(
-        message_factory, current_app.config["ILS_CIRCULATION_MAIL_MSG_LOADER"]
+        message_factory, current_app.config["ILS_CIRCULATION_MAIL_MSG_CREATOR"]
     )
+
+
+def default_loan_message_creator(loan, action, message_ctx, **kwargs):
+    """Loan message creator."""
+    return LoanMessage(loan, action, message_ctx, **kwargs)

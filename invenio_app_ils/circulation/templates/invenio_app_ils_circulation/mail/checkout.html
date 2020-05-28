@@ -1,10 +1,15 @@
 {% block subject %}
-Your loan on "{{ document.title }}" has started
+InvenioILS: your loan for "{{ document.title }}" has started.
 {% endblock %}
 
-
-{% block body %}
+{% block body_plain %}
 Dear {{ patron.email }},
 
-Your loan on "{{ document.title }}" has started.
+your loan for "{{ document.full_title }}" has started. The due date is {{ loan.end_date }}.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan for "{{ document.full_title }}" has started. The due date is {{ loan.end_date }}.
 {% endblock %}

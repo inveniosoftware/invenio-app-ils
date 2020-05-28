@@ -33,7 +33,7 @@ def build_openlibrary_urls(isbn):
 def build_placeholder_urls():
     """Build urls for default cover placeholders."""
     image_path = url_for(
-        "invenio_app_ils_static.static",
+        "invenio_app_ils.static",
         filename="images/placeholder.png",
         _external=True
     )

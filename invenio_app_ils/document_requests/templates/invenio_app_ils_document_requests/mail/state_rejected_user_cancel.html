@@ -1,8 +1,0 @@
-{% block subject %}
-ILS: Literature request {{ request.pid }} was cancelled by the library
-{% endblock %}
-
-{% block body %}
-Your literature request {{ request.pid }} was cancelled by the library.
-Reason: {{ request.reject_reason }}
-{% endblock %}

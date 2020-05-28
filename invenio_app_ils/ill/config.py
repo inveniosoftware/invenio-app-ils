@@ -18,6 +18,20 @@ from .api import BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER, \
 from .indexer import LibraryIndexer
 from .search import BorrowingRequestsSearch, LibrarySearch
 
+###############################################################################
+# ILS ILL
+###############################################################################
+#: ILL message creator class
+ILS_ILL_MAIL_MSG_CREATOR = (
+    "invenio_app_ils.ill.mail.factory:default_ill_message_creator"
+)
+#: ILL email templates
+ILS_ILL_MAIL_TEMPLATES = {}
+
+###############################################################################
+# RECORDS REST
+###############################################################################
+
 _BORROWING_REQUEST_CONVERTER = (
     'pid(illbid, record_class="invenio_app_ils.ill.api:BorrowingRequest")'
 )

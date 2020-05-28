@@ -84,7 +84,7 @@ def circulation_can_be_requested(loan):
 def circulation_overdue_loan_days(loan):
     """Return the amount of days a loan is overdue."""
     end_date = arrow.get(loan["end_date"])
-    return (arrow.get().utcnow() - end_date).days
+    return (arrow.utcnow() - end_date).days
 
 
 def circulation_loan_will_expire_days():

@@ -18,39 +18,37 @@ class DocumentRequestMessage(BlockTemplatedMessage):
     TEMPLATES_DIR = "invenio_app_ils_document_requests/mail"
 
     DEFAULT_TEMPLATES = dict(
-        accepted="state_accepted.html",
-        pending="state_pending.html",
-        rejected_user_cancel="state_rejected_user_cancel.html",
-        rejected_in_catalog="state_rejected_in_catalog.html",
-        rejected_not_found="state_rejected_not_found.html",
+        request_accepted="document_request_accept.html",
+        request_rejected_user_cancel="document_request_reject_user_cancel.html",
+        request_rejected_in_catalog="document_request_reject_in_catalog.html",
+        request_rejected_not_found="document_request_reject_not_found.html",
     )
 
-    def __init__(self, request, **kwargs):
-        """Create a document request message based on the request record."""
+    def __init__(self, request, action=None, message_ctx={}, **kwargs):
+        """Create an e-mail message based on the new doc request record."""
         self.request = request
-
-        sender = current_app.config["MAIL_NOTIFY_SENDER"]
-        bcc = current_app.config["MAIL_NOTIFY_BCC"]
-        cc = current_app.config["MAIL_NOTIFY_CC"]
-
-        state = request["state"]
-        reject_reason = request.get("reject_reason", "")
-
-        name = state.lower()
-        if state == "REJECTED":
-            name = "{}_{}".format(state.lower(), reject_reason.lower())
 
         templates = dict(
             self.DEFAULT_TEMPLATES,
-            **current_app.config["ILS_MAIL_DOCUMENT_REQUEST_TEMPLATES"]
+            **current_app.config["ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES"]
         )
 
+        if not action:
+            raise NotImplementedError
+
+        if action == "request_rejected":
+            reject_reason = request.get("reject_reason", "")
+            action = "{}_{}".format(action, reject_reason.lower())
+
+        if action not in templates:
+            raise KeyError(
+                "Invalid action argument `{0}` or not found in "
+                "templates `{1}`.".format(action, list(templates.keys()))
+            )
+
         super().__init__(
-            template="{}/{}".format(self.TEMPLATES_DIR, templates[name]),
-            ctx=dict(request=dict(request)),
-            sender=kwargs.pop("sender", sender),
-            cc=kwargs.pop("cc", cc),
-            bcc=kwargs.pop("bcc", bcc),
+            template="{}/{}".format(self.TEMPLATES_DIR, templates[action]),
+            ctx=dict(request=dict(request), **message_ctx, **kwargs),
             **kwargs
         )
 

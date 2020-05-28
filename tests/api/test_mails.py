@@ -25,10 +25,10 @@ class TestMessage(BlockTemplatedMessage):
 def test_block_templated_message_full(app_with_mail):
     """Test that the subject, body and html are read correctly."""
     with app_with_mail.app_context():
-        blank = BlockTemplatedMessage("mail/subject_body_html.html")
-        assert blank.subject == "Test subject."
-        assert blank.body == "Test body."
-        assert blank.html == "Test html."
+        full = BlockTemplatedMessage("mail/subject_body_html.html")
+        assert full.subject == "Test subject."
+        assert "Test body." in full.body
+        assert "Test html." in full.html
 
 
 def test_block_templated_message_body_same_as_html(app_with_mail):
@@ -36,8 +36,8 @@ def test_block_templated_message_body_same_as_html(app_with_mail):
     with app_with_mail.app_context():
         blank = BlockTemplatedMessage("mail/subject_body.html")
         assert blank.subject == "Test subject."
-        assert blank.body == "Test body."
-        assert blank.html == "Test body."
+        assert "Test body." in blank.body
+        assert "Test body." in blank.html
 
 
 def test_invalid_block_templated_message_templates(app_with_mail):
@@ -49,7 +49,7 @@ def test_invalid_block_templated_message_templates(app_with_mail):
 
         with pytest.raises(TemplateError) as ex:
             BlockTemplatedMessage("mail/subject_only.html")
-        assert "No block with name 'body'" in str(ex.value)
+        assert "No block with name 'body_plain'" in str(ex.value)
 
 
 def test_block_template_with_missing_template(app_with_mail):

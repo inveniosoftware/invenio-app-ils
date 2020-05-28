@@ -24,7 +24,7 @@ from .api import DOCUMENT_REQUEST_PID_TYPE
 from .loaders import document_request_document_loader as dr_document_loader
 from .loaders import document_request_provider_loader as dr_provider_loader
 from .loaders import document_request_reject_loader as dr_reject_loader
-from .mail.tasks import send_document_request_status_mail
+from .mail.tasks import send_document_request_mail
 
 
 def create_document_request_action_blueprint(app):
@@ -210,6 +210,7 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
+        send_document_request_mail(record, action="request_accepted")
         return self.make_response(pid, record, 202)
 
 
@@ -272,5 +273,5 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
-        send_document_request_status_mail(record)
+        send_document_request_mail(record, action="request_rejected")
         return self.make_response(pid, record, 202)

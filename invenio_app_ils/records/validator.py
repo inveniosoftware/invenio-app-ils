@@ -10,9 +10,9 @@
 from __future__ import absolute_import, print_function
 
 from elasticsearch import VERSION as ES_VERSION
-from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.errors import PIDDoesNotExistError
 
+from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
     ItemHasActiveLoanError
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
@@ -53,10 +53,7 @@ class ItemValidator(RecordValidator):
         pid = record["pid"]
         if status == "CAN_CIRCULATE":
             item_pid = dict(value=pid, type=ITEM_PID_TYPE)
-            search = current_circulation.loan_search_cls()
-            active_loan = (
-                search.get_active_loan_by_item_pid(item_pid).execute().hits
-            )
+            active_loan = get_active_loan_by_item_pid(item_pid).execute().hits
             total = active_loan.total if lt_es7 else active_loan.total.value
             if total > 0:
                 raise ItemHasActiveLoanError(active_loan[0]["pid"])

@@ -1,10 +1,15 @@
 {% block subject %}
-Your loan on "{{ document.title }}" is now completed
+InvenioILS: your loan for "{{ document.title }}" is now completed.
 {% endblock %}
 
-
-{% block body %}
+{% block body_plain %}
 Dear {{ patron.email }},
 
-Your loan on "{{ document.title }}" is now completed.
+your loan for "{{ document.full_title }}" is now completed.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan for "{{ document.full_title }}" is now completed.
 {% endblock %}

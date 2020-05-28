@@ -11,6 +11,7 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import _LOANID_CONVERTER, \
     CIRCULATION_LOAN_FETCHER, CIRCULATION_LOAN_MINTER, \
     CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned, ToCancelled, \
     ToItemOnLoan
@@ -32,7 +33,6 @@ from invenio_app_ils.permissions import PatronOwnerPermission, \
 from .indexer import LoanIndexer
 from .jsonresolvers.loan import document_resolver, item_resolver, \
     loan_patron_resolver
-from .search import IlsLoansSearch
 from .utils import circulation_build_document_ref, \
     circulation_build_item_ref, circulation_build_patron_ref, \
     circulation_can_be_requested, circulation_default_extension_max_count, \
@@ -45,9 +45,9 @@ from .utils import circulation_build_document_ref, \
 ###############################################################################
 #: New email template to override default ones
 ILS_CIRCULATION_MAIL_TEMPLATES = {}
-#: Loan message loader
-ILS_CIRCULATION_MAIL_MSG_LOADER = (
-    "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+#: Loan message creator class
+ILS_CIRCULATION_MAIL_MSG_CREATOR = (
+    "invenio_app_ils.circulation.mail.factory:default_loan_message_creator"
 )
 #: Notification email for overdue loan sent automatically every X days
 ILS_CIRCULATION_MAIL_OVERDUE_REMINDER_INTERVAL = 3
@@ -184,7 +184,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         pid_type=CIRCULATION_LOAN_PID_TYPE,
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
-        search_class=IlsLoansSearch,
+        search_class=LoansSearch,
         search_factory_imp="invenio_app_ils.search.permissions"
         ":search_factory_filter_by_patron",
         record_class=Loan,
@@ -224,7 +224,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
 )
 
 ILS_CIRCULATION_RECORDS_REST_SORT_OPTIONS = dict(
-    loans=dict(  # IlsLoansSearch.Meta.index
+    loans=dict(  # LoansSearch.Meta.index
         expire_date=dict(
             fields=["-request_expire_date"],
             title="Request expire date",
@@ -262,7 +262,7 @@ ILS_CIRCULATION_RECORDS_REST_SORT_OPTIONS = dict(
 )
 
 ILS_CIRCULATION_RECORDS_REST_FACETS = dict(
-    loans=dict(  # IlsLoansSearch.Meta.index
+    loans=dict(  # LoansSearch.Meta.index
         aggs=dict(
             state=dict(terms=dict(field="state")),
             delivery=dict(terms=dict(field="delivery.method")),

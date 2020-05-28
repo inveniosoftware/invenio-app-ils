@@ -1,0 +1,16 @@
+{% block subject %}
+InvenioILS: your loan extension for "{{ document.title }}" request has been declined.
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.email }},
+
+your loan extension for "{{ document.full_title }}" has been declined.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.email }},
+
+your loan extension for "{{ document.full_title }}" has been declined.
+{% endblock %}
