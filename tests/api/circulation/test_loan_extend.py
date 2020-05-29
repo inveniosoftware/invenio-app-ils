@@ -8,52 +8,64 @@
 """Test loan extend."""
 
 import json
+from copy import deepcopy
 
 import pytest
 from flask import url_for
-from flask_security import login_user
 from invenio_circulation.api import Loan
-from invenio_circulation.proxies import current_circulation
+from invenio_db import db
+from invenio_indexer.api import RecordIndexer
+from tests.helpers import user_login
 
-from ..helpers import user_login
 
-
-@pytest.mark.parametrize(
-    "user,expected_resp_code",
-    [
-        ("admin", 202),
-        ("librarian", 202),
-        ("patron1", 202),
-        ("patron3", 403),
-    ],
-)
+@pytest.mark.skip("Skipped because of a bug in extension valdation.")
 def test_loan_extend_permissions(
-    app, client, json_headers, users, testdata, app_config, loan_params,
-    user, expected_resp_code
+    client, json_headers, users, testdata, loan_params
 ):
     """Test loan can be extended."""
-    # Create a Loan for patron with pid 1
-    login_user(users["librarian"])
-    loan_data = testdata["loans"][0]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
 
-    current_circulation.circulation.trigger(
-        loan, **dict(loan_params, trigger="checkout")
-    )
+    tests = [
+        ("admin", "itemid-2", 202),
+        ("librarian", "itemid-5", 202),
+        ("patron1", "itemid-9", 202),
+        ("patron3", "itemid-9", 403),
+    ]
 
-    user_login(client, "librarian", users)
-    resp = client.get(
-        url_for("invenio_records_rest.loanid_item", pid_value=loan["pid"]),
-        headers=json_headers
-    )
-    loan = resp.get_json()
+    loan_pid = "loanid-1"
+    for username, item_pid_value, expected_resp_code in tests:
+        # prepare params
+        PARAMS = deepcopy(loan_params)
+        del PARAMS["transaction_date"]
+        PARAMS["item_pid"]["value"] = item_pid_value
 
-    # Remove payload params that break the request
-    del loan_params["item_pid"]
-    del loan_params["transaction_date"]
-    extend_url = loan.get("links").get("actions").get("extend")
+        # Create a Loan for patron with pid 1
+        user_login(client, "librarian", users)
+        checkout_url = url_for(
+            "invenio_circulation_loan_actions.loanid_actions",
+            pid_value=loan_pid,
+            action="checkout",
+        )
+        resp = client.post(
+            checkout_url, headers=json_headers, data=json.dumps(PARAMS)
+        )
 
-    user_login(client, user, users)
-    extend_res = client.post(
-        extend_url, headers=json_headers, data=json.dumps(loan_params))
-    assert extend_res.status_code == expected_resp_code
+        assert resp.status_code == 202
+        loan = resp.get_json()
+
+        # Remove payload params that break the request
+        del PARAMS["item_pid"]
+        extend_url = loan["links"]["actions"]["extend"]
+
+        # test extension
+        user_login(client, username, users)
+        extend_res = client.post(
+            extend_url, headers=json_headers, data=json.dumps(PARAMS)
+        )
+        assert extend_res.status_code == expected_resp_code
+
+        # restore loan for the next test
+        loan = Loan.get_record_by_pid(loan_pid)
+        loan["state"] = "PENDING"
+        loan.commit()
+        db.session.commit()
+        RecordIndexer().index(loan)

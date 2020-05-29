@@ -1,70 +1,177 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-stages:
-  - test
-  - deploy
+language: python
 
-notifications:
-  email: false
+python: "3.6"
+
+cache:
+  - pip
 
 services:
   - redis
   - rabbitmq
 
-language: python
-
-cache:
-  - pip
+notifications:
+  email: false
 
 env:
   global:
     - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.tar.gz"
     - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
-  matrix:
-    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
-    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - EXTRAS_COMMON=all,postgresql
 
-python:
-  - "3.6"
+####################################################################################################################
+# Define common anchors
+####################################################################################################################
 
-before_install:
-  - "nvm install 8; nvm use 8"
-  - "npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0"
-  - "mkdir /tmp/elasticsearch"
-  - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
-  - "/tmp/elasticsearch/bin/elasticsearch &"
-  - "sleep 20"
-  - "travis_retry pip install --upgrade pip setuptools py"
-  - "travis_retry pip install twine wheel coveralls requirements-builder"
-  - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
-  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
-  - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
+_common: &common
+  stage: test
+  before_install:
+    - "mkdir /tmp/elasticsearch"
+    - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
+    - "/tmp/elasticsearch/bin/elasticsearch --quiet &"
+    - "travis_retry pip install --upgrade pip setuptools py"
+    - "travis_retry pip install twine wheel coveralls requirements-builder"
+    - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
+    - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
+  install:
+    - "travis_retry pip install -r requirements.txt"
+    - "travis_retry pip install -e .[$EXTRAS]"
+  before_script: "./run-style-checks.sh"
+  script: skip # to be overridden when declaring the job
+  after_success: coveralls
 
-install:
-  - "travis_retry pip install -r requirements.txt" # temporary solution until oauth related branches will be merged
-  - "travis_retry pip install -e .[$EXTRAS]"
-  - "./scripts/build_assets"
-
-script:
-  - "./run-tests.sh"
-
-after_success:
-  - coveralls
+_env_release_es6: &env_release_es6
+  env: REQUIREMENTS=release EXTRAS=$EXTRAS_COMMON,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+_env_release_es7: &env_release_es7
+  env: REQUIREMENTS=release EXTRAS=$EXTRAS_COMMON,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+_env_lowest_es6: &env_lowest_es6
+  env: REQUIREMENTS=lowest EXTRAS=$EXTRAS_COMMON,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+_env_lowest_es7: &env_lowest_es7
+  env: REQUIREMENTS=lowest EXTRAS=$EXTRAS_COMMON,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+_run_only_on_master_branch_or_release_tag: &if_master_branch_or_release_tag
+  if: (branch = master AND type = push) OR tag IS present
 
 jobs:
-  fast_finish: true
   include:
+    ####################################################################################################################
+    # RELEASE - ES7
+    ####################################################################################################################
+    - <<: *common
+      name: "requirements: release | es: 7 | tests: acquisition"
+      <<: *env_release_es7
+      script: "./run-tests.sh acquisition"
+    - <<: *common
+      name: "requirements: release | es: 7 | tests: circulation"
+      <<: *env_release_es7
+      script: "./run-tests.sh circulation"
+    - <<: *common
+      name: "requirements: release | es: 7 | tests: document requests"
+      <<: *env_release_es7
+      script: "./run-tests.sh document_requests"
+    - <<: *common
+      name: "requirements: release | es: 7 | tests: ill"
+      <<: *env_release_es7
+      script: "./run-tests.sh ill"
+    - <<: *common
+      name: "requirements: release | es: 7 | tests: ils"
+      <<: *env_release_es7
+      script: "./run-tests.sh ils"
+    ####################################################################################################################
+    # RELEASE - ES6
+    ####################################################################################################################
+    - <<: *common
+      name: "requirements: release | es: 6 | tests: acquisition"
+      <<: *env_release_es6
+      script: "./run-tests.sh acquisition"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: release | es: 6 | tests: circulation"
+      <<: *env_release_es6
+      script: "./run-tests.sh circulation"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: release | es: 6 | tests: document requests"
+      <<: *env_release_es6
+      script: "./run-tests.sh document_requests"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: release | es: 6 | tests: ill"
+      <<: *env_release_es6
+      script: "./run-tests.sh ill"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: release | es: 6 | tests: ils"
+      <<: *env_release_es6
+      script: "./run-tests.sh ils"
+      <<: *if_master_branch_or_release_tag
+    ####################################################################################################################
+    # LOWEST - ES7
+    ####################################################################################################################
+    - <<: *common
+      name: "requirements: lowest | es: 7 | tests: acquisition"
+      <<: *env_lowest_es7
+      script: "./run-tests.sh acquisition"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 7 | tests: circulation"
+      <<: *env_lowest_es7
+      script: "./run-tests.sh circulation"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 7 | tests: document requests"
+      <<: *env_lowest_es7
+      script: "./run-tests.sh document_requests"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 7 | tests: ill"
+      <<: *env_lowest_es7
+      script: "./run-tests.sh ill"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 7 | tests: ils"
+      <<: *env_lowest_es7
+      script: "./run-tests.sh ils"
+      <<: *if_master_branch_or_release_tag
+    ####################################################################################################################
+    # LOWEST - ES6
+    ####################################################################################################################
+    - <<: *common
+      name: "requirements: lowest | es: 6 | tests: acquisition"
+      <<: *env_lowest_es6
+      script: "./run-tests.sh acquisition"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 6 | tests: circulation"
+      <<: *env_lowest_es6
+      script: "./run-tests.sh circulation"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 6 | tests: document requests"
+      <<: *env_lowest_es6
+      script: "./run-tests.sh document_requests"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 6 | tests: ill"
+      <<: *env_lowest_es6
+      script: "./run-tests.sh ill"
+      <<: *if_master_branch_or_release_tag
+    - <<: *common
+      name: "requirements: lowest | es: 6 | tests: ils"
+      <<: *env_lowest_es6
+      script: "./run-tests.sh ils"
+      <<: *if_master_branch_or_release_tag
+    ####################################################################################################################
+    # DEPLOY
+    ####################################################################################################################
     - stage: deploy
       script: skip
+      if: tag IS present
       deploy:
         provider: pypi
         user: inveniosoftware

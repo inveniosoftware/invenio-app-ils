@@ -7,8 +7,6 @@
 
 """Facets tests."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import timedelta
 
 import arrow
@@ -23,10 +21,7 @@ from invenio_app_ils.facets import date_range_filter, \
 
 def test_keyed_range_filter():
     """Test range filter."""
-    range_query = {
-        "None": {"lt": 1},
-        "1+": {"gte": 1}
-    }
+    range_query = {"None": {"lt": 1}, "1+": {"gte": 1}}
     rfilter = keyed_range_filter("field", range_query)
 
     assert rfilter(["None"]) == Range(field={"lt": 1})
@@ -40,14 +35,19 @@ def test_current_ranged_loans_filter(app):
         rfilter = overdue_loans_filter("field")
 
         current_loans_query = Terms(
-            state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"])
+            state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        )
 
-        assert rfilter(["Overdue"]) == Range(
-            field={"lt": str(arrow.utcnow().date())}) & current_loans_query
-        assert rfilter(["Upcoming return"]) == Range(
-            field={"gte": str(arrow.utcnow().date()), "lte": str(
-                (arrow.utcnow() + timedelta(
-                    days=7)).date())}) & current_loans_query
+        overdue = rfilter(["Overdue"])
+        field = {"lt": str(arrow.utcnow().date())}
+        assert overdue == Range(field=field) & current_loans_query
+
+        upcoming = rfilter(["Upcoming return"])
+        field = {
+            "gte": str(arrow.utcnow().date()),
+            "lte": str((arrow.utcnow() + timedelta(days=7)).date()),
+        }
+        assert upcoming == Range(field=field) & current_loans_query
 
 
 def test_default_value_when_missing_filter(app):
@@ -57,19 +57,25 @@ def test_default_value_when_missing_filter(app):
 
         assert rfilter("test") == Terms(field="test")
         assert rfilter("missing val") == Bool(
-            **{'must_not': {'exists': {'field': "field"}}})
+            **{"must_not": {"exists": {"field": "field"}}}
+        )
 
 
-@pytest.mark.parametrize("input_date", ["",  "a string", "2020-02-02"])
-def test_date_range_filter(app, input_date):
+def test_date_range_filter(app):
     """Test date range filter date validation and query."""
-    from_filter = date_range_filter("field", "gte")
-    to_filter = date_range_filter("field", "lte")
 
-    try:
-        assert from_filter([input_date]) == Range(field={"gte": input_date})
-        assert to_filter([input_date]) == Range(field={"lte": input_date})
-    except:
-        with pytest.raises(ValueError) as err:
-            from_filter([input_date])
-            to_filter([input_date])
+    tests = ["", "a string", "2020-02-02"]
+
+    for input_date in tests:
+        from_filter = date_range_filter("field", "gte")
+        to_filter = date_range_filter("field", "lte")
+
+        try:
+            assert from_filter([input_date]) == Range(
+                field={"gte": input_date}
+            )
+            assert to_filter([input_date]) == Range(field={"lte": input_date})
+        except:
+            with pytest.raises(ValueError) as err:
+                from_filter([input_date])
+                to_filter([input_date])

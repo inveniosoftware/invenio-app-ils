@@ -7,12 +7,10 @@
 
 """Test ILL borrowing requests."""
 
-from __future__ import unicode_literals
-
 import json
 
 from flask import url_for
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
 BRWREQ_PID = "illbid-1"

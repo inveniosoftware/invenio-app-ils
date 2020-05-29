@@ -21,6 +21,7 @@ include docker/postgres/Dockerfile
 include Dockerfile
 include scripts/bootstrap
 include scripts/build_assets
+include scripts/celery
 include scripts/console
 include scripts/server
 include scripts/setup
@@ -63,14 +64,4 @@ recursive-include invenio_app_ils *.woff
 recursive-include invenio_app_ils *.woff2
 recursive-include tests *.py
 recursive-include tests *.json
-
-# added for the UI app
-prune **/node_modules
-prune invenio_app_ils/ui/main/node_modules
-prune invenio_app_ils/ui/backoffice/node_modules
-prune invenio_app_ils/ui/node_modules
-prune **/build
-prune **/static/css/invenio_app_ils/main
-prune **/static/css/invenio_app_ils/backoffice
-prune **/static/js/invenio_app_ils/main
-prune **/static/js/invenio_app_ils/backoffice
+recursive-include tests *.html

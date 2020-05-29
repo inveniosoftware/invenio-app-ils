@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, abort, current_app, request
+from flask import Blueprint, abort, request
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
@@ -21,13 +21,11 @@ from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
-from invenio_app_ils.relations.api import Relation
+from invenio_app_ils.relations.api import PARENT_CHILD_RELATION_TYPES, \
+    SEQUENCE_RELATION_TYPES, SIBLINGS_RELATION_TYPES, Relation
 
-from invenio_app_ils.records_relations.api import (  # isort:skip
-    RecordRelationsSequence,
-    RecordRelationsParentChild,
-    RecordRelationsSiblings,
-)
+from .api import RecordRelationsParentChild, RecordRelationsSequence, \
+    RecordRelationsSiblings
 
 
 def create_relations_blueprint(app):
@@ -285,7 +283,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         relation_sequence.add(
             previous_rec=previous_rec,
             next_rec=next_rec,
-            relation_type=relation_type
+            relation_type=relation_type,
         )
         return previous_rec, next_rec
 
@@ -334,15 +332,15 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 return abort(400, "The `{}` is a required field".format(key))
 
             rt = Relation.get_relation_by_name(relation_type)
-            if rt in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
+            if rt in PARENT_CHILD_RELATION_TYPES:
                 modified, first, second = self._create_parent_child_relation(
                     record, rt, payload
                 )
-            elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
+            elif rt in SIBLINGS_RELATION_TYPES:
                 modified, first, second = self._create_sibling_relation(
                     record, rt, payload
                 )
-            elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
+            elif rt in SEQUENCE_RELATION_TYPES:
                 first, second = self._create_sequence_relation(
                     record, rt, payload
                 )
@@ -396,15 +394,15 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
 
             rt = Relation.get_relation_by_name(relation_type)
 
-            if rt in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
+            if rt in PARENT_CHILD_RELATION_TYPES:
                 modified, first, second = self._delete_parent_child_relation(
                     record, rt, payload
                 )
-            elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
+            elif rt in SIBLINGS_RELATION_TYPES:
                 modified, first, second = self._delete_sibling_relation(
                     record, rt, payload
                 )
-            elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
+            elif rt in SEQUENCE_RELATION_TYPES:
                 first, second = self._delete_sequence_relation(
                     record, rt, payload
                 )

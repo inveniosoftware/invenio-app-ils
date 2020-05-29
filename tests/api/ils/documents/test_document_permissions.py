@@ -13,7 +13,7 @@ from flask import url_for
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 from invenio_app_ils.documents.api import Document
 

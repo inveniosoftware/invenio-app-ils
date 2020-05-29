@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -9,11 +9,11 @@
 
 from copy import deepcopy
 
-from flask import current_app
-
 from invenio_app_ils.errors import RecordRelationsError
-from invenio_app_ils.relations.api import ParentChildRelation, \
-    SequenceRelation, SiblingsRelation
+from invenio_app_ils.relations.api import MULTIPART_MONOGRAPH_RELATION, \
+    PARENT_CHILD_RELATION_TYPES, SEQUENCE_RELATION_TYPES, SERIAL_RELATION, \
+    SIBLINGS_RELATION_TYPES, ParentChildRelation, SequenceRelation, \
+    SiblingsRelation
 
 
 class RecordRelationsExtraMetadata(object):
@@ -134,7 +134,7 @@ class RecordRelationsParentChild(RecordRelations):
 
     def __init__(self):
         """Constructor."""
-        self.relation_types = current_app.config["PARENT_CHILD_RELATION_TYPES"]
+        self.relation_types = PARENT_CHILD_RELATION_TYPES
 
     def _validate_relation_between_records(self, parent, child, relation_name):
         """Validate relation between type of records."""
@@ -174,8 +174,8 @@ class RecordRelationsParentChild(RecordRelations):
 
         # relation metadata is allowed only for MULTIPART_MONOGRAPH
         relation_allows_metadata = relation_type in (
-            current_app.config["MULTIPART_MONOGRAPH_RELATION"],
-            current_app.config["SERIAL_RELATION"],
+            MULTIPART_MONOGRAPH_RELATION,
+            SERIAL_RELATION,
         )
         # check for allowed relation metadata (e.g. `volume`)
         has_allowed_metadata = any(
@@ -222,7 +222,7 @@ class RecordRelationsSiblings(RecordRelations):
 
     def __init__(self):
         """Constructor."""
-        self.relation_types = current_app.config["SIBLINGS_RELATION_TYPES"]
+        self.relation_types = SIBLINGS_RELATION_TYPES
 
     def _validate_relation_between_records(self, first, second, relation_name):
         """Validate relation between type of records."""
@@ -312,7 +312,7 @@ class RecordRelationsSequence(RecordRelations):
 
     def __init__(self):
         """Constructor."""
-        self.relation_types = current_app.config["SEQUENCE_RELATION_TYPES"]
+        self.relation_types = SEQUENCE_RELATION_TYPES
 
     def _validate_relation_between_records(
         self, previous_rec, next_rec, relation_name

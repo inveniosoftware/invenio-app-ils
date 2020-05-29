@@ -7,13 +7,12 @@
 
 """APIs to retrieve records relations."""
 
-from flask import current_app
-
 from invenio_app_ils.jsonresolver.api import pick
-from invenio_app_ils.records_relations.api import \
-    RecordRelationsExtraMetadata as RelationsExtraMetadata
-from invenio_app_ils.relations.api import ParentChildRelation, \
+from invenio_app_ils.relations.api import PARENT_CHILD_RELATION_TYPES, \
+    SEQUENCE_RELATION_TYPES, SIBLINGS_RELATION_TYPES, ParentChildRelation, \
     SequenceRelation, SiblingsRelation
+
+from .api import RecordRelationsExtraMetadata as RelationsExtraMetadata
 
 
 class RelationObjectBuilderMixin(object):
@@ -82,7 +81,7 @@ class ParentChildRetriever(RelationObjectBuilderMixin):
         only relations with the parents are returned.
         """
         relations = {}
-        for relation_type in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
+        for relation_type in PARENT_CHILD_RELATION_TYPES:
             pcr = ParentChildRelation(relation_type)
             name = relation_type.name
 
@@ -162,7 +161,7 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
     def get(self):
         """Get all sibling relations with the current record."""
         relations = {}
-        for relation_type in current_app.config["SIBLINGS_RELATION_TYPES"]:
+        for relation_type in SIBLINGS_RELATION_TYPES:
             sr = SiblingsRelation(relation_type)
             name = relation_type.name
 
@@ -203,7 +202,7 @@ class SequenceRetriever(RelationObjectBuilderMixin):
     def get(self):
         """Get all sequence relations with the current record."""
         relations = {}
-        for relation_type in current_app.config["SEQUENCE_RELATION_TYPES"]:
+        for relation_type in SEQUENCE_RELATION_TYPES:
             sqr = SequenceRelation(relation_type)
             name = relation_type.name
 

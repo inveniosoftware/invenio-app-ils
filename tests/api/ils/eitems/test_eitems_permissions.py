@@ -5,28 +5,32 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test Series permissions."""
-
-from __future__ import unicode_literals
+"""Test Eitems permissions."""
 
 import json
 
 from flask import url_for
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
-SERIES_PID = "serid-1"
-ITEM_ENDPOINT = "invenio_records_rest.serid_item"
-LIST_ENDPOINT = "invenio_records_rest.serid_list"
+EITEM_PID = "eitemid-1"
+ITEM_ENDPOINT = "invenio_records_rest.eitmid_item"
+LIST_ENDPOINT = "invenio_records_rest.eitmid_list"
 
 
-def test_series_read_permissions(client, testdata, json_headers, users):
-    """Test Series endpoints read permissions."""
+def test_eitems_permissions(client, testdata, json_headers, users):
+    """Test eitems endpoints permissions."""
+    dummy_eitem = dict(
+        document_pid="docid-1",
+        internal_notes="An internal note",
+        description="Description of the electronic item",
+        open_access=True,
+    )
     tests = [
-        ("admin", _HTTP_OK),
-        ("librarian", _HTTP_OK),
-        ("patron1", _HTTP_OK),
-        ("anonymous", _HTTP_OK),
+        ("admin", _HTTP_OK, dummy_eitem),
+        ("librarian", _HTTP_OK, dummy_eitem),
+        ("patron1", [403], dummy_eitem),
+        ("anonymous", [401], dummy_eitem),
     ]
 
     def _test_list(expected_status):
@@ -34,32 +38,6 @@ def test_series_read_permissions(client, testdata, json_headers, users):
         url = url_for(LIST_ENDPOINT)
         res = client.get(url, headers=json_headers)
         assert res.status_code in expected_status
-
-    def _test_read(expected_status, pid):
-        """Test record read."""
-        url = url_for(ITEM_ENDPOINT, pid_value=pid)
-        res = client.get(url, headers=json_headers)
-        assert res.status_code in expected_status
-
-    for username, expected_status in tests:
-        user_login(client, username, users)
-        _test_list(expected_status)
-        _test_read(expected_status, SERIES_PID)
-
-
-def test_series_edit_permissions(client, testdata, json_headers, users):
-    """Test series endpoints permissions."""
-    dummy_series = dict(
-        title="The Gulf: The Making of An American Sea",
-        authors=["Einstein, Albert", "Stachel, John J et al."],
-        mode_of_issuance="MULTIPART_MONOGRAPH",
-    )
-    tests = [
-        ("admin", _HTTP_OK, dummy_series),
-        ("librarian", _HTTP_OK, dummy_series),
-        ("patron1", [403], dummy_series),
-        ("anonymous", [401], dummy_series),
-    ]
 
     def _test_create(expected_status, data):
         """Test record creation."""
@@ -74,7 +52,7 @@ def test_series_edit_permissions(client, testdata, json_headers, users):
 
     def _test_update(expected_status, data, pid):
         """Test record update."""
-        pid_value = pid or SERIES_PID
+        pid_value = pid or EITEM_PID
         url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
         res = client.put(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code in expected_status
@@ -82,15 +60,24 @@ def test_series_edit_permissions(client, testdata, json_headers, users):
             record = res.get_json()["metadata"]
             assert record
 
+    def _test_read(expected_status, pid):
+        """Test record read."""
+        pid_value = pid or EITEM_PID
+        url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
+        res = client.get(url, headers=json_headers)
+        assert res.status_code in expected_status
+
     def _test_delete(expected_status, pid):
         """Test record delete."""
-        pid_value = pid or SERIES_PID
+        pid_value = pid or EITEM_PID
         url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
         res = client.delete(url, headers=json_headers)
         assert res.status_code in expected_status
 
     for username, expected_status, data in tests:
         user_login(client, username, users)
+        _test_list(expected_status)
         pid = _test_create(expected_status, data)
         _test_update(expected_status, data, pid)
+        _test_read(expected_status, pid)
         _test_delete(expected_status, pid)
