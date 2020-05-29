@@ -7,16 +7,13 @@
 
 """Test loans item permissions."""
 
-from __future__ import absolute_import, print_function
-
 import json
 from copy import deepcopy
 from datetime import timedelta
 
 import arrow
 from flask import url_for
-
-from ..helpers import user_login, user_logout
+from tests.helpers import user_login
 
 NEW_LOAN = {
     "document_pid": "CHANGE ME IN EACH TEST",
@@ -98,7 +95,7 @@ def test_patron_can_cancel_loan(
 def test_patron_can_request_loan_with_or_without_end_date(
     app, client, json_headers, users, testdata
 ):
-    """Test that a patron can request a loan [with/withou] end date."""
+    """Test that a patron can request a loan [with/without] end date."""
     url = url_for("invenio_app_ils_circulation.loan_request")
     user = user_login(client, "patron1", users)
 

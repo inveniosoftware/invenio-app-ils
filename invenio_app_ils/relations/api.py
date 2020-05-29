@@ -7,12 +7,80 @@
 
 """PIDRelation APIs wrapper."""
 
-from flask import current_app
+from collections import namedtuple
+
 from invenio_db import db
 from invenio_pidrelations.api import PIDRelation
+from invenio_pidrelations.config import RelationType
 from sqlalchemy import and_, or_
 
 from invenio_app_ils.errors import RecordRelationsError
+
+ILS_RELATION_TYPE = namedtuple(
+    "IlsRelationType", RelationType._fields + ("relation_class",)
+)
+
+LANGUAGE_RELATION = ILS_RELATION_TYPE(
+    0,
+    "language",
+    "Language",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.SiblingsRelation",
+)
+EDITION_RELATION = ILS_RELATION_TYPE(
+    1,
+    "edition",
+    "Edition",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.SiblingsRelation",
+)
+OTHER_RELATION = ILS_RELATION_TYPE(
+    2,
+    "other",
+    "Other",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.SiblingsRelation",
+)
+MULTIPART_MONOGRAPH_RELATION = ILS_RELATION_TYPE(
+    3,
+    "multipart_monograph",
+    "Multipart Monograph",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.ParentChildRelation",
+)
+SERIAL_RELATION = ILS_RELATION_TYPE(
+    4,
+    "serial",
+    "Serial",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.ParentChildRelation",
+)
+SEQUENCE_RELATION = ILS_RELATION_TYPE(
+    5,
+    "sequence",
+    "Sequence",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.SequenceRelation",
+)
+
+
+PARENT_CHILD_RELATION_TYPES = [MULTIPART_MONOGRAPH_RELATION, SERIAL_RELATION]
+
+SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
+
+SEQUENCE_RELATION_TYPES = [SEQUENCE_RELATION]
+
+ILS_PIDRELATIONS_TYPES = (
+    PARENT_CHILD_RELATION_TYPES
+    + SIBLINGS_RELATION_TYPES
+    + SEQUENCE_RELATION_TYPES
+)
 
 
 class Relation(object):
@@ -28,7 +96,7 @@ class Relation(object):
     @staticmethod
     def get_relation_by_name(name):
         """Get the relation_type by name."""
-        for relation in current_app.config["ILS_PIDRELATIONS_TYPES"]:
+        for relation in ILS_PIDRELATIONS_TYPES:
             if relation.name == name:
                 return relation
         raise RecordRelationsError(

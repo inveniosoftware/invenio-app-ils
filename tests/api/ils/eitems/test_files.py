@@ -9,11 +9,10 @@
 
 import json
 
-import pytest
 from flask import url_for
 from invenio_search import current_search
 from six import BytesIO
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 
 def _test_response(
@@ -115,9 +114,12 @@ def test_upload_files_permissions(
         )
 
 
-@pytest.mark.parametrize(
-    "pid, expected",
-    [
+def test_download_files_permissions(
+    client, json_headers, location, testdata, users
+):
+    """Test download files permissions."""
+
+    tests = [
         (
             "eitemid-4",
             [
@@ -136,31 +138,34 @@ def test_upload_files_permissions(
                 ("patron1", 200),
             ],
         ),
-    ],
-)
-def test_download_files_permissions(
-    client, json_headers, location, testdata, users, pid, expected
-):
-    """Test download files permissions."""
-    # Create e-item bucket
-    user_login(client, "admin", users)
-    url = url_for("invenio_app_ils_files.eitmid_bucket", pid_value=pid)
-    res = _test_response(client, "post", url, json_headers, None, 201)
-    bucket_id = json.loads(res.data)["metadata"]["bucket_id"]
+    ]
 
-    # Upload file to e-item bucket
-    filename = "myfile.txt"
-    data = b"hello world"
-    url = url_for(
-        "invenio_files_rest.object_api", bucket_id=bucket_id, key=filename
-    )
-    _test_response(
-        client, "put", url, json_headers, None, 200, input_stream=BytesIO(data)
-    )
+    for pid, expected in tests:
+        # Create e-item bucket
+        user_login(client, "admin", users)
+        url = url_for("invenio_app_ils_files.eitmid_bucket", pid_value=pid)
+        res = _test_response(client, "post", url, json_headers, None, 201)
+        bucket_id = json.loads(res.data)["metadata"]["bucket_id"]
 
-    current_search.flush_and_refresh(index="eitems")
+        # Upload file to e-item bucket
+        filename = "myfile.txt"
+        data = b"hello world"
+        url = url_for(
+            "invenio_files_rest.object_api", bucket_id=bucket_id, key=filename
+        )
+        _test_response(
+            client,
+            "put",
+            url,
+            json_headers,
+            None,
+            200,
+            input_stream=BytesIO(data),
+        )
 
-    # Download file
-    for user, status_code in expected:
-        user_login(client, user, users)
-        _test_response(client, "get", url, None, None, status_code)
+        current_search.flush_and_refresh(index="eitems")
+
+        # Download file
+        for user, status_code in expected:
+            user_login(client, user, users)
+            _test_response(client, "get", url, None, None, status_code)

@@ -7,13 +7,11 @@
 
 """Test records relations parent child."""
 
-from __future__ import unicode_literals
-
 import json
 
 from flask import url_for
+from tests.helpers import user_login
 
-from ..helpers import user_login
 from .helpers import recrel_assert_record_relations, \
     recrel_choose_endpoints_and_do_request
 

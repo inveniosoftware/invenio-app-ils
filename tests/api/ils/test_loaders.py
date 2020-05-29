@@ -7,12 +7,10 @@
 
 """Test accesibility of resource endpoints."""
 
-from __future__ import unicode_literals
-
 import json
 
 from flask import url_for
-from tests.api.helpers import user_login, validate_response
+from tests.helpers import user_login, validate_response
 
 NEW_INTERNAL_LOCATION = {
     "location_pid": "locid-1",

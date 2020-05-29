@@ -19,6 +19,8 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
+from tests.helpers import document_ref_builder, \
+    internal_location_ref_builder, load_json_from_datadir, mint_record_pid
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, \
     Order, Vendor
@@ -33,10 +35,6 @@ from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE, \
     SERIES_PID_TYPE
 from invenio_app_ils.records.api import EItem, InternalLocation, Item, \
     Location, Series
-
-from ..helpers import load_json_from_datadir
-from .helpers import document_ref_builder, internal_location_ref_builder, \
-    mint_record_pid
 
 
 @pytest.fixture(scope="module")
@@ -68,9 +66,8 @@ def json_headers():
     ]
 
 
-def _records_create_and_index(db, objs, cls, pid_type):
+def _create_records(db, objs, cls, pid_type):
     """Create records and index."""
-    indexer = RecordIndexer()
     recs = []
     for obj in objs:
         record = cls.create(obj)
@@ -78,8 +75,6 @@ def _records_create_and_index(db, objs, cls, pid_type):
         record.commit()
         recs.append(record)
     db.session.commit()
-    for rec in recs:
-        indexer.index(rec)
     return recs
 
 
@@ -87,59 +82,64 @@ def _records_create_and_index(db, objs, cls, pid_type):
 def testdata(app, db, es_clear, users):
     """Create, index and return test data."""
     data = load_json_from_datadir("locations.json")
-    locations = _records_create_and_index(
-        db, data, Location, LOCATION_PID_TYPE
-    )
+    locations = _create_records(db, data, Location, LOCATION_PID_TYPE)
 
     data = load_json_from_datadir("internal_locations.json")
-    int_locs = _records_create_and_index(
+    int_locs = _create_records(
         db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE
     )
 
     data = load_json_from_datadir("series.json")
-    series = _records_create_and_index(db, data, Series, SERIES_PID_TYPE)
+    series = _create_records(db, data, Series, SERIES_PID_TYPE)
 
     data = load_json_from_datadir("documents.json")
-    documents = _records_create_and_index(
-        db, data, Document, DOCUMENT_PID_TYPE
-    )
+    documents = _create_records(db, data, Document, DOCUMENT_PID_TYPE)
 
     data = load_json_from_datadir("items.json")
-    items = _records_create_and_index(db, data, Item, ITEM_PID_TYPE)
+    items = _create_records(db, data, Item, ITEM_PID_TYPE)
 
     data = load_json_from_datadir("eitems.json")
-    eitems = _records_create_and_index(db, data, EItem, EITEM_PID_TYPE)
+    eitems = _create_records(db, data, EItem, EITEM_PID_TYPE)
 
     data = load_json_from_datadir("loans.json")
-    loans = _records_create_and_index(
-        db, data, Loan, CIRCULATION_LOAN_PID_TYPE
-    )
+    loans = _create_records(db, data, Loan, CIRCULATION_LOAN_PID_TYPE)
 
     data = load_json_from_datadir("document_requests.json")
-    doc_reqs = _records_create_and_index(
+    doc_reqs = _create_records(
         db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
     )
 
     data = load_json_from_datadir("acq_vendors.json")
-    acq_vendors = _records_create_and_index(
-        db, data, Vendor, VENDOR_PID_TYPE
-    )
+    acq_vendors = _create_records(db, data, Vendor, VENDOR_PID_TYPE)
 
     data = load_json_from_datadir("acq_orders.json")
-    acq_orders = _records_create_and_index(db, data, Order, ORDER_PID_TYPE)
+    acq_orders = _create_records(db, data, Order, ORDER_PID_TYPE)
 
     data = load_json_from_datadir("ill_libraries.json")
-    ill_libraries = _records_create_and_index(
-        db, data, Library, LIBRARY_PID_TYPE
-    )
+    ill_libraries = _create_records(db, data, Library, LIBRARY_PID_TYPE)
 
     data = load_json_from_datadir("ill_borrowing_requests.json")
-    ill_brw_reqs = _records_create_and_index(
+    ill_brw_reqs = _create_records(
         db, data, BorrowingRequest, BORROWING_REQUEST_PID_TYPE
     )
 
-    # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index="*")
+    # index
+    ri = RecordIndexer()
+    for rec in (
+        locations
+        + int_locs
+        + series
+        + documents
+        + items
+        + eitems
+        + loans
+        + doc_reqs
+        + acq_vendors
+        + acq_orders
+        + ill_libraries
+        + ill_brw_reqs
+    ):
+        ri.index(rec)
 
     return {
         "document_requests": doc_reqs,
@@ -156,6 +156,25 @@ def testdata(app, db, es_clear, users):
         "ill_brw_reqs": ill_brw_reqs,
     }
 
+
+@pytest.fixture()
+def testdata_most_loaned(db, testdata):
+    """Create, index and return test data for most loans tests."""
+    loans = load_json_from_datadir("loans_most_loaned.json")
+    recs = _create_records(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
+
+    ri = RecordIndexer()
+    for rec in recs:
+        ri.index(rec)
+
+    return {
+        "locations": testdata["locations"],
+        "internal_locations": testdata["internal_locations"],
+        "documents": testdata["documents"],
+        "items": testdata["items"],
+        "loans": loans,
+        "series": testdata["series"],
+    }
 
 @pytest.fixture()
 def item_record(app):
@@ -200,45 +219,6 @@ def example_message_factory():
 
 
 @pytest.fixture()
-def testdata_most_loaned(app, db, es_clear):
-    """Create, index and return test data for most loans tests."""
-    locations = load_json_from_datadir("locations.json")
-    _records_create_and_index(db, locations, Location, LOCATION_PID_TYPE)
-
-    int_locs = load_json_from_datadir("internal_locations.json")
-    _records_create_and_index(
-        db, int_locs, InternalLocation, INTERNAL_LOCATION_PID_TYPE
-    )
-
-    series_data = load_json_from_datadir("series.json")
-    _records_create_and_index(db, series_data, Series, SERIES_PID_TYPE)
-
-    documents = load_json_from_datadir("documents.json")
-    _records_create_and_index(db, documents, Document, DOCUMENT_PID_TYPE)
-
-    items = load_json_from_datadir("items.json")
-    _records_create_and_index(db, items, Item, ITEM_PID_TYPE)
-
-    eitems = load_json_from_datadir("eitems.json")
-    _records_create_and_index(db, eitems, EItem, EITEM_PID_TYPE)
-
-    loans = load_json_from_datadir("loans_most_loaned.json")
-    _records_create_and_index(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
-
-    # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index="*")
-
-    return {
-        "locations": locations,
-        "internal_locations": int_locs,
-        "documents": documents,
-        "items": items,
-        "loans": loans,
-        "series": series_data,
-    }
-
-
-@pytest.yield_fixture()
 def bucket(bucket_from_dir):
     """Create temporary bucket fixture."""
     with tempfile.TemporaryDirectory(prefix="ils-test-") as temp_dir:

@@ -7,15 +7,12 @@
 
 """Test ILL borrowing requests actions."""
 
-from __future__ import unicode_literals
-
 import json
 from datetime import timedelta
 
 import arrow
-import pytest
 from flask import url_for
-from tests.api.helpers import user_login, user_logout
+from tests.helpers import user_login, user_logout
 
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 
@@ -116,7 +113,6 @@ def _decline_extension_action(pid, _, client, json_headers):
     return client.post(url, headers=json_headers, data=json.dumps({}))
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_request_extension_only_owner(
     client, testdata, json_headers, users
 ):
@@ -156,43 +152,41 @@ def test_brwreq_request_extension_only_owner(
     assert extension["request_date"] == arrow.now().date().isoformat()
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
-@pytest.mark.parametrize(
-    "action", [_accept_extension_action, _decline_extension_action]
-)
 def test_brwreq_accept_decline_extension_only_librarian(
-    client, testdata, json_headers, users, action
+    client, testdata, json_headers, users
 ):
     """Test that only librarian can accept or decline an extension."""
-    user_login(client, "librarian", users)
 
-    # create request
-    brwreq, brwreq_pid = _create_on_loan_brwreq_with_pending_extension(
-        "1", client, json_headers
-    )
+    tests = [_accept_extension_action, _decline_extension_action]
+    for action in tests:
+        user_login(client, "librarian", users)
 
-    loan_end_date = arrow.utcnow() + timedelta(days=15)
-    data = dict(loan_end_date=loan_end_date.date().isoformat())
+        # create request
+        brwreq, brwreq_pid = _create_on_loan_brwreq_with_pending_extension(
+            "1", client, json_headers
+        )
 
-    # accept/decline
+        loan_end_date = arrow.utcnow() + timedelta(days=15)
+        data = dict(loan_end_date=loan_end_date.date().isoformat())
 
-    # anonymous, forbidden
-    user_logout(client)
-    res = action(brwreq_pid, data, client, json_headers)
-    assert res.status_code == 401
+        # accept/decline
 
-    # patron, forbidden
-    user_login(client, "patron1", users)
-    res = action(brwreq_pid, data, client, json_headers)
-    assert res.status_code == 403
+        # anonymous, forbidden
+        user_logout(client)
+        res = action(brwreq_pid, data, client, json_headers)
+        assert res.status_code == 401
 
-    # librarian, success
-    user_login(client, "librarian", users)
-    res = action(brwreq_pid, data, client, json_headers)
-    assert res.status_code == 200
+        # patron, forbidden
+        user_login(client, "patron1", users)
+        res = action(brwreq_pid, data, client, json_headers)
+        assert res.status_code == 403
+
+        # librarian, success
+        user_login(client, "librarian", users)
+        res = action(brwreq_pid, data, client, json_headers)
+        assert res.status_code == 200
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_request_extension_fails_on_wrong_status(
     client, testdata, json_headers, users
 ):
@@ -208,48 +202,46 @@ def test_brwreq_request_extension_fails_on_wrong_status(
     assert res.status_code == 400
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
-@pytest.mark.parametrize(
-    "action", [_accept_extension_action, _decline_extension_action]
-)
 def test_brwreq_accept_decline_extension_should_fail_when_loan_not_active(
-    client, testdata, json_headers, users, action
+    client, testdata, json_headers, users
 ):
     """Test that accept or decline an extension fails on loan not active."""
-    user_login(client, "librarian", users)
 
-    # create request
-    brwreq, brwreq_pid = _create_on_loan_brwreq_with_pending_extension(
-        "1", client, json_headers
-    )
+    tests = [_accept_extension_action, _decline_extension_action]
+    for action in tests:
+        user_login(client, "librarian", users)
 
-    # check-in loan
-    loan_pid = brwreq["patron_loan"]["pid"]
-    url = url_for(
-        "invenio_circulation_loan_actions.loanid_actions",
-        pid_value=loan_pid,
-        action="checkin",
-    )
-    item_pid = dict(type=BORROWING_REQUEST_PID_TYPE, value=brwreq["pid"])
-    params = dict(
-        document_pid=brwreq["document_pid"],
-        item_pid=item_pid,
-        patron_pid=brwreq["patron_pid"],
-        transaction_location_pid="1",
-        transaction_user_pid="1",
-    )
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 202
+        # create request
+        brwreq, brwreq_pid = _create_on_loan_brwreq_with_pending_extension(
+            "1", client, json_headers
+        )
 
-    # accept extension
-    loan_end_date = arrow.utcnow() + timedelta(days=15)
-    data = dict(loan_end_date=loan_end_date.date().isoformat())
+        # check-in loan
+        loan_pid = brwreq["patron_loan"]["pid"]
+        url = url_for(
+            "invenio_circulation_loan_actions.loanid_actions",
+            pid_value=loan_pid,
+            action="checkin",
+        )
+        item_pid = dict(type=BORROWING_REQUEST_PID_TYPE, value=brwreq["pid"])
+        params = dict(
+            document_pid=brwreq["document_pid"],
+            item_pid=item_pid,
+            patron_pid=brwreq["patron_pid"],
+            transaction_location_pid="1",
+            transaction_user_pid="1",
+        )
+        res = client.post(url, headers=json_headers, data=json.dumps(params))
+        assert res.status_code == 202
 
-    res = action(brwreq_pid, data, client, json_headers)
-    assert res.status_code == 400
+        # accept extension
+        loan_end_date = arrow.utcnow() + timedelta(days=15)
+        data = dict(loan_end_date=loan_end_date.date().isoformat())
+
+        res = action(brwreq_pid, data, client, json_headers)
+        assert res.status_code == 400
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_accept_extension_success(
     client, testdata, json_headers, users
 ):
@@ -277,7 +269,6 @@ def test_brwreq_accept_extension_success(
     assert "status" not in patron_loan["extension"]
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_decline_extension_success(
     client, testdata, json_headers, users
 ):

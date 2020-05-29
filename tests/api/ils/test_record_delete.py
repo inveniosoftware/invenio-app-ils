@@ -8,7 +8,7 @@
 """Test record delete."""
 
 from flask import url_for
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 
 def test_delete_location(client, users, json_headers, testdata):

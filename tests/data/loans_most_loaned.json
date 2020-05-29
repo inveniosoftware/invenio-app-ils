@@ -1,6 +1,6 @@
 [
   {
-    "pid": "1",
+    "pid": "mostloaned-1",
     "document_pid": "docid-1",
     "item_pid": {
       "type": "pitmid",
@@ -14,7 +14,7 @@
     "extension_count": 0
   },
   {
-    "pid": "2",
+    "pid": "mostloaned-2",
     "document_pid": "docid-1",
     "item_pid": {
       "type": "pitmid",
@@ -30,7 +30,7 @@
     "extension_count": 0
   },
   {
-    "pid": "3",
+    "pid": "mostloaned-3",
     "document_pid": "docid-1",
     "item_pid": {
       "type": "pitmid",
@@ -46,7 +46,7 @@
     "extension_count": 0
   },
   {
-    "pid": "4",
+    "pid": "mostloaned-4",
     "document_pid": "docid-2",
     "item_pid": {
       "type": "pitmid",
@@ -62,7 +62,7 @@
     "extension_count": 1
   },
   {
-    "pid": "5",
+    "pid": "mostloaned-5",
     "document_pid": "docid-2",
     "item_pid": {
       "type": "pitmid",
@@ -78,7 +78,7 @@
     "extension_count": 1
   },
   {
-    "pid": "6",
+    "pid": "mostloaned-6",
     "document_pid": "docid-3",
     "item_pid": {
       "type": "pitmid",
@@ -94,7 +94,7 @@
     "extension_count": 3
   },
   {
-    "pid": "7",
+    "pid": "mostloaned-7",
     "document_pid": "docid-3",
     "item_pid": {
       "type": "pitmid",
@@ -110,7 +110,7 @@
     "extension_count": 3
   },
   {
-    "pid": "8",
+    "pid": "mostloaned-8",
     "document_pid": "docid-5",
     "item_pid": {
       "type": "pitmid",

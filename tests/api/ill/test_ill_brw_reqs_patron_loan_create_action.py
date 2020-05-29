@@ -7,15 +7,12 @@
 
 """Test ILL borrowing requests actions."""
 
-from __future__ import unicode_literals
-
 import json
 from datetime import timedelta
 
 import arrow
-import pytest
 from flask import url_for
-from tests.api.helpers import user_login
+from tests.helpers import user_login
 
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, \
     BorrowingRequest
@@ -34,7 +31,6 @@ def _assert_create_loan_action_fails(pid, data, client, json_headers):
     assert res.status_code == 400
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_create_loan_only_backoffice(
     client, testdata, json_headers, users
 ):
@@ -44,7 +40,6 @@ def test_brwreq_create_loan_only_backoffice(
     assert res.status_code == 403
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_create_loan_fails_on_wrong_status(
     db, client, testdata, json_headers, users
 ):
@@ -89,7 +84,6 @@ def test_brwreq_create_loan_fails_on_wrong_status(
     _assert_fail_when_status(pid, "CANCELLED")
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_create_loan_fails_on_wrong_loan_end_date(
     db, client, testdata, json_headers, users
 ):
@@ -125,7 +119,6 @@ def test_brwreq_create_loan_fails_on_wrong_loan_end_date(
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_create_loan_fails_on_loan_pid_already_attached(
     db, client, testdata, json_headers, users
 ):
@@ -151,7 +144,6 @@ def test_brwreq_create_loan_fails_on_loan_pid_already_attached(
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
 
-@pytest.mark.skip(reason="put back when Travis build too slow fixed")
 def test_brwreq_create_loan_succeeds(
     db, client, testdata, json_headers, users
 ):
