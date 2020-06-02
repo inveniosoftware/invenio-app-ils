@@ -9,10 +9,8 @@
 
 from datetime import timedelta
 
-from invenio_app_ils.ill.api import (
-    circulation_default_extension_duration,
-    circulation_default_loan_duration,
-)
+from invenio_app_ils.ill.api import circulation_default_extension_duration, \
+    circulation_default_loan_duration
 
 FAKE_LOAN_ITEM_NO_RESTRICTIONS = {
     "item_pid": {"type": "pitmid", "value": "itemid-1"}

@@ -17,9 +17,7 @@ from invenio_circulation.search.api import search_by_pid
 
 def get_pending_loans_by_doc_pid(document_pid):
     """Return any pending loans for the given document."""
-    return search_by_pid(
-        document_pid=document_pid, filter_states=["PENDING"]
-    )
+    return search_by_pid(document_pid=document_pid, filter_states=["PENDING"])
 
 
 def get_active_loans_by_doc_pid(document_pid):
@@ -77,6 +75,17 @@ def get_all_expiring_loans(expiring_in_days):
                 gte="{}||/d".format(future), lte="{}||/d".format(future)
             ),
         )
+    )
+
+
+def get_all_expired_loans():
+    """Return all loans that have expired."""
+    states = current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+    search_cls = current_circulation.loan_search_cls
+    return (
+        search_cls()
+        .filter("terms", state=states)
+        .filter("range", request_expire_date=dict(lt="now/d"))
     )
 
 

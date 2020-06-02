@@ -275,7 +275,8 @@ setup(
             "ils_indexer_series = invenio_app_ils.series.indexer",
             "ils_mails = invenio_app_ils.mail.tasks",
             "ils_circulation_mails = invenio_app_ils.circulation.mail.tasks",
-        ]
+            "ils_circulation = invenio_app_ils.circulation.tasks",
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,

@@ -61,8 +61,9 @@ def circulation_build_document_ref(loan_pid, loan):
 
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
-    is_admin_or_librarian = has_request_context() and \
-                            backoffice_permission().allows(g.identity)
+    is_admin_or_librarian = has_request_context() and backoffice_permission().allows(
+        g.identity
+    )
     if is_admin_or_librarian:
         unlimited = loan.get("extension_count", 0) + 1
         return unlimited
@@ -90,7 +91,8 @@ def circulation_overdue_loan_days(loan):
 def circulation_loan_will_expire_days():
     """Return a number of days before a loan expires."""
     return arrow.utcnow() + timedelta(
-        days=current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"])
+        days=current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
+    )
 
 
 def circulation_transaction_location_validator(transaction_location_pid):
@@ -103,7 +105,10 @@ def circulation_transaction_location_validator(transaction_location_pid):
 
 def circulation_transaction_user_validator(transaction_user_pid):
     """Validate that the given transaction user PID is valid."""
-    return transaction_user_pid == str(current_user.id)
+    if has_request_context():
+        return transaction_user_pid == str(current_user.id)
+    else:
+        return True
 
 
 def resolve_item_from_loan(item_pid):
