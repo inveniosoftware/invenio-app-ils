@@ -6,10 +6,16 @@ InvenioILS: your loan for "{{ document.title }}" has been cancelled.
 Dear {{ patron.email }},
 
 your loan for "{{ document.full_title }}" has been cancelled.
+{% if "cancel_reason" in loan %}
+Cancel reason: {{loan.cancel_reason}}
+{% endif %}
 {% endblock %}
 
 {% block body_html %}
 Dear {{ patron.email }},
 
 your loan for "{{ document.full_title }}" has been cancelled.
+{% if "cancel_reason" in loan %}
+Cancel reason: {{loan.cancel_reason}}
+{% endif %}
 {% endblock %}

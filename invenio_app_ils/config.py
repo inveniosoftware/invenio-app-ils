@@ -124,9 +124,7 @@ ILS_MAIL_ENABLE_TEST_RECIPIENTS = False
 ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
 
 #: Document request message creator class
-ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = (
-    "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"
-)
+ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"
 #: Document request email templates
 ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
 
@@ -168,6 +166,10 @@ CELERY_BEAT_SCHEDULE = {
     },
     "send_expiring_loans_loans": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_expiring_loans_mail_reminder",
+        "schedule": timedelta(days=1),
+    },
+    "cancel_expired_loan": {
+        "task": "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests",
         "schedule": timedelta(days=1),
     },
     "send_overdue_loan_reminders": {
@@ -224,9 +226,7 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 
 #: Single Page Application host and routes, useful in templates/emails
 SPA_HOST = "http://localhost:3000"
-SPA_PATHS = dict(
-    profile="/profile"
-)
+SPA_PATHS = dict(profile="/profile")
 
 # OAI-PMH
 # =======

@@ -171,7 +171,15 @@ class Item(_Item):
         "THREE_WEEKS",
         "FOUR_WEEKS",
     ]
-    MEDIUMS = ["NOT_SPECIFIED", "PAPER", "CDROM", "DVD", "VHS", "PAPERBACK", "HARDCOVER"]
+    MEDIUMS = [
+        "NOT_SPECIFIED",
+        "PAPER",
+        "CDROM",
+        "DVD",
+        "VHS",
+        "PAPERBACK",
+        "HARDCOVER",
+    ]
 
     @classmethod
     def build_resolver_fields(cls, data):
@@ -408,7 +416,22 @@ class Patron(dict):
         if not patron_pid:
             raise PatronNotFoundError(patron_pid)
 
+        if str(patron_pid) == str(SystemAgent.id):
+            return SystemAgent()
+
         return Patron(patron_pid)
+
+
+class SystemAgent(Patron):
+    """Fake patron for storing changes performed by the system."""
+
+    id = -1
+
+    def __init__(self):
+        """Constructor."""
+        self._schema = ""
+        self.name = "System"
+        self.email = current_app.config["SUPPORT_EMAIL"]
 
 
 class Series(IlsRecordWithRelations):
