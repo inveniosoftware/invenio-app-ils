@@ -208,6 +208,18 @@ class ItemGenerator(Generator):
             for pid in range(1, size + 1)
         ]
 
+        demo_data_dir = os.path.join(
+            os.path.realpath("."), "invenio_app_ils", "demo_data"
+        )
+        with open(os.path.join(demo_data_dir, "items.json")) as f:
+            demo_data = json.loads(f.read())
+
+        for item in demo_data:
+            item["pid"] = self.create_pid()
+            item["document_pid"] = random.choice(doc_pids)
+            item["internal_location_pid"] = random.choice(iloc_pids)
+
+        objs.extend(demo_data)
         self.holder.items["objs"] = objs
 
     def persist(self):
@@ -398,6 +410,16 @@ class DocumentGenerator(Generator):
             else:
                 issue += 1
 
+        demo_data_dir = os.path.join(
+            os.path.realpath("."), "invenio_app_ils", "demo_data"
+        )
+        with open(os.path.join(demo_data_dir, "documents.json")) as f:
+            demo_data = json.loads(f.read())
+
+        for doc in demo_data:
+            doc["pid"] = self.create_pid()
+
+        objs.extend(demo_data)
         self.holder.documents["objs"] = objs
 
     def persist(self):

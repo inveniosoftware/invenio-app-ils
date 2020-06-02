@@ -1,0 +1,57 @@
+[
+  {
+    "shelf": "530.145.26 DEL",
+    "medium": "PAPER",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065507",
+    "legacy_id": "2706047",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "shelf": "004.421.5 DEL",
+    "medium": "PAPER",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065300",
+    "legacy_id": "2705205",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "shelf": "530.12 EIN",
+    "medium": "PAPER",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065527",
+    "legacy_id": "2704388",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+
+  {
+    "shelf": "82-3 JAC",
+    "medium": "PAPER",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00064755",
+    "legacy_id": "2703680",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "shelf": "004.438.REDUCE GRO",
+    "medium": "PAPER",
+    "status": "CAN_CIRCULATE",
+    "barcode": "CM-B00065289",
+    "legacy_id": "2702176",
+    "legacy_library_id": "6",
+    "circulation_restriction": "FOUR_WEEKS"
+  },
+  {
+    "shelf": "CATANIA 2018",
+    "medium": "PAPER",
+    "status": "FOR_REFERENCE_ONLY",
+    "barcode": "CM-B00065528",
+    "legacy_id": "2704389",
+    "legacy_library_id": "12",
+    "circulation_restriction": "NO_RESTRICTION"
+  }
+]
