@@ -13,6 +13,7 @@ from datetime import timedelta
 
 import arrow
 from flask import url_for
+from invenio_search import current_search
 from tests.helpers import user_login
 
 NEW_LOAN = {
@@ -197,3 +198,40 @@ def test_request_loan_with_or_without_delivery(
 
     # restore
     app.config["ILS_CIRCULATION_DELIVERY_METHODS"] = previous_dev_methods
+
+
+def test_request_loan_with_active_loan_or_loan_request(
+    app, client, json_headers, users, testdata
+):
+    """Test that a patron cannot request a loan with already an active loan or
+    a loan request on the same document.
+    """
+    # Try to request document with already a loan request
+    url = url_for("invenio_app_ils_circulation.loan_request")
+    user = user_login(client, "patron1", users)
+    params = deepcopy(NEW_LOAN)
+    params["document_pid"] = "docid-3"
+    params["transaction_user_pid"] = str(user.id)
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    current_search.flush_and_refresh(index="*")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+
+    # Try to request document with already an active loan
+    user_login(client, "librarian", users)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+    params = deepcopy(NEW_LOAN)
+    params["document_pid"] = "docid-3"
+    params["transaction_user_pid"] = str(users["librarian"].id)
+    params["item_pid"] = dict(type="pitmid", value="itemid-60")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    current_search.flush_and_refresh(index="*")
+    url = url_for("invenio_app_ils_circulation.loan_request")
+    user = user_login(client, "patron1", users)
+    params = deepcopy(NEW_LOAN)
+    params["document_pid"] = "docid-3"
+    params["transaction_user_pid"] = str(user.id)
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400

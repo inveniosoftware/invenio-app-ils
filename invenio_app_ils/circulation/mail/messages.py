@@ -73,4 +73,3 @@ class LoanMessage(BlockTemplatedMessage):
         data = super().dump()
         data["loan_pid"] = self.loan["pid"]
         return data
-
