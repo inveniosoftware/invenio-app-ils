@@ -18,7 +18,7 @@ invenio_search_version = "1.3.0,<1.4.0"
 
 tests_require = [
     "check-manifest>=0.35",
-    "coverage>=4.4.1",
+    "coverage>=4.4.1,<5.0.0",
     "isort>=4.3.11",
     "mock>=2.0.0",
     "pydocstyle>=2.0.0",

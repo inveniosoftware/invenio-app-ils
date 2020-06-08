@@ -231,7 +231,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params obj: content of the object's 'extensions' field
         """
-        ExtensionSchema = current_app.document_metadata_extensions.to_schema()
+        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
+                                     .document_metadata_extensions \
+                                     .to_schema()
         return ExtensionSchema().dump(obj)
 
     def load_extensions(self, value):
@@ -239,7 +241,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params value: content of the input's 'extensions' field
         """
-        ExtensionSchema = current_app.document_metadata_extensions.to_schema()
+        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
+                                     .document_metadata_extensions \
+                                     .to_schema()
         return ExtensionSchema().load(value)
 
     @pre_load

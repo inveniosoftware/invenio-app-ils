@@ -15,14 +15,12 @@ You overwrite and set instance-specific configuration by either:
 
 from __future__ import absolute_import, print_function
 
-from collections import namedtuple
 from datetime import timedelta
 
 from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_oauthclient.contrib import cern
-from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.schemas.fields import SanitizedUnicode
 from invenio_records_rest.utils import allow_all, deny_all
@@ -1036,67 +1034,8 @@ ILS_DEFAULT_LOCATION_PID = "1"
 ILS_LITERATURE_COVER_URLS_BUILDER = build_ils_demo_cover_urls
 """Default implementation for building cover urls in document serializer."""
 
-# Namespaces for fields *added* to the metadata schema.
-ILS_RECORDS_METADATA_NAMESPACES = {
-    "series": {
-        "serial": {
-            "@context": "https://example.com/serial/terms"
-        },
-    },
-    "document": {
-        "accelerator_experiments": {
-            "@context": "https://example.com/accelerator_experiments/terms"
-        },
-        "standard_status": {
-            "@context": "https://example.com/standard_status/terms"
-        },
-    }
-}
+# Namespaces for fields added to the metadata schema
+ILS_RECORDS_METADATA_NAMESPACES = {}
 
 # Fields added to the metadata schema.
-ILS_RECORDS_METADATA_EXTENSIONS = {
-    "series": {
-        "serial:number": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-    },
-    "document": {
-        "accelerator_experiments:accelerator": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "accelerator_experiments:curated_relation": {
-            "elasticsearch": "boolean",
-            "marshmallow": Bool()
-        },
-        "accelerator_experiments:experiment": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "accelerator_experiments:institution": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "accelerator_experiments:legacy_name": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "accelerator_experiments:project": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "accelerator_experiments:study": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "standard_status:CERN_applicability": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode()
-        },
-        "standard_status:standard_validity": {
-            "elasticsearch": "keyword",
-            "marshmallow": SanitizedUnicode(required=True)
-        },
-    }
-}
+ILS_RECORDS_METADATA_EXTENSIONS = {}
