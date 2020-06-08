@@ -19,7 +19,6 @@ from werkzeug.utils import cached_property
 from invenio_app_ils.records.metadata_extensions import MetadataExtensions, \
     add_es_metadata_extensions
 
-from . import config
 from .circulation import config as circulation_config
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
@@ -166,19 +165,6 @@ class _InvenioAppIlsState(object):
         return self.indexer_by_pid_type(SERIES_PID_TYPE)
 
 
-def before_record_index_hook(
-        sender, json=None, record=None, index=None, **kwargs):
-    """Hook to transform Deposits before indexing in ES.
-
-    :param sender: The entity sending the signal.
-    :param json: The dumped Record dict which will be indexed.
-    :param record: The correspondng Record object.
-    :param index: The index in which the json will be indexed.
-    :param kwargs: Any other parameters.
-    """
-    add_es_metadata_extensions(json, kwargs["record_type"])  # mutates json
-
-
 class InvenioAppIls(object):
     """Invenio App ILS UI app."""
 
@@ -206,23 +192,19 @@ class InvenioAppIls(object):
 
     def init_metadata_extensions(self, app):
         """Metadata extensions initialization."""
-        allowed_types = ["document", "series"]
-
-        for rec_type in allowed_types:
+        for rec_type in app.config['ILS_RECORDS_METADATA_EXTENSIONS'].keys():
             namespaces = \
                 app.config['ILS_RECORDS_METADATA_NAMESPACES'].get(rec_type, {})
             extensions = \
                 app.config['ILS_RECORDS_METADATA_EXTENSIONS'].get(rec_type, {})
-
             setattr(
-                self,
+                app.extensions["invenio-app-ils"],
                 "{}_metadata_extensions".format(rec_type),
                 MetadataExtensions(namespaces, extensions)
             )
-
             before_record_index.dynamic_connect(
                 before_record_index_hook, sender=app, weak=False,
-                index="{0}s-{0}-v1.0.0".format(rec_type), record_type=rec_type
+                index="{0}s-{0}-v1.0.0".format(rec_type)
             )
 
     def update_config_records_rest(self, app):
@@ -250,3 +232,16 @@ class InvenioAppIlsREST(InvenioAppIls):
         """Register signals."""
         register_circulation_signals()
         register_files_signals()
+
+
+def before_record_index_hook(
+        sender, json=None, record=None, index=None, **kwargs):
+    """Hook to transform record before indexing in ES.
+
+    :param sender: The entity sending the signal.
+    :param json: The dumped Record dict which will be indexed.
+    :param record: The correspondng Record object.
+    :param index: The index in which the json will be indexed.
+    :param kwargs: Any other parameters.
+    """
+    add_es_metadata_extensions(json)  # mutates json

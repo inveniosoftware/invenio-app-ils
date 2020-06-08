@@ -89,14 +89,15 @@ class MetadataExtensions(object):
         )
 
 
-def add_es_metadata_extensions(record_dict, record_type):
+def add_es_metadata_extensions(record_dict):
     """Add "extensions_X" fields to record_dict prior to Elasticsearch index.
 
     :param record_dict: dumped Record dict
-    :param record_type: Record type
     """
-    metadata_extensions = current_app.get(
-        "{}_metadata_extensions".format(record_type)
+    rec_type = record_dict["$schema"].split("/")[-1].split("-")[0]
+    metadata_extensions = getattr(
+        current_app.extensions["invenio-app-ils"],
+        "{}_metadata_extensions".format(rec_type)
     )
 
     for key, value in record_dict.get("extensions", {}).items():
