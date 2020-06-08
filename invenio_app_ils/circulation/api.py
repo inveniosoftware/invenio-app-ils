@@ -21,7 +21,8 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_db import db
 
 from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronHasLoanOnItemError, PatronHasRequestOnDocumentError
+    PatronHasLoanOnDocumentError, PatronHasLoanOnItemError, \
+    PatronHasRequestOnDocumentError
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import Item
 
@@ -50,18 +51,22 @@ def _set_item_to_can_circulate(item_pid):
         current_app_ils.item_indexer.index(item)
 
 
-def patron_has_request_on_document(patron_pid, document_pid):
-    """Return True if patron has a request for the given document."""
+def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
+    """Return True if patron has an active loan/request for given document."""
+    states = (
+        current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+        + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    )
     search = search_by_patron_item_or_document(
-        patron_pid=patron_pid,
-        document_pid=document_pid,
-        filter_states=current_app.config["CIRCULATION_STATES_LOAN_REQUEST"],
+        patron_pid=patron_pid, document_pid=document_pid, filter_states=states,
     )
     search_result = search.execute()
+
     return (
+        search_result,
         search_result.hits.total > 0
         if lt_es7
-        else search_result.hits.total.value > 0
+        else search_result.hits.total.value > 0,
     )
 
 
@@ -73,10 +78,17 @@ def request_loan(
     **kwargs
 ):
     """Create a new loan and trigger the first transition to PENDING."""
-    if patron_has_request_on_document(
-        patron_pid=patron_pid, document_pid=document_pid
-    ):
-        raise PatronHasRequestOnDocumentError(patron_pid, document_pid)
+    search_result, loan_found = patron_has_active_loan_or_request_on_document(
+        patron_pid, document_pid
+    )
+    if loan_found:
+        if (
+            search_result.hits[0].state
+            in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+        ):
+            raise PatronHasRequestOnDocumentError(patron_pid, document_pid)
+        raise PatronHasLoanOnDocumentError(patron_pid, document_pid)
+
     _validate_delivery(kwargs.get("delivery"))
 
     transaction_user_pid = transaction_user_pid or str(current_user.id)

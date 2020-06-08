@@ -126,9 +126,7 @@ class PatronNotFoundError(IlsException):
 class PatronHasLoanOnItemError(IlsException):
     """A patron already has an active loan or a loan request on an item."""
 
-    description = (
-        "Patron '{0}' has already an active loan on item '{1}:{2}'"
-    )
+    description = "Patron '{0}' has already an active loan on item '{1}:{2}'"
 
     def __init__(self, patron_pid, item_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnItem exception.
@@ -152,6 +150,26 @@ class PatronHasRequestOnDocumentError(IlsException):
 
     def __init__(self, patron_pid, document_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnDocument exception.
+
+        :param loan_params: Loan request parameters.
+        :param prop: Missing property from loan request.
+        """
+        super().__init__(**kwargs)
+        self.description = self.description.format(
+            patron_pid=patron_pid, document_pid=document_pid
+        )
+
+
+class PatronHasLoanOnDocumentError(IlsException):
+    """A patron already has an active loan on a document."""
+
+    description = (
+        "Patron '{patron_pid}' has already an active loan "
+        "on document '{document_pid}'"
+    )
+
+    def __init__(self, patron_pid, document_pid, **kwargs):
+        """Initialize PatronHasLoanOnDocumentError exception.
 
         :param loan_params: Loan request parameters.
         :param prop: Missing property from loan request.
