@@ -9,7 +9,6 @@
 
 import json
 
-import pytest
 from flask import url_for
 from tests.helpers import user_login
 
@@ -42,7 +41,6 @@ def assert_most_loaned(client, json_headers, from_date, to_date, expect):
         assert hit["metadata"]["loan_extensions"] == expect[pid]["extensions"]
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_stats_most_loaned_documents(
     client, json_headers, testdata_most_loaned, users
 ):

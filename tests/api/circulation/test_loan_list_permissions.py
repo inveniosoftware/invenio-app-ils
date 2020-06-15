@@ -30,7 +30,6 @@ def test_anonymous_cannot_search_any_loan(client, json_headers, users):
     assert res.status_code == 401
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_admin_or_librarian_can_search_any_loan(
     client, json_headers, users, testdata
 ):
@@ -50,7 +49,6 @@ def test_anonymous_loans_search(app):
             search_factory_filter_by_patron(None, LoansSearch())
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_patrons_can_search_their_own_loans(
     client, json_headers, users, testdata
 ):
@@ -66,7 +64,7 @@ def test_patrons_can_search_their_own_loans(
 
         assert res.status_code == 200
         hits = json.loads(res.data.decode("utf-8"))
-        assert len(hits["hits"]["hits"]) == len(patron_loans)
+        assert hits["hits"]["total"] == len(patron_loans)
         for hit in hits["hits"]["hits"]:
             assert hit["metadata"]["patron_pid"] == str(user.id)
 

@@ -31,12 +31,14 @@ def item_resolver(loan_pid):
     except PIDDeletedError:
         item = {}
     else:
+        # if it the item is a BorrowingRequest, then some of these
+        # fields might not be there
         item = pick(
             item,
-            "barcode",  # not set in BorrowingRequest
+            "barcode",
             "description",
             "document_pid",
-            "medium",  # not set in BorrowingRequest
+            "medium",
             "pid",
         )
 

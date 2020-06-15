@@ -7,14 +7,11 @@
 
 """Test Items APIs."""
 
-import pytest
-
 from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, item_exists
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_get_item_pids_by_document_pid(testdata):
     """Test retrieve Items PIDs for the given Document PID."""
     first_doc_pid = testdata["documents"][0]["pid"]

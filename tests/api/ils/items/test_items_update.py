@@ -20,7 +20,6 @@ from invenio_app_ils.records.api import Item
 lt_es7 = ES_VERSION[0] < 7
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_update_item_status(client, users, json_headers, testdata, db):
     """Test update item status."""
 

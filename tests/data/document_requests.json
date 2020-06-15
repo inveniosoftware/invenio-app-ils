@@ -30,5 +30,27 @@
     "patron_pid": "4",
     "document_pid": "docid-2",
     "title": "Test title 4"
+  },
+  {
+    "pid": "dreq-5",
+    "state": "PENDING",
+    "patron_pid": "1",
+    "title": "Test title 1",
+    "document_pid": "docid-1",
+    "physical_item_provider": {
+      "pid": "acq-order-pid",
+      "pid_type": "acquisition"
+    }
+  },
+  {
+    "pid": "dreq-6",
+    "state": "PENDING",
+    "patron_pid": "1",
+    "title": "Test title 1",
+    "document_pid": "docid-1",
+    "physical_item_provider": {
+      "pid": "acq-order-pid",
+      "pid_type": "acquisition"
+    }
   }
 ]

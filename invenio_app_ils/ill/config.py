@@ -6,11 +6,12 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Configuration for Invenio ILS ILL module."""
-
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import backoffice_permission, deny_all
+from invenio_app_ils.permissions import PatronOwnerPermission, \
+    authenticated_user_permission, backoffice_permission, \
+    superuser_permission
 
 from .api import BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER, \
     BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_FETCHER, LIBRARY_PID_MINTER, \
@@ -45,6 +46,8 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter=BORROWING_REQUEST_PID_MINTER,
         pid_fetcher=BORROWING_REQUEST_PID_FETCHER,
         search_class=BorrowingRequestsSearch,
+        search_factory_imp="invenio_app_ils.search.permissions"
+            ":search_factory_filter_by_patron",
         indexer_class=RecordIndexer,
         record_class=BorrowingRequest,
         record_loaders={
@@ -70,11 +73,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=PatronOwnerPermission,
+        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=superuser_permission,
     ),
     illlid=dict(
         pid_type=LIBRARY_PID_TYPE,

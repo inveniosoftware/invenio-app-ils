@@ -10,6 +10,7 @@
 import json
 import os
 
+from flask_security import login_user, logout_user
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -60,9 +61,13 @@ def document_ref_builder(app, item_pid):
 def user_login(client, username, users):
     """Util function to log in user."""
     user_logout(client)
+    logout_user()
     if username != "anonymous":
         user = User.query.get(users[username].id)
+        # needed for sessions/http requests
         login_user_via_session(client, user)
+        # needed for Identity/Needs
+        login_user(user)
         return user
 
 
