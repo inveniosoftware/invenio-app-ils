@@ -25,7 +25,7 @@ def test_ill_brwreqs_permissions(client, testdata, json_headers, users):
         document_pid="docid-1",
         patron_pid="1",
         library_pid="illlid-1",
-        type="PHYSICAL",
+        type="PHYSICAL_COPY",
     )
 
     def _test_list(expected_status):

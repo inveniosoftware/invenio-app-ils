@@ -102,7 +102,7 @@ class BorrowingRequest(IlsRecord):
         "borrowing-requests/{brw_req_pid}/patron"
     )
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
-    TYPES = ["PHYSICAL", "ELECTRONIC"]
+    TYPES = ["PHYSICAL_COPY", "ELECTRONIC"]
     EXTENSION_STATUSES = ["PENDING", "DECLINED"]
 
     @classmethod
