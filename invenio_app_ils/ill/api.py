@@ -325,13 +325,9 @@ def circulation_default_extension_duration(loan, initial_loan):
     item_pid = loan["item_pid"]
     validator = validate_item_pid(item_pid)
     if validator.is_brw_req:
-        is_new_end_date_already_changed = (
-            loan["end_date"] == initial_loan["end_date"]
-        )
-        if is_new_end_date_already_changed:
-            # the loan has been already changed with a new end_date
-            # return 0 to avoid to add again a new duration to the end_date
-            return timedelta(days=0)
+        # the loan has been already changed with a new end_date
+        # return 0 to avoid to add again a new duration to the end_date
+        return timedelta(days=0)
 
     # physical item
     Item = current_app_ils.item_record_cls

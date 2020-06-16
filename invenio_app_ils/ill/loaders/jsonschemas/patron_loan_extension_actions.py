@@ -48,8 +48,10 @@ class RequestExtensionSchemaV1(InvenioBaseSchema):
         unknown = EXCLUDE
 
     @pre_load
-    def validate_action(self, data, **kwargs):
+    def validate_action(self, data=None, **kwargs):
         """Validate action."""
+        if data is None:
+            data = {}
         record = self.context["record"]
         ext_status = validate_statuses(record)
         if ext_status == "PENDING":
@@ -111,8 +113,11 @@ class DeclineExtensionSchemaV1(InvenioBaseSchema):
         unknown = EXCLUDE
 
     @pre_load
-    def validate_action(self, data, **kwargs):
+    def validate_action(self, data=None, **kwargs):
         """Validate action."""
+        # without this the _schema can't be added to the dict
+        if data is None:
+            data = {}
         record = self.context["record"]
         ext_status = validate_statuses(record)
         if ext_status != "PENDING":
