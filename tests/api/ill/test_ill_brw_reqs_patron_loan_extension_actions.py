@@ -28,7 +28,7 @@ def _create_on_loan_brwreq(
             library_pid="illlid-2",
             patron_pid=patron_id,
             status="REQUESTED",
-            type="PHYSICAL",
+            type="PHYSICAL_COPY",
         )
         url = url_for("invenio_records_rest.illbid_list")
         res = client.post(url, headers=json_headers, data=json.dumps(brwreq))
