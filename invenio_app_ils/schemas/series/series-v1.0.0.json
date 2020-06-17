@@ -101,6 +101,21 @@
       "type": "string",
       "description": "Edition"
     },
+    "extensions": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": ["boolean", "number", "string"]
+            }
+          },
+          { "type": "boolean" },
+          { "type": "number" },
+          { "type": "string" }
+        ]
+      }
+    },
     "identifiers": {
       "items": {
         "properties": {
