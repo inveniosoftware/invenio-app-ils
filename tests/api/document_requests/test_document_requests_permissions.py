@@ -7,7 +7,6 @@
 
 """Test accessibility of document request resource endpoints."""
 
-import pytest
 from flask import url_for
 from tests.helpers import user_login, validate_response
 
@@ -132,14 +131,13 @@ def test_document_request_remove_provider(
         )
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_document_request_accept(client, json_headers, testdata, users):
     """Test Document Request permissions to accept request."""
 
     tests = [
         ("patron1", "dreq-1", 403),
-        ("librarian", "dreq-1", 202),
-        ("admin", "dreq-1", 202),
+        ("librarian", "dreq-5", 202),
+        ("admin", "dreq-6", 202),
         ("anonymous", "dreq-1", 401),
         ("admin", "dreq-2", 400),
     ]
@@ -155,14 +153,13 @@ def test_document_request_accept(client, json_headers, testdata, users):
         )
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_document_request_reject(client, json_headers, testdata, users):
     """Test Document Request permissions to reject request."""
 
     tests = [
-        ("patron1", "dreq-1", 403),
-        ("librarian", "dreq-1", 202),
-        ("admin", "dreq-1", 202),
+        ("patron1", "dreq-1", 202),
+        ("librarian", "dreq-5", 202),
+        ("admin", "dreq-6", 202),
         ("anonymous", "dreq-1", 401),
         ("admin", "dreq-2", 400),
     ]

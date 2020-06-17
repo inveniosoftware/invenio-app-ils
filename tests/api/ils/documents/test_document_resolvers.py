@@ -7,12 +7,9 @@
 
 """Tests for document resolvers."""
 
-import pytest
-
 from invenio_app_ils.documents.api import Document
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_document_resolvers(app, testdata):
     """Test item resolving from loan."""
     doc_pid = testdata["documents"][0]["pid"]

@@ -17,6 +17,10 @@ from tests.helpers import user_login
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, \
     BorrowingRequest
 
+_HTTP_OK = [200, 201, 204]
+ITEM_ENDPOINT = "invenio_records_rest.illbid_item"
+LIST_ENDPOINT = "invenio_records_rest.illbid_list"
+
 
 def _create_loan_action(pid, data, client, json_headers):
     """Send request to create a new loan from the ILL."""
@@ -54,9 +58,9 @@ def test_brwreq_create_loan_fails_on_wrong_status(
             status="PENDING",
             type="PHYSICAL_COPY",
         )
-        url = url_for("invenio_records_rest.illbid_list")
+        url = url_for(LIST_ENDPOINT)
         res = client.post(url, headers=json_headers, data=json.dumps(brwreq))
-        assert res.status_code == 201
+        assert res.status_code in _HTTP_OK
         brw_req = res.get_json()["metadata"]
         return brw_req["pid"]
 
@@ -158,7 +162,7 @@ def test_brwreq_create_loan_succeeds(
     future = (now + timedelta(days=5)).date().isoformat()
     data = dict(loan_start_date=start, loan_end_date=future)
     res = _create_loan_action(pid, data, client, json_headers)
-    assert res.status_code == 200
+    assert res.status_code in _HTTP_OK
     brw_req = res.get_json()["metadata"]
 
     assert brw_req["status"] == "ON_LOAN"
@@ -174,7 +178,7 @@ def test_brwreq_create_loan_succeeds(
     # fetch the loan
     url = url_for("invenio_records_rest.loanid_item", pid_value=loan_pid)
     res = client.get(url, headers=json_headers)
-    assert res.status_code == 200
+    assert res.status_code in _HTTP_OK
     loan = res.get_json()["metadata"]
 
     # make sure the loan is created with the data from the ILL
@@ -184,3 +188,16 @@ def test_brwreq_create_loan_succeeds(
     assert loan["document_pid"] == brw_req["document_pid"]
     assert loan["patron_pid"] == brw_req["patron_pid"]
     assert loan["transaction_user_pid"] == str(user.id)
+
+    # update notes (a random field)
+    brw_req["notes"] = "This is a note"
+    url = url_for(ITEM_ENDPOINT, pid_value=pid)
+    res = client.put(url, headers=json_headers, data=json.dumps(brw_req))
+    assert res.status_code in _HTTP_OK
+    updated_brw_req = res.get_json()["metadata"]
+
+    # make sure `patron_loan` system field is preserved
+    assert updated_brw_req["notes"] == "This is a note"
+    assert "patron_loan" in updated_brw_req
+    assert "pid" in patron_loan
+    assert "loan" in patron_loan

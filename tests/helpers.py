@@ -10,6 +10,7 @@
 import json
 import os
 
+from flask_security import login_user, logout_user
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -62,7 +63,10 @@ def user_login(client, username, users):
     user_logout(client)
     if username != "anonymous":
         user = User.query.get(users[username].id)
+        # needed for sessions/http requests
         login_user_via_session(client, user)
+        # needed for Identity/Permissions loading
+        login_user(user)
         return user
 
 
@@ -71,6 +75,7 @@ def user_logout(client):
     with client.session_transaction() as sess:
         if "user_id" in sess:
             del sess["user_id"]
+            logout_user()
 
 
 def validate_data(key, expected_output, res):

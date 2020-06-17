@@ -10,7 +10,6 @@
 import json
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from tests.helpers import user_login
 
 
@@ -65,8 +64,8 @@ def test_create_document_request(client, testdata, json_headers, users):
         ("patron2", 400, dict(title="Test title", patron_pid="1")),
         ("patron2", 201, dict(title="Test title", patron_pid="2")),
     ]
-    for user, expected_status, data in tests:
-        login_user_via_session(client, user=users[user])
+    for username, expected_status, data in tests:
+        user_login(client, username, users)
         url = url_for("invenio_records_rest.dreqid_list")
         res = client.post(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code == expected_status

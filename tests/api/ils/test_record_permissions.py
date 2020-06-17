@@ -14,13 +14,36 @@ from flask_principal import RoleNeed, identity_loaded
 from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_records.api import Record
+from invenio_search.api import RecordsSearch
 from tests.helpers import user_login
 
+from invenio_app_ils.errors import UnauthorizedSearchError
 from invenio_app_ils.records.permissions import RecordPermission, \
     create_records_action
+from invenio_app_ils.search.permissions import _filter_by_patron
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
+@pytest.mark.parametrize("patron_pid,qs,should_raise", [
+    ("1", None, False),
+    ("1", "", False),
+    ("1", "pid:1234", False),
+    ("1", "patron_pid:2", True),
+    ("1", "patron_pid: 2", True),
+    ("1", "patron_pid: '2'", False),
+    ("1", "pid:1234 AND patron_pid:2", True),
+])
+def test_filter_by_patron(app, patron_pid, qs, should_raise):
+    """Test the function filter_by_patron."""
+    search = RecordsSearch()
+    if should_raise:
+        with pytest.raises(UnauthorizedSearchError):
+            _filter_by_patron(patron_pid, search, qs)
+    else:
+        _search, _qs = _filter_by_patron(patron_pid, search, qs)
+        term = _search.to_dict()["query"]["bool"]["filter"][0]["term"]
+        assert term == {"patron_pid": patron_pid}
+
+
 def test_record_generic_access(client, db, users, with_access):
     """Test access control for records."""
 
@@ -40,10 +63,9 @@ def test_record_generic_access(client, db, users, with_access):
     ]
 
     @identity_loaded.connect
-    def mock_identity_provides(sender, identity):
+    def add_roles_to_identity(sender, identity):
         """Provide additional role to the user."""
         roles = [RoleNeed("records-readers")]
-        # Gives the user additional roles, f.e. based on his groups
         identity.provides |= set(roles)
 
     def login_and_test(username):
@@ -70,8 +92,19 @@ def test_record_generic_access(client, db, users, with_access):
         login_and_test("admin")
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
-def test_record_patron_create(client, db, users):
+@pytest.fixture()
+def with_role_creator(db):
+    """"Create a new role and assign action."""
+    role = Role(name="records-creators")
+    db.session.add(role)
+    db.session.commit()
+    # assign role to the action "create-records"
+    ar = ActionRoles.allow(create_records_action, role_id=role.id)
+    db.session.add(ar)
+    db.session.commit()
+
+
+def test_record_patron_create(client, db, users, with_role_creator):
     """Test patron create."""
 
     tests = [
@@ -81,22 +114,13 @@ def test_record_patron_create(client, db, users):
     ]
 
     @identity_loaded.connect
-    def mock_identity_provides(sender, identity):
+    def add_roles_to_identity(sender, identity):
         """Provide additional role to the user."""
-        roles = [RoleNeed(role.name)]
-        # Gives the user additional roles, f.e. based on his groups
+        roles = [RoleNeed("records-creators")]
         identity.provides |= set(roles)
 
     for access, action, is_allowed in tests:
         # create role to be able to create records
-        role = Role(name="records-creators")
-        db.session.add(role)
-        db.session.commit()
-        # assign role to the action "create-records"
-        ar = ActionRoles.allow(create_records_action, role_id=role.id)
-        db.session.add(ar)
-        db.session.commit()
-
         user_login(client, "patron1", users)
 
         id = uuid.uuid4()

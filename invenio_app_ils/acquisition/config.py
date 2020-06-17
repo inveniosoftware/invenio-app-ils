@@ -6,15 +6,15 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Configuration for Invenio ILS acquisition module."""
-
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import backoffice_permission, deny_all
+from invenio_app_ils.permissions import backoffice_permission, \
+    superuser_permission
 
 from .api import ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE, \
     VENDOR_PID_FETCHER, VENDOR_PID_MINTER, VENDOR_PID_TYPE, Order, Vendor
-from .indexer import OrderIndexer
+from .indexer import VendorIndexer
 from .search import OrderSearch, VendorSearch
 
 _ORDER_CONVERTER = (
@@ -31,7 +31,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=ORDER_PID_FETCHER,
         search_class=OrderSearch,
         record_class=Order,
-        indexer_class=OrderIndexer,
+        indexer_class=RecordIndexer,
         record_loaders={
             "application/json": (
                 "invenio_app_ils.acquisition.loaders:order_loader"
@@ -59,14 +59,14 @@ RECORDS_REST_ENDPOINTS = dict(
         list_permission_factory_imp=backoffice_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=superuser_permission,
     ),
     acqvid=dict(
         pid_type=VENDOR_PID_TYPE,
         pid_minter=VENDOR_PID_MINTER,
         pid_fetcher=VENDOR_PID_FETCHER,
         search_class=VendorSearch,
-        indexer_class=RecordIndexer,
+        indexer_class=VendorIndexer,
         record_class=Vendor,
         record_loaders={
             "application/json": (

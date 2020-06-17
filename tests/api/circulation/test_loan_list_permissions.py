@@ -9,13 +9,8 @@
 
 import json
 
-import pytest
 from flask import url_for
-from invenio_circulation.search.api import LoansSearch
 from tests.helpers import user_login
-
-from invenio_app_ils.errors import UnauthorizedSearchError
-from invenio_app_ils.search.permissions import search_factory_filter_by_patron
 
 
 def _search_loans(client, json_headers, **kwargs):
@@ -30,7 +25,6 @@ def test_anonymous_cannot_search_any_loan(client, json_headers, users):
     assert res.status_code == 401
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_admin_or_librarian_can_search_any_loan(
     client, json_headers, users, testdata
 ):
@@ -43,14 +37,6 @@ def test_admin_or_librarian_can_search_any_loan(
         assert len(hits["hits"]["hits"]) == len(testdata["loans"])
 
 
-def test_anonymous_loans_search(app):
-    """Test that not logged in users are unable to search."""
-    with app.test_request_context("/"):
-        with pytest.raises(UnauthorizedSearchError):
-            search_factory_filter_by_patron(None, LoansSearch())
-
-
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_patrons_can_search_their_own_loans(
     client, json_headers, users, testdata
 ):

@@ -28,7 +28,7 @@ class ChangedBySchema(Schema):
     value = fields.Str()
 
 
-def set_changed_by(data, prev_record):
+def set_changed_by(data, prev_record=None):
     """Automatically add the `created_by` and `updated_by` fields."""
     if not has_request_context():
         return data

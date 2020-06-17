@@ -27,8 +27,8 @@ from invenio_app_ils.ill.api import can_item_circulate, \
 from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, item_exists
 from invenio_app_ils.permissions import PatronOwnerPermission, \
-    authenticated_user_permission, backoffice_permission, deny_all, \
-    loan_extend_circulation_permission
+    authenticated_user_permission, backoffice_permission, \
+    loan_extend_circulation_permission, superuser_permission
 
 from .indexer import LoanIndexer
 from .jsonresolvers.loan import document_resolver, item_resolver, \
@@ -217,7 +217,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
         list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
-        create_permission_factory_imp=deny_all,
+        create_permission_factory_imp=superuser_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
     )

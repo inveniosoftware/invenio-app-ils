@@ -9,7 +9,6 @@
 
 import json
 
-import pytest
 from flask import url_for
 from tests.helpers import user_login
 
@@ -31,7 +30,7 @@ def _most_loaned_request(client, json_headers, from_date=None, to_date=None):
     return json.loads(response.data.decode("utf-8"))
 
 
-def assert_most_loaned(client, json_headers, from_date, to_date, expect):
+def _assert_most_loaned(client, json_headers, from_date, to_date, expect):
     """Assert most loaned request."""
     resp = _most_loaned_request(client, json_headers, from_date, to_date)
     hits = resp["hits"]["hits"]
@@ -42,7 +41,6 @@ def assert_most_loaned(client, json_headers, from_date, to_date, expect):
         assert hit["metadata"]["loan_extensions"] == expect[pid]["extensions"]
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_stats_most_loaned_documents(
     client, json_headers, testdata_most_loaned, users
 ):
@@ -50,7 +48,7 @@ def test_stats_most_loaned_documents(
     user_login(client, "librarian", users)
 
     # Dates covering all loans
-    assert_most_loaned(
+    _assert_most_loaned(
         client,
         json_headers,
         "2019-01-01",
@@ -63,18 +61,18 @@ def test_stats_most_loaned_documents(
         },
     )
     # Test checking range which should be empty
-    assert_most_loaned(
+    _assert_most_loaned(
         client, json_headers, "2019-01-01", "2019-01-01", expect={}
     )
     # Test range only including the first loan
-    assert_most_loaned(
+    _assert_most_loaned(
         client,
         json_headers,
         "2019-01-01",
         "2019-01-03",
         expect={"docid-1": dict(loans=1, extensions=0)},
     )
-    assert_most_loaned(
+    _assert_most_loaned(
         client,
         json_headers,
         "2019-02-02",
@@ -85,7 +83,7 @@ def test_stats_most_loaned_documents(
             "docid-3": dict(loans=1, extensions=3),
         },
     )
-    assert_most_loaned(
+    _assert_most_loaned(
         client,
         json_headers,
         "2019-05-20",
@@ -93,6 +91,6 @@ def test_stats_most_loaned_documents(
         expect={"docid-3": dict(loans=1, extensions=3)},
     )
     # outside end range
-    assert_most_loaned(
+    _assert_most_loaned(
         client, json_headers, "2019-05-21", "2019-12-31", expect={}
     )

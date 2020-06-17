@@ -36,7 +36,7 @@ def jsonresolver_loader(url_map):
             "cover_metadata",
             "edition",
             "pid",
-            "publication_year"
+            "publication_year",
             "title",
         )
 

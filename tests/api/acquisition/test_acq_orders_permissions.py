@@ -93,10 +93,10 @@ def test_acq_orders_permissions(client, testdata, json_headers, users):
         _test_read(expected_status, pid)
 
     tests = [
-        ("admin", [403]),
-        ("librarian", [403]),
         ("patron1", [403]),
         ("anonymous", [401]),
+        ("librarian", [403]),
+        ("admin", [204]),
     ]
     for username, expected_status in tests:
         user_login(client, username, users)

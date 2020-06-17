@@ -9,7 +9,7 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from invenio_app_ils.permissions import circulation_permission
+from invenio_app_ils.permissions import patron_permission
 
 
 class ItemJSONSerializer(JSONSerializer):
@@ -54,7 +54,7 @@ class ItemJSONSerializer(JSONSerializer):
             if not patron_pid:
                 return circulation
 
-            allowed = circulation_permission(patron_pid).can()
+            allowed = patron_permission(patron_pid).can()
 
             if not allowed:
                 for key in self.FILTER_KEYS:

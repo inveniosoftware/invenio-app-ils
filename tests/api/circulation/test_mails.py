@@ -11,7 +11,6 @@ import random
 from datetime import timedelta
 
 import arrow
-import pytest
 from flask import current_app
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
@@ -27,9 +26,8 @@ from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
 )
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_email_on_loan_checkout(
-    client, app_with_mail, users, testdata, loan_params, mocker
+    client, app_with_mail, users, testdata, loan_params
 ):
     """Test that an email is sent when an admin performs a loan checkout."""
     loan_data = testdata["loans"][1]
