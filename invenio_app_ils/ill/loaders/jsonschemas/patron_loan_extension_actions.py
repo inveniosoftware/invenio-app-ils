@@ -50,7 +50,9 @@ class RequestExtensionSchemaV1(InvenioBaseSchema):
     @pre_load
     def validate_action(self, data=None, **kwargs):
         """Validate action."""
-        if data is None:
+        no_payload = data is None
+        if no_payload:
+            # marshmallow needs a default empty payload
             data = {}
         record = self.context["record"]
         ext_status = validate_statuses(record)
@@ -115,8 +117,9 @@ class DeclineExtensionSchemaV1(InvenioBaseSchema):
     @pre_load
     def validate_action(self, data=None, **kwargs):
         """Validate action."""
-        # without this the _schema can't be added to the dict
-        if data is None:
+        no_payload = data is None
+        if no_payload:
+            # marshmallow needs a default empty payload
             data = {}
         record = self.context["record"]
         ext_status = validate_statuses(record)

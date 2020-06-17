@@ -15,7 +15,7 @@ from invenio_app_ils.search.permissions import _ils_search_factory, \
 
 def search_factory_literature(self, search):
     """Search factory for literature (series and documents)."""
-    def filter_periodical_issues(query_string):
+    def filter_periodical_issues(search, query_string=None):
         """Filter periodical issues unless include_all is specified."""
         from distutils.util import strtobool
         from flask import request
@@ -33,7 +33,7 @@ def search_factory_literature(self, search):
                 )
             else:
                 query_string = issue_query_string
-        return query_string
+        return search, query_string
 
     return _ils_search_factory(self, search, filter_periodical_issues)
 

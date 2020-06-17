@@ -10,7 +10,6 @@
 import copy
 import json
 
-import pytest
 from flask import url_for
 from tests.helpers import user_login, validate_response
 
@@ -78,7 +77,6 @@ def test_items_permissions(client, testdata, item_record, json_headers, users):
         _test_delete(expected_status, pid)
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
 def test_item_circulation(client, json_headers, testdata, users):
     """Test item circulation filtering."""
 

@@ -34,7 +34,7 @@ def jsonresolver_loader(url_map):
         return pick(
             document,
             "authors",
-            "cover_metadata"
+            "cover_metadata",
             "edition",
             "pid",
             "publication_year",

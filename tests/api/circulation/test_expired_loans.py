@@ -11,7 +11,6 @@ from datetime import timedelta
 
 import arrow
 from flask import url_for
-from flask_security import login_user
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 from tests.helpers import user_login
@@ -66,7 +65,6 @@ def test_cancel_expired_loans(client, json_headers, db, users, testdata):
 
     expired_pids, not_expired_pids = prepare_data()
 
-    login_user(users["admin"])
     # trigger cancel expired loan requests
     cancel_expired_loan_requests.apply_async()
 

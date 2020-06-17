@@ -141,6 +141,8 @@ def testdata(app, db, es_clear, users):
     ):
         ri.index(rec)
 
+    current_search.flush_and_refresh(index="*")
+
     return {
         "document_requests": doc_reqs,
         "documents": documents,
@@ -160,21 +162,24 @@ def testdata(app, db, es_clear, users):
 @pytest.fixture()
 def testdata_most_loaned(db, testdata):
     """Create, index and return test data for most loans tests."""
-    loans = load_json_from_datadir("loans_most_loaned.json")
-    recs = _create_records(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
+    most_loaned = load_json_from_datadir("loans_most_loaned.json")
+    recs = _create_records(db, most_loaned, Loan, CIRCULATION_LOAN_PID_TYPE)
 
     ri = RecordIndexer()
     for rec in recs:
         ri.index(rec)
+
+    current_search.flush_and_refresh(index="loans")
 
     return {
         "locations": testdata["locations"],
         "internal_locations": testdata["internal_locations"],
         "documents": testdata["documents"],
         "items": testdata["items"],
-        "loans": loans,
+        "loans": most_loaned,
         "series": testdata["series"],
     }
+
 
 @pytest.fixture()
 def item_record(app):

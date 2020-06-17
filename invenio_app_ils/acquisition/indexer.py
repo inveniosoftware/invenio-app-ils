@@ -20,24 +20,29 @@ from .proxies import current_ils_acq
 
 
 @shared_task(ignore_result=True)
-def index_referenced_records(order):
+def vendor_index_referenced_records(vendor):
     """Index referenced records."""
-    Vendor = current_ils_acq.vendor_record_cls
     indexer = ReferencedRecordsIndexer()
+    indexed = dict(pid_type=VENDOR_PID_TYPE, record=vendor)
+    referenced = []
 
-    indexed = dict(pid_type=ORDER_PID_TYPE, record=order)
-
-    vendor = Vendor.get_record_by_pid(order.get("vendor_pid"))
-    referenced = [dict(pid_type=VENDOR_PID_TYPE, record=vendor)]
+    # fetch and index orders
+    Order = current_ils_acq.order_record_cls
+    OrderSearch = current_ils_acq.order_search_cls
+    for order in (
+        OrderSearch().search_by_vendor_pid(vendor_pid=vendor["pid"]).scan()
+    ):
+        order = Order.get_record_by_pid(order["pid"])
+        referenced.append(dict(pid_type=ORDER_PID_TYPE, record=order))
 
     indexer.index(indexed, referenced)
 
 
-class OrderIndexer(RecordIndexer):
-    """Indexer class for Order record."""
+class VendorIndexer(RecordIndexer):
+    """Indexer class for Vendor record."""
 
-    def index(self, order, arguments=None, **kwargs):
-        """Index an Order."""
-        super().index(order)
+    def index(self, vendor, arguments=None, **kwargs):
+        """Index an Vendor."""
+        super().index(vendor)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
-        index_referenced_records.apply_async((order,), eta=eta)
+        vendor_index_referenced_records.apply_async((vendor,), eta=eta)

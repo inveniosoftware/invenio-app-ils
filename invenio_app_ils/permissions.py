@@ -15,7 +15,8 @@ from flask import abort, current_app
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
-from invenio_access.permissions import Permission, authenticated_user
+from invenio_access.permissions import Permission, authenticated_user, \
+    superuser_access
 from invenio_records_rest.utils import allow_all, deny_all
 
 from invenio_app_ils.errors import InvalidLoanExtendError
@@ -63,8 +64,13 @@ def backoffice_permission(*args, **kwargs):
     return Permission(backoffice_access_action)
 
 
-def circulation_permission(patron_pid):
-    """Return circulation status permission for a patron."""
+def superuser_permission(*args, **kwargs):
+    """Return permission to allow only admins."""
+    return Permission(superuser_access)
+
+
+def patron_permission(patron_pid):
+    """Return a permission for the given patron."""
     return Permission(UserNeed(int(patron_pid)), backoffice_access_action)
 
 
@@ -106,8 +112,8 @@ def loan_extend_circulation_permission(loan):
             abort(500)
         elif is_overbooked:
             raise InvalidLoanExtendError(
-                "The extension cannot be automatically accepted due to high"
-                "demand for this literature. Please contact the library to"
+                "The extension cannot be automatically accepted due to high "
+                "demand for this literature. Please contact the library to "
                 "request a loan extension."
             )
     return PatronOwnerPermission(loan)

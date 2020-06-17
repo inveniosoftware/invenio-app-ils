@@ -7,14 +7,27 @@
 
 """BorrowingRequest schema for marshmallow loader."""
 
+from copy import deepcopy
+
+from flask import has_request_context
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
+from marshmallow import EXCLUDE, Schema, fields, post_load, pre_load, validate
 
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
     set_changed_by
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
+
+
+def preserve_patron_loan(data, prev_record=None):
+    """Preserve `patron_loan` system field."""
+    if not has_request_context():
+        return data
+
+    if prev_record and "patron_loan" in prev_record:
+        data["patron_loan"] = deepcopy(prev_record["patron_loan"])
+    return data
 
 
 class PaymentSchema(Schema):
@@ -34,28 +47,6 @@ class PaymentSchema(Schema):
     mode = fields.Str(required=True)
 
 
-class ExtensionSchema(Schema):
-    """Schema for the extension of the loan of the patron."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    notes = fields.Str()
-
-
-class PatronLoanSchema(Schema):
-    """Schema for the loan of the patron."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    extension = fields.Nested(ExtensionSchema)
-
-
 class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     """BorrowingRequest schema."""
 
@@ -73,7 +64,6 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     notes = fields.Str()
     patron_pid = fields.Str(required=True)
     payment = fields.Nested(PaymentSchema)
-    patron_loan = fields.Nested(PatronLoanSchema)
     received_date = DateString()
     request_date = DateString()
     status = fields.Str(
@@ -91,3 +81,9 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
         """Automatically set `created_by` and `updated_by`."""
         record = self.context.get("record")
         return set_changed_by(data, record)
+
+    @post_load
+    def preserve_patron_loan(self, data, **kwargs):
+        """Preserve `patron_loan` system field."""
+        record = self.context.get("record")
+        return preserve_patron_loan(data, record)

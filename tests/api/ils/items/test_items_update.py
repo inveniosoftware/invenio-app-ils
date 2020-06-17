@@ -9,7 +9,6 @@
 
 import pytest
 from elasticsearch import VERSION as ES_VERSION
-from tests.helpers import user_login
 
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
@@ -20,8 +19,7 @@ from invenio_app_ils.records.api import Item
 lt_es7 = ES_VERSION[0] < 7
 
 
-@pytest.mark.skip("Temporarily disabled, please fix me")
-def test_update_item_status(client, users, json_headers, testdata, db):
+def test_update_item(db, testdata):
     """Test update item status."""
 
     def get_active_loan_pid_and_item_pid():
@@ -37,16 +35,14 @@ def test_update_item_status(client, users, json_headers, testdata, db):
                 if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 
-    user_login(client, "librarian", users)
+    # change item status while is on loan
     item_pid, loan_pid = get_active_loan_pid_and_item_pid()
     item = Item.get_record_by_pid(item_pid)
+    item["status"] = "MISSING"
     with pytest.raises(ItemHasActiveLoanError):
         item.commit()
 
-
-def test_update_item_document(client, users, json_headers, testdata, db):
-    """Test REPLACE document pid on item."""
-    user_login(client, "librarian", users)
+    # change document to one that does not exist
     item = Item.get_record_by_pid("itemid-1")
     item["document_pid"] = "not_found_doc"
     with pytest.raises(ItemDocumentNotFoundError):

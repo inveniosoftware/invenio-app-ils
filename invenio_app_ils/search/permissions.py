@@ -56,7 +56,7 @@ def search_filter_record_permissions():
     return Q("bool", filter=[combined_filter])
 
 
-def _ils_search_factory(self, search, qs_validator):
+def _ils_search_factory(self, search, validator):
     """Search factory with Query String validator.
 
     :param self: REST view.
@@ -74,7 +74,8 @@ def _ils_search_factory(self, search, qs_validator):
 
     query_string = request.values.get("q")
 
-    query = query_parser(qs_validator(query_string))
+    search, query_string = validator(search, query_string)
+    query = query_parser(query_string)
 
     try:
         search = search.query(query)
@@ -91,26 +92,26 @@ def _ils_search_factory(self, search, qs_validator):
     return search, urlkwargs
 
 
+def _filter_by_patron(patron_id, search, query_string=None):
+    """Filter search results by patron_pid."""
+    match = re.search(r"patron_pid:\s?(?P<pid>\d+)", query_string or "")
+    if match and match.group("pid") != str(patron_id):
+        raise UnauthorizedSearchError(query_string, patron_id)
+
+    search = search.filter("term", patron_pid=str(patron_id))
+    return search, query_string
+
+
+def _filter_by_current_patron(search, query_string=None):
+    """Filter search results by patron_pid."""
+    # if the logged in user is not librarian or admin, validate the query
+    if has_request_context() and not backoffice_permission().allows(
+        g.identity
+    ):
+        return _filter_by_patron(g.identity.id, search, query_string)
+    return search, query_string
+
+
 def search_factory_filter_by_patron(self, search):
     """Prepare query string to filter records by current logged in user."""
-    def filter_by_patron(query_string):
-        """Filter search results by patron_pid."""
-        if not current_user.is_authenticated:
-            raise UnauthorizedSearchError(query_string)
-
-        # if the logged in user is not librarian or admin, validate the query
-        if has_request_context() and not backoffice_permission().allows(
-            g.identity
-        ):
-            # patron can find only his records
-            if not query_string:
-                # force query to be patron_pid:<logged in user>
-                query_string = "patron_pid:{}".format(g.identity.id)
-            else:
-                # check for patron_pid query value
-                match = re.match(r"patron_pid:(?P<pid>\d+)", query_string)
-                if match and match.group("pid") != str(g.identity.id):
-                    raise UnauthorizedSearchError(query_string, g.identity.id)
-        return query_string
-
-    return _ils_search_factory(self, search, filter_by_patron)
+    return _ils_search_factory(self, search, _filter_by_current_patron)
