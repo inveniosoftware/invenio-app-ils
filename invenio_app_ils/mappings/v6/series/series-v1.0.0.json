@@ -75,6 +75,46 @@
         "edition": {
           "type": "keyword"
         },
+        "extensions": {
+          "type": "object",
+          "dynamic": false,
+          "enabled": false
+        },
+        "extensions_keywords": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "keyword" }
+          }
+        },
+        "extensions_texts": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "text" }
+          }
+        },
+        "extensions_longs": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "long" }
+          }
+        },
+        "extensions_dates": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "date" }
+          }
+        },
+        "extensions_booleans": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "boolean" }
+          }
+        },
         "identifiers": {
           "properties": {
             "material": {
