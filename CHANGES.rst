@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a4 (released 2020-06-19)
+
+- ILL: patron can fetch his own borrowing requests
+- document and series metadata extensions
+- loan: auto cancel after expiration day
+
 Version 1.0.0a0 (released 2020-06-05)
 
 - Initial public release.
