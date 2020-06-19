@@ -36,11 +36,10 @@ _common: &common
     - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
     - "/tmp/elasticsearch/bin/elasticsearch --quiet &"
     - "travis_retry pip install --upgrade pip setuptools py"
-    - "travis_retry pip install twine wheel coveralls requirements-builder"
+    - "travis_retry pip install twine wheel coveralls requirements-builder 'six>=1.12.0'"  # pinning min `six` version is required here because some Ubuntu dist in Travis comes with an older version already installed
     - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
     - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
   install:
-    - "travis_retry pip install -r requirements.txt"
     - "travis_retry pip install -e .[$EXTRAS]"
   before_script: "./run-style-checks.sh"
   script: skip # to be overridden when declaring the job

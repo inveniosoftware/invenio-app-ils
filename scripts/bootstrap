@@ -8,7 +8,6 @@
 
 set -e
 
-pip install -r requirements.txt
 pip install -e .[all,elasticsearch7,postgresql]
 CWD=`pwd`
 bash "${CWD}/scripts/build_assets"
