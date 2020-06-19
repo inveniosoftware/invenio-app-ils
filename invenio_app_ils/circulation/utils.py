@@ -120,3 +120,9 @@ def resolve_item_from_loan(item_pid):
     else:
         raise UnknownItemPidTypeError(pid_type=item_pid["type"])
     return rec_cls.get_record_by_pid(item_pid["value"])
+
+
+def circulation_location_validator(loan, destination, **kwargs):
+    """Validate the loan item, pickup and transaction locations."""
+    # no validation of IN TRANSIT states at the moment
+    return True
