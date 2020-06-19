@@ -37,6 +37,7 @@ from .utils import circulation_build_document_ref, \
     circulation_build_item_ref, circulation_build_patron_ref, \
     circulation_can_be_requested, circulation_default_extension_max_count, \
     circulation_is_loan_duration_valid, circulation_loan_will_expire_days, \
+    circulation_location_validator, \
     circulation_transaction_location_validator, \
     circulation_transaction_user_validator
 
@@ -81,6 +82,8 @@ CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = (
 )
 
 CIRCULATION_TRANSACTION_USER_VALIDATOR = circulation_transaction_user_validator
+
+CIRCULATION_LOAN_LOCATIONS_VALIDATION = circulation_location_validator
 
 CIRCULATION_POLICIES = dict(
     checkout=dict(

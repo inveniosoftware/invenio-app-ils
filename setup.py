@@ -111,7 +111,7 @@ install_requires = [
     # --- `files` bundle with only invenio-files-rest ----------------------
     "invenio-files-rest>=1.0.6,<1.1.0",
     # --- extra deps of ILS -----------------------------------------------
-    "invenio-circulation>=1.0.0a24,<1.1.0",
+    "invenio-circulation>=1.0.0a25,<1.1.0",
     "invenio-stats>=1.0.0a17",
     "invenio-pages>=1.0.0a5",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
