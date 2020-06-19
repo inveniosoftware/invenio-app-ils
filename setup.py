@@ -14,20 +14,12 @@ from setuptools import find_packages, setup
 readme = open("README.rst").read()
 
 invenio_db_version = ">=1.0.4,<1.1.0"
-invenio_search_version = "1.3.0,<1.4.0"
+invenio_search_version = "1.3.1,<1.4.0"
 
 tests_require = [
-    "check-manifest>=0.35",
-    "coverage>=4.4.1,<5.0.0",
-    "isort>=4.3.11",
     "mock>=2.0.0",
-    "pydocstyle>=2.0.0",
-    "pytest-cov>=2.5.1",
-    "pytest-invenio>=1.3.0,<1.4.0",
+    "pytest-invenio>=1.3.2,<1.4.0",
     "pytest-mock>=1.6.0",
-    "pytest-pep8>=1.0.6",
-    "pytest-random-order>=0.5.4",
-    "pytest>=4.6.4,<5.0.0",
 ]
 
 extras_require = {
@@ -74,42 +66,15 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "Flask-Login==0.4.1",
-    # --- `invenio` to fix broken deps -------------------------------------
-    #"invenio[base,auth]==3.2.0a9",
-    # NOTE: put back invenio[base,auth]>=3.3.0 when released and remove this
-    'Flask>=1.0.4',
-    'invenio-app>=1.2.3,<1.3.0',
-    'invenio-base>=1.2.0,<1.3.0',
-    'invenio-cache>=1.0.0,<1.1.0',
-    'invenio-celery>=1.1.1,<1.3.0',
-    'invenio-config>=1.0.2,<1.1.0',
-    "invenio-i18n>=1.1.1,<1.3.0",
-    # --- `base` bundle to fix broken deps ---------------------------------
-    # NOTE: put back invenio[base,auth]>=3.3.0 when released and remove this
-    'invenio-admin>=1.1.1,<1.3.0',
-    'invenio-assets>=1.1.3,<1.2.0',
-    'invenio-formatter>=1.0.2,<1.1.0',
-    'invenio-logging>=1.1.0,<1.3.0',
-    'invenio-mail>=1.0.2,<1.1.0',
-    'invenio-rest>=1.1.0,<1.3.0',
-    'invenio-theme>=1.1.4,<1.2.0',
-    # --- `auth` bundle to fix broken deps ---------------------------------
-    # NOTE: put back invenio[base,auth]>=3.3.0 when released
-    'invenio-access>=1.3.0,<1.4.0',
-    # NOTE: put me back when topical branches removed
-    #'invenio-accounts>=1.1.1,<1.3.0',
-    'invenio-oauth2server>=1.0.3,<1.3.0',
-    # NOTE: put me back when topical branches removed
-    #'invenio-oauthclient>=1.1.3,<1.3.0',
-    'invenio-userprofiles>=1.0.1,<1.2.0',
+    "invenio[base,auth]>=3.3.0",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.1.0,<1.2.0",
-    "invenio-jsonschemas>=1.0.0,<1.1.0",
+    "invenio-jsonschemas>=1.1.0,<1.2.0",
     "invenio-pidstore>=1.2.0,<1.3.0",
-    "invenio-records-rest>=1.7.0,<1.8.0",
-    "invenio-records>=1.3.0,<1.4.0",
+    "invenio-records-rest>=1.7.1,<1.8.0",
+    "invenio-records>=1.3.1,<1.4.0",
     # --- `files` bundle with only invenio-files-rest ----------------------
-    "invenio-files-rest>=1.0.6,<1.1.0",
+    "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS -----------------------------------------------
     "invenio-circulation>=1.0.0a24,<1.1.0",
     "invenio-stats>=1.0.0a17",
@@ -117,12 +82,8 @@ install_requires = [
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "sentry-sdk>=0.10.2",
-    # until flask-sqlalchemy is fixed
-    "SQLAlchemy>=1.2.16,<1.3.0",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3",
-    "webargs>=5.5.2,<6.0",
-    "wtforms==2.2.1",
 ]
 
 packages = find_packages()

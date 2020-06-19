@@ -11,4 +11,4 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-pytest --duration=0 tests/api/$1
+pytest tests/api/$1
