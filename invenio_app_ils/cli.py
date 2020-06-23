@@ -17,7 +17,6 @@ from random import randint
 import arrow
 import click
 import lorem
-import pkg_resources
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
