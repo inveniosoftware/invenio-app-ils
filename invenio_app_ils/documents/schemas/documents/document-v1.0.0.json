@@ -315,9 +315,6 @@
       "description": "Configured additional metadata",
       "type": "object"
     },
-    "extra_data": {
-      "type": "object"
-    },
     "identifiers": {
       "items": {
         "properties": {
