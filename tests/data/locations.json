@@ -6,5 +6,9 @@
   {
     "pid": "locid-2",
     "name": "Library of Alexandria"
+  },
+  {
+    "pid": "locid-3",
+    "name": "Library of Alexandria"
   }
 ]

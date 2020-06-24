@@ -19,7 +19,7 @@ from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
-from invenio_app_ils.records.api import IlsRecordWithRelations
+from invenio_app_ils.records_relations.api import IlsRecordWithRelations
 
 DOCUMENT_PID_TYPE = "docid"
 DOCUMENT_PID_MINTER = "docid"

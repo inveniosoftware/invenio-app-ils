@@ -10,7 +10,10 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.search.api import EItemSearch, ItemSearch
+from invenio_app_ils.proxies import current_app_ils
+
+# Note: there must be only one resolver per file,
+# otherwise only the last one is registered
 
 
 @jsonresolver.hookimpl
@@ -20,12 +23,15 @@ def jsonresolver_loader(url_map):
 
     def stock_resolver(document_pid):
         """Search and return the mediums of the document."""
-        items_search = ItemSearch().search_by_document_pid(document_pid)
-        items_search.aggs.bucket("mediums", "terms", field="medium")
-        search_response = items_search.execute()
+        item_search = current_app_ils.item_search_cls()
+        eitem_search = current_app_ils.eitem_search_cls()
+
+        search = item_search.search_by_document_pid(document_pid)
+        search.aggs.bucket("mediums", "terms", field="medium")
+        search_response = search.execute()
         mediums = [bucket.key for bucket in
                    search_response.aggregations.mediums.buckets]
-        eitems_count = EItemSearch().search_by_document_pid(
+        eitems_count = eitem_search.search_by_document_pid(
             document_pid).count()
         if eitems_count > 0:
             mediums.append("ELECTRONIC_VERSION")

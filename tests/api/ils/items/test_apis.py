@@ -7,9 +7,8 @@
 
 """Test Items APIs."""
 
-from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
-    get_item_pids_by_document_pid, item_exists
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+from invenio_app_ils.items.api import ITEM_PID_TYPE, \
+    get_document_pid_by_item_pid, get_item_pids_by_document_pid, item_exists
 
 
 def test_get_item_pids_by_document_pid(testdata):

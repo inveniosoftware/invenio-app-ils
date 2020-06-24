@@ -16,7 +16,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
-from invenio_app_ils.records.api import Item
+from invenio_app_ils.items.api import Item
 
 
 def load_json_from_datadir(filename):

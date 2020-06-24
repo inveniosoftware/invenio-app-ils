@@ -17,7 +17,6 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ToItemOnLoan
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.api import get_default_location, patron_exists
 from invenio_app_ils.documents.api import document_exists
 from invenio_app_ils.facets import date_range_filter, overdue_agg, \
     overdue_loans_filter
@@ -26,6 +25,8 @@ from invenio_app_ils.ill.api import can_item_circulate, \
     circulation_default_loan_duration
 from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, item_exists
+from invenio_app_ils.locations.api import get_default_location
+from invenio_app_ils.patrons.api import patron_exists
 from invenio_app_ils.permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
     loan_extend_circulation_permission, superuser_permission
@@ -188,7 +189,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
-        search_factory_imp="invenio_app_ils.search.permissions"
+        search_factory_imp="invenio_app_ils.search_permissions"
         ":search_factory_filter_by_patron",
         record_class=Loan,
         indexer_class=LoanIndexer,

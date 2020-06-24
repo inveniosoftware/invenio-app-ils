@@ -16,7 +16,7 @@ from invenio_search import current_search
 from tests.helpers import user_login
 
 from invenio_app_ils.circulation.tasks import cancel_expired_loan_requests
-from invenio_app_ils.records.api import SystemAgent
+from invenio_app_ils.patrons.api import SystemAgent
 
 
 def test_cancel_expired_loans(client, json_headers, db, users, testdata):

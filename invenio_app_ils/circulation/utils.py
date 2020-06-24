@@ -7,20 +7,13 @@
 
 """Circulation configuration callbacks."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import timedelta
 
 import arrow
 from flask import current_app, g, has_request_context
 from flask_login import current_user
 
-from invenio_app_ils.errors import UnknownItemPidTypeError
-from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
-from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.permissions import backoffice_permission
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
-from invenio_app_ils.proxies import current_app_ils
 
 
 def circulation_build_item_ref(loan_pid, loan):
@@ -113,11 +106,17 @@ def circulation_transaction_user_validator(transaction_user_pid):
 
 def resolve_item_from_loan(item_pid):
     """Resolve the item referenced in loan based on its PID type."""
+    from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
+    from invenio_app_ils.ill.proxies import current_ils_ill
+    from invenio_app_ils.items.api import ITEM_PID_TYPE
+    from invenio_app_ils.proxies import current_app_ils
+
     if item_pid["type"] == ITEM_PID_TYPE:
         rec_cls = current_app_ils.item_record_cls
     elif item_pid["type"] == BORROWING_REQUEST_PID_TYPE:
         rec_cls = current_ils_ill.borrowing_request_record_cls
     else:
+        from invenio_app_ils.errors import UnknownItemPidTypeError
         raise UnknownItemPidTypeError(pid_type=item_pid["type"])
     return rec_cls.get_record_by_pid(item_pid["value"])
 

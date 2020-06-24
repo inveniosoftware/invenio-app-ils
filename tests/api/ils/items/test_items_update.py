@@ -13,8 +13,7 @@ from elasticsearch import VERSION as ES_VERSION
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
     ItemHasActiveLoanError
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
-from invenio_app_ils.records.api import Item
+from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 
 lt_es7 = ES_VERSION[0] < 7
 

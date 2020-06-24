@@ -13,9 +13,8 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 
-from invenio_app_ils.pidstore.pids import VOCABULARY_PID_TYPE
-
-from .api import delete_vocabulary_from_index, load_vocabularies
+from .api import VOCABULARY_PID_TYPE, delete_vocabulary_from_index, \
+    load_vocabularies
 
 
 @click.group()

@@ -11,7 +11,7 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.documents.api import Document
-from invenio_app_ils.jsonresolver.api import get_pid_or_default
+from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered

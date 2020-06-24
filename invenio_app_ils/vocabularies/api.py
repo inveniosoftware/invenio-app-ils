@@ -7,11 +7,67 @@
 
 """Vocabularies API module."""
 
+from functools import partial
+
 from flask import current_app
+from invenio_pidstore.models import PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
-from invenio_app_ils.pidstore.pids import VOCABULARY_PID_TYPE
+from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.minters import pid_minter
+
+VOCABULARY_PID_TYPE = "vocid"
+VOCABULARY_PID_MINTER = "vocid"
+VOCABULARY_PID_FETCHER = "vocid"
+
+VocabularyIdProvider = type(
+    "VocabularyIdProvider",
+    (RecordIdProviderV2,),
+    dict(pid_type=VOCABULARY_PID_TYPE, default_status=PIDStatus.REGISTERED),
+)
+vocabulary_pid_minter = partial(pid_minter, provider_cls=VocabularyIdProvider)
+vocabulary_pid_fetcher = partial(pid_fetcher, provider_cls=VocabularyIdProvider)
+
+
+class Vocabulary(dict):
+    """Vocabulary record class."""
+
+    _index = "vocabularies-vocabulary-v1.0.0"
+    _doc_type = "vocabulary-v1.0.0"
+    _schema = "vocabularies/vocabulary-v1.0.0.json"
+
+    def __init__(self, type, key, text, data=None):
+        """Create a `Vocabulary` instance.
+
+        Vocabulary instances are not stored in the database
+        but are indexed in ElasticSearch.
+        """
+        self.type = type
+        self.key = key
+        self.text = text
+        self.data = data or {}
+
+        # Needed by the indexer
+        self.id = "{}-{}".format(type, key).lower()
+        self.revision_id = 1
+
+    def dumps(self):
+        """Return python representation of vocabulary metadata."""
+        return {
+            "id": self.id,
+            "type": self.type,
+            "key": self.key,
+            "text": self.text,
+            "data": self.data,
+        }
+
+    def __repr__(self):
+        """Representation of a vocabulary."""
+        return "Vocabulary(id={}, key={}, type={}, text={!r}, data={})".format(
+            self.id, self.key, self.type, self.text, self.data
+        )
 
 
 def validate_vocabulary(f):

@@ -10,7 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.search.api import EItemSearch
+from invenio_app_ils.proxies import current_app_ils
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -24,7 +24,8 @@ def jsonresolver_loader(url_map):
     def eitems_resolver(document_pid):
         """Search and return the EItems that reference this Document."""
         eitems = []
-        for hit in EItemSearch().search_by_document_pid(document_pid).scan():
+        eitem_search = current_app_ils.eitem_search_cls()
+        for hit in eitem_search.search_by_document_pid(document_pid).scan():
             eitem = hit.to_dict()
             eitems.append({
                 "pid": eitem.get("pid"),

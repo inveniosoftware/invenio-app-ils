@@ -11,8 +11,8 @@ from flask import current_app
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
-from invenio_app_ils.jsonresolver.api import pick
 from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.records.jsonresolvers.api import pick
 
 
 def field_is_overdue(metadata):

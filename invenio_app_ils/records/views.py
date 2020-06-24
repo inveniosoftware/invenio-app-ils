@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio App ILS Records views."""
-
-from __future__ import absolute_import, print_function
 
 from flask import Blueprint, abort, current_app, jsonify, request
 from invenio_accounts.views.rest import UserInfoView, default_user_payload
@@ -18,8 +16,8 @@ from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
+from invenio_app_ils.eitems.api import EITEM_PID_TYPE
 from invenio_app_ils.errors import StatsError
-from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE
 from invenio_app_ils.signals import record_viewed
 
 

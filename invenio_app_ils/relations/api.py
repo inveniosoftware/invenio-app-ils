@@ -24,49 +24,49 @@ LANGUAGE_RELATION = ILS_RELATION_TYPE(
     0,
     "language",
     "Language",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.SiblingsRelation",
+    "invenio_app_ils.relations.api.SiblingsRelation",
 )
 EDITION_RELATION = ILS_RELATION_TYPE(
     1,
     "edition",
     "Edition",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.SiblingsRelation",
+    "invenio_app_ils.relations.api.SiblingsRelation",
 )
 OTHER_RELATION = ILS_RELATION_TYPE(
     2,
     "other",
     "Other",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.SiblingsRelation",
+    "invenio_app_ils.relations.api.SiblingsRelation",
 )
 MULTIPART_MONOGRAPH_RELATION = ILS_RELATION_TYPE(
     3,
     "multipart_monograph",
     "Multipart Monograph",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.ParentChildRelation",
+    "invenio_app_ils.relations.api.ParentChildRelation",
 )
 SERIAL_RELATION = ILS_RELATION_TYPE(
     4,
     "serial",
     "Serial",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.ParentChildRelation",
+    "invenio_app_ils.relations.api.ParentChildRelation",
 )
 SEQUENCE_RELATION = ILS_RELATION_TYPE(
     5,
     "sequence",
     "Sequence",
-    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
-    "invenio_app_ils.records.relations.api.SequenceRelation",
+    "invenio_app_ils.relations.api.SequenceRelation",
 )
 
 

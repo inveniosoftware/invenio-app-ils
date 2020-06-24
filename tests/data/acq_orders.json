@@ -62,6 +62,7 @@
         "copies_ordered": 7,
         "document_pid": "docid-4",
         "medium": "hardcover",
+        "patron_pid": "2",
         "recipient": "library"
       }
     ],

@@ -18,7 +18,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 from tests.helpers import user_login
 
-from invenio_app_ils.records.api import Patron
+from invenio_app_ils.patrons.api import Patron
 
 from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
     send_expiring_loans_mail_reminder,
@@ -45,7 +45,7 @@ def test_email_on_loan_checkout(
 def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
     """Test that an email is sent for a loan that is overdue."""
     mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
+        "invenio_app_ils.patrons.api.Patron.get_patron",
         return_value=Patron(users["patron1"].id),
     )
 
@@ -97,7 +97,7 @@ def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
 def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
     """Test that an email is sent for a loan that is about to expire."""
     mocker.patch(
-        "invenio_app_ils.records.api.Patron.get_patron",
+        "invenio_app_ils.patrons.api.Patron.get_patron",
         return_value=Patron(users["patron1"].id),
     )
 

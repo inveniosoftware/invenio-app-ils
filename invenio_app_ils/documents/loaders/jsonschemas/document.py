@@ -9,8 +9,9 @@
 
 from flask import current_app
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields, pre_load
+from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
+from invenio_app_ils.documents.api import Document
 from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
     set_changed_by
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
@@ -203,7 +204,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     curated = fields.Bool()
-    document_type = fields.Str()
+    document_type = fields.Str(required=True, validate=validate.OneOf(Document.DOCUMENT_TYPES))
     edition = fields.Str()
     extensions = fields.Method('dump_extensions', 'load_extensions')
     identifiers = fields.List(fields.Nested(IdentifierSchema))

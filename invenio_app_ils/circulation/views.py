@@ -7,8 +7,6 @@
 
 """Invenio App ILS Circulation views."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint
 from invenio_circulation.links import loan_links_factory
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE

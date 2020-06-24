@@ -10,7 +10,7 @@
 from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 
-from invenio_app_ils.jsonresolver.api import pick
+from invenio_app_ils.records.jsonresolvers.api import pick
 
 
 def field_loan(metadata):

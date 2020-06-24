@@ -7,8 +7,6 @@
 
 """Invenio module for the circulation of bibliographic items."""
 
-from __future__ import absolute_import, print_function
-
 import logging
 
 from flask import Blueprint, current_app
@@ -23,9 +21,13 @@ from .circulation import config as circulation_config
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from .documents.api import DOCUMENT_PID_TYPE
+from .eitems.api import EITEM_PID_TYPE
 from .files.receivers import register_files_signals
-from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
-    ITEM_PID_TYPE, LOCATION_PID_TYPE, PATRON_PID_TYPE, SERIES_PID_TYPE
+from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE
+from .items.api import ITEM_PID_TYPE
+from .locations.api import LOCATION_PID_TYPE
+from .patrons.api import PATRON_PID_TYPE
+from .series.api import SERIES_PID_TYPE
 
 
 def handle_rest_exceptions(exception):

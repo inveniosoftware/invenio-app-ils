@@ -23,8 +23,11 @@ def _assert_extra_fields(doc):
 def test_document_creation_refs(app):
     """Test creation of a document."""
     d = dict(
-        pid="a1bc", title="Test title", authors=[dict(full_name="John Doe")],
-        publication_year="2010"
+        pid="a1bc",
+        title="Test title",
+        authors=[dict(full_name="John Doe")],
+        publication_year="2010",
+        document_type="BOOK",
     )
     doc = Document.create(d)
 
@@ -34,8 +37,11 @@ def test_document_creation_refs(app):
 def test_document_update_refs(app):
     """Test update of a document."""
     d = dict(
-        pid="a1bc", title="Test title", authors=[dict(full_name="John Doe")],
-        publication_year="2010"
+        pid="a1bc",
+        title="Test title",
+        authors=[dict(full_name="John Doe")],
+        publication_year="2010",
+        document_type="BOOK",
     )
     doc = Document.create(d)
     del doc["circulation"]

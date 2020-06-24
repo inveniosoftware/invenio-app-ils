@@ -275,7 +275,7 @@ class _PatronLoanExtension:
 
 def validate_item_pid(item_pid):
     """Validate item or raise and return an obj to easily distinguish them."""
-    from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+    from invenio_app_ils.items.api import ITEM_PID_TYPE
 
     if item_pid["type"] not in [BORROWING_REQUEST_PID_TYPE, ITEM_PID_TYPE]:
         raise UnknownItemPidTypeError(pid_type=item_pid["type"])
