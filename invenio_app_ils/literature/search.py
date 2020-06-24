@@ -9,7 +9,7 @@
 
 from invenio_search.api import DefaultFilter, RecordsSearch
 
-from invenio_app_ils.search.permissions import _ils_search_factory, \
+from invenio_app_ils.search_permissions import _ils_search_factory, \
     search_filter_record_permissions
 
 

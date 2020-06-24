@@ -10,7 +10,7 @@
 from invenio_search import RecordsSearch
 from invenio_search.api import DefaultFilter
 
-from invenio_app_ils.search.permissions import search_filter_record_permissions
+from invenio_app_ils.search_permissions import search_filter_record_permissions
 
 
 class DocumentSearch(RecordsSearch):

@@ -19,10 +19,12 @@ from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
+from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import PATRON_PID_TYPE
+from invenio_app_ils.patrons.api import PATRON_PID_TYPE
+from invenio_app_ils.proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -35,6 +37,23 @@ def get_loans(patron_pid):
         loan = loan_record_cls.get_record_by_pid(hit["pid"])
         referenced.append(
             dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)
+        )
+    return referenced
+
+
+def get_document_requests(patron_pid):
+    """Get referenced documents requests."""
+    referenced = []
+    docreq_search_cls = current_app_ils.document_request_search_cls
+    docreq_record_cls = current_app_ils.document_request_record_cls
+    for request in (
+        docreq_search_cls()
+        .search_by_patron_pid(patron_pid=patron_pid)
+        .scan()
+    ):
+        docreq = docreq_record_cls.get_record_by_pid(request["pid"])
+        referenced.append(
+            dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq)
         )
     return referenced
 
@@ -74,6 +93,7 @@ def index_referenced_records(patron):
     indexed = dict(pid_type=PATRON_PID_TYPE, record=patron)
 
     indexer.index(indexed, get_loans(patron_pid))
+    indexer.index(indexed, get_document_requests(patron_pid))
     indexer.index(indexed, get_acquisition_orders(patron_pid))
     indexer.index(indexed, get_ill_borrowing_requests(patron_pid))
 

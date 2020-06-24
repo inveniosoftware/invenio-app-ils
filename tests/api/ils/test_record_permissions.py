@@ -20,7 +20,7 @@ from tests.helpers import user_login
 from invenio_app_ils.errors import UnauthorizedSearchError
 from invenio_app_ils.records.permissions import RecordPermission, \
     create_records_action
-from invenio_app_ils.search.permissions import _filter_by_patron
+from invenio_app_ils.search_permissions import _filter_by_patron
 
 
 @pytest.mark.parametrize("patron_pid,qs,should_raise", [

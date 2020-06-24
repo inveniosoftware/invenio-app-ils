@@ -20,7 +20,7 @@ def test_delete_location(client, users, json_headers, testdata):
     res = client.delete(url, headers=json_headers)
     assert res.status_code == 400
 
-    location_pid = 'locid-2'
+    location_pid = 'locid-3'
     url = url_for('invenio_records_rest.locid_item', pid_value=location_pid)
     res = client.delete(url, headers=json_headers)
     assert res.status_code == 204

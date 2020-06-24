@@ -31,19 +31,21 @@ from invenio_search import current_search
 from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
-from invenio_app_ils.patrons.indexer import PatronIndexer
-
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
+from .eitems.api import EITEM_PID_TYPE, EItem
 from .ill.api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE, \
     BorrowingRequest, Library
-from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
-    ITEM_PID_TYPE, LOCATION_PID_TYPE, SERIES_PID_TYPE
-from .records.api import EItem, InternalLocation, Item, Location, Series
+from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE, \
+    InternalLocation
+from .items.api import ITEM_PID_TYPE, Item
+from .locations.api import LOCATION_PID_TYPE, Location
+from .patrons.indexer import PatronIndexer
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
+from .series.api import SERIES_PID_TYPE, Series
 
 
 def minter(pid_type, pid_field, record):

@@ -14,9 +14,9 @@ from flask import current_app
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import SERIES_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.series.api import SERIES_PID_TYPE
 
 
 def get_related_records(series_pid):

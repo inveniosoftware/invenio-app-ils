@@ -7,8 +7,6 @@
 
 """Invenio App ILS circulation stats views."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime
 
 from flask import Blueprint, current_app, request
@@ -53,7 +51,9 @@ def create_most_loaned_documents_view(blueprint, app):
 
 def create_circulation_stats_blueprint(app):
     """Add statistics views to the blueprint."""
-    blueprint = Blueprint("invenio_app_ils_circulation_stats", __name__, url_prefix="")
+    blueprint = Blueprint(
+        "invenio_app_ils_circulation_stats", __name__, url_prefix=""
+    )
 
     create_most_loaned_documents_view(blueprint, app)
 
@@ -93,6 +93,7 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
 
     def _validate_start_date_range(self):
         """Validate start date range parameters."""
+
         def validate_date(param, date):
             """Validate a date."""
             try:

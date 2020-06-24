@@ -46,7 +46,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter=BORROWING_REQUEST_PID_MINTER,
         pid_fetcher=BORROWING_REQUEST_PID_FETCHER,
         search_class=BorrowingRequestsSearch,
-        search_factory_imp="invenio_app_ils.search.permissions"
+        search_factory_imp="invenio_app_ils.search_permissions"
             ":search_factory_filter_by_patron",
         indexer_class=RecordIndexer,
         record_class=BorrowingRequest,

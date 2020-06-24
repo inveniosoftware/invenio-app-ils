@@ -18,7 +18,7 @@ from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+from invenio_app_ils.items.api import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
 
@@ -31,7 +31,7 @@ def index_referenced_records(item):
 
     # fetch and index loans
     loan_record_cls = current_circulation.loan_record_cls
-    item_pid = dict(type=CIRCULATION_LOAN_PID_TYPE, value=item["pid"])
+    item_pid = dict(type=ITEM_PID_TYPE, value=item["pid"])
     for loan in search_loans_by_pid(item_pid=item_pid).scan():
         loan = loan_record_cls.get_record_by_pid(loan["pid"])
         referenced.append(

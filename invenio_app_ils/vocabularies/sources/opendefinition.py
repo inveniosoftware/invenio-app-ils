@@ -10,9 +10,7 @@
 from flask import current_app
 from invenio_opendefinition import current_opendefinition
 
-from invenio_app_ils.pidstore.pids import VOCABULARY_PID_TYPE
-
-from ..api import validate_vocabulary
+from ..api import VOCABULARY_PID_TYPE, validate_vocabulary
 from .base import VocabularySource
 
 

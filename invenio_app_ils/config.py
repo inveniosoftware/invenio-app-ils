@@ -13,8 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-from __future__ import absolute_import, print_function
-
 from datetime import timedelta
 
 from invenio_accounts.config import \
@@ -22,12 +20,10 @@ from invenio_accounts.config import \
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_oauthclient.contrib import cern
 from invenio_records_rest.facets import terms_filter
-from invenio_records_rest.schemas.fields import SanitizedUnicode
 from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
-from marshmallow.fields import Bool
 
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
 from invenio_app_ils.documents.indexer import DocumentIndexer
@@ -49,25 +45,34 @@ from .document_requests.search import DocumentRequestSearch
 from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
     DOCUMENT_PID_TYPE, Document
 from .documents.search import DocumentSearch
+from .eitems.api import EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE, \
+    EItem
+from .eitems.search import EItemSearch
 from .facets import default_value_when_missing_filter, keyed_range_filter, \
     not_empty_object_or_list_filter
+from .internal_locations.api import INTERNAL_LOCATION_PID_FETCHER, \
+    INTERNAL_LOCATION_PID_MINTER, INTERNAL_LOCATION_PID_TYPE, \
+    InternalLocation
+from .internal_locations.search import InternalLocationSearch
+from .items.api import ITEM_PID_FETCHER, ITEM_PID_MINTER, ITEM_PID_TYPE, Item
+from .items.search import ItemSearch
+from .locations.api import LOCATION_PID_FETCHER, LOCATION_PID_MINTER, \
+    LOCATION_PID_TYPE, Location
+from .locations.search import LocationSearch
+from .patrons.api import PATRON_PID_FETCHER, PATRON_PID_MINTER, \
+    PATRON_PID_TYPE, Patron
+from .patrons.search import PatronsSearch
 from .permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
     views_permissions_factory
-from .pidstore.pids import EITEM_PID_FETCHER, EITEM_PID_MINTER, \
-    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_FETCHER, \
-    INTERNAL_LOCATION_PID_MINTER, INTERNAL_LOCATION_PID_TYPE, \
-    ITEM_PID_FETCHER, ITEM_PID_MINTER, ITEM_PID_TYPE, LOCATION_PID_FETCHER, \
-    LOCATION_PID_MINTER, LOCATION_PID_TYPE, PATRON_PID_FETCHER, \
-    PATRON_PID_MINTER, PATRON_PID_TYPE, SERIES_PID_FETCHER, \
-    SERIES_PID_MINTER, SERIES_PID_TYPE, VOCABULARY_PID_FETCHER, \
-    VOCABULARY_PID_MINTER, VOCABULARY_PID_TYPE
-from .records.api import EItem, InternalLocation, Item, Location, Patron, \
-    Series, Vocabulary
 from .records.permissions import record_read_permission_factory
 from .records.views import UserInfoResource
-from .search.api import EItemSearch, InternalLocationSearch, ItemSearch, \
-    LocationSearch, PatronsSearch, SeriesSearch, VocabularySearch
+from .series.api import SERIES_PID_FETCHER, SERIES_PID_MINTER, \
+    SERIES_PID_TYPE, Series
+from .series.search import SeriesSearch
+from .vocabularies.api import VOCABULARY_PID_FETCHER, VOCABULARY_PID_MINTER, \
+    VOCABULARY_PID_TYPE, Vocabulary
+from .vocabularies.search import VocabularySearch
 
 
 def _(x):
@@ -236,20 +241,20 @@ _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
 )
 _PITMID_CONVERTER = (
-    'pid(pitmid, record_class="invenio_app_ils.records.api:Item")'
+    'pid(pitmid, record_class="invenio_app_ils.items.api:Item")'
 )
 _EITMID_CONVERTER = (
-    'pid(eitmid, record_class="invenio_app_ils.records.api:EItem")'
+    'pid(eitmid, record_class="invenio_app_ils.eitems.api:EItem")'
 )
 _LOCID_CONVERTER = (
-    'pid(locid, record_class="invenio_app_ils.records.api:Location")'
+    'pid(locid, record_class="invenio_app_ils.locations.api:Location")'
 )
 _ILOCID_CONVERTER = (
-    'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
+    'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'
 )
 _DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
 _SERID_CONVERTER = (
-    'pid(serid, record_class="invenio_app_ils.records.api:Series")'
+    'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 )
 
 ###############################################################################
@@ -309,18 +314,18 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Item,
         indexer_class=ItemIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.records.loaders:item_loader")
+            "application/json": ("invenio_app_ils.items.loaders:item_loader")
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:item_v1_response"
+                "invenio_app_ils.items.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:item_v1_search"
+                "invenio_app_ils.items.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": ("invenio_app_ils.items.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -346,7 +351,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=EItemIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:eitem_loader"
+                "invenio_app_ils.eitems.loaders:eitem_loader"
             )
         },
         record_serializers={
@@ -384,7 +389,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=LocationIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:location_loader"
+                "invenio_app_ils.locations.loaders:location_loader"
             )
         },
         record_serializers={
@@ -421,7 +426,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=SeriesIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:series_loader"
+                "invenio_app_ils.series.loaders:series_loader"
             )
         },
         record_serializers={
@@ -461,7 +466,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=InternalLocationIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:internal_location_loader"
+                "invenio_app_ils.internal_locations.loaders:internal_location_loader"
             )
         },
         record_serializers={
@@ -500,7 +505,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=PatronIndexer,
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
@@ -531,7 +536,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentRequestSearch,
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
-        search_factory_imp="invenio_app_ils.search.permissions"
+        search_factory_imp="invenio_app_ils.search_permissions"
         ":search_factory_filter_by_patron",
         record_loaders={
             "application/json": (
@@ -865,7 +870,7 @@ STATS_EVENTS = {
         "signal": "invenio_files_rest.signals.file_downloaded",
         "templates": "invenio_app_ils.stats.file_download",
         "event_builders": [
-            "invenio_app_ils.event_builders:eitem_event_builder",
+            "invenio_app_ils.eitems.api:eitem_event_builder",
             "invenio_stats.contrib.event_builders.file_download_event_builder",
         ],
         "cls": EventsIndexer,

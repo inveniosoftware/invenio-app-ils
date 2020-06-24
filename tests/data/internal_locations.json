@@ -13,5 +13,10 @@
     "pid": "ilocid-3",
     "location_pid": "locid-1",
     "name": "Unused Internal Library"
+  },
+  {
+    "pid": "ilocid-4",
+    "location_pid": "locid-2",
+    "name": "Another unused library"
   }
 ]

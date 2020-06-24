@@ -9,7 +9,9 @@
 
 from copy import deepcopy
 
-from invenio_app_ils.errors import RecordRelationsError
+from invenio_app_ils.errors import RecordHasReferencesError, \
+    RecordRelationsError
+from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.relations.api import MULTIPART_MONOGRAPH_RELATION, \
     PARENT_CHILD_RELATION_TYPES, SEQUENCE_RELATION_TYPES, SERIAL_RELATION, \
     SIBLINGS_RELATION_TYPES, ParentChildRelation, SequenceRelation, \
@@ -139,7 +141,7 @@ class RecordRelationsParentChild(RecordRelations):
     def _validate_relation_between_records(self, parent, child, relation_name):
         """Validate relation between type of records."""
         from invenio_app_ils.documents.api import Document
-        from invenio_app_ils.records.api import Series
+        from invenio_app_ils.series.api import Series
 
         # when child is Document, parent is any type of Series
         is_series_doc = isinstance(child, Document) and isinstance(
@@ -227,7 +229,7 @@ class RecordRelationsSiblings(RecordRelations):
     def _validate_relation_between_records(self, first, second, relation_name):
         """Validate relation between type of records."""
         from invenio_app_ils.documents.api import Document
-        from invenio_app_ils.records.api import Series
+        from invenio_app_ils.series.api import Series
 
         # records must be of the same type
         same_document = isinstance(first, Document) and isinstance(
@@ -318,7 +320,7 @@ class RecordRelationsSequence(RecordRelations):
         self, previous_rec, next_rec, relation_name
     ):
         """Validate relation between type of records."""
-        from invenio_app_ils.records.api import Series
+        from invenio_app_ils.series.api import Series
 
         # records must be of the same type, Sequences support only Series
         allowed_types = [Series]
@@ -359,3 +361,34 @@ class RecordRelationsSequence(RecordRelations):
         sequence_relation.remove(
             previous_pid=previous_rec.pid, next_pid=next_rec.pid
         )
+
+
+class IlsRecordWithRelations(IlsRecord):
+    """Add relations functionalities to records."""
+
+    @property
+    def relations(self):
+        """Get record relations."""
+        from .retriever import get_relations
+        return get_relations(self)
+
+    def clear(self):
+        """Clear IlsRecordWithRelations record."""
+        extra_metadata_field_name = RecordRelationsExtraMetadata.field_name()
+        extra_metadata = self.get(extra_metadata_field_name, {})
+        super().clear()
+        self[extra_metadata_field_name] = extra_metadata
+
+    def delete(self, **kwargs):
+        """Delete record with relations."""
+        related_refs = set()
+        for name, related_objects in self.relations.items():
+            for obj in related_objects:
+                related_refs.add("{pid_value}:{pid_type}".format(**obj))
+        if related_refs:
+            raise RecordHasReferencesError(
+                record_type=self.__class__.__name__,
+                record_id=self["pid"],
+                ref_type="related",
+                ref_ids=sorted(ref for ref in related_refs),
+            )

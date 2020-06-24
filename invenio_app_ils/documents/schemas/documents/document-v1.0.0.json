@@ -282,7 +282,7 @@
       "type": "boolean"
     },
     "document_type": {
-      "title": "Document type (Vocabulary)",
+      "title": "Document type",
       "type": "string"
     },
     "edition": {
@@ -706,7 +706,7 @@
       "uniqueItems": true
     }
   },
-  "required": ["$schema", "pid", "title", "authors", "publication_year"],
+  "required": ["$schema", "pid", "title", "authors", "publication_year", "document_type"],
   "title": "Document",
   "type": "object"
 }

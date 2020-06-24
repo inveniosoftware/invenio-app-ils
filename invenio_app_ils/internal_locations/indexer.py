@@ -14,8 +14,8 @@ from flask import current_app
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import INTERNAL_LOCATION_PID_TYPE, \
-    ITEM_PID_TYPE
+from invenio_app_ils.internal_locations.api import INTERNAL_LOCATION_PID_TYPE
+from invenio_app_ils.items.api import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
 

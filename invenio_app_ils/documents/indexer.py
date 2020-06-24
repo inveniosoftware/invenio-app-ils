@@ -20,10 +20,11 @@ from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
+from invenio_app_ils.eitems.api import EITEM_PID_TYPE
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE, ITEM_PID_TYPE
+from invenio_app_ils.items.api import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
 

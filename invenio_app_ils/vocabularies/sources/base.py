@@ -14,7 +14,6 @@ from invenio_jsonschemas import current_jsonschemas
 from jsonschema import validate as validate_schema
 
 from invenio_app_ils.errors import VocabularyError
-from invenio_app_ils.records.api import Vocabulary
 
 
 class VocabularySource(metaclass=ABCMeta):
@@ -27,6 +26,7 @@ class VocabularySource(metaclass=ABCMeta):
     @staticmethod
     def validate(vocabulary):
         """Validate vocabulary."""
+        from invenio_app_ils.vocabularies.api import Vocabulary
         if not isinstance(vocabulary, Vocabulary):
             raise VocabularyError(
                 "{} is not a vocabulary".format(vocabulary))

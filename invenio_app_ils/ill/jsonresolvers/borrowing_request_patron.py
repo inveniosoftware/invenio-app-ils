@@ -10,10 +10,10 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.jsonresolver.api import \
-    get_field_value_for_record as get_field_value
-from invenio_app_ils.jsonresolver.api import get_pid_or_default
 from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.records.jsonresolvers.api import \
+    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
 
 from ..proxies import current_ils_ill
 

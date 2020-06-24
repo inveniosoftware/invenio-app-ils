@@ -7,8 +7,6 @@
 
 """Invenio App ILS Records views."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, abort, request
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
@@ -18,12 +16,12 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.errors import RecordRelationsError
 from invenio_app_ils.permissions import need_permissions
-from invenio_app_ils.pidstore.pids import SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
 from invenio_app_ils.relations.api import PARENT_CHILD_RELATION_TYPES, \
     SEQUENCE_RELATION_TYPES, SIBLINGS_RELATION_TYPES, Relation
 
+from ..series.api import SERIES_PID_TYPE
 from .api import RecordRelationsParentChild, RecordRelationsSequence, \
     RecordRelationsSiblings
 

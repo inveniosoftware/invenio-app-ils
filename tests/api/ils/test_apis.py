@@ -9,9 +9,10 @@
 
 from invenio_accounts.models import User
 
-from invenio_app_ils.api import patron_exists
 from invenio_app_ils.documents.api import Document
-from invenio_app_ils.records.api import IlsRecord, Series
+from invenio_app_ils.patrons.api import patron_exists
+from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.series.api import Series
 
 
 def test_patron_exists(users):

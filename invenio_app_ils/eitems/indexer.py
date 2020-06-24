@@ -15,8 +15,9 @@ from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
+
+from .api import EITEM_PID_TYPE
 
 
 @shared_task(ignore_result=True)

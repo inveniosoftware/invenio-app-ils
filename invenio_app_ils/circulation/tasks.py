@@ -17,7 +17,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
 from invenio_app_ils.circulation.search import get_all_expired_loans
-from invenio_app_ils.records.api import SystemAgent
+from invenio_app_ils.patrons.api import SystemAgent
 
 celery_logger = get_task_logger(__name__)
 

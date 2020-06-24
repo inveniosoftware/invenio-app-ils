@@ -7,8 +7,6 @@
 
 """Invenio App ILS Document Requests views."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, current_app
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string

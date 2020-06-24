@@ -23,8 +23,8 @@ from invenio_db import db
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnDocumentError, PatronHasLoanOnItemError, \
     PatronHasRequestOnDocumentError
+from invenio_app_ils.items.api import Item
 from invenio_app_ils.proxies import current_app_ils
-from invenio_app_ils.records.api import Item
 
 lt_es7 = ES_VERSION[0] < 7
 

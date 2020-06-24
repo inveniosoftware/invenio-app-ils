@@ -10,7 +10,7 @@
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
-from invenio_app_ils.schemas.json import ILSRecordSchemaJSONV1
+from invenio_app_ils.records.schemas.json import ILSRecordSchemaJSONV1
 
 from .csv import LoanCSVSerializer
 from .json import LoanJSONSerializer

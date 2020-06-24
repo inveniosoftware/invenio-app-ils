@@ -233,5 +233,15 @@
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}
+  },
+  {
+    "pid": "itemid-71",
+    "barcode": "123456789-55",
+    "document_pid": "docid-17",
+    "internal_location_pid": "ilocid-4",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE",
+    "document": {}
   }
 ]

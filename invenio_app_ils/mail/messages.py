@@ -13,8 +13,8 @@ from flask import current_app
 from flask_mail import Message
 from jinja2.exceptions import TemplateError
 
-from invenio_app_ils.jsonresolver.api import pick
 from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.records.jsonresolvers.api import pick
 
 
 class BlockTemplatedMessage(Message):
