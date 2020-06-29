@@ -19,7 +19,7 @@ from tests.helpers import user_login
 NEW_LOAN = {
     "document_pid": "CHANGE ME IN EACH TEST",
     "patron_pid": "3",
-    "transaction_location_pid": "1",
+    "transaction_location_pid": "locid-1",
     "pickup_location_pid": "locid-1",
     "delivery": {"method": "PICKUP"},
     "request_start_date": "2019-09-10",

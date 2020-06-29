@@ -23,7 +23,7 @@ NEW_LOAN = {
     "item_pid": "CHANGE ME IN EACH TEST",
     "document_pid": "docid-1",
     "patron_pid": "3",
-    "transaction_location_pid": "1",
+    "transaction_location_pid": "locid-1",
     "pickup_location_pid": "locid-1",
     "delivery": {"method": "PICK_UP"},
 }

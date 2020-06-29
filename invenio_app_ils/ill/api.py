@@ -187,10 +187,12 @@ class _PatronLoan:
         :return: the PID and record loan
         """
         rec = self.record
-        tloc_pid = (
-            transaction_location_pid
-            or current_app.config["ILS_DEFAULT_LOCATION_PID"]
-        )
+
+        tloc_pid = transaction_location_pid
+        if not tloc_pid:
+            pid_value, _ = current_app_ils.get_default_location_pid
+            tloc_pid = pid_value
+
         transaction_user_pid = transaction_user_pid or str(current_user.id)
         if arrow.get(end_date) < arrow.now():
             raise ILLError("The loan end date cannot be in the past.")
@@ -241,10 +243,12 @@ class _PatronLoanExtension:
     ):
         """Extend current loan."""
         _loan = loan or self.patron_loan.get()
-        tloc_pid = (
-            transaction_location_pid
-            or current_app.config["ILS_DEFAULT_LOCATION_PID"]
-        )
+
+        tloc_pid = transaction_location_pid
+        if not tloc_pid:
+            pid_value, _ = current_app_ils.get_default_location_pid
+            tloc_pid = pid_value
+
         transaction_user_pid = transaction_user_pid or str(current_user.id)
 
         item_pid = dict(type=self.record._pid_type, value=self.record["pid"])
@@ -333,3 +337,17 @@ def circulation_default_extension_duration(loan, initial_loan):
     Item = current_app_ils.item_record_cls
     item = Item.get_record_by_pid(item_pid["value"])
     return circulation_default_loan_duration_for_item(item)
+
+
+def circulation_item_location_retriever(item_pid):
+    """Return the location of the item."""
+    validator = validate_item_pid(item_pid)
+    if validator.is_brw_req:
+        pid_value, _ = current_app_ils.get_default_location_pid
+        return pid_value
+
+    # physical item
+    Item = current_app_ils.item_record_cls
+    item = Item.get_record_by_pid(item_pid["value"])
+    _item = item.replace_refs()
+    return _item["internal_location"]["location_pid"]

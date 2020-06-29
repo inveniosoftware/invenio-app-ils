@@ -9,7 +9,6 @@
 
 from functools import partial
 
-from flask import current_app
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
@@ -56,9 +55,12 @@ class Location(IlsRecord):
                 ref_type="Internal Location",
                 ref_ids=sorted([res["pid"] for res in iloc_search_res.scan()]),
             )
-        return super().delete(**kwargs)
+        rec = super().delete(**kwargs)
 
+        try:
+            # invalidate cached property
+            del current_app_ils.get_default_location_pid
+        except AttributeError:
+            pass
 
-def get_default_location(item_pid):
-    """Return default location."""
-    return current_app.config["ILS_DEFAULT_LOCATION_PID"]
+        return rec

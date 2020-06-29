@@ -43,6 +43,24 @@ class _InvenioAppIlsState(object):
         """Initialize state."""
         self.app = app
 
+    @cached_property
+    def get_default_location_pid(self):
+        """By default, return the record of the first location created."""
+        from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+        pid = (
+            PersistentIdentifier.query.filter_by(
+                pid_type=LOCATION_PID_TYPE,
+                object_type="rec",
+                status=PIDStatus.REGISTERED,
+            )
+            .order_by(PersistentIdentifier.created.asc())
+            .first()
+        )
+        if not pid:
+            raise KeyError("There are no locations defined in the system.")
+        return pid.pid_value, pid
+
     def record_class_by_pid_type(self, pid_type):
         endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
         return endpoints[pid_type]["record_class"]
@@ -194,19 +212,23 @@ class InvenioAppIls(object):
 
     def init_metadata_extensions(self, app):
         """Metadata extensions initialization."""
-        for rec_type in app.config['ILS_RECORDS_METADATA_EXTENSIONS'].keys():
-            namespaces = \
-                app.config['ILS_RECORDS_METADATA_NAMESPACES'].get(rec_type, {})
-            extensions = \
-                app.config['ILS_RECORDS_METADATA_EXTENSIONS'].get(rec_type, {})
+        for rec_type in app.config["ILS_RECORDS_METADATA_EXTENSIONS"].keys():
+            namespaces = app.config["ILS_RECORDS_METADATA_NAMESPACES"].get(
+                rec_type, {}
+            )
+            extensions = app.config["ILS_RECORDS_METADATA_EXTENSIONS"].get(
+                rec_type, {}
+            )
             setattr(
                 app.extensions["invenio-app-ils"],
                 "{}_metadata_extensions".format(rec_type),
-                MetadataExtensions(namespaces, extensions)
+                MetadataExtensions(namespaces, extensions),
             )
             before_record_index.dynamic_connect(
-                before_record_index_hook, sender=app, weak=False,
-                index="{0}s-{0}-v1.0.0".format(rec_type)
+                before_record_index_hook,
+                sender=app,
+                weak=False,
+                index="{0}s-{0}-v1.0.0".format(rec_type),
             )
 
     def update_config_records_rest(self, app):
@@ -237,7 +259,8 @@ class InvenioAppIlsREST(InvenioAppIls):
 
 
 def before_record_index_hook(
-        sender, json=None, record=None, index=None, **kwargs):
+    sender, json=None, record=None, index=None, **kwargs
+):
     """Hook to transform record before indexing in ES.
 
     :param sender: The entity sending the signal.
