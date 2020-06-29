@@ -17,7 +17,7 @@ NEW_LOAN = {
     "item_pid": {"type": "pitmid", "value": "itemid-1"},
     "document_pid": "docid-1",
     "patron_pid": "1",
-    "transaction_location_pid": "1",
+    "transaction_location_pid": "locid-1",
     "pickup_location_pid": "locid-1",
 }
 

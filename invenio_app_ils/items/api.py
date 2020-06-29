@@ -194,11 +194,6 @@ def get_document_pid_by_item_pid(item_pid):
     return rec.get("document_pid")
 
 
-def get_default_location(item_pid):
-    """Return default location."""
-    return current_app.config["ILS_DEFAULT_LOCATION_PID"]
-
-
 def item_exists(item_pid):
     """Return True if the Item exists given a PID."""
     try:

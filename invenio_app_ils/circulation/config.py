@@ -22,10 +22,9 @@ from invenio_app_ils.facets import date_range_filter, overdue_agg, \
     overdue_loans_filter
 from invenio_app_ils.ill.api import can_item_circulate, \
     circulation_default_extension_duration, \
-    circulation_default_loan_duration
+    circulation_default_loan_duration, circulation_item_location_retriever
 from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, item_exists
-from invenio_app_ils.locations.api import get_default_location
 from invenio_app_ils.patrons.api import patron_exists
 from invenio_app_ils.permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
@@ -76,7 +75,7 @@ CIRCULATION_ITEM_EXISTS = item_exists
 
 CIRCULATION_DOCUMENT_EXISTS = document_exists
 
-CIRCULATION_ITEM_LOCATION_RETRIEVER = get_default_location
+CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
 
 CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = (
     circulation_transaction_location_validator

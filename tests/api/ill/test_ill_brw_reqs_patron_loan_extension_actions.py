@@ -41,7 +41,7 @@ def _create_on_loan_brwreq(
         data = dict(
             loan_start_date=loan_start_date,
             loan_end_date=loan_end_date,
-            transaction_location_pid="1",
+            transaction_location_pid="locid-1",
         )
         url = url_for("invenio_app_ils_ill.illbid_create_loan", pid_value=pid)
         res = client.post(url, headers=json_headers, data=json.dumps(data))
@@ -100,7 +100,7 @@ def _request_extension_action(pid, client, json_headers):
 
 def _accept_extension_action(pid, data, client, json_headers):
     """Send HTTP request to accept extension of ILL Borrowing Request."""
-    data["transaction_location_pid"] = "1"
+    data["transaction_location_pid"] = "locid-1"
     url = url_for("invenio_app_ils_ill.illbid_accept_extension", pid_value=pid)
     return client.post(url, headers=json_headers, data=json.dumps(data))
 
@@ -228,7 +228,7 @@ def test_brwreq_accept_decline_extension_should_fail_when_loan_not_active(
             document_pid=brwreq["document_pid"],
             item_pid=item_pid,
             patron_pid=brwreq["patron_pid"],
-            transaction_location_pid="1",
+            transaction_location_pid="locid-1",
             transaction_user_pid="1",
         )
         res = client.post(url, headers=json_headers, data=json.dumps(params))

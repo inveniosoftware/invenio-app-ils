@@ -66,10 +66,10 @@ from .permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
     views_permissions_factory
 from .records.permissions import record_read_permission_factory
-from .records.views import UserInfoResource
 from .series.api import SERIES_PID_FETCHER, SERIES_PID_MINTER, \
     SERIES_PID_TYPE, Series
 from .series.search import SeriesSearch
+from .views import UserInfoResource
 from .vocabularies.api import VOCABULARY_PID_FETCHER, VOCABULARY_PID_MINTER, \
     VOCABULARY_PID_TYPE, Vocabulary
 from .vocabularies.search import VocabularySearch
@@ -1032,9 +1032,6 @@ provide read access to specific users or roles.
 When disabled, it will avoid checking for user ids and roles on each search
 query and record fetch.
 """
-
-ILS_DEFAULT_LOCATION_PID = "1"
-"""Default ils library location pid."""
 
 ILS_LITERATURE_COVER_URLS_BUILDER = build_ils_demo_cover_urls
 """Default implementation for building cover urls in document serializer."""

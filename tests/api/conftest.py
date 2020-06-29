@@ -209,7 +209,7 @@ def loan_params():
         patron_pid="1",
         document_pid="docid-1",
         item_pid=dict(type="pitmid", value="itemid-2"),
-        transaction_location_pid="1",
+        transaction_location_pid="locid-1",
         transaction_date="2018-02-01T09:30:00+02:00",
     )
 

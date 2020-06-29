@@ -62,6 +62,12 @@ class Patron(dict):
         self._profile = UserProfile.get_by_userid(id)
         self.name = self._profile.full_name if self._profile else ""
         self.email = self._user.email
+
+        # currently no support for patrons affiliated to different
+        # locations, return only the default location
+        pid_value, _ = current_app_ils.get_default_location_pid
+        self.location_pid = pid_value
+
         # add all fields to the dict so they can be accessed as a dict too
         super().__init__(self.dumps())
 
@@ -73,6 +79,7 @@ class Patron(dict):
             "pid": str(self.id),
             "name": self.name,
             "email": self.email,
+            "location_pid": self.location_pid,
         }
 
     def dumps_loader(self, **kwargs):
@@ -82,6 +89,7 @@ class Patron(dict):
             "pid": str(self.id),
             "name": self.name,
             "email": self.email,
+            "location_pid": self.location_pid,
         }
 
     @staticmethod
@@ -106,6 +114,7 @@ class SystemAgent(Patron):
         self._schema = ""
         self.name = "System"
         self.email = current_app.config["SUPPORT_EMAIL"]
+        self.location_pid = ""
 
 
 def patron_exists(patron_pid):

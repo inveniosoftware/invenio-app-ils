@@ -14,6 +14,7 @@ from flask import current_app, g, has_request_context
 from flask_login import current_user
 
 from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.proxies import current_app_ils
 
 
 def circulation_build_item_ref(loan_pid, loan):
@@ -90,10 +91,8 @@ def circulation_loan_will_expire_days():
 
 def circulation_transaction_location_validator(transaction_location_pid):
     """Validate that the given transaction location PID is valid."""
-    return (
-        transaction_location_pid
-        == current_app.config["ILS_DEFAULT_LOCATION_PID"]
-    )
+    pid_value, _ = current_app_ils.get_default_location_pid
+    return transaction_location_pid == pid_value
 
 
 def circulation_transaction_user_validator(transaction_user_pid):

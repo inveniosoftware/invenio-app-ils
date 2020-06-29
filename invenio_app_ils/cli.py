@@ -42,6 +42,7 @@ from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE, \
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
 from .patrons.indexer import PatronIndexer
+from .proxies import current_app_ils
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
@@ -86,7 +87,6 @@ class Holder(object):
         self.languages = languages
         self.librarian_pid = librarian_pid
         self.tags = tags
-        self.location = {}
         self.internal_locations = {"objs": [], "total": total_intloc}
         self.items = {"objs": [], "total": total_items}
         self.eitems = {"objs": [], "total": total_eitems}
@@ -139,7 +139,9 @@ class LocationGenerator(Generator):
     def persist(self):
         """Persist."""
         record = Location.create(self.holder.location)
-        return self._persist(LOCATION_PID_TYPE, "pid", record)
+        rec = self._persist(LOCATION_PID_TYPE, "pid", record)
+        db.session.commit()
+        return rec
 
 
 class InternalLocationGenerator(Generator):
@@ -148,7 +150,7 @@ class InternalLocationGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.internal_locations["total"]
-        location_pid_value = self.holder.location["pid"]
+        location_pid_value, _ = current_app_ils.get_default_location_pid
         objs = [
             {
                 "pid": self.create_pid(),
@@ -509,7 +511,7 @@ class LoanGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.loans["total"]
-        loc_pid = self.holder.location["pid"]
+        loc_pid, _ = current_app_ils.get_default_location_pid
         items = self.holder.items["objs"]
         patrons_pids = self.holder.patrons_pids
         librarian_pid = self.holder.librarian_pid
@@ -1043,9 +1045,21 @@ class OrderGenerator(Generator):
         db.session.commit()
         return recs
 
+
 @click.group()
 def demo():
     """Demo data CLI."""
+
+
+@demo.command()
+def locations():
+    """Create demo locations."""
+    click.echo("Creating locations...")
+    fake_holder = type("FakeHolder", (object,), {"location": {}})
+    loc_generator = LocationGenerator(fake_holder, minter)
+    loc_generator.generate()
+    rec = loc_generator.persist()
+    RecordIndexer().index(rec)
 
 
 @demo.command()
@@ -1106,21 +1120,10 @@ def data(
         total_libraries=n_libraries,
     )
 
-    click.echo("Creating locations...")
-    loc_generator = LocationGenerator(holder, minter)
-    loc_generator.generate()
-    rec = loc_generator.persist()
-    indexer.index(rec)
-
     # InternalLocations
     intlocs_generator = InternalLocationGenerator(holder, minter)
     intlocs_generator.generate()
     rec_intlocs = intlocs_generator.persist()
-
-    # ILS_DEFAULT_LOCATION_PID is used for the time being in the config.py
-    # to perform actions on loans
-    msg = "Locations created (ILS_DEFAULT_LOCATION_PID={0})".format(rec["pid"])
-    click.secho(msg)
 
     # Series
     click.echo("Creating series...")
@@ -1188,7 +1191,7 @@ def data(
     borrowing_requests_generator.generate()
     rec_borrowing_requests = borrowing_requests_generator.persist()
 
-    # index locations
+    # index internal locations
     indexer.bulk_index([str(r.id) for r in rec_intlocs])
     click.echo(
         "Sent to the indexing queue {0} locations".format(len(rec_intlocs))
@@ -1287,8 +1290,6 @@ def patrons():
 @with_appcontext
 def index():
     """Index patrons."""
-    from invenio_app_ils.proxies import current_app_ils
-
     patrons = User.query.all()
     indexer = PatronIndexer()
 
@@ -1441,6 +1442,9 @@ def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
     # Assign actions
     run_command("access allow superuser-access role admin")
     run_command("access allow ils-backoffice-access role librarian")
+
+    # Create one location as first
+    run_command("demo locations")
 
     # Index patrons
     run_command("patrons index")
