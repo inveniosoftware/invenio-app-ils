@@ -10,23 +10,49 @@
 import uuid
 from copy import deepcopy
 from datetime import timedelta
+from functools import partial
 
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from flask_login import current_user
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.minters import loan_pid_minter
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_db import db
+from invenio_pidstore.models import PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnDocumentError, PatronHasLoanOnItemError, \
     PatronHasRequestOnDocumentError
+from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.items.api import Item
+from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7
+
+
+# override default `invenio-circulation` minters to use the base32 PIDs
+# CIRCULATION_LOAN_PID_TYPE is already defined in `invenio-circulation`
+ILS_CIRCULATION_LOAN_MINTER = "ilsloanid"
+ILS_CIRCULATION_LOAN_FETCHER = "ilsloanid"
+
+IlsCirculationLoanIdProvider = type(
+    "IlsCirculationLoanIdProvider",
+    (RecordIdProviderV2,),
+    dict(
+        pid_type=CIRCULATION_LOAN_PID_TYPE, default_status=PIDStatus.REGISTERED
+    ),
+)
+ils_circulation_loan_pid_minter = partial(
+    pid_minter, provider_cls=IlsCirculationLoanIdProvider
+)
+ils_circulation_loan_pid_fetcher = partial(
+    pid_fetcher, provider_cls=IlsCirculationLoanIdProvider
+)
 
 
 def _validate_delivery(delivery):
@@ -58,7 +84,7 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
         + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
     )
     search = search_by_patron_item_or_document(
-        patron_pid=patron_pid, document_pid=document_pid, filter_states=states,
+        patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
 

@@ -31,6 +31,7 @@ from invenio_app_ils.permissions import PatronOwnerPermission, \
     authenticated_user_permission, backoffice_permission, \
     loan_extend_circulation_permission, superuser_permission
 
+from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
 from .indexer import LoanIndexer
 from .jsonresolvers.loan import document_resolver, item_resolver, \
     loan_patron_resolver
@@ -186,8 +187,8 @@ CIRCULATION_LOAN_TRANSITIONS = {
 ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
     loanid=dict(
         pid_type=CIRCULATION_LOAN_PID_TYPE,
-        pid_minter=CIRCULATION_LOAN_MINTER,
-        pid_fetcher=CIRCULATION_LOAN_FETCHER,
+        pid_minter=ILS_CIRCULATION_LOAN_MINTER,
+        pid_fetcher=ILS_CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
         search_factory_imp="invenio_app_ils.search_permissions"
         ":search_factory_filter_by_patron",
