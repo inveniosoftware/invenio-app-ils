@@ -1356,10 +1356,11 @@ def pages():
     is_flag=True,
     help="Skip creating vocabularies."
 )
+@click.option("--skip-pages", is_flag=True, help="Skip creating static pages.")
 @click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
 def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
-          skip_vocabularies, verbose):
+          skip_vocabularies, skip_pages, verbose):
     """ILS setup command."""
     from flask import current_app
     from invenio_base.app import create_cli
@@ -1453,6 +1454,8 @@ def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
     if not skip_demo_data:
         run_command("demo data")
 
-    run_command("fixtures pages")
+    # Create static pages
+    if not skip_pages:
+        run_command("fixtures pages")
 
     click.secho("ils setup finished successfully", fg="blue")
