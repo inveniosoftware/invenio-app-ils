@@ -7,6 +7,15 @@
 Changes
 =======
 
+Version 1.0.0a5 (released 2020-07-01)
+
+- config: remove DEFAULT_LOCATION_PID
+- resolvers: bug fix indexing $refs
+- dependencies: upgrade
+- loan: Base32 PIDs
+- cli: option for static pages
+- readme: improvements
+
 Version 1.0.0a4 (released 2020-06-19)
 
 - ILL: patron can fetch his own borrowing requests
