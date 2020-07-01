@@ -5,7 +5,7 @@
     under the terms of the MIT License; see LICENSE file for more details.
 
 =================
- invenio-app-ils
+ Invenio App ILS
 =================
 
 .. image:: https://img.shields.io/travis/inveniosoftware/invenio-app-ils.svg
@@ -17,15 +17,7 @@
 .. image:: https://img.shields.io/github/license/inveniosoftware/invenio-app-ils.svg
         :target: https://github.com/inveniosoftware/invenio-app-ils/blob/master/LICENSE
 
-Invenio App ILS
+Integrated Library System based on Invenio
 
 Official documentation (under development) is available at
 https://invenioils.docs.cern.ch
-
-API devlopers documentation (under development) will be available at
-https://invenio-app-ils.readthedocs.io/
-
-Installation
-============
-See installation procedure in the official documentation.
-
