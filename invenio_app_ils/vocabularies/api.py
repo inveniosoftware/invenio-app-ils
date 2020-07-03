@@ -16,7 +16,6 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
 from invenio_app_ils.fetchers import pid_fetcher
-from invenio_app_ils.minters import pid_minter
 
 VOCABULARY_PID_TYPE = "vocid"
 VOCABULARY_PID_MINTER = "vocid"
@@ -27,8 +26,10 @@ VocabularyIdProvider = type(
     (RecordIdProviderV2,),
     dict(pid_type=VOCABULARY_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
-vocabulary_pid_minter = partial(pid_minter, provider_cls=VocabularyIdProvider)
-vocabulary_pid_fetcher = partial(pid_fetcher, provider_cls=VocabularyIdProvider)
+vocabulary_pid_minter = None
+vocabulary_pid_fetcher = partial(
+    pid_fetcher, provider_cls=VocabularyIdProvider, pid_field="id"
+)
 
 
 class Vocabulary(dict):
@@ -72,11 +73,13 @@ class Vocabulary(dict):
 
 def validate_vocabulary(f):
     """Decorator to validate vocabulary schema."""
+
     def inner(self):
         vocabularies = f(self)
         for vocabulary in vocabularies:
             self.validate(vocabulary)
         return vocabularies
+
     return inner
 
 
