@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a6 (released 2020-07-03)
+
+- bugfix minters and fetchers for vocabularies and patrons
+
 Version 1.0.0a5 (released 2020-07-01)
 
 - config: remove DEFAULT_LOCATION_PID
