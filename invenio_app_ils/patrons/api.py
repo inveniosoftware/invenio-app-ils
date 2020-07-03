@@ -17,7 +17,6 @@ from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import PatronNotFoundError
 from invenio_app_ils.fetchers import pid_fetcher
-from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 
 PATRON_PID_TYPE = "patid"
@@ -29,8 +28,10 @@ PatronIdProvider = type(
     (RecordIdProviderV2,),
     dict(pid_type=PATRON_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
-patron_pid_minter = partial(pid_minter, provider_cls=PatronIdProvider)
-patron_pid_fetcher = partial(pid_fetcher, provider_cls=PatronIdProvider)
+patron_pid_minter = None
+patron_pid_fetcher = partial(
+    pid_fetcher, provider_cls=PatronIdProvider, pid_field="id"
+)
 
 
 class Patron(dict):
