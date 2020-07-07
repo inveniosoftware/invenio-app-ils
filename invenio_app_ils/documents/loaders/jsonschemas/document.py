@@ -210,7 +210,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     imprint = fields.Nested(ImprintSchema)
     internal_notes = fields.List(fields.Nested(InternalNoteSchema))
-    keywords = fields.Nested(KeywordSchema)
+    keywords = fields.List(fields.Nested(KeywordSchema))
     languages = fields.List(fields.Str())
     licenses = fields.List(fields.Str())
     note = fields.Str()

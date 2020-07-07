@@ -160,6 +160,7 @@
           }
         },
         "required": ["full_name"],
+        "default": {"full_name":  "Various authors"},
         "type": "object"
       },
       "minItems": 1,
@@ -396,16 +397,19 @@
       "type": "object"
     },
     "keywords": {
-      "properties": {
-        "source": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
         }
       },
       "title": "Keywords of the document",
-      "type": "object"
+      "type": "array"
     },
     "languages": {
       "items": {
@@ -526,6 +530,40 @@
     },
     "relations_metadata": {
       "properties": {
+        "edition": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid_value": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "language": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid_value": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
         "multipart_monograph": {
           "items": {
             "properties": {
@@ -543,23 +581,6 @@
           },
           "type": "array"
         },
-        "next": {
-          "items": {
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
         "other": {
           "items": {
             "properties": {
@@ -570,23 +591,6 @@
                 "type": "string"
               },
               "pid_type": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "previous": {
-          "items": {
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "title": {
                 "type": "string"
               }
             },
@@ -655,8 +659,7 @@
         "type": "string"
       },
       "minItems": 1,
-      "type": "array",
-      "uniqueItems": true
+      "type": "array"
     },
     "tags": {
       "items": {

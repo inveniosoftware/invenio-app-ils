@@ -7,7 +7,11 @@
     "abstract": "This is an abstract",
     "languages": ["en"],
     "edition": "1",
-    "keywords": { "source": "X", "value": "Patata" },
+    "keywords": [
+      {
+        "source": "X",
+        "value": "Patata"
+      }],
     "document_type": "BOOK",
     "publication_year": "1950"
   },
@@ -18,7 +22,11 @@
     "authors": [{ "full_name": "Caroline Fraser" }],
     "abstract": "This is an abstract",
     "languages": ["it"],
-    "keywords": { "source": "X", "value": "Patata" },
+    "keywords": [
+      {
+        "source": "X",
+        "value": "Patata"
+      }],
     "document_type": "BOOK",
     "publication_year": "1950"
   },
@@ -29,7 +37,11 @@
     "authors": [{ "full_name": "Frank Bidart" }],
     "abstract": "This is an abstract",
     "edition": "3",
-    "keywords": { "source": "X", "value": "Patata" },
+    "keywords": [
+      {
+        "source": "X",
+        "value": "Patata"
+      }],
     "document_type": "BOOK",
     "publication_year": "1950"
   },
@@ -39,7 +51,11 @@
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": [{ "full_name": "James Forman Jr." }],
     "abstract": "This is an abstract",
-    "keywords": { "source": "X", "value": "Patata" },
+    "keywords": [
+      {
+        "source": "X",
+        "value": "Patata"
+      }],
     "document_type": "BOOK",
     "publication_year": "1950"
   },
