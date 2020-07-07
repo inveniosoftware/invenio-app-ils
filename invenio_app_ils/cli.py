@@ -364,10 +364,10 @@ class DocumentGenerator(Generator):
                 randint(1, len(self.holder.tags) - 1))
             ],
             "edition": str(index),
-            "keywords": {
+            "keywords": [{
                 "source": lorem.sentence(),
                 "value": lorem.sentence()
-            },
+            }],
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
             "imprint": {

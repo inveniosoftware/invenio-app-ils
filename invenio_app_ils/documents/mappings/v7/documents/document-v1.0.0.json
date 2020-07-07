@@ -372,6 +372,34 @@
       },
       "relations_metadata": {
         "properties": {
+          "edition": {
+            "properties": {
+              "note": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "language": {
+            "properties": {
+              "note": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
           "multipart_monograph": {
             "properties": {
               "pid": {
@@ -386,20 +414,6 @@
             },
             "type": "object"
           },
-          "next": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              },
-              "pid_type": {
-                "type": "keyword"
-              },
-              "title": {
-                "type": "text"
-              }
-            },
-            "type": "object"
-          },
           "other": {
             "properties": {
               "note": {
@@ -410,20 +424,6 @@
               },
               "pid_type": {
                 "type": "keyword"
-              }
-            },
-            "type": "object"
-          },
-          "previous": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              },
-              "pid_type": {
-                "type": "keyword"
-              },
-              "title": {
-                "type": "text"
               }
             },
             "type": "object"

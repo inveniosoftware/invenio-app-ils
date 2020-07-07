@@ -373,30 +373,30 @@
         },
         "relations_metadata": {
           "properties": {
-            "next": {
+            "edition": {
               "properties": {
+                "note": {
+                  "type": "keyword"
+                },
                 "pid": {
                   "type": "keyword"
                 },
                 "pid_type": {
                   "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
                 }
               },
               "type": "object"
             },
-            "previous": {
+            "language": {
               "properties": {
+                "note": {
+                  "type": "keyword"
+                },
                 "pid": {
                   "type": "keyword"
                 },
                 "pid_type": {
                   "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
                 }
               },
               "type": "object"
