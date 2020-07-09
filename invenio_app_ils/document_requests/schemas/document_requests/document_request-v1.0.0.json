@@ -32,6 +32,10 @@
       "title": "Journal title of the requested document",
       "type": "string"
     },
+    "medium": {
+      "title": "Medium of the requested document (Vocabulary)",
+      "type": "string"
+    },
     "note": {
       "title": "Note of the requested document",
       "type": "string"
@@ -91,7 +95,8 @@
     "pid",
     "state",
     "patron_pid",
-    "title"
+    "title",
+    "medium"
   ],
   "title": "Schema for Document Request",
   "type": "object"
