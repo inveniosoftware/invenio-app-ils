@@ -790,6 +790,7 @@ class DocumentRequestGenerator(Generator):
                 "title": lorem.sentence(),
                 "authors": lorem.sentence(),
                 "publication_year": randint(1700, 2019),
+                "medium": "PAPER",
             }
             if state == "REJECTED":
                 obj["reject_reason"] = random.choice(DocumentRequest.REJECT_TYPES)

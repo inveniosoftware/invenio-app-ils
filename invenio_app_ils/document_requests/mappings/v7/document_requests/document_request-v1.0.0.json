@@ -47,6 +47,9 @@
       "journal_title": {
         "type": "text"
       },
+      "medium": {
+        "type": "keyword"
+      },
       "note": {
         "type": "text"
       },

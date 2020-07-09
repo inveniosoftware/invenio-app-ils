@@ -52,17 +52,24 @@ def test_request_list_permissions(client, testdata, json_headers, users):
 def test_create_document_request(client, testdata, json_headers, users):
     """Test creating document requests."""
     tests = [
-        ("admin", 201, dict(title="Test title", patron_pid="1")),
+        ("admin", 201, dict(title="Test title",
+                            medium="Paper", patron_pid="1")),
         ("librarian", 400, dict(patron_pid="1")),
         (
             "admin",
             201,
-            dict(patron_pid="1", title="Test", invalid_param="Test"),
+            dict(patron_pid="1", title="Test",
+                 medium="Paper",
+                 invalid_param="Test"),
         ),
-        ("librarian", 201, dict(title="Test title", patron_pid="1")),
-        ("patron1", 201, dict(title="Test title", patron_pid="1")),
-        ("patron2", 400, dict(title="Test title", patron_pid="1")),
-        ("patron2", 201, dict(title="Test title", patron_pid="2")),
+        ("librarian", 201, dict(title="Test title",
+                                medium="Paper", patron_pid="1")),
+        ("patron1", 201, dict(title="Test title",
+                              medium="Paper", patron_pid="1")),
+        ("patron2", 400, dict(title="Test title",
+                              medium="Paper", patron_pid="1")),
+        ("patron2", 201, dict(title="Test title",
+                              medium="Paper", patron_pid="2")),
     ]
     for username, expected_status, data in tests:
         user_login(client, username, users)

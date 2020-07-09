@@ -53,6 +53,7 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     issn = SanitizedHTML()
     issue = SanitizedHTML()
     journal_title = SanitizedHTML()
+    medium = fields.Str(required=True)
     note = SanitizedHTML()
     page = SanitizedHTML()
     patron_pid = fields.Str(required=True, validate=validate_patron)
