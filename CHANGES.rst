@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a7 (released 2020-07-14)
+
+- add medium field to document request
+
 Version 1.0.0a6 (released 2020-07-03)
 
 - bugfix minters and fetchers for vocabularies and patrons
