@@ -1005,6 +1005,8 @@ ILS_VOCABULARIES = [
     "conference_identifier_scheme",
     "country",
     "currencies",
+    "doc_req_type",
+    "doc_req_payment_method",
     "doc_req_medium",
     "identifier_scheme",
     "ill_item_type",

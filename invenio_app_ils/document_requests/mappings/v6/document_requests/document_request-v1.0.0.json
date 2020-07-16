@@ -60,6 +60,12 @@
         "patron_pid": {
           "type": "keyword"
         },
+        "payment_info": {
+          "type": "keyword"
+        },
+        "payment_method": {
+          "type": "keyword"
+        },
         "physical_item_provider": {
           "properties": {
             "pid": {
@@ -78,6 +84,9 @@
           "type": "keyword"
         },
         "reject_reason": {
+          "type": "keyword"
+        },
+        "request_type": {
           "type": "keyword"
         },
         "standard_number": {

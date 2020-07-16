@@ -790,6 +790,7 @@ class DocumentRequestGenerator(Generator):
                 "title": lorem.sentence(),
                 "authors": lorem.sentence(),
                 "publication_year": randint(1700, 2019),
+                "request_type": "LOAN",
                 "medium": "PAPER",
             }
             if state == "REJECTED":

@@ -1,0 +1,12 @@
+[
+  {
+    "key": "INTERNAL_BUDGET",
+    "type": "doc_req_payment_method",
+    "text": "Internal budget"
+  },
+  {
+    "key": "CASH",
+    "type": "doc_req_payment_method",
+    "text": "Cash"
+  }
+]
