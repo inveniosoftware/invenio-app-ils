@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 1.0.0a8 (released 2020-07-16)
+
+- add request type and payment method to document request
+- change keywords field type
+
 Version 1.0.0a7 (released 2020-07-14)
 
 - add medium field to document request
