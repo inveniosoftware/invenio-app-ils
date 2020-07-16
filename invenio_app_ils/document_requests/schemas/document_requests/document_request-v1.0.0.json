@@ -48,6 +48,14 @@
       "title": "The persistent identifier of the patron who made the request",
       "type": "string"
     },
+    "payment_info": {
+      "title": "A generic budget code for document request",
+      "type": "string"
+    },
+    "payment_method": {
+      "title": "The payment method for a document request (Vocabulary)",
+      "type": "string"
+    },
     "physical_item_provider": {
       "properties": {
         "pid": {
@@ -73,6 +81,10 @@
       "title": "The type of request reject",
       "type": "string"
     },
+    "request_type": {
+      "title": "The type of the request (Vocabulary)",
+      "type": "string"
+    },
     "standard_number": {
       "title": "Standard number of the requested document",
       "type": "string"
@@ -96,6 +108,7 @@
     "state",
     "patron_pid",
     "title",
+    "request_type",
     "medium"
   ],
   "title": "Schema for Document Request",

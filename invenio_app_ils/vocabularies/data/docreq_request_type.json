@@ -1,0 +1,12 @@
+[
+  {
+    "type": "doc_req_type",
+    "key": "LOAN",
+    "text": "Loan"
+  },
+  {
+    "type": "doc_req_type",
+    "key": "PURCHASE",
+    "text": "Purchase"
+  }
+]
