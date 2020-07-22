@@ -138,6 +138,7 @@ setup(
             "ils_document_request = invenio_app_ils.document_requests.views:create_document_request_action_blueprint",
             "ils_document_stats = invenio_app_ils.records.views:create_document_stats_blueprint",
             "ils_files = invenio_app_ils.files.views:create_files_blueprint",
+            "ils_patrons = invenio_app_ils.patrons.views:get_user_loan_information_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config",

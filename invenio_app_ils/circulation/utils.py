@@ -10,7 +10,7 @@
 from datetime import timedelta
 
 import arrow
-from flask import current_app, g, has_request_context
+from flask import abort, current_app, g, has_request_context
 from flask_login import current_user
 
 from invenio_app_ils.permissions import backoffice_permission
@@ -98,7 +98,10 @@ def circulation_transaction_location_validator(transaction_location_pid):
 def circulation_transaction_user_validator(transaction_user_pid):
     """Validate that the given transaction user PID is valid."""
     if has_request_context():
-        return transaction_user_pid == str(current_user.id)
+        if current_user.is_anonymous:
+            abort(401)
+        else:
+            return transaction_user_pid == str(current_user.id)
     else:
         return True
 

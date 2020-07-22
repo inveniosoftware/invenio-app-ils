@@ -96,7 +96,7 @@ def files_permission(obj, action=None):
 
 def loan_extend_circulation_permission(loan):
     """Return permission to allow only owner and librarians to extend loan."""
-    if not current_user or not current_user.id:
+    if current_user.is_anonymous:
         abort(401)
 
     if current_user.id == int(loan["patron_pid"]):
@@ -129,34 +129,17 @@ class PatronOwnerPermission(Permission):
 
 def views_permissions_factory(action):
     """Return ILS views permissions factory."""
-    if action == "circulation-loan-request":
+    is_authenticated_user = ["circulation-loan-request", "patron-loans"]
+    is_backoffice_permission = ["circulation-loan-checkout", "circulation-loan-force-checkout",
+                                "circulation-overdue-loan-email", "relations-create", "relations-delete",
+                                "stats-most-loaned", "document-request-actions", "bucket-create",
+                                "ill-brwreq-patron-loan-create", "ill-brwreq-patron-loan-extension-accept",
+                                "ill-brwreq-patron-loan-extension-decline"]
+    is_patron_owner_permission = ["document-request-decline", "ill-brwreq-patron-loan-extension-request"]
+    if action in is_authenticated_user:
         return authenticated_user_permission()
-    elif action == "circulation-loan-checkout":
+    elif action in is_backoffice_permission:
         return backoffice_permission()
-    elif action == "circulation-loan-force-checkout":
-        return backoffice_permission()
-    elif action == "circulation-overdue-loan-email":
-        return backoffice_permission()
-    elif action == "relations-create":
-        return backoffice_permission()
-    elif action == "relations-delete":
-        return backoffice_permission()
-    elif action == "stats-most-loaned":
-        return backoffice_permission()
-    elif action == "document-request-actions":
-        return backoffice_permission()
-    elif action == "document-request-decline":
-        # return a factory that accepts a record as parameter
+    elif action in is_patron_owner_permission:
         return PatronOwnerPermission
-    elif action == "bucket-create":
-        return backoffice_permission()
-    elif action == "ill-brwreq-patron-loan-create":
-        return backoffice_permission()
-    elif action == "ill-brwreq-patron-loan-extension-request":
-        # return a factory that accepts a record as parameter
-        return PatronOwnerPermission
-    elif action == "ill-brwreq-patron-loan-extension-accept":
-        return backoffice_permission()
-    elif action == "ill-brwreq-patron-loan-extension-decline":
-        return backoffice_permission()
     return deny_all()
