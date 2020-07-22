@@ -264,6 +264,20 @@ class EItemGenerator(Generator):
             for pid in range(1, size + 1)
         ]
 
+        for obj in objs:
+            if bool(random.getrandbits(1)):
+                obj["identifiers"] = random.choice([[
+                    {
+                        "scheme": "ISBN",
+                        "value": "0-395-36341-1",
+                        "material": "EBook"
+                    },
+                    {
+                        "scheme": "DOI",
+                        "value": "doi:10.1340/309registries"
+                    }
+                ], []])
+
         self.holder.eitems["objs"] = objs
 
     def persist(self):

@@ -10,6 +10,8 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields
 
+from invenio_app_ils.documents.loaders.jsonschemas.document import IdentifierSchema
+
 
 class URLSchema(Schema):
     """URL schema."""
@@ -52,5 +54,6 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     document_pid = fields.Str(required=True)  # TODO: validate
     files = fields.List(fields.Nested(FileSchema))
     internal_notes = fields.Str()
+    identifiers = fields.List(fields.Nested(IdentifierSchema))
     open_access = fields.Bool(missing=True)
     urls = fields.List(fields.Nested(URLSchema))
