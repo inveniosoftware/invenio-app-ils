@@ -48,6 +48,27 @@
       "type": "string",
       "title": "The persistent identifier of this EItem"
     },
+    "identifiers": {
+      "items": {
+        "properties": {
+          "material": {
+            "title": "Material to which the identifiers refers to.",
+            "type": "string"
+          },
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
+      },
+      "title": "List of Identifiers of the record",
+      "type": "array"
+    },
     "urls": {
       "items": {
         "additionalProperties": false,
