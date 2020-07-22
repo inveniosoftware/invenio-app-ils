@@ -7,9 +7,11 @@
 
 """ILS Items search APIs."""
 
+from elasticsearch_dsl import A, Q
 from invenio_search.api import RecordsSearch
 
 from invenio_app_ils.errors import MissingRequiredParameterError
+from invenio_app_ils.proxies import current_app_ils
 
 
 class ItemSearch(RecordsSearch):
@@ -92,16 +94,16 @@ class ItemSearch(RecordsSearch):
 
         return search
 
-    def get_unavailable_items_by_document_pid(self, document_pid):
-        """Retrieve items that are unavailable for a loan."""
-        return self.search_by_document_pid(
-            document_pid,
-            exclude_states=["CAN_CIRCULATE"]
-        )
 
-    def get_for_reference_only_by_document_pid(self, document_pid):
-        """Retrieve items which are for reference only."""
-        return self.search_by_document_pid(
-            document_pid,
-            filter_states=["FOR_REFERENCE_ONLY"]
-        )
+def get_items_aggregated_by_statuses(document_pid):
+    """Returns items aggregated by statuses for a given document."""
+    # Query
+    search_cls = current_app_ils.item_search_cls
+    search = search_cls().filter("term", document_pid=document_pid)
+
+    # Aggregation
+    aggs = A("terms", field="status")
+    search.aggs.bucket("statuses", aggs)
+
+    return search
+

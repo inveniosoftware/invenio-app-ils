@@ -15,31 +15,6 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 
 
-def get_pending_loans_by_doc_pid(document_pid):
-    """Return any pending loans for the given document."""
-    return search_by_pid(document_pid=document_pid, filter_states=["PENDING"])
-
-
-def get_active_loans_by_doc_pid(document_pid):
-    """Return any active loans for the given document."""
-    return search_by_pid(
-        document_pid=document_pid,
-        filter_states=current_app.config.get(
-            "CIRCULATION_STATES_LOAN_ACTIVE", []
-        ),
-    )
-
-
-def get_past_loans_by_doc_pid(document_pid):
-    """Return any past loans for the given document."""
-    return search_by_pid(
-        document_pid=document_pid,
-        filter_states=current_app.config.get(
-            "CIRCULATION_STATES_LOAN_COMPLETED", []
-        ),
-    )
-
-
 def get_loan_next_available_date(document_pid):
     """Return active loans on document sorted by the earliest end date."""
     return search_by_pid(
@@ -136,5 +111,18 @@ def get_most_loaned_documents(from_date, to_date, bucket_size):
 
     # No need for the loan hits
     search = search[:0]
+
+    return search
+
+
+def get_loans_aggregated_by_states(document_pid, states, patron_pid=None):
+    """Returns loans aggregated by states for a given document."""
+    search_cls = current_circulation.loan_search_cls
+    search = search_cls().filter("terms", state=states).filter("term", document_pid=document_pid)
+    if patron_pid:
+        search = search.filter("term", patron_pid=patron_pid)
+    # Aggregation
+    aggs = A("terms", field="state")
+    search.aggs.bucket("states", aggs)
 
     return search

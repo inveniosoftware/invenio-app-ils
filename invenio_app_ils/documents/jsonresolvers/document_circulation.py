@@ -11,12 +11,10 @@ import jsonresolver
 from elasticsearch import VERSION as ES_VERSION
 from werkzeug.routing import Rule
 
-from invenio_app_ils.circulation.search import (get_active_loans_by_doc_pid,
-                                                get_loan_next_available_date,
-                                                get_overdue_loans_by_doc_pid,
-                                                get_past_loans_by_doc_pid,
-                                                get_pending_loans_by_doc_pid)
-from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.circulation.search import (get_loan_next_available_date,
+                                                get_loans_aggregated_by_states,
+                                                get_overdue_loans_by_doc_pid)
+from invenio_app_ils.items.search import get_items_aggregated_by_statuses
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -33,27 +31,48 @@ def jsonresolver_loader(url_map):
     def circulation_resolver(document_pid):
         """Return circulation info for the given Document."""
         # loans
-        past_loans_count = get_past_loans_by_doc_pid(document_pid).count()
-        active_loans_count = get_active_loans_by_doc_pid(document_pid).count()
-        pending_loans_count = get_pending_loans_by_doc_pid(
-            document_pid
-        ).count()
+        loan_states = (
+            current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+            + current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+        )
+
+        past_loans_count = 0
+        active_loans_count = 0
+        pending_loans_count = 0
+        loans_search = get_loans_aggregated_by_states(document_pid, loan_states)
+        # No need for the loan hits
+        loans_search = loans_search[:0]
+        loans_result = loans_search.execute()
+
+        for bucket in loans_result.aggregations.states.buckets:
+            if bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]:
+                past_loans_count += bucket["doc_count"]
+            elif bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]:
+                active_loans_count += bucket["doc_count"]
+            elif bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]:
+                pending_loans_count += bucket["doc_count"]
+
         overdue_loans_count = get_overdue_loans_by_doc_pid(
             document_pid
         ).count()
 
         # items
-        item_search = current_app_ils.item_search_cls()
-        items_count = item_search.search_by_document_pid(document_pid).count()
-        unavailable_items_count = item_search.get_unavailable_items_by_document_pid(
-            document_pid
-        ).count()
+        unavailable_items_count = 0
+        has_items_for_reference_only_count = 0
+        item_statuses = get_items_aggregated_by_statuses(document_pid)
+        item_result = item_statuses.execute()
+        items_count = item_result.hits.total if lt_es7 else\
+            item_result.hits.total.value
+        for bucket in item_result.aggregations.statuses.buckets:
+            if bucket["key"] not in "CAN_CIRCULATE":
+                unavailable_items_count += bucket["doc_count"]
+            if bucket["key"] in "FOR_REFERENCE_ONLY":
+                has_items_for_reference_only_count = bucket["doc_count"]
+
         has_items_for_loan = (
             items_count - active_loans_count - unavailable_items_count
         )
-        has_items_for_reference_only_count = item_search.get_for_reference_only_by_document_pid(
-            document_pid
-        ).count()
 
         circulation = {
             "active_loans": active_loans_count,
