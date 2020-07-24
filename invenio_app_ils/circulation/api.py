@@ -127,7 +127,7 @@ def request_loan(
         transaction_location_pid=transaction_location_pid,
         transaction_user_pid=transaction_user_pid,
     )
-    pid = loan_pid_minter(record_uuid, data=new_loan)
+    pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)
@@ -197,7 +197,7 @@ def checkout_loan(
         transaction_location_pid=transaction_location_pid,
         transaction_user_pid=transaction_user_pid,
     )
-    pid = loan_pid_minter(record_uuid, data=new_loan)
+    pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)

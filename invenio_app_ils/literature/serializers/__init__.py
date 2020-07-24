@@ -7,28 +7,18 @@
 
 """Literature serializers."""
 
-from invenio_records_rest.serializers.response import (record_responsify,
-                                                       search_responsify)
+from invenio_records_rest.serializers.response import search_responsify
 
 from invenio_app_ils.records.schemas.json import ILSRecordSchemaJSONV1
+from invenio_app_ils.records.serializers import record_responsify_no_etag
 
 from .csv import LiteratureCSVSerializer
 from .json import LiteratureJSONSerializer
 
 csv_v1 = LiteratureCSVSerializer(ILSRecordSchemaJSONV1)
-"""CSV serializer"""
-
-csv_v1_response = record_responsify(csv_v1, "text/csv")
-"""CSV response builder that uses the CSV serializer"""
-
+csv_v1_response = record_responsify_no_etag(csv_v1, "text/csv")
 csv_v1_search = search_responsify(csv_v1, "text/csv")
-"""CSV search response builder that uses the CSV serializer"""
 
 json_v1 = LiteratureJSONSerializer(ILSRecordSchemaJSONV1, replace_refs=True)
-"""JSON serializer."""
-
-json_v1_response = record_responsify(json_v1, "application/json")
-"""JSON response builder decorates literature."""
-
+json_v1_response = record_responsify_no_etag(json_v1, "application/json")
 json_v1_search = search_responsify(json_v1, "application/json")
-"""JSON response builder decorates literature."""
