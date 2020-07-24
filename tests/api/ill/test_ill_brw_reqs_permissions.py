@@ -11,6 +11,7 @@ import json
 
 from flask import url_for
 from invenio_search import current_search
+
 from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]

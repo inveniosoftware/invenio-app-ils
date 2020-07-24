@@ -12,10 +12,10 @@ from datetime import timedelta
 
 import arrow
 from flask import url_for
-from tests.helpers import user_login
 
-from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, \
-    BorrowingRequest
+from invenio_app_ils.ill.api import (BORROWING_REQUEST_PID_TYPE,
+                                     BorrowingRequest)
+from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
 ITEM_ENDPOINT = "invenio_records_rest.illbid_item"

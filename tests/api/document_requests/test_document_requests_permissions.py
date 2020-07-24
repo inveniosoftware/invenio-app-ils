@@ -8,6 +8,7 @@
 """Test accessibility of document request resource endpoints."""
 
 from flask import url_for
+
 from tests.helpers import user_login, validate_response
 
 

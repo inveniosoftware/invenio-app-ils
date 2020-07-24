@@ -13,10 +13,10 @@ import arrow
 from flask import url_for
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
-from tests.helpers import user_login
 
 from invenio_app_ils.circulation.tasks import cancel_expired_loan_requests
 from invenio_app_ils.patrons.api import SystemAgent
+from tests.helpers import user_login
 
 
 def test_cancel_expired_loans(client, json_headers, db, users, testdata):

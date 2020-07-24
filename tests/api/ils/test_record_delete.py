@@ -8,6 +8,7 @@
 """Test record delete."""
 
 from flask import url_for
+
 from tests.helpers import user_login
 
 

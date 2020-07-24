@@ -15,9 +15,9 @@ import arrow
 from flask import url_for
 from flask_principal import UserNeed
 from invenio_access.permissions import Permission
-from tests.helpers import user_login
 
 from invenio_app_ils.items.api import Item
+from tests.helpers import user_login
 
 NEW_LOAN = {
     "item_pid": "CHANGE ME IN EACH TEST",
