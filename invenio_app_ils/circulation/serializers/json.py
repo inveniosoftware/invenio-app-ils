@@ -12,8 +12,8 @@ from invenio_records_rest.serializers.json import JSONSerializer
 from invenio_app_ils.literature.serializers.custom_fields import \
     field_cover_metadata
 
-from .custom_fields import field_is_overdue, field_pickup_location, \
-    field_transaction_location, field_transaction_user
+from .custom_fields import (field_is_overdue, field_pickup_location,
+                            field_transaction_location, field_transaction_user)
 
 
 class LoanJSONSerializer(JSONSerializer):

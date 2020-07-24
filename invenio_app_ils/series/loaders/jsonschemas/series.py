@@ -12,10 +12,10 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import EXCLUDE, Schema, fields, pre_load
 
-from invenio_app_ils.documents.loaders.jsonschemas.document import AlternativeTitleSchema, \
-    IdentifierSchema, InternalNoteSchema, UrlSchema
-from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
-    set_changed_by
+from invenio_app_ils.documents.loaders.jsonschemas.document import (
+    AlternativeTitleSchema, IdentifierSchema, InternalNoteSchema, UrlSchema)
+from invenio_app_ils.records.loaders.schemas.changed_by import (
+    ChangedBySchema, set_changed_by)
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
     preserve_cover_metadata
 

@@ -10,6 +10,7 @@
 import json
 
 from flask import url_for
+
 from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]

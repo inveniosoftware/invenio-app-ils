@@ -62,6 +62,7 @@ for name, reqs in extras_require.items():
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
+    "isort>=5",
     "arrow>=0.15.0",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[base,auth]>=3.3.0,<3.4",

@@ -13,9 +13,9 @@ from flask import url_for
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
-from tests.helpers import user_login
 
 from invenio_app_ils.documents.api import Document
+from tests.helpers import user_login
 
 
 def test_open_access_permissions(client, json_headers, testdata, users):

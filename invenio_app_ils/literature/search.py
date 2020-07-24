@@ -9,8 +9,8 @@
 
 from invenio_search.api import DefaultFilter, RecordsSearch
 
-from invenio_app_ils.search_permissions import _ils_search_factory, \
-    search_filter_record_permissions
+from invenio_app_ils.search_permissions import (
+    _ils_search_factory, search_filter_record_permissions)
 
 
 def search_factory_literature(self, search):
@@ -18,6 +18,7 @@ def search_factory_literature(self, search):
     def filter_periodical_issues(search, query_string=None):
         """Filter periodical issues unless include_all is specified."""
         from distutils.util import strtobool
+
         from flask import request
 
         include_all = request.values.get("include_all", "no")

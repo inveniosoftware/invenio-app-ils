@@ -19,23 +19,24 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
-from tests.helpers import document_ref_builder, \
-    internal_location_ref_builder, load_json_from_datadir, mint_record_pid
 
-from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, \
-    Order, Vendor
+from invenio_app_ils.acquisition.api import (ORDER_PID_TYPE, VENDOR_PID_TYPE,
+                                             Order, Vendor)
 from invenio_app_ils.circulation.mail.factory import message_factory
-from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE, \
-    DocumentRequest
+from invenio_app_ils.document_requests.api import (DOCUMENT_REQUEST_PID_TYPE,
+                                                   DocumentRequest)
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE, Document
 from invenio_app_ils.eitems.api import EITEM_PID_TYPE, EItem
-from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, \
-    LIBRARY_PID_TYPE, BorrowingRequest, Library
-from invenio_app_ils.internal_locations.api import INTERNAL_LOCATION_PID_TYPE, \
-    InternalLocation
+from invenio_app_ils.ill.api import (BORROWING_REQUEST_PID_TYPE,
+                                     LIBRARY_PID_TYPE, BorrowingRequest,
+                                     Library)
+from invenio_app_ils.internal_locations.api import (INTERNAL_LOCATION_PID_TYPE,
+                                                    InternalLocation)
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 from invenio_app_ils.locations.api import LOCATION_PID_TYPE, Location
 from invenio_app_ils.series.api import SERIES_PID_TYPE, Series
+from tests.helpers import (document_ref_builder, internal_location_ref_builder,
+                           load_json_from_datadir, mint_record_pid)
 
 
 @pytest.fixture(scope="module")

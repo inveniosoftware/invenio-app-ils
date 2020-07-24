@@ -10,7 +10,8 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields
 
-from invenio_app_ils.documents.loaders.jsonschemas.document import IdentifierSchema
+from invenio_app_ils.documents.loaders.jsonschemas.document import \
+    IdentifierSchema
 
 
 class URLSchema(Schema):

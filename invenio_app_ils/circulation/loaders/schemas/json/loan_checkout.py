@@ -10,8 +10,8 @@
 import arrow
 from flask import current_app
 from flask_babelex import lazy_gettext as _
-from invenio_circulation.records.loaders.schemas.json import DateString, \
-    LoanItemPIDSchemaV1
+from invenio_circulation.records.loaders.schemas.json import (
+    DateString, LoanItemPIDSchemaV1)
 from marshmallow import ValidationError, fields, post_load, validates
 
 from invenio_app_ils.permissions import check_permission

@@ -10,6 +10,7 @@
 import json
 
 from flask import url_for
+
 from tests.helpers import user_login, validate_response
 
 NEW_INTERNAL_LOCATION = {

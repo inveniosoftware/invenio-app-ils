@@ -12,9 +12,9 @@ from datetime import timedelta
 
 import arrow
 from flask import url_for
-from tests.helpers import user_login, user_logout
 
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
+from tests.helpers import user_login, user_logout
 
 
 def _create_on_loan_brwreq(

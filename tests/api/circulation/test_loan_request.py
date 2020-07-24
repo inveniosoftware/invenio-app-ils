@@ -14,6 +14,7 @@ from datetime import timedelta
 import arrow
 from flask import url_for
 from invenio_search import current_search
+
 from tests.helpers import user_login
 
 NEW_LOAN = {

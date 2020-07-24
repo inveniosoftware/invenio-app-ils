@@ -18,12 +18,13 @@ from invenio_app_ils.errors import RecordRelationsError
 from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
-from invenio_app_ils.relations.api import PARENT_CHILD_RELATION_TYPES, \
-    SEQUENCE_RELATION_TYPES, SIBLINGS_RELATION_TYPES, Relation
+from invenio_app_ils.relations.api import (PARENT_CHILD_RELATION_TYPES,
+                                           SEQUENCE_RELATION_TYPES,
+                                           SIBLINGS_RELATION_TYPES, Relation)
 
 from ..series.api import SERIES_PID_TYPE
-from .api import RecordRelationsParentChild, RecordRelationsSequence, \
-    RecordRelationsSiblings
+from .api import (RecordRelationsParentChild, RecordRelationsSequence,
+                  RecordRelationsSiblings)
 
 
 def create_relations_blueprint(app):

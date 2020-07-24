@@ -14,8 +14,8 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
-from invenio_app_ils.circulation.loaders import loan_checkout_loader, \
-    loan_request_loader
+from invenio_app_ils.circulation.loaders import (loan_checkout_loader,
+                                                 loan_request_loader)
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 from invenio_app_ils.errors import OverdueLoansMailError
 from invenio_app_ils.permissions import need_permissions

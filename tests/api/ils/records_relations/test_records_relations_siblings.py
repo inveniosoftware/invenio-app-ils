@@ -10,12 +10,12 @@
 import json
 
 from flask import url_for
-from tests.helpers import get_test_record, user_login
 
 from invenio_app_ils.documents.api import Document
+from tests.helpers import get_test_record, user_login
 
-from .helpers import recrel_assert_record_relations, \
-    recrel_choose_endpoints_and_do_request
+from .helpers import (recrel_assert_record_relations,
+                      recrel_choose_endpoints_and_do_request)
 
 
 def _test_sibl_language_relation(client, json_headers):

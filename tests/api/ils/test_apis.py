@@ -8,13 +8,13 @@
 """Test ILS APIs."""
 
 from invenio_accounts.models import User
-from tests.helpers import get_test_record
 
 from invenio_app_ils.documents.api import Document
 from invenio_app_ils.patrons.api import patron_exists
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.series.api import Series
+from tests.helpers import get_test_record
 
 
 def test_apis(testdata):

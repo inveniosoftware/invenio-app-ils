@@ -9,13 +9,16 @@
 
 from copy import deepcopy
 
-from invenio_app_ils.errors import RecordHasReferencesError, \
-    RecordRelationsError
+from invenio_app_ils.errors import (RecordHasReferencesError,
+                                    RecordRelationsError)
 from invenio_app_ils.records.api import IlsRecord
-from invenio_app_ils.relations.api import MULTIPART_MONOGRAPH_RELATION, \
-    PARENT_CHILD_RELATION_TYPES, SEQUENCE_RELATION_TYPES, SERIAL_RELATION, \
-    SIBLINGS_RELATION_TYPES, ParentChildRelation, SequenceRelation, \
-    SiblingsRelation
+from invenio_app_ils.relations.api import (MULTIPART_MONOGRAPH_RELATION,
+                                           PARENT_CHILD_RELATION_TYPES,
+                                           SEQUENCE_RELATION_TYPES,
+                                           SERIAL_RELATION,
+                                           SIBLINGS_RELATION_TYPES,
+                                           ParentChildRelation,
+                                           SequenceRelation, SiblingsRelation)
 
 
 class RecordRelationsExtraMetadata(object):

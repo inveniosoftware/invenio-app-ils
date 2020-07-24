@@ -9,8 +9,8 @@
 
 from invenio_records_rest.serializers.csv import CSVSerializer
 
-from .custom_fields import field_is_overdue, field_pickup_location, \
-    field_transaction_location, field_transaction_user
+from .custom_fields import (field_is_overdue, field_pickup_location,
+                            field_transaction_location, field_transaction_user)
 
 
 class LoanCSVSerializer(CSVSerializer):

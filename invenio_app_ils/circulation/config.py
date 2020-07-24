@@ -8,39 +8,45 @@
 """Configuration for Invenio ILS circulation module."""
 
 from invenio_circulation.api import Loan
-from invenio_circulation.pidstore.pids import _LOANID_CONVERTER, \
-    CIRCULATION_LOAN_FETCHER, CIRCULATION_LOAN_MINTER, \
-    CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.pidstore.pids import (_LOANID_CONVERTER,
+                                               CIRCULATION_LOAN_FETCHER,
+                                               CIRCULATION_LOAN_MINTER,
+                                               CIRCULATION_LOAN_PID_TYPE)
 from invenio_circulation.search.api import LoansSearch
-from invenio_circulation.transitions.transitions import CreatedToPending, \
-    ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned, ToCancelled, \
-    ToItemOnLoan
+from invenio_circulation.transitions.transitions import (
+    CreatedToPending, ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned,
+    ToCancelled, ToItemOnLoan)
 from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.documents.api import document_exists
-from invenio_app_ils.facets import date_range_filter, overdue_agg, \
-    overdue_loans_filter
-from invenio_app_ils.ill.api import can_item_circulate, \
-    circulation_default_extension_duration, \
-    circulation_default_loan_duration, circulation_item_location_retriever
-from invenio_app_ils.items.api import get_document_pid_by_item_pid, \
-    get_item_pids_by_document_pid, item_exists
+from invenio_app_ils.facets import (date_range_filter, overdue_agg,
+                                    overdue_loans_filter)
+from invenio_app_ils.ill.api import (can_item_circulate,
+                                     circulation_default_extension_duration,
+                                     circulation_default_loan_duration,
+                                     circulation_item_location_retriever)
+from invenio_app_ils.items.api import (get_document_pid_by_item_pid,
+                                       get_item_pids_by_document_pid,
+                                       item_exists)
 from invenio_app_ils.patrons.api import patron_exists
-from invenio_app_ils.permissions import PatronOwnerPermission, \
-    authenticated_user_permission, backoffice_permission, \
-    loan_extend_circulation_permission, superuser_permission
+from invenio_app_ils.permissions import (PatronOwnerPermission,
+                                         authenticated_user_permission,
+                                         backoffice_permission,
+                                         loan_extend_circulation_permission,
+                                         superuser_permission)
 
 from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
 from .indexer import LoanIndexer
-from .jsonresolvers.loan import document_resolver, item_resolver, \
-    loan_patron_resolver
-from .utils import circulation_build_document_ref, \
-    circulation_build_item_ref, circulation_build_patron_ref, \
-    circulation_can_be_requested, circulation_default_extension_max_count, \
-    circulation_is_loan_duration_valid, circulation_loan_will_expire_days, \
-    circulation_location_validator, \
-    circulation_transaction_location_validator, \
-    circulation_transaction_user_validator
+from .jsonresolvers.loan import (document_resolver, item_resolver,
+                                 loan_patron_resolver)
+from .utils import (circulation_build_document_ref, circulation_build_item_ref,
+                    circulation_build_patron_ref, circulation_can_be_requested,
+                    circulation_default_extension_max_count,
+                    circulation_is_loan_duration_valid,
+                    circulation_loan_will_expire_days,
+                    circulation_location_validator,
+                    circulation_transaction_location_validator,
+                    circulation_transaction_user_validator)
 
 ###############################################################################
 # ILS Circulation
