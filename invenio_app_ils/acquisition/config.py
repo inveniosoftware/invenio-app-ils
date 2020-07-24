@@ -9,11 +9,12 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import backoffice_permission, \
-    superuser_permission
+from invenio_app_ils.permissions import (backoffice_permission,
+                                         superuser_permission)
 
-from .api import ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE, \
-    VENDOR_PID_FETCHER, VENDOR_PID_MINTER, VENDOR_PID_TYPE, Order, Vendor
+from .api import (ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE,
+                  VENDOR_PID_FETCHER, VENDOR_PID_MINTER, VENDOR_PID_TYPE,
+                  Order, Vendor)
 from .indexer import VendorIndexer
 from .search import OrderSearch, VendorSearch
 

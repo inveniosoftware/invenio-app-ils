@@ -9,10 +9,12 @@
 
 import pytest
 
-from invenio_app_ils.errors import ItemHasActiveLoanError, \
-    NotImplementedConfigurationError, PatronHasLoanOnItemError, \
-    PatronNotFoundError, RecordHasReferencesError, SearchQueryError, \
-    UnauthorizedSearchError
+from invenio_app_ils.errors import (ItemHasActiveLoanError,
+                                    NotImplementedConfigurationError,
+                                    PatronHasLoanOnItemError,
+                                    PatronNotFoundError,
+                                    RecordHasReferencesError, SearchQueryError,
+                                    UnauthorizedSearchError)
 
 
 def test_unauthorized_search_with_patron_pid(app):

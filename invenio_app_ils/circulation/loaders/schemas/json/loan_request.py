@@ -13,8 +13,8 @@ import arrow
 from flask import current_app
 from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import DateString
-from marshmallow import Schema, ValidationError, fields, post_load, \
-    validates, validates_schema
+from marshmallow import (Schema, ValidationError, fields, post_load, validates,
+                         validates_schema)
 
 from .base import LoanBaseSchemaV1
 

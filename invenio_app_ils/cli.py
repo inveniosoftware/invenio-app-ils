@@ -35,16 +35,16 @@ from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
-from .ill.api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE, \
-    BorrowingRequest, Library
-from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE, \
-    InternalLocation
+from .ill.api import (BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE,
+                      BorrowingRequest, Library)
+from .internal_locations.api import (INTERNAL_LOCATION_PID_TYPE,
+                                     InternalLocation)
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
 from .patrons.indexer import PatronIndexer
 from .proxies import current_app_ils
-from .records_relations.api import RecordRelationsParentChild, \
-    RecordRelationsSiblings
+from .records_relations.api import (RecordRelationsParentChild,
+                                    RecordRelationsSiblings)
 from .relations.api import Relation
 from .series.api import SERIES_PID_TYPE, Series
 
@@ -1365,9 +1365,9 @@ def pages():
 def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
           skip_vocabularies, skip_pages, verbose):
     """ILS setup command."""
+    import redis
     from flask import current_app
     from invenio_base.app import create_cli
-    import redis
 
     click.secho("ils setup started...", fg="blue")
 

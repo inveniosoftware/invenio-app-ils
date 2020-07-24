@@ -16,9 +16,9 @@ from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
-from tests.helpers import user_login
 
 from invenio_app_ils.patrons.api import Patron
+from tests.helpers import user_login
 
 from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
     send_expiring_loans_mail_reminder,

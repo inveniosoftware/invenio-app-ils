@@ -9,13 +9,15 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import PatronOwnerPermission, \
-    authenticated_user_permission, backoffice_permission, \
-    superuser_permission
+from invenio_app_ils.permissions import (PatronOwnerPermission,
+                                         authenticated_user_permission,
+                                         backoffice_permission,
+                                         superuser_permission)
 
-from .api import BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER, \
-    BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_FETCHER, LIBRARY_PID_MINTER, \
-    LIBRARY_PID_TYPE, BorrowingRequest, Library
+from .api import (BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER,
+                  BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_FETCHER,
+                  LIBRARY_PID_MINTER, LIBRARY_PID_TYPE, BorrowingRequest,
+                  Library)
 from .indexer import LibraryIndexer
 from .search import BorrowingRequestsSearch, LibrarySearch
 

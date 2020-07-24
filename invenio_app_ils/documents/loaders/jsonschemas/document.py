@@ -12,8 +12,8 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.documents.api import Document
-from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
-    set_changed_by
+from invenio_app_ils.records.loaders.schemas.changed_by import (
+    ChangedBySchema, set_changed_by)
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
     preserve_cover_metadata
 

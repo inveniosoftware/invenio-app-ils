@@ -8,9 +8,11 @@
 """APIs to retrieve records relations."""
 
 from invenio_app_ils.records.jsonresolvers.api import pick
-from invenio_app_ils.relations.api import PARENT_CHILD_RELATION_TYPES, \
-    SEQUENCE_RELATION_TYPES, SIBLINGS_RELATION_TYPES, ParentChildRelation, \
-    SequenceRelation, SiblingsRelation
+from invenio_app_ils.relations.api import (PARENT_CHILD_RELATION_TYPES,
+                                           SEQUENCE_RELATION_TYPES,
+                                           SIBLINGS_RELATION_TYPES,
+                                           ParentChildRelation,
+                                           SequenceRelation, SiblingsRelation)
 
 from .api import RecordRelationsExtraMetadata as RelationsExtraMetadata
 

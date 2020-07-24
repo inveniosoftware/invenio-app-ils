@@ -30,8 +30,9 @@ from invenio_app_ils.documents.indexer import DocumentIndexer
 from invenio_app_ils.eitems.indexer import EItemIndexer
 from invenio_app_ils.internal_locations.indexer import InternalLocationIndexer
 from invenio_app_ils.items.indexer import ItemIndexer
-from invenio_app_ils.literature.api import LITERATURE_PID_FETCHER, \
-    LITERATURE_PID_MINTER, LITERATURE_PID_TYPE
+from invenio_app_ils.literature.api import (LITERATURE_PID_FETCHER,
+                                            LITERATURE_PID_MINTER,
+                                            LITERATURE_PID_TYPE)
 from invenio_app_ils.literature.covers_builder import build_ils_demo_cover_urls
 from invenio_app_ils.literature.search import LiteratureSearch
 from invenio_app_ils.locations.indexer import LocationIndexer
@@ -39,39 +40,40 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
-from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
-    DOCUMENT_REQUEST_PID_MINTER, DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
+from .document_requests.api import (DOCUMENT_REQUEST_PID_FETCHER,
+                                    DOCUMENT_REQUEST_PID_MINTER,
+                                    DOCUMENT_REQUEST_PID_TYPE, DocumentRequest)
 from .document_requests.search import DocumentRequestSearch
-from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
-    DOCUMENT_PID_TYPE, Document
+from .documents.api import (DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER,
+                            DOCUMENT_PID_TYPE, Document)
 from .documents.search import DocumentSearch
-from .eitems.api import EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE, \
-    EItem
+from .eitems.api import (EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE,
+                         EItem)
 from .eitems.search import EItemSearch
-from .facets import default_value_when_missing_filter, keyed_range_filter, \
-    not_empty_object_or_list_filter
-from .internal_locations.api import INTERNAL_LOCATION_PID_FETCHER, \
-    INTERNAL_LOCATION_PID_MINTER, INTERNAL_LOCATION_PID_TYPE, \
-    InternalLocation
+from .facets import (default_value_when_missing_filter, keyed_range_filter,
+                     not_empty_object_or_list_filter)
+from .internal_locations.api import (INTERNAL_LOCATION_PID_FETCHER,
+                                     INTERNAL_LOCATION_PID_MINTER,
+                                     INTERNAL_LOCATION_PID_TYPE,
+                                     InternalLocation)
 from .internal_locations.search import InternalLocationSearch
 from .items.api import ITEM_PID_FETCHER, ITEM_PID_MINTER, ITEM_PID_TYPE, Item
 from .items.search import ItemSearch
-from .locations.api import LOCATION_PID_FETCHER, LOCATION_PID_MINTER, \
-    LOCATION_PID_TYPE, Location
+from .locations.api import (LOCATION_PID_FETCHER, LOCATION_PID_MINTER,
+                            LOCATION_PID_TYPE, Location)
 from .locations.search import LocationSearch
-from .patrons.api import PATRON_PID_FETCHER, PATRON_PID_MINTER, \
-    PATRON_PID_TYPE, Patron
+from .patrons.api import (PATRON_PID_FETCHER, PATRON_PID_MINTER,
+                          PATRON_PID_TYPE, Patron)
 from .patrons.search import PatronsSearch
-from .permissions import PatronOwnerPermission, \
-    authenticated_user_permission, backoffice_permission, \
-    views_permissions_factory
+from .permissions import (PatronOwnerPermission, authenticated_user_permission,
+                          backoffice_permission, views_permissions_factory)
 from .records.permissions import record_read_permission_factory
-from .series.api import SERIES_PID_FETCHER, SERIES_PID_MINTER, \
-    SERIES_PID_TYPE, Series
+from .series.api import (SERIES_PID_FETCHER, SERIES_PID_MINTER,
+                         SERIES_PID_TYPE, Series)
 from .series.search import SeriesSearch
 from .views import UserInfoResource
-from .vocabularies.api import VOCABULARY_PID_FETCHER, VOCABULARY_PID_MINTER, \
-    VOCABULARY_PID_TYPE, Vocabulary
+from .vocabularies.api import (VOCABULARY_PID_FETCHER, VOCABULARY_PID_MINTER,
+                               VOCABULARY_PID_TYPE, Vocabulary)
 from .vocabularies.search import VocabularySearch
 
 

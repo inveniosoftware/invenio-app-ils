@@ -10,10 +10,11 @@
 import json
 
 from flask import url_for
+
 from tests.helpers import user_login
 
-from .helpers import recrel_assert_record_relations, \
-    recrel_choose_endpoints_and_do_request
+from .helpers import (recrel_assert_record_relations,
+                      recrel_choose_endpoints_and_do_request)
 
 
 def _test_pc_mm_document(client, json_headers):

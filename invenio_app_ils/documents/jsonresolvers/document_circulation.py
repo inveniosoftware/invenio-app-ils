@@ -11,9 +11,11 @@ import jsonresolver
 from elasticsearch import VERSION as ES_VERSION
 from werkzeug.routing import Rule
 
-from invenio_app_ils.circulation.search import get_active_loans_by_doc_pid, \
-    get_loan_next_available_date, get_overdue_loans_by_doc_pid, \
-    get_past_loans_by_doc_pid, get_pending_loans_by_doc_pid
+from invenio_app_ils.circulation.search import (get_active_loans_by_doc_pid,
+                                                get_loan_next_available_date,
+                                                get_overdue_loans_by_doc_pid,
+                                                get_past_loans_by_doc_pid,
+                                                get_pending_loans_by_doc_pid)
 from invenio_app_ils.proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7

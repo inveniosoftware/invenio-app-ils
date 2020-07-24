@@ -15,8 +15,8 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, post_load, pre_load, validate
 
 from invenio_app_ils.ill.api import BorrowingRequest
-from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
-    set_changed_by
+from invenio_app_ils.records.loaders.schemas.changed_by import (
+    ChangedBySchema, set_changed_by)
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
 
 

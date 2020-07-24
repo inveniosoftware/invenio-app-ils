@@ -24,9 +24,10 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronHasLoanOnDocumentError, PatronHasLoanOnItemError, \
-    PatronHasRequestOnDocumentError
+from invenio_app_ils.errors import (MissingRequiredParameterError,
+                                    PatronHasLoanOnDocumentError,
+                                    PatronHasLoanOnItemError,
+                                    PatronHasRequestOnDocumentError)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.items.api import Item
 from invenio_app_ils.minters import pid_minter

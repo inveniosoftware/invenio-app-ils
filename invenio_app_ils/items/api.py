@@ -12,14 +12,14 @@ from functools import partial
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_pidstore.errors import PersistentIdentifierError, \
-    PIDDoesNotExistError
+from invenio_pidstore.errors import (PersistentIdentifierError,
+                                     PIDDoesNotExistError)
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
-from invenio_app_ils.errors import ItemDocumentNotFoundError, \
-    ItemHasActiveLoanError
+from invenio_app_ils.errors import (ItemDocumentNotFoundError,
+                                    ItemHasActiveLoanError)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord, RecordValidator

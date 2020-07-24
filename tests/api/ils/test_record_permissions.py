@@ -15,12 +15,12 @@ from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_records.api import Record
 from invenio_search.api import RecordsSearch
-from tests.helpers import user_login
 
 from invenio_app_ils.errors import UnauthorizedSearchError
-from invenio_app_ils.records.permissions import RecordPermission, \
-    create_records_action
+from invenio_app_ils.records.permissions import (RecordPermission,
+                                                 create_records_action)
 from invenio_app_ils.search_permissions import _filter_by_patron
+from tests.helpers import user_login
 
 
 @pytest.mark.parametrize("patron_pid,qs,should_raise", [

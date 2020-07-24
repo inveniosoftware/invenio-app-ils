@@ -12,6 +12,7 @@ import json
 from flask import url_for
 from invenio_search import current_search
 from six import BytesIO
+
 from tests.helpers import user_login
 
 

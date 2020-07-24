@@ -17,10 +17,10 @@ from invenio_app_ils.permissions import need_permissions
 
 from .api import BORROWING_REQUEST_PID_TYPE
 from .errors import ILLError
-from .loaders import patron_loan_create_action_loader, \
-    patron_loan_extension_accept_loader, \
-    patron_loan_extension_decline_loader, \
-    patron_loan_extension_request_loader
+from .loaders import (patron_loan_create_action_loader,
+                      patron_loan_extension_accept_loader,
+                      patron_loan_extension_decline_loader,
+                      patron_loan_extension_request_loader)
 from .mail.tasks import send_ill_mail
 from .proxies import current_ils_ill
 

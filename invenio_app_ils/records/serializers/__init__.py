@@ -9,8 +9,8 @@
 
 from invenio_records_rest.serializers.csv import CSVSerializer
 from invenio_records_rest.serializers.json import JSONSerializer
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import (record_responsify,
+                                                       search_responsify)
 
 from invenio_app_ils.records.schemas.json import ILSRecordSchemaJSONV1
 

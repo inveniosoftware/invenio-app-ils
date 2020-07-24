@@ -18,10 +18,10 @@ from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.circulation.api import checkout_loan, \
-    circulation_default_loan_duration_for_item
-from invenio_app_ils.errors import RecordHasReferencesError, \
-    UnknownItemPidTypeError
+from invenio_app_ils.circulation.api import (
+    checkout_loan, circulation_default_loan_duration_for_item)
+from invenio_app_ils.errors import (RecordHasReferencesError,
+                                    UnknownItemPidTypeError)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.ill.errors import ILLError
 from invenio_app_ils.ill.proxies import current_ils_ill
