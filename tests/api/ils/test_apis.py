@@ -7,6 +7,7 @@
 
 """Test ILS APIs."""
 
+from flask import url_for
 from invenio_accounts.models import User
 
 from invenio_app_ils.documents.api import Document
@@ -17,7 +18,7 @@ from invenio_app_ils.series.api import Series
 from tests.helpers import get_test_record
 
 
-def test_apis(testdata):
+def test_apis(client, json_headers, testdata):
     """Test various APIs."""
 
     def test_patron_exists():
@@ -54,7 +55,16 @@ def test_apis(testdata):
         pid_value, _ = current_app_ils.get_default_location_pid
         assert pid_value == first["pid"]
 
+    def test_no_etag():
+        """Assert that the response headers do not contain ETag."""
+        url = url_for("invenio_records_rest.docid_item", pid_value="docid-1")
+        res = client.get(url, headers=json_headers)
+        assert res.cache_control.no_cache
+        assert res.get_etag() == (None, None)
+        assert "Last-Modified" not in res.headers
+
     test_patron_exists()
     test_get_record_by_pid()
     test_get_record_by_pid_and_pid_type()
     test_get_default_location_pid()
+    test_no_etag()
