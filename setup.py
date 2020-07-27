@@ -68,6 +68,8 @@ install_requires = [
     "invenio-pidstore>=1.2.0,<1.3.0",
     "invenio-records-rest>=1.7.1,<1.8.0",
     "invenio-records>=1.3.1,<1.4.0",
+    # needed for CSRF token support
+    "invenio-rest>=1.2.1",
     # --- `files` bundle with only invenio-files-rest ----------------------
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------

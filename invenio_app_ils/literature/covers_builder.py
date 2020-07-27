@@ -21,7 +21,7 @@ def build_ils_demo_cover_urls(metadata):
 
 def build_openlibrary_urls(isbn):
     """Build Open Library urls."""
-    url = "http://covers.openlibrary.org/b/isbn"
+    url = "https://covers.openlibrary.org/b/isbn"
     return {
         "is_placeholder": False,
         "small": "{url}/{isbn}-S.jpg".format(url=url, isbn=isbn),
