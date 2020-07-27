@@ -43,6 +43,7 @@ from tests.helpers import (document_ref_builder, internal_location_ref_builder,
 def app_config(app_config):
     """Get app config."""
     tests_config = {
+        "REST_CSRF_ENABLED": False,
         "CELERY_TASK_ALWAYS_EAGER": True,
         "ACCOUNTS_SESSION_REDIS_URL": "",  # in-memory
         "RATELIMIT_GUEST_USER": "1000 per minute",
