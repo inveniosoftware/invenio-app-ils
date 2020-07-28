@@ -7,6 +7,14 @@
 Changes
 =======
 
+Version 1.0.0a9 (released 2020-07-28)
+
+- limit version for dependencies to minor
+- add identifiers to e-items
+- add new document circulation endpoint
+- fix isort v5 imports
+- remove ETag/Last-Modified headers
+
 Version 1.0.0a8 (released 2020-07-16)
 
 - add request type and payment method to document request
