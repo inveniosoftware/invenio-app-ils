@@ -691,6 +691,12 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=5,
         ),
+        title=dict(
+            fields=["title.keyword"],
+            title="Title",
+            default_order="asc",
+            order=6
+        )
     ),
     eitems=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
@@ -702,6 +708,12 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="asc",
             order=2,
         ),
+        title=dict(
+            fields=["document.title.keyword"],
+            title="Title",
+            default_order="asc",
+            order=3
+        )
     ),
     items=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
@@ -713,6 +725,12 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="asc",
             order=2,
         ),
+        title=dict(
+            fields=["document.title.keyword"],
+            title="Title",
+            default_order="asc",
+            order=3
+        )
     ),
     patrons=dict(  # PatronsSearch.Meta.index
         bestmatch=dict(
@@ -732,6 +750,12 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="asc",
             order=2,
         ),
+        title=dict(
+            fields=["title.keyword"],
+            title="Title",
+            default_order="asc",
+            order=3
+        )
     ),
 )
 
