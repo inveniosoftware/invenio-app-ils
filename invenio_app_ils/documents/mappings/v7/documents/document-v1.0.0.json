@@ -457,7 +457,12 @@
         "type": "keyword"
       },
       "title": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "updated_by": {
         "properties": {
