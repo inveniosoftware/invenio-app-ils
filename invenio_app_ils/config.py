@@ -18,7 +18,6 @@ from datetime import timedelta
 from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
-from invenio_oauthclient.contrib import cern
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
@@ -90,31 +89,22 @@ DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 ###############################################################################
-# OAuth
-###############################################################################
-OAUTH_REMOTE_APP = cern.REMOTE_REST_APP
-OAUTH_REMOTE_APP["authorized_redirect_url"] = "/login"
-OAUTH_REMOTE_APP["error_redirect_url"] = "/login"
-OAUTHCLIENT_REST_REMOTE_APPS = dict(cern=OAUTH_REMOTE_APP)
-
-CERN_APP_CREDENTIALS = dict(
-    consumer_key="CHANGE_ME", consumer_secret="CHANGE_ME"
-)
-
 # Rate limiting
-# =============
-#: Storage for ratelimiter.
+###############################################################################
+#: Storage for rate limiter.
 RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
 
+###############################################################################
 # I18N
-# ====
+###############################################################################
 #: Default language
 BABEL_DEFAULT_LANGUAGE = "en"
 #: Default time zone
 BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 
+###############################################################################
 # Email configuration
-# ===================
+###############################################################################
 #: Email address for support.
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
@@ -135,13 +125,15 @@ ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.
 #: Document request email templates
 ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
 
+###############################################################################
 # Assets
-# ======
+###############################################################################
 #: Static files collection method (defaults to copying files).
 COLLECT_STORAGE = "flask_collect.storage.file"
 
+###############################################################################
 # Accounts
-# ========
+###############################################################################
 #: Email address used as sender of account registration emails.
 SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 #: Email subject for account registration emails.
@@ -154,8 +146,9 @@ ACCOUNTS_REST_AUTH_VIEWS = _ACCOUNTS_REST_AUTH_VIEWS
 
 ACCOUNTS_REST_CONFIRM_EMAIL_ENDPOINT = "/accounts/confirm-email"
 
+###############################################################################
 # Celery configuration
-# ====================
+###############################################################################
 BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of message broker for Celery (default is RabbitMQ).
 CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
@@ -195,25 +188,29 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
+###############################################################################
 # Database
-# ========
+###############################################################################
 #: Database URI including user and password
 SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 
+###############################################################################
 # JSONSchemas
-# ===========
+###############################################################################
 #: Hostname used in URLs for local JSONSchemas.
 JSONSCHEMAS_HOST = "127.0.0.1:5000"
 
+###############################################################################
 # CORS
-# ====
+###############################################################################
 REST_ENABLE_CORS = True
 # change this only while developing
 CORS_SEND_WILDCARD = True
 CORS_SUPPORTS_CREDENTIALS = False
 
+###############################################################################
 # Flask configuration
-# ===================
+###############################################################################
 # See details on
 # http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
 
@@ -235,10 +232,14 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 SPA_HOST = "http://localhost:3000"
 SPA_PATHS = dict(profile="/profile")
 
+###############################################################################
 # OAI-PMH
-# =======
+###############################################################################
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 
+###############################################################################
+# RECORDS REST
+###############################################################################
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
 )
@@ -259,9 +260,6 @@ _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 )
 
-###############################################################################
-# RECORDS REST
-###############################################################################
 _RECORDS_REST_MAX_RESULT_WINDOW = 10000
 PIDSTORE_RECID_FIELD = "pid"
 # name of the URL arg to choose response serializer
