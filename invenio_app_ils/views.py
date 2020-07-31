@@ -7,7 +7,7 @@
 
 """Invenio App ILS views."""
 
-from flask import jsonify
+from flask import g, jsonify
 from invenio_accounts.views.rest import UserInfoView, default_user_payload
 from invenio_userprofiles import UserProfile
 
@@ -15,12 +15,18 @@ from invenio_userprofiles import UserProfile
 class UserInfoResource(UserInfoView):
     """Retrieve current user's information."""
 
+    def get_user_roles(self):
+        """Get all user roles."""
+        return [
+            need.value for need in g.identity.provides if need.method == "role"
+        ]
+
     def success_response(self, user):
         """Return response with current user's information."""
         from invenio_app_ils.proxies import current_app_ils
 
         user_payload = default_user_payload(user)
-        user_payload["roles"] = [role.name for role in user.roles]
+        user_payload["roles"] = self.get_user_roles()
         # fetch user profile for extra info
         user_profile = UserProfile.get_by_userid(user.id)
 
