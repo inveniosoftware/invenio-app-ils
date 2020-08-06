@@ -10,7 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.patrons.api import get_patron_or_empty_dict
+from invenio_app_ils.patrons.api import get_patron_or_unknown
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
 
@@ -34,7 +34,7 @@ def jsonresolver_loader(url_map):
         except KeyError:
             return {}
 
-        return get_patron_or_empty_dict(patron_pid)
+        return get_patron_or_unknown(patron_pid)
 
     url_map.add(
         Rule(

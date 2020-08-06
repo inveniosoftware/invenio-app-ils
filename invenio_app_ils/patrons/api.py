@@ -123,12 +123,23 @@ def patron_exists(patron_pid):
     return User.query.filter_by(id=patron_pid).first() is not None
 
 
-def get_patron_or_empty_dict(patron_pid):
+def get_anonymous_patron_dict(patron_pid):
+    """Return dict with Unknown values for patron."""
+    return {
+        "id": "Unknown",
+        "pid": patron_pid,
+        "name": "Unknown",
+        "email": "Unknown",
+        "location_pid": "Unknown",
+    }
+
+
+def get_patron_or_unknown(patron_pid):
     """Resolve a Patron for a given field."""
     if not patron_pid:
-        return {}
+        raise PatronNotFoundError
     try:
         cls = current_app_ils.patron_cls
         return cls.get_patron(patron_pid).dumps_loader()
     except PatronNotFoundError:
-        return {}
+        return get_anonymous_patron_dict(patron_pid)

@@ -32,6 +32,7 @@ from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
+from .anonymization import anonymize_patron_data, get_patron_activity
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
@@ -52,8 +53,7 @@ from .series.api import SERIES_PID_TYPE, Series
 def minter(pid_type, pid_field, record):
     """Mint the given PID for the given record."""
     pid = PersistentIdentifier.get(
-        pid_type="recid",
-        pid_value=record[pid_field]
+        pid_type="recid", pid_value=record[pid_field]
     )
     pid.status = PIDStatus.REGISTERED
     pid.object_type = "rec"
@@ -80,7 +80,7 @@ class Holder(object):
         total_vendors,
         total_orders,
         total_borrowing_requests,
-        total_libraries
+        total_libraries,
     ):
         """Constructor."""
         self.patrons_pids = patrons_pids
@@ -97,7 +97,10 @@ class Holder(object):
         self.document_requests = {"objs": [], "total": total_document_requests}
         self.vendors = {"objs": [], "total": total_vendors}
         self.orders = {"objs": [], "total": total_orders}
-        self.borrowing_requests = {"objs": [], "total": total_borrowing_requests}
+        self.borrowing_requests = {
+            "objs": [],
+            "total": total_borrowing_requests,
+        }
         self.libraries = {"objs": [], "total": total_libraries}
 
     def pids(self, collection, pid_field):
@@ -185,8 +188,9 @@ class ItemGenerator(Generator):
         size = self.holder.items["total"]
         iloc_pids = self.holder.pids("internal_locations", "pid")
         doc_pids = self.holder.pids("documents", "pid")
-        shelf_lorem = TextLorem(wsep='-', srange=(2, 3),
-                                words='Ax Bs Cw 8080'.split())
+        shelf_lorem = TextLorem(
+            wsep="-", srange=(2, 3), words="Ax Bs Cw 8080".split()
+        )
         objs = [
             {
                 "pid": self.create_pid(),
@@ -200,10 +204,12 @@ class ItemGenerator(Generator):
                 "internal_notes": "{}".format(lorem.text()),
                 "medium": random.choice(Item.MEDIUMS),
                 "status": random.choice(
-                    random.choices(population=Item.STATUSES,
-                                   weights=[0.7, 0.1, 0.1, 0.1, 0.05],
-                                   k=10
-                                   )),
+                    random.choices(
+                        population=Item.STATUSES,
+                        weights=[0.7, 0.1, 0.1, 0.1, 0.05],
+                        k=10,
+                    )
+                ),
                 "circulation_restriction": random.choice(
                     Item.CIRCULATION_RESTRICTIONS
                 ),
@@ -252,11 +258,11 @@ class EItemGenerator(Generator):
                 "urls": [
                     {
                         "value": "https://home.cern/science/physics/dark-matter",
-                        "description": "Dark matter"
+                        "description": "Dark matter",
                     },
                     {
                         "value": "https://home.cern/science/physics/antimatter",
-                        "description": "Anti matter"
+                        "description": "Anti matter",
                     },
                 ],
                 "open_access": bool(random.getrandbits(1)),
@@ -266,17 +272,22 @@ class EItemGenerator(Generator):
 
         for obj in objs:
             if bool(random.getrandbits(1)):
-                obj["identifiers"] = random.choice([[
-                    {
-                        "scheme": "ISBN",
-                        "value": "0-395-36341-1",
-                        "material": "EBook"
-                    },
-                    {
-                        "scheme": "DOI",
-                        "value": "doi:10.1340/309registries"
-                    }
-                ], []])
+                obj["identifiers"] = random.choice(
+                    [
+                        [
+                            {
+                                "scheme": "ISBN",
+                                "value": "0-395-36341-1",
+                                "material": "EBook",
+                            },
+                            {
+                                "scheme": "DOI",
+                                "value": "doi:10.1340/309registries",
+                            },
+                        ],
+                        [],
+                    ]
+                )
 
         self.holder.eitems["objs"] = objs
 
@@ -299,16 +310,19 @@ class DocumentGenerator(Generator):
         {"full_name": "CERN", "type": "ORGANISATION"},
         {
             "full_name": "Doe, Jane",
-            "affiliations": [{
-                "name": "Imperial Coll., London",
-                "identifiers": [{"scheme": "ROR", "value": "12345"}]
-            }],
+            "affiliations": [
+                {
+                    "name": "Imperial Coll., London",
+                    "identifiers": [{"scheme": "ROR", "value": "12345"}],
+                }
+            ],
             "identifiers": [{"scheme": "ORCID", "value": "1234AAA"}],
-            "roles": ["editor"]
+            "roles": ["editor"],
         },
         {
-            "full_name": "Doe, John", "roles": ["AUTHOR"],
-            "affiliations": [{"name": "CERN"}]
+            "full_name": "Doe, John",
+            "roles": ["AUTHOR"],
+            "affiliations": [{"name": "CERN"}],
         },
     ]
     CONFERENCE_INFO = {
@@ -326,38 +340,92 @@ class DocumentGenerator(Generator):
         {"date": "2017-08-02", "place": "Hamburg", "publisher": "Springer"},
     ]
     ISBNS = [
-        "0002154129", "978-1-891830-85-3", "978-1-60309-265-4",
-        "978-1-60309-077-3", "978-1-60309-069-8", "978-1-60309-042-1",
-        "978-1-891830-37-2", "978-1-60309-029-2", "978-1-891830-40-2",
-        "978-1-60309-442-9", "978-1-891830-56-3", "978-1-60309-432-0",
-        "978-1-891830-19-8", "978-1-60309-422-1", "978-1-60309-100-8",
-        "978-1-891830-81-5", "978-1-60309-271-5", "978-1-891830-92-1",
-        "978-1-60309-057-5", "978-1-60309-085-8", "978-1-60309-387-3",
-        "978-1-60309-036-0", "978-1-60309-053-7", "978-1-891830-97-6",
-        "978-0-9585783-4-9", "978-1-60309-397-2", "978-1-60309-386-6",
-        "978-1-60309-098-8", "978-1-60309-008-7", "978-1-60309-441-2",
-        "978-1-891830-55-6", "978-1-891830-86-0", "978-1-891830-91-4",
-        "978-1-60309-041-4", "978-1-60309-059-9", "978-1-891830-65-5",
-        "978-1-891830-90-7", "978-1-60309-006-3", "978-1-60309-007-0",
-        "978-1-60309-437-5", "978-1-891830-51-8", "978-1-60309-070-4",
-        "978-1-63140-984-4", "978-1-60309-393-4", "978-1-60309-152-7",
-        "978-1-891830-33-4", "978-1-60309-300-2", "978-1-60309-383-5",
-        "978-1-60309-400-9", "978-1-891830-36-5", "978-1-60309-075-9",
-        "978-1-891830-68-6", "978-1-60309-049-0", "978-1-60309-409-2",
-        "978-1-60309-068-1", "978-1-891830-29-7", "978-1-60309-367-5",
-        "978-1-60309-413-9", "978-1-60309-089-6", "978-1-60309-445-0",
-        "978-1-891830-14-3", "978-1-891830-50-1", "978-1-60309-020-9",
-        "978-1-60309-031-5", "978-1-60309-055-1", "978-1-891830-96-9",
-        "978-1-60309-043-8", "978-1-891830-87-7", "978-1-60309-033-9",
-        "978-1-60309-005-6", "978-1-60309-450-4", "978-1-891830-31-0",
-        "978-1-891830-70-9", "978-1-891830-98-3", "978-1-60309-392-7",
-        "978-1-60309-074-2", "978-1-891830-41-9", "978-1-60309-088-9",
-        "978-1-60309-440-5"
+        "0002154129",
+        "978-1-891830-85-3",
+        "978-1-60309-265-4",
+        "978-1-60309-077-3",
+        "978-1-60309-069-8",
+        "978-1-60309-042-1",
+        "978-1-891830-37-2",
+        "978-1-60309-029-2",
+        "978-1-891830-40-2",
+        "978-1-60309-442-9",
+        "978-1-891830-56-3",
+        "978-1-60309-432-0",
+        "978-1-891830-19-8",
+        "978-1-60309-422-1",
+        "978-1-60309-100-8",
+        "978-1-891830-81-5",
+        "978-1-60309-271-5",
+        "978-1-891830-92-1",
+        "978-1-60309-057-5",
+        "978-1-60309-085-8",
+        "978-1-60309-387-3",
+        "978-1-60309-036-0",
+        "978-1-60309-053-7",
+        "978-1-891830-97-6",
+        "978-0-9585783-4-9",
+        "978-1-60309-397-2",
+        "978-1-60309-386-6",
+        "978-1-60309-098-8",
+        "978-1-60309-008-7",
+        "978-1-60309-441-2",
+        "978-1-891830-55-6",
+        "978-1-891830-86-0",
+        "978-1-891830-91-4",
+        "978-1-60309-041-4",
+        "978-1-60309-059-9",
+        "978-1-891830-65-5",
+        "978-1-891830-90-7",
+        "978-1-60309-006-3",
+        "978-1-60309-007-0",
+        "978-1-60309-437-5",
+        "978-1-891830-51-8",
+        "978-1-60309-070-4",
+        "978-1-63140-984-4",
+        "978-1-60309-393-4",
+        "978-1-60309-152-7",
+        "978-1-891830-33-4",
+        "978-1-60309-300-2",
+        "978-1-60309-383-5",
+        "978-1-60309-400-9",
+        "978-1-891830-36-5",
+        "978-1-60309-075-9",
+        "978-1-891830-68-6",
+        "978-1-60309-049-0",
+        "978-1-60309-409-2",
+        "978-1-60309-068-1",
+        "978-1-891830-29-7",
+        "978-1-60309-367-5",
+        "978-1-60309-413-9",
+        "978-1-60309-089-6",
+        "978-1-60309-445-0",
+        "978-1-891830-14-3",
+        "978-1-891830-50-1",
+        "978-1-60309-020-9",
+        "978-1-60309-031-5",
+        "978-1-60309-055-1",
+        "978-1-891830-96-9",
+        "978-1-60309-043-8",
+        "978-1-891830-87-7",
+        "978-1-60309-033-9",
+        "978-1-60309-005-6",
+        "978-1-60309-450-4",
+        "978-1-891830-31-0",
+        "978-1-891830-70-9",
+        "978-1-891830-98-3",
+        "978-1-60309-392-7",
+        "978-1-60309-074-2",
+        "978-1-891830-41-9",
+        "978-1-60309-088-9",
+        "978-1-60309-440-5",
     ]
 
     def generate_document(self, index, **kwargs):
         """Generate document data."""
-        publication_year = kwargs.get("publication_year", str(randint(1700, 2020)))
+        publication_year = kwargs.get(
+            "publication_year", str(randint(1700, 2020))
+        )
         imprint = random.choice(self.IMPRINTS)
         obj = {
             "pid": self.create_pid(),
@@ -373,26 +441,27 @@ class DocumentGenerator(Generator):
             ],
             "table_of_content": ["{}".format(lorem.sentence())],
             "note": "{}".format(lorem.text()),
-            "tags": [tag["key"] for tag in random.sample(
-                self.holder.tags,
-                randint(1, len(self.holder.tags) - 1))
+            "tags": [
+                tag["key"]
+                for tag in random.sample(
+                    self.holder.tags, randint(1, len(self.holder.tags) - 1)
+                )
             ],
             "edition": str(index),
-            "keywords": [{
-                "source": lorem.sentence(),
-                "value": lorem.sentence()
-            }],
+            "keywords": [
+                {"source": lorem.sentence(), "value": lorem.sentence()}
+            ],
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
             "imprint": {
                 **imprint,
-                "date": "{}-08-02".format(publication_year)
+                "date": "{}-08-02".format(publication_year),
             },
             "publication_year": publication_year,
             "urls": [
                 {
                     "description": "{}".format(lorem.sentence()),
-                    "value": "http://random.url"
+                    "value": "http://random.url",
                 }
             ],
             "restricted": False,
@@ -404,22 +473,21 @@ class DocumentGenerator(Generator):
         """Generate."""
         size = self.holder.documents["total"]
 
-        objs = [
-            self.generate_document(index)
-            for index in range(1, size + 1)
-        ]
+        objs = [self.generate_document(index) for index in range(1, size + 1)]
 
         # Generate periodical issues
         volume = 1
         issue = 1
         publication_year = randint(1700, 2000)
         for index in range(1, 11):
-            objs.append(self.generate_document(
-                index,
-                document_type=self.PERIODICAL_ISSUE,
-                title="Volume {} Issue {}".format(volume, issue),
-                publication_year=str(publication_year),
-            ))
+            objs.append(
+                self.generate_document(
+                    index,
+                    document_type=self.PERIODICAL_ISSUE,
+                    title="Volume {} Issue {}".format(volume, issue),
+                    publication_year=str(publication_year),
+                )
+            )
             if issue == 3:
                 issue = 1
                 volume += 1
@@ -556,7 +624,7 @@ class LoanGenerator(Generator):
             if item_state != "PENDING":
                 loan["item_pid"] = {
                     "type": ITEM_PID_TYPE,
-                    "value": item["pid"]
+                    "value": item["pid"],
                 }
                 items_on_loan.append(item["pid"])
 
@@ -588,38 +656,34 @@ class SeriesGenerator(Generator):
         """Randomize multipart data."""
         obj["edition"] = str(index)
         for _ in range(randint(1, 2)):
-            obj["identifiers"].append(dict(
-                scheme="ISBN",
-                value=random.choice(DocumentGenerator.ISBNS)
-            ))
+            obj["identifiers"].append(
+                dict(
+                    scheme="ISBN", value=random.choice(DocumentGenerator.ISBNS)
+                )
+            )
 
     def random_serial(self, obj):
         """Randomize serial data."""
         for _ in range(randint(1, 3)):
-            obj["identifiers"].append(dict(
-                material=random.choice(["ONLINE", "PRINT"]),
-                scheme="ISSN",
-                value=self.random_issn()
-            ))
+            obj["identifiers"].append(
+                dict(
+                    material=random.choice(["ONLINE", "PRINT"]),
+                    scheme="ISSN",
+                    value=self.random_issn(),
+                )
+            )
         obj["abbreviated_title"] = obj["title"].split()[0]
         obj["alternative_titles"] = [
-            dict(
-                value=obj["title"],
-                type="SUBTITLE"
-            ),
+            dict(value=obj["title"], type="SUBTITLE"),
             dict(
                 value=obj["title"],
                 type="TRANSLATED_TITLE",
                 language="FR",
-                source="CERN"
-            )
+                source="CERN",
+            ),
         ]
         obj["internal_notes"] = [
-            dict(
-                field="title",
-                user="Test",
-                value="Internal test note."
-            )
+            dict(field="title", user="Test", value="Internal test note.")
         ]
         obj["notes"] = lorem.text()
         obj["publisher"] = lorem.sentence().split()[0]
@@ -627,25 +691,24 @@ class SeriesGenerator(Generator):
             dict(
                 open_access=True,
                 description=lorem.sentence(),
-                value="https://home.cern/"
+                value="https://home.cern/",
             )
             for _ in range(1, 3)
         ]
         obj["urls"] = [
-            dict(
-                description=lorem.sentence(),
-                value="https://home.cern/"
-            )
+            dict(description=lorem.sentence(), value="https://home.cern/")
             for _ in range(1, 3)
         ]
 
     def generate_minimal(self, objs):
         """Generate a series with only the required fields."""
-        objs.append({
-            "pid": self.create_pid(),
-            "mode_of_issuance": "SERIAL",
-            "title": "Minimal Series",
-        })
+        objs.append(
+            {
+                "pid": self.create_pid(),
+                "mode_of_issuance": "SERIAL",
+                "title": "Minimal Series",
+            }
+        )
 
     def generate(self):
         """Generate."""
@@ -654,7 +717,9 @@ class SeriesGenerator(Generator):
         self.generate_minimal(objs)
         for index in range(1, size + 1):
             moi = random.choice(self.MODE_OF_ISSUANCE)
-            authors = random.sample(DocumentGenerator.AUTHORS, len(DocumentGenerator.AUTHORS))
+            authors = random.sample(
+                DocumentGenerator.AUTHORS, len(DocumentGenerator.AUTHORS)
+            )
             obj = {
                 "pid": self.create_pid(),
                 "cover_metadata": {
@@ -704,6 +769,7 @@ class RecordRelationsGenerator(Generator):
 
     def generate_parent_child_relations(self, documents, series):
         """Generate parent-child relations."""
+
         def random_docs():
             docs = [
                 doc
@@ -728,7 +794,7 @@ class RecordRelationsGenerator(Generator):
         multipart_relation = Relation.get_relation_by_name(
             "multipart_monograph"
         )
-        re_volume = re.compile(r'Volume (?P<volume>\d+)', re.IGNORECASE)
+        re_volume = re.compile(r"Volume (?P<volume>\d+)", re.IGNORECASE)
         for index, child in enumerate(serial_children):
             m = re_volume.match(child["title"])
             volume = str(index + 1)
@@ -808,7 +874,9 @@ class DocumentRequestGenerator(Generator):
                 "medium": "PAPER",
             }
             if state == "REJECTED":
-                obj["reject_reason"] = random.choice(DocumentRequest.REJECT_TYPES)
+                obj["reject_reason"] = random.choice(
+                    DocumentRequest.REJECT_TYPES
+                )
                 if obj["reject_reason"] == "IN_CATALOG":
                     obj["document_pid"] = self.random_document_pid()
             elif state == "ACCEPTED":
@@ -835,7 +903,7 @@ class LibraryGenerator(Generator):
     def random_name(self):
         """Generate random name."""
         parts = lorem.sentence().split()
-        return " ".join(parts[:min(randint(1, 2), len(parts))])
+        return " ".join(parts[: min(randint(1, 2), len(parts))])
 
     def generate(self):
         """Generate."""
@@ -858,9 +926,7 @@ class LibraryGenerator(Generator):
         """Persist."""
         recs = []
         for obj in self.holder.libraries["objs"]:
-            rec = self._persist(
-                LIBRARY_PID_TYPE, "pid", Library.create(obj)
-            )
+            rec = self._persist(LIBRARY_PID_TYPE, "pid", Library.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -908,9 +974,15 @@ class BorrowingRequestGenerator(Generator):
 
             t = now + timedelta(days=400)
             if obj["status"] != "PENDING":
-                obj["request_date"] = self.random_date(now, t).date().isoformat()
-                obj["expected_delivery_date"] = self.random_date(now, t).date().isoformat()
-                obj["received_date"] = self.random_date(now, t).date().isoformat()
+                obj["request_date"] = (
+                    self.random_date(now, t).date().isoformat()
+                )
+                obj["expected_delivery_date"] = (
+                    self.random_date(now, t).date().isoformat()
+                )
+                obj["received_date"] = (
+                    self.random_date(now, t).date().isoformat()
+                )
                 obj["due_date"] = self.random_date(now, t).date().isoformat()
                 obj["payment"] = {
                     "debit_cost_main_currency": self.random_price("CHF"),
@@ -947,7 +1019,7 @@ class VendorGenerator(Generator):
     def random_name(self):
         """Generate random name."""
         parts = lorem.sentence().split()
-        return " ".join(parts[:min(randint(1, 2), len(parts))])
+        return " ".join(parts[: min(randint(1, 2), len(parts))])
 
     def generate(self):
         """Generate."""
@@ -970,9 +1042,7 @@ class VendorGenerator(Generator):
         """Persist."""
         recs = []
         for obj in self.holder.vendors["objs"]:
-            rec = self._persist(
-                VENDOR_PID_TYPE, "pid", Vendor.create(obj)
-            )
+            rec = self._persist(VENDOR_PID_TYPE, "pid", Vendor.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -1003,7 +1073,9 @@ class OrderGenerator(Generator):
             ordered = randint(1, 5)
             yield dict(
                 copies_ordered=ordered,
-                copies_received=randint(1, ordered) if status == 'RECEIVED' else 0,
+                copies_received=randint(1, ordered)
+                if status == "RECEIVED"
+                else 0,
                 document_pid=doc_pids[i],
                 is_donation=random.choice([True, False]),
                 is_patron_suggestion=random.choice([True, False]),
@@ -1029,23 +1101,31 @@ class OrderGenerator(Generator):
             obj = {
                 "pid": self.create_pid(),
                 "created_by_pid": self.holder.librarian_pid,
-                "vendor_pid": random.choice(self.holder.vendors["objs"])["pid"],
+                "vendor_pid": random.choice(self.holder.vendors["objs"])[
+                    "pid"
+                ],
                 "status": status,
                 "order_date": order_date.date().isoformat(),
                 "notes": lorem.sentence(),
                 "grand_total": self.random_price("EUR", min_value=50.0),
-                "grand_total_main_currency": self.random_price("CHF", min_value=60.0),
+                "grand_total_main_currency": self.random_price(
+                    "CHF", min_value=60.0
+                ),
                 "funds": list(set(lorem.sentence().split())),
-                "payment": {
-                    "mode": "CREDIT_CARD",
-                },
+                "payment": {"mode": "CREDIT_CARD",},
                 "order_lines": order_lines,
             }
-            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
+            obj["expected_delivery_date"] = (
+                self.random_date(now, now + timedelta(days=400))
+                .date()
+                .isoformat()
+            )
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             elif obj["status"] == "RECEIVED":
-                obj["received_date"] = self.random_date(order_date, now).date().isoformat()
+                obj["received_date"] = (
+                    self.random_date(order_date, now).date().isoformat()
+                )
             objs.append(obj)
 
         self.holder.orders["objs"] = objs
@@ -1054,9 +1134,7 @@ class OrderGenerator(Generator):
         """Persist."""
         recs = []
         for obj in self.holder.orders["objs"]:
-            rec = self._persist(
-                ORDER_PID_TYPE, "pid", Order.create(obj)
-            )
+            rec = self._persist(ORDER_PID_TYPE, "pid", Order.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -1102,7 +1180,7 @@ def data(
     n_vendors,
     n_orders,
     n_libraries,
-    n_borrowing_requests
+    n_borrowing_requests,
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -1110,7 +1188,8 @@ def data(
     indexer = RecordIndexer()
 
     vocabulary_dir = os.path.join(
-        os.path.realpath("."), "invenio_app_ils", "vocabularies", "data")
+        os.path.realpath("."), "invenio_app_ils", "vocabularies", "data"
+    )
 
     with open(os.path.join(vocabulary_dir, "tags.json")) as f:
         tags = json.loads(f.read())
@@ -1240,9 +1319,7 @@ def data(
     # index libraries
     indexer.bulk_index([str(r.id) for r in rec_libraries])
     click.echo(
-        "Sent to the indexing queue {0} libraries".format(
-            len(rec_libraries)
-        )
+        "Sent to the indexing queue {0} libraries".format(len(rec_libraries))
     )
 
     # index borrowing requests
@@ -1289,9 +1366,7 @@ def data(
 
     # index orders
     indexer.bulk_index([str(r.id) for r in rec_orders])
-    click.echo(
-        "Sent to the indexing queue {0} orders".format(len(rec_orders))
-    )
+    click.echo("Sent to the indexing queue {0} orders".format(len(rec_orders)))
 
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()
@@ -1338,23 +1413,27 @@ def fixtures():
 def pages():
     """Register CDS static pages."""
     pages = [
-        Page(url='/about',
-             title='About',
-             description='About',
-             content='InvenioILS about page',
-             template_name='invenio_pages/default.html'),
-        Page(url='/contact',
-             title='Contact',
-             description='Contact',
-             content='You can contact InvenioILS developers on '
-                     '<a href="https://gitter.im/inveniosoftware/invenio">our chatroom</a>',
-             template_name='invenio_pages/default.html'),
+        Page(
+            url="/about",
+            title="About",
+            description="About",
+            content="InvenioILS about page",
+            template_name="invenio_pages/default.html",
+        ),
+        Page(
+            url="/contact",
+            title="Contact",
+            description="Contact",
+            content="You can contact InvenioILS developers on "
+            '<a href="https://gitter.im/inveniosoftware/invenio">our chatroom</a>',
+            template_name="invenio_pages/default.html",
+        ),
     ]
     with db.session.begin_nested():
         Page.query.delete()
         db.session.add_all(pages)
     db.session.commit()
-    click.echo('static pages created :)')
+    click.echo("static pages created :)")
 
 
 @click.command()
@@ -1363,21 +1442,24 @@ def pages():
     "--skip-demo-data", is_flag=True, help="Skip creating demo data."
 )
 @click.option(
-    "--skip-file-location",
-    is_flag=True,
-    help="Skip creating file location."
+    "--skip-file-location", is_flag=True, help="Skip creating file location."
 )
 @click.option("--skip-patrons", is_flag=True, help="Skip creating patrons.")
 @click.option(
-    "--skip-vocabularies",
-    is_flag=True,
-    help="Skip creating vocabularies."
+    "--skip-vocabularies", is_flag=True, help="Skip creating vocabularies."
 )
 @click.option("--skip-pages", is_flag=True, help="Skip creating static pages.")
 @click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
-def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
-          skip_vocabularies, skip_pages, verbose):
+def setup(
+    recreate_db,
+    skip_demo_data,
+    skip_file_location,
+    skip_patrons,
+    skip_vocabularies,
+    skip_pages,
+    verbose,
+):
     """ILS setup command."""
     import redis
     from flask import current_app
@@ -1446,7 +1528,8 @@ def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
 
     if not skip_vocabularies:
         vocabularies_dir = os.path.join(
-            os.path.realpath("."), "invenio_app_ils", "vocabularies", "data")
+            os.path.realpath("."), "invenio_app_ils", "vocabularies", "data"
+        )
         json_files = " ".join(
             os.path.join(vocabularies_dir, name)
             for name in os.listdir(vocabularies_dir)
@@ -1479,3 +1562,48 @@ def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
         run_command("fixtures pages")
 
     click.secho("ils setup finished successfully", fg="blue")
+
+
+@click.command()
+@click.option("--patron-pid", help="Give patron pid.")
+@with_appcontext
+def list_patron_activity(patron_pid):
+    """List patron's data and activity."""
+    patron_activity = get_patron_activity(patron_pid)
+    if not patron_activity:
+        print("The patron with pid", patron_pid, "does not exist.")
+        return
+
+    import pprint
+
+    pprint.pprint(patron_activity)
+
+
+@click.command()
+@click.option("--patron-pid", help="Give patron pid.")
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Re index even if user doesn't exist.",
+)
+@with_appcontext
+def anonymize_patron(patron_pid, force):
+    """Anonymize patron's data and activity."""
+    if click.confirm(
+        "Are you sure you want to anonymize this patron?", default=True
+    ):
+        result = anonymize_patron_data(patron_pid, force)
+    else:
+        return
+
+    if result is None:
+        print("The patron with pid %s does not exist." % patron_pid)
+        return
+    else:
+        dropped, indices = result
+        print(
+            "Successfully deleted patron's activity (%s rows deleted from database and %s records re-indexed)."
+            % (dropped, indices)
+        )
+        return
