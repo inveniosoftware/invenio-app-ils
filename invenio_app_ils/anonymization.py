@@ -30,7 +30,8 @@ from invenio_app_ils.patrons.api import (Patron, SystemAgent,
                                          get_patron_or_unknown)
 
 from .acquisition.search import OrderSearch
-from .circulation.search import get_loans_by_patron_pid
+from .circulation.search import (get_active_loans_by_patron_pid,
+                                 get_loans_by_patron_pid)
 from .document_requests.search import DocumentRequestSearch
 from .ill.search import BorrowingRequestsSearch
 from .patrons.indexer import PatronIndexer
@@ -104,13 +105,16 @@ def anonymize_patron_data(patron_pid, force=False):
     # Serialize empty patron values
     anonymous_patron_fields = get_anonymous_patron_dict(patron_pid)
 
-    patron_loans = get_loans_by_patron_pid(patron_pid).execute()
+    patron_loans = get_loans_by_patron_pid(patron_pid).scan()
 
     indices = 0
 
     for hit in patron_loans:
         loan = Loan.get_record_by_pid(hit.pid)
-        if loan["state"] == current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]:
+        if (
+            loan["state"]
+            == current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+        ):
             params = deepcopy(loan)
             params.update(
                 dict(

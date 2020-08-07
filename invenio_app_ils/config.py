@@ -107,6 +107,8 @@ BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 ###############################################################################
 #: Email address for support.
 SUPPORT_EMAIL = "info@inveniosoftware.org"
+#: Management email for internal notifications.
+MANAGEMENT_EMAIL = "internal@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
 #: Email address for email notification sender.
@@ -230,7 +232,9 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 
 #: Single Page Application host and routes, useful in templates/emails
 SPA_HOST = "http://localhost:3000"
-SPA_PATHS = dict(profile="/profile")
+SPA_PATHS = dict(
+    profile="/profile", loan="/backoffice/loans", patron="/backoffice/patrons",
+)
 
 ###############################################################################
 # OAI-PMH
@@ -252,9 +256,7 @@ _EITMID_CONVERTER = (
 _LOCID_CONVERTER = (
     'pid(locid, record_class="invenio_app_ils.locations.api:Location")'
 )
-_ILOCID_CONVERTER = (
-    'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'
-)
+_ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'
 _DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.series.api:Series")'
@@ -350,9 +352,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=EItem,
         indexer_class=EItemIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.eitems.loaders:eitem_loader"
-            )
+            "application/json": ("invenio_app_ils.eitems.loaders:eitem_loader")
         },
         record_serializers={
             "application/json": (
@@ -693,8 +693,8 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["title.keyword"],
             title="Title",
             default_order="asc",
-            order=6
-        )
+            order=6,
+        ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
@@ -710,8 +710,8 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["document.title.keyword"],
             title="Title",
             default_order="asc",
-            order=3
-        )
+            order=3,
+        ),
     ),
     items=dict(  # ItemSearch.Meta.index
         mostrecent=dict(
@@ -727,8 +727,8 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["document.title.keyword"],
             title="Title",
             default_order="asc",
-            order=3
-        )
+            order=3,
+        ),
     ),
     patrons=dict(  # PatronsSearch.Meta.index
         bestmatch=dict(
@@ -752,8 +752,8 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["title.keyword"],
             title="Title",
             default_order="asc",
-            order=3
-        )
+            order=3,
+        ),
     ),
 )
 

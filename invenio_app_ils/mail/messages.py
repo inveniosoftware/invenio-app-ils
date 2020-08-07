@@ -20,9 +20,13 @@ from invenio_app_ils.records.jsonresolvers.api import pick
 class BlockTemplatedMessage(Message):
     """Templated message using Jinja2 blocks."""
 
-    FOOTER_TEMPLATE = "invenio_app_ils/mail/footer.html"
-
-    def __init__(self, template, ctx={}, **kwargs):
+    def __init__(
+        self,
+        template,
+        footer_template="invenio_app_ils/mail/footer.html",
+        ctx={},
+        **kwargs
+    ):
         """Build message body and HTML based on the provided template.
 
         The template needs to provide two blocks: subject and body. An optional
@@ -37,12 +41,14 @@ class BlockTemplatedMessage(Message):
         self.template = template
         self.id = str(uuid.uuid4())
 
-        ctx.update(dict(
-            spa_routes=dict(
-                HOST=current_app.config["SPA_HOST"],
-                PATHS=current_app.config["SPA_PATHS"],
-            ),
-        ))
+        ctx.update(
+            dict(
+                spa_routes=dict(
+                    HOST=current_app.config["SPA_HOST"],
+                    PATHS=current_app.config["SPA_PATHS"],
+                ),
+            )
+        )
         self.ctx = ctx
 
         tmpl = current_app.jinja_env.get_template(template)
@@ -53,13 +59,12 @@ class BlockTemplatedMessage(Message):
         except TemplateError:
             kwargs["html"] = kwargs["body"]
 
-        footer_tmpl = current_app.jinja_env.get_template(self.FOOTER_TEMPLATE)
+        footer_tmpl = current_app.jinja_env.get_template(footer_template)
         footer_plain = self.render_block(footer_tmpl, "footer_plain")
         try:
             footer_html = self.render_block(footer_tmpl, "footer_html")
         except TemplateError:
             footer_html = footer_plain
-
         kwargs["body"] += footer_plain
         kwargs["html"] += footer_html
 
