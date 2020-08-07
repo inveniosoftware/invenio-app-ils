@@ -35,15 +35,9 @@ extras_require = {
     "postgresql": [
         "invenio-db[postgresql,versioning]{}".format(invenio_db_version),
     ],
-    "mysql": [
-        "invenio-db[mysql,versioning]{}".format(invenio_db_version),
-    ],
-    "sqlite": [
-        "invenio-db[versioning]{}".format(invenio_db_version),
-    ],
-    "vocabulary": [
-        "pycountry>=19.8.18",
-    ],
+    "mysql": ["invenio-db[mysql,versioning]{}".format(invenio_db_version),],
+    "sqlite": ["invenio-db[versioning]{}".format(invenio_db_version),],
+    "vocabulary": ["pycountry>=19.8.18",],
 }
 
 extras_require["all"] = []
@@ -67,7 +61,7 @@ install_requires = [
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[base,auth]>=3.3.0,<3.4",
     # --- translations -----------------------------------------------------
-    'invenio-i18n>=1.2.0,<1.3.0',
+    "invenio-i18n>=1.2.0,<1.3.0",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.1.0,<1.2.0",
@@ -116,9 +110,11 @@ setup(
             "demo = invenio_app_ils.cli:demo",
             "patrons = invenio_app_ils.cli:patrons",
             "setup = invenio_app_ils.cli:setup",
-            'stats = invenio_stats.cli:stats',
+            "stats = invenio_stats.cli:stats",
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
             "fixtures = invenio_app_ils.cli:fixtures",
+            "list_patron_activity = invenio_app_ils.cli:list_patron_activity",
+            "anonymize_patron = invenio_app_ils.cli:anonymize_patron",
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",
@@ -142,7 +138,7 @@ setup(
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config",
-            "00_invenio_app_ils_circulation = invenio_app_ils.circulation.config"
+            "00_invenio_app_ils_circulation = invenio_app_ils.circulation.config",
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [

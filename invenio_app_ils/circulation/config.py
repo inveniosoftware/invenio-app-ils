@@ -33,6 +33,7 @@ from invenio_app_ils.permissions import (PatronOwnerPermission,
                                          authenticated_user_permission,
                                          backoffice_permission,
                                          loan_extend_circulation_permission,
+                                         patron_owner_permission,
                                          superuser_permission)
 
 from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
@@ -158,7 +159,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="CANCELLED",
             trigger="cancel",
             transition=ToCancelled,
-            permission_factory=PatronOwnerPermission,
+            permission_factory=patron_owner_permission,
         ),
     ],
     "ITEM_ON_LOAN": [

@@ -11,6 +11,7 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
+from invenio_app_ils.patrons.api import get_patron_or_unknown
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
@@ -22,36 +23,38 @@ def jsonresolver_loader(url_map):
     """Resolve the referred document and patron for an Order Line."""
     from flask import current_app
 
-    def patron_resolver(order_line, patron):
+    def patron_resolver(order_line, patron_pid):
         """Resolve the Patron for the given Order Line."""
-        order_line["patron"] = patron.dumps_loader()
+        patron = get_patron_or_unknown(patron_pid)
+
+        order_line["patron"] = patron
         return patron
 
     def document_resolver(order_line, doc):
         """Resolve the Document for the given Order Line."""
-        order_line["document"] = pick(doc, 'cover_metadata', 'pid', 'title')
+        order_line["document"] = pick(doc, "cover_metadata", "pid", "title")
         return doc
 
     def order_lines_resolver(order_pid):
         Order = current_ils_acq.order_record_cls
         Document = current_app_ils.document_record_cls
-        Patron = current_app_ils.patron_cls
         order_lines = get_field_value(Order, order_pid, "order_lines")
 
         documents = {}
-        patrons = {}
         for order_line in order_lines:
-            doc_pid = order_line.get('document_pid')
+            doc_pid = order_line.get("document_pid")
             doc = documents.get(doc_pid) or Document.get_record_by_pid(doc_pid)
             documents[doc["pid"]] = doc
             document_resolver(order_line, doc)
 
-            patron_pid = order_line.get('patron_pid')
+            patron_pid = order_line.get("patron_pid")
             if not patron_pid:
                 continue
-            patron = patrons.get(patron_pid) or Patron.get_patron(patron_pid)
-            patrons[patron_pid] = patron
-            patron_resolver(order_line, patron)
+            patron = get_patron_or_unknown(patron_pid)
+            if not patron:
+                patron_resolver(order_line, None)
+                continue
+            patron_resolver(order_line, patron_pid)
         return order_lines
 
     url_map.add(

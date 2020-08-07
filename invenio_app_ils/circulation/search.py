@@ -118,11 +118,23 @@ def get_most_loaned_documents(from_date, to_date, bucket_size):
 def get_loans_aggregated_by_states(document_pid, states, patron_pid=None):
     """Returns loans aggregated by states for a given document."""
     search_cls = current_circulation.loan_search_cls
-    search = search_cls().filter("terms", state=states).filter("term", document_pid=document_pid)
+    search = (
+        search_cls()
+        .filter("terms", state=states)
+        .filter("term", document_pid=document_pid)
+    )
     if patron_pid:
         search = search.filter("term", patron_pid=patron_pid)
     # Aggregation
     aggs = A("terms", field="state")
     search.aggs.bucket("states", aggs)
 
+    return search
+
+
+def get_loans_by_patron_pid(patron_pid):
+    """Returns all the loans (past and current) for a given patron."""
+    search = current_circulation.loan_search_cls().filter(
+        "term", patron_pid=patron_pid
+    )
     return search
