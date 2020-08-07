@@ -10,6 +10,7 @@
 import json
 from copy import deepcopy
 
+import pytest
 from invenio_accounts.models import User
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
@@ -124,7 +125,7 @@ def test_anonymization(client, json_headers, users, testdata):
     """Test anonymization of a user."""
 
     # Anonymize patron
-    patron_pid = users["patron1"].id
+    patron_pid = users["patron3"].id
 
     check_user_exists(patron_pid)
     cancel_ongoing_loans(patron_pid, client, users)
@@ -151,8 +152,8 @@ def test_anonymization(client, json_headers, users, testdata):
     check_user_deleted(patron_pid)
 
     # Anonymize patron with ongoing loans
-    patron_pid = users["patron3"].id
+    patron_pid = users["patron1"].id
 
     check_user_exists(patron_pid)
-    anonymize_patron_data(patron_pid)
-    check_user_deleted(patron_pid)
+    with pytest.raises(AssertionError):
+        assert anonymize_patron_data(patron_pid)

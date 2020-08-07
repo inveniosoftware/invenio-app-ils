@@ -1,0 +1,26 @@
+{% block subject %}
+InvenioILS: Active loans of patron "{{ patron.name }}" with pid "{{ patron.pid }}".
+{% endblock %}
+
+{% block body_plain %}
+Dear librarians,
+
+these are the active loans of patron {{ patron.name }} <{{ patron.email }}> (pid: {{ patron.pid }}):
+{%- for loan in loans %}
+    - Pid: {{ loan.pid }}, {{ loan.item.title }}, {{ loan.start_date }}-{{ loan.end_date }}
+{% endfor %}
+{% endblock %}
+
+{% block body_html %}
+Dear librarians,
+
+these are the active loans of patron <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['patron'] }}{{ patron.pid }}">{{ patron.name }}</a> <{{ patron.email }}> (pid: {{ patron.pid }}):
+<ul>
+{% for loan in loans %}
+ <li>
+    <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['loan']}}{{ loan.pid }}">Pid: {{ loan.pid }}</a>,
+    {{ loan.item.title }}, {{ loan.start_date }}-{{ loan.end_date }}
+ </li>
+{% endfor %}
+</ul>
+{% endblock %}

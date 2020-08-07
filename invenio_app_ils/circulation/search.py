@@ -138,3 +138,11 @@ def get_loans_by_patron_pid(patron_pid):
         "term", patron_pid=patron_pid
     )
     return search
+
+
+def get_active_loans_by_patron_pid(patron_pid):
+    """Constructs the search object for all the ongoing loans of a given patron."""
+    search = get_loans_by_patron_pid(patron_pid).filter(
+        "terms", state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    )
+    return search

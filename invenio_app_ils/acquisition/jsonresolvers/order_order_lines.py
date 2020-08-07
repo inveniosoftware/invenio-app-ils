@@ -23,7 +23,7 @@ def jsonresolver_loader(url_map):
     """Resolve the referred document and patron for an Order Line."""
     from flask import current_app
 
-    def patron_resolver(order_line, patron_pid):
+    def order_line_patron_resolver(order_line, patron_pid):
         """Resolve the Patron for the given Order Line."""
         patron = get_patron_or_unknown(patron_pid)
 
@@ -52,9 +52,9 @@ def jsonresolver_loader(url_map):
                 continue
             patron = get_patron_or_unknown(patron_pid)
             if not patron:
-                patron_resolver(order_line, None)
+                order_line_patron_resolver(order_line, None)
                 continue
-            patron_resolver(order_line, patron_pid)
+            order_line_patron_resolver(order_line, patron_pid)
         return order_lines
 
     url_map.add(

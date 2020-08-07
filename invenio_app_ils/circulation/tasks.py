@@ -16,8 +16,13 @@ from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
-from invenio_app_ils.circulation.search import get_all_expired_loans
+from invenio_app_ils.circulation.mail.factory import \
+    loan_list_message_creator_factory
+from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
+                                                get_all_expired_loans)
+from invenio_app_ils.mail.tasks import send_ils_email
 from invenio_app_ils.patrons.api import SystemAgent
+from invenio_app_ils.proxies import current_app_ils
 
 celery_logger = get_task_logger(__name__)
 
@@ -48,3 +53,32 @@ def cancel_expired_loan_requests():
         loan.commit()
         db.session.commit()
         current_circulation.loan_indexer().index(loan)
+
+
+def send_active_loans_mail(patron_pid, message_ctx={}, **kwargs):
+    """Send an email to librarian with on going loans of given patron.
+
+    :param patron_pid: the pid of the patron.
+    :param action: the action performed, if any.
+    :param message_ctx: any other parameter to be passed as ctx in the msg.
+    """
+    creator = loan_list_message_creator_factory()
+
+    Patron = current_app_ils.patron_cls
+    patron = Patron.get_patron(patron_pid)
+
+    loans = [
+        loan.to_dict()
+        for loan in get_active_loans_by_patron_pid(patron_pid).scan()
+    ]
+
+    if len(loans) > 0:  # Email is only sent if there are active loans
+        recipient = current_app.config["MANAGEMENT_EMAIL"]
+        msg = creator(
+            patron,
+            loans,
+            message_ctx=message_ctx,
+            recipients=[recipient],
+            **kwargs,
+        )
+        send_ils_email(msg)

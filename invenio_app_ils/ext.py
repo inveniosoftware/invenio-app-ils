@@ -209,7 +209,7 @@ class InvenioAppIls(object):
         )
         app.register_blueprint(
             Blueprint(
-                "invenio_app_ils_circulation_ mail",
+                "invenio_app_ils_circulation_mail",
                 __name__,
                 template_folder="circulation/templates",
             )

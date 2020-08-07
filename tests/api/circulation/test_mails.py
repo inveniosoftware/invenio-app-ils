@@ -17,6 +17,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
+from invenio_app_ils.circulation.tasks import send_active_loans_mail
 from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login
 
@@ -141,3 +142,25 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
         assert len(outbox) == 0
         send_expiring_loans_mail_reminder.apply_async()
         assert len(outbox) == 3
+
+
+def test_active_loans_mail_task(app_with_mail, users, testdata):
+    """Tests that the email contains the user data and the loans."""
+    with app_with_mail.extensions["mail"].record_messages() as outbox:
+        assert len(outbox) == 0
+        send_active_loans_mail(patron_pid="2")
+        assert len(outbox) == 1
+        email = outbox[0]
+
+        assert email.recipients == ['internal@inveniosoftware.org']
+
+        def assert_contains(string):
+            assert string in email.body
+            assert string in email.html
+
+        assert_contains('patron2@test.com')
+        assert_contains('loanid-6')
+
+        send_active_loans_mail(patron_pid="3")
+
+        assert len(outbox) == 1
