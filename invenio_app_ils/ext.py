@@ -207,6 +207,13 @@ class InvenioAppIls(object):
                 template_folder="templates",
             )
         )
+        app.register_blueprint(
+            Blueprint(
+                "invenio_app_ils_circulation_ mail",
+                __name__,
+                template_folder="circulation/templates",
+            )
+        )
         # disable warnings being logged to Sentry
         logging.getLogger("py.warnings").propagate = False
 
