@@ -9,12 +9,15 @@
 
 from functools import wraps
 
-from flask import abort, current_app
+from flask import abort, current_app, has_request_context
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
-from invenio_access.permissions import (Permission, authenticated_user,
-                                        superuser_access)
+from invenio_access.permissions import (
+    Permission,
+    authenticated_user,
+    superuser_access,
+)
 from invenio_records_rest.utils import allow_all, deny_all
 
 from invenio_app_ils.errors import InvalidLoanExtendError
@@ -28,6 +31,7 @@ def need_permissions(action):
 
     :param action: The action needed.
     """
+
     def decorator_builder(f):
         @wraps(f)
         def decorate(*args, **kwargs):
@@ -122,20 +126,34 @@ class PatronOwnerPermission(Permission):
 
     def __init__(self, record):
         """Constructor."""
-        super(PatronOwnerPermission, self).__init__(
-            UserNeed(int(record["patron_pid"])), backoffice_access_action
-        )
+
+        # UserNeed(int(record["patron_pid"])), backoffice_access_action
+
+        super(PatronOwnerPermission, self).__init__()
 
 
 def views_permissions_factory(action):
     """Return ILS views permissions factory."""
+    if not has_request_context():
+        return allow_all()
     is_authenticated_user = ["circulation-loan-request", "patron-loans"]
-    is_backoffice_permission = ["circulation-loan-checkout", "circulation-loan-force-checkout",
-                                "circulation-overdue-loan-email", "relations-create", "relations-delete",
-                                "stats-most-loaned", "document-request-actions", "bucket-create",
-                                "ill-brwreq-patron-loan-create", "ill-brwreq-patron-loan-extension-accept",
-                                "ill-brwreq-patron-loan-extension-decline"]
-    is_patron_owner_permission = ["document-request-decline", "ill-brwreq-patron-loan-extension-request"]
+    is_backoffice_permission = [
+        "circulation-loan-checkout",
+        "circulation-loan-force-checkout",
+        "circulation-overdue-loan-email",
+        "relations-create",
+        "relations-delete",
+        "stats-most-loaned",
+        "document-request-actions",
+        "bucket-create",
+        "ill-brwreq-patron-loan-create",
+        "ill-brwreq-patron-loan-extension-accept",
+        "ill-brwreq-patron-loan-extension-decline",
+    ]
+    is_patron_owner_permission = [
+        "document-request-decline",
+        "ill-brwreq-patron-loan-extension-request",
+    ]
     if action in is_authenticated_user:
         return authenticated_user_permission()
     elif action in is_backoffice_permission:
