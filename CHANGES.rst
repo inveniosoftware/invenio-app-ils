@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 1.0.0a10 (released 2020-08-13)
+
+- add anonymisation of user accounts and actions
+- add sorting values
+- add notification emails about unresolved user requests
+- fix user roles fetching
+
 Version 1.0.0a9 (released 2020-07-28)
 
 - limit version for dependencies to minor
