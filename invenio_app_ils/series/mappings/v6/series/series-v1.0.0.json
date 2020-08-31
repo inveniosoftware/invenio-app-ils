@@ -80,25 +80,11 @@
           "dynamic": false,
           "enabled": false
         },
-        "extensions_keywords": {
+        "extensions_booleans": {
           "type": "object",
           "properties": {
             "key": { "type": "keyword" },
-            "value": { "type": "keyword" }
-          }
-        },
-        "extensions_texts": {
-          "type": "object",
-          "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "text" }
-          }
-        },
-        "extensions_longs": {
-          "type": "object",
-          "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "long" }
+            "value": { "type": "boolean" }
           }
         },
         "extensions_dates": {
@@ -108,11 +94,25 @@
             "value": { "type": "date" }
           }
         },
-        "extensions_booleans": {
+        "extensions_keywords": {
           "type": "object",
           "properties": {
             "key": { "type": "keyword" },
-            "value": { "type": "boolean" }
+            "value": { "type": "keyword" }
+          }
+        },
+        "extensions_longs": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "long" }
+          }
+        },
+        "extensions_texts": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "keyword" },
+            "value": { "type": "text" }
           }
         },
         "identifiers": {
@@ -139,6 +139,17 @@
             },
             "value": {
               "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "keywords": {
+          "properties": {
+            "source": {
+              "type": "text"
+            },
+            "value": {
+              "type": "text"
             }
           },
           "type": "object"
@@ -217,6 +228,9 @@
               "type": "object"
             }
           }
+        },
+        "tags": {
+          "type": "keyword"
         },
         "title": {
           "type": "text",
