@@ -206,6 +206,8 @@ JSONSCHEMAS_HOST = "127.0.0.1:5000"
 # CORS
 ###############################################################################
 REST_ENABLE_CORS = True
+REST_CSRF_ENABLED = True
+
 # change this only while developing
 CORS_SEND_WILDCARD = True
 CORS_SUPPORTS_CREDENTIALS = False
@@ -231,7 +233,7 @@ APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 
 #: Single Page Application host and routes, useful in templates/emails
-SPA_HOST = "http://localhost:3000"
+SPA_HOST = "https://localhost:3000"
 SPA_PATHS = dict(
     profile="/profile", loan="/backoffice/loans", patron="/backoffice/patrons",
 )
