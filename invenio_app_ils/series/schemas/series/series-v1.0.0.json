@@ -162,6 +162,21 @@
       "type": "array",
       "uniqueItems": true
     },
+    "keywords": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Keywords of the series",
+      "type": "array"
+    },
     "languages": {
       "items": {
         "type": "string"
@@ -180,14 +195,26 @@
       "title": "Note for the series",
       "type": "string"
     },
-    "publisher": {
-      "type": "string",
-      "title": "Publisher name"
+    "pid": {
+      "title": "Series PID",
+      "type": "string"
     },
     "publication_year": {
       "minLength": 1,
       "title": "Year of the publication of the series",
       "type": "string"
+    },
+    "publisher": {
+      "type": "string",
+      "title": "Publisher name"
+    },
+    "relations": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "relations_metadata": {
       "type": "object",
@@ -246,17 +273,14 @@
         }
       }
     },
-    "relations": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "pid": {
-      "title": "Series PID",
-      "type": "string"
+    "tags": {
+      "items": {
+        "title": "Tag name",
+        "type": "string"
+      },
+      "title": "List of tags of the series (Vocabulary)",
+      "type": "array",
+      "uniqueItems": true
     },
     "title": {
       "type": "string"

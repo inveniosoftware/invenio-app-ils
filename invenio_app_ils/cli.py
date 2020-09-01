@@ -738,6 +738,15 @@ class SeriesGenerator(Generator):
                 ],
                 "identifiers": [],
                 "created_by": {"type": "script", "value": "demo"},
+                "tags": [
+                    tag["key"]
+                    for tag in random.sample(
+                        self.holder.tags, randint(1, len(self.holder.tags) - 1)
+                    )
+                ],
+                "keywords": [
+                    {"source": lorem.sentence(), "value": lorem.sentence()}
+                ]
             }
             if moi == "SERIAL":
                 self.random_serial(obj)
