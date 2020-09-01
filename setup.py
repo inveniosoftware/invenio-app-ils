@@ -74,7 +74,7 @@ install_requires = [
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
     "invenio-circulation>=1.0.0a25,<1.1.0",
-    "invenio-stats>=1.0.0a17,<1.1.0",
+    "invenio-stats>=1.0.0a18,<1.1.0",
     "invenio-pages>=1.0.0a5,<1.1.0",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
