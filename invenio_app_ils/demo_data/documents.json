@@ -21,10 +21,6 @@
     },
     "restricted": false,
     "document_type": "BOOK",
-    "cover_metadata": {
-      "isbn": "9789811210143",
-      "urls": {}
-    },
     "identifiers": [
       {
         "scheme": "ISBN",
@@ -54,10 +50,6 @@
     },
     "restricted": false,
     "document_type": "BOOK",
-    "cover_metadata": {
-      "isbn": "",
-      "urls": {}
-    },
     "number_of_pages": "310",
     "publication_year": "2002"
   },
@@ -82,10 +74,6 @@
     },
     "restricted": false,
     "document_type": "BOOK",
-    "cover_metadata": {
-      "isbn": "9780486245119",
-      "urls": {}
-    },
     "identifiers": [
       {
         "scheme": "ISBN",
@@ -116,10 +104,6 @@
     },
     "restricted": false,
     "document_type": "BOOK",
-    "cover_metadata": {
-      "isbn": "9782226442703",
-      "urls": {}
-    },
     "identifiers": [
       {
         "scheme": "ISBN",
@@ -150,10 +134,6 @@
     },
     "restricted": false,
     "document_type": "BOOK",
-    "cover_metadata": {
-      "isbn": "9780521019521",
-      "urls": {}
-    },
     "identifiers": [
       {
         "scheme": "ISBN",
@@ -183,10 +163,6 @@
     },
     "restricted": false,
     "document_type": "PROCEEDING",
-    "cover_metadata": {
-      "isbn": "9783954501960",
-      "urls": {}
-    },
     "identifiers": [
       {
         "scheme": "ISBN",
