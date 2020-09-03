@@ -15,12 +15,13 @@ from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.circulation.loaders import (loan_checkout_loader,
-                                                 loan_request_loader)
+                                                 loan_request_loader,
+                                                 loan_update_dates_loader)
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 from invenio_app_ils.errors import OverdueLoansMailError
 from invenio_app_ils.permissions import need_permissions
 
-from .api import checkout_loan, request_loan
+from .api import checkout_loan, request_loan, update_dates_loan
 from .mail.tasks import send_loan_overdue_reminder_mail
 
 
@@ -80,6 +81,22 @@ def create_circulation_blueprint(app):
         view_func=loan_mail_overdue,
         methods=["POST"],
     )
+
+    loan_update = LoanUpdateDates.as_view(
+        LoanUpdateDates.view_name.format(CIRCULATION_LOAN_PID_TYPE),
+        serializers=serializers,
+        default_media_type=default_media_type,
+        ctx=dict(
+            links_factory=loan_links_factory, loader=loan_update_dates_loader
+        ),
+    )
+
+    blueprint.add_url_rule(
+        "{0}/update-dates".format(options["item_route"]),
+        view_func=loan_update,
+        methods=["POST"],
+    )
+
     return blueprint
 
 
@@ -141,6 +158,23 @@ class LoanMailResource(IlsCirculationResource):
         if is_overdue:
             raise OverdueLoansMailError(description="This loan is not overdue")
         send_loan_overdue_reminder_mail(record, days_ago)
+        return self.make_response(
+            pid, record, 202, links_factory=self.links_factory
+        )
+
+
+class LoanUpdateDates(IlsCirculationResource):
+    """Loan update date."""
+
+    view_name = "{0}_update_dates"
+
+    @need_permissions("circulation-loan-update-dates")
+    @pass_record
+    def post(self, pid, record, **kwargs):
+        """Loan update dates post method."""
+        data = self.loader()
+        update_dates_loan(record, **data)
+
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )

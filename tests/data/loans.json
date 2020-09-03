@@ -8,8 +8,8 @@
     "pid": "loanid-1",
     "start_date": "2018-06-28",
     "state": "PENDING",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28",
     "patron": {
@@ -28,8 +28,8 @@
     "pid": "loanid-2",
     "start_date": "2018-06-28",
     "state": "PENDING",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28",
     "patron": {
@@ -48,8 +48,8 @@
     "pid": "loanid-3",
     "start_date": "2018-06-28",
     "state": "PENDING",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28"
   },
@@ -65,8 +65,8 @@
     "pid": "loanid-4",
     "start_date": "2018-06-28",
     "state": "PENDING",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28"
   },
@@ -82,8 +82,8 @@
     "pid": "loanid-5",
     "start_date": "2018-06-28",
     "state": "ITEM_ON_LOAN",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28"
   },
@@ -99,8 +99,8 @@
     "pid": "loanid-6",
     "start_date": "2018-06-28",
     "state": "ITEM_ON_LOAN",
-    "transaction_date": "2018-06-29",
-    "transaction_location_pid": "1",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28"
   }

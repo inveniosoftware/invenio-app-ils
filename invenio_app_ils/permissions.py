@@ -143,30 +143,7 @@ def views_permissions_factory(action):
         "circulation-loan-checkout",
         "circulation-loan-force-checkout",
         "circulation-overdue-loan-email",
-        "relations-create",
-        "relations-delete",
-        "stats-most-loaned",
-        "document-request-actions",
-        "bucket-create",
-        "ill-brwreq-patron-loan-create",
-        "ill-brwreq-patron-loan-extension-accept",
-        "ill-brwreq-patron-loan-extension-decline",
-    ]
-    is_patron_owner_permission = [
-        "document-request-decline",
-        "ill-brwreq-patron-loan-extension-request",
-    ]
-    if action in is_authenticated_user:
-        return authenticated_user_permission()
-    elif action in is_backoffice_permission:
-        return backoffice_permission()
-    elif action in is_patron_owner_permission:
-        return PatronOwnerPermission
-    return deny_all()
-    is_backoffice_permission = [
-        "circulation-loan-checkout",
-        "circulation-loan-force-checkout",
-        "circulation-overdue-loan-email",
+        "circulation-loan-update-dates",
         "relations-create",
         "relations-delete",
         "stats-most-loaned",
