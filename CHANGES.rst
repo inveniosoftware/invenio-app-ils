@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a11 (released 2020-09-04)
+
+- bumped invenio-stats version to 1.0.0a18 
+- add keywords and tags to series
+- CSRF support
+
 Version 1.0.0a10 (released 2020-08-13)
 
 - add anonymisation of user accounts and actions
