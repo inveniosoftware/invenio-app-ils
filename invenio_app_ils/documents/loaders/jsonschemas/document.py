@@ -186,6 +186,34 @@ class PublicationInfoSchema(Schema):
     year = fields.Int()
 
 
+class OpenDefinitionLicenseSchema(Schema):
+    """Open definition license."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    id = fields.Str(required=True)
+    maintainer = fields.Str()
+    status = fields.Str()
+    title = fields.Str()
+    url = fields.Str()
+
+
+class LicenseSchema(Schema):
+    """License schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    internal_notes = fields.Str()
+    license = fields.Nested(OpenDefinitionLicenseSchema)
+    material = fields.Str()
+
+
 class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     """Document schema."""
 
@@ -212,7 +240,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     internal_notes = fields.List(fields.Nested(InternalNoteSchema))
     keywords = fields.List(fields.Nested(KeywordSchema))
     languages = fields.List(fields.Str())
-    licenses = fields.List(fields.Str())
+    licenses = fields.List(fields.Nested(LicenseSchema))
     note = fields.Str()
     number_of_pages = fields.Str()
     other_authors = fields.Bool()
