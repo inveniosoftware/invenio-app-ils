@@ -1459,6 +1459,8 @@ def pages():
 )
 @click.option("--skip-pages", is_flag=True, help="Skip creating static pages.")
 @click.option("--verbose", is_flag=True, help="Verbose output.")
+@click.option("--add-superuser", multiple=True, help="Give email")
+@click.option("--add-librarian", multiple=True, help="Give email")
 @with_appcontext
 def setup(
     recreate_db,
@@ -1468,6 +1470,8 @@ def setup(
     skip_vocabularies,
     skip_pages,
     verbose,
+    add_superuser,
+    add_librarian,
 ):
     """ILS setup command."""
     import redis
@@ -1569,6 +1573,16 @@ def setup(
     # Create static pages
     if not skip_pages:
         run_command("fixtures pages")
+
+    # Adds superusers role by passing the email as argument
+    if add_superuser:
+        for item in add_superuser:
+            run_command("roles add {} admin".format(item))
+
+    # Adds librarians role by passing the email as argument
+    if add_librarian:
+        for item in add_librarian:
+            run_command("roles add {} librarian".format(item))
 
     click.secho("ils setup finished successfully", fg="blue")
 
