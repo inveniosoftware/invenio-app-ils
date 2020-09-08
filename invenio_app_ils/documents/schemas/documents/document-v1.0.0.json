@@ -425,9 +425,38 @@
     },
     "licenses": {
       "items": {
-        "minLength": 1,
-        "title": "License name",
-        "type": "string"
+        "properties": {
+          "internal_notes": {
+            "title": "Any extra information for this license reserved for library usage",
+            "type": "string"
+          },
+          "license": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "maintainer": {
+                "type": "string"
+              },
+              "status": {
+                "enum": ["active", "superseded", "retired"]
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "title": "Open-definition license",
+            "type": "object"
+          },
+          "material": {
+            "title": "Material to which the license refers to",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "minItems": 1,
       "title": "List of licenses of the document (Vocabulary)",
