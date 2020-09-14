@@ -17,7 +17,6 @@ from datetime import timedelta
 
 from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
-from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
@@ -230,7 +229,6 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 
 #: Single Page Application host and routes, useful in templates/emails
 SPA_HOST = "https://localhost:3000"
