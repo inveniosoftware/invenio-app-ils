@@ -17,6 +17,14 @@ from invenio_app_ils.proxies import current_app_ils
 _ONE_DAY_INCREMENT = timedelta(days=1)  # Atomic increment
 
 
+def _is_in_interval(date, interval):
+    """Checks if a date is included in an interval."""
+    return \
+        arrow.get(interval["start_date"]).date() <= \
+        date <= \
+        arrow.get(interval["end_date"]).date()
+
+
 def _is_normally_open(location, date):
     """Checks if the location is normally opened on a given date wrt to the regular schedule."""
     opening = location["opening_weekdays"]
@@ -27,12 +35,9 @@ def _is_normally_open(location, date):
 def _is_exceptionally_open(location, date):
     """Checks if the location is exceptionally opened on a given date, or None if undefined."""
     for exception in location["opening_exceptions"]:
-        if date <= arrow.get(exception["end_date"]).date():
-            if arrow.get(exception["start_date"]).date() <= date:
-                return exception["is_open"]
-            else:
-                return None  # Early return
-    return None  # Exhaustion
+        if _is_in_interval(date, exception):
+            return exception["is_open"]
+    return None  # Date is not included in any interval
 
 
 def _is_open_on(location, date):
@@ -53,4 +58,6 @@ def find_next_open_date(location_pid, date):
         date += _ONE_DAY_INCREMENT
 
     # Termination is normally guaranteed if there is at least one weekday open
-    raise IlsException(description="Reached maximum iterations allowed to extend loan.")
+    raise IlsException(description=
+                       "Cannot find any date for which the location %s is open after the given date %s."
+                       "Please check opening/closures dates." % (location_pid, date.isoformat()))

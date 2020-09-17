@@ -8,7 +8,6 @@
 """Invenio App ILS circulation base loader JSON schema."""
 
 from flask import current_app
-from flask_babelex import lazy_gettext as _
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import ValidationError, fields, validates
 
@@ -20,8 +19,8 @@ def transaction_location_pid_validator(value):
     ]
     if not transaction_location_is_valid(value):
         raise ValidationError(
-            _("The loan `transaction_location_pid` is not valid."),
-            field_names=["transaction_location_pid"],
+            "The loan `transaction_location_pid` is not valid.",
+            "transaction_location_pid",
         )
 
 

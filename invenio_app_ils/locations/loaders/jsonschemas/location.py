@@ -13,7 +13,7 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import (DateString,
                                                  PersistentIdentifier)
 from marshmallow import (EXCLUDE, Schema, ValidationError, fields, post_load,
-                         pre_load, validates)
+                         validates, validates_schema)
 
 _WEEKDAY_NAMES = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 _WEEKDAY_INDICES = {weekday_name: i for i, weekday_name in enumerate(_WEEKDAY_NAMES)}
@@ -40,12 +40,13 @@ class OpeningHoursSchema(Schema):
     start_time = fields.Str(required=True, validate=validate_time)
     end_time = fields.Str(required=True, validate=validate_time)
 
-    @pre_load
+    @validates_schema
     def validate_times(self, data, **kwargs):
         """Validate time period."""
         if data["end_time"] < data["start_time"]:
-            raise ValidationError("End time cannot happen before start time.",
-                                  field_names=["start_time", "end_time"])
+            raise ValidationError(
+                {"start_time": ["Start time cannot happen after end time."],
+                 "end_time": ["End time cannot happen before start time."]})
         return data
 
 
@@ -65,7 +66,7 @@ class OpeningWeekdaySchema(Schema):
     def validate_weekday_name(self, value, **kwargs):
         """Validate weekday."""
         if value not in _WEEKDAY_NAMES:
-            raise ValidationError("Illegal weekday name.", field_names=["weekday"])
+            raise ValidationError("Illegal weekday name.", "weekday")
 
     @post_load
     def validate_times(self, data, **kwargs):
@@ -73,22 +74,20 @@ class OpeningWeekdaySchema(Schema):
         if data["is_open"]:
             if "times" not in data:
                 raise ValidationError("Time periods must be defined on an opened weekday.",
-                                      field_names=["times"])
+                                      "times")
             if len(data["times"]) != 2:
-                raise ValidationError("There must be exactly two time periods.",
-                                      field_names=["times"])
+                raise ValidationError("There must be exactly two time periods.", "times")
             times = data["times"]
             times.sort(key=lambda period: period["start_time"])
             previous = None
             for current in times:
                 if previous and previous["end_time"] >= current["start_time"]:
-                    raise ValidationError("Time periods must not overlap.",
-                                          field_names=["times"])
+                    raise ValidationError("Time periods must not overlap.", "times")
                 previous = current
         else:
             if "times" in data:
                 raise ValidationError("Time periods cannot be defined on a closed weekday.",
-                                      field_names=["times"])
+                                      "times")
         return data
 
 
@@ -105,12 +104,13 @@ class OpeningExceptionSchema(Schema):
     start_date = DateString(required=True)
     end_date = DateString(required=True)
 
-    @pre_load
+    @validates_schema
     def validate_dates(self, data, **kwargs):
         """Validate dates."""
         if data["end_date"] < data["start_date"]:
-            raise ValidationError("End date cannot happen before start date.",
-                                  field_names=["start_date", "end_date"])
+            raise ValidationError(
+                {"start_date": ["Start date cannot happen after end date."],
+                 "end_date": ["End date cannot happen before start date."]})
         return data
 
 
@@ -140,14 +140,14 @@ class LocationSchemaV1(RecordMetadataSchemaJSONV1):
             if new_weekdays[index]:
                 raise ValidationError(
                     "There are two distinct configurations for the same weekday.",
-                    field_names=["opening_weekdays"])
+                    "opening_weekdays")
             new_weekdays[index] = weekday
         if len(weekdays) != len(new_weekdays):
-            raise ValidationError("A weekday configuration is missing.",
-                                  field_names=["opening_weekdays"])
+            raise ValidationError(
+                "A weekday configuration is missing.", "opening_weekdays")
         if not exists_open:
             raise ValidationError("At least one weekday must be declared as open.",
-                                  field_names=["opening_weekdays"])
+                                  "opening_weekdays")
 
         exceptions = data["opening_exceptions"]
         exceptions.sort(key=lambda ex: ex["start_date"])
@@ -155,8 +155,8 @@ class LocationSchemaV1(RecordMetadataSchemaJSONV1):
         for exception in exceptions:
             if previous:
                 if previous["end_date"] >= exception["start_date"]:
-                    raise ValidationError("Exceptions must not overlap.",
-                                          field_names=["opening_exceptions"])
+                    raise ValidationError(
+                        "Exceptions must not overlap.", "opening_exceptions")
             previous = exception
 
         return data

@@ -13,8 +13,10 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
+import datetime
 from datetime import timedelta
 
+from celery.schedules import crontab
 from invenio_accounts.config import \
     ACCOUNTS_REST_AUTH_VIEWS as _ACCOUNTS_REST_AUTH_VIEWS
 from invenio_records_rest.facets import terms_filter
@@ -189,9 +191,15 @@ CELERY_BEAT_SCHEDULE = {
     },
     "clean_locations_past_closures_exceptions": {
         "task": "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions",
-        "schedule": timedelta(weeks=4),
+        "schedule": crontab(0, 0, day_of_month=31, month_of_year=1),  # January 31st of every year
     },
 }
+
+#: When the closures of a location are updated, start a task to update the active loans.
+EXTEND_LOANS_LOCATION_UPDATED = True
+
+#: Time at which the task should be run.
+EXTEND_LOANS_SCHEDULE_TIME = datetime.time(2)
 
 ###############################################################################
 # Database

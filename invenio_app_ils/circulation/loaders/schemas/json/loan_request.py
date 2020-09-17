@@ -11,7 +11,6 @@ from datetime import timedelta
 
 import arrow
 from flask import current_app
-from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import DateString
 from marshmallow import (Schema, ValidationError, fields, post_load, validates,
                          validates_schema)
@@ -52,7 +51,7 @@ class LoanRequestDeliverySchemaV1(Schema):
             current_app.config["ILS_CIRCULATION_DELIVERY_METHODS"].keys()
         )
         if value not in delivery_methods:
-            raise ValidationError(_("Invalid loan request delivery method."))
+            raise ValidationError("Invalid loan request delivery method.")
 
 
 class LoanRequestSchemaV1(LoanBaseSchemaV1):
@@ -71,9 +70,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
             current_app.config.get("ILS_CIRCULATION_DELIVERY_METHODS", {})
             and not delivery
         ):
-            raise ValidationError(
-                _("Delivery is required."), field_names=["delivery"]
-            )
+            raise ValidationError("Delivery is required.", "delivery")
 
     @post_load()
     def postload_checks(self, data, **kwargs):
@@ -87,15 +84,12 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
 
         if end < start:
             raise ValidationError(
-                _("The request end date cannot be before the start date."),
-                field_names=["request_start_date", "request_expire_date"],
-            )
+                {"request_start_date": "The request start date cannot be after the end date.",
+                 "request_end_date": "The request end date cannot be before the start date."})
         elif end - start > duration:
+            message = "The request duration " + \
+                      "cannot be longer than {} days.".format(duration_days)
             raise ValidationError(
-                _(
-                    "The request duration cannot be longer "
-                    "than {} days.".format(duration_days)
-                ),
-                field_names=["request_start_date", "request_expire_date"],
-            )
+                {"request_start_date": [message],
+                 "request_expire_date": [message]})
         return data

@@ -26,6 +26,7 @@ from .files.receivers import register_files_signals
 from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE
 from .items.api import ITEM_PID_TYPE
 from .locations.api import LOCATION_PID_TYPE
+from .locations.receivers import register_location_signals
 from .patrons.api import PATRON_PID_TYPE
 from .series.api import SERIES_PID_TYPE
 
@@ -256,13 +257,15 @@ class InvenioAppIlsREST(InvenioAppIls):
     def init_app(self, app):
         """Flask application initialization."""
         super(InvenioAppIlsREST, self).init_app(app)
-        self._register_signals()
+        self._register_signals(app)
         app.errorhandler(RESTException)(handle_rest_exceptions)
 
-    def _register_signals(self):
+    def _register_signals(self, app):
         """Register signals."""
         register_circulation_signals()
         register_files_signals()
+        if app.config["EXTEND_LOANS_LOCATION_UPDATED"]:
+            register_location_signals()
 
 
 def before_record_index_hook(

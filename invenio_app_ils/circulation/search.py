@@ -146,3 +146,13 @@ def get_active_loans_by_patron_pid(patron_pid):
         "terms", state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
     )
     return search
+
+
+def get_active_loans():
+    """Returns all ongoing loans."""
+    states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    search_cls = current_circulation.loan_search_cls
+    return (
+        search_cls()
+        .filter("terms", state=states)
+    )

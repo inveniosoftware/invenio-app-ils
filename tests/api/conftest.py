@@ -49,6 +49,7 @@ def app_config(app_config):
         "RATELIMIT_GUEST_USER": "1000 per minute",
         "RATELIMIT_AUTHENTICATED_USER": "1000 per minute",
         "CIRCULATION_TRANSACTION_USER_VALIDATOR": lambda x: True,
+        "EXTEND_LOANS_LOCATION_UPDATED": False,
     }
     app_config.update(tests_config)
     return app_config
@@ -75,7 +76,6 @@ def _create_records(db, objs, cls, pid_type):
     for obj in objs:
         record = cls.create(obj)
         mint_record_pid(pid_type, "pid", record)
-        record.commit()
         recs.append(record)
     db.session.commit()
     return recs

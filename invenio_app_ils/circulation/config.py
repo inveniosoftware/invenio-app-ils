@@ -9,13 +9,10 @@
 
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import (_LOANID_CONVERTER,
-                                               CIRCULATION_LOAN_FETCHER,
-                                               CIRCULATION_LOAN_MINTER,
                                                CIRCULATION_LOAN_PID_TYPE)
 from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import (
-    CreatedToPending, ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned,
-    ToCancelled, ToItemOnLoan)
+    CreatedToPending, ItemOnLoanToItemReturned, ToCancelled)
 from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.documents.api import document_exists
@@ -40,6 +37,7 @@ from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
 from .indexer import LoanIndexer
 from .jsonresolvers.loan import (document_resolver, item_resolver,
                                  loan_patron_resolver)
+from .transitions.transitions import ILSItemOnLoanToItemOnLoan, ILSToItemOnLoan
 from .utils import (circulation_build_document_ref, circulation_build_item_ref,
                     circulation_build_patron_ref, circulation_can_be_requested,
                     circulation_default_extension_max_count,
@@ -146,7 +144,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
-            transition=ToItemOnLoan,
+            transition=ILSToItemOnLoan,
             permission_factory=backoffice_permission,
         ),
     ],
@@ -154,7 +152,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
-            transition=ToItemOnLoan,
+            transition=ILSToItemOnLoan,
             permission_factory=backoffice_permission,
         ),
         dict(
@@ -174,7 +172,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         ),
         dict(
             dest="ITEM_ON_LOAN",
-            transition=ItemOnLoanToItemOnLoan,
+            transition=ILSItemOnLoanToItemOnLoan,
             trigger="extend",
             permission_factory=loan_extend_circulation_permission,
         ),

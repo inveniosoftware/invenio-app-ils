@@ -9,7 +9,6 @@
 
 import arrow
 from flask import current_app
-from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import (
     DateString, LoanItemPIDSchemaV1)
 from marshmallow import ValidationError, fields, post_load, validates
@@ -42,8 +41,8 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
         """Validate dates values."""
         if "end_date" in data and "start_date" not in data:
             raise ValidationError(
-                _("Start date is required when end date provided."),
-                field_names=["start_date", "end_date"],
+                "Start date is required when end date provided.",
+                "start_date",
             )
 
         if "start_date" in data and "end_date" in data:
@@ -51,8 +50,7 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
             end = arrow.get(data["end_date"]).date()
             if end < start:
                 raise ValidationError(
-                    _("The loan end date cannot be before the start date."),
-                    field_names=["start_date", "end_date"],
-                )
+                    {"start_date": ["The loan start date cannot be after the end date."],
+                     "end_date": ["The loan end date cannot be before the start date."]})
 
         return data

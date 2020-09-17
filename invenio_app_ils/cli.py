@@ -123,7 +123,6 @@ class Generator(object):
     def _persist(self, pid_type, pid_field, record):
         """Mint PID and store in the db."""
         minter(pid_type, pid_field, record)
-        record.commit()
         return record
 
 

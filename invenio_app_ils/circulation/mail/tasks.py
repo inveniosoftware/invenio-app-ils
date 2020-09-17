@@ -83,3 +83,11 @@ def send_expiring_loans_mail_reminder():
     for hit in expiring_loans.hits:
         loan = hit.to_dict()
         send_expiring_loan_reminder_mail(loan, days)
+
+
+def send_loan_end_date_updated_mail(loan):
+    """Sends an email to the patron whose loan was updated."""
+    send_loan_mail(
+        action="extend",
+        loan=loan,
+    )

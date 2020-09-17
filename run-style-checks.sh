@@ -6,6 +6,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+pytest --quiet --no-cov -m pep8 tests/api/*/ && \
 pydocstyle invenio_app_ils tests docs && \
 isort invenio_app_ils tests --check-only --diff && \
 check-manifest --ignore ".travis-*,docs/_build*" && \
