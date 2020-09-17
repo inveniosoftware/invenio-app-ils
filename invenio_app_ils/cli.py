@@ -11,7 +11,7 @@ import json
 import os
 import random
 import re
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from random import randint
 
 import arrow
@@ -132,11 +132,37 @@ class LocationGenerator(Generator):
 
     def generate(self):
         """Generate."""
+        weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        closed = ["saturday", "sunday"]
+        times = [{"start_time": "08:00", "end_time": "12:00"},
+                 {"start_time": "13:00", "end_time": "18:00"}]
+        opening_weekdays = []
+        for weekday in weekdays:
+            is_open = weekday not in closed
+            opening_weekdays.append({
+                "weekday": weekday,
+                "is_open": weekday not in closed,
+                **({"times": times} if is_open else {})
+            })
+        last_date = date.today()
+        opening_exceptions = []
+        for i in range(randint(0, 3)):
+            start_date = last_date + timedelta(days=randint(1, 15))
+            end_date = start_date + timedelta(days=randint(1, 4))
+            last_date = end_date
+            opening_exceptions.append({
+                "title": lorem.sentence(),
+                "is_open": random.random() >= 0.7,
+                "start_date": start_date.isoformat(),
+                "end_date": end_date.isoformat()
+            })
         self.holder.location = {
             "pid": self.create_pid(),
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
+            "opening_weekdays": opening_weekdays,
+            "opening_exceptions": opening_exceptions
         }
 
     def persist(self):
