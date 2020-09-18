@@ -12,7 +12,8 @@ from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
 from six import string_types
 
-librarian_role = RoleNeed("librarian")
+from invenio_app_ils.permissions import backoffice_access_action
+
 create_records_action = ActionNeed("create-records")
 
 
@@ -56,9 +57,9 @@ class RecordPermission(Permission):
         if self.current_action == "read":
             return self.read_permissions()
         elif self.current_action == "create":
-            return [create_records_action, librarian_role]
+            return [create_records_action, backoffice_access_action]
         elif self.current_action == "update":
-            return self.record_needs() + [librarian_role]
+            return self.record_needs() + [backoffice_access_action]
         else:
             return self.record_needs()
 
@@ -67,7 +68,7 @@ class RecordPermission(Permission):
         if self.is_public():
             return [any_user]
         else:
-            return self.record_needs() + [librarian_role]
+            return self.record_needs() + [backoffice_access_action]
 
     def record_explicit_restrictions(self):
         """Return the list of user ids/roles allowed for the given action."""
