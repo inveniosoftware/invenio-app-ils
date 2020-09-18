@@ -10,8 +10,10 @@
 import json
 
 from flask import url_for
+from invenio_db import db
 
-from tests.helpers import user_login
+from invenio_app_ils.signals import record_viewed
+from tests.helpers import user_login, user_logout
 
 
 def _most_loaned_request(client, json_headers, from_date=None, to_date=None):
@@ -95,3 +97,64 @@ def test_stats_most_loaned_documents(
     _assert_most_loaned(
         client, json_headers, "2019-05-21", "2019-12-31", expect={}
     )
+
+
+def test_stats_downloads_views_permissions(
+    client, json_headers, users, testdata, mocker
+):
+    """Test permissions on downloads/views stats."""
+
+    # mock record_viewed signal because travis timed out and the signal does
+    # not need to be tested here
+    mocker.patch(
+        "invenio_app_ils.signals.record_viewed.send",
+    )
+
+    url_open_access = url_for(
+        "ils_document_stats.docid_stats", pid_value="docid-open-access"
+    )
+    url_closed_access = url_for(
+        "ils_document_stats.docid_stats", pid_value="docid-closed-access"
+    )
+    params = {}
+    params["event"] = "record-view"
+
+    # permission for librarian
+    user_login(client, "librarian", users)
+    res = client.post(
+        url_open_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 202
+
+    res = client.post(
+        url_closed_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 202
+
+    user_logout(client)
+
+    # permission for patron
+    user_login(client, "patron1", users)
+
+    res = client.post(
+        url_open_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 202
+
+    res = client.post(
+        url_closed_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 403
+
+    user_logout(client)
+
+    # permission for unauthenticated user
+    res = client.post(
+        url_open_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 202
+
+    res = client.post(
+        url_closed_access, headers=json_headers, data=json.dumps(params)
+    )
+    assert res.status_code == 401

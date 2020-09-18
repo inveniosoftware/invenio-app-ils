@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,6 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
+from invenio_app_ils.eitems.api import EItem
 from invenio_app_ils.proxies import current_app_ils
 
 # Note: there must be only one resolver per file,
@@ -27,18 +28,18 @@ def jsonresolver_loader(url_map):
         eitem_search = current_app_ils.eitem_search_cls()
         for hit in eitem_search.search_by_document_pid(document_pid).scan():
             eitem = hit.to_dict()
-            eitems.append({
-                "pid": eitem.get("pid"),
-                "description": eitem.get("description"),
-                "internal_notes": eitem.get("internal_notes"),
-                "open_access": eitem.get("open_access"),
-                "bucket_id": eitem.get("bucket_id", None),
-                "files": eitem.get("files", []),
-            })
-        return {
-            "total": len(eitems),
-            "hits": eitems
-        }
+            eitems.append(
+                {
+                    "pid": eitem.get("pid"),
+                    "description": eitem.get("description"),
+                    "internal_notes": eitem.get("internal_notes"),
+                    "open_access": eitem.get("open_access"),
+                    "bucket_id": eitem.get("bucket_id", None),
+                    "files": eitem.get("files", []),
+                }
+            )
+
+        return {"total": len(eitems), "hits": eitems}
 
     url_map.add(
         Rule(
