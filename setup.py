@@ -56,8 +56,6 @@ for name, reqs in extras_require.items():
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
-    # pin celery due to version update (incompatible)
-    "celery>=4.2.1,!=4.3,<5",
     "isort>=5",
     "arrow>=0.15.0",
     "Flask-Debugtoolbar>=0.10.1",
