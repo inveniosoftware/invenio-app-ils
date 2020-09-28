@@ -499,21 +499,6 @@
             "minLength": 1,
             "type": "string"
           },
-          "journal_record": {
-            "additionalProperties": false,
-            "description": "#TODO",
-            "properties": {
-              "$ref": {
-                "description": "URL to the referenced resource",
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              }
-            },
-            "required": ["$ref"],
-            "title": "Reference to another record",
-            "type": "object"
-          },
           "journal_title": {
             "minLength": 1,
             "type": "string"
