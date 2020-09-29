@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 1.0.0a12 (released 2020-09-30)
+
+- protect stats endpoint when document is restricted
+- change schema publication field
+- fix send loan reminder on demand
+- integrate location closures module
+
 Version 1.0.0a12 (released 2020-09-16)
 
 - bumped invenio-circulation to 1.0.0a27
