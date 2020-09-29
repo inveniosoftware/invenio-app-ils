@@ -11,7 +11,7 @@ import random
 from datetime import timedelta
 
 import arrow
-from flask import current_app
+from flask import current_app, url_for
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
@@ -19,7 +19,7 @@ from invenio_search import current_search
 
 from invenio_app_ils.circulation.tasks import send_active_loans_mail
 from invenio_app_ils.patrons.api import Patron
-from tests.helpers import user_login
+from tests.helpers import user_login, user_logout
 
 from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
     send_expiring_loans_mail_reminder,
@@ -43,7 +43,9 @@ def test_email_on_loan_checkout(
         assert len(outbox) == 1
 
 
-def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
+def test_email_on_overdue_loans(
+    app_with_mail, db, users, testdata, mocker, client, json_headers
+):
     """Test that an email is sent for a loan that is overdue."""
     mocker.patch(
         "invenio_app_ils.patrons.api.Patron.get_patron",
@@ -73,8 +75,12 @@ def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
         date = now - timedelta(days=days * 2)
         new_end_date(loans[1], date)
 
+        # not overdue
+        date = now - timedelta(days=-1)
+        new_end_date(loans[2], date)
+
         # not overdue or overdue but not to be notified
-        remaining_not_overdue = loans[2:]
+        remaining_not_overdue = loans[3:]
         for loan in remaining_not_overdue:
             days = random.choice([-1, 0, 1])
             date = now - timedelta(days=days)
@@ -87,8 +93,32 @@ def test_email_on_overdue_loans(app_with_mail, db, users, testdata, mocker):
 
         current_search.flush_and_refresh(index="*")
 
-    prepare_data()
+    user_login(client, "librarian", users)
 
+    # test individual overdue loan
+    prepare_data()
+    loans = testdata["loans"]
+
+    email_url = url_for(
+        "invenio_app_ils_circulation.loanid_email",
+        pid_value=loans[0]["pid"],
+    )
+
+    res = client.post(email_url, headers=json_headers)
+    assert res.status_code == 202
+
+    # test individual not overdue loan
+    email_url = url_for(
+        "invenio_app_ils_circulation.loanid_email",
+        pid_value=loans[2]["pid"],
+    )
+
+    res = client.post(email_url, headers=json_headers)
+    assert res.status_code == 400
+
+    user_logout(client)
+
+    # test all loans
     with app_with_mail.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
         send_overdue_loans_mail_reminder.apply_async()
@@ -152,14 +182,14 @@ def test_active_loans_mail_task(app_with_mail, users, testdata):
         assert len(outbox) == 1
         email = outbox[0]
 
-        assert email.recipients == ['internal@inveniosoftware.org']
+        assert email.recipients == ["internal@inveniosoftware.org"]
 
         def assert_contains(string):
             assert string in email.body
             assert string in email.html
 
-        assert_contains('patron2@test.com')
-        assert_contains('loanid-6')
+        assert_contains("patron2@test.com")
+        assert_contains("loanid-6")
 
         send_active_loans_mail(patron_pid="3")
 
