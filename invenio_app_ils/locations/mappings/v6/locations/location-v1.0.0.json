@@ -28,6 +28,45 @@
         "notes": {
           "type": "text"
         },
+        "opening_weekdays": {
+          "properties": {
+            "weekday": {
+              "type": "keyword"
+            },
+            "is_open": {
+              "type": "boolean"
+            },
+            "times": {
+              "properties": {
+                "start_time": {
+                  "type": "text"
+                },
+                "end_time": {
+                  "type": "text"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "opening_exceptions": {
+          "properties": {
+            "title": {
+              "type": "keyword"
+            },
+            "is_open": {
+              "type": "boolean"
+            },
+            "start_date": {
+              "type": "date"
+            },
+            "end_date": {
+              "type": "date"
+            }
+          },
+          "type": "object"
+        },
         "_created": {
           "type": "date"
         },

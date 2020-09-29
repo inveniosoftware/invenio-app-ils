@@ -1,14 +1,20 @@
 [
   {
     "pid": "locid-1",
-    "name": "Main Library"
+    "name": "Main Library",
+    "opening_weekdays": [{"weekday": "monday", "is_open": true}, {"weekday": "tuesday", "is_open": true}, {"weekday": "wednesday", "is_open": true}, {"weekday": "thursday", "is_open": true}, {"weekday": "friday", "is_open": true}, {"weekday": "saturday", "is_open": true}, {"weekday": "sunday", "is_open": true}],
+    "opening_exceptions": []
   },
   {
     "pid": "locid-2",
-    "name": "Library of Alexandria"
+    "name": "Library of Alexandria",
+    "opening_weekdays": [{"weekday": "monday", "is_open": true}, {"weekday": "tuesday", "is_open": true}, {"weekday": "wednesday", "is_open": true}, {"weekday": "thursday", "is_open": true}, {"weekday": "friday", "is_open": true}, {"weekday": "saturday", "is_open": true}, {"weekday": "sunday", "is_open": true}],
+    "opening_exceptions": []
   },
   {
     "pid": "locid-3",
-    "name": "Library of Alexandria"
+    "name": "Library of Alexandria",
+    "opening_weekdays": [{"weekday": "monday", "is_open": true}, {"weekday": "tuesday", "is_open": true}, {"weekday": "wednesday", "is_open": true}, {"weekday": "thursday", "is_open": true}, {"weekday": "friday", "is_open": true}, {"weekday": "saturday", "is_open": true}, {"weekday": "sunday", "is_open": true}],
+    "opening_exceptions": []
   }
 ]

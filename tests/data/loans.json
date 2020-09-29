@@ -4,7 +4,7 @@
     "end_date": "2018-07-28",
     "item_pid": {},
     "patron_pid": "1",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-1",
     "start_date": "2018-06-28",
     "state": "PENDING",
@@ -24,7 +24,7 @@
       "value": "itemid-2"
     },
     "patron_pid": "1",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-2",
     "start_date": "2018-06-28",
     "state": "PENDING",
@@ -44,7 +44,7 @@
       "value": "itemid-5"
     },
     "patron_pid": "2",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-3",
     "start_date": "2018-06-28",
     "state": "PENDING",
@@ -61,7 +61,7 @@
       "value": "itemid-7"
     },
     "patron_pid": "2",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-4",
     "start_date": "2018-06-28",
     "state": "PENDING",
@@ -78,7 +78,7 @@
       "value": "itemid-56"
     },
     "patron_pid": "1",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-5",
     "start_date": "2018-06-28",
     "state": "ITEM_ON_LOAN",
@@ -95,7 +95,7 @@
       "value": "itemid-57"
     },
     "patron_pid": "2",
-    "pickup_location_pid": "1",
+    "pickup_location_pid": "locid-1",
     "pid": "loanid-6",
     "start_date": "2018-06-28",
     "state": "ITEM_ON_LOAN",

@@ -8,7 +8,6 @@
 """Schema for Borrowing Request accept extension action."""
 
 import arrow
-from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import EXCLUDE, ValidationError, fields, pre_load, validates
@@ -96,8 +95,8 @@ class AcceptExtensionSchemaV1(InvenioBaseSchema):
         """Validate loan_end_date field."""
         if arrow.get(value).date() < arrow.now().date():
             raise ValidationError(
-                _("The loan end date cannot be in the past."),
-                field_names=["loan_end_date"],
+                "The loan end date cannot be in the past.",
+                "loan_end_date",
             )
 
     @validates("transaction_location_pid")

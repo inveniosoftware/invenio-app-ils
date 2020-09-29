@@ -8,7 +8,6 @@
 """Schema for Borrowing Request create loan action for marshmallow loader."""
 
 import arrow
-from flask_babelex import lazy_gettext as _
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import (EXCLUDE, ValidationError, fields, post_load, pre_load,
@@ -54,8 +53,8 @@ class CreateLoanSchemaV1(InvenioBaseSchema):
         """Validate loan_start_date field."""
         if arrow.get(value).date() < arrow.now().date():
             raise ValidationError(
-                _("The loan start date cannot be in the past."),
-                field_names=["loan_start_date"],
+                "The loan start date cannot be in the past.",
+                "loan_start_date",
             )
 
     @validates("loan_end_date")
@@ -63,8 +62,8 @@ class CreateLoanSchemaV1(InvenioBaseSchema):
         """Validate loan_end_date field."""
         if arrow.get(value).date() < arrow.now().date():
             raise ValidationError(
-                _("The loan end date cannot be in the past."),
-                field_names=["loan_end_date"],
+                "The loan end date cannot be in the past.",
+                "loan_end_date",
             )
 
     @validates("transaction_location_pid")
@@ -79,8 +78,7 @@ class CreateLoanSchemaV1(InvenioBaseSchema):
         end = arrow.get(data["loan_end_date"]).date()
         if end < start:
             raise ValidationError(
-                _("The loan end date cannot be before the start date."),
-                field_names=["loan_start_date", "loan_end_date"],
-            )
+                {"loan_start_date": ["The loan start date cannot be after the end date."],
+                 "loan_end_date": ["The loan end date cannot be before the start date."]})
 
         return data
