@@ -11,4 +11,4 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-pytest -svvv tests/api/$1
+python -m pytest tests/api/$1

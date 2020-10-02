@@ -12,6 +12,9 @@ python: "3.6"
 cache:
   - pip
 
+addons:
+  postgresql: "12.4"
+
 services:
   - redis
   - rabbitmq
@@ -40,6 +43,7 @@ _common: &common
     - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
     - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
   install:
+    - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
     - "travis_retry pip install -e .[$EXTRAS]"
   before_script: "./run-style-checks.sh"
   script: skip # to be overridden when declaring the job

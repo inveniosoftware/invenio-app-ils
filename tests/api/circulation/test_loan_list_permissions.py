@@ -46,9 +46,9 @@ def test_patrons_can_search_their_own_loans(
     def _validate_only_patron_loans(res, user, state):
         """Assert that result loans belong to the given user only."""
         patron_loans = [
-            l
-            for l in testdata["loans"]
-            if l["patron_pid"] == str(user.id) and l["state"] == state
+            loan
+            for loan in testdata["loans"]
+            if loan["patron_pid"] == str(user.id) and loan["state"] == state
         ]
 
         assert res.status_code == 200

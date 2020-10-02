@@ -7,7 +7,7 @@
 Changes
 =======
 
-Version 1.0.0a12 (released 2020-09-30)
+Version 1.0.0a13 (released 2020-09-29)
 
 - protect stats endpoint when document is restricted
 - change schema publication field

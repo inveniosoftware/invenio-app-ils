@@ -123,7 +123,7 @@ def date_range_filter(field, comparator):
     def inner(values):
         try:
             input_date = str(arrow.get(values[0]).date())
-        except arrow.parser.ParserError as e:
+        except arrow.parser.ParserError:
             raise ValueError("Input should be a date")
         return Range(**{field: {comparator: input_date}})
     return inner

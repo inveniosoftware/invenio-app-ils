@@ -75,7 +75,7 @@ def test_date_range_filter(app):
                 field={"gte": input_date}
             )
             assert to_filter([input_date]) == Range(field={"lte": input_date})
-        except:
-            with pytest.raises(ValueError) as err:
+        except (ValueError, AssertionError):
+            with pytest.raises(ValueError):
                 from_filter([input_date])
                 to_filter([input_date])
