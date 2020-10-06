@@ -67,6 +67,20 @@
           },
           "type": "object"
         },
+        "identifiers": {
+          "properties": {
+            "material": {
+              "type": "keyword"
+            },
+            "scheme": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
         "internal_notes": {
           "type": "text"
         },
@@ -75,6 +89,20 @@
         },
         "pid": {
           "type": "keyword"
+        },
+        "urls": {
+          "properties": {
+            "description": {
+              "type": "text"
+            },
+            "value": {
+              "type": "keyword"
+            },
+            "login_required": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
         }
       }
     }

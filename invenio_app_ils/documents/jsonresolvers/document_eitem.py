@@ -32,10 +32,12 @@ def jsonresolver_loader(url_map):
                 {
                     "pid": eitem.get("pid"),
                     "description": eitem.get("description"),
+                    "identifiers": eitem.get("identifiers", []),
                     "internal_notes": eitem.get("internal_notes"),
                     "open_access": eitem.get("open_access"),
                     "bucket_id": eitem.get("bucket_id", None),
                     "files": eitem.get("files", []),
+                    "urls": eitem.get("urls", []),
                 }
             )
 
