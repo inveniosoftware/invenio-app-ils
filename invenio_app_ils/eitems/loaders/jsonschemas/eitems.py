@@ -24,6 +24,7 @@ class URLSchema(Schema):
 
     value = fields.URL(required=True)
     description = fields.Str()
+    login_required = fields.Bool(missing=True)
 
 
 class FileSchema(Schema):
