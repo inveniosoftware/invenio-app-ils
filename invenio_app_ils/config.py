@@ -94,6 +94,10 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 ###############################################################################
 #: Storage for rate limiter.
 RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
+#: Rate limit for logged in users.
+RATELIMIT_AUTHENTICATED_USER = '5000 per hour;150 per minute'
+#: Rate limit for non logged in users.
+RATELIMIT_GUEST_USER = '1000 per hour;100 per minute'
 
 ###############################################################################
 # I18N
