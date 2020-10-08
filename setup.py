@@ -56,9 +56,6 @@ for name, reqs in extras_require.items():
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
-    # remove it when `invenio-queues>1.0.0a2` is released,
-    # or when using pip 20.3 which includes the new resolver
-    "celery>=4.4.0,<5",
     # --- Invenio ----------------------------------------------------------
     "invenio[base,auth]>=3.3.0,<3.4",
     # --- `metadata` bundle without records UI -----------------------------
