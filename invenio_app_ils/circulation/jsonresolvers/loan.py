@@ -11,7 +11,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.errors import PIDDeletedError
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
-from invenio_app_ils.patrons.api import get_patron_or_unknown
+from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
@@ -49,7 +49,7 @@ def loan_patron_resolver(loan_pid):
     except KeyError:
         return {}
 
-    return get_patron_or_unknown(patron_pid)
+    return get_patron_or_unknown_dump(patron_pid)
 
 
 @get_pid_or_default(default_value=dict())

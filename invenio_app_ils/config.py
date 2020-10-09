@@ -63,7 +63,8 @@ from .locations.api import (LOCATION_PID_FETCHER, LOCATION_PID_MINTER,
                             LOCATION_PID_TYPE, Location)
 from .locations.search import LocationSearch
 from .patrons.api import (PATRON_PID_FETCHER, PATRON_PID_MINTER,
-                          PATRON_PID_TYPE, Patron)
+                          PATRON_PID_TYPE, AnonymousPatron, Patron,
+                          SystemAgent)
 from .patrons.search import PatronsSearch
 from .permissions import (PatronOwnerPermission, authenticated_user_permission,
                           backoffice_permission, views_permissions_factory)
@@ -327,7 +328,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Item,
         indexer_class=ItemIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.items.loaders:item_loader")
+            "application/json": "invenio_app_ils.items.loaders:item_loader"
         },
         record_serializers={
             "application/json": (
@@ -338,7 +339,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.items.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.items.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.items.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -372,9 +373,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -410,11 +411,10 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:json_v1_search"
             )
         },
         search_serializers_aliases={
-            "csv": "text/csv",
             "json": "application/json",
         },
         list_route="/locations/",
@@ -491,7 +491,6 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         search_serializers_aliases={
-            "csv": "text/csv",
             "json": "application/json",
         },
         list_route="/internal-locations/",
@@ -521,9 +520,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -880,8 +879,8 @@ RECORDS_REST_FACETS = dict(
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
 
-ILS_INDEXER_TASK_DELAY = timedelta(seconds=5)
-"""Time delay that indexers spawning their asynchronous celery tasks."""
+ILS_INDEXER_TASK_DELAY = timedelta(seconds=2)
+"""Trigger delay for celery tasks to index referenced records."""
 
 # Accounts REST
 # ==============
@@ -1077,5 +1076,9 @@ ILS_LITERATURE_COVER_URLS_BUILDER = build_ils_demo_cover_urls
 # Namespaces for fields added to the metadata schema
 ILS_RECORDS_METADATA_NAMESPACES = {}
 
-# Fields added to the metadata schema.
+# Fields added to the metadata schema
 ILS_RECORDS_METADATA_EXTENSIONS = {}
+
+# Define the class for the Anonymous and SystemAgent patrons
+ILS_PATRON_ANONYMOUS_CLASS = AnonymousPatron
+ILS_PATRON_SYSTEM_AGENT_CLASS = SystemAgent

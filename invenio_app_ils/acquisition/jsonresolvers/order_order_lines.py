@@ -11,7 +11,7 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.patrons.api import get_patron_or_unknown
+from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
@@ -22,13 +22,6 @@ from invenio_app_ils.records.jsonresolvers.api import pick
 def jsonresolver_loader(url_map):
     """Resolve the referred document and patron for an Order Line."""
     from flask import current_app
-
-    def order_line_patron_resolver(order_line, patron_pid):
-        """Resolve the Patron for the given Order Line."""
-        patron = get_patron_or_unknown(patron_pid)
-
-        order_line["patron"] = patron
-        return patron
 
     def document_resolver(order_line, doc):
         """Resolve the Document for the given Order Line."""
@@ -48,13 +41,10 @@ def jsonresolver_loader(url_map):
             document_resolver(order_line, doc)
 
             patron_pid = order_line.get("patron_pid")
-            if not patron_pid:
-                continue
-            patron = get_patron_or_unknown(patron_pid)
-            if not patron:
-                order_line_patron_resolver(order_line, None)
-                continue
-            order_line_patron_resolver(order_line, patron_pid)
+            if patron_pid:
+                patron_dump = get_patron_or_unknown_dump(patron_pid)
+                order_line["patron"] = patron_dump
+
         return order_lines
 
     url_map.add(

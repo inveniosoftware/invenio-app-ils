@@ -99,6 +99,7 @@ class Patron(dict):
         if not patron_pid:
             raise PatronNotFoundError(patron_pid)
 
+        SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
         if str(patron_pid) == str(SystemAgent.id):
             return SystemAgent()
 
@@ -118,28 +119,51 @@ class SystemAgent(Patron):
         self.location_pid = ""
 
 
+class AnonymousPatron(Patron):
+    """Fake patron to use when data is anonymized."""
+
+    def __init__(self, id):
+        """Constructor."""
+        self._schema = ""
+        self.id = id
+        self.name = "anonymous"
+        self.email = "anonymous"
+        self.location_pid = "anonymous"
+
+    def dumps(self):
+        """Return python representation of metadata."""
+        return {
+            "$schema": self._schema,
+            "id": str(self.id),
+            "pid": str(self.id),
+            "name": self.name,
+            "email": self.email,
+            "location_pid": self.location_pid,
+        }
+
+    def dumps_loader(self, **kwargs):
+        """Return a simpler representation for loaders."""
+        return {
+            "id": str(self.id),
+            "pid": str(self.id),
+            "name": self.name,
+            "email": self.email,
+            "location_pid": self.location_pid,
+        }
+
+
 def patron_exists(patron_pid):
     """Return True if the Patron exists given a PID."""
     return User.query.filter_by(id=patron_pid).first() is not None
 
 
-def get_anonymous_patron_dict(patron_pid):
-    """Return dict with Unknown values for patron."""
-    return {
-        "id": "anonymous",
-        "pid": patron_pid,
-        "name": "anonymous",
-        "email": "anonymous",
-        "location_pid": "anonymous",
-    }
-
-
-def get_patron_or_unknown(patron_pid):
+def get_patron_or_unknown_dump(patron_pid):
     """Resolve a Patron for a given field."""
     if not patron_pid:
         raise PatronNotFoundError
     try:
         cls = current_app_ils.patron_cls
-        return cls.get_patron(patron_pid).dumps_loader()
     except PatronNotFoundError:
-        return get_anonymous_patron_dict(patron_pid)
+        cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
+
+    return cls.get_patron(patron_pid).dumps_loader()

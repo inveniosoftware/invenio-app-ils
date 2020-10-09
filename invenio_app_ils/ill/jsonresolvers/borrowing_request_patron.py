@@ -10,7 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
 from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
@@ -34,9 +34,7 @@ def jsonresolver_loader(url_map):
             request_record_cls, request_pid, "patron_pid"
         )
 
-        Patron = current_app_ils.patron_cls
-        patron = Patron.get_patron(patron_pid)
-        return patron.dumps_loader()
+        return get_patron_or_unknown_dump(patron_pid)
 
     url_map.add(
         Rule(

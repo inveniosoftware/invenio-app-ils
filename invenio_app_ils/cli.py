@@ -43,7 +43,6 @@ from .internal_locations.api import (INTERNAL_LOCATION_PID_TYPE,
                                      InternalLocation)
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
-from .patrons.indexer import PatronIndexer
 from .proxies import current_app_ils
 from .records_relations.api import (RecordRelationsParentChild,
                                     RecordRelationsSiblings)
@@ -1412,7 +1411,7 @@ def patrons():
 def index():
     """Index patrons."""
     patrons = User.query.all()
-    indexer = PatronIndexer()
+    indexer = current_app_ils.patron_indexer
 
     click.secho("Now indexing {0} patrons".format(len(patrons)), fg="green")
 

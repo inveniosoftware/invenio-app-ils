@@ -133,26 +133,22 @@ def get_loans_aggregated_by_states(document_pid, states, patron_pid=None):
 
 
 def get_loans_by_patron_pid(patron_pid):
-    """Returns all the loans (past and current) for a given patron."""
-    search = current_circulation.loan_search_cls().filter(
-        "term", patron_pid=patron_pid
-    )
-    return search
+    """Returns a search for all loans (past and current) for a given patron."""
+    LoanSearch = current_circulation.loan_search_cls
+    return LoanSearch().filter("term", patron_pid=patron_pid)
 
 
 def get_active_loans_by_patron_pid(patron_pid):
-    """Constructs the search object for all the ongoing loans of a given patron."""
+    """Returns a search for all the active loans of a given patron."""
+    active_states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
     search = get_loans_by_patron_pid(patron_pid).filter(
-        "terms", state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        "terms", state=active_states
     )
     return search
 
 
 def get_active_loans():
-    """Returns all ongoing loans."""
-    states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-    search_cls = current_circulation.loan_search_cls
-    return (
-        search_cls()
-        .filter("terms", state=states)
-    )
+    """Returns a search for all active loans."""
+    active_states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    LoanSearch = current_circulation.loan_search_cls
+    return LoanSearch().filter("terms", state=active_states)
