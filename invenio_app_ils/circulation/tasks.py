@@ -21,7 +21,6 @@ from invenio_app_ils.circulation.mail.factory import \
 from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
                                                 get_all_expired_loans)
 from invenio_app_ils.mail.tasks import send_ils_email
-from invenio_app_ils.patrons.api import SystemAgent
 from invenio_app_ils.proxies import current_app_ils
 
 celery_logger = get_task_logger(__name__)
@@ -30,6 +29,9 @@ celery_logger = get_task_logger(__name__)
 @shared_task
 def cancel_expired_loan_requests():
     """Cancel loan requests after expiration date has passed."""
+    SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
+    system_agent_id = str(SystemAgent.id)
+
     expired_loans = get_all_expired_loans().execute()
     for hit in expired_loans.hits:
         loan = Loan.get_record_by_pid(hit.pid)
@@ -37,12 +39,10 @@ def cancel_expired_loan_requests():
             "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
         ]
         params = deepcopy(loan)
-        system_agent_id = str(SystemAgent.id)
         params.update(
             dict(
-                cancel_reason="The loan request has been automatically cancelled because {} days have passed.".format(
-                    duration_days
-                ),
+                cancel_reason="The loan request has been automatically "
+                "cancelled because {} days have passed.".format(duration_days),
                 transaction_user_pid=system_agent_id,
             )
         )

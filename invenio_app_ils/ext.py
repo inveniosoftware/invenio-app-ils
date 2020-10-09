@@ -171,6 +171,11 @@ class _InvenioAppIlsState(object):
         return self.record_class_by_pid_type(PATRON_PID_TYPE)
 
     @cached_property
+    def patron_indexer(self):
+        """Return the patron record class."""
+        return self.indexer_by_pid_type(PATRON_PID_TYPE)
+
+    @cached_property
     def series_record_cls(self):
         """Return the series record class."""
         return self.record_class_by_pid_type(SERIES_PID_TYPE)

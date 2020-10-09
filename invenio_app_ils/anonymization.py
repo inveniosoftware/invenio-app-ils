@@ -13,28 +13,18 @@ from copy import deepcopy
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_accounts.models import SessionActivity, User, userrole
-from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from invenio_userprofiles.models import UserProfile
 
-from invenio_app_ils.acquisition.api import Order
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.document_requests.api import DocumentRequest
 from invenio_app_ils.errors import PatronNotFoundError
-from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.ill.proxies import current_ils_ill
-from invenio_app_ils.patrons.api import (Patron, SystemAgent,
-                                         get_anonymous_patron_dict,
-                                         get_patron_or_unknown)
+from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 
-from .acquisition.search import OrderSearch
 from .circulation.search import (get_active_loans_by_patron_pid,
                                  get_loans_by_patron_pid)
-from .document_requests.search import DocumentRequestSearch
-from .ill.search import BorrowingRequestsSearch
-from .patrons.indexer import PatronIndexer
 from .proxies import current_app_ils
 
 
@@ -43,21 +33,22 @@ def get_patron_activity(patron_pid):
     if patron_pid is None:
         raise ValueError("No patron pid was provided.")
 
-    patron = get_patron_or_unknown(patron_pid)
-    if not patron:
-        return None
+    patron = get_patron_or_unknown_dump(patron_pid)
 
     def dump(search):
         return [hit.to_dict() for hit in search.scan()]
 
+    DocumentRequestSearch = current_app_ils.document_request_search_cls
     patron_document_requests = dump(
         DocumentRequestSearch().search_by_patron_pid(patron_pid)
     )
 
+    BorrowingRequestsSearch = current_ils_ill.borrowing_request_search_cls
     patron_borrowing_requests = dump(
         BorrowingRequestsSearch().search_by_patron_pid(patron_pid)
     )
 
+    OrderSearch = current_ils_acq.order_search_cls
     patron_acquisitions = dump(OrderSearch().search_by_patron_pid(patron_pid))
 
     patron_loans = dump(get_loans_by_patron_pid(patron_pid))
@@ -82,47 +73,47 @@ def anonymize_patron_data(patron_pid, force=False):
     if patron_pid is None:
         raise ValueError("No patron pid was provided.")
 
-    patron = get_patron_or_unknown(patron_pid)
-    if not patron and not force:
-        return None
+    SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
+    if str(patron_pid) == str(SystemAgent.id):
+        raise ValueError("The patron pid cannot be the SystemAgent")
 
-    patron_object = None
     try:
-        patron_object = current_app_ils.patron_cls.get_patron(patron_pid)
+        patron = current_app_ils.patron_cls.get_patron(patron_pid)
     except PatronNotFoundError:
+        patron = None
         if not force:
             raise PatronNotFoundError(patron_pid)
 
-    if (
-        get_loans_by_patron_pid(patron_pid)
-        .filter("term", state="ITEM_ON_LOAN")
-        .count()
-    ):
+    n_loans = get_active_loans_by_patron_pid(patron_pid).count()
+    if n_loans > 0:
         raise AssertionError(
-            "Cannot delete user %s: they have ongoing loans." % (patron_pid)
+            "Cannot delete user {0}: found {1} active loans.".format(
+                patron_pid, n_loans
+            )
         )
 
-    # Serialize empty patron values
-    anonymous_patron_fields = get_anonymous_patron_dict(patron_pid)
+    # get anonymous patron values
+    cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
+    anonymous_patron_fields = cls(patron_pid).dumps_loader()
 
     patron_loans = get_loans_by_patron_pid(patron_pid).scan()
 
+    Loan = current_circulation.loan_record_cls
     indices = 0
-
     for hit in patron_loans:
         loan = Loan.get_record_by_pid(hit.pid)
-        if (
-            loan["state"]
-            == current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
-        ):
+
+        cancelled = current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"]
+        if loan["state"] not in cancelled:
             params = deepcopy(loan)
             params.update(
                 dict(
-                    cancel_reason="Loan request cancelled to anonymize user.",
+                    cancel_reason="Loan request cancelled because of user "
+                    "deletion.",
                     transaction_user_pid=str(SystemAgent.id),
                 )
             )
-            current_circulation.circulation.trigger(
+            loan = current_circulation.circulation.trigger(
                 loan, **dict(params, trigger="cancel")
             )
         loan["patron"] = anonymous_patron_fields
@@ -130,38 +121,44 @@ def anonymize_patron_data(patron_pid, force=False):
         current_circulation.loan_indexer().index(loan)
         indices += 1
 
+    BorrowingRequestsSearch = current_ils_ill.borrowing_request_search_cls
     patron_borrowing_requests = (
         BorrowingRequestsSearch().search_by_patron_pid(patron_pid).scan()
     )
 
+    BorrowingRequest = current_ils_ill.borrowing_request_record_cls
+    indexer = current_ils_ill.borrowing_request_indexer_cls()
     for hit in patron_borrowing_requests:
         borrowing_request = BorrowingRequest.get_record_by_pid(hit.pid)
         borrowing_request["patron"] = anonymous_patron_fields
         borrowing_request.commit()
-        current_ils_ill.borrowing_request_indexer_cls().index(
-            borrowing_request
-        )
+        indexer.index(borrowing_request)
         indices += 1
 
+    DocumentRequestSearch = current_app_ils.document_request_search_cls
     patron_document_requests = (
         DocumentRequestSearch().search_by_patron_pid(patron_pid).scan()
     )
 
+    DocumentRequest = current_app_ils.document_request_record_cls
     for hit in patron_document_requests:
         document_request = DocumentRequest.get_record_by_pid(hit.pid)
         if document_request["state"] == "PENDING":
             document_request["state"] = "REJECTED"
             document_request["reject_reason"] = "USER_CANCEL"
+        print(document_request)
         document_request["patron"] = anonymous_patron_fields
+        print(document_request)
         document_request.commit()
         current_app_ils.document_request_indexer.index(document_request)
         indices += 1
 
+    OrderSearch = current_ils_acq.order_search_cls
     patron_acquisitions = OrderSearch().search_by_patron_pid(patron_pid).scan()
 
+    Order = current_ils_acq.order_record_cls
     for hit in patron_acquisitions:
         acquisition = Order.get_record_by_pid(hit.pid)
-        acquisition.commit()
         current_ils_acq.order_indexer.index(acquisition)
         indices += 1
 
@@ -169,9 +166,10 @@ def anonymize_patron_data(patron_pid, force=False):
     dropped = delete_user_account(patron_pid)
 
     db.session.commit()
-    if patron_object:
+    if patron:
         try:
-            PatronIndexer().delete(patron_object)
+            patron_indexer = current_app_ils.patron_indexer
+            patron_indexer.delete(patron)
         except NotFoundError:
             pass
 
