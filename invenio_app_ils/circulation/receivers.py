@@ -7,12 +7,14 @@
 
 """Circulation receivers."""
 
+from invenio_circulation.proxies import current_circulation
 from invenio_circulation.signals import loan_replace_item, loan_state_changed
 
 from invenio_app_ils.circulation.mail.tasks import send_loan_mail
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
+from invenio_app_ils.indexer import wait_es_refresh
 from invenio_app_ils.items.api import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
@@ -25,6 +27,11 @@ def register_circulation_signals():
 
 def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
     """Register Circulation signal to index item."""
+    loan_index = current_circulation.loan_search_cls.Meta.index
+    # When indexing items, the `circulation` field will perform a search on
+    # loans index. Wait for the loan index to be refreshed.
+    wait_es_refresh(loan_index)
+
     if old_item_pid:
         rec = resolve_item_from_loan(old_item_pid)
         indexer = None
