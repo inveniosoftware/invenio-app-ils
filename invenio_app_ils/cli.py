@@ -9,6 +9,7 @@
 
 import json
 import os
+import pathlib
 import random
 import re
 from datetime import date, datetime, timedelta
@@ -48,6 +49,8 @@ from .records_relations.api import (RecordRelationsParentChild,
                                     RecordRelationsSiblings)
 from .relations.api import Relation
 from .series.api import SERIES_PID_TYPE, Series
+
+CURRENT_DIR = pathlib.Path(__file__).parent.absolute()
 
 
 def minter(pid_type, pid_field, record):
@@ -242,9 +245,7 @@ class ItemGenerator(Generator):
             for pid in range(1, size + 1)
         ]
 
-        demo_data_dir = os.path.join(
-            os.path.realpath("."), "invenio_app_ils", "demo_data"
-        )
+        demo_data_dir = os.path.join(CURRENT_DIR, "demo_data")
         with open(os.path.join(demo_data_dir, "items.json")) as f:
             demo_data = json.loads(f.read())
 
@@ -520,9 +521,7 @@ class DocumentGenerator(Generator):
             else:
                 issue += 1
 
-        demo_data_dir = os.path.join(
-            os.path.realpath("."), "invenio_app_ils", "demo_data"
-        )
+        demo_data_dir = os.path.join(CURRENT_DIR, "demo_data")
         with open(os.path.join(demo_data_dir, "documents.json")) as f:
             demo_data = json.loads(f.read())
 
@@ -1221,10 +1220,7 @@ def data(
 
     indexer = RecordIndexer()
 
-    vocabulary_dir = os.path.join(
-        os.path.realpath("."), "invenio_app_ils", "vocabularies", "data"
-    )
-
+    vocabulary_dir = os.path.join(CURRENT_DIR, "vocabularies", "data")
     with open(os.path.join(vocabulary_dir, "tags.json")) as f:
         tags = json.loads(f.read())
 
@@ -1561,9 +1557,7 @@ def setup(
         run_command("roles add librarian@test.ch librarian")
 
     if not skip_vocabularies:
-        vocabularies_dir = os.path.join(
-            os.path.realpath("."), "invenio_app_ils", "vocabularies", "data"
-        )
+        vocabularies_dir = os.path.join(CURRENT_DIR, "vocabularies", "data")
         json_files = " ".join(
             os.path.join(vocabularies_dir, name)
             for name in os.listdir(vocabularies_dir)
