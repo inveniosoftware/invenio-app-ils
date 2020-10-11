@@ -68,7 +68,7 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
-        super(MostLoanedDocumentsResource, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         document_endpoint = endpoints.get(DOCUMENT_PID_TYPE, {})
         self.max_result_window = document_endpoint.get(

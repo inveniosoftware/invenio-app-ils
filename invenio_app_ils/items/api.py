@@ -73,7 +73,7 @@ class ItemValidator(RecordValidator):
 
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""
-        super(ItemValidator, self).validate(record, **kwargs)
+        super().validate(record, **kwargs)
 
         document_pid = record.get("document_pid", None)
         if document_pid:

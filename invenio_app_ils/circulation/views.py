@@ -105,9 +105,7 @@ class IlsCirculationResource(ContentNegotiatedMethodView):
 
     def __init__(self, serializers, ctx, *args, **kwargs):
         """Constructor."""
-        super(IlsCirculationResource, self).__init__(
-            serializers, *args, **kwargs
-        )
+        super().__init__(serializers, *args, **kwargs)
         for key, value in ctx.items():
             setattr(self, key, value)
 

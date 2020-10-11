@@ -50,7 +50,7 @@ class RecordPermission(Permission):
         self.record = record
         self.current_action = action
         record_needs = self.collect_needs()
-        super(RecordPermission, self).__init__(*record_needs)
+        super().__init__(*record_needs)
 
     def collect_needs(self):
         """Collect permission policy per action."""

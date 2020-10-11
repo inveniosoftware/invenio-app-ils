@@ -154,7 +154,7 @@ class Document(IlsRecordWithRelations):
                 ref_ids=sorted([res["pid"] for res in req_search_res.scan()]),
             )
 
-        return super(Document, self).delete(**kwargs)
+        return super().delete(**kwargs)
 
 
 def document_exists(document_pid):
