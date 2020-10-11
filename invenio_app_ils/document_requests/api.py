@@ -76,7 +76,7 @@ class DocumentRequestValidator(RecordValidator):
 
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""
-        super(DocumentRequestValidator, self).validate(record, **kwargs)
+        super().validate(record, **kwargs)
 
         valid_states = record.STATES
 

@@ -261,7 +261,7 @@ class InvenioAppIlsREST(InvenioAppIls):
 
     def init_app(self, app):
         """Flask application initialization."""
-        super(InvenioAppIlsREST, self).init_app(app)
+        super().init_app(app)
         self._register_signals(app)
         app.errorhandler(RESTException)(handle_rest_exceptions)
 

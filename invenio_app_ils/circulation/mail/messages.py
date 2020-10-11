@@ -45,7 +45,7 @@ class LoanMessage(BlockTemplatedMessage):
             )
 
         name = self.get_template_name(action)
-        super(LoanMessage, self).__init__(
+        super().__init__(
             template="{}/{}".format(self.templates_base_dir, templates[name]),
             ctx=dict(loan=dict(loan), **message_ctx, **kwargs),
             **kwargs,
@@ -97,7 +97,7 @@ class LoanListMessage(BlockTemplatedMessage):
             **current_app.config["ILS_CIRCULATION_MAIL_TEMPLATES"],
         )
 
-        super(LoanListMessage, self).__init__(
+        super().__init__(
             template="{}/{}".format(
                 self.templates_base_dir, templates[template]
             ),

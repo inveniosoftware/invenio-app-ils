@@ -75,7 +75,7 @@ class BlockTemplatedMessage(Message):
         kwargs.setdefault("cc", current_app.config["MAIL_NOTIFY_CC"])
         kwargs.setdefault("bcc", current_app.config["MAIL_NOTIFY_BCC"])
 
-        super(BlockTemplatedMessage, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def render_block(self, template, block_name):
         """Return a Jinja2 block as a string."""

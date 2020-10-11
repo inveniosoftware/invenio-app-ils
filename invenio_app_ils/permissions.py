@@ -131,7 +131,7 @@ class PatronOwnerPermission(Permission):
 
     def __init__(self, record):
         """Constructor."""
-        super(PatronOwnerPermission, self).__init__(
+        super().__init__(
             UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
 
