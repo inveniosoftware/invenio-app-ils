@@ -146,9 +146,7 @@ def anonymize_patron_data(patron_pid, force=False):
         if document_request["state"] == "PENDING":
             document_request["state"] = "REJECTED"
             document_request["reject_reason"] = "USER_CANCEL"
-        print(document_request)
         document_request["patron"] = anonymous_patron_fields
-        print(document_request)
         document_request.commit()
         current_app_ils.document_request_indexer.index(document_request)
         indices += 1
