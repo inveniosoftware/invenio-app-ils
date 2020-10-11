@@ -10,6 +10,7 @@
 import json
 import os
 import pathlib
+import pprint
 import random
 import re
 from datetime import date, datetime, timedelta
@@ -1600,8 +1601,6 @@ def list_patron_activity(patron_pid):
     if not patron_activity:
         print("The patron with pid", patron_pid, "does not exist.")
         return
-
-    import pprint
 
     pprint.pprint(patron_activity)
 
