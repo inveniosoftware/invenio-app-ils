@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 1.0.0a14 (released 2020-10-13)
+
+- refactor anonymization module
+- fix loan item replace indexing
+- increase rate limit
+- add support postgres 12
+
 Version 1.0.0a13 (released 2020-09-29)
 
 - protect stats endpoint when document is restricted
