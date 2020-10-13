@@ -242,32 +242,38 @@ ILS_CIRCULATION_RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=1,
         ),
+        request_start_date=dict(
+            fields=["-request_start_date"],
+            title="Request start date",
+            default_order="desc",
+            order=2,
+        ),
         end_date=dict(
             fields=["-end_date"],
             title="Loan end date",
             default_order="desc",
-            order=2,
+            order=3,
         ),
         start_date=dict(
             fields=["-start_date"],
             title="Loan start date",
             default_order="desc",
-            order=3,
+            order=4,
         ),
         extensions=dict(
             fields=["extension_count"],
             title="Extensions count",
             default_order="asc",
-            order=4,
+            order=5,
         ),
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=5
+            fields=["_updated"], title="Newest", default_order="desc", order=6
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
-            order=6,
+            order=7,
         ),
     )
 )
