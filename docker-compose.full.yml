@@ -63,7 +63,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "always"
-    command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    command: "celery -A invenio_app.celery worker --loglevel=INFO"
     image: invenio_app_ils-worker
     links:
       - cache
