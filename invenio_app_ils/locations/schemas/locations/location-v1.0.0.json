@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Location",
   "type": "object",
-  "required": ["$schema", "pid", "name"],
+  "required": ["$schema", "pid", "name", "opening_weekdays"],
   "properties": {
     "$schema": {
       "type": "string"

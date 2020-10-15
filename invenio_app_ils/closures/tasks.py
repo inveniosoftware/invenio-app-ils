@@ -47,7 +47,7 @@ def clean_locations_past_closures_exceptions():
         record = location.get_record_by_pid(location_pid)
         cleaned_exceptions = []
         modified = False
-        for item in record["opening_exceptions"]:
+        for item in record.get("opening_exceptions", []):
             end_date = arrow.get(item["end_date"]).date()
             if end_date >= today:
                 cleaned_exceptions.append(item)
