@@ -19,22 +19,23 @@ _ONE_DAY_INCREMENT = timedelta(days=1)  # Atomic increment
 
 def _is_in_interval(date, interval):
     """Checks if a date is included in an interval."""
-    return \
-        arrow.get(interval["start_date"]).date() <= \
-        date <= \
-        arrow.get(interval["end_date"]).date()
+    return (
+        arrow.get(interval["start_date"]).date()
+        <= date
+        <= arrow.get(interval["end_date"]).date()
+    )
 
 
 def _is_normally_open(location, date):
-    """Checks if the location is normally opened on a given date wrt to the regular schedule."""
+    """Checks if the location is normally opened on a given date."""
     opening = location["opening_weekdays"]
     opening_weekday = opening[date.weekday()]
     return opening_weekday["is_open"]
 
 
 def _is_exceptionally_open(location, date):
-    """Checks if the location is exceptionally opened on a given date, or None if undefined."""
-    for exception in location["opening_exceptions"]:
+    """Checks if the location is exceptionally opened on a given date."""
+    for exception in location.get("opening_exceptions", []):
         if _is_in_interval(date, exception):
             return exception["is_open"]
     return None  # Date is not included in any interval
@@ -50,7 +51,9 @@ def _is_open_on(location, date):
 
 def find_next_open_date(location_pid, date):
     """Finds the next day where this location is open."""
-    location = current_app_ils.location_record_cls.get_record_by_pid(location_pid)
+    location = current_app_ils.location_record_cls.get_record_by_pid(
+        location_pid
+    )
     _infinite_loop_guard = date + timedelta(days=365)
     while date < _infinite_loop_guard:
         if _is_open_on(location, date):
@@ -58,6 +61,8 @@ def find_next_open_date(location_pid, date):
         date += _ONE_DAY_INCREMENT
 
     # Termination is normally guaranteed if there is at least one weekday open
-    raise IlsException(description=
-                       "Cannot find any date for which the location %s is open after the given date %s."
-                       "Please check opening/closures dates." % (location_pid, date.isoformat()))
+    raise IlsException(
+        description="Cannot find any date for which the location %s is open after the given date %s."
+        "Please check opening/closures dates."
+        % (location_pid, date.isoformat())
+    )
