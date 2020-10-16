@@ -81,8 +81,8 @@ class AlternativeTitleSchema(Schema):
 
     language = fields.Str()
     source = fields.Str()
-    value = fields.Str(required=True)
     type = fields.Str()
+    value = fields.Str(required=True)
 
 
 class ConferenceInfoSchema(Schema):

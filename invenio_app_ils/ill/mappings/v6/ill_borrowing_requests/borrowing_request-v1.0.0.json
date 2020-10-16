@@ -29,6 +29,10 @@
         },
         "document": {
           "properties": {
+            "cover_metadata": {
+              "properties": {},
+              "type": "object"
+            },
             "edition": {
               "type": "text"
             },
@@ -85,6 +89,12 @@
             },
             "name": {
               "type": "text"
+            },
+            "location_pid": {
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
             }
           },
           "type": "object"

@@ -17,11 +17,11 @@
           }
         }
       },
-      "type": {
-        "type": "keyword"
-      },
       "text": {
         "type": "text"
+      },
+      "type": {
+        "type": "keyword"
       }
     }
   }

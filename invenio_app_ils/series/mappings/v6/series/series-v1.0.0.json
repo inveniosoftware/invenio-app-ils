@@ -4,14 +4,14 @@
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },
         "_updated": {
           "type": "date"
-        },
-        "$schema": {
-          "type": "keyword"
         },
         "abbreviated_title": {
           "type": "text"
@@ -25,11 +25,11 @@
             "access_restriction": {
               "type": "keyword"
             },
-            "open_access": {
-              "type": "boolean"
-            },
             "description": {
               "type": "text"
+            },
+            "open_access": {
+              "type": "boolean"
             },
             "value": {
               "type": "keyword"
@@ -42,14 +42,14 @@
             "language": {
               "type": "keyword"
             },
-            "value": {
-              "type": "text"
-            },
             "source": {
               "type": "keyword"
             },
             "type": {
               "type": "keyword"
+            },
+            "value": {
+              "type": "text"
             }
           }
         },
@@ -60,6 +60,10 @@
             }
           },
           "type": "text"
+        },
+        "cover_metadata": {
+          "properties": {},
+          "type": "object"
         },
         "created_by": {
           "properties": {
@@ -143,6 +147,12 @@
           },
           "type": "object"
         },
+        "isbn": {
+          "type": "keyword"
+        },
+        "issn": {
+          "type": "keyword"
+        },
         "keywords": {
           "properties": {
             "source": {
@@ -162,6 +172,9 @@
         },
         "note": {
           "type": "text"
+        },
+        "pid": {
+          "type": "keyword"
         },
         "publication_year": {
           "type": "keyword"

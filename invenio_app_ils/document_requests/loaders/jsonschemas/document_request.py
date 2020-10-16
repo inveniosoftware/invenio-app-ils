@@ -9,7 +9,6 @@
 
 from flask import g
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from invenio_records_rest.schemas.fields import PersistentIdentifier
 from invenio_records_rest.schemas.fields.sanitizedhtml import SanitizedHTML
 from marshmallow import EXCLUDE, Schema, ValidationError, fields
 
@@ -60,7 +59,6 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     payment_info = fields.Str()
     payment_method = fields.Str()
     physical_item_provider = fields.Nested(PhysicalItemProviderSchema)
-    pid = PersistentIdentifier()
     publication_year = fields.Int()
     request_type = fields.Str(required=True)
     standard_number = SanitizedHTML()
