@@ -3,14 +3,14 @@
     "date_detection": false,
     "numeric_detection": false,
     "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
       "_created": {
         "type": "date"
       },
       "_updated": {
         "type": "date"
-      },
-      "$schema": {
-        "type": "keyword"
       },
       "address": {
         "type": "text"

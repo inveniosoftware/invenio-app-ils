@@ -68,7 +68,6 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
 
     cancel_reason = fields.Str()
     created_by = fields.Nested(ChangedBySchema)
-    received_date = DateString()
     expected_delivery_date = DateString()
     funds = fields.List(fields.Str())
     grand_total = fields.Nested(PriceSchema)
@@ -77,9 +76,10 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     order_date = DateString(required=True)
     order_lines = fields.List(fields.Nested(OrderLineSchema), required=True)
     payment = fields.Nested(PaymentSchema)
+    received_date = DateString()
     status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
-    vendor_pid = fields.Str(required=True)  # TODO: validate
     updated_by = fields.Nested(ChangedBySchema)
+    vendor_pid = fields.Str(required=True)  # TODO: validate
 
     @pre_load
     def set_changed_by(self, data, **kwargs):

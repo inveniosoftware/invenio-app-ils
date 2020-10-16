@@ -23,6 +23,40 @@
       "abstract": {
         "type": "text"
       },
+      "alternative_abstracts": {
+        "type": "text"
+      },
+      "alternative_identifiers": {
+        "properties": {
+          "material": {
+            "type": "keyword"
+          },
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "alternative_titles": {
+        "properties": {
+          "language": {
+            "type": "keyword"
+          },
+          "source": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
       "authors": {
         "properties": {
           "affiliations": {
@@ -50,7 +84,24 @@
           "full_name": {
             "type": "text"
           },
+          "identifiers": {
+            "properties": {
+              "material": {
+                "type": "keyword"
+              },
+              "scheme": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
           "roles": {
+            "type": "keyword"
+          },
+          "type": {
             "type": "keyword"
           }
         },
@@ -65,6 +116,9 @@
             "type": "integer"
           },
           "has_items_for_loan": {
+            "type": "integer"
+          },
+          "has_items_on_site": {
             "type": "integer"
           },
           "next_available_date": {
@@ -85,6 +139,10 @@
         },
         "type": "object"
       },
+      "cover_metadata": {
+        "properties": {},
+        "type": "object"
+      },
       "created_by": {
         "properties": {
           "type": {
@@ -96,6 +154,9 @@
         },
         "type": "object"
       },
+      "curated": {
+        "type": "boolean"
+      },
       "document_type": {
         "type": "keyword"
       },
@@ -106,8 +167,48 @@
         "properties": {
           "hits": {
             "properties": {
+              "bucket_id": {
+                "type": "keyword"
+              },
               "description": {
                 "type": "text"
+              },
+              "files": {
+                "properties": {
+                  "bucket": {
+                    "type": "keyword"
+                  },
+                  "checksum": {
+                    "type": "keyword"
+                  },
+                  "file_id": {
+                    "type": "keyword"
+                  },
+                  "key": {
+                    "type": "keyword"
+                  },
+                  "size": {
+                    "type": "keyword"
+                  },
+                  "version_id": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
+              },
+              "identifiers": {
+                "properties": {
+                  "material": {
+                    "type": "keyword"
+                  },
+                  "scheme": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
               },
               "internal_notes": {
                 "type": "text"
@@ -117,6 +218,20 @@
               },
               "pid": {
                 "type": "keyword"
+              },
+              "urls": {
+                "properties": {
+                  "description": {
+                    "type": "text"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "login_required": {
+                    "type": "boolean"
+                  }
+                },
+                "type": "object"
               }
             },
             "type": "object"
@@ -167,6 +282,51 @@
           "value": { "type": "boolean" }
         }
       },
+      "identifiers": {
+        "properties": {
+          "material": {
+            "type": "keyword"
+          },
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "imprint": {
+        "properties": {
+          "date": {
+            "type": "date"
+          },
+          "place": {
+            "type": "keyword"
+          },
+          "publisher": {
+            "type": "keyword"
+          },
+          "reprint_date": {
+            "type": "date"
+          }
+        },
+        "type": "object"
+      },
+      "internal_notes": {
+        "properties": {
+          "field": {
+            "type": "keyword"
+          },
+          "user": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
       "items": {
         "properties": {
           "hits": {
@@ -180,13 +340,43 @@
               "description": {
                 "type": "text"
               },
+              "internal_location": {
+                "properties": {
+                  "location": {
+                    "properties": {
+                      "name": {
+                        "type": "keyword"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
+              },
               "internal_location_pid": {
                 "type": "keyword"
+              },
+              "isbn": {
+                "properties": {
+                  "description": {
+                    "type": "text"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
               },
               "medium": {
                 "type": "keyword"
               },
               "pid": {
+                "type": "keyword"
+              },
+              "shelf": {
                 "type": "keyword"
               },
               "status": {
@@ -215,11 +405,74 @@
       "languages": {
         "type": "keyword"
       },
-      "restricted": {
+      "licenses": {
+        "properties": {
+          "internal_notes": {
+            "type": "text"
+          },
+          "license": {
+            "properties": {
+              "id": {
+                "type": "keyword"
+              },
+              "maintainer": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "keyword"
+              },
+              "url": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "material": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "note": {
+        "type": "text"
+      },
+      "number_of_pages": {
+        "type": "keyword"
+      },
+      "other_authors": {
         "type": "boolean"
       },
       "pid": {
         "type": "keyword"
+      },
+      "publication_info": {
+        "properties": {
+          "artid": {
+            "type": "keyword"
+          },
+          "journal_issue": {
+            "type": "keyword"
+          },
+          "journal_title": {
+            "type": "keyword"
+          },
+          "journal_volume": {
+            "type": "keyword"
+          },
+          "note": {
+            "type": "keyword"
+          },
+          "pages": {
+            "type": "keyword"
+          },
+          "year": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
       },
       "publication_year": {
         "type": "keyword"
@@ -229,6 +482,42 @@
       },
       "relations": {
         "properties": {
+          "next": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "relation_type": {
+                "copy_to": "relation_types",
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "previous": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "relation_type": {
+                "copy_to": "relation_types",
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
           "edition": {
             "properties": {
               "pid": {
@@ -289,47 +578,11 @@
             },
             "type": "object"
           },
-          "next": {
-            "properties": {
-              "pid": {
-                "type": "keyword"
-              },
-              "pid_type": {
-                "type": "keyword"
-              },
-              "relation_type": {
-                "copy_to": "relation_types",
-                "type": "keyword"
-              },
-              "title": {
-                "type": "text"
-              }
-            },
-            "type": "object"
-          },
           "other": {
             "properties": {
               "note": {
                 "type": "keyword"
               },
-              "pid": {
-                "type": "keyword"
-              },
-              "pid_type": {
-                "type": "keyword"
-              },
-              "relation_type": {
-                "copy_to": "relation_types",
-                "type": "keyword"
-              },
-              "title": {
-                "type": "text"
-              }
-            },
-            "type": "object"
-          },
-          "previous": {
-            "properties": {
               "pid": {
                 "type": "keyword"
               },
@@ -445,6 +698,12 @@
         },
         "type": "object"
       },
+      "restricted": {
+        "type": "boolean"
+      },
+      "source": {
+        "type": "keyword"
+      },
       "stock": {
         "properties": {
           "mediums": {
@@ -452,6 +711,20 @@
           }
         },
         "type": "object"
+      },
+      "subjects": {
+        "properties": {
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "table_of_content": {
+        "type": "text"
       },
       "tags": {
         "type": "keyword"
@@ -467,6 +740,17 @@
       "updated_by": {
         "properties": {
           "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "urls": {
+        "properties": {
+          "description": {
             "type": "keyword"
           },
           "value": {

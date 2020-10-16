@@ -78,11 +78,11 @@ def jsonresolver_loader(url_map):
             "active_loans": active_loans_count,
             "can_circulate_items_count": items_count - unavailable_items_count,
             "has_items_for_loan": has_items_for_loan,
+            "has_items_on_site": has_items_for_reference_only_count,
             "overbooked": pending_loans_count > has_items_for_loan,
             "overdue_loans": overdue_loans_count,
             "past_loans_count": past_loans_count,
             "pending_loans": pending_loans_count,
-            "has_items_on_site": has_items_for_reference_only_count,
         }
 
         if (

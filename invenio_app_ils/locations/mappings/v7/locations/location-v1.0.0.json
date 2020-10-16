@@ -6,14 +6,11 @@
       "$schema": {
         "type": "keyword"
       },
-      "pid": {
-        "type": "keyword"
+      "_created": {
+        "type": "date"
       },
-      "legacy_id": {
-        "type": "keyword"
-      },
-      "name": {
-        "type": "text"
+      "_updated": {
+        "type": "date"
       },
       "address": {
         "type": "text"
@@ -21,11 +18,28 @@
       "email": {
         "type": "text"
       },
-      "phone": {
-        "type": "keyword"
+      "name": {
+        "type": "text"
       },
       "notes": {
         "type": "text"
+      },
+      "opening_exceptions": {
+        "properties": {
+          "title": {
+            "type": "keyword"
+          },
+          "is_open": {
+            "type": "boolean"
+          },
+          "start_date": {
+            "type": "date"
+          },
+          "end_date": {
+            "type": "date"
+          }
+        },
+        "type": "object"
       },
       "opening_weekdays": {
         "properties": {
@@ -49,28 +63,11 @@
         },
         "type": "object"
       },
-      "opening_exceptions": {
-        "properties": {
-          "title": {
-            "type": "keyword"
-          },
-          "is_open": {
-            "type": "boolean"
-          },
-          "start_date": {
-            "type": "date"
-          },
-          "end_date": {
-            "type": "date"
-          }
-        },
-        "type": "object"
+      "phone": {
+        "type": "keyword"
       },
-      "_created": {
-        "type": "date"
-      },
-      "_updated": {
-        "type": "date"
+      "pid": {
+        "type": "keyword"
       }
     }
   }

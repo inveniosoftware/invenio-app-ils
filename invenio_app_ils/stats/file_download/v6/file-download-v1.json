@@ -7,6 +7,8 @@
   },
   "mappings": {
     "stats-file-download": {
+      "date_detection": false,
+      "dynamic": false,
       "dynamic_templates": [
         {
           "date_fields": {
@@ -18,24 +20,12 @@
           }
         }
       ],
-      "date_detection": false,
-      "dynamic": false,
       "numeric_detection": false,
       "properties": {
-        "timestamp": {
-          "type": "date",
-          "format": "strict_date_hour_minute_second"
-        },
         "bucket_id": {
           "type": "keyword"
         },
-        "file_id": {
-          "type": "keyword"
-        },
-        "file_key": {
-          "type": "keyword"
-        },
-        "unique_id": {
+        "collection": {
           "type": "keyword"
         },
         "country": {
@@ -47,23 +37,33 @@
         "eitem_pid": {
           "type": "keyword"
         },
-        "visitor_id": {
+        "file_id": {
           "type": "keyword"
         },
-        "collection": {
-          "type": "keyword"
-        },
-        "unique_session_id": {
-          "type": "keyword"
-        },
-        "referrer": {
+        "file_key": {
           "type": "keyword"
         },
         "is_robot": {
           "type": "boolean"
         },
+        "referrer": {
+          "type": "keyword"
+        },
         "size": {
           "type": "double"
+        },
+        "timestamp": {
+          "type": "date",
+          "format": "strict_date_hour_minute_second"
+        },
+        "unique_id": {
+          "type": "keyword"
+        },
+        "unique_session_id": {
+          "type": "keyword"
+        },
+        "visitor_id": {
+          "type": "keyword"
         }
       }
     }

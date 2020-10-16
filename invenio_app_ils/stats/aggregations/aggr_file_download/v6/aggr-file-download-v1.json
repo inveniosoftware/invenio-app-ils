@@ -7,6 +7,8 @@
   },
   "mappings": {
     "file-download-day-aggregation": {
+      "date_detection": false,
+      "dynamic": false,
       "dynamic_templates": [
         {
           "date_fields": {
@@ -18,19 +20,22 @@
           }
         }
       ],
-      "date_detection": false,
-      "dynamic": false,
       "numeric_detection": false,
       "properties": {
-        "timestamp": {
-          "type": "date",
-          "format": "date_optional_time"
+        "bucket_id": {
+          "type": "keyword"
+        },
+        "collection": {
+          "type": "keyword"
         },
         "count": {
           "type": "integer"
         },
-        "unique_count": {
-          "type": "integer"
+        "document_pid": {
+          "type": "keyword"
+        },
+        "eitem_pid": {
+          "type": "keyword"
         },
         "file_id": {
           "type": "keyword"
@@ -38,17 +43,12 @@
         "file_key": {
           "type": "keyword"
         },
-        "bucket_id": {
-          "type": "keyword"
+        "timestamp": {
+          "type": "date",
+          "format": "date_optional_time"
         },
-        "eitem_pid": {
-          "type": "keyword"
-        },
-        "document_pid": {
-          "type": "keyword"
-        },
-        "collection": {
-          "type": "keyword"
+        "unique_count": {
+          "type": "integer"
         }
       }
     }

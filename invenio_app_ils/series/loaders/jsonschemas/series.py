@@ -9,7 +9,6 @@
 
 from flask import current_app
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import EXCLUDE, Schema, fields, pre_load
 
 from invenio_app_ils.documents.loaders.jsonschemas.document import (
@@ -60,7 +59,6 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     languages = fields.List(fields.Str())
     mode_of_issuance = fields.Str(required=True)
     note = fields.Str()
-    pid = PersistentIdentifier()
     publication_year = fields.Str()
     publisher = fields.Str()
     tags = fields.List(fields.Str())

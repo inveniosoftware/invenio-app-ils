@@ -19,8 +19,8 @@ class VendorSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
-    name = fields.Str(required=True)
     address = fields.Str()
     email = fields.Email()
-    phone = fields.Str()
+    name = fields.Str(required=True)
     notes = fields.Str()
+    phone = fields.Str()

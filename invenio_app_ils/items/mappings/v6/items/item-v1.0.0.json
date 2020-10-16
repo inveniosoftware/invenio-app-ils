@@ -28,6 +28,9 @@
             "extension_count": {
               "type": "short"
             },
+            "is_overdue": {
+              "type": "boolean"
+            },
             "item_pid": {
               "properties": {
                 "type": {
@@ -41,6 +44,26 @@
             },
             "loan_pid": {
               "type": "keyword"
+            },
+            "patron": {
+              "properties": {
+                "email": {
+                  "type": "text"
+                },
+                "id": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "text"
+                },
+                "location_pid": {
+                  "type": "keyword"
+                },
+                "pid": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
             },
             "patron_pid": {
               "type": "keyword"
@@ -62,6 +85,60 @@
         },
         "document": {
           "properties": {
+            "authors": {
+              "properties": {
+                "affiliations": {
+                  "properties": {
+                    "identifiers": {
+                      "properties": {
+                        "scheme": {
+                          "type": "keyword"
+                        },
+                        "value": {
+                          "type": "keyword"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "object"
+                },
+                "alternative_names": {
+                  "type": "keyword"
+                },
+                "full_name": {
+                  "type": "text"
+                },
+                "identifiers": {
+                  "properties": {
+                    "material": {
+                      "type": "keyword"
+                    },
+                    "scheme": {
+                      "type": "keyword"
+                    },
+                    "value": {
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "object"
+                },
+                "roles": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "cover_metadata": {
+              "properties": {},
+              "type": "object"
+            },
             "edition": {
               "type": "text"
             },
@@ -87,13 +164,70 @@
         },
         "internal_location": {
           "properties": {
+            "legacy_id": {
+              "type": "keyword"
+            },
             "location": {
               "properties": {
-                "address": {
-                  "type": "text"
+                "pid": {
+                  "type": "keyword"
+                },
+                "legacy_id": {
+                  "type": "keyword"
                 },
                 "name": {
                   "type": "keyword"
+                },
+                "address": {
+                  "type": "keyword"
+                },
+                "email": {
+                  "type": "keyword"
+                },
+                "phone": {
+                  "type": "keyword"
+                },
+                "notes": {
+                  "type": "keyword"
+                },
+                "opening_weekdays": {
+                  "properties": {
+                    "weekday": {
+                      "type": "keyword"
+                    },
+                    "is_open": {
+                      "type": "boolean"
+                    },
+                    "times": {
+                      "properties": {
+                        "start_time": {
+                          "type": "keyword"
+                        },
+                        "end_time": {
+                          "type": "keyword"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "opening_exceptions": {
+                  "properties": {
+                    "title": {
+                      "type": "keyword"
+                    },
+                    "is_open": {
+                      "type": "boolean"
+                    },
+                    "start_date": {
+                      "type": "date"
+                    },
+                    "end_date": {
+                      "type": "date"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
@@ -102,6 +236,15 @@
               "type": "keyword"
             },
             "name": {
+              "type": "keyword"
+            },
+            "notes": {
+              "type": "keyword"
+            },
+            "physical_location": {
+              "type": "keyword"
+            },
+            "pid": {
               "type": "keyword"
             }
           },
@@ -113,6 +256,17 @@
         "internal_notes": {
           "type": "text"
         },
+        "isbn": {
+          "properties": {
+            "description": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
         "legacy_id": {
           "type": "keyword"
         },
@@ -121,6 +275,12 @@
         },
         "medium": {
           "type": "keyword"
+        },
+        "number_of_pages": {
+          "type": "integer"
+        },
+        "physical_description": {
+          "type": "text"
         },
         "pid": {
           "type": "keyword"

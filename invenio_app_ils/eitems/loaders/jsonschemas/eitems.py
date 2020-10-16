@@ -22,9 +22,9 @@ class URLSchema(Schema):
 
         unknown = EXCLUDE
 
-    value = fields.URL(required=True)
     description = fields.Str()
     login_required = fields.Bool(missing=True)
+    value = fields.URL(required=True)
 
 
 class FileSchema(Schema):
@@ -55,7 +55,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     description = fields.Str()
     document_pid = fields.Str(required=True)  # TODO: validate
     files = fields.List(fields.Nested(FileSchema))
-    internal_notes = fields.Str()
     identifiers = fields.List(fields.Nested(IdentifierSchema))
+    internal_notes = fields.Str()
     open_access = fields.Bool(missing=True)
     urls = fields.List(fields.Nested(URLSchema))

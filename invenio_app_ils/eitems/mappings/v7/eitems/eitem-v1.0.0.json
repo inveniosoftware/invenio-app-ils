@@ -20,6 +20,60 @@
       },
       "document": {
         "properties": {
+          "authors": {
+            "properties": {
+              "affiliations": {
+                "properties": {
+                  "identifiers": {
+                    "properties": {
+                      "scheme": {
+                        "type": "keyword"
+                      },
+                      "value": {
+                        "type": "keyword"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
+              },
+              "alternative_names": {
+                "type": "keyword"
+              },
+              "full_name": {
+                "type": "text"
+              },
+              "identifiers": {
+                "properties": {
+                  "material": {
+                    "type": "keyword"
+                  },
+                  "scheme": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
+              },
+              "roles": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "cover_metadata": {
+            "properties": {},
+            "type": "object"
+          },
           "edition": {
             "type": "text"
           },
@@ -51,7 +105,7 @@
           "checksum": {
             "type": "keyword"
           },
-          "id": {
+          "file_id": {
             "type": "keyword"
           },
           "key": {

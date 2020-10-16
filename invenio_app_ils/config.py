@@ -219,13 +219,15 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 JSONSCHEMAS_HOST = "127.0.0.1:5000"
 
 ###############################################################################
+# CSRF
+###############################################################################
+REST_CSRF_ENABLED = True
+
+###############################################################################
 # CORS
 ###############################################################################
 REST_ENABLE_CORS = True
-REST_CSRF_ENABLED = True
-
-# change this only while developing
-CORS_SEND_WILDCARD = True
+CORS_SEND_WILDCARD = False
 CORS_SUPPORTS_CREDENTIALS = False
 
 ###############################################################################

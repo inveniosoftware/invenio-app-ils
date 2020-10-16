@@ -10,8 +10,7 @@
 import time
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from invenio_records_rest.schemas.fields import (DateString,
-                                                 PersistentIdentifier)
+from invenio_records_rest.schemas.fields import DateString
 from marshmallow import (EXCLUDE, Schema, ValidationError, fields, post_load,
                          validates, validates_schema)
 
@@ -47,8 +46,8 @@ class OpeningHoursSchema(Schema):
 
         unknown = EXCLUDE
 
-    start_time = fields.Str(required=True, validate=validate_time)
     end_time = fields.Str(required=True, validate=validate_time)
+    start_time = fields.Str(required=True, validate=validate_time)
 
     @validates_schema
     def validate_times(self, data, **kwargs):
@@ -71,9 +70,9 @@ class OpeningWeekdaySchema(Schema):
 
         unknown = EXCLUDE
 
-    weekday = fields.Str(required=True)
     is_open = fields.Bool(required=True)
     times = fields.List(fields.Nested(OpeningHoursSchema))
+    weekday = fields.Str(required=True)
 
     @validates("weekday")
     def validate_weekday_name(self, value, **kwargs):
@@ -120,10 +119,10 @@ class OpeningExceptionSchema(Schema):
 
         unknown = EXCLUDE
 
-    title = fields.Str()
+    end_date = DateString(required=True)
     is_open = fields.Bool(required=True)
     start_date = DateString(required=True)
-    end_date = DateString(required=True)
+    title = fields.Str()
 
     @validates_schema
     def validate_dates(self, data, **kwargs):
@@ -141,16 +140,15 @@ class OpeningExceptionSchema(Schema):
 class LocationSchemaV1(RecordMetadataSchemaJSONV1):
     """Location schema."""
 
-    pid = PersistentIdentifier()
-    name = fields.Str(required=True)
     address = fields.Str()
     email = fields.Email()
-    phone = fields.Str()
+    name = fields.Str(required=True)
     notes = fields.Str()
+    opening_exceptions = fields.List(fields.Nested(OpeningExceptionSchema))
     opening_weekdays = fields.List(
         fields.Nested(OpeningWeekdaySchema), required=True
     )
-    opening_exceptions = fields.List(fields.Nested(OpeningExceptionSchema))
+    phone = fields.Str()
 
     @post_load
     def postload_checks(self, data, **kwargs):
