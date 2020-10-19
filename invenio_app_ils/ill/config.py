@@ -116,37 +116,27 @@ RECORDS_REST_ENDPOINTS = dict(
 
 RECORDS_REST_SORT_OPTIONS = dict(
     ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
+        ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            order=2,
         ),
         request_date=dict(
             fields=["request_date"],
             title="Request date",
-            default_order="desc",
-            order=2,
-        ),
-        received_date=dict(
-            fields=["received_date"],
-            title="Received date",
-            default_order="desc",
             order=3,
         ),
         expected_delivery_date=dict(
             fields=["expected_delivery_date"],
             title="Expected delivery date",
-            default_order="desc",
             order=4,
         ),
         due_date=dict(
             fields=["due_date"],
             title="Due date",
-            default_order="desc",
-            order=5,
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            default_order="asc",
             order=6,
         ),
     ),
@@ -154,14 +144,15 @@ RECORDS_REST_SORT_OPTIONS = dict(
         name=dict(
             fields=["name.keyword"],
             title="Name",
-            default_order="desc",
             order=1
+        ),
+        created=dict(
+            fields=["_created"], title="Recently added", order=2,
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
-            order=2,
+            order=3,
         ),
     ),
 )

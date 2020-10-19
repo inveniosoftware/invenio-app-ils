@@ -668,82 +668,72 @@ RECORDS_REST_ENDPOINTS = dict(
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
     document_requests=dict(  # DocumentRequestSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=2,
         ),
     ),
     documents=dict(  # DocumentSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=2,
         ),
-        available_items=dict(
-            fields=["-circulation.has_items_for_loan"],
-            title="Available Items",
-            default_order="asc",
+        available_copies=dict(
+            fields=["circulation.available_items_for_loan_count"],
+            title="Available copies",
             order=3,
         ),
         mostloaned=dict(
             fields=["circulation.past_loans_count"],
             title="Most loaned",
-            default_order="desc",
             order=4,
         ),
         publication_year=dict(
             fields=["publication_year"],
             title="Publication year",
-            default_order="desc",
             order=5,
         ),
         title=dict(
             fields=["title.keyword"],
             title="Title",
-            default_order="asc",
             order=6,
         ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=2,
         ),
         title=dict(
             fields=["document.title.keyword"],
             title="Title",
-            default_order="asc",
             order=3,
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=2,
         ),
         title=dict(
             fields=["document.title.keyword"],
             title="Title",
-            default_order="asc",
             order=3,
         ),
     ),
@@ -751,24 +741,21 @@ RECORDS_REST_SORT_OPTIONS = dict(
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=1,
-        )
+        ),
     ),
     series=dict(  # SeriesSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
             order=2,
         ),
         title=dict(
             fields=["title.keyword"],
             title="Title",
-            default_order="asc",
             order=3,
         ),
     ),
@@ -792,7 +779,7 @@ RECORDS_REST_FACETS = dict(
             relation=dict(terms=dict(field="relation_types")),
             availability=dict(
                 range=dict(
-                    field="circulation.has_items_for_loan",
+                    field="circulation.available_items_for_loan_count",
                     ranges=[{"key": "available for loan", "from": 1}],
                 )
             ),
@@ -804,7 +791,7 @@ RECORDS_REST_FACETS = dict(
             language=terms_filter("languages"),
             tag=terms_filter("tags"),
             availability=keyed_range_filter(
-                "circulation.has_items_for_loan",
+                "circulation.available_items_for_loan_count",
                 {"available for loan": {"gt": 0}},
             ),
             relation=terms_filter("relation_types"),

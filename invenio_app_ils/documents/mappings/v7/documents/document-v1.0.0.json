@@ -115,7 +115,7 @@
           "can_circulate_items_count": {
             "type": "integer"
           },
-          "has_items_for_loan": {
+          "available_items_for_loan_count": {
             "type": "integer"
           },
           "has_items_on_site": {
