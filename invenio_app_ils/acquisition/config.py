@@ -101,52 +101,43 @@ RECORDS_REST_ENDPOINTS = dict(
 
 RECORDS_REST_SORT_OPTIONS = dict(
     acq_orders=dict(  # OrderSearch.Meta.index
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="desc", order=1
-        ),
-        order_date=dict(
-            fields=["order_date"],
-            title="Order date",
-            default_order="desc",
-            order=2,
-        ),
-        grand_total=dict(
-            fields=["grand_total_main_currency.value"],
-            title="Total",
-            default_order="desc",
-            order=3,
-        ),
-        received_date=dict(
-            fields=["received_date"],
-            title="Received date",
-            default_order="desc",
-            order=4,
-        ),
-        expected_delivery_date=dict(
-            fields=["expected_delivery_date"],
-            title="Expected delivery date",
-            default_order="desc",
-            order=5,
+        created=dict(
+            fields=["_created"], title="Recently added", order=1
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
-            order=6,
+            order=2,
+        ),
+        order_date=dict(
+            fields=["order_date"],
+            title="Order date",
+            order=3,
+        ),
+        expected_delivery_date=dict(
+            fields=["expected_delivery_date"],
+            title="Expected delivery date",
+            order=4,
+        ),
+        grand_total=dict(
+            fields=["grand_total_main_currency.value"],
+            title="Total",
+            order=5,
         ),
     ),
     acq_vendors=dict(  # VendorSearch.Meta.index
         name=dict(
             fields=["name.keyword"],
             title="Name",
-            default_order="desc",
             order=1
+        ),
+        created=dict(
+            fields=["_created"], title="Recently added", order=2,
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
-            default_order="asc",
-            order=2,
+            order=3,
         ),
     ),
 )
