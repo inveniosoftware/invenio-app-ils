@@ -68,7 +68,10 @@ def notify_location_updated(location_pid):
     """Schedules the deletion of past exceptions."""
     def is_already_running():
         inspect = Inspect(app=current_app.extensions["invenio-celery"].celery)
-        for results in (inspect.scheduled(), inspect.active()):
+        filtered_results = filter(
+            None, [inspect.scheduled(), inspect.active()]
+        )
+        for results in filtered_results:
             for result in results.values():
                 for task in result:
                     request = task["request"]
