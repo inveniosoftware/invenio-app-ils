@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a16 (released 2020-10-20)
+
+- fix simplejson package version
+
 Version 1.0.0a15 (released 2020-10-20)
 
 - update sort configuration
