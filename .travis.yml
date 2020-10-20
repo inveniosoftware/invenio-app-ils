@@ -120,27 +120,22 @@ jobs:
       name: "requirements: lowest | es: 7 | tests: acquisition"
       <<: *env_lowest_es7
       script: "./run-tests.sh acquisition"
-      <<: *if_master_branch_or_release_tag
     - <<: *common
       name: "requirements: lowest | es: 7 | tests: circulation"
       <<: *env_lowest_es7
       script: "./run-tests.sh circulation"
-      <<: *if_master_branch_or_release_tag
     - <<: *common
       name: "requirements: lowest | es: 7 | tests: document requests"
       <<: *env_lowest_es7
       script: "./run-tests.sh document_requests"
-      <<: *if_master_branch_or_release_tag
     - <<: *common
       name: "requirements: lowest | es: 7 | tests: ill"
       <<: *env_lowest_es7
       script: "./run-tests.sh ill"
-      <<: *if_master_branch_or_release_tag
     - <<: *common
       name: "requirements: lowest | es: 7 | tests: ils"
       <<: *env_lowest_es7
       script: "./run-tests.sh ils"
-      <<: *if_master_branch_or_release_tag
     ####################################################################################################################
     # LOWEST - ES6
     ####################################################################################################################

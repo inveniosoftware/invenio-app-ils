@@ -76,7 +76,7 @@ install_requires = [
     "arrow>=0.15.0",
     "Flask-Debugtoolbar>=0.10.1",
     # needed to have namedtuple json serialized as dict
-    "simplejson>=3",
+    "simplejson>=3.8.1",
 ]
 
 packages = find_packages()
