@@ -7,6 +7,14 @@
 Changes
 =======
 
+Version 1.0.0a15 (released 2020-10-20)
+
+- update sort configuration
+- update ES mappings
+- location closure module fixes
+- add oai-pmh server configuration
+- fixes for celery 5 upgrade
+
 Version 1.0.0a14 (released 2020-10-13)
 
 - refactor anonymization module
