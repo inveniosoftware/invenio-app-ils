@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """ILL mail message."""
+import os
 
 from flask import current_app
 
@@ -42,7 +43,7 @@ class ILLMessage(BlockTemplatedMessage):
             )
 
         super().__init__(
-            template="{}/{}".format(self.TEMPLATES_DIR, templates[action]),
+            template=os.path.join(self.TEMPLATES_DIR, templates[action]),
             ctx=dict(brw_req=dict(record), **message_ctx, **kwargs),
             **kwargs
         )

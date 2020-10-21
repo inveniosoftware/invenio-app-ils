@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Document requests mail message objects."""
+import os
 
 from flask import current_app
 
@@ -47,7 +48,7 @@ class DocumentRequestMessage(BlockTemplatedMessage):
             )
 
         super().__init__(
-            template="{}/{}".format(self.TEMPLATES_DIR, templates[action]),
+            template=os.path.join(self.TEMPLATES_DIR, templates[action]),
             ctx=dict(request=dict(request), **message_ctx, **kwargs),
             **kwargs
         )
