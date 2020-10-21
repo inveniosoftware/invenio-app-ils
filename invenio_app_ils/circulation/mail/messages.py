@@ -7,6 +7,8 @@
 
 """Circulation mail message objects."""
 
+import os
+
 from flask import current_app
 from invenio_circulation.api import get_available_item_by_doc_pid
 
@@ -46,7 +48,7 @@ class LoanMessage(BlockTemplatedMessage):
 
         name = self.get_template_name(action)
         super().__init__(
-            template="{}/{}".format(self.templates_base_dir, templates[name]),
+            template=os.path.join(self.templates_base_dir, templates[name]),
             ctx=dict(loan=dict(loan), **message_ctx, **kwargs),
             **kwargs,
         )
@@ -79,7 +81,6 @@ class LoanListMessage(BlockTemplatedMessage):
     templates_base_dir = "invenio_app_ils_circulation/mail"
     default_templates = dict(
         active_loans="active_loans.html",
-        librarian_footer="librarian_footer.html",
     )
 
     def __init__(
@@ -88,7 +89,6 @@ class LoanListMessage(BlockTemplatedMessage):
         loans,
         message_ctx,
         template="active_loans",
-        footer_template="librarian_footer",
         **kwargs,
     ):
         """Create loan message based on the loan action."""
@@ -98,11 +98,8 @@ class LoanListMessage(BlockTemplatedMessage):
         )
 
         super().__init__(
-            template="{}/{}".format(
+            template=os.path.join(
                 self.templates_base_dir, templates[template]
-            ),
-            footer_template="{}/{}".format(
-                self.templates_base_dir, templates[footer_template]
             ),
             ctx=dict(patron=patron, loans=loans, **message_ctx, **kwargs),
             **kwargs,

@@ -8,6 +8,7 @@
 """ILS mail message objects."""
 
 import uuid
+import os
 
 from flask import current_app
 from flask_mail import Message
@@ -20,10 +21,12 @@ from invenio_app_ils.records.jsonresolvers.api import pick
 class BlockTemplatedMessage(Message):
     """Templated message using Jinja2 blocks."""
 
+    GLOBAL_MAIL_TEMPLATES_BASE_DIR = "invenio_app_ils/mail/"
+
     def __init__(
         self,
         template,
-        footer_template="invenio_app_ils/mail/footer.html",
+        footer_template="",
         ctx={},
         **kwargs
     ):
@@ -59,14 +62,17 @@ class BlockTemplatedMessage(Message):
         except TemplateError:
             kwargs["html"] = kwargs["body"]
 
-        footer_tmpl = current_app.jinja_env.get_template(footer_template)
-        footer_plain = self.render_block(footer_tmpl, "footer_plain")
-        try:
-            footer_html = self.render_block(footer_tmpl, "footer_html")
-        except TemplateError:
-            footer_html = footer_plain
-        kwargs["body"] += footer_plain
-        kwargs["html"] += footer_html
+        footer_template = current_app.config.get("ILS_GLOBAL_MAIL_TEMPLATES", {}).get("footer")
+        if footer_template:
+            footer_tmpl = current_app.jinja_env.get_template(os.path.join(
+                self.GLOBAL_MAIL_TEMPLATES_BASE_DIR, footer_template))
+            footer_plain = self.render_block(footer_tmpl, "footer_plain")
+            try:
+                footer_html = self.render_block(footer_tmpl, "footer_html")
+            except TemplateError:
+                footer_html = footer_plain
+            kwargs["body"] += footer_plain
+            kwargs["html"] += footer_html
 
         kwargs["body"] = kwargs["body"].strip()
         kwargs["html"] = kwargs["html"].strip()

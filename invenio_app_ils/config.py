@@ -132,7 +132,10 @@ ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
 ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"
 #: Document request email templates
 ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
-
+#: Global email templates
+ILS_GLOBAL_MAIL_TEMPLATES = {
+    "footer": "footer.html"
+}
 ###############################################################################
 # Assets
 ###############################################################################
