@@ -211,6 +211,14 @@ class InternalLocationGenerator(Generator):
 class ItemGenerator(Generator):
     """Item Generator."""
 
+    MEDIUMS = [
+        "NOT_SPECIFIED",
+        "PAPER",
+        "CDROM",
+        "DVD",
+        "VHS",
+    ]
+
     def generate(self):
         """Generate."""
         size = self.holder.items["total"]
@@ -230,7 +238,7 @@ class ItemGenerator(Generator):
                 "shelf": "{}".format(shelf_lorem.sentence()),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
-                "medium": random.choice(Item.MEDIUMS),
+                "medium": random.choice(self.MEDIUMS),
                 "status": random.choice(
                     random.choices(
                         population=Item.STATUSES,

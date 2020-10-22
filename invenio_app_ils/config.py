@@ -1039,6 +1039,7 @@ ILS_VOCABULARIES = [
     "identifier_scheme",
     "ill_item_type",
     "ill_payment_mode",
+    "item_medium",
     "language",
     "license",
     "series_identifier_scheme",

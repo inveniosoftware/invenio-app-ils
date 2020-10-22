@@ -46,7 +46,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     isbn = fields.Nested(ISBNSchema)
     legacy_id = fields.Str()
     legacy_library_id = fields.Str()
-    medium = fields.Str(required=True, validate=validate.OneOf(Item.MEDIUMS))
+    medium = fields.Str(required=True)
     number_of_pages = fields.Int()
     physical_description = fields.Str()
     price = fields.Nested(PriceSchema)
