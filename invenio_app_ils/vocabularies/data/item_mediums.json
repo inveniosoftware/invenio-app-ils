@@ -1,0 +1,27 @@
+[
+  {
+    "key": "NOT_SPECIFIED",
+    "type": "item_medium",
+    "text": "Not specified"
+  },
+  {
+    "key": "PAPER",
+    "type": "item_medium",
+    "text": "Paper"
+  },
+  {
+    "key": "CDROM",
+    "type": "item_medium",
+    "text": "CDROM"
+  },
+  {
+    "key": "DVD",
+    "type": "item_medium",
+    "text": "DVD"
+  },
+  {
+    "key": "VHS",
+    "type": "item_medium",
+    "text": "VHS"
+  }
+]

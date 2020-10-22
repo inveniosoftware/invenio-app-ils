@@ -111,15 +111,6 @@ class Item(IlsRecord):
         "THREE_WEEKS",
         "FOUR_WEEKS",
     ]
-    MEDIUMS = [
-        "NOT_SPECIFIED",
-        "PAPER",
-        "CDROM",
-        "DVD",
-        "VHS",
-        "PAPERBACK",
-        "HARDCOVER",
-    ]
 
     @classmethod
     def get_document_pid(cls, item_pid):
