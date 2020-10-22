@@ -174,15 +174,15 @@ CELERY_BEAT_SCHEDULE = {
     },
     "send_expiring_loans_loans": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_expiring_loans_mail_reminder",
-        "schedule": timedelta(days=1),
+        "schedule": crontab(minute=0, hour=0),  # every day, midnight
     },
     "cancel_expired_loan": {
         "task": "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests",
-        "schedule": timedelta(days=1),
+        "schedule": crontab(minute=0, hour=1),  # every day, 1am
     },
     "send_overdue_loan_reminders": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
-        "schedule": timedelta(days=1),
+        "schedule": crontab(minute=0, hour=2),  # every day, 2am
     },
     "stats-process-events": {
         "task": "invenio_stats.tasks.process_events",
