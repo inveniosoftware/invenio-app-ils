@@ -97,6 +97,10 @@ def files_permission(obj, action=None):
 
 def loan_extend_circulation_permission(loan):
     """Return permission to allow only owner and librarians to extend loan."""
+    if not has_request_context():
+        # not in a request context, probably from CLI
+        return allow_all()
+
     if current_user.is_anonymous:
         abort(401)
 
