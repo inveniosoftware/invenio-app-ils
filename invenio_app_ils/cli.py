@@ -10,7 +10,6 @@
 import json
 import os
 import pathlib
-import pprint
 import random
 import re
 from datetime import date, datetime, timedelta
@@ -34,7 +33,6 @@ from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
-from .anonymization import anonymize_patron_data, get_patron_activity
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
@@ -1410,26 +1408,6 @@ def data(
     indexer.process_bulk_queue()
 
 
-@click.group()
-def patrons():
-    """Patrons data CLI."""
-
-
-@patrons.command()
-@with_appcontext
-def index():
-    """Index patrons."""
-    patrons = User.query.all()
-    indexer = current_app_ils.patron_indexer
-
-    click.secho("Now indexing {0} patrons".format(len(patrons)), fg="green")
-
-    Patron = current_app_ils.patron_cls
-    for pat in patrons:
-        patron = Patron(pat.id)
-        indexer.index(patron)
-
-
 def create_userprofile_for(email, username, full_name):
     """Create a fake user profile."""
     user = User.query.filter_by(email=email).one_or_none()
@@ -1470,7 +1448,6 @@ def pages():
     with db.session.begin_nested():
         Page.query.delete()
         db.session.add_all(pages)
-    db.session.commit()
     click.echo("static pages created :)")
 
 
@@ -1598,46 +1575,3 @@ def setup(
         run_command("fixtures pages")
 
     click.secho("ils setup finished successfully", fg="blue")
-
-
-@click.command()
-@click.option("--patron-pid", help="Give patron pid.")
-@with_appcontext
-def list_patron_activity(patron_pid):
-    """List patron's data and activity."""
-    patron_activity = get_patron_activity(patron_pid)
-    if not patron_activity:
-        print("The patron with pid", patron_pid, "does not exist.")
-        return
-
-    pprint.pprint(patron_activity)
-
-
-@click.command()
-@click.option("--patron-pid", help="Give patron pid.")
-@click.option(
-    "--force",
-    is_flag=True,
-    default=False,
-    help="Re index even if user doesn't exist.",
-)
-@with_appcontext
-def anonymize_patron(patron_pid, force):
-    """Anonymize patron's data and activity."""
-    if click.confirm(
-        "Are you sure you want to anonymize this patron?", default=True
-    ):
-        result = anonymize_patron_data(patron_pid, force)
-    else:
-        return
-
-    if result is None:
-        print("The patron with pid %s does not exist." % patron_pid)
-        return
-    else:
-        dropped, indices = result
-        print(
-            "Successfully deleted patron's activity (%s rows deleted from database and %s records re-indexed)."
-            % (dropped, indices)
-        )
-        return

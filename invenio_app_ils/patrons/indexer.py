@@ -12,9 +12,11 @@ from datetime import datetime
 from celery import shared_task
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
+from invenio_accounts.models import User
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_pid
+from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
@@ -47,9 +49,7 @@ def get_document_requests(patron_pid):
     docreq_search_cls = current_app_ils.document_request_search_cls
     docreq_record_cls = current_app_ils.document_request_record_cls
     for request in (
-        docreq_search_cls()
-        .search_by_patron_pid(patron_pid=patron_pid)
-        .scan()
+        docreq_search_cls().search_by_patron_pid(patron_pid=patron_pid).scan()
     ):
         docreq = docreq_record_cls.get_record_by_pid(request["pid"])
         referenced.append(
@@ -98,8 +98,8 @@ def index_referenced_records(patron):
     indexer.index(indexed, get_ill_borrowing_requests(patron_pid))
 
 
-class PatronIndexer(RecordIndexer):
-    """Indexer class for `Patron`."""
+class PatronBaseIndexer(RecordIndexer):
+    """Base indexer class for `Patron` to treat it as a record."""
 
     @staticmethod
     def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
@@ -120,10 +120,48 @@ class PatronIndexer(RecordIndexer):
         :returns: A tuple (index, doc_type).
         """
         doc_type = record._doc_type if lt_es7 else "_doc"
-        return (record._index, doc_type)
+        return record._index, doc_type
+
+    def index_by_id(self, record_uuid, **kwargs):
+        """Not implemented."""
+        raise NotImplementedError("Cannot use this operation for Patron")
+
+    def delete_by_id(self, record_uuid, **kwargs):
+        """Not implemented."""
+        raise NotImplementedError("Cannot use this operation for Patron")
+
+    def bulk_index(self, record_id_iterator):
+        """Not implemented."""
+        raise NotImplementedError("Cannot use this operation for Patron")
+
+    def bulk_delete(self, record_id_iterator):
+        """Not implemented."""
+        raise NotImplementedError("Cannot use this operation for Patron")
+
+    def process_bulk_queue(self, es_bulk_kwargs=None):
+        """Not implemented."""
+        raise NotImplementedError("Cannot use this operation for Patron")
+
+
+class PatronIndexer(PatronBaseIndexer):
+    """Indexer class for `Patron`."""
 
     def index(self, patron, arguments=None, **kwargs):
         """Index a Patron."""
         super().index(patron)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_referenced_records.apply_async((patron,), eta=eta)
+
+
+def reindex_patrons():
+    """Re-index all patrons."""
+    # do not use PatronIndexer class otherwise it will trigger potentially
+    # thousands of tasks to index referenced records
+    indexer = PatronBaseIndexer()
+    Patron = current_app_ils.patron_cls
+    # cannot use bulk operation because Patron is not a real record
+    all_user_ids = db.session.query(User.id).all()
+    for (user_id,) in all_user_ids:
+        patron = Patron(user_id)
+        indexer.index(patron)
+    return len(all_user_ids)
