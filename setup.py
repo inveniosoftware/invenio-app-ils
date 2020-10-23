@@ -106,14 +106,12 @@ setup(
     entry_points={
         "console_scripts": ["ils = invenio_app.cli:cli"],
         "flask.commands": [
+            "fixtures = invenio_app_ils.cli:fixtures",
             "demo = invenio_app_ils.cli:demo",
-            "patrons = invenio_app_ils.cli:patrons",
+            "patrons = invenio_app_ils.patrons.cli:patrons",
             "setup = invenio_app_ils.cli:setup",
             "stats = invenio_stats.cli:stats",
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
-            "fixtures = invenio_app_ils.cli:fixtures",
-            "list_patron_activity = invenio_app_ils.cli:list_patron_activity",
-            "anonymize_patron = invenio_app_ils.cli:anonymize_patron",
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",

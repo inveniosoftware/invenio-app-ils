@@ -19,13 +19,13 @@ from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.errors import AnonymizationActiveLoansError, PatronNotFoundError
+from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
+                                                get_loans_by_patron_pid)
+from invenio_app_ils.errors import (AnonymizationActiveLoansError,
+                                    PatronNotFoundError)
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
-
-from .circulation.search import (get_active_loans_by_patron_pid,
-                                 get_loans_by_patron_pid)
-from .proxies import current_app_ils
+from invenio_app_ils.proxies import current_app_ils
 
 
 def get_patron_activity(patron_pid):

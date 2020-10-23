@@ -21,7 +21,6 @@ from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.api import Order
 from invenio_app_ils.acquisition.search import OrderSearch
-from invenio_app_ils.anonymization import anonymize_patron_data
 from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
                                                 get_loans_by_patron_pid)
 from invenio_app_ils.document_requests.api import DocumentRequest
@@ -29,6 +28,7 @@ from invenio_app_ils.document_requests.search import DocumentRequestSearch
 from invenio_app_ils.errors import AnonymizationActiveLoansError
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.ill.search import BorrowingRequestsSearch
+from invenio_app_ils.patrons.anonymization import anonymize_patron_data
 from invenio_app_ils.patrons.api import patron_exists
 from tests.helpers import user_login, user_logout
 
@@ -127,10 +127,7 @@ def cancel_active_loans(patron_pid, client, users):
     """Cancel active loans of a patron."""
     user = user_login(client, "admin", users)
 
-    active_loans = (
-        get_active_loans_by_patron_pid(patron_pid)
-        .scan()
-    )
+    active_loans = get_active_loans_by_patron_pid(patron_pid).scan()
 
     for hit in active_loans:
         loan = Loan.get_record_by_pid(hit.pid)

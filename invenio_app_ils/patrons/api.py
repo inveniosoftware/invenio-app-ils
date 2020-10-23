@@ -93,8 +93,8 @@ class Patron(dict):
             "location_pid": self.location_pid,
         }
 
-    @staticmethod
-    def get_patron(patron_pid):
+    @classmethod
+    def get_patron(cls, patron_pid):
         """Return the patron object given the patron_pid."""
         if not patron_pid:
             raise PatronNotFoundError(patron_pid)
@@ -103,7 +103,7 @@ class Patron(dict):
         if str(patron_pid) == str(SystemAgent.id):
             return SystemAgent()
 
-        return Patron(patron_pid)
+        return cls(patron_pid)
 
 
 class SystemAgent(Patron):
@@ -162,8 +162,8 @@ def get_patron_or_unknown_dump(patron_pid):
     if not patron_pid:
         raise PatronNotFoundError
     try:
-        cls = current_app_ils.patron_cls
+        Patron = current_app_ils.patron_cls
     except PatronNotFoundError:
-        cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
+        Patron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
 
-    return cls.get_patron(patron_pid).dumps_loader()
+    return Patron.get_patron(patron_pid).dumps_loader()
