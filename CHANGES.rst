@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 1.0.0a17 (released 2020-10-23)
+
+* fix vocabularies for mediums
+* change cron jobs schedule
+
 Version 1.0.0a16 (released 2020-10-20)
 
 - fix simplejson package version
