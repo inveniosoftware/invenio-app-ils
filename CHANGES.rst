@@ -7,10 +7,18 @@
 Changes
 =======
 
+Version 1.0.0a18 (released 2020-10-26)
+
+- refactor patrons indexer
+- add overridable footer email template
+- integrate invenio-banners module
+- remove email to send active loans to librarian
+- add missing legacy_id fields to various schema
+
 Version 1.0.0a17 (released 2020-10-23)
 
-* fix vocabularies for mediums
-* change cron jobs schedule
+- fix vocabularies for mediums
+- change cron jobs schedule
 
 Version 1.0.0a16 (released 2020-10-20)
 
