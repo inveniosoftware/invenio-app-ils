@@ -57,8 +57,6 @@ _env_lowest_es6: &env_lowest_es6
   env: REQUIREMENTS=lowest EXTRAS=$EXTRAS_COMMON,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
 _env_lowest_es7: &env_lowest_es7
   env: REQUIREMENTS=lowest EXTRAS=$EXTRAS_COMMON,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
-_run_only_on_master_branch_or_release_tag: &if_master_branch_or_release_tag
-  if: (branch = master AND type = push) OR tag IS present
 
 jobs:
   include:
@@ -85,20 +83,3 @@ jobs:
       name: "requirements: release | es: 7 | tests: ils"
       <<: *env_release_es7
       script: "./run-tests.sh ils"
-    ####################################################################################################################
-    # DEPLOY
-    ####################################################################################################################
-    - stage: deploy
-      script: skip
-      if: tag IS present
-      deploy:
-        distributions: sdist bdist_wheel
-        on:
-          python: "3.6"
-          repo: inveniosoftware/invenio-app-ils
-          tags: true
-        password:
-          secure: j6d2Dnh6nDi34MQdrcxdfX3fBIMO8R23UI6lQzjsPrhA2fyQM3aToukJsgnXJjuXRf2o/Gy/jlJNE2vNXAiSeHfk0Uiyw053QtDBS+Shm579281S7nIduvnxSWCRoVRxnr3lnUoHqV0PgI5xvxqZWZLgf2R/HnuB2f3kONxJ/WNN/L9BvRwOMVRbTSu/zh6iuerG5uehCwcQNOHXe1RprITcTKo6iYJ1qPVKkTfUSfM+qzn/IInEvjwncxtt5gs1WTIwoPdeY0/yt6Lr7HZbbWIEgoWJHtJ35X9F1Cb3WugFjRZL1bdv+IR3/qpSZkr9zAHvP+0z+9PgwWDb3NCsjHLzMeEENm5bP49GGBKcmwieVVCoBcsHkyRVznyAIqH80csyfVM29xLpSzfY/e2oVsJM/DX0cOG9K6iv110F6WNRRi4nqgjWQyEXSWo23Ru9iVweY9xwYxLLD+GympFAC6FW/tUWoLBGknXrf5ZlHVJWXrIHU7c+LLPCKfwVXwIKC/7pk1iwkWVgbJUwzzJi1AGXTyFdwFDiG735Bk4wvSogxqWuu+2xs/HwkAZJNs88TkEeuXfM7qos24ANGBxRKO+ZPPYCpSSxVoLULKr2LTCuD+Bqf+cQCPxMq+Hrrv3xOV+kH7zEYHzFiPYbclRKbkoT0M5FXVMZl8ZKnfBPUBg=
-        provider: pypi
-        user: inveniosoftware
-
