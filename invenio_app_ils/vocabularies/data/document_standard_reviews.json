@@ -1,0 +1,17 @@
+[
+  {
+    "type": "document_standard_reviews",
+    "key": "APPLICABLE",
+    "text": "Applicable at CERN"
+  },
+  {
+    "type": "document_standard_reviews",
+    "key": "NO_LONGER_APPLICABLE",
+    "text": "No longer applicable at CERN"
+  },
+  {
+    "type": "document_standard_reviews",
+    "key": "NOT_YET_APPLICABLE",
+    "text": "Not yet applicable at CERN"
+  }
+]

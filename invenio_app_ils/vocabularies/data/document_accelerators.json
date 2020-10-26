@@ -1,0 +1,27 @@
+[
+  {
+    "type": "document_accelerators",
+    "key": "CERN_SPS",
+    "text": "CERN SPS"
+  },
+  {
+    "type": "document_accelerators",
+    "key": "R&D",
+    "text": "R&D"
+  },
+  {
+    "type": "document_accelerators",
+    "key": "OTHER",
+    "text": "OTHER"
+  },
+  {
+    "type": "document_accelerators",
+    "key": "RADFAC",
+    "text": "RADFAC"
+  },
+  {
+    "type": "document_accelerators",
+    "key": "RE",
+    "text": "RE"
+  }
+]
