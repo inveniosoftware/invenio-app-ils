@@ -26,6 +26,7 @@ from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
                                                 get_loans_by_patron_pid)
 from invenio_app_ils.document_requests.api import DocumentRequest
 from invenio_app_ils.document_requests.search import DocumentRequestSearch
+from invenio_app_ils.errors import AnonymizationActiveLoansError
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.ill.search import BorrowingRequestsSearch
 from invenio_app_ils.patrons.api import patron_exists
@@ -185,5 +186,5 @@ def test_anonymization(app, client, json_headers, users, testdata):
     # It should fail when anonymizing patron with active loans
     patron_pid = users["patron1"].id
     check_user_exists(patron_pid)
-    with pytest.raises(AssertionError):
+    with pytest.raises(AnonymizationActiveLoansError):
         assert anonymize_patron_data(patron_pid)

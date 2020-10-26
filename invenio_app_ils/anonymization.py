@@ -19,7 +19,7 @@ from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.errors import PatronNotFoundError
+from invenio_app_ils.errors import AnonymizationActiveLoansError, PatronNotFoundError
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 
@@ -86,7 +86,7 @@ def anonymize_patron_data(patron_pid, force=False):
 
     n_loans = get_active_loans_by_patron_pid(patron_pid).count()
     if n_loans > 0:
-        raise AssertionError(
+        raise AnonymizationActiveLoansError(
             "Cannot delete user {0}: found {1} active loans.".format(
                 patron_pid, n_loans
             )

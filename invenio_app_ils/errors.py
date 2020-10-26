@@ -282,3 +282,14 @@ class InvalidLoanExtendError(IlsException):
         """Initialize exception."""
         super().__init__(**kwargs)
         self.description = self.description.format(msg)
+
+
+class AnonymizationActiveLoansError(IlsException):
+    """Raised when anonymizing a patron with active loans."""
+
+    description = "{}"
+
+    def __init__(self, msg, **kwargs):
+        """Initialize exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(msg)
