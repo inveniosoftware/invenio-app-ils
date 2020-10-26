@@ -1449,7 +1449,7 @@ def fixtures():
 @fixtures.command()
 @with_appcontext
 def pages():
-    """Register CDS static pages."""
+    """Register static pages."""
     pages = [
         Page(
             url="/about",

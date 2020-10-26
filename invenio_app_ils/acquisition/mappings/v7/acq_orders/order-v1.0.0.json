@@ -54,6 +54,9 @@
         },
         "type": "object"
       },
+      "legacy_id": {
+        "type": "keyword"
+      },
       "notes": {
         "type": "text"
       },

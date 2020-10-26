@@ -21,6 +21,7 @@ class VendorSchemaV1(RecordMetadataSchemaJSONV1):
 
     address = fields.Str()
     email = fields.Email()
+    legacy_id = fields.Str()
     name = fields.Str(required=True)
     notes = fields.Str()
     phone = fields.Str()

@@ -19,6 +19,9 @@
         "email": {
           "type": "text"
         },
+        "legacy_id": {
+          "type": "keyword"
+        },
         "name": {
           "fields": {
             "keyword": {

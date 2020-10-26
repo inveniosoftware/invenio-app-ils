@@ -72,6 +72,7 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     funds = fields.List(fields.Str())
     grand_total = fields.Nested(PriceSchema)
     grand_total_main_currency = fields.Nested(PriceSchema)
+    legacy_id = fields.Str()
     notes = fields.Str()
     order_date = DateString(required=True)
     order_lines = fields.List(fields.Nested(OrderLineSchema), required=True)

@@ -167,6 +167,10 @@
       "$ref": "#/definitions/price",
       "title": "Order grand total in the main currency"
     },
+    "legacy_id": {
+      "type": "string",
+      "title": "The previous id of this acquisition order before data migration"
+    },
     "notes": {
       "title": "The notes of Acquisition order",
       "type": "string"

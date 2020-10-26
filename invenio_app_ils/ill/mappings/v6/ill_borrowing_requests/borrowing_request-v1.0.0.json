@@ -57,6 +57,9 @@
         "expected_delivery_date": {
           "type": "date"
         },
+        "legacy_id": {
+          "type": "keyword"
+        },
         "library": {
           "properties": {
             "name": {

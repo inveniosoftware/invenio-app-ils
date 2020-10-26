@@ -13,7 +13,7 @@
     },
     "legacy_id": {
       "type": "string",
-      "title": "The legacy id of this Location"
+      "title": "The legacy id of this Location before data migration"
     },
     "name": {
       "type": "string",
