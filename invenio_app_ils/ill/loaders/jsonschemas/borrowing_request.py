@@ -60,6 +60,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     document_pid = fields.Str(required=True)
     due_date = DateString()
     expected_delivery_date = DateString()
+    legacy_id = fields.Str()
     library_pid = fields.Str(required=True)  # TODO: validate
     notes = fields.Str()
     patron_pid = fields.Str(required=True)

@@ -101,6 +101,10 @@
       "title": "Expected delivery date of the item requested",
       "type": "string"
     },
+    "legacy_id": {
+      "type": "string",
+      "title": "The previous id of this borrowing request before data migration"
+    },
     "library": {
       "properties": {
         "$ref": {

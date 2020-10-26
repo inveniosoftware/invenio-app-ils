@@ -12,6 +12,10 @@
       "title": "The email of the external library",
       "type": "string"
     },
+    "legacy_id": {
+      "type": "string",
+      "title": "The previous id of this Library before data migration"
+    },
     "name": {
       "title": "The name of the external library",
       "type": "string"
