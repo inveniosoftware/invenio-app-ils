@@ -13,5 +13,10 @@
     "key": "USD",
     "type": "currencies",
     "text": "US Dollar"
+  },
+  {
+    "key": "GBP",
+    "type": "currencies",
+    "text": "Pound sterling"
   }
 ]
