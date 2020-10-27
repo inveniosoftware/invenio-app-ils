@@ -56,8 +56,6 @@ ILS_CIRCULATION_MAIL_TEMPLATES = {}
 ILS_CIRCULATION_MAIL_MSG_CREATOR = (
     "invenio_app_ils.circulation.mail.factory:default_loan_message_creator"
 )
-#: Loan list message creator class
-ILS_CIRCULATION_LOANS_MAIL_MSG_CREATOR = "invenio_app_ils.circulation.mail.factory:default_loan_list_message_creator"
 #: Notification email for overdue loan sent automatically every X days
 ILS_CIRCULATION_MAIL_OVERDUE_REMINDER_INTERVAL = 3
 #: The maximum duration of a loan request

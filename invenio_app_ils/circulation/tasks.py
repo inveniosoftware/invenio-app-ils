@@ -16,12 +16,7 @@ from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
-from invenio_app_ils.circulation.mail.factory import \
-    loan_list_message_creator_factory
-from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
-                                                get_all_expired_loans)
-from invenio_app_ils.mail.tasks import send_ils_email
-from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.circulation.search import get_all_expired_loans
 
 celery_logger = get_task_logger(__name__)
 

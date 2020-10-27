@@ -10,7 +10,6 @@
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from flask import current_app
-from invenio_circulation.proxies import current_circulation
 
 from invenio_app_ils.circulation.mail.factory import \
     loan_message_creator_factory
@@ -85,6 +84,7 @@ def send_expiring_loans_mail_reminder():
         send_expiring_loan_reminder_mail(loan, days)
 
 
+@shared_task
 def send_loan_end_date_updated_mail(loan):
     """Sends an email to the patron whose loan was updated."""
     send_loan_mail(

@@ -73,34 +73,3 @@ class LoanMessage(BlockTemplatedMessage):
         data = super().dump()
         data["loan_pid"] = self.loan["pid"]
         return data
-
-
-class LoanListMessage(BlockTemplatedMessage):
-    """Loan List message."""
-
-    templates_base_dir = "invenio_app_ils_circulation/mail"
-    default_templates = dict(
-        active_loans="active_loans.html",
-    )
-
-    def __init__(
-        self,
-        patron,
-        loans,
-        message_ctx,
-        template="active_loans",
-        **kwargs,
-    ):
-        """Create loan message based on the loan action."""
-        templates = dict(
-            self.default_templates,
-            **current_app.config["ILS_CIRCULATION_MAIL_TEMPLATES"],
-        )
-
-        super().__init__(
-            template=os.path.join(
-                self.templates_base_dir, templates[template]
-            ),
-            ctx=dict(patron=patron, loans=loans, **message_ctx, **kwargs),
-            **kwargs,
-        )

@@ -7,8 +7,8 @@
 
 """ILS mail message objects."""
 
-import uuid
 import os
+import uuid
 
 from flask import current_app
 from flask_mail import Message
@@ -23,13 +23,7 @@ class BlockTemplatedMessage(Message):
 
     GLOBAL_MAIL_TEMPLATES_BASE_DIR = "invenio_app_ils/mail/"
 
-    def __init__(
-        self,
-        template,
-        footer_template="",
-        ctx={},
-        **kwargs
-    ):
+    def __init__(self, template, ctx={}, **kwargs):
         """Build message body and HTML based on the provided template.
 
         The template needs to provide two blocks: subject and body. An optional
@@ -49,7 +43,7 @@ class BlockTemplatedMessage(Message):
                 spa_routes=dict(
                     HOST=current_app.config["SPA_HOST"],
                     PATHS=current_app.config["SPA_PATHS"],
-                ),
+                )
             )
         )
         self.ctx = ctx
@@ -62,10 +56,15 @@ class BlockTemplatedMessage(Message):
         except TemplateError:
             kwargs["html"] = kwargs["body"]
 
-        footer_template = current_app.config.get("ILS_GLOBAL_MAIL_TEMPLATES", {}).get("footer")
+        footer_template = current_app.config.get(
+            "ILS_GLOBAL_MAIL_TEMPLATES", {}
+        ).get("footer")
         if footer_template:
-            footer_tmpl = current_app.jinja_env.get_template(os.path.join(
-                self.GLOBAL_MAIL_TEMPLATES_BASE_DIR, footer_template))
+            footer_tmpl = current_app.jinja_env.get_template(
+                os.path.join(
+                    self.GLOBAL_MAIL_TEMPLATES_BASE_DIR, footer_template
+                )
+            )
             footer_plain = self.render_block(footer_tmpl, "footer_plain")
             try:
                 footer_html = self.render_block(footer_tmpl, "footer_html")
