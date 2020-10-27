@@ -108,6 +108,6 @@ def extend_active_loans_location_closure(location_pid):
                 loan.commit()
                 current_circulation.loan_indexer().index(loan)
                 _log("extend_loan_closure_after", loan)
-                send_loan_end_date_updated_mail(loan)
+                send_loan_end_date_updated_mail.apply_async((loan,))
     db.session.commit()
     _log("extend_loan_closure_end", dict(modified_count=modified_count))

@@ -15,7 +15,7 @@ from flask import current_app
 from invenio_accounts.models import SessionActivity, User, userrole
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
-from invenio_oauthclient.models import RemoteAccount, UserIdentity
+from invenio_oauthclient.models import RemoteAccount, UserIdentity, RemoteToken
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
@@ -180,22 +180,28 @@ def delete_user_account(patron_pid):
 
     with db.session.begin_nested():
         d = db.session.query(userrole).filter(userrole.c.user_id == patron_pid)
-        dropped += d.delete(synchronize_session=False)
+        dropped += d.delete(synchronize_session=False) or 0
 
         dropped += SessionActivity.query.filter(
             SessionActivity.user_id == patron_pid
-        ).delete()
+        ).delete() or 0
 
         dropped += UserIdentity.query.filter(
             UserIdentity.id_user == patron_pid
-        ).delete()
-        dropped += RemoteAccount.query.filter(
+        ).delete() or 0
+
+        ra = RemoteAccount.query.filter(
             RemoteAccount.user_id == patron_pid
-        ).delete()
+        ).one_or_none()
+        if ra:
+            dropped += RemoteToken.query.filter(
+                RemoteToken.id_remote_account == ra.id
+            ).delete() or 0
+            dropped += ra.delete() or 0
 
         dropped += UserProfile.query.filter(
             UserProfile.user_id == patron_pid
-        ).delete()
-        dropped += User.query.filter(User.id == patron_pid).delete()
+        ).delete() or 0
+        dropped += User.query.filter(User.id == patron_pid).delete() or 0
 
     return dropped
