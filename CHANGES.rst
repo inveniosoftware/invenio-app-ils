@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a19 (released 2020-10-28)
+
+- fix ils search factory with prefixed indices
+
 Version 1.0.0a18 (released 2020-10-26)
 
 - refactor patrons indexer
