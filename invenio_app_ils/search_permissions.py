@@ -79,9 +79,13 @@ def _ils_search_factory(self, search, validator):
     try:
         search = search.query(query)
     except SyntaxError:
+        current_app.logger.debug(
+            "Failed parsing query: {0}".format(
+                request.values.get('q', '')),
+            exc_info=True)
         raise SearchQueryError(query_string)
 
-    search_index = search._index[0]
+    search_index = getattr(search, '_original_index', search._index)[0]
     search, urlkwargs = default_facets_factory(search, search_index)
     search, sortkwargs = default_sorter_factory(search, search_index)
     for key, value in sortkwargs.items():
