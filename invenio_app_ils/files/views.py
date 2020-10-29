@@ -60,5 +60,6 @@ class RecordBucketResource(ContentNegotiatedMethodView):
             bucket = Bucket.create()
             record["bucket_id"] = str(bucket.id)
             record.commit()
+        db.session.commit()
         current_app_ils.eitem_indexer.index(record)
         return self.make_response(record.pid, record, 201)

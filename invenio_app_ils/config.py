@@ -113,8 +113,6 @@ BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 ###############################################################################
 #: Email address for support.
 SUPPORT_EMAIL = "info@inveniosoftware.org"
-#: Management email for internal notifications.
-MANAGEMENT_EMAIL = "internal@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
 #: Email address for email notification sender.
