@@ -78,6 +78,7 @@ def _test_sibl_language_relation(client, json_headers):
                             "record_metadata": {
                                 "title": rec3["title"],
                                 "document_type": rec3["document_type"],
+                                "languages": rec3["languages"],
                                 "publication_year": rec3["publication_year"],
                             },
                         },
@@ -108,6 +109,7 @@ def _test_sibl_language_relation(client, json_headers):
                             "relation_type": "language",
                             "record_metadata": {
                                 "title": rec3["title"],
+                                "languages": rec3["languages"],
                                 "document_type": rec3["document_type"],
                                 "publication_year": rec3["publication_year"],
                             },
@@ -262,6 +264,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                             "record_metadata": {
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
+                                "languages": rec_docid_6['languages'],
                                 "publication_year": rec_docid_6[
                                     "publication_year"
                                 ],
@@ -314,6 +317,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                             "record_metadata": {
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
+                                "languages": rec_docid_6["languages"],
                                 "publication_year": rec_docid_6[
                                     "publication_year"
                                 ],
@@ -324,10 +328,35 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
             },
         )
 
+    def _test_empty_edition_field():
+        edition_first_pid_value = "docid-11"
+        edition_first_pid_type = "docid"
+        edition_second_pid_value = "docid-12"
+        edition_second_pid_type = "docid"
+
+        create_payload = {
+            "pid_value": edition_second_pid_value,
+            "pid_type": edition_second_pid_type,
+            "relation_type": relation_type,
+        }
+
+        rec1, rec2 = recrel_choose_endpoints_and_do_request(
+            (client, json_headers, "POST"),
+            (
+                edition_first_pid_value,
+                edition_first_pid_type,
+                edition_second_pid_value,
+                edition_second_pid_type,
+            ),
+            create_payload,
+            expect_status_code=400
+        )
+
     _test_create()
     _test_delete()
     # recreate for the next one, to have some more valuable test data
     _test_create()
+    _test_empty_edition_field()
 
 
 def _test_sibl_other_relation(client, json_headers, testdata):
@@ -396,6 +425,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                             "record_metadata": {
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
+                                "languages": rec_docid_6["languages"],
                                 "publication_year": rec_docid_6[
                                     "publication_year"
                                 ],
@@ -499,6 +529,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                             "record_metadata": {
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
+                                "languages": rec_docid_6["languages"],
                                 "publication_year": rec_docid_6[
                                     "publication_year"
                                 ],

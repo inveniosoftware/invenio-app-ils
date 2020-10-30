@@ -72,6 +72,7 @@
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-6",
     "title": "Less: A Novel",
+    "languages": ["pl"],
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
     "document_type": "BOOK",

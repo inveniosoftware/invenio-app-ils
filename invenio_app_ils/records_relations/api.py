@@ -243,7 +243,7 @@ class RecordRelationsSiblings(RecordRelations):
             and isinstance(second, Series)
             and first["mode_of_issuance"] == second["mode_of_issuance"]
         )
-        valid_edition = relation_name == "edition" and (
+        valid_edition_relation = relation_name == "edition" and (
             (
                 isinstance(first, Document)
                 and isinstance(second, Series)
@@ -256,13 +256,33 @@ class RecordRelationsSiblings(RecordRelations):
             )
         )
 
-        if not (same_document or same_series or valid_edition):
+        valid_edition_fields = relation_name == "edition" and \
+            first.get('edition', False) and second.get('edition', False)
+
+        valid_language_fields = relation_name == 'language' and \
+            first.get('languages', False) and second.get('languages', False)
+
+        valid_other_fields = relation_name == "other"
+
+        if not (same_document or same_series or valid_edition_relation):
             raise RecordRelationsError(
-                "Cannot create a relation `{}` between PID `{}` and  PID `{}`,"
+                "Cannot create relation `{}` between PID `{}` and  PID `{}`,"
                 " they are different record types".format(
                     relation_name, first.pid.pid_value, second.pid.pid_value
                 )
             )
+
+        if not (valid_edition_fields or valid_language_fields or
+                valid_other_fields):
+            raise RecordRelationsError(
+                "Cannot create relation `{}` "
+                "between PID `{}` and  PID `{}`,"
+                " one of the records is missing {} fields".format(
+                    relation_name, first.pid.pid_value, second.pid.pid_value,
+                    relation_name
+                )
+            )
+
         return True
 
     def add(self, first, second, relation_type, **kwargs):
