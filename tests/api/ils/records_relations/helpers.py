@@ -56,7 +56,7 @@ def recrel_assert_record_relations(record, expected):
 
 
 def recrel_do_request_for_valid_relation(
-    client, json_headers, payload, url, method="POST"
+    client, json_headers, payload, url, method="POST", expect_status_code=None
 ):
     """Create a new valid relation."""
     func = client.delete if method == "DELETE" else client.post
@@ -65,13 +65,19 @@ def recrel_do_request_for_valid_relation(
         headers=json_headers,
         data=json.dumps(payload),
     )
-    expected_status_code = 200 if method == "DELETE" else 201
+    if expect_status_code is None:
+        expected_status_code = 200 if method == "DELETE" else 201
+    else:
+        expected_status_code = expect_status_code
     assert res.status_code == expected_status_code
+    if res.status_code not in [200, 201]:
+        return
     return json.loads(res.data.decode("utf-8"))["metadata"]
 
 
 def recrel_choose_endpoints_and_do_request(
-    client_params, relation, payload, create_using_pid1=True
+    client_params, relation, payload, create_using_pid1=True,
+    expect_status_code=None
 ):
     """Choose which endpoint to use, create relation, return records."""
     client, json_headers, method = client_params
@@ -82,7 +88,8 @@ def recrel_choose_endpoints_and_do_request(
         url_other = (TYPES_ENDPOINTS["get"][pid2_type], pid2)
 
         record1 = recrel_do_request_for_valid_relation(
-            client, json_headers, payload, url_create_rel, method=method
+            client, json_headers, payload, url_create_rel, method=method,
+            expect_status_code=expect_status_code
         )
         record2 = recrel_fetch_record(client, json_headers, url_other)
     else:
@@ -90,7 +97,8 @@ def recrel_choose_endpoints_and_do_request(
         url_other = (TYPES_ENDPOINTS["get"][pid1_type], pid1)
 
         record2 = recrel_do_request_for_valid_relation(
-            client, json_headers, payload, url_create_rel, method=method
+            client, json_headers, payload, url_create_rel, method=method,
+            expect_status_code=expect_status_code
         )
         record1 = recrel_fetch_record(client, json_headers, url_other)
     return record1, record2
