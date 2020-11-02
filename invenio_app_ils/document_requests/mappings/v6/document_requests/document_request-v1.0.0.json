@@ -48,6 +48,9 @@
         "journal_title": {
           "type": "text"
         },
+        "legacy_id": {
+          "type": "keyword"
+        },
         "medium": {
           "type": "keyword"
         },
