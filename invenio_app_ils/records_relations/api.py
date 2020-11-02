@@ -264,6 +264,12 @@ class RecordRelationsSiblings(RecordRelations):
 
         valid_other_fields = relation_name == "other"
 
+        equal_editions = relation_name == 'edition' and first.get('edition') \
+            == second.get('edition')
+
+        equal_languages = relation_name == 'language' and \
+            first.get('languages') == second.get('languages')
+
         if not (same_document or same_series or valid_edition_relation):
             raise RecordRelationsError(
                 "Cannot create relation `{}` between PID `{}` and  PID `{}`,"
@@ -278,6 +284,16 @@ class RecordRelationsSiblings(RecordRelations):
                 "Cannot create relation `{}` "
                 "between PID `{}` and  PID `{}`,"
                 " one of the records is missing {} fields".format(
+                    relation_name, first.pid.pid_value, second.pid.pid_value,
+                    relation_name
+                )
+            )
+
+        if equal_editions or equal_languages:
+            raise RecordRelationsError(
+                "Cannot create relation `{}` "
+                "between PID `{}` and  PID `{}`,"
+                " records have equal {} fields".format(
                     relation_name, first.pid.pid_value, second.pid.pid_value,
                     relation_name
                 )
