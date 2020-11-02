@@ -32,6 +32,10 @@
       "title": "Journal title of the requested document",
       "type": "string"
     },
+    "legacy_id": {
+      "type": "string",
+      "title": "The previous id of this document request before data migration"
+    },
     "medium": {
       "title": "Medium of the requested document (Vocabulary)",
       "type": "string"
