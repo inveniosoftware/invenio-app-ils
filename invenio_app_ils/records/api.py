@@ -34,7 +34,7 @@ class RecordValidator(object):
 class IlsRecord(Record):
     """Ils record class."""
 
-    CURATOR_TYPES = ["user_id", "script"]
+    CURATOR_TYPES = ["user_id", "script",  "import"]
 
     _validator = RecordValidator()
 
