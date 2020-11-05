@@ -25,6 +25,7 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
+from invenio_oauthclient.models import RemoteAccount
 from invenio_pages import Page
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
@@ -36,15 +37,23 @@ from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
-from .ill.api import (BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE,
-                      BorrowingRequest, Library)
-from .internal_locations.api import (INTERNAL_LOCATION_PID_TYPE,
-                                     InternalLocation)
+from .ill.api import (
+    BORROWING_REQUEST_PID_TYPE,
+    LIBRARY_PID_TYPE,
+    BorrowingRequest,
+    Library,
+)
+from .internal_locations.api import (
+    INTERNAL_LOCATION_PID_TYPE,
+    InternalLocation,
+)
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
 from .proxies import current_app_ils
-from .records_relations.api import (RecordRelationsParentChild,
-                                    RecordRelationsSiblings)
+from .records_relations.api import (
+    RecordRelationsParentChild,
+    RecordRelationsSiblings,
+)
 from .relations.api import Relation
 from .series.api import SERIES_PID_TYPE, Series
 
@@ -132,37 +141,51 @@ class LocationGenerator(Generator):
 
     def generate(self):
         """Generate."""
-        weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        weekdays = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]
         closed = ["saturday", "sunday"]
-        times = [{"start_time": "08:00", "end_time": "12:00"},
-                 {"start_time": "13:00", "end_time": "18:00"}]
+        times = [
+            {"start_time": "08:00", "end_time": "12:00"},
+            {"start_time": "13:00", "end_time": "18:00"},
+        ]
         opening_weekdays = []
         for weekday in weekdays:
             is_open = weekday not in closed
-            opening_weekdays.append({
-                "weekday": weekday,
-                "is_open": weekday not in closed,
-                **({"times": times} if is_open else {})
-            })
+            opening_weekdays.append(
+                {
+                    "weekday": weekday,
+                    "is_open": weekday not in closed,
+                    **({"times": times} if is_open else {}),
+                }
+            )
         last_date = date.today()
         opening_exceptions = []
         for i in range(randint(0, 3)):
             start_date = last_date + timedelta(days=randint(1, 15))
             end_date = start_date + timedelta(days=randint(1, 4))
             last_date = end_date
-            opening_exceptions.append({
-                "title": lorem.sentence(),
-                "is_open": random.random() >= 0.7,
-                "start_date": start_date.isoformat(),
-                "end_date": end_date.isoformat()
-            })
+            opening_exceptions.append(
+                {
+                    "title": lorem.sentence(),
+                    "is_open": random.random() >= 0.7,
+                    "start_date": start_date.isoformat(),
+                    "end_date": end_date.isoformat(),
+                }
+            )
         self.holder.location = {
             "pid": self.create_pid(),
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
             "opening_weekdays": opening_weekdays,
-            "opening_exceptions": opening_exceptions
+            "opening_exceptions": opening_exceptions,
         }
 
     def persist(self):
@@ -776,7 +799,7 @@ class SeriesGenerator(Generator):
                 ],
                 "keywords": [
                     {"source": lorem.sentence(), "value": lorem.sentence()}
-                ]
+                ],
             }
             if moi == "SERIAL":
                 self.random_serial(obj)
@@ -1151,7 +1174,9 @@ class OrderGenerator(Generator):
                     "CHF", min_value=60.0
                 ),
                 "funds": list(set(lorem.sentence().split())),
-                "payment": {"mode": "CREDIT_CARD",},
+                "payment": {
+                    "mode": "CREDIT_CARD",
+                },
                 "order_lines": order_lines,
             }
             obj["expected_delivery_date"] = (
@@ -1408,6 +1433,29 @@ def data(
     indexer.process_bulk_queue()
 
 
+def create_userprofile_and_remote_for(email, username, full_name):
+    """Create a fake user profile."""
+    user = User.query.filter_by(email=email).one_or_none()
+    if user:
+        profile = UserProfile(user_id=int(user.get_id()))
+        profile.username = username
+        profile.full_name = full_name
+
+        remote_account = RemoteAccount(
+            client_id=current_app.config["CERN_APP_OPENID_CREDENTIALS"][
+                "consumer_key"
+            ],
+            user_id=user.get_id(),
+            extra_data=dict(
+                person_id="IT" + full_name + "IT", department="IT"
+            ),
+        )
+        db.session.add(profile)
+        db.session.add(remote_account)
+
+        db.session.commit()
+
+
 def create_userprofile_for(email, username, full_name):
     """Create a fake user profile."""
     user = User.query.filter_by(email=email).one_or_none()
@@ -1514,14 +1562,17 @@ def setup(
 
     if not skip_patrons:
         # Create users
+        run_command("users create patron1@test.ch -a --password=123456")  # ID
+        click.echo("Aaaaaaaa")
+        create_userprofile_and_remote_for(
+            "patron1@test.ch", "patron1", "Yannic Vilma"
+        )
         run_command(
-            "users create patron1@test.ch -a --password=123456"
-        )  # ID 1
-        create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
-        run_command(
-            "users create patron2@test.ch -a --password=123456"
+            "users create something@cern.fr -a --password=123456"
         )  # ID 2
-        create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
+        create_userprofile_and_remote_for(
+            "something@cern.fr", "something", "Diana Adi"
+        )
         run_command("users create admin@test.ch -a --password=123456")  # ID 3
         create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
         run_command(
