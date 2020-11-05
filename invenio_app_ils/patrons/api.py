@@ -122,10 +122,11 @@ class SystemAgent(Patron):
 class AnonymousPatron(Patron):
     """Fake patron to use when data is anonymized."""
 
-    def __init__(self, id):
+    id = -2
+
+    def __init__(self):
         """Constructor."""
         self._schema = ""
-        self.id = id
         self.name = "anonymous"
         self.email = "anonymous"
         self.location_pid = "anonymous"
@@ -163,7 +164,7 @@ def get_patron_or_unknown_dump(patron_pid):
         raise PatronNotFoundError
     try:
         Patron = current_app_ils.patron_cls
-    except PatronNotFoundError:
+        return Patron.get_patron(patron_pid).dumps_loader()
+    except:
         Patron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
-
-    return Patron.get_patron(patron_pid).dumps_loader()
+        return Patron().dumps_loader()

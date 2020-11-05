@@ -94,7 +94,7 @@ def anonymize_patron_data(patron_pid, force=False):
 
     # get anonymous patron values
     cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
-    anonymous_patron_fields = cls(patron_pid).dumps_loader()
+    anonymous_patron_fields = cls().dumps_loader()
 
     patron_loans = get_loans_by_patron_pid(patron_pid).scan()
 

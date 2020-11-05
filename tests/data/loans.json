@@ -103,5 +103,33 @@
     "transaction_location_pid": "locid-1",
     "request_start_date": "2018-06-28",
     "request_expire_date": "2019-06-28"
+  },
+  {
+    "document_pid": "docid-1",
+    "end_date": "2018-07-28",
+    "item_pid": {},
+    "patron_pid": "20",
+    "pickup_location_pid": "locid-1",
+    "pid": "loanid-7",
+    "start_date": "2018-06-28",
+    "state": "PENDING",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
+  },
+  {
+    "document_pid": "docid-1",
+    "end_date": "2018-07-28",
+    "item_pid": {},
+    "patron_pid": "-2",
+    "pickup_location_pid": "locid-1",
+    "pid": "loanid-8",
+    "start_date": "2018-06-28",
+    "state": "PENDING",
+    "transaction_date": "2018-06-29T14:46:07.928230+00:00",
+    "transaction_location_pid": "locid-1",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
   }
 ]
