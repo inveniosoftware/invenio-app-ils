@@ -68,7 +68,7 @@ def check_user_activity(app, user_pid, client, json_headers):
     current_search.flush_and_refresh(index="*")
 
     AnonymousPatron = app.config["ILS_PATRON_ANONYMOUS_CLASS"]
-    anonymous_patron_fields = AnonymousPatron(user_pid).dumps_loader()
+    anonymous_patron_fields = AnonymousPatron().dumps_loader()
 
     loans = get_loans_by_patron_pid(user_pid).scan()
     for hit in loans:
