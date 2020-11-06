@@ -89,11 +89,15 @@ class OpeningWeekdaySchema(Schema):
                     "Time periods must be defined on an opened weekday.",
                     "times",
                 )
-            if len(data["times"]) != 2:
-                raise ValidationError(
-                    "There must be exactly two time periods.", "times"
-                )
             times = data["times"]
+            if len(times) == 0:
+                raise ValidationError(
+                    "At least one time period must be defined.", "times"
+                )
+            if len(times) > 2:
+                raise ValidationError(
+                    "At most two time periods can be defined.", "times"
+                )
             times.sort(key=lambda period: period["start_time"])
             previous = None
             for current in times:

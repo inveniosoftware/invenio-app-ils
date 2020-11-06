@@ -107,7 +107,8 @@ def test_location_validation(client, json_headers, users, testdata):
 
     _test_update_times([["08:00", "12:00"], ["13:00", "18:00"]], 200)
     _test_update_times([["13:00", "18:00"], ["08:00", "12:00"]], 200)
-    _test_update_times([["08:00", "12:00"]], 400)
+    _test_update_times([["08:00", "18:00"]], 200)
+    _test_update_times([], 400)
     _test_update_times(
         [["08:00", "10:00"], ["11:00", "12:00"], ["13:00", "18:00"]], 400)
     _test_update_times([["8:00", "12:00"], ["13:00", "18:00"]], 400)
