@@ -36,6 +36,7 @@
   },
   {
     "title": "Introduction to cryptography",
+    "edition": "2x",
     "authors": [
       {
         "full_name": "Knebl, Helmut",
@@ -76,6 +77,7 @@
     },
     "abstract": "This Dover edition, first published in 1983, is an unabridged and unaltered republication of the translation by G. B. Jeffrey, D.Sc., and W. Perret, Ph.D., first published by E. P. Dutton and Company, Publishers, N.Y., in 1922.",
     "languages": ["EN"],
+    "edition": "x",
     "created_by": {
       "type": "script",
       "value": "demo"
@@ -97,6 +99,7 @@
   },
   {
     "title": "Big Bang",
+    "edition": "3x",
     "authors": [
       {
         "full_name": "Jacob, Irene",
@@ -131,6 +134,7 @@
   },
   {
     "title": "Using REDUCE in high energy physics",
+    "edition": "4x",
     "authors": [
       {
         "full_name": "Grozin, A G",
@@ -165,6 +169,7 @@
   },
   {
     "title": "Proceedings of the 23rd International Workshop on ECR Ion Sources",
+    "edition": "5x",
     "authors": [
       {
         "full_name": "Schaa, Volker R W",
