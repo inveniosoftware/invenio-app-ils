@@ -459,10 +459,11 @@ class DocumentGenerator(Generator):
             "publication_year", str(randint(1700, 2020))
         )
         imprint = random.choice(self.IMPRINTS)
+        isbn = random.choice(self.ISBNS)
         obj = {
             "pid": self.create_pid(),
             "title": lorem.sentence(),
-            "cover_metadata": {"ISBN": random.choice(self.ISBNS), "urls": {}},
+            "cover_metadata": {"ISBN": isbn, "urls": {}},
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
             "document_type": random.choice(Document.DOCUMENT_TYPES),
@@ -471,7 +472,7 @@ class DocumentGenerator(Generator):
                 lang["key"]
                 for lang in random.sample(self.holder.languages, randint(1, 3))
             ],
-            "table_of_content": ["{}".format(lorem.sentence())],
+                        "table_of_content": ["{}".format(lorem.sentence())],
             "note": "{}".format(lorem.text()),
             "tags": [
                 tag["key"]
@@ -485,6 +486,7 @@ class DocumentGenerator(Generator):
             ],
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
+            "identifiers": [{"scheme": "ISBN", "value": isbn}],
             "imprint": {
                 **imprint,
                 "date": "{}-08-02".format(publication_year),
