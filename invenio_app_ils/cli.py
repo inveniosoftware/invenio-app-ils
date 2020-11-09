@@ -32,6 +32,8 @@ from invenio_search import current_search
 from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
+from invenio_app_ils.errors import RecordRelationsError
+
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
@@ -867,13 +869,19 @@ class RecordRelationsGenerator(Generator):
 
             objs.append(random_docs[0])
             for record in random_docs[1:]:
-                rr.add(random_docs[0], record, relation_type=relation_type)
-                objs.append(record)
+                try:
+                    rr.add(random_docs[0], record, relation_type=relation_type)
+                    objs.append(record)
+                except RecordRelationsError:
+                    continue
 
             if relation_type.name == "edition":
                 record = self.random_series(series, "MULTIPART_MONOGRAPH")
-                rr.add(random_docs[0], record, relation_type=relation_type)
-                objs.append(record)
+                try:
+                    rr.add(random_docs[0], record, relation_type=relation_type)
+                    objs.append(record)
+                except RecordRelationsError:
+                    pass
 
         add_random_relations(Relation.get_relation_by_name("language"))
         add_random_relations(Relation.get_relation_by_name("edition"))
