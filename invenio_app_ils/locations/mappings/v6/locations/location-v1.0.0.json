@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "location-v1.0.0": {
       "date_detection": false,
@@ -17,7 +27,8 @@
           "type": "text"
         },
         "email": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "email"
         },
         "name": {
           "type": "text"

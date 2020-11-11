@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -24,18 +34,6 @@
             "type": "keyword"
           },
           "name": {
-            "type": "text"
-          },
-          "address": {
-            "type": "text"
-          },
-          "email": {
-            "type": "text"
-          },
-          "phone": {
-            "type": "keyword"
-          },
-          "notes": {
             "type": "text"
           },
           "opening_weekdays": {

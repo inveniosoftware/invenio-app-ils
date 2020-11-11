@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "borrowing_request-v1.0.0": {
       "date_detection": false,
@@ -85,7 +95,8 @@
         "patron": {
           "properties": {
             "email": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "email"
             },
             "id": {
               "type": "keyword"

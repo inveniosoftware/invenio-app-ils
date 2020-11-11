@@ -14,7 +14,7 @@ from invenio_app_ils.internal_locations.api import InternalLocation
 from invenio_app_ils.items.api import Item
 from invenio_app_ils.records.jsonresolvers.api import \
     get_field_value_for_record as get_field_value
-from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
+from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default, pick
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -22,7 +22,7 @@ from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
 
 @jsonresolver.hookimpl
 def jsonresolver_loader(url_map):
-    """Resolve the referredInternal Location for an Item record."""
+    """Resolve the referred Internal Location for an Item record."""
     from flask import current_app
 
     @get_pid_or_default(default_value=dict())
@@ -32,13 +32,16 @@ def jsonresolver_loader(url_map):
             internal_location_pid
         )
         del internal_location["$schema"]
+        if "notes" in internal_location:
+            del internal_location["notes"]
 
         return internal_location
 
     def internal_location_resolver(item_pid):
         """Return the IntLoc record for the given Item or raise."""
-        internal_loc_pid = get_field_value(Item, item_pid,
-                                           "internal_location_pid")
+        internal_loc_pid = get_field_value(
+            Item, item_pid, "internal_location_pid"
+        )
         return get_internal_location(internal_loc_pid)
 
     url_map.add(

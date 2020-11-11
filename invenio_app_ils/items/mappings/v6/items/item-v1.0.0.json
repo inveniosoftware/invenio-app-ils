@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "item-v1.0.0": {
       "date_detection": false,
@@ -48,7 +58,8 @@
             "patron": {
               "properties": {
                 "email": {
-                  "type": "text"
+                  "type": "text",
+                  "analyzer": "email"
                 },
                 "id": {
                   "type": "keyword"
@@ -178,18 +189,6 @@
                 "name": {
                   "type": "keyword"
                 },
-                "address": {
-                  "type": "keyword"
-                },
-                "email": {
-                  "type": "keyword"
-                },
-                "phone": {
-                  "type": "keyword"
-                },
-                "notes": {
-                  "type": "keyword"
-                },
                 "opening_weekdays": {
                   "properties": {
                     "weekday": {
@@ -236,9 +235,6 @@
               "type": "keyword"
             },
             "name": {
-              "type": "keyword"
-            },
-            "notes": {
               "type": "keyword"
             },
             "physical_location": {
