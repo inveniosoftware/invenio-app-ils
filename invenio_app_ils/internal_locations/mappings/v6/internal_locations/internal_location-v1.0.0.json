@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "internal_location-v1.0.0": {
       "date_detection": false,
@@ -25,18 +35,6 @@
               "type": "keyword"
             },
             "name": {
-              "type": "text"
-            },
-            "address": {
-              "type": "text"
-            },
-            "email": {
-              "type": "text"
-            },
-            "phone": {
-              "type": "keyword"
-            },
-            "notes": {
               "type": "text"
             },
             "opening_weekdays": {

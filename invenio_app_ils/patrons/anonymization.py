@@ -15,7 +15,7 @@ from flask import current_app
 from invenio_accounts.models import SessionActivity, User, userrole
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
-from invenio_oauthclient.models import RemoteAccount, UserIdentity, RemoteToken
+from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq

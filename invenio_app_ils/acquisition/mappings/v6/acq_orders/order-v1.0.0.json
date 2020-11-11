@@ -1,4 +1,14 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
   "mappings": {
     "order-v1.0.0": {
       "date_detection": false,
@@ -225,7 +235,8 @@
             "patron": {
               "properties": {
                 "email": {
-                  "type": "text"
+                  "type": "text",
+                  "analyzer": "email"
                 },
                 "id": {
                   "type": "keyword"
@@ -293,7 +304,8 @@
               "type": "text"
             },
             "email": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "email"
             },
             "name": {
               "fields": {
