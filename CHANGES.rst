@@ -7,6 +7,14 @@
 Changes
 =======
 
+Version 1.0.0a20 (released 2020-10-11)
+
+- Updated the constraint on opening hours up to 2 time periods
+- Added importer curator type
+- Fixed patron resolver bug
+- Added validation for missing language and edition fields
+- Fixed deletion of remote token
+
 Version 1.0.0a19 (released 2020-10-28)
 
 - fix ils search factory with prefixed indices
