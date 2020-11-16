@@ -13,6 +13,7 @@ from flask import current_app
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.acquisition.models import OrderMetadata, VendorMetadata
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
@@ -35,6 +36,7 @@ vendor_pid_fetcher = partial(pid_fetcher, provider_cls=VendorIdProvider)
 class Vendor(IlsRecord):
     """Acquisition vendor class."""
 
+    model_cls = VendorMetadata
     _pid_type = VENDOR_PID_TYPE
     _schema = "acq_vendors/vendor-v1.0.0.json"
 
@@ -70,6 +72,7 @@ order_pid_fetcher = partial(pid_fetcher, provider_cls=OrderIdProvider)
 class Order(IlsRecord):
     """Acquisition order class."""
 
+    model_cls = OrderMetadata
     _pid_type = ORDER_PID_TYPE
     _schema = "acq_orders/order-v1.0.0.json"
     _vendor_resolver_path = (

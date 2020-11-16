@@ -21,8 +21,8 @@ import lorem
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
-from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pages import Page
@@ -665,6 +665,7 @@ class LoanGenerator(Generator):
     def persist(self):
         """Persist."""
         recs = []
+        Loan = current_circulation.loan_record_cls
         for obj in self.holder.loans["objs"]:
             rec = self._persist(
                 CIRCULATION_LOAN_PID_TYPE, "pid", Loan.create(obj)

@@ -7,7 +7,6 @@
 
 """Configuration for Invenio ILS circulation module."""
 
-from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import (_LOANID_CONVERTER,
                                                CIRCULATION_LOAN_PID_TYPE)
 from invenio_circulation.search.api import LoansSearch
@@ -33,7 +32,8 @@ from invenio_app_ils.permissions import (PatronOwnerPermission,
                                          patron_owner_permission,
                                          superuser_permission)
 
-from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
+from .api import (ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER,
+                  Loan)
 from .indexer import LoanIndexer
 from .jsonresolvers.loan import (document_resolver, item_resolver,
                                  loan_patron_resolver)

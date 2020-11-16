@@ -14,6 +14,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.document_requests.models import DocumentRequestMetadata
 from invenio_app_ils.document_requests.search import DocumentRequestSearch
 from invenio_app_ils.errors import DocumentRequestError
 from invenio_app_ils.fetchers import pid_fetcher
@@ -95,6 +96,7 @@ class DocumentRequest(IlsRecord):
     STATES = ["ACCEPTED", "PENDING", "REJECTED"]
     REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND"]
 
+    model_cls = DocumentRequestMetadata
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
     _validator = DocumentRequestValidator()

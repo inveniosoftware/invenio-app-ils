@@ -16,6 +16,7 @@ from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records_relations.api import IlsRecordWithRelations
+from invenio_app_ils.series.models import SeriesMetadata
 
 SERIES_PID_TYPE = "serid"
 SERIES_PID_MINTER = "serid"
@@ -33,6 +34,7 @@ series_pid_fetcher = partial(pid_fetcher, provider_cls=SeriesIdProvider)
 class Series(IlsRecordWithRelations):
     """Series record class."""
 
+    model_cls = SeriesMetadata
     _pid_type = SERIES_PID_TYPE
     _schema = "series/series-v1.0.0.json"
     _relations_path = (

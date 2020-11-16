@@ -14,6 +14,7 @@ from invenio_files_rest.models import ObjectVersion
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.eitems.models import EItemMetadata
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord
@@ -34,6 +35,7 @@ eitem_pid_fetcher = partial(pid_fetcher, provider_cls=EItemIdProvider)
 class EItem(IlsRecord):
     """EItem record class."""
 
+    model_cls = EItemMetadata
     _pid_type = EITEM_PID_TYPE
     _schema = "eitems/eitem-v1.0.0.json"
     _document_resolver_path = (

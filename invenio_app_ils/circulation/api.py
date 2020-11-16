@@ -15,7 +15,7 @@ from functools import partial
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from flask_login import current_user
-from invenio_circulation.api import Loan
+from invenio_circulation.api import Loan as CirculationLoan
 from invenio_circulation.config import (CIRCULATION_STATES_LOAN_ACTIVE,
                                         CIRCULATION_STATES_LOAN_COMPLETED)
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -25,6 +25,7 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.circulation.models import LoanMetadata
 from invenio_app_ils.errors import (IlsException, InvalidParameterError,
                                     MissingRequiredParameterError,
                                     PatronHasLoanOnDocumentError,
@@ -56,6 +57,12 @@ ils_circulation_loan_pid_minter = partial(
 ils_circulation_loan_pid_fetcher = partial(
     pid_fetcher, provider_cls=IlsCirculationLoanIdProvider
 )
+
+
+class Loan(CirculationLoan):
+    """Loan vendor class."""
+
+    model_cls = LoanMetadata
 
 
 def _validate_delivery(delivery):
@@ -130,6 +137,7 @@ def request_loan(
         transaction_user_pid=transaction_user_pid,
     )
     pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
+    Loan = current_circulation.loan_record_cls
     loan = Loan.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)
@@ -200,6 +208,7 @@ def checkout_loan(
         transaction_user_pid=transaction_user_pid,
     )
     pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
+    Loan = current_circulation.loan_record_cls
     loan = Loan.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)

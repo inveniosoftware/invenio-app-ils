@@ -34,6 +34,8 @@ class RecordValidator(object):
 class IlsRecord(Record):
     """Ils record class."""
 
+    model_cls = None
+
     CURATOR_TYPES = ["user_id", "script",  "import"]
 
     _validator = RecordValidator()

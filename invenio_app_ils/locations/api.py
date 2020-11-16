@@ -14,6 +14,7 @@ from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.locations.models import LocationMetadata
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
@@ -34,6 +35,7 @@ location_pid_fetcher = partial(pid_fetcher, provider_cls=LocationIdProvider)
 class Location(IlsRecord):
     """Location record class."""
 
+    model_cls = LocationMetadata
     _pid_type = LOCATION_PID_TYPE
     _schema = "locations/location-v1.0.0.json"
 

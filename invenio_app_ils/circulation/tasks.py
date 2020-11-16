@@ -12,7 +12,6 @@ from copy import deepcopy
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from flask import current_app
-from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
@@ -27,6 +26,7 @@ def cancel_expired_loan_requests():
     SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
     system_agent_id = str(SystemAgent.id)
 
+    Loan = current_circulation.loan_record_cls
     expired_loans = get_all_expired_loans().execute()
     for hit in expired_loans.hits:
         loan = Loan.get_record_by_pid(hit.pid)

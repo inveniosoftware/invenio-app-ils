@@ -27,6 +27,7 @@ from invenio_app_ils.records.api import IlsRecord, RecordValidator
 from ..circulation.utils import resolve_item_from_loan
 from ..errors import RecordHasReferencesError
 from ..proxies import current_app_ils
+from .models import ItemMetadata
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -85,6 +86,7 @@ class ItemValidator(RecordValidator):
 class Item(IlsRecord):
     """Item record class."""
 
+    model_cls = ItemMetadata
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
     _validator = ItemValidator()

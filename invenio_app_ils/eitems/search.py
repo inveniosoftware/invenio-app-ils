@@ -7,10 +7,13 @@
 
 """ILS EItems search APIs."""
 
+from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_search.api import RecordsSearch
 
 from invenio_app_ils.errors import MissingRequiredParameterError
+
+ES_LT_7 = ES_VERSION[0] < 7
 
 
 class EItemSearch(RecordsSearch):
@@ -53,7 +56,8 @@ class EItemSearch(RecordsSearch):
             )
 
         results = search.execute()
-        if len(results) != 1:
+        total = results.hits.total if ES_LT_7 else results.hits.total.value
+        if total != 1:
             # There should always be one bucket associated with an eitem when
             # downloading a file.
             msg = "found 0 or multiple records with bucket {0}".format(

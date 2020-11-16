@@ -15,6 +15,7 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.documents.models import DocumentMetadata
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
@@ -37,13 +38,9 @@ document_pid_fetcher = partial(pid_fetcher, provider_cls=DocumentIdProvider)
 class Document(IlsRecordWithRelations):
     """Document record class."""
 
-    DOCUMENT_TYPES = [
-        "BOOK",
-        "PROCEEDING",
-        "STANDARD",
-        "PERIODICAL_ISSUE",
-    ]
+    DOCUMENT_TYPES = ["BOOK", "PROCEEDING", "STANDARD", "PERIODICAL_ISSUE"]
 
+    model_cls = DocumentMetadata
     _pid_type = DOCUMENT_PID_TYPE
     _schema = "documents/document-v1.0.0.json"
     _circulation_resolver_path = (
@@ -119,7 +116,7 @@ class Document(IlsRecordWithRelations):
         """Delete Document record."""
         loan_search_res = search_by_pid(
             document_pid=self["pid"],
-            filter_states=["PENDING"]
+            filter_states=current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
             + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
         if loan_search_res.count():

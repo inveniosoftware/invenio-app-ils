@@ -10,6 +10,7 @@
 from datetime import datetime
 
 from celery import shared_task
+from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_indexer.api import RecordIndexer
 
@@ -18,6 +19,8 @@ from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.proxies import current_app_ils
 
 from .api import EITEM_PID_TYPE
+
+ES_LT_7 = ES_VERSION[0] < 7
 
 
 @shared_task(ignore_result=True)
@@ -49,7 +52,8 @@ def index_eitem_after_files_changed(bucket_id):
     """Index EItem on file changed."""
     search_cls = current_app_ils.eitem_search_cls
     results = search_cls().search_by_bucket_id(bucket_id)
-    if len(results) == 1:
+    total = results.hits.total if ES_LT_7 else results.hits.total.value
+    if total == 1:
         hit = results[0]
         record = current_app_ils.eitem_record_cls.get_record_by_pid(hit.pid)
         current_app_ils.eitem_indexer.index(record)

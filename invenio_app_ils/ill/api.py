@@ -13,7 +13,6 @@ from functools import partial
 import arrow
 from flask import current_app
 from flask_login import current_user
-from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
@@ -24,6 +23,8 @@ from invenio_app_ils.errors import (RecordHasReferencesError,
                                     UnknownItemPidTypeError)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.ill.errors import ILLError
+from invenio_app_ils.ill.models import (BorrowingRequestMetadata,
+                                        LibraryMetadata)
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
@@ -45,6 +46,7 @@ library_pid_fetcher = partial(pid_fetcher, provider_cls=LibraryIdProvider)
 class Library(IlsRecord):
     """ILL library class."""
 
+    model_cls = LibraryMetadata
     _pid_type = LIBRARY_PID_TYPE
     _schema = "ill_libraries/library-v1.0.0.json"
 
@@ -87,6 +89,7 @@ borrowing_request_pid_fetcher = partial(
 class BorrowingRequest(IlsRecord):
     """ILL borrowing request class."""
 
+    model_cls = BorrowingRequestMetadata
     _pid_type = BORROWING_REQUEST_PID_TYPE
     _schema = "ill_borrowing_requests/borrowing_request-v1.0.0.json"
     _document_resolver_path = (
@@ -159,6 +162,7 @@ class _PatronLoan:
         loan_pid = self.record.get("patron_loan", {}).get("pid")
         if not loan_pid:
             raise ILLError("There is no patron loan attached to the request.")
+        Loan = current_circulation.loan_record_cls
         return Loan.get_record_by_pid(loan_pid)
 
     def create(

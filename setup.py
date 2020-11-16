@@ -137,6 +137,18 @@ setup(
             "00_invenio_app_ils = invenio_app_ils.config",
             "00_invenio_app_ils_circulation = invenio_app_ils.circulation.config",
         ],
+        "invenio_db.models": [
+            "ils_acquisition = invenio_app_ils.acquisition.models",
+            "ils_circulation = invenio_app_ils.circulation.models",
+            "ils_document_requests = invenio_app_ils.document_requests.models",
+            "ils_documents = invenio_app_ils.documents.models",
+            "ils_eitems = invenio_app_ils.eitems.models",
+            "ils_ill = invenio_app_ils.ill.models",
+            "ils_internal_locations = invenio_app_ils.internal_locations.models",
+            "ils_items = invenio_app_ils.items.models",
+            "ils_locations = invenio_app_ils.locations.models",
+            "ils_series = invenio_app_ils.series.models",
+        ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
             "acquisition = invenio_app_ils.acquisition.schemas",

@@ -15,6 +15,7 @@ from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.internal_locations.models import InternalLocationMetadata
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
@@ -35,6 +36,7 @@ internal_location_pid_fetcher = partial(pid_fetcher, provider_cls=InternalLocati
 class InternalLocation(IlsRecord):
     """Internal Location record class."""
 
+    model_cls = InternalLocationMetadata
     _pid_type = INTERNAL_LOCATION_PID_TYPE
     _schema = "internal_locations/internal_location-v1.0.0.json"
     _location_resolver_path = (
