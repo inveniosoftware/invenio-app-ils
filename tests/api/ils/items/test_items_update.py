@@ -12,7 +12,7 @@ from elasticsearch import VERSION as ES_VERSION
 
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import (ItemDocumentNotFoundError,
-                                    ItemHasActiveLoanError)
+                                    ItemHasPastLoansError)
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 
 lt_es7 = ES_VERSION[0] < 7
@@ -34,11 +34,11 @@ def test_update_item(db, testdata):
                 if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 
-    # change item status while is on loan
+    # change document pid while is on loan
     item_pid, loan_pid = get_active_loan_pid_and_item_pid()
     item = Item.get_record_by_pid(item_pid)
-    item["status"] = "MISSING"
-    with pytest.raises(ItemHasActiveLoanError):
+    item["document_pid"] = "docid-1"
+    with pytest.raises(ItemHasPastLoansError):
         item.commit()
 
     # change document to one that does not exist
