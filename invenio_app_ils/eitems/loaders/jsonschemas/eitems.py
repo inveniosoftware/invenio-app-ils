@@ -8,10 +8,12 @@
 """EItems schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields
+from marshmallow import EXCLUDE, Schema, fields, pre_load
 
 from invenio_app_ils.documents.loaders.jsonschemas.document import \
     IdentifierSchema
+from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
+    set_changed_by
 
 
 class URLSchema(Schema):
@@ -52,6 +54,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     bucket_id = fields.Str()
+    created_by = fields.Nested(ChangedBySchema)
     description = fields.Str()
     document_pid = fields.Str(required=True)  # TODO: validate
     files = fields.List(fields.Nested(FileSchema))
@@ -59,3 +62,9 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     internal_notes = fields.Str()
     open_access = fields.Bool(missing=True)
     urls = fields.List(fields.Nested(URLSchema))
+
+    @pre_load
+    def set_changed_by(self, data, **kwargs):
+        """Automatically set `created_by` and `updated_by`."""
+        record = self.context.get("record")
+        return set_changed_by(data, record)

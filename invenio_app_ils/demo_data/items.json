@@ -1,5 +1,9 @@
 [
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "530.145.26 DEL",
     "medium": "PAPER",
     "status": "CAN_CIRCULATE",
@@ -9,6 +13,10 @@
     "circulation_restriction": "FOUR_WEEKS"
   },
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "004.421.5 DEL",
     "medium": "PAPER",
     "status": "CAN_CIRCULATE",
@@ -18,6 +26,10 @@
     "circulation_restriction": "FOUR_WEEKS"
   },
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "530.12 EIN",
     "medium": "PAPER",
     "status": "CAN_CIRCULATE",
@@ -26,8 +38,11 @@
     "legacy_library_id": "6",
     "circulation_restriction": "FOUR_WEEKS"
   },
-
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "82-3 JAC",
     "medium": "PAPER",
     "status": "CAN_CIRCULATE",
@@ -37,6 +52,10 @@
     "circulation_restriction": "FOUR_WEEKS"
   },
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "004.438.REDUCE GRO",
     "medium": "PAPER",
     "status": "CAN_CIRCULATE",
@@ -46,6 +65,10 @@
     "circulation_restriction": "FOUR_WEEKS"
   },
   {
+    "created_by": {
+      "type": "script",
+      "value": "demo"
+    },
     "shelf": "CATANIA 2018",
     "medium": "PAPER",
     "status": "FOR_REFERENCE_ONLY",

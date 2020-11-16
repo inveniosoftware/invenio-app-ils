@@ -228,6 +228,10 @@ class ItemGenerator(Generator):
         objs = [
             {
                 "pid": self.create_pid(),
+                "created_by": {
+                    "type": "script",
+                    "value": "demo",
+                },
                 "document_pid": random.choice(doc_pids),
                 "internal_location_pid": random.choice(iloc_pids),
                 "legacy_id": "{}".format(randint(100000, 999999)),
@@ -284,6 +288,10 @@ class EItemGenerator(Generator):
         objs = [
             {
                 "pid": self.create_pid(),
+                "created_by": {
+                    "type": "script",
+                    "value": "demo",
+                },
                 "document_pid": random.choice(doc_pids),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),

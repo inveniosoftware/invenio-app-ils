@@ -8,9 +8,11 @@
 """Items schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields, validate
+from marshmallow import EXCLUDE, Schema, fields, validate, pre_load
 
 from invenio_app_ils.items.api import Item
+from invenio_app_ils.records.loaders.schemas.changed_by import \
+    ChangedBySchema, set_changed_by
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
 
 
@@ -36,6 +38,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
 
     acquisition_pid = fields.Str()
     barcode = fields.Str()
+    created_by = fields.Nested(ChangedBySchema)
     circulation_restriction = fields.Str(
         required=True, validate=validate.OneOf(Item.CIRCULATION_RESTRICTIONS)
     )
@@ -52,3 +55,9 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     price = fields.Nested(PriceSchema)
     shelf = fields.Str()
     status = fields.Str(required=True, validate=validate.OneOf(Item.STATUSES))
+
+    @pre_load
+    def set_changed_by(self, data, **kwargs):
+        """Automatically set `created_by` and `updated_by`."""
+        record = self.context.get("record")
+        return set_changed_by(data, record)

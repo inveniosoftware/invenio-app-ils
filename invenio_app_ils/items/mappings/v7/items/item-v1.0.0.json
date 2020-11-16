@@ -90,6 +90,17 @@
       "circulation_restriction": {
         "type": "keyword"
       },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
       "description": {
         "type": "text"
       },

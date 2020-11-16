@@ -2,6 +2,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-1",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "The Gulf: The Making of An American Sea",
     "authors": [{ "full_name": "Jack E. Davis" }],
     "abstract": "This is an abstract",
@@ -18,6 +19,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-2",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "authors": [{ "full_name": "Caroline Fraser" }],
     "abstract": "This is an abstract",
@@ -33,6 +35,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-3",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Half-light: Collected Poems 1965-2016",
     "authors": [{ "full_name": "Frank Bidart" }],
     "abstract": "This is an abstract",
@@ -48,6 +51,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-4",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": [{ "full_name": "James Forman Jr." }],
     "abstract": "This is an abstract",
@@ -62,6 +66,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-5",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
@@ -71,6 +76,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-6",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
     "languages": ["pl"],
     "authors": [{ "full_name": "Andrew Sean Greer" }],
@@ -81,6 +87,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-7",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
@@ -90,6 +97,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-8",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
@@ -99,6 +107,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-9",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "The early years, 1879-1902",
     "authors": [
       { "full_name": "Einstein, Albert" },
@@ -111,6 +120,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-10",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "The Swiss years : writings, 1900-1909",
     "authors": [
       { "full_name": "Einstein, Albert" },
@@ -123,6 +133,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-11",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "The Swiss years : writings, 1909-1911",
     "authors": [
       { "full_name": "Einstein, Albert" },
@@ -135,6 +146,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-12",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Camera, equipment, and basic photographic techniques",
     "authors": [
       { "full_name": "Einstein, Albert" },
@@ -147,6 +159,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-13",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Visual concepts and composition",
     "authors": [
       { "full_name": "Banek, Cora" },
@@ -159,6 +172,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-14",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Flavor physics and the TeV scale",
     "authors": [{ "full_name": "Hou, George W S" }],
     "abstract": "This is a document part of a SERIAL",
@@ -168,6 +182,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-15",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Symmetry and symmetry-breaking in semiconductors : fine structure of exciton states",
     "authors": [
       { "full_name": "Hönerlage, Bernd" },
@@ -180,6 +195,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-16",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
@@ -189,6 +205,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-17",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
@@ -198,6 +215,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-closed-access",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Closed access document",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",
@@ -208,6 +226,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-open-access",
+    "created_by": {"type": "script", "value": "demo"},
     "title": "Open access document",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",

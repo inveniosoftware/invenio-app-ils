@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema EItem",
   "type": "object",
-  "required": ["$schema", "pid", "document_pid"],
+  "required": ["$schema", "pid", "document_pid", "created_by"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -10,6 +10,18 @@
     "bucket_id": {
       "type": "string",
       "title": "The bucket identifier for this EItem"
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "description": {
       "type": "string",

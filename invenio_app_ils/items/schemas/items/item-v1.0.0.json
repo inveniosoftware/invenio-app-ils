@@ -4,6 +4,7 @@
   "type": "object",
   "required": [
     "$schema",
+    "created_by",
     "internal_location",
     "internal_location_pid",
     "barcode",
@@ -37,6 +38,18 @@
           "type": "string"
         }
       }
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "description": {
       "type": "string",
