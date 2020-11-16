@@ -24,6 +24,7 @@ def test_document_creation_refs(app):
     """Test creation of a document."""
     d = dict(
         pid="a1bc",
+        created_by={"type": "script", "value": "demo"},
         title="Test title",
         authors=[dict(full_name="John Doe")],
         publication_year="2010",
@@ -39,6 +40,7 @@ def test_document_update_refs(app):
     d = dict(
         pid="a1bc",
         title="Test title",
+        created_by={"type": "script", "value": "demo"},
         authors=[dict(full_name="John Doe")],
         publication_year="2010",
         document_type="BOOK",
