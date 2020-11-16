@@ -293,3 +293,14 @@ class AnonymizationActiveLoansError(IlsException):
         """Initialize exception."""
         super().__init__(**kwargs)
         self.description = self.description.format(msg)
+
+
+class ItemHasPastLoansError(IlsException):
+    """Raised when an item cannot be updated due to past loans."""
+
+    description = "{}"
+
+    def __init__(self, msg, **kwargs):
+        """Initialize exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(msg)

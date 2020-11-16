@@ -17,9 +17,8 @@ from invenio_pidstore.errors import (PersistentIdentifierError,
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import (ItemDocumentNotFoundError,
-                                    ItemHasActiveLoanError)
+                                    ItemHasPastLoansError)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
@@ -29,7 +28,6 @@ from ..errors import RecordHasReferencesError
 from ..proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7
-
 
 ITEM_PID_TYPE = "pitmid"
 ITEM_PID_MINTER = "pitmid"
@@ -60,16 +58,19 @@ class ItemValidator(RecordValidator):
         """Raises an exception if the item's status cannot be updated."""
         latest_version = record.revisions[-1]
         if latest_version:
-            status = latest_version.get("status", None)
-        else:
-            status = None
-        pid = record["pid"]
-        if status == "CAN_CIRCULATE":
+            latest_version_document_pid = latest_version.get("document_pid", None)
+        document_changed = latest_version_document_pid != record.get("document_pid", None)
+        if document_changed:
+            pid = record["pid"]
             item_pid = dict(value=pid, type=ITEM_PID_TYPE)
-            active_loan = get_active_loan_by_item_pid(item_pid).execute().hits
-            total = active_loan.total if lt_es7 else active_loan.total.value
-            if total > 0:
-                raise ItemHasActiveLoanError(active_loan[0]["pid"])
+            if search_by_pid(
+                item_pid=item_pid,
+                filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+                              + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+                              + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
+            ).count():
+                raise ItemHasPastLoansError("Not possible to update the document field if "
+                                            "the item already has past or active loans.")
 
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""
