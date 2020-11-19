@@ -43,7 +43,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     document_pid = fields.Str(required=True)  # TODO: validate
     internal_location_pid = fields.Str(required=True)  # TODO: validate
     internal_notes = fields.Str()
-    isbn = fields.Nested(ISBNSchema)
+    isbns = fields.List(fields.Nested(ISBNSchema))
     legacy_id = fields.Str()
     legacy_library_id = fields.Str()
     medium = fields.Str(required=True)

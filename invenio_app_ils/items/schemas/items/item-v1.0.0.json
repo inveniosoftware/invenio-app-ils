@@ -70,20 +70,26 @@
       "type": "string",
       "title": "Any extra description for this Item reserved for library usage"
     },
-    "isbn": {
-      "properties": {
-        "description": {
-          "title": "Free text, used to describe the document to ISBN refers to.",
-          "type": "string"
+    "isbns": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "title": "Free text, used to describe the document to ISBN refers to.",
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          }
         },
-        "value": {
-          "minLength": 1,
-          "type": "string"
-        }
+        "required": ["value"],
+        "title": "ISBN",
+        "type": "object"
       },
-      "required": ["value"],
-      "title": "ISBN",
-      "type": "object"
+      "title": "List of ISBNs",
+      "type": "array",
+      "uniqueItems": true
     },
     "legacy_id": {
       "type": "string",

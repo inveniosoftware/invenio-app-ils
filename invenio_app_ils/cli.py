@@ -230,6 +230,7 @@ class ItemGenerator(Generator):
                 "pid": self.create_pid(),
                 "document_pid": random.choice(doc_pids),
                 "internal_location_pid": random.choice(iloc_pids),
+                "isbns": [{'value': '978-1-891830-85-3'}],
                 "legacy_id": "{}".format(randint(100000, 999999)),
                 "legacy_library_id": "{}".format(randint(5, 50)),
                 "barcode": "{}".format(randint(10000000, 99999999)),

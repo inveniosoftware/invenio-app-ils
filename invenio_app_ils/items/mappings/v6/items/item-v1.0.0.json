@@ -252,7 +252,7 @@
         "internal_notes": {
           "type": "text"
         },
-        "isbn": {
+        "isbns": {
           "properties": {
             "description": {
               "type": "keyword"
