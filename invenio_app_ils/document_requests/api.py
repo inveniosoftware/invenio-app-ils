@@ -74,6 +74,16 @@ class DocumentRequestValidator(RecordValidator):
                 "without providing a document_pid."
             )
 
+    def validate_acceptance(self, document_pid, physical_item_provider, state):
+        """Validate rejection is correct."""
+        if state == "ACCEPTED" and (
+            not document_pid or not physical_item_provider
+        ):
+            raise DocumentRequestError(
+                "Need to provide a document_pid and a physical_item_provider "
+                "when accepting a request"
+            )
+
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""
         super().validate(record, **kwargs)
@@ -83,10 +93,12 @@ class DocumentRequestValidator(RecordValidator):
         document_pid = record.get("document_pid", None)
         state = record.get("state", None)
         reject_reason = record.get("reject_reason", None)
+        physical_item_provider = record.get("physical_item_provider", None)
 
         self.validate_state(state, valid_states)
         self.validate_document_pid(document_pid, state, reject_reason)
         self.validate_rejection(document_pid, state, reject_reason)
+        self.validate_acceptance(document_pid, physical_item_provider, state)
 
 
 class DocumentRequest(IlsRecord):

@@ -102,6 +102,7 @@ class Holder(object):
             "objs": [],
             "total": total_borrowing_requests,
         }
+        self.pending_borrowing_requests = {"objs": []}
         self.libraries = {"objs": [], "total": total_libraries}
 
     def pids(self, collection, pid_field):
@@ -480,7 +481,7 @@ class DocumentGenerator(Generator):
                 lang["key"]
                 for lang in random.sample(self.holder.languages, randint(1, 3))
             ],
-                        "table_of_content": ["{}".format(lorem.sentence())],
+            "table_of_content": ["{}".format(lorem.sentence())],
             "note": "{}".format(lorem.text()),
             "tags": [
                 tag["key"]
@@ -906,6 +907,12 @@ class DocumentRequestGenerator(Generator):
         """Get a random document PID."""
         return random.choice(self.holder.pids("documents", "pid"))
 
+    def random_pending_borrowing_request(self):
+        """Get a random document PID."""
+        return random.choice(
+            self.holder.pids("pending_borrowing_requests", "pid")
+        )
+
     def generate(self):
         """Generate."""
         size = self.holder.document_requests["total"]
@@ -930,6 +937,10 @@ class DocumentRequestGenerator(Generator):
                     obj["document_pid"] = self.random_document_pid()
             elif state == "ACCEPTED":
                 obj["document_pid"] = self.random_document_pid()
+                obj["physical_item_provider"] = {
+                    "pid": self.random_pending_borrowing_request(),
+                    "pid_type": BORROWING_REQUEST_PID_TYPE,
+                }
             objs.append(obj)
 
         self.holder.document_requests["objs"] = objs
@@ -1011,9 +1022,10 @@ class BorrowingRequestGenerator(Generator):
         objs = []
         now = datetime.now()
         for pid in range(1, size + 1):
+            status = random.choice(BorrowingRequest.STATUSES)
             obj = {
                 "pid": self.create_pid(),
-                "status": random.choice(BorrowingRequest.STATUSES),
+                "status": status,
                 "library_pid": self.random_library_pid(),
                 "document_pid": self.random_document_pid(),
                 "patron_pid": random.choice(self.holder.patrons_pids),
@@ -1047,6 +1059,9 @@ class BorrowingRequestGenerator(Generator):
                 obj["cancel_reason"] = lorem.sentence()
 
             objs.append(obj)
+
+            if status == "PENDING":
+                self.holder.pending_borrowing_requests["objs"] = objs
 
         self.holder.borrowing_requests["objs"] = objs
 
@@ -1302,6 +1317,18 @@ def data(
     related_generator.generate(rec_docs, rec_series)
     related_generator.persist()
 
+    # Libraries
+    click.echo("Creating ILL external libraries...")
+    library_generator = LibraryGenerator(holder, minter)
+    library_generator.generate()
+    rec_libraries = library_generator.persist()
+
+    # Borrowing requests
+    click.echo("Creating ILL borrowing requests...")
+    borrowing_requests_generator = BorrowingRequestGenerator(holder, minter)
+    borrowing_requests_generator.generate()
+    rec_borrowing_requests = borrowing_requests_generator.persist()
+
     # Document requests
     click.echo("Creating document requests...")
     document_requests_generator = DocumentRequestGenerator(holder, minter)
@@ -1319,18 +1346,6 @@ def data(
     order_generator = OrderGenerator(holder, minter)
     order_generator.generate()
     rec_orders = order_generator.persist()
-
-    # Libraries
-    click.echo("Creating ILL external libraries...")
-    library_generator = LibraryGenerator(holder, minter)
-    library_generator.generate()
-    rec_libraries = library_generator.persist()
-
-    # Borrowing requests
-    click.echo("Creating ILL borrowing requests...")
-    borrowing_requests_generator = BorrowingRequestGenerator(holder, minter)
-    borrowing_requests_generator.generate()
-    rec_borrowing_requests = borrowing_requests_generator.persist()
 
     # index internal locations
     indexer.bulk_index([str(r.id) for r in rec_intlocs])
