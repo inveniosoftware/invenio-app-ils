@@ -28,8 +28,13 @@
     "request_type": "LOAN",
     "medium": "PAPER",
     "document_pid": "docid-1",
-    "title": "Test title 3"
+    "title": "Test title 3",
+    "physical_item_provider": {
+      "pid": "acq-order-pid",
+      "pid_type": "acquisition"
+    }
   },
+
   {
     "pid": "dreq-4",
     "state": "ACCEPTED",
@@ -37,7 +42,11 @@
     "request_type": "BUY",
     "medium": "PAPER",
     "document_pid": "docid-2",
-    "title": "Test title 4"
+    "title": "Test title 4",
+    "physical_item_provider": {
+      "pid": "acq-order-pid",
+      "pid_type": "acquisition"
+    }
   },
   {
     "pid": "dreq-5",
