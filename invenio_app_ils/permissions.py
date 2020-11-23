@@ -156,6 +156,7 @@ def views_permissions_factory(action):
         "ill-brwreq-patron-loan-create",
         "ill-brwreq-patron-loan-extension-accept",
         "ill-brwreq-patron-loan-extension-decline",
+        "document-importer",
     ]
     is_patron_owner_permission = [
         "document-request-decline",
