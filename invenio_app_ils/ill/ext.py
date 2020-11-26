@@ -56,6 +56,16 @@ class _InvenioIlsIllState(object):
         """Return the Library record class."""
         return self.record_class_by_pid_type(LIBRARY_PID_TYPE)
 
+    @cached_property
+    def library_search_cls(self):
+        """Return the Library search instance."""
+        return self.search_by_pid_type(LIBRARY_PID_TYPE)
+
+    @cached_property
+    def library_indexer(self):
+        """Return a Library indexer instance."""
+        return self.indexer_by_pid_type(LIBRARY_PID_TYPE)
+
 
 class InvenioIlsIll(object):
     """Invenio ILS ILL app."""
