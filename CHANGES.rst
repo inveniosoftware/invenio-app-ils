@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a21 (released 2020-10-26)
+
+- Added library_search_cls as property in current_ils_ill
+- Added library_indexer as property in current_ils_ill
+- Bump invenio-circulation version
+
 Version 1.0.0a20 (released 2020-10-11)
 
 - Updated the constraint on opening hours up to 2 time periods
