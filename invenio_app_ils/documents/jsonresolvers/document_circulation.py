@@ -14,6 +14,7 @@ from werkzeug.routing import Rule
 from invenio_app_ils.circulation.search import (get_loan_next_available_date,
                                                 get_loans_aggregated_by_states,
                                                 get_overdue_loans_by_doc_pid)
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.items.search import get_items_aggregated_by_statuses
 
 lt_es7 = ES_VERSION[0] < 7
@@ -43,8 +44,7 @@ def jsonresolver_loader(url_map):
         loans_search = get_loans_aggregated_by_states(
             document_pid, loan_states
         )
-        # No need for the loan hits
-        loans_search = loans_search[:0]
+
         loans_result = loans_search.execute()
 
         for bucket in loans_result.aggregations.states.buckets:
@@ -82,8 +82,20 @@ def jsonresolver_loader(url_map):
             if bucket["key"] in "FOR_REFERENCE_ONLY":
                 items_for_reference_count = bucket["doc_count"]
 
+        active_ill_loans_count = 0
+
+        for hit in loans_result.hits:
+            loan = hit.to_dict()
+            if (
+                "item_pid" in loan
+                and loan["item_pid"]["type"] == BORROWING_REQUEST_PID_TYPE
+            ):
+                active_ill_loans_count += 1
+
+        active_ils_loans_count = active_loans_count - active_ill_loans_count
+
         available_items_for_loan_count = (
-            items_count - active_loans_count - unavailable_items_count
+            items_count - active_ils_loans_count - unavailable_items_count
         )
 
         circulation = {
