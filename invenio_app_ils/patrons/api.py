@@ -155,7 +155,8 @@ class AnonymousPatron(Patron):
 
 def patron_exists(patron_pid):
     """Return True if the Patron exists given a PID."""
-    return User.query.filter_by(id=patron_pid).first() is not None
+    assert str(patron_pid).isdigit()
+    return User.query.filter_by(id=patron_pid).one_or_none() is not None
 
 
 def get_patron_or_unknown_dump(patron_pid):

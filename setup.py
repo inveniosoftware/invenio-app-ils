@@ -20,6 +20,7 @@ tests_require = [
     "mock>=2.0.0",
     "pytest-invenio>=1.4.0,<1.5.0",
     "pytest-mock>=1.6.0",
+    "celery[pytest]>=4.4.0,<5.1"  # Temporary, until fixed in `pytest-invenio`
 ]
 
 extras_require = {
@@ -53,7 +54,7 @@ for name, reqs in extras_require.items():
         continue
     extras_require["all"].extend(reqs)
 
-setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
+setup_requires = ["Babel>=2.8"]
 
 install_requires = [
     # --- Invenio ----------------------------------------------------------
