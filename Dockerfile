@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-FROM python:3.5
+FROM python:3.6
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y && apt-get install apt-file -y && apt-file update
 RUN apt-get install -y git curl vim npm
 RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
 

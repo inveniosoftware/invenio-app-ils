@@ -7,6 +7,7 @@
 
 """Test ILS APIs."""
 
+import pytest
 from flask import url_for
 from invenio_accounts.models import User
 
@@ -24,8 +25,13 @@ def test_apis(client, json_headers, testdata):
     def test_patron_exists():
         """Test return True if item exists."""
         test_patron = User.query.all()[0]
-        assert patron_exists(test_patron.id)
-        assert not patron_exists("not-existing-patron-pid")
+        assert patron_exists(int(test_patron.id))
+        assert patron_exists(str(test_patron.id))
+
+        with pytest.raises(AssertionError):
+            assert not patron_exists("not a number")
+            assert not patron_exists("-1")
+            assert not patron_exists("0")
 
     def test_get_record_by_pid():
         """Test get_record_by_pid."""

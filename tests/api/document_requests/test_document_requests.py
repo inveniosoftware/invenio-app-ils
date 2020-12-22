@@ -53,24 +53,74 @@ def test_request_list_permissions(client, testdata, json_headers, users):
 def test_create_document_request(client, testdata, json_headers, users):
     """Test creating document requests."""
     tests = [
-        ("admin", 201, dict(title="Test title", request_type="LOAN",
-                            medium="Paper", patron_pid="1")),
-        ("librarian", 400, dict(patron_pid="1")),
         (
             "admin",
             201,
-            dict(patron_pid="1", title="Test", invalid_param="Test",
-                 request_type="LOAN", medium="Paper"),
+            dict(
+                title="Test title",
+                request_type="LOAN",
+                medium="Paper",
+                patron_pid="1",
+            ),
         ),
-        ("librarian", 201, dict(title="Test title", patron_pid="1",
-                                request_type="BUY", medium="Paper")),
-        ("patron1", 201, dict(title="Test title", patron_pid="1",
-                              request_type="BUY", medium="Paper")),
-        ("patron2", 400, dict(title="Test title", patron_pid="1",
-                              request_type="LOAN", medium="Paper")),
-        ("patron2", 201, dict(title="Test title", patron_pid="2",
-                              request_type="LOAN", medium="Paper")),
-
+        (
+            "librarian",
+            400,
+            dict(
+                patron_pid="1",
+            ),
+        ),
+        (
+            "admin",
+            201,
+            dict(
+                patron_pid="1",
+                title="Test",
+                invalid_param="Test",
+                request_type="LOAN",
+                medium="Paper",
+            ),
+        ),
+        (
+            "librarian",
+            201,
+            dict(
+                title="Test title",
+                patron_pid="1",
+                request_type="BUY",
+                medium="Paper",
+            ),
+        ),
+        (
+            "patron1",
+            201,
+            dict(
+                title="Test title",
+                patron_pid="1",
+                request_type="BUY",
+                medium="Paper",
+            ),
+        ),
+        (
+            "patron2",
+            400,
+            dict(
+                title="Test title",
+                patron_pid="1",
+                request_type="LOAN",
+                medium="Paper",
+            ),
+        ),
+        (
+            "patron2",
+            201,
+            dict(
+                title="Test title",
+                patron_pid="2",
+                request_type="LOAN",
+                medium="Paper",
+            ),
+        ),
     ]
     for username, expected_status, data in tests:
         user_login(client, username, users)

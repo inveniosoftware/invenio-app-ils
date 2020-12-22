@@ -115,7 +115,7 @@ class PatronNotFoundError(IlsException):
     """A patron could not be found."""
 
     code = 404
-    description = "Patron with PID '{patron_pid}' was not found."
+    description = "Patron with ID '{patron_pid}' was not found."
 
     def __init__(self, patron_pid, **kwargs):
         """Initialize PatronNotFoundError exception."""

@@ -64,7 +64,7 @@ def test_not_implemented(app):
 def test_patron_not_found(app):
     """Test PatronNotFoundError."""
     patron_pid = "1"
-    msg = "Patron with PID '{patron_pid}' was not found."
+    msg = "Patron with ID '{patron_pid}' was not found."
     with pytest.raises(PatronNotFoundError) as ex:
         raise PatronNotFoundError(patron_pid)
     assert ex.value.code == PatronNotFoundError.code
