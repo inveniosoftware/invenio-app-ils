@@ -308,8 +308,8 @@
             "publisher": {
               "type": "keyword"
             },
-            "reprint_date": {
-              "type": "date"
+            "reprint": {
+              "type": "text"
             }
           },
           "type": "object"
