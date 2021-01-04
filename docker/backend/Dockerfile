@@ -8,7 +8,8 @@
 FROM python:3.6
 
 RUN apt-get update && apt-get upgrade -y && apt-get install apt-file -y && apt-file update
-RUN apt-get install -y git curl vim npm
+RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && bash nodesource_setup.sh
+RUN apt-get install -y nodejs git curl vim
 RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
 
 RUN python -m site
@@ -30,9 +31,6 @@ RUN mkdir -p ${INVENIO_INSTANCE_PATH}
 RUN mkdir -p ${INVENIO_STATIC_FOLDER}
 
 RUN ./scripts/bootstrap
-
-# copy uwsgi config files
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 # Set folder permissions
 RUN chgrp -R 0 ${WORKING_DIR} && \

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -14,42 +14,21 @@ services:
       service: lb
     links:
       - frontend
-  # Frontend
+  # UI React application
   frontend:
     extends:
       file: docker-services.yml
       service: frontend
     volumes:
       - static_data:/opt/invenio_app_ils/var/instance
-      - react_static_data:/opt/invenio_app_ils/react-assets
     links:
-      - web-ui
-      - web-api
-  # UI Application
-  web-ui:
+      - backend
+  # Invenio backend application
+  backend:
     extends:
       file: docker-services.yml
-      service: app
-    command: uwsgi /opt/invenio_app_ils/var/instance/uwsgi_ui.ini
-    image: invenio_app_ils-web-ui
-    ports:
-      - "5000"
-    volumes:
-      - static_data:/opt/invenio_app_ils/var/instance
-    links:
-      - cache
-      - es
-      - mq
-      - db
-  # API Rest Application
-  web-api:
-    extends:
-      file: docker-services.yml
-      service: app
-    command: uwsgi /opt/invenio_app_ils/var/instance/uwsgi_rest.ini
-    image: invenio_app_ils-web-api
-    ports:
-      - "5000"
+      service: backend
+    command: uwsgi --module invenio_app.wsgi:application --socket 0.0.0.0:5000 --master --processes 2 --threads 2 --stats /tmp/stats.socket
     volumes:
       - static_data:/opt/invenio_app_ils/var/instance
     links:
@@ -61,8 +40,7 @@ services:
   worker:
     extends:
       file: docker-services.yml
-      service: app
-    restart: "always"
+      service: backend
     command: "celery -A invenio_app.celery worker --loglevel=INFO"
     image: invenio_app_ils-worker
     links:
@@ -96,4 +74,3 @@ services:
       service: es
 volumes:
   static_data:
-  react_static_data:

@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 version: "2.3"
 services:
-  app:
+  backend:
     build:
       context: ./
+      dockerfile: ./docker/backend/Dockerfile
       args:
         - ENVIRONMENT=DEV
-    image: invenio_app_ils
+    image: invenio_app_ils-backend
+    ports:
+      - "5000"
     environment:
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
       - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
@@ -24,30 +27,30 @@ services:
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://test:psw@db/ils"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "INVENIO_SPA_HOST=https://127.0.0.1"
+      - "INVENIO_REST_CSRF_ENABLED=False"
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./docker/frontend/Dockerfile
+    image: invenio_app_ils-frontend
+    ports:
+      - "80"
+      - "443"
   lb:
-    build: ./docker/haproxy/
+    build: ./docker/lb/
     image: invenio_app_ils-lb
-    restart: "always"
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
-  frontend:
-    build: ./docker/nginx
-    image: invenio_app_ils-frontend
-    restart: "always"
-    ports:
-      - "80"
-      - "443"
   cache:
     image: redis
-    restart: "always"
     read_only: true
     ports:
       - "6379:6379"
   db:
     image: postgres:12.4
-    restart: "always"
     environment:
       - "POSTGRES_USER=test"
       - "POSTGRES_PASSWORD=psw"
@@ -56,7 +59,6 @@ services:
       - "5432:5432"
   mq:
     image: rabbitmq:3-management
-    restart: "always"
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -64,7 +66,6 @@ services:
     # to use ES6: docker.elastic.co/elasticsearch/elasticsearch:6.8.8
     # to use ES7: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.1
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.1
-    restart: "always"
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
