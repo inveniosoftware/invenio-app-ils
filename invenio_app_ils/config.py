@@ -782,7 +782,17 @@ RECORDS_REST_FACETS = dict(
                 range=dict(
                     field="circulation.available_items_for_loan_count",
                     ranges=[{"key": "available for loan", "from": 1}],
-                )
+                ),
+                aggs={
+                    "zero_doc_count_filter": {
+                        "bucket_selector": {
+                            "buckets_path": {
+                                "count": "_count"
+                            },
+                            "script": "params.count > 0"
+                        }
+                    }
+                }
             ),
             medium=dict(terms=dict(field="stock.mediums")),
         ),
