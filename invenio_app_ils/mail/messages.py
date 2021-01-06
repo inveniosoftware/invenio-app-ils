@@ -123,17 +123,26 @@ def get_common_message_ctx(record):
         Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(record["document_pid"])
 
-        # create the string "title (edition - year)"
+        author = document["authors"][0]["full_name"]
+        if len(document["authors"]) > 1:
+            author += " et al."
+
         edition = document.get("edition", "")
         year = document.get("publication_year", "")
-        edition_year = " - ".join(filter(None, [edition, year]))
-        full_title = (
-            "{0} ({1})".format(document["title"], edition_year)
-            if edition_year
-            else document["title"]
+        if edition and year:
+            edition_year = " ({0} - {1})".format(edition, year)
+        elif edition:
+            edition_year = " ({0})".format(edition)
+        else:
+            edition_year = " ({0})".format(year)
+
+        full_title = "{title}, {author}{edition_year}".format(
+            title=document["title"], author=author, edition_year=edition_year
         )
+
         message_ctx["document"] = dict(
             title=document["title"],
+            author=author,
             edition=edition,
             publication_year=year,
             full_title=full_title,
