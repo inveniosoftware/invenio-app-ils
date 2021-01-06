@@ -10,5 +10,5 @@ set -e
 
 script_path=$(dirname "$0")
 FLASK_ENV=development invenio run \
-    --cert "$script_path"/../docker/nginx/test.crt \
-    --key "$script_path"/../docker/nginx/test.key
+    --cert "$script_path"/../docker/frontend/test.crt \
+    --key "$script_path"/../docker/frontend/test.key
