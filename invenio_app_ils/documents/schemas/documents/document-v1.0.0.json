@@ -365,9 +365,9 @@
           "minLength": 1,
           "type": "string"
         },
-        "reprint_date": {
+        "reprint": {
           "minLength": 1,
-          "title": "Date of reprint",
+          "title": "Reprint identifier",
           "type": "string"
         }
       },

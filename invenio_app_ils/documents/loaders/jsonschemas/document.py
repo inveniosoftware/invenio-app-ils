@@ -129,7 +129,7 @@ class ImprintSchema(Schema):
     date = fields.Str()
     place = fields.Str()
     publisher = fields.Str()
-    reprint_date = fields.Str()
+    reprint = fields.Str()
 
 
 class InternalNoteSchema(Schema):
