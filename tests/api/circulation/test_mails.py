@@ -17,19 +17,17 @@ from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
+from invenio_app_ils.circulation.mail.tasks import (
+    send_expiring_loans_mail_reminder, send_overdue_loans_mail_reminder)
+from invenio_app_ils.documents.api import Document
 from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login, user_logout
-
-from invenio_app_ils.circulation.mail.tasks import (  # isort:skip
-    send_expiring_loans_mail_reminder,
-    send_overdue_loans_mail_reminder,
-)
 
 
 def test_email_on_loan_checkout(
     client, app_with_mail, users, testdata, loan_params
 ):
-    """Test that an email is sent when an admin performs a loan checkout."""
+    """Test that an email is sent on loan checkout."""
     loan_data = testdata["loans"][1]
     loan = Loan.get_record_by_pid(loan_data["pid"])
     with app_with_mail.extensions["mail"].record_messages() as outbox:
@@ -40,6 +38,41 @@ def test_email_on_loan_checkout(
             loan, **dict(loan_params, trigger="checkout")
         )
         assert len(outbox) == 1
+        msg = outbox[0]
+
+    doc = Document.get_record_by_pid(loan_data["document_pid"])
+    expected_subject = (
+        """InvenioILS: your loan for "{0}" has started.""".format(doc["title"])
+    )
+    assert msg.subject == expected_subject
+
+    edition_year = " ({edition} - {year})".format(
+        edition=doc["edition"], year=doc["publication_year"]
+    )
+    full_title = "{title}, {author}{edition_year}".format(
+        title=doc["title"],
+        author=doc["authors"][0]["full_name"],
+        edition_year=edition_year,
+    )
+
+    profile_url = "{host}{path}".format(
+        host=current_app.config["SPA_HOST"],
+        path=current_app["SPA_PATHS"]["profile"],
+    )
+    expected_body_plain = """Dear {patron_email},
+
+your loan for "{doc_full_title}" has started. The due date is {loan_end_date}.
+
+You can see your ongoing and past loans in your profile page <{profile_url}>.
+
+Kind regards,
+InvenioILS""".format(
+        patron_email="patron1@test.com",
+        doc_full_title=full_title,
+        loan_end_date=loan_data["end_date"],
+        profile_url=profile_url,
+    )
+    assert msg.body == expected_body_plain
 
 
 def test_email_on_overdue_loans(

@@ -62,7 +62,8 @@ ILS_CIRCULATION_MAIL_OVERDUE_REMINDER_INTERVAL = 3
 ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
 #: Period of time in days, before loans expire, for notifications etc.
 ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS = 7
-#: Delivery methods
+#: Optional delivery methods when requesting a new loan. Set to empty object to
+# disable it
 ILS_CIRCULATION_DELIVERY_METHODS = {
     "PICKUP": "Pick it up at the library desk",
     "DELIVERY": "Have it delivered to my office",
