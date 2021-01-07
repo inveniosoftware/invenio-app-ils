@@ -48,16 +48,17 @@ def default_value_when_missing_filter(field, missing_val):
     return inner
 
 
-def not_empty_object_or_list_filter(field):
-    """Create a custom exists filter.
+def exists_value_filter(field, filter_value):
+    """Create a custom filter that filters by existing value.
 
     :param field: Field name.
-    :missing_val
-    :returns: Function that returns the Terms query.
+    :param filter_value: Filter value.
     """
     def inner(values):
-        return Bool(**{'must': {'exists': {'field': field}}})
-
+        if filter_value in values:
+            return Bool(**{'must': {'exists': {'field': field}}})
+        else:
+            return Bool(**{'must_not': {'exists': {'field': field}}})
     return inner
 
 

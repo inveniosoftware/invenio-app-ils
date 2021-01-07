@@ -50,8 +50,8 @@ from .documents.search import DocumentSearch
 from .eitems.api import (EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE,
                          EItem)
 from .eitems.search import EItemSearch
-from .facets import (default_value_when_missing_filter, keyed_range_filter,
-                     not_empty_object_or_list_filter)
+from .facets import (default_value_when_missing_filter,
+                     exists_value_filter, keyed_range_filter)
 from .internal_locations.api import (INTERNAL_LOCATION_PID_FETCHER,
                                      INTERNAL_LOCATION_PID_MINTER,
                                      INTERNAL_LOCATION_PID_TYPE,
@@ -862,7 +862,8 @@ RECORDS_REST_FACETS = dict(
         ),
         post_filters=dict(
             access=terms_filter("open_access"),
-            has_files=not_empty_object_or_list_filter("files.file_id"),
+            has_files=exists_value_filter(
+                "files.file_id", filter_value="has_files"),
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index
