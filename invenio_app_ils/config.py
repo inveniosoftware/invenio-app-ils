@@ -96,9 +96,9 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 #: Storage for rate limiter.
 RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
 #: Rate limit for logged in users.
-RATELIMIT_AUTHENTICATED_USER = '5000 per hour;150 per minute'
+RATELIMIT_AUTHENTICATED_USER = "5000 per hour;150 per minute"
 #: Rate limit for non logged in users.
-RATELIMIT_GUEST_USER = '1000 per hour;100 per minute'
+RATELIMIT_GUEST_USER = "1000 per hour;100 per minute"
 
 ###############################################################################
 # I18N
@@ -131,9 +131,7 @@ ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.
 #: Document request email templates
 ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
 #: Global email templates
-ILS_GLOBAL_MAIL_TEMPLATES = {
-    "footer": "footer.html"
-}
+ILS_GLOBAL_MAIL_TEMPLATES = {"footer": "footer.html"}
 ###############################################################################
 # Assets
 ###############################################################################
@@ -197,7 +195,9 @@ CELERY_BEAT_SCHEDULE = {
     },
     "clean_locations_past_closures_exceptions": {
         "task": "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions",
-        "schedule": crontab(0, 0, day_of_month=31, month_of_year=1),  # January 31st of every year
+        "schedule": crontab(
+            0, 0, day_of_month=31, month_of_year=1
+        ),  # January 31st of every year
     },
 }
 
@@ -251,9 +251,13 @@ SESSION_COOKIE_SECURE = True
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 #: Single Page Application host and routes, useful in templates/emails
-SPA_HOST = "https://localhost:3000"
+SPA_HOST = "https://127.0.0.1:3000"
 SPA_PATHS = dict(
-    profile="/profile", loan="/backoffice/loans", patron="/backoffice/patrons",
+    literature="/literature/%(pid)s",
+    loan="/backoffice/loans",
+    patron="/backoffice/patrons",
+    profile="/profile",
+    search="/search?q=%(querystring)s",
 )
 
 ###############################################################################
@@ -669,9 +673,7 @@ RECORDS_REST_ENDPOINTS = dict(
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
     document_requests=dict(  # DocumentRequestSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -679,9 +681,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     documents=dict(  # DocumentSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -709,9 +709,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -724,9 +722,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -746,9 +742,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",

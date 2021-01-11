@@ -1,16 +1,16 @@
 {% block subject %}
-InvenioILS: your literature request {{ request.pid }} has been approved.
+InvenioILS: your literature request for "{{ request.title }}" has been approved.
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-Your literature request {{ request.pid }} has been approved.
+Your literature request for "{{ request.title }}" has been approved.
 {% endblock %}
 
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-Your literature request {{ request.pid }} has been approved.
+Your literature request for "{{ request.title }}" has been approved.
 {% endblock %}

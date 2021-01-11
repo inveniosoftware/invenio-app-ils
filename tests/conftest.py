@@ -15,6 +15,7 @@ from flask import Blueprint
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
+from invenio_userprofiles import UserProfile
 
 from invenio_app_ils.permissions import backoffice_access_action
 
@@ -33,6 +34,7 @@ def users(app, db):
         patron1 = datastore.create_user(
             email="patron1@test.com", password="123456", active=True
         )
+
         patron2 = datastore.create_user(
             email="patron2@test.com", password="123456", active=True
         )
@@ -69,6 +71,24 @@ def users(app, db):
             )
         )
         datastore.add_role_to_user(librarian2, librarian_role)
+    db.session.commit()
+
+    for patron, name in [
+        (admin, "Admin User"),
+        (librarian, "Librarian One"),
+        (librarian2, "Librarian Two"),
+        (patron1, "Patron One"),
+        (patron2, "Patron Two"),
+        (patron3, "Patron Three"),
+    ]:
+        profile = UserProfile(
+            **dict(
+                user_id=patron.id,
+                _displayname="id_" + str(patron.id),
+                full_name=name,
+            )
+        )
+        db.session.add(profile)
     db.session.commit()
 
     return {

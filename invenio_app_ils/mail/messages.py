@@ -141,6 +141,7 @@ def get_common_message_ctx(record):
         )
 
         message_ctx["document"] = dict(
+            pid=document["pid"],
             title=document["title"],
             author=author,
             edition=edition,

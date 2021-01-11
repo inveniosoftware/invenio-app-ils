@@ -32,6 +32,9 @@ def send_loan_mail(action, loan, message_ctx={}, **kwargs):
     creator = loan_message_creator_factory()
 
     message_ctx.update(get_common_message_ctx(record=loan))
+    message_ctx["circulation_delivery_methods"] = current_app.config[
+        "ILS_CIRCULATION_DELIVERY_METHODS"
+    ]
     patron = message_ctx["patron"]
 
     msg = creator(
