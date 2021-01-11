@@ -3,13 +3,13 @@ InvenioILS: your loan request for "{{ document.title }}" has been registered.
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan request for "{{ document.full_title }}" has been registered.
+your loan request for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been registered.
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan request for "{{ document.full_title }}" has been registered.
+your loan request for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been registered.
 {% endblock %}

@@ -3,7 +3,7 @@ InvenioILS: your loan for "{{ document.title }}" is due soon!
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
 your loan on "{{ document.title }}" is due in {{ expiring_in_days }} days.
 
@@ -11,7 +11,7 @@ Do not forget to bring back the borrowed literature in time.
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
 your loan on "{{ document.title }}" is due in {{ expiring_in_days }} days.
 

@@ -3,7 +3,7 @@ InvenioILS: your loan for "{{ document.title }}" is overdue!
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
 your loan on "{{ document.title }}" expired {{ days_ago }} days ago.
 
@@ -12,7 +12,7 @@ to return it at the library or request an extension for your loan.
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
 your loan on "{{ document.title }}" expired {{ days_ago }} days ago.
 

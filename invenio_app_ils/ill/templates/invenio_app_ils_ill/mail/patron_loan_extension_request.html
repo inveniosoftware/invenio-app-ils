@@ -3,14 +3,14 @@ InvenioILS: your loan extension request for "{{ document.title }}" has been regi
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan extension request for "{{ document.full_title }}" has been registered and you should receive an answer soon.
+your loan extension request for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been registered and you should receive an answer soon.
 {% endblock %}
 
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan extension request for "{{ document.full_title }}" has been registered and you should receive an answer soon.
+your loan extension request for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been registered and you should receive an answer soon.
 {% endblock %}

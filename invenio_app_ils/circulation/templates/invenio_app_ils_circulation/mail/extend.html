@@ -3,13 +3,17 @@ InvenioILS: your loan for "{{ document.title }}" has been extended.
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" has been extended. The new due date is {{ loan.end_date }}.
+your loan for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been extended.
+
+The new due date is {{ loan.end_date }}.
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" has been extended. The new due date is {{ loan.end_date }}.
+your loan for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been extended.
+
+The new due date is {{ loan.end_date }}.
 {% endblock %}

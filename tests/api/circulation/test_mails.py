@@ -55,20 +55,27 @@ def test_email_on_loan_checkout(
         edition_year=edition_year,
     )
 
+    literature_url = "{host}{path}".format(
+        host=current_app.config["SPA_HOST"],
+        path=current_app.config["SPA_PATHS"]["literature"]
+        % {"pid": doc["pid"]},
+    )
     profile_url = "{host}{path}".format(
         host=current_app.config["SPA_HOST"],
-        path=current_app["SPA_PATHS"]["profile"],
+        path=current_app.config["SPA_PATHS"]["profile"],
     )
-    expected_body_plain = """Dear {patron_email},
+    expected_body_plain = """Dear Patron One,
 
-your loan for "{doc_full_title}" has started. The due date is {loan_end_date}.
+your loan for "{doc_full_title}" <{literature_url}> has started.
+
+The due date is {loan_end_date}.
 
 You can see your ongoing and past loans in your profile page <{profile_url}>.
 
 Kind regards,
 InvenioILS""".format(
-        patron_email="patron1@test.com",
         doc_full_title=full_title,
+        literature_url=literature_url,
         loan_end_date=loan_data["end_date"],
         profile_url=profile_url,
     )

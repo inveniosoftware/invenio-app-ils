@@ -3,18 +3,18 @@ InvenioILS: your loan for "{{ document.title }}" has been cancelled.
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" has been cancelled.
+your loan for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been cancelled.
 {% if "cancel_reason" in loan %}
 Cancel reason: {{loan.cancel_reason}}
 {% endif %}
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" has been cancelled.
+your loan for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been cancelled.
 {% if "cancel_reason" in loan %}
 Cancel reason: {{loan.cancel_reason}}
 {% endif %}

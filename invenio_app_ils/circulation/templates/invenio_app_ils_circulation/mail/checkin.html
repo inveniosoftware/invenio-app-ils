@@ -3,13 +3,13 @@ InvenioILS: your loan for "{{ document.title }}" is now completed.
 {% endblock %}
 
 {% block body_plain %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" is now completed.
+your loan for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> is now completed.
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.email }},
+Dear {{ patron.name }},
 
-your loan for "{{ document.full_title }}" is now completed.
+your loan for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> is now completed.
 {% endblock %}
