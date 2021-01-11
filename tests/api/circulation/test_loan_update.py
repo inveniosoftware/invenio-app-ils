@@ -66,6 +66,9 @@ def test_loan_update_date(client, json_headers, users, testdata):
     """Test the edition of the dates on a loan."""
     pid = testdata["loans"][4]["pid"]  # Item on loan
 
+    res = _post_loan_update(client, json_headers, pid)
+    assert res.status_code == 401
+
     # Patron cannot update loan
     user_login(client, "patron1", users)
     res = _post_loan_update(client, json_headers, pid)

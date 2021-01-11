@@ -16,7 +16,11 @@ from invenio_app_ils.closures.api import find_next_open_date
 from invenio_app_ils.proxies import current_app_ils
 from tests.helpers import user_login
 
+_HTTP_OK = [200, 201, 204]
 _LOCATION_PID = "locid-1"
+_LOCATION_NAME = "Location name"
+_ITEM_ENDPOINT = "invenio_records_rest.locid_item"
+_LIST_ENDPOINT = "invenio_records_rest.locid_list"
 _WEEKDAYS = ["monday", "tuesday", "wednesday",
              "thursday", "friday", "saturday", "sunday"]
 _DEFAULT_TIMES = [{"start_time": "08:00", "end_time": "12:00"},
@@ -52,6 +56,72 @@ def _build_location_closures_data(closed_weekdays, exceptions):
 
 def _date_from_string(date_string):
     return arrow.get(date_string).date()
+
+
+def test_location_permissions(client, testdata, json_headers, users):
+    """Test location endpoints permissions."""
+    dummy_location = dict(
+        name=_LOCATION_NAME,
+        opening_weekdays=[{"weekday": w, "is_open": True,
+                           "times": _DEFAULT_TIMES} for w in _WEEKDAYS],
+        opening_exceptions=[]
+    )
+    tests = [
+        ("admin", _HTTP_OK, dummy_location),
+        ("librarian", _HTTP_OK, dummy_location),
+        ("patron1", [403], dummy_location),
+        ("anonymous", [401], dummy_location),
+    ]
+    read_statuses = [200]
+
+    def _test_list(expected_status):
+        """Test get list."""
+        url = url_for(_LIST_ENDPOINT)
+        res = client.get(url, headers=json_headers)
+        assert res.status_code in expected_status
+
+    def _test_create(expected_status, data):
+        """Test record creation."""
+        url = url_for(_LIST_ENDPOINT)
+        res = client.post(url, headers=json_headers, data=json.dumps(data))
+        assert res.status_code in expected_status
+
+        if res.status_code < 400:
+            record = res.get_json()["metadata"]
+            assert record["name"] == _LOCATION_NAME
+            return record["pid"]
+
+    def _test_update(expected_status, data, pid):
+        """Test record update."""
+        pid_value = pid or _LOCATION_PID
+        url = url_for(_ITEM_ENDPOINT, pid_value=pid_value)
+        res = client.put(url, headers=json_headers, data=json.dumps(data))
+        assert res.status_code in expected_status
+        if res.status_code < 400:
+            record = res.get_json()["metadata"]
+            assert record["name"] == _LOCATION_NAME
+
+    def _test_read(expected_status, pid):
+        """Test record read."""
+        pid_value = pid or _LOCATION_PID
+        url = url_for(_ITEM_ENDPOINT, pid_value=pid_value)
+        res = client.get(url, headers=json_headers)
+        assert res.status_code in expected_status
+
+    def _test_delete(expected_status, pid):
+        """Test record delete."""
+        pid_value = pid or _LOCATION_PID
+        url = url_for(_ITEM_ENDPOINT, pid_value=pid_value)
+        res = client.delete(url, headers=json_headers)
+        assert res.status_code in expected_status
+
+    for username, expected_status, data in tests:
+        user_login(client, username, users)
+        _test_list(read_statuses)
+        pid = _test_create(expected_status, data)
+        _test_update(expected_status, data, pid)
+        _test_read(read_statuses, pid)
+        _test_delete(expected_status, pid)
 
 
 def test_location_validation(client, json_headers, users, testdata):

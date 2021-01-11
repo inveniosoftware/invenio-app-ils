@@ -11,7 +11,7 @@ import json
 
 from flask import url_for
 
-from tests.helpers import user_login
+from tests.helpers import user_login, user_logout
 
 
 def _search_loans(client, json_headers, **kwargs):
@@ -86,3 +86,19 @@ def test_patrons_cannot_search_other_loans(
         q="patron_pid:{}".format(str(users["patron2"].id)),
     )
     assert res.status_code == 403
+
+
+def test_most_loaned_permissions(client, json_headers, users, testdata):
+    """Test that only the backoffice is able to list the most loaned items."""
+    url = url_for("invenio_app_ils_circulation_stats.most-loaned")
+    tests = [
+        ("admin", 200),
+        ("librarian", 200),
+        ("patron1", 403),
+        ("anonymous", 401)
+    ]
+    for username, status in tests:
+        user_login(client, username, users)
+        res = client.get(url, headers=json_headers)
+        assert res.status_code == status
+        user_logout(client)
