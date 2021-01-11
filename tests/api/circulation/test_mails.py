@@ -42,6 +42,21 @@ def test_email_on_loan_checkout(
         assert len(outbox) == 1
 
 
+def test_email_on_overdue_permissions(client, testdata, json_headers, users):
+    """Test that only the backoffice can send a reminder."""
+    pid = testdata["loans"][0]["pid"]
+    url = url_for("invenio_app_ils_circulation.loanid_email",
+                  pid_value=pid)
+    tests = [
+        ("patron1", 403),
+        ("anonymous", 401)
+    ]
+    for username, expected_status in tests:
+        user_login(client, username, users)
+        res = client.post(url, headers=json_headers)
+        assert res.status_code == expected_status
+
+
 def test_email_on_overdue_loans(
     app_with_mail, db, users, testdata, mocker, client, json_headers
 ):
