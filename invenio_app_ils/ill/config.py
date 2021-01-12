@@ -49,7 +49,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=BORROWING_REQUEST_PID_FETCHER,
         search_class=BorrowingRequestsSearch,
         search_factory_imp="invenio_app_ils.search_permissions"
-            ":search_factory_filter_by_patron",
+        ":search_factory_filter_by_patron",
         indexer_class=RecordIndexer,
         record_class=BorrowingRequest,
         record_loaders={
@@ -116,9 +116,7 @@ RECORDS_REST_ENDPOINTS = dict(
 
 RECORDS_REST_SORT_OPTIONS = dict(
     ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -141,13 +139,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     ill_libraries=dict(  # LibrarySearch.Meta.index
-        name=dict(
-            fields=["name.keyword"],
-            title="Name",
-            order=1
-        ),
+        name=dict(fields=["name.keyword"], title="Name", order=1),
         created=dict(
-            fields=["_created"], title="Recently added", order=2,
+            fields=["_created"],
+            title="Recently added",
+            order=2,
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -168,12 +164,16 @@ RECORDS_REST_FACETS = dict(
                     field="library.name.keyword", size=FACET_LIBRARYLIMIT
                 )
             ),
+            patron_loan_extension=dict(
+                terms=dict(field="patron_loan.extension.status")
+            ),
             type=dict(terms=dict(field="type")),
             payment_mode=dict(terms=dict(field="payment.mode")),
         ),
         post_filters=dict(
             status=terms_filter("status"),
             library=terms_filter("library.name.keyword"),
+            patron_loan_extension=terms_filter("patron_loan.extension.status"),
             type=terms_filter("terms"),
             payment_mode=terms_filter("payment.mode"),
         ),
