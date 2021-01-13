@@ -24,7 +24,12 @@
         "type": "keyword"
       },
       "name": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "pid": {
         "type": "keyword"
