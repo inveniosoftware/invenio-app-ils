@@ -7,19 +7,27 @@
 Changes
 =======
 
+Version 1.0.0a22 (released 2021-01-13)
+
+- improve email templating
+- add ILL loans extension search filter
+- test permissions
+- fix eitem filter
+- change cover placeholder
+
 Version 1.0.0a21 (released 2020-10-26)
 
-- Added library_search_cls as property in current_ils_ill
-- Added library_indexer as property in current_ils_ill
-- Bump invenio-circulation version
+- add library_search_cls as property in current_ils_ill
+- add library_indexer as property in current_ils_ill
+- bump invenio-circulation version
 
 Version 1.0.0a20 (released 2020-10-11)
 
-- Updated the constraint on opening hours up to 2 time periods
-- Added importer curator type
-- Fixed patron resolver bug
-- Added validation for missing language and edition fields
-- Fixed deletion of remote token
+- update the constraint on opening hours up to 2 time periods
+- add importer curator type
+- fix patron resolver bug
+- add validation for missing language and edition fields
+- fix deletion of remote token
 
 Version 1.0.0a19 (released 2020-10-28)
 
