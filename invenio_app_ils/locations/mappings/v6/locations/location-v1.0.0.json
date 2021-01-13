@@ -31,7 +31,12 @@
           "analyzer": "email"
         },
         "name": {
-          "type": "text"
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
         },
         "notes": {
           "type": "text"

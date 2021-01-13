@@ -73,16 +73,31 @@
                 "type": "object"
               },
               "name": {
-                "type": "keyword"
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
               }
             },
             "type": "object"
           },
           "alternative_names": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
           },
           "full_name": {
-            "type": "text"
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
           },
           "identifiers": {
             "properties": {
@@ -397,7 +412,12 @@
             "type": "text"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
           }
         },
         "type": "object"
@@ -758,7 +778,54 @@
           }
         },
         "type": "object"
-      }
+      },
+      "conference_info": {
+        "properties": {
+          "acronym": {
+            "type": "keyword"
+          },
+          "country": {
+            "type": "keyword"
+          },
+          "dates": {
+            "type": "keyword"
+          },
+          "identifiers": {
+            "properties": {
+              "scheme": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "place": {
+            "type": "keyword"
+          },
+          "series": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "year": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+     }
     }
   }
 }

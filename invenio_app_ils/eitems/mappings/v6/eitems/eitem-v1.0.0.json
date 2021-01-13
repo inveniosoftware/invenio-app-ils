@@ -48,16 +48,31 @@
                       "type": "object"
                     },
                     "name": {
-                      "type": "keyword"
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
                     }
                   },
                   "type": "object"
                 },
                 "alternative_names": {
-                  "type": "keyword"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "full_name": {
-                  "type": "text"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "identifiers": {
                   "properties": {

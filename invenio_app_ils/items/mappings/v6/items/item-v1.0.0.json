@@ -65,7 +65,12 @@
                   "type": "keyword"
                 },
                 "name": {
-                  "type": "text"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "location_pid": {
                   "type": "keyword"
@@ -123,16 +128,31 @@
                       "type": "object"
                     },
                     "name": {
-                      "type": "keyword"
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
                     }
                   },
                   "type": "object"
                 },
                 "alternative_names": {
-                  "type": "keyword"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "full_name": {
-                  "type": "text"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "identifiers": {
                   "properties": {
@@ -247,6 +267,9 @@
             },
             "name": {
               "type": "keyword"
+            },
+            "notes": {
+              "type": "text"
             },
             "physical_location": {
               "type": "keyword"
