@@ -11,11 +11,9 @@ import jsonresolver
 from elasticsearch import VERSION as ES_VERSION
 from werkzeug.routing import Rule
 
-from invenio_app_ils.circulation.search import (
-    get_loan_next_available_date,
-    get_loans_aggregated_by_states,
-    get_overdue_loans_by_doc_pid,
-)
+from invenio_app_ils.circulation.search import (get_loan_next_available_date,
+                                                get_loans_aggregated_by_states,
+                                                get_overdue_loans_by_doc_pid)
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.items.search import get_items_aggregated_by_statuses
 
