@@ -590,21 +590,18 @@
           }
         },
         "multipart_monograph": {
-          "items": {
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
+          "properties": {
+            "pid": {
+              "type": "string"
             },
-            "type": "object"
+            "pid_type": {
+              "type": "string"
+            },
+            "volume": {
+              "type": "string"
+            }
           },
-          "type": "array"
+          "type": "object"
         },
         "other": {
           "items": {

@@ -9,8 +9,12 @@
 
 import json
 
+import pytest
 from flask import url_for
 
+from invenio_app_ils.errors import RecordRelationsError
+from invenio_app_ils.records_relations.api import RecordRelationsParentChild
+from invenio_app_ils.relations.api import Relation
 from tests.helpers import user_login
 
 from .helpers import (recrel_assert_record_relations,
@@ -527,3 +531,28 @@ def test_parent_child_relations(client, json_headers, testdata, users):
         },
     ]
     _test_pc_invalid_relations_should_fail(client, json_headers, invalids)
+
+
+def test_max_one_multipart(testdata):
+    doc = testdata["documents"][0]
+    series1 = testdata["series"][0]
+    rr = RecordRelationsParentChild()
+    res = rr.add(
+        series1,
+        doc,
+        Relation.get_relation_by_name("multipart_monograph"),
+    )
+
+    assert res
+
+    series2 = testdata["series"][1]
+
+    with pytest.raises(RecordRelationsError) as error:
+        rr = RecordRelationsParentChild()
+        res = rr.add(
+            series2,
+            doc,
+            "multipart_monograph",
+        )
+
+    assert isinstance(error.value, RecordRelationsError)

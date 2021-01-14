@@ -141,10 +141,25 @@ class RecordRelationsParentChild(RecordRelations):
         """Constructor."""
         self.relation_types = PARENT_CHILD_RELATION_TYPES
 
-    def _validate_relation_between_records(self, parent, child, relation_name):
+    def _validate_relation_between_records(self, parent, child, relation_type):
         """Validate relation between type of records."""
         from invenio_app_ils.documents.api import Document
         from invenio_app_ils.series.api import Series
+
+        if relation_type.name == "multipart_monograph":
+            pcr = ParentChildRelation(relation_type)
+            relations = pcr.get_relations_by_child(child.pid)
+            if len(relations) > 0:
+                raise RecordRelationsError(
+                    "Cannot create a relation `{}` between PID `{}` as parent" 
+                    " and PID `{}` as child. Record `{}` has already a"
+                    " multipart monograph.".format(
+                        relation_type.name,
+                        parent.pid.pid_value,
+                        child.pid.pid_value,
+                        child.pid.pid_value,
+                    )
+                )
 
         # when child is Document, parent is any type of Series
         is_series_doc = isinstance(child, Document) and isinstance(
@@ -162,7 +177,9 @@ class RecordRelationsParentChild(RecordRelations):
             raise RecordRelationsError(
                 "Cannot create a relation `{}` between PID `{}` as parent and "
                 "PID `{}` as child.".format(
-                    relation_name, parent.pid.pid_value, child.pid.pid_value
+                    relation_type.name,
+                    parent.pid.pid_value,
+                    child.pid.pid_value,
                 )
             )
         return True
@@ -171,7 +188,7 @@ class RecordRelationsParentChild(RecordRelations):
         """Add a new relation between given parent and child records."""
         self._validate_relation_type(relation_type)
         self._validate_relation_between_records(
-            parent=parent, child=child, relation_name=relation_type.name
+            parent=parent, child=child, relation_type=relation_type
         )
 
         pcr = ParentChildRelation(relation_type)
