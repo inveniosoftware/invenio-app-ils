@@ -152,16 +152,15 @@ class PatronIndexer(PatronBaseIndexer):
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_referenced_records.apply_async((patron,), eta=eta)
 
-
-def reindex_patrons():
-    """Re-index all patrons."""
-    # do not use PatronIndexer class otherwise it will trigger potentially
-    # thousands of tasks to index referenced records
-    indexer = PatronBaseIndexer()
-    Patron = current_app_ils.patron_cls
-    # cannot use bulk operation because Patron is not a real record
-    all_user_ids = db.session.query(User.id).all()
-    for (user_id,) in all_user_ids:
-        patron = Patron(user_id)
-        indexer.index(patron)
-    return len(all_user_ids)
+    def reindex_patrons(self):
+        """Re-index all patrons."""
+        # do not use PatronIndexer class otherwise it will trigger potentially
+        # thousands of tasks to index referenced records
+        indexer = PatronBaseIndexer()
+        Patron = current_app_ils.patron_cls
+        # cannot use bulk operation because Patron is not a real record
+        all_user_ids = db.session.query(User.id).all()
+        for (user_id,) in all_user_ids:
+            patron = Patron(user_id)
+            indexer.index(patron)
+        return len(all_user_ids)

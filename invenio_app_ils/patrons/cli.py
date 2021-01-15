@@ -12,8 +12,9 @@ from pprint import pprint
 import click
 from flask.cli import with_appcontext
 
+from invenio_app_ils.proxies import current_app_ils
+
 from .anonymization import anonymize_patron_data, get_patron_activity
-from .indexer import reindex_patrons
 
 
 @click.group()
@@ -26,7 +27,7 @@ def patrons():
 def index():
     """Reindex all patrons."""
     click.secho("Started reindexing patrons...", fg="green")
-    n_patrons = reindex_patrons()
+    n_patrons = current_app_ils.patron_indexer.reindex_patrons()
     click.secho("Reindexed {} patrons".format(n_patrons), fg="green")
 
 
