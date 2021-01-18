@@ -33,7 +33,6 @@ from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
-
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
@@ -689,7 +688,7 @@ class LoanGenerator(Generator):
 class SeriesGenerator(Generator):
     """Series Generator."""
 
-    MODE_OF_ISSUANCE = ["MULTIPART_MONOGRAPH", "SERIAL"]
+    MODE_OF_ISSUANCE = Series.MODE_OF_ISSUANCE
 
     def random_issn(self):
         """Generate a random ISSN."""

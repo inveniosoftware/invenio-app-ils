@@ -48,6 +48,7 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     authors = SanitizedHTML()
     document_pid = SanitizedHTML()
     edition = SanitizedHTML()
+    internal_note = SanitizedHTML()
     isbn = SanitizedHTML()
     issn = SanitizedHTML()
     issue = SanitizedHTML()

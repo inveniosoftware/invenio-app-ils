@@ -39,6 +39,11 @@ class Series(IlsRecordWithRelations):
         "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
     )
 
+    MODE_OF_ISSUANCE = [
+        "MULTIPART_MONOGRAPH",
+        "SERIAL",
+    ]
+
     @classmethod
     def build_resolver_fields(cls, data):
         """Build all resolver fields."""
