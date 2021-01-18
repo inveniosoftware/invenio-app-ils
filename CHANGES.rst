@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a23 (released 2021-01-18)
+
+- improve ES mapping
+- constraint parent child relation to one multipart monograph
+- set patron indexer as current_app_ils proxy
+
 Version 1.0.0a22 (released 2021-01-13)
 
 - improve email templating
