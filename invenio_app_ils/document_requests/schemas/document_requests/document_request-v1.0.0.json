@@ -16,6 +16,10 @@
       "title": "Edition of the requested document",
       "type": "string"
     },
+    "internal_note": {
+      "title": "Internal note of the requested document",
+      "type": "string"
+    },
     "isbn": {
       "title": "ISBN of the requested document",
       "type": "string"

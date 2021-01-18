@@ -35,6 +35,9 @@
       "edition": {
         "type": "keyword"
       },
+      "internal_note": {
+          "type": "text"
+        },
       "isbn": {
         "type": "keyword"
       },

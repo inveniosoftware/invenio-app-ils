@@ -105,7 +105,7 @@ class DocumentRequest(IlsRecord):
     """DocumentRequest record class."""
 
     STATES = ["ACCEPTED", "PENDING", "REJECTED"]
-    REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND"]
+    REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND", "OTHER"]
 
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
