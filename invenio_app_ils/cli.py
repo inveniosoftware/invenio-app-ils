@@ -185,7 +185,7 @@ class InternalLocationGenerator(Generator):
         objs = [
             {
                 "pid": self.create_pid(),
-                "legacy_id": "{}".format(randint(100000, 999999)),
+                "legacy_id": randint(100000, 999999),
                 "name": "Building {}".format(randint(1, 10)),
                 "notes": lorem.sentence(),
                 "physical_location": lorem.sentence(),

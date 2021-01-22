@@ -7,9 +7,12 @@
     "$schema": {
       "type": "string"
     },
-    "legacy_id": {
-      "type": "string",
-      "title": "The previous id of this Internal Location before migration"
+    "legacy_ids": {
+      "title": "The previous ids of this Internal Location before migration",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "location_pid": {
       "type": "string",
