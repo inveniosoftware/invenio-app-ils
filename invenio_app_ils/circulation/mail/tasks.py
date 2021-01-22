@@ -11,10 +11,13 @@ from celery import shared_task
 from celery.utils.log import get_task_logger
 from flask import current_app
 
-from invenio_app_ils.circulation.mail.factory import \
-    loan_message_creator_factory
-from invenio_app_ils.circulation.search import (get_all_expiring_loans,
-                                                get_all_overdue_loans)
+from invenio_app_ils.circulation.mail.factory import (
+    loan_message_creator_factory,
+)
+from invenio_app_ils.circulation.search import (
+    get_all_expiring_loans,
+    get_all_overdue_loans,
+)
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 from invenio_app_ils.mail.messages import get_common_message_ctx
 from invenio_app_ils.mail.tasks import send_ils_email

@@ -21,8 +21,10 @@ from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.api import Order
 from invenio_app_ils.acquisition.search import OrderSearch
-from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
-                                                get_loans_by_patron_pid)
+from invenio_app_ils.circulation.search import (
+    get_active_loans_by_patron_pid,
+    get_loans_by_patron_pid,
+)
 from invenio_app_ils.document_requests.api import DocumentRequest
 from invenio_app_ils.document_requests.search import DocumentRequestSearch
 from invenio_app_ils.errors import AnonymizationActiveLoansError

@@ -20,6 +20,6 @@ def register_location_signals():
 
 def record_update_listener(sender, *args, **kwargs):
     """Listens for record updates (not insertions)."""
-    record = kwargs['record']
+    record = kwargs["record"]
     if isinstance(record, current_app_ils.location_record_cls):
-        notify_location_updated(record['pid'])
+        notify_location_updated(record["pid"])

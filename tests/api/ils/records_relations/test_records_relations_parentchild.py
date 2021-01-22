@@ -17,8 +17,10 @@ from invenio_app_ils.records_relations.api import RecordRelationsParentChild
 from invenio_app_ils.relations.api import Relation
 from tests.helpers import user_login
 
-from .helpers import (recrel_assert_record_relations,
-                      recrel_choose_endpoints_and_do_request)
+from .helpers import (
+    recrel_assert_record_relations,
+    recrel_choose_endpoints_and_do_request,
+)
 
 
 def _test_pc_mm_document(client, json_headers):

@@ -12,12 +12,19 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.documents.loaders.jsonschemas.document import (
-    AlternativeTitleSchema, IdentifierSchema, InternalNoteSchema,
-    KeywordSchema, UrlSchema)
+    AlternativeTitleSchema,
+    IdentifierSchema,
+    InternalNoteSchema,
+    KeywordSchema,
+    UrlSchema,
+)
 from invenio_app_ils.records.loaders.schemas.changed_by import (
-    ChangedBySchema, set_changed_by)
-from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
-    preserve_cover_metadata
+    ChangedBySchema,
+    set_changed_by,
+)
+from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import (
+    preserve_cover_metadata,
+)
 from invenio_app_ils.series.api import Series
 
 
@@ -51,16 +58,16 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     edition = fields.Str()
-    extensions = fields.Method('dump_extensions', 'load_extensions')
+    extensions = fields.Method("dump_extensions", "load_extensions")
     identifiers = fields.Nested(IdentifierSchema, many=True)
     internal_notes = fields.Nested(InternalNoteSchema, many=True)
     isbn = fields.List(fields.Str())
     issn = fields.Str()
     keywords = fields.List(fields.Nested(KeywordSchema))
     languages = fields.List(fields.Str())
-    mode_of_issuance = fields.Str(required=True,
-                                  validate=validate.OneOf(
-                                      Series.MODE_OF_ISSUANCE))
+    mode_of_issuance = fields.Str(
+        required=True, validate=validate.OneOf(Series.MODE_OF_ISSUANCE)
+    )
     note = fields.Str()
     publication_year = fields.Str()
     publisher = fields.Str()
@@ -74,9 +81,9 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params obj: content of the object's 'extensions' field
         """
-        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
-                                     .series_metadata_extensions \
-                                     .to_schema()
+        ExtensionSchema = current_app.extensions[
+            "invenio-app-ils"
+        ].series_metadata_extensions.to_schema()
         return ExtensionSchema().dump(obj)
 
     def load_extensions(self, value):
@@ -84,9 +91,9 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params value: content of the input's 'extensions' field
         """
-        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
-                                     .series_metadata_extensions \
-                                     .to_schema()
+        ExtensionSchema = current_app.extensions[
+            "invenio-app-ils"
+        ].series_metadata_extensions.to_schema()
         return ExtensionSchema().load(value)
 
     @pre_load

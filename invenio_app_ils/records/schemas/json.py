@@ -18,9 +18,10 @@ class ILSRecordSchemaJSONV1(RecordSchemaJSONV1):
         """Meta attributes for the schema."""
 
         from marshmallow import EXCLUDE
+
         unknown = EXCLUDE
 
-    id = fields.Str(attribute='pid.pid_value')
+    id = fields.Str(attribute="pid.pid_value")
     metadata = fields.Raw()
     links = fields.Raw()
     created = fields.Str()

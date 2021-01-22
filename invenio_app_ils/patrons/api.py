@@ -166,6 +166,6 @@ def get_patron_or_unknown_dump(patron_pid):
     try:
         Patron = current_app_ils.patron_cls
         return Patron.get_patron(patron_pid).dumps_loader()
-    except:
+    except Exception as e:
         Patron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
         return Patron().dumps_loader()

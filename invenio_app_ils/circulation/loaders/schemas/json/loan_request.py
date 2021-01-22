@@ -12,8 +12,14 @@ from datetime import timedelta
 import arrow
 from flask import current_app
 from invenio_circulation.records.loaders.schemas.json import DateString
-from marshmallow import (Schema, ValidationError, fields, post_load, validates,
-                         validates_schema)
+from marshmallow import (
+    Schema,
+    ValidationError,
+    fields,
+    post_load,
+    validates,
+    validates_schema,
+)
 
 from .base import LoanBaseSchemaV1
 
@@ -40,12 +46,13 @@ class LoanRequestDeliverySchemaV1(Schema):
         """Meta attributes for the schema."""
 
         from marshmallow import EXCLUDE
+
         unknown = EXCLUDE
 
     method = fields.Str(required=True)
 
     @validates("method")
-    def validate_method(self, value,  **kwargs):
+    def validate_method(self, value, **kwargs):
         """Validate the delivery method."""
         delivery_methods = list(
             current_app.config["ILS_CIRCULATION_DELIVERY_METHODS"].keys()
@@ -84,12 +91,22 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
 
         if end < start:
             raise ValidationError(
-                {"request_start_date": "The request start date cannot be after the end date.",
-                 "request_end_date": "The request end date cannot be before the start date."})
+                {
+                    "request_start_date": "The request start date "
+                                          "cannot be after the end date.",
+                    "request_end_date": "The request end date "
+                                        "cannot be before the start date.",
+                }
+            )
         elif end - start > duration:
-            message = "The request duration " + \
-                      "cannot be longer than {} days.".format(duration_days)
+            message = (
+                "The request duration "
+                + "cannot be longer than {} days.".format(duration_days)
+            )
             raise ValidationError(
-                {"request_start_date": [message],
-                 "request_expire_date": [message]})
+                {
+                    "request_start_date": [message],
+                    "request_expire_date": [message],
+                }
+            )
         return data

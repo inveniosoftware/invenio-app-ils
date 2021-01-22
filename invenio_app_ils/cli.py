@@ -33,19 +33,28 @@ from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
+
 from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
-from .ill.api import (BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE,
-                      BorrowingRequest, Library)
-from .internal_locations.api import (INTERNAL_LOCATION_PID_TYPE,
-                                     InternalLocation)
+from .ill.api import (
+    BORROWING_REQUEST_PID_TYPE,
+    LIBRARY_PID_TYPE,
+    BorrowingRequest,
+    Library,
+)
+from .internal_locations.api import (
+    INTERNAL_LOCATION_PID_TYPE,
+    InternalLocation,
+)
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
 from .proxies import current_app_ils
-from .records_relations.api import (RecordRelationsParentChild,
-                                    RecordRelationsSiblings)
+from .records_relations.api import (
+    RecordRelationsParentChild,
+    RecordRelationsSiblings,
+)
 from .relations.api import Relation
 from .series.api import SERIES_PID_TYPE, Series
 
@@ -134,37 +143,51 @@ class LocationGenerator(Generator):
 
     def generate(self):
         """Generate."""
-        weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        weekdays = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]
         closed = ["saturday", "sunday"]
-        times = [{"start_time": "08:00", "end_time": "12:00"},
-                 {"start_time": "13:00", "end_time": "18:00"}]
+        times = [
+            {"start_time": "08:00", "end_time": "12:00"},
+            {"start_time": "13:00", "end_time": "18:00"},
+        ]
         opening_weekdays = []
         for weekday in weekdays:
             is_open = weekday not in closed
-            opening_weekdays.append({
-                "weekday": weekday,
-                "is_open": weekday not in closed,
-                **({"times": times} if is_open else {})
-            })
+            opening_weekdays.append(
+                {
+                    "weekday": weekday,
+                    "is_open": weekday not in closed,
+                    **({"times": times} if is_open else {}),
+                }
+            )
         last_date = date.today()
         opening_exceptions = []
         for i in range(randint(0, 3)):
             start_date = last_date + timedelta(days=randint(1, 15))
             end_date = start_date + timedelta(days=randint(1, 4))
             last_date = end_date
-            opening_exceptions.append({
-                "title": lorem.sentence(),
-                "is_open": random.random() >= 0.7,
-                "start_date": start_date.isoformat(),
-                "end_date": end_date.isoformat()
-            })
+            opening_exceptions.append(
+                {
+                    "title": lorem.sentence(),
+                    "is_open": random.random() >= 0.7,
+                    "start_date": start_date.isoformat(),
+                    "end_date": end_date.isoformat(),
+                }
+            )
         self.holder.location = {
             "pid": self.create_pid(),
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
             "opening_weekdays": opening_weekdays,
-            "opening_exceptions": opening_exceptions
+            "opening_exceptions": opening_exceptions,
         }
 
     def persist(self):
@@ -236,7 +259,7 @@ class ItemGenerator(Generator):
                 },
                 "document_pid": random.choice(doc_pids),
                 "internal_location_pid": random.choice(iloc_pids),
-                "isbns": [{'value': '978-1-891830-85-3'}],
+                "isbns": [{"value": "978-1-891830-85-3"}],
                 "legacy_id": "{}".format(randint(100000, 999999)),
                 "legacy_library_id": "{}".format(randint(5, 50)),
                 "barcode": "{}".format(randint(10000000, 99999999)),
@@ -300,11 +323,13 @@ class EItemGenerator(Generator):
                 "internal_notes": "{}".format(lorem.text()),
                 "urls": [
                     {
-                        "value": "https://home.cern/science/physics/dark-matter",
+                        "value":
+                            "https://home.cern/science/physics/dark-matter",
                         "description": "Dark matter",
                     },
                     {
-                        "value": "https://home.cern/science/physics/antimatter",
+                        "value":
+                            "https://home.cern/science/physics/antimatter",
                         "description": "Anti matter",
                     },
                 ],
@@ -789,7 +814,7 @@ class SeriesGenerator(Generator):
                 ],
                 "keywords": [
                     {"source": lorem.sentence(), "value": lorem.sentence()}
-                ]
+                ],
             }
             if moi == "SERIAL":
                 self.random_serial(obj)
@@ -881,9 +906,7 @@ class RecordRelationsGenerator(Generator):
             for record in random_docs:
                 for doc in documents:
                     try:
-                        rr.add(
-                            doc, record, relation_type=relation_type
-                        )
+                        rr.add(doc, record, relation_type=relation_type)
                         break
                     except RecordRelationsError:
                         continue
@@ -1189,7 +1212,9 @@ class OrderGenerator(Generator):
                     "CHF", min_value=60.0
                 ),
                 "funds": list(set(lorem.sentence().split())),
-                "payment": {"mode": "CREDIT_CARD",},
+                "payment": {
+                    "mode": "CREDIT_CARD",
+                },
                 "order_lines": order_lines,
             }
             obj["expected_delivery_date"] = (
@@ -1479,7 +1504,8 @@ def pages():
             title="Contact",
             description="Contact",
             content="You can contact InvenioILS developers on "
-            '<a href="https://gitter.im/inveniosoftware/invenio">our chatroom</a>',
+            '<a href="https://gitter.im/inveniosoftware/invenio">'
+                    'our chatroom</a>',
             template_name="invenio_pages/default.html",
         ),
     ]

@@ -62,7 +62,8 @@ def find_next_open_date(location_pid, date):
 
     # Termination is normally guaranteed if there is at least one weekday open
     raise IlsException(
-        description="Cannot find any date for which the location %s is open after the given date %s."
+        description="Cannot find any date for which the "
+                    "location %s is open after the given date %s."
         "Please check opening/closures dates."
         % (location_pid, date.isoformat())
     )

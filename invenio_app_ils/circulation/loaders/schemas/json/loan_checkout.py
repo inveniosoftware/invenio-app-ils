@@ -10,7 +10,9 @@
 import arrow
 from flask import current_app
 from invenio_circulation.records.loaders.schemas.json import (
-    DateString, LoanItemPIDSchemaV1)
+    DateString,
+    LoanItemPIDSchemaV1,
+)
 from marshmallow import ValidationError, fields, post_load, validates
 
 from invenio_app_ils.permissions import check_permission
@@ -50,7 +52,15 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
             end = arrow.get(data["end_date"]).date()
             if end < start:
                 raise ValidationError(
-                    {"start_date": ["The loan start date cannot be after the end date."],
-                     "end_date": ["The loan end date cannot be before the start date."]})
+                    {
+                        "start_date": [
+                            "The loan start date cannot be after the end date."
+                        ],
+                        "end_date": [
+                            "The loan end date cannot"
+                            " be before the start date."
+                        ],
+                    }
+                )
 
         return data

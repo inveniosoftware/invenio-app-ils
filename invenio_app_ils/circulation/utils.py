@@ -55,8 +55,8 @@ def circulation_build_document_ref(loan_pid, loan):
 
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
-    is_admin_or_librarian = has_request_context() and backoffice_permission().allows(
-        g.identity
+    is_admin_or_librarian = (
+        has_request_context() and backoffice_permission().allows(g.identity)
     )
     if is_admin_or_librarian:
         unlimited = loan.get("extension_count", 0) + 1
@@ -119,6 +119,7 @@ def resolve_item_from_loan(item_pid):
         rec_cls = current_ils_ill.borrowing_request_record_cls
     else:
         from invenio_app_ils.errors import UnknownItemPidTypeError
+
         raise UnknownItemPidTypeError(pid_type=item_pid["type"])
     return rec_cls.get_record_by_pid(item_pid["value"])
 

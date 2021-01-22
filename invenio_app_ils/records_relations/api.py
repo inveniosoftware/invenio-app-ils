@@ -9,16 +9,21 @@
 
 from copy import deepcopy
 
-from invenio_app_ils.errors import (RecordHasReferencesError,
-                                    RecordRelationsError)
+from invenio_app_ils.errors import (
+    RecordHasReferencesError,
+    RecordRelationsError,
+)
 from invenio_app_ils.records.api import IlsRecord
-from invenio_app_ils.relations.api import (MULTIPART_MONOGRAPH_RELATION,
-                                           PARENT_CHILD_RELATION_TYPES,
-                                           SEQUENCE_RELATION_TYPES,
-                                           SERIAL_RELATION,
-                                           SIBLINGS_RELATION_TYPES,
-                                           ParentChildRelation,
-                                           SequenceRelation, SiblingsRelation)
+from invenio_app_ils.relations.api import (
+    MULTIPART_MONOGRAPH_RELATION,
+    PARENT_CHILD_RELATION_TYPES,
+    SEQUENCE_RELATION_TYPES,
+    SERIAL_RELATION,
+    SIBLINGS_RELATION_TYPES,
+    ParentChildRelation,
+    SequenceRelation,
+    SiblingsRelation,
+)
 
 
 class RecordRelationsExtraMetadata(object):
@@ -84,10 +89,13 @@ class RecordRelationsExtraMetadata(object):
         """Remove any presence of the given PID in extra metadata."""
         field = cls.field_name()
         if field in record and relation_name in record[field]:
-            keep_pid_func = lambda m: not (
-                m.get("pid_value", "") == pid_value
-                and m.get("pid_type", "") == pid_type
-            )
+            def keep_pid_func(m):
+                """Keep the pid."""
+                return not (
+                    m.get("pid_value", "") == pid_value
+                    and m.get("pid_type", "") == pid_type
+                )
+
             remaining_relations = list(
                 filter(keep_pid_func, record[field][relation_name])
             )
@@ -151,7 +159,7 @@ class RecordRelationsParentChild(RecordRelations):
             relations = pcr.get_relations_by_child(child.pid)
             if len(relations) > 0:
                 raise RecordRelationsError(
-                    "Cannot create a relation `{}` between PID `{}` as parent" 
+                    "Cannot create a relation `{}` between PID `{}` as parent"
                     " and PID `{}` as child. Record `{}` has already a"
                     " multipart monograph.".format(
                         relation_type.name,
@@ -273,19 +281,27 @@ class RecordRelationsSiblings(RecordRelations):
             )
         )
 
-        valid_edition_fields = relation_name == "edition" and \
-            first.get('edition', False) and second.get('edition', False)
+        valid_edition_fields = (
+            relation_name == "edition"
+            and first.get("edition", False)
+            and second.get("edition", False)
+        )
 
-        valid_language_fields = relation_name == 'language' and \
-            first.get('languages', False) and second.get('languages', False)
+        valid_language_fields = (
+            relation_name == "language"
+            and first.get("languages", False)
+            and second.get("languages", False)
+        )
 
         valid_other_fields = relation_name == "other"
 
-        equal_editions = relation_name == 'edition' and first.get('edition') \
-            == second.get('edition')
+        equal_editions = relation_name == "edition" and first.get(
+            "edition"
+        ) == second.get("edition")
 
-        equal_languages = relation_name == 'language' and \
-            first.get('languages') == second.get('languages')
+        equal_languages = relation_name == "language" and first.get(
+            "languages"
+        ) == second.get("languages")
 
         if not (same_document or same_series or valid_edition_relation):
             raise RecordRelationsError(
@@ -295,14 +311,17 @@ class RecordRelationsSiblings(RecordRelations):
                 )
             )
 
-        if not (valid_edition_fields or valid_language_fields or
-                valid_other_fields):
+        if not (
+            valid_edition_fields or valid_language_fields or valid_other_fields
+        ):
             raise RecordRelationsError(
                 "Cannot create relation `{}` "
                 "between PID `{}` and  PID `{}`,"
                 " one of the records is missing {} fields".format(
-                    relation_name, first.pid.pid_value, second.pid.pid_value,
-                    relation_name
+                    relation_name,
+                    first.pid.pid_value,
+                    second.pid.pid_value,
+                    relation_name,
                 )
             )
 
@@ -311,8 +330,10 @@ class RecordRelationsSiblings(RecordRelations):
                 "Cannot create relation `{}` "
                 "between PID `{}` and  PID `{}`,"
                 " records have equal {} fields".format(
-                    relation_name, first.pid.pid_value, second.pid.pid_value,
-                    relation_name
+                    relation_name,
+                    first.pid.pid_value,
+                    second.pid.pid_value,
+                    relation_name,
                 )
             )
 
@@ -426,6 +447,7 @@ class IlsRecordWithRelations(IlsRecord):
     def relations(self):
         """Get record relations."""
         from .retriever import get_relations
+
         return get_relations(self)
 
     def clear(self):

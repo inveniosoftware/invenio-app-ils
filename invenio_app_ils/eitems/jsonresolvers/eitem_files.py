@@ -25,14 +25,16 @@ def jsonresolver_loader(url_map):
         """Return the Document record for the given EItem or raise."""
         files = []
         for obj in EItem.get_record_by_pid(eitem_pid).files:
-            files.append({
-                "bucket": obj.bucket_id,
-                "checksum": obj.file.checksum,
-                "file_id": obj.file.id,
-                "key": obj.key,
-                "size": obj.file.size,
-                "version_id": str(obj.version_id),
-            })
+            files.append(
+                {
+                    "bucket": obj.bucket_id,
+                    "checksum": obj.file.checksum,
+                    "file_id": obj.file.id,
+                    "key": obj.key,
+                    "size": obj.file.size,
+                    "version_id": str(obj.version_id),
+                }
+            )
         return files
 
     url_map.add(

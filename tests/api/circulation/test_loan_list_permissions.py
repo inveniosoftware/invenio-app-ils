@@ -95,7 +95,7 @@ def test_most_loaned_permissions(client, json_headers, users, testdata):
         ("admin", 200),
         ("librarian", 200),
         ("patron1", 403),
-        ("anonymous", 401)
+        ("anonymous", 401),
     ]
     for username, status in tests:
         user_login(client, username, users)

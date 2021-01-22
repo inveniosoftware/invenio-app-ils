@@ -29,7 +29,7 @@ class JSONVocabularySource(VocabularySource):
         vocabularies = []
         cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
         Vocabulary = cfg["record_class"]
-        with open(self.filename, 'r') as f:
+        with open(self.filename, "r") as f:
             for obj in json.load(f):
                 vocabulary = Vocabulary(**obj)
                 vocabularies.append(vocabulary)

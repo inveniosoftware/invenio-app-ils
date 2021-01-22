@@ -13,8 +13,11 @@ from flask import abort, current_app, has_request_context
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
-from invenio_access.permissions import (Permission, authenticated_user,
-                                        superuser_access)
+from invenio_access.permissions import (
+    Permission,
+    authenticated_user,
+    superuser_access,
+)
 from invenio_records_rest.utils import allow_all, deny_all
 
 from invenio_app_ils.errors import InvalidLoanExtendError

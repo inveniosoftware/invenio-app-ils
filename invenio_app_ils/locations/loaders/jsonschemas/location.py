@@ -11,8 +11,15 @@ import time
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import DateString
-from marshmallow import (EXCLUDE, Schema, ValidationError, fields, post_load,
-                         validates, validates_schema)
+from marshmallow import (
+    EXCLUDE,
+    Schema,
+    ValidationError,
+    fields,
+    post_load,
+    validates,
+    validates_schema,
+)
 
 _WEEKDAY_NAMES = [
     "monday",

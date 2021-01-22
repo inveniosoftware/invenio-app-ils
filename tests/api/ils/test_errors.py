@@ -9,12 +9,15 @@
 
 import pytest
 
-from invenio_app_ils.errors import (ItemHasActiveLoanError,
-                                    NotImplementedConfigurationError,
-                                    PatronHasLoanOnItemError,
-                                    PatronNotFoundError,
-                                    RecordHasReferencesError, SearchQueryError,
-                                    UnauthorizedSearchError)
+from invenio_app_ils.errors import (
+    ItemHasActiveLoanError,
+    NotImplementedConfigurationError,
+    PatronHasLoanOnItemError,
+    PatronNotFoundError,
+    RecordHasReferencesError,
+    SearchQueryError,
+    UnauthorizedSearchError,
+)
 
 
 def test_unauthorized_search_with_patron_pid(app):
@@ -75,9 +78,7 @@ def test_patron_has_loan_on_item(app):
     """Test PatronHasLoanOnItemError."""
     patron_pid = "1"
     item_pid = dict(type="pitmid", value="2")
-    msg = (
-        "Patron '{0}' has already an active loan on item '{1}:{2}'"
-    )
+    msg = "Patron '{0}' has already an active loan on item '{1}:{2}'"
     with pytest.raises(PatronHasLoanOnItemError) as ex:
         raise PatronHasLoanOnItemError(patron_pid, item_pid)
     assert ex.value.code == PatronHasLoanOnItemError.code

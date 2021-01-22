@@ -36,10 +36,7 @@ class BorrowingRequestsSearch(RecordsSearch):
         search = self
 
         if document_pid:
-            search = search.filter(
-                "term",
-                document_pid=document_pid
-            )
+            search = search.filter("term", document_pid=document_pid)
         else:
             raise MissingRequiredParameterError(
                 description="document_pid is required"
@@ -51,10 +48,7 @@ class BorrowingRequestsSearch(RecordsSearch):
         search = self
 
         if patron_pid:
-            search = search.filter(
-                "term",
-                patron_pid=patron_pid
-            )
+            search = search.filter("term", patron_pid=patron_pid)
         else:
             raise MissingRequiredParameterError(
                 description="patron_pid is required"

@@ -22,9 +22,7 @@ LIST_ENDPOINT = "invenio_records_rest.acqvid_list"
 
 def test_acq_vendors_permissions(client, testdata, json_headers, users):
     """Test vendors endpoints permissions."""
-    dummy_acquisition_vendor = dict(
-        name=VENDOR_NAME
-    )
+    dummy_acquisition_vendor = dict(name=VENDOR_NAME)
     tests = [
         ("admin", _HTTP_OK, dummy_acquisition_vendor),
         ("librarian", _HTTP_OK, dummy_acquisition_vendor),

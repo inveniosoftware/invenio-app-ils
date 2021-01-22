@@ -11,8 +11,9 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.records.jsonresolvers.api import \
-    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.jsonresolvers.api import (
+    get_field_value_for_record as get_field_value,
+)
 from invenio_app_ils.records.jsonresolvers.api import pick
 
 # Note: there must be only one resolver per file,
@@ -31,13 +32,7 @@ def jsonresolver_loader(url_map):
         vendor_pid = get_field_value(Order, order_pid, "vendor_pid")
         vendor = Vendor.get_record_by_pid(vendor_pid)
         return pick(
-            vendor,
-            "pid",
-            "name",
-            "address",
-            "email",
-            "phone",
-            "notes"
+            vendor, "pid", "name", "address", "email", "phone", "notes"
         )
 
     url_map.add(

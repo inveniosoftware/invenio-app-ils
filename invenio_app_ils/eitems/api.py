@@ -89,8 +89,7 @@ class EItem(IlsRecord):
 def eitem_event_builder(event, sender_app, obj=None, **kwargs):
     """Add eitem metadata to the event."""
     record = kwargs["record"]
-    event.update(dict(
-        eitem_pid=record["pid"],
-        document_pid=record.get("document_pid")
-    ))
+    event.update(
+        dict(eitem_pid=record["pid"], document_pid=record.get("document_pid"))
+    )
     return event

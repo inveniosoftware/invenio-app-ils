@@ -26,14 +26,15 @@ class MetadataExtensions(object):
 
     def _validate_marshmallow_type(self, field_cfg):
         """Make sure the Marshmallow type is one we support."""
+
         def validate_basic_marshmallow_type(_type):
-            allowed_types = [
-                Bool, DateString, Integer, SanitizedUnicode
-            ]
-            assert any([
-                isinstance(_type, allowed_type) for allowed_type
-                in allowed_types
-            ])
+            allowed_types = [Bool, DateString, Integer, SanitizedUnicode]
+            assert any(
+                [
+                    isinstance(_type, allowed_type)
+                    for allowed_type in allowed_types
+                ]
+            )
 
         marshmallow_type = field_cfg["marshmallow"]
         if isinstance(marshmallow_type, List):
@@ -43,9 +44,7 @@ class MetadataExtensions(object):
 
     def _validate_elasticsearch_type(self, field_cfg):
         """Make sure the Elasticsearch type is one we support."""
-        allowed_types = [
-            "boolean", "date", "long", "keyword", "text"
-        ]
+        allowed_types = ["boolean", "date", "long", "keyword", "text"]
         assert field_cfg["elasticsearch"] in allowed_types
 
     def _validate(self):
@@ -82,11 +81,7 @@ class MetadataExtensions(object):
         :params field_key: str formatted as <prefix>:<field_id>
         :params _type: str "elasticsearch" or "marshmallow"
         """
-        return (
-            self.extensions
-                .get(field_key, {})
-                .get(_type)
-        )
+        return self.extensions.get(field_key, {}).get(_type)
 
 
 def add_es_metadata_extensions(record_dict):
@@ -97,7 +92,7 @@ def add_es_metadata_extensions(record_dict):
     rec_type = record_dict["$schema"].split("/")[-1].split("-")[0]
     metadata_extensions = getattr(
         current_app.extensions["invenio-app-ils"],
-        "{}_metadata_extensions".format(rec_type)
+        "{}_metadata_extensions".format(rec_type),
     )
 
     for key, value in record_dict.get("extensions", {}).items():

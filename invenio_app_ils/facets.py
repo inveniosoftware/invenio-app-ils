@@ -18,6 +18,7 @@ def keyed_range_filter(field, range_query, **kwargs):
     :param field: Field name.
     :param range_query: Dictionary with available keys and their range options.
     """
+
     def inner(values):
         args = {}
         for range_key, mappings in range_query.items():
@@ -39,11 +40,12 @@ def default_value_when_missing_filter(field, missing_val):
     :missing_val
     :returns: Function that returns the Terms query.
     """
+
     def inner(values):
         if missing_val in values:
-            return Bool(**{'must_not': {'exists': {'field': field}}})
+            return Bool(**{"must_not": {"exists": {"field": field}}})
         else:
-            return Q('terms', **{field: values})
+            return Q("terms", **{field: values})
 
     return inner
 
@@ -54,11 +56,13 @@ def exists_value_filter(field, filter_value):
     :param field: Field name.
     :param filter_value: Filter value.
     """
+
     def inner(values):
         if filter_value in values:
-            return Bool(**{'must': {'exists': {'field': field}}})
+            return Bool(**{"must": {"exists": {"field": field}}})
         else:
-            return Bool(**{'must_not': {'exists': {'field': field}}})
+            return Bool(**{"must_not": {"exists": {"field": field}}})
+
     return inner
 
 
@@ -68,14 +72,18 @@ def overdue_loans_filter(field):
     :param field: Field to filter.
     :param range_query: Dictionary with available keys and their range options.
     """
+
     def inner(values):
         range_query = {
             "Overdue": {"lt": str(arrow.utcnow().date())},
             "Upcoming return": {
                 "lte": str(
                     current_app.config["CIRCULATION_POLICIES"][
-                        "upcoming_return_range"]().date()),
-                "gte": str(arrow.utcnow().date())}
+                        "upcoming_return_range"
+                    ]().date()
+                ),
+                "gte": str(arrow.utcnow().date()),
+            },
         }
 
         args = {}
@@ -84,8 +92,10 @@ def overdue_loans_filter(field):
                 for key, value in mappings.items():
                     args[key] = value
 
-        return Range(**{field: args}) & Q('terms', **{
-            'state': current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]})
+        return Range(**{field: args}) & Q(
+            "terms",
+            **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
+        )
 
     return inner
 
@@ -93,25 +103,30 @@ def overdue_loans_filter(field):
 def overdue_agg():
     """Create a custom aggregation with dynamic dates."""
     return dict(
-        filter=dict(terms=dict(
-            state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"])),
+        filter=dict(
+            terms=dict(
+                state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            )
+        ),
         aggs=dict(
             end_date=dict(
                 range=dict(
                     field="end_date",
-                    ranges=[{"key": "Overdue",
-                             "to": str(
-                                 (arrow.utcnow()).date())},
-                            {"key": "Upcoming return",
-                             "from": str(arrow.utcnow().date()),
-                             "to": str(
-                                 current_app.config["CIRCULATION_POLICIES"][
-                                     "upcoming_return_range"]().date())
-                             }
-                            ],
+                    ranges=[
+                        {"key": "Overdue", "to": str((arrow.utcnow()).date())},
+                        {
+                            "key": "Upcoming return",
+                            "from": str(arrow.utcnow().date()),
+                            "to": str(
+                                current_app.config["CIRCULATION_POLICIES"][
+                                    "upcoming_return_range"
+                                ]().date()
+                            ),
+                        },
+                    ],
                 )
             )
-        )
+        ),
     )
 
 
@@ -121,10 +136,12 @@ def date_range_filter(field, comparator):
     :param field: Field name.
     :param comparator: Comparison we want with the supplied date.
     """
+
     def inner(values):
         try:
             input_date = str(arrow.get(values[0]).date())
         except arrow.parser.ParserError:
             raise ValueError("Input should be a date")
         return Range(**{field: {comparator: input_date}})
+
     return inner

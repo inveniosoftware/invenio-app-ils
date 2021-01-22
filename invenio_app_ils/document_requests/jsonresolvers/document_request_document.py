@@ -11,8 +11,9 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.documents.api import Document
-from invenio_app_ils.records.jsonresolvers.api import \
-    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.jsonresolvers.api import (
+    get_field_value_for_record as get_field_value,
+)
 from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
 
 from ..api import DocumentRequest
@@ -44,9 +45,7 @@ def jsonresolver_loader(url_map):
         """Get the Document record for the given DocumentRequest or raise."""
         try:
             document_pid = get_field_value(
-                DocumentRequest,
-                document_request_pid,
-                "document_pid"
+                DocumentRequest, document_request_pid, "document_pid"
             )
             if not document_pid:
                 return {}

@@ -18,13 +18,19 @@ from invenio_app_ils.errors import RecordRelationsError
 from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
-from invenio_app_ils.relations.api import (PARENT_CHILD_RELATION_TYPES,
-                                           SEQUENCE_RELATION_TYPES,
-                                           SIBLINGS_RELATION_TYPES, Relation)
+from invenio_app_ils.relations.api import (
+    PARENT_CHILD_RELATION_TYPES,
+    SEQUENCE_RELATION_TYPES,
+    SIBLINGS_RELATION_TYPES,
+    Relation,
+)
 
 from ..series.api import SERIES_PID_TYPE
-from .api import (RecordRelationsParentChild, RecordRelationsSequence,
-                  RecordRelationsSiblings)
+from .api import (
+    RecordRelationsParentChild,
+    RecordRelationsSequence,
+    RecordRelationsSiblings,
+)
 
 
 def create_relations_blueprint(app):
@@ -106,9 +112,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 [volume: "<vol name>"]
             }
         """
-        parent_pid_value, parent_pid_type, child_pid_value, child_pid_type, metadata = self._validate_parent_child_creation_payload(
-            payload
-        )
+        (
+            parent_pid_value,
+            parent_pid_type,
+            child_pid_value,
+            child_pid_type,
+            metadata,
+        ) = self._validate_parent_child_creation_payload(payload)
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid_value, parent_pid_type)
@@ -133,9 +143,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<Relation name>"
             }
         """
-        parent_pid_value, parent_pid_type, child_pid_value, child_pid_type, _ = self._validate_parent_child_creation_payload(
-            payload
-        )
+        (
+            parent_pid_value,
+            parent_pid_type,
+            child_pid_value,
+            child_pid_type,
+            _,
+        ) = self._validate_parent_child_creation_payload(payload)
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid_value, parent_pid_type)
@@ -171,9 +185,11 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 [note: "<note>"]
             }
         """
-        pid_value, pid_type, metadata = self._validate_siblings_creation_payload(
-            payload
-        )
+        (
+            pid_value,
+            pid_type,
+            metadata,
+        ) = self._validate_siblings_creation_payload(payload)
 
         if pid_value == record["pid"] and pid_type == record._pid_type:
             raise RecordRelationsError(
@@ -266,9 +282,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<relation name>",
             }
         """
-        next_pid_value, next_pid_type, previous_pid_value, previous_pid_type, metadata = self._validate_sequence_creation_payload(
-            record, payload
-        )
+        (
+            next_pid_value,
+            next_pid_type,
+            previous_pid_value,
+            previous_pid_type,
+            metadata,
+        ) = self._validate_sequence_creation_payload(record, payload)
 
         next_rec = IlsRecord.get_record_by_pid(
             next_pid_value, pid_type=next_pid_type
@@ -299,9 +319,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<Relation name>",
             }
         """
-        next_pid_value, next_pid_type, prev_pid_value, prev_pid_type, metadata = self._validate_sequence_creation_payload(
-            record, payload
-        )
+        (
+            next_pid_value,
+            next_pid_type,
+            prev_pid_value,
+            prev_pid_type,
+            metadata,
+        ) = self._validate_sequence_creation_payload(record, payload)
 
         next_rec = IlsRecord.get_record_by_pid(
             next_pid_value, pid_type=next_pid_type

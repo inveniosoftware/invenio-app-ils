@@ -10,8 +10,10 @@
 from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer
 from invenio_records_rest.serializers.json import JSONSerializer
-from invenio_records_rest.serializers.response import (add_link_header,
-                                                       search_responsify)
+from invenio_records_rest.serializers.response import (
+    add_link_header,
+    search_responsify,
+)
 
 from invenio_app_ils.records.schemas.json import ILSRecordSchemaJSONV1
 
@@ -34,7 +36,8 @@ def record_responsify_no_etag(serializer, mimetype):
     def view(pid, record, code=200, headers=None, links_factory=None):
         response = current_app.response_class(
             serializer.serialize(pid, record, links_factory=links_factory),
-            mimetype=mimetype)
+            mimetype=mimetype,
+        )
         response.status_code = code
         response.cache_control.no_cache = True
         # etag/last-modified headers removed

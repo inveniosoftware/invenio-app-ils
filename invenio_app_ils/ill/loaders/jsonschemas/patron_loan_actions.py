@@ -10,11 +10,18 @@
 import arrow
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
-from marshmallow import (EXCLUDE, ValidationError, fields, post_load, pre_load,
-                         validates)
+from marshmallow import (
+    EXCLUDE,
+    ValidationError,
+    fields,
+    post_load,
+    pre_load,
+    validates,
+)
 
-from invenio_app_ils.circulation.loaders.schemas.json.base import \
-    transaction_location_pid_validator
+from invenio_app_ils.circulation.loaders.schemas.json.base import (
+    transaction_location_pid_validator,
+)
 
 
 class CreateLoanSchemaV1(InvenioBaseSchema):
@@ -78,7 +85,14 @@ class CreateLoanSchemaV1(InvenioBaseSchema):
         end = arrow.get(data["loan_end_date"]).date()
         if end < start:
             raise ValidationError(
-                {"loan_start_date": ["The loan start date cannot be after the end date."],
-                 "loan_end_date": ["The loan end date cannot be before the start date."]})
+                {
+                    "loan_start_date": [
+                        "The loan start date cannot be after the end date."
+                    ],
+                    "loan_end_date": [
+                        "The loan end date cannot be before the start date."
+                    ],
+                }
+            )
 
         return data

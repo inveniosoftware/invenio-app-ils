@@ -20,7 +20,7 @@ tests_require = [
     "mock>=2.0.0",
     "pytest-invenio>=1.4.0,<1.5.0",
     "pytest-mock>=1.6.0",
-    "celery[pytest]>=4.4.0,<5.1"  # Temporary, until fixed in `pytest-invenio`
+    "celery[pytest]>=4.4.0,<5.1",  # Temporary, until fixed in `pytest-invenio`
 ]
 
 extras_require = {
@@ -36,9 +36,15 @@ extras_require = {
     "postgresql": [
         "invenio-db[postgresql,versioning]{}".format(invenio_db_version),
     ],
-    "mysql": ["invenio-db[mysql,versioning]{}".format(invenio_db_version),],
-    "sqlite": ["invenio-db[versioning]{}".format(invenio_db_version),],
-    "vocabulary": ["pycountry>=19.8.18",],
+    "mysql": [
+        "invenio-db[mysql,versioning]{}".format(invenio_db_version),
+    ],
+    "sqlite": [
+        "invenio-db[versioning]{}".format(invenio_db_version),
+    ],
+    "vocabulary": [
+        "pycountry>=19.8.18",
+    ],
 }
 
 extras_require["all"] = []
@@ -58,31 +64,33 @@ setup_requires = ["Babel>=2.8"]
 
 install_requires = [
     # --- Invenio ----------------------------------------------------------
-    "invenio[base,auth]>=3.3.0,<3.4",
+    "invenio[base,auth]>=3.4.0,<3.5",
     # --- `metadata` bundle without records UI -----------------------------
-    "invenio-indexer>=1.1.0,<1.2.0",
-    "invenio-jsonschemas>=1.1.0,<1.2.0",
+    "invenio-indexer>=1.2.0,<1.3.0",
+    "invenio-jsonschemas>=1.1.1,<1.2.0",
     "invenio-oaiserver>=1.2.0,<1.3.0",
-    "invenio-pidstore>=1.2.0,<1.3.0",
-    "invenio-records-rest>=1.7.1,<1.8.0",
-    "invenio-records>=1.3.1,<1.4.0",
+    "invenio-pidstore>=1.2.1,<1.3.0",
+    "invenio-records-rest>=1.7.0,<1.9.0",
+    # Note: Invenio-Records v1.5.x is allowed on purpose in v3.4 to
+    # allow the relations support to be released once it's more mature
+    # without having to release Invenio v3.5.
+    "invenio-records>=1.4.0,<1.6.0",
     # --- `files` bundle with only invenio-files-rest ----------------------
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
     "invenio-banners>=1.0.0a1,<1.1.0",
-    "invenio-circulation>=1.0.0a29,<1.1.0",
+    "invenio-circulation>=1.0.0a30,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "invenio-pages>=1.0.0a5,<1.1.0",
-    "invenio-pidrelations>=1.0.0a6,<1.1.0",
+    "invenio-pidrelations>=1.0.0a7,<1.1.0",
     "invenio-stats>=1.0.0a18,<1.1.0",
-    "arrow>=0.15.0",
+    "arrow>=0.16.0",
     "Flask-Debugtoolbar>=0.10.1",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
 ]
 
 packages = find_packages()
-
 
 # Get the version string. Cannot be done with import!
 g = {}

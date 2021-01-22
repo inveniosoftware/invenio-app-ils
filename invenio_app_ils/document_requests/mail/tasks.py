@@ -7,8 +7,9 @@
 
 """Document requests mail tasks."""
 
-from invenio_app_ils.document_requests.mail.factory import \
-    document_request_message_creator_factory
+from invenio_app_ils.document_requests.mail.factory import (
+    document_request_message_creator_factory,
+)
 from invenio_app_ils.mail.messages import get_common_message_ctx
 from invenio_app_ils.mail.tasks import send_ils_email
 

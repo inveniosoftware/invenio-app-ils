@@ -20,7 +20,7 @@ class DocumentRequestMessage(BlockTemplatedMessage):
 
     DEFAULT_TEMPLATES = dict(
         request_accepted="document_request_accept.html",
-        request_rejected_user_cancel="document_request_reject_user_cancel.html",
+        request_rejected_user_cancel="document_request_reject_user_cancel.html",  # noqa
         request_rejected_in_catalog="document_request_reject_in_catalog.html",
         request_rejected_not_found="document_request_reject_not_found.html",
     )

@@ -35,7 +35,7 @@ def build_placeholder_urls():
     image_path = url_for(
         "invenio_app_ils.static",
         filename="images/placeholder.png",
-        _external=True
+        _external=True,
     )
     return {
         "is_placeholder": True,

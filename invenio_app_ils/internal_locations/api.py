@@ -26,10 +26,17 @@ INTERNAL_LOCATION_PID_FETCHER = "ilocid"
 InternalLocationIdProvider = type(
     "InternalLocationIdProvider",
     (RecordIdProviderV2,),
-    dict(pid_type=INTERNAL_LOCATION_PID_TYPE, default_status=PIDStatus.REGISTERED),
+    dict(
+        pid_type=INTERNAL_LOCATION_PID_TYPE,
+        default_status=PIDStatus.REGISTERED,
+    ),
 )
-internal_location_pid_minter = partial(pid_minter, provider_cls=InternalLocationIdProvider)
-internal_location_pid_fetcher = partial(pid_fetcher, provider_cls=InternalLocationIdProvider)
+internal_location_pid_minter = partial(
+    pid_minter, provider_cls=InternalLocationIdProvider
+)
+internal_location_pid_fetcher = partial(
+    pid_fetcher, provider_cls=InternalLocationIdProvider
+)
 
 
 class InternalLocation(IlsRecord):

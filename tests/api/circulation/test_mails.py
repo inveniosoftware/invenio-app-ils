@@ -18,7 +18,9 @@ from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
 from invenio_app_ils.circulation.mail.tasks import (
-    send_expiring_loans_mail_reminder, send_overdue_loans_mail_reminder)
+    send_expiring_loans_mail_reminder,
+    send_overdue_loans_mail_reminder,
+)
 from invenio_app_ils.documents.api import Document
 from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login, user_logout
@@ -85,12 +87,8 @@ InvenioILS""".format(
 def test_email_on_overdue_permissions(client, testdata, json_headers, users):
     """Test that only the backoffice can send a reminder."""
     pid = testdata["loans"][0]["pid"]
-    url = url_for("invenio_app_ils_circulation.loanid_email",
-                  pid_value=pid)
-    tests = [
-        ("patron1", 403),
-        ("anonymous", 401)
-    ]
+    url = url_for("invenio_app_ils_circulation.loanid_email", pid_value=pid)
+    tests = [("patron1", 403), ("anonymous", 401)]
     for username, expected_status in tests:
         user_login(client, username, users)
         res = client.post(url, headers=json_headers)
