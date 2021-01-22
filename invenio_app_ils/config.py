@@ -50,8 +50,8 @@ from .documents.search import DocumentSearch
 from .eitems.api import (EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE,
                          EItem)
 from .eitems.search import EItemSearch
-from .facets import (default_value_when_missing_filter,
-                     exists_value_filter, keyed_range_filter)
+from .facets import (default_value_when_missing_filter, exists_value_filter,
+                     keyed_range_filter)
 from .internal_locations.api import (INTERNAL_LOCATION_PID_FETCHER,
                                      INTERNAL_LOCATION_PID_MINTER,
                                      INTERNAL_LOCATION_PID_TYPE,
@@ -299,6 +299,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentSearch,
         record_class=Document,
         indexer_class=DocumentIndexer,
+        search_factory_imp="invenio_app_ils.search_permissions"
+            ":ils_search_factory",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.documents.loaders:document_loader"
@@ -447,6 +449,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=SeriesSearch,
         record_class=Series,
         indexer_class=SeriesIndexer,
+        search_factory_imp="invenio_app_ils.search_permissions"
+        ":ils_search_factory",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.series.loaders:series_loader"
