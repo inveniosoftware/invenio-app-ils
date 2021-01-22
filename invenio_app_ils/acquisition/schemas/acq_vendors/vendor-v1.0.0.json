@@ -12,9 +12,12 @@
       "title": "The email of vendor",
       "type": "string"
     },
-    "legacy_id": {
-      "type": "string",
-      "title": "The previous id of this Vendor before data migration"
+    "legacy_ids": {
+      "title": "The previous ids of this Vendor before data migration",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "name": {
       "title": "The name of vendor",

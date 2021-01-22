@@ -15,7 +15,7 @@ from tests.helpers import user_login, validate_response
 
 NEW_INTERNAL_LOCATION = {
     "location_pid": "locid-1",
-    "legacy_id": "Test legacy id",
+    "legacy_ids": ["Test legacy id"],
     "name": "My test internal location",
     "physical_location": "Left from the right building",
     "notes": "In house",

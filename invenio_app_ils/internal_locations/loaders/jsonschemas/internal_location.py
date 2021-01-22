@@ -21,5 +21,6 @@ class InternalLocationSchemaV1(RecordMetadataSchemaJSONV1):
 
     location_pid = fields.Str(required=True)
     name = fields.Str(required=True)
+    legacy_ids = fields.List(fields.Str())
     notes = fields.Str()
     physical_location = fields.Str()
