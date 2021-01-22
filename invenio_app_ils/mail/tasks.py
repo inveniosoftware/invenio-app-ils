@@ -28,16 +28,13 @@ def send_ils_email(message, name="ils_mail"):
     full_data = message.__dict__
     dump = message.dump()
     log_msg = dict(
-        name=name,
-        action="before_send",
-        message_id=dump["id"],
-        data=dump
+        name=name, action="before_send", message_id=dump["id"], data=dump
     )
     celery_logger.debug(json.dumps(log_msg, sort_keys=True))
     send_email.apply_async(
         (full_data,),
         link=log_successful_mail.s(dump),
-        link_error=log_error_mail.s(data=dump)
+        link_error=log_error_mail.s(data=dump),
     )
 
 
@@ -72,7 +69,4 @@ def log_error_mail(request, exc, traceback, data, **kwargs):
         exception=repr(exc),
         data=data,
     )
-    celery_logger.exception(
-        json.dumps(error, sort_keys=True),
-        exc_info=exc
-    )
+    celery_logger.exception(json.dumps(error, sort_keys=True), exc_info=exc)

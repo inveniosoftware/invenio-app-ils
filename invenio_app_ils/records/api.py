@@ -34,7 +34,7 @@ class RecordValidator(object):
 class IlsRecord(Record):
     """Ils record class."""
 
-    CURATOR_TYPES = ["user_id", "script",  "import"]
+    CURATOR_TYPES = ["user_id", "script", "import"]
 
     _validator = RecordValidator()
 
@@ -79,11 +79,11 @@ class IlsRecord(Record):
         super().clear()
         self["$schema"] = current_jsonschemas.path_to_url(self._schema)
 
-    def validate(self, **kwargs):
+    def _validate(self, **kwargs):
         """Validate ILS record."""
         # JSON schema validation
         try:
-            super().validate(**kwargs)
+            json = super()._validate(**kwargs)
         except ValidationError as jve:
             path = ".".join(str(x) for x in jve.path)
             errors = [FieldError(path, jve.message)]
@@ -96,3 +96,4 @@ class IlsRecord(Record):
         # Custom record validation
         if self._validator:
             self._validator.validate(self, **kwargs)
+        return json

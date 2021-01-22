@@ -13,9 +13,12 @@ from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.documents.api import Document
 from invenio_app_ils.records.loaders.schemas.changed_by import (
-    ChangedBySchema, set_changed_by)
-from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import \
-    preserve_cover_metadata
+    ChangedBySchema,
+    set_changed_by,
+)
+from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import (
+    preserve_cover_metadata,
+)
 
 
 class IdentifierSchema(Schema):
@@ -232,9 +235,11 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     cover_metadata = fields.Dict()
     created_by = fields.Nested(ChangedBySchema)
     curated = fields.Bool()
-    document_type = fields.Str(required=True, validate=validate.OneOf(Document.DOCUMENT_TYPES))
+    document_type = fields.Str(
+        required=True, validate=validate.OneOf(Document.DOCUMENT_TYPES)
+    )
     edition = fields.Str()
-    extensions = fields.Method('dump_extensions', 'load_extensions')
+    extensions = fields.Method("dump_extensions", "load_extensions")
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     imprint = fields.Nested(ImprintSchema)
     internal_notes = fields.List(fields.Nested(InternalNoteSchema))
@@ -260,9 +265,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params obj: content of the object's 'extensions' field
         """
-        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
-                                     .document_metadata_extensions \
-                                     .to_schema()
+        ExtensionSchema = current_app.extensions[
+            "invenio-app-ils"
+        ].document_metadata_extensions.to_schema()
         return ExtensionSchema().dump(obj)
 
     def load_extensions(self, value):
@@ -270,9 +275,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
 
         :params value: content of the input's 'extensions' field
         """
-        ExtensionSchema = current_app.extensions["invenio-app-ils"] \
-                                     .document_metadata_extensions \
-                                     .to_schema()
+        ExtensionSchema = current_app.extensions[
+            "invenio-app-ils"
+        ].document_metadata_extensions.to_schema()
         return ExtensionSchema().load(value)
 
     @pre_load

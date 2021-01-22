@@ -29,10 +29,13 @@ def jsonresolver_loader(url_map):
         search = item_search.search_by_document_pid(document_pid)
         search.aggs.bucket("mediums", "terms", field="medium")
         search_response = search.execute()
-        mediums = [bucket.key for bucket in
-                   search_response.aggregations.mediums.buckets]
+        mediums = [
+            bucket.key
+            for bucket in search_response.aggregations.mediums.buckets
+        ]
         eitems_count = eitem_search.search_by_document_pid(
-            document_pid).count()
+            document_pid
+        ).count()
         if eitems_count > 0:
             mediums.append("ELECTRONIC_VERSION")
         return {

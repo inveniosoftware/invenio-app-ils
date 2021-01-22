@@ -20,11 +20,18 @@ def _url_loan(pid_value):
     return url_for("invenio_records_rest.loanid_item", pid_value=pid_value)
 
 
-def _post_loan_update(client, json_headers, pid_value,
-                      start_date=None, end_date=None,
-                      request_start_date=None, request_expire_date=None):
-    url = url_for("invenio_app_ils_circulation.loanid_update_dates",
-                  pid_value=pid_value)
+def _post_loan_update(
+    client,
+    json_headers,
+    pid_value,
+    start_date=None,
+    end_date=None,
+    request_start_date=None,
+    request_expire_date=None,
+):
+    url = url_for(
+        "invenio_app_ils_circulation.loanid_update_dates", pid_value=pid_value
+    )
     data = {}
     if start_date:
         data["start_date"] = start_date
@@ -86,9 +93,9 @@ def test_loan_update_date(client, json_headers, users, testdata):
     # Update both values
     start_date = "2020-01-01"
     end_date = _today(+1)
-    res = _post_loan_update(client, json_headers, pid,
-                            start_date=start_date,
-                            end_date=end_date)
+    res = _post_loan_update(
+        client, json_headers, pid, start_date=start_date, end_date=end_date
+    )
     assert res.status_code == 202
     new_loan_meta = _load_result(res)["metadata"]
     assert new_loan_meta["start_date"] == start_date
@@ -97,16 +104,20 @@ def test_loan_update_date(client, json_headers, users, testdata):
     # Start date after today
     start_date = _today(+2)
     end_date = _today(+3)
-    res = _post_loan_update(client, json_headers, pid,
-                            start_date=start_date,
-                            end_date=end_date)
+    res = _post_loan_update(
+        client, json_headers, pid, start_date=start_date, end_date=end_date
+    )
     assert res.status_code == 400
 
     # No relative constraints on non-active loans
     pid = testdata["loans"][3]["pid"]  # Pending
-    res = _post_loan_update(client, json_headers, pid,
-                            request_start_date=start_date,
-                            request_expire_date=end_date)
+    res = _post_loan_update(
+        client,
+        json_headers,
+        pid,
+        request_start_date=start_date,
+        request_expire_date=end_date,
+    )
     assert res.status_code == 202
     new_loan_meta = _load_result(res)["metadata"]
     assert new_loan_meta["request_start_date"] == start_date
@@ -115,17 +126,25 @@ def test_loan_update_date(client, json_headers, users, testdata):
     # Negative date range
     start_date = "2000-02-01"
     end_date = "2000-01-01"
-    res = _post_loan_update(client, json_headers, pid,
-                            request_start_date=start_date,
-                            request_expire_date=end_date)
+    res = _post_loan_update(
+        client,
+        json_headers,
+        pid,
+        request_start_date=start_date,
+        request_expire_date=end_date,
+    )
     assert res.status_code == 400
 
     # Illegal combination of parameters
     start_date = _today(-2)
     end_date = _today(+2)
-    res = _post_loan_update(client, json_headers, pid,
-                            start_date=start_date,
-                            end_date=end_date,
-                            request_start_date=start_date,
-                            request_expire_date=end_date)
+    res = _post_loan_update(
+        client,
+        json_headers,
+        pid,
+        start_date=start_date,
+        end_date=end_date,
+        request_start_date=start_date,
+        request_expire_date=end_date,
+    )
     assert res.status_code == 400

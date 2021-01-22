@@ -76,8 +76,11 @@ def recrel_do_request_for_valid_relation(
 
 
 def recrel_choose_endpoints_and_do_request(
-    client_params, relation, payload, create_using_pid1=True,
-    expect_status_code=None
+    client_params,
+    relation,
+    payload,
+    create_using_pid1=True,
+    expect_status_code=None,
 ):
     """Choose which endpoint to use, create relation, return records."""
     client, json_headers, method = client_params
@@ -88,8 +91,12 @@ def recrel_choose_endpoints_and_do_request(
         url_other = (TYPES_ENDPOINTS["get"][pid2_type], pid2)
 
         record1 = recrel_do_request_for_valid_relation(
-            client, json_headers, payload, url_create_rel, method=method,
-            expect_status_code=expect_status_code
+            client,
+            json_headers,
+            payload,
+            url_create_rel,
+            method=method,
+            expect_status_code=expect_status_code,
         )
         record2 = recrel_fetch_record(client, json_headers, url_other)
     else:
@@ -97,8 +104,12 @@ def recrel_choose_endpoints_and_do_request(
         url_other = (TYPES_ENDPOINTS["get"][pid1_type], pid1)
 
         record2 = recrel_do_request_for_valid_relation(
-            client, json_headers, payload, url_create_rel, method=method,
-            expect_status_code=expect_status_code
+            client,
+            json_headers,
+            payload,
+            url_create_rel,
+            method=method,
+            expect_status_code=expect_status_code,
         )
         record1 = recrel_fetch_record(client, json_headers, url_other)
     return record1, record2

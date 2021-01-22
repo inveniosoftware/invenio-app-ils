@@ -21,8 +21,9 @@ class InternalLocationSearch(RecordsSearch):
         index = "internal_locations"
         doc_types = None
 
-    def search_by_location_pid(self, location_pid=None, filter_states=None,
-                               exclude_states=None):
+    def search_by_location_pid(
+        self, location_pid=None, filter_states=None, exclude_states=None
+    ):
         """Retrieve internal locations based on the given location pid."""
         search = self
 

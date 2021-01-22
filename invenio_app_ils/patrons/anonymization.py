@@ -19,10 +19,14 @@ from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.circulation.search import (get_active_loans_by_patron_pid,
-                                                get_loans_by_patron_pid)
-from invenio_app_ils.errors import (AnonymizationActiveLoansError,
-                                    PatronNotFoundError)
+from invenio_app_ils.circulation.search import (
+    get_active_loans_by_patron_pid,
+    get_loans_by_patron_pid,
+)
+from invenio_app_ils.errors import (
+    AnonymizationActiveLoansError,
+    PatronNotFoundError,
+)
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
@@ -182,26 +186,38 @@ def delete_user_account(patron_pid):
         d = db.session.query(userrole).filter(userrole.c.user_id == patron_pid)
         dropped += d.delete(synchronize_session=False) or 0
 
-        dropped += SessionActivity.query.filter(
-            SessionActivity.user_id == patron_pid
-        ).delete() or 0
+        dropped += (
+            SessionActivity.query.filter(
+                SessionActivity.user_id == patron_pid
+            ).delete()
+            or 0
+        )
 
-        dropped += UserIdentity.query.filter(
-            UserIdentity.id_user == patron_pid
-        ).delete() or 0
+        dropped += (
+            UserIdentity.query.filter(
+                UserIdentity.id_user == patron_pid
+            ).delete()
+            or 0
+        )
 
         ra = RemoteAccount.query.filter(
             RemoteAccount.user_id == patron_pid
         ).one_or_none()
         if ra:
-            dropped += RemoteToken.query.filter(
-                RemoteToken.id_remote_account == ra.id
-            ).delete() or 0
+            dropped += (
+                RemoteToken.query.filter(
+                    RemoteToken.id_remote_account == ra.id
+                ).delete()
+                or 0
+            )
             dropped += ra.delete() or 0
 
-        dropped += UserProfile.query.filter(
-            UserProfile.user_id == patron_pid
-        ).delete() or 0
+        dropped += (
+            UserProfile.query.filter(
+                UserProfile.user_id == patron_pid
+            ).delete()
+            or 0
+        )
         dropped += User.query.filter(User.id == patron_pid).delete() or 0
 
     return dropped

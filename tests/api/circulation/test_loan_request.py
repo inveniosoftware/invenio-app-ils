@@ -71,25 +71,21 @@ def test_patron_can_cancel_loan(
         "patron_pid": meta["patron_pid"],
         "transaction_location_pid": meta["transaction_location_pid"],
         "transaction_user_pid": meta["transaction_user_pid"],
-        "cancel_reason": "USER_CANCEL"
+        "cancel_reason": "USER_CANCEL",
     }
     assert res.status_code == 202
 
     # Try to cancel a loan that belongs to patron3 as patron1
     user_login(client, "patron1", users)
     cancel_res = client.post(
-        cancel_url,
-        headers=json_headers,
-        data=json.dumps(payload)
+        cancel_url, headers=json_headers, data=json.dumps(payload)
     )
     assert cancel_res.status_code == 403
 
     # Try to cancel a loan that belongs to patron3 as patron3
     user_login(client, "patron3", users)
     cancel_res = client.post(
-        cancel_url,
-        headers=json_headers,
-        data=json.dumps(payload)
+        cancel_url, headers=json_headers, data=json.dumps(payload)
     )
     assert cancel_res.status_code == 202
 

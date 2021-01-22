@@ -10,7 +10,9 @@
 from invenio_search.api import DefaultFilter, RecordsSearch
 
 from invenio_app_ils.search_permissions import (
-    ils_search_factory, search_filter_record_permissions)
+    ils_search_factory,
+    search_filter_record_permissions,
+)
 
 
 def search_factory_literature(self, search):

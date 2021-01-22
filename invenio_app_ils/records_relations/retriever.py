@@ -8,11 +8,14 @@
 """APIs to retrieve records relations."""
 
 from invenio_app_ils.records.jsonresolvers.api import pick
-from invenio_app_ils.relations.api import (PARENT_CHILD_RELATION_TYPES,
-                                           SEQUENCE_RELATION_TYPES,
-                                           SIBLINGS_RELATION_TYPES,
-                                           ParentChildRelation,
-                                           SequenceRelation, SiblingsRelation)
+from invenio_app_ils.relations.api import (
+    PARENT_CHILD_RELATION_TYPES,
+    SEQUENCE_RELATION_TYPES,
+    SIBLINGS_RELATION_TYPES,
+    ParentChildRelation,
+    SequenceRelation,
+    SiblingsRelation,
+)
 
 from .api import RecordRelationsExtraMetadata as RelationsExtraMetadata
 
@@ -68,6 +71,7 @@ class ParentChildRetriever(RelationObjectBuilderMixin):
 
         # fetch the parent to retrieve useful metadata (title, ...)
         from invenio_app_ils.records.api import IlsRecord
+
         parent = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         # copy relevant fields from parent into the relation
@@ -147,6 +151,7 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
         # fetch the sibling to retrieve useful metadata (title, ...) and also
         # any optional extra metadata for this relation
         from invenio_app_ils.records.api import IlsRecord
+
         sibling = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         metadata = self._get_extra_metadata(
@@ -194,6 +199,7 @@ class SequenceRetriever(RelationObjectBuilderMixin):
 
         # fetch the sequence to retrieve useful metadata (title, ...)
         from invenio_app_ils.records.api import IlsRecord
+
         seq_rec = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         # copy relevant fields from the sequence record into the relation

@@ -25,12 +25,18 @@ DOCUMENT_REQUEST_PID_MINTER = "dreqid"
 DOCUMENT_REQUEST_PID_FETCHER = "dreqid"
 
 DocumentRequestIdProvider = type(
-    'DocumentRequestIdProvider',
+    "DocumentRequestIdProvider",
     (RecordIdProviderV2,),
-    dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, default_status=PIDStatus.REGISTERED)
+    dict(
+        pid_type=DOCUMENT_REQUEST_PID_TYPE, default_status=PIDStatus.REGISTERED
+    ),
 )
-document_request_pid_minter = partial(pid_minter, provider_cls=DocumentRequestIdProvider)
-document_request_pid_fetcher = partial(pid_fetcher, provider_cls=DocumentRequestIdProvider)
+document_request_pid_minter = partial(
+    pid_minter, provider_cls=DocumentRequestIdProvider
+)
+document_request_pid_fetcher = partial(
+    pid_fetcher, provider_cls=DocumentRequestIdProvider
+)
 
 
 class DocumentRequestValidator(RecordValidator):
@@ -67,8 +73,11 @@ class DocumentRequestValidator(RecordValidator):
                 "Need to provide a reason when rejecting a request"
             )
 
-        if state == "REJECTED" and reject_reason == 'IN_CATALOG' and \
-                not document_pid:
+        if (
+            state == "REJECTED"
+            and reject_reason == "IN_CATALOG"
+            and not document_pid
+        ):
             raise DocumentRequestError(
                 "Document Request cannot be Rejected with reason IN_CATALOG "
                 "without providing a document_pid."

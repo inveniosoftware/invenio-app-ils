@@ -25,8 +25,8 @@ class _InvenioIlsIllState(object):
         self.app = app
 
     def record_class_by_pid_type(self, pid_type):
-        endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS', [])
-        return endpoints[pid_type]['record_class']
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
+        return endpoints[pid_type]["record_class"]
 
     def search_by_pid_type(self, pid_type):
         endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])

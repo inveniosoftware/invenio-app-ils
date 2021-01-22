@@ -12,13 +12,17 @@ from functools import partial
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_pidstore.errors import (PersistentIdentifierError,
-                                     PIDDoesNotExistError)
+from invenio_pidstore.errors import (
+    PersistentIdentifierError,
+    PIDDoesNotExistError,
+)
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import (ItemDocumentNotFoundError,
-                                    ItemHasPastLoansError)
+from invenio_app_ils.errors import (
+    ItemDocumentNotFoundError,
+    ItemHasPastLoansError,
+)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
@@ -57,20 +61,29 @@ class ItemValidator(RecordValidator):
     def ensure_item_can_be_updated(self, record):
         """Raises an exception if the item's status cannot be updated."""
         latest_version = record.revisions[-1]
+        document_changed = False
         if latest_version:
-            latest_version_document_pid = latest_version.get("document_pid", None)
-        document_changed = latest_version_document_pid != record.get("document_pid", None)
+            latest_version_document_pid = latest_version.get(
+                "document_pid", None
+            )
+            document_changed = latest_version_document_pid != record.get(
+                "document_pid", None
+            )
         if document_changed:
             pid = record["pid"]
             item_pid = dict(value=pid, type=ITEM_PID_TYPE)
             if search_by_pid(
                 item_pid=item_pid,
-                filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-                              + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
-                              + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
+                filter_states=current_app.config[
+                    "CIRCULATION_STATES_LOAN_ACTIVE"
+                ]
+                + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+                + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
             ).count():
-                raise ItemHasPastLoansError("Not possible to update the document field if "
-                                            "the item already has past or active loans.")
+                raise ItemHasPastLoansError(
+                    "Not possible to update the document field if "
+                    "the item already has past or active loans."
+                )
 
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""

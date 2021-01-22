@@ -23,7 +23,7 @@ def test_internal_locations_permissions(client, testdata, json_headers, users):
     """Test internal locations endpoints permissions."""
     dummy_internal_location = dict(
         location_pid=testdata["locations"][0]["pid"],
-        name=_INTERNAL_LOCATION_NAME
+        name=_INTERNAL_LOCATION_NAME,
     )
     tests = [
         ("admin", _HTTP_OK, dummy_internal_location),

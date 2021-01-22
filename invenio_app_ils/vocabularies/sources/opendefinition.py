@@ -28,7 +28,7 @@ class OpenDefinitionVocabularySource(VocabularySource):
     def load(self):
         """Load vocabularies from JSON file."""
         if self.loader not in current_opendefinition.loaders:
-            raise KeyError('Loader {} does not exist'.format(self.loader))
+            raise KeyError("Loader {} does not exist".format(self.loader))
 
         vocabularies = []
         cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
@@ -44,8 +44,10 @@ class OpenDefinitionVocabularySource(VocabularySource):
                 data["maintainer"] = _license["maintainer"]
             if "status" in _license:
                 status = _license["status"]
-                if self.status_whitelist is not None and \
-                        status not in self.status_whitelist:
+                if (
+                    self.status_whitelist is not None
+                    and status not in self.status_whitelist
+                ):
                     continue
                 data["status"] = _license["status"]
 
@@ -53,7 +55,7 @@ class OpenDefinitionVocabularySource(VocabularySource):
                 type="license",
                 key=_license["id"],
                 text="{} ({})".format(_license["title"], _license["id"]),
-                data=data
+                data=data,
             )
             vocabularies.append(vocabulary)
         return vocabularies

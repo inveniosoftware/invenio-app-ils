@@ -13,8 +13,10 @@ from flask import url_for
 
 from tests.helpers import get_test_record, user_login
 
-from .helpers import (recrel_assert_record_relations,
-                      recrel_choose_endpoints_and_do_request)
+from .helpers import (
+    recrel_assert_record_relations,
+    recrel_choose_endpoints_and_do_request,
+)
 
 
 def _test_sequence_invalid_relations_should_fail(

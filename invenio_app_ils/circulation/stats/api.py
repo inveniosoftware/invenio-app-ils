@@ -14,11 +14,7 @@ from invenio_app_ils.proxies import current_app_ils
 def fetch_most_loaned_documents(from_date, to_date, bucket_size):
     """Fetch the documents with the most loans within the date interval."""
     # Create loans aggregation
-    most_loaned = get_most_loaned_documents(
-        from_date,
-        to_date,
-        bucket_size
-    )
+    most_loaned = get_most_loaned_documents(from_date, to_date, bucket_size)
 
     # Prepare the loan and extension count
     document_pids = []
@@ -30,8 +26,7 @@ def fetch_most_loaned_documents(from_date, to_date, bucket_size):
         loan_extensions = int(bucket["extensions"]["value"])
         document_pids.append(document_pid)
         document_metadata[document_pid] = dict(
-            loans=loan_count,
-            extensions=loan_extensions
+            loans=loan_count, extensions=loan_extensions
         )
 
     # Enhance the document serializer
@@ -49,7 +44,7 @@ def fetch_most_loaned_documents(from_date, to_date, bucket_size):
     res["hits"]["hits"] = sorted(
         res["hits"]["hits"],
         key=lambda hit: hit["_source"]["loan_count"],
-        reverse=True
+        reverse=True,
     )
 
     return res

@@ -61,8 +61,9 @@ def test_open_access_permissions(client, json_headers, testdata, users):
         assert hits["hits"]["total"] == n_hits
 
 
-def test_access_permissions(client, json_headers, testdata, users,
-                            with_access):
+def test_access_permissions(
+    client, json_headers, testdata, users, with_access
+):
     """Test GET documents with `_access` ignoring `restricted`."""
     # set the documents to have read access only by patron2. `_access` should
     # be taken into account and take precedence over `restricted`.

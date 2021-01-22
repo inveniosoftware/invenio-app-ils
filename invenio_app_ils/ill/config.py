@@ -9,15 +9,23 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import (PatronOwnerPermission,
-                                         authenticated_user_permission,
-                                         backoffice_permission,
-                                         superuser_permission)
+from invenio_app_ils.permissions import (
+    PatronOwnerPermission,
+    authenticated_user_permission,
+    backoffice_permission,
+    superuser_permission,
+)
 
-from .api import (BORROWING_REQUEST_PID_FETCHER, BORROWING_REQUEST_PID_MINTER,
-                  BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_FETCHER,
-                  LIBRARY_PID_MINTER, LIBRARY_PID_TYPE, BorrowingRequest,
-                  Library)
+from .api import (
+    BORROWING_REQUEST_PID_FETCHER,
+    BORROWING_REQUEST_PID_MINTER,
+    BORROWING_REQUEST_PID_TYPE,
+    LIBRARY_PID_FETCHER,
+    LIBRARY_PID_MINTER,
+    LIBRARY_PID_TYPE,
+    BorrowingRequest,
+    Library,
+)
 from .indexer import LibraryIndexer
 from .search import BorrowingRequestsSearch, LibrarySearch
 
@@ -76,7 +84,8 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
-        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
+        # auth via search_factory
+        list_permission_factory_imp=authenticated_user_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=superuser_permission,

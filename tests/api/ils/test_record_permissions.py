@@ -17,21 +17,26 @@ from invenio_records.api import Record
 from invenio_search.api import RecordsSearch
 
 from invenio_app_ils.errors import UnauthorizedSearchError
-from invenio_app_ils.records.permissions import (RecordPermission,
-                                                 create_records_action)
+from invenio_app_ils.records.permissions import (
+    RecordPermission,
+    create_records_action,
+)
 from invenio_app_ils.search_permissions import _filter_by_patron
 from tests.helpers import user_login
 
 
-@pytest.mark.parametrize("patron_pid,qs,should_raise", [
-    ("1", None, False),
-    ("1", "", False),
-    ("1", "pid:1234", False),
-    ("1", "patron_pid:2", True),
-    ("1", "patron_pid: 2", True),
-    ("1", "patron_pid: '2'", False),
-    ("1", "pid:1234 AND patron_pid:2", True),
-])
+@pytest.mark.parametrize(
+    "patron_pid,qs,should_raise",
+    [
+        ("1", None, False),
+        ("1", "", False),
+        ("1", "pid:1234", False),
+        ("1", "patron_pid:2", True),
+        ("1", "patron_pid: 2", True),
+        ("1", "patron_pid: '2'", False),
+        ("1", "pid:1234 AND patron_pid:2", True),
+    ],
+)
 def test_filter_by_patron(app, patron_pid, qs, should_raise):
     """Test the function filter_by_patron."""
     search = RecordsSearch()

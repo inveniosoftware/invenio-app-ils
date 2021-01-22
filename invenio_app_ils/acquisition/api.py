@@ -75,7 +75,7 @@ class Order(IlsRecord):
     _vendor_resolver_path = (
         "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
     )
-    _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"
+    _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"  # noqa
 
     STATUSES = ["PENDING", "ORDERED", "RECEIVED", "CANCELLED"]
 

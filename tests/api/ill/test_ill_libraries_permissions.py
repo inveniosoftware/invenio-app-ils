@@ -22,9 +22,7 @@ LIST_ENDPOINT = "invenio_records_rest.illlid_list"
 
 def test_ill_libraries_permissions(client, testdata, json_headers, users):
     """Test libraries endpoints permissions."""
-    dummy_library = dict(
-        name=LIBRARY_NAME
-    )
+    dummy_library = dict(name=LIBRARY_NAME)
     tests = [
         ("admin", _HTTP_OK, dummy_library),
         ("librarian", _HTTP_OK, dummy_library),

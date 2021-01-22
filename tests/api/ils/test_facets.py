@@ -14,9 +14,12 @@ import pytest
 from elasticsearch_dsl.query import Bool, Q, Range, Terms
 from flask import current_app
 
-from invenio_app_ils.facets import (date_range_filter,
-                                    default_value_when_missing_filter,
-                                    keyed_range_filter, overdue_loans_filter)
+from invenio_app_ils.facets import (
+    date_range_filter,
+    default_value_when_missing_filter,
+    keyed_range_filter,
+    overdue_loans_filter,
+)
 
 
 def test_keyed_range_filter():

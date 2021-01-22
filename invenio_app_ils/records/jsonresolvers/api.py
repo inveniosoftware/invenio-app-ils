@@ -23,13 +23,16 @@ def get_field_value_for_record(record_cls, record_pid, field_name):
 
 def get_pid_or_default(default_value):
     """Catch not existing pid exception and return `default_value`."""
+
     def decorator(f):
         def _inner(*args, **kwargs):
             try:
                 return f(*args, **kwargs)
             except PersistentIdentifierError:
                 return default_value
+
         return _inner
+
     return decorator
 
 

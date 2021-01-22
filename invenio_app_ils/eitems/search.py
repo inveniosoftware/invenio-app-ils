@@ -22,8 +22,9 @@ class EItemSearch(RecordsSearch):
         index = "eitems"
         doc_types = None
 
-    def search_by_document_pid(self, document_pid=None, filter_states=None,
-                               exclude_states=None):
+    def search_by_document_pid(
+        self, document_pid=None, filter_states=None, exclude_states=None
+    ):
         """Retrieve items based on the given document pid."""
         search = self
 

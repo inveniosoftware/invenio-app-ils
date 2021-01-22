@@ -9,12 +9,21 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
-from invenio_app_ils.permissions import (backoffice_permission,
-                                         superuser_permission)
+from invenio_app_ils.permissions import (
+    backoffice_permission,
+    superuser_permission,
+)
 
-from .api import (ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE,
-                  VENDOR_PID_FETCHER, VENDOR_PID_MINTER, VENDOR_PID_TYPE,
-                  Order, Vendor)
+from .api import (
+    ORDER_PID_FETCHER,
+    ORDER_PID_MINTER,
+    ORDER_PID_TYPE,
+    VENDOR_PID_FETCHER,
+    VENDOR_PID_MINTER,
+    VENDOR_PID_TYPE,
+    Order,
+    Vendor,
+)
 from .indexer import VendorIndexer
 from .search import OrderSearch, VendorSearch
 
@@ -101,9 +110,7 @@ RECORDS_REST_ENDPOINTS = dict(
 
 RECORDS_REST_SORT_OPTIONS = dict(
     acq_orders=dict(  # OrderSearch.Meta.index
-        created=dict(
-            fields=["_created"], title="Recently added", order=1
-        ),
+        created=dict(fields=["_created"], title="Recently added", order=1),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
@@ -126,13 +133,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     acq_vendors=dict(  # VendorSearch.Meta.index
-        name=dict(
-            fields=["name.keyword"],
-            title="Name",
-            order=1
-        ),
+        name=dict(fields=["name.keyword"], title="Name", order=1),
         created=dict(
-            fields=["_created"], title="Recently added", order=2,
+            fields=["_created"],
+            title="Recently added",
+            order=2,
         ),
         bestmatch=dict(
             fields=["-_score"],

@@ -11,8 +11,9 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
-from invenio_app_ils.records.jsonresolvers.api import \
-    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.jsonresolvers.api import (
+    get_field_value_for_record as get_field_value,
+)
 
 from ..api import DocumentRequest
 

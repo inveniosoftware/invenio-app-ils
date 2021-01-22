@@ -111,9 +111,7 @@ def get_acquisition_orders(document_pid):
     search = order_search_cls().search_by_document_pid(document_pid)
     for hit in search.scan():
         order = order_record_cls.get_record_by_pid(hit["pid"])
-        referenced.append(
-            dict(pid_type=ORDER_PID_TYPE, record=order)
-        )
+        referenced.append(dict(pid_type=ORDER_PID_TYPE, record=order))
     return referenced
 
 

@@ -14,8 +14,10 @@ from flask import url_for
 from invenio_app_ils.documents.api import Document
 from tests.helpers import get_test_record, user_login
 
-from .helpers import (recrel_assert_record_relations,
-                      recrel_choose_endpoints_and_do_request)
+from .helpers import (
+    recrel_assert_record_relations,
+    recrel_choose_endpoints_and_do_request,
+)
 
 
 def _test_sibl_language_relation(client, json_headers):
@@ -264,7 +266,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                             "record_metadata": {
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
-                                "languages": rec_docid_6['languages'],
+                                "languages": rec_docid_6["languages"],
                                 "publication_year": rec_docid_6[
                                     "publication_year"
                                 ],
@@ -349,7 +351,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                 edition_second_pid_type,
             ),
             create_payload,
-            expect_status_code=400
+            expect_status_code=400,
         )
 
     _test_create()

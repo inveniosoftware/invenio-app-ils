@@ -11,8 +11,9 @@ from functools import partial
 
 from flask import current_app
 
-from invenio_app_ils.document_requests.mail.messages import \
-    DocumentRequestMessage
+from invenio_app_ils.document_requests.mail.messages import (
+    DocumentRequestMessage,
+)
 from invenio_app_ils.mail.factory import message_factory
 
 

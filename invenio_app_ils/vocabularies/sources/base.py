@@ -27,14 +27,15 @@ class VocabularySource(metaclass=ABCMeta):
     def validate(vocabulary):
         """Validate vocabulary."""
         from invenio_app_ils.vocabularies.api import Vocabulary
+
         if not isinstance(vocabulary, Vocabulary):
-            raise VocabularyError(
-                "{} is not a vocabulary".format(vocabulary))
+            raise VocabularyError("{} is not a vocabulary".format(vocabulary))
 
         # Validate vocabulary type
         if vocabulary.type not in current_app.config["ILS_VOCABULARIES"]:
             raise VocabularyError(
-                "Invalid vocabulary type: {}".format(vocabulary.type))
+                "Invalid vocabulary type: {}".format(vocabulary.type)
+            )
 
         # JSONSchema validation
         schema = current_jsonschemas.get_schema(vocabulary._schema)

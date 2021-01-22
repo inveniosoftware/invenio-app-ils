@@ -37,8 +37,7 @@ class OrderSearch(RecordsSearch):
 
         if document_pid:
             search = search.filter(
-                "term",
-                order_lines__document_pid=document_pid
+                "term", order_lines__document_pid=document_pid
             )
         else:
             raise MissingRequiredParameterError(
@@ -51,10 +50,7 @@ class OrderSearch(RecordsSearch):
         search = self
 
         if patron_pid:
-            search = search.filter(
-                "term",
-                order_lines__patron_pid=patron_pid
-            )
+            search = search.filter("term", order_lines__patron_pid=patron_pid)
         else:
             raise MissingRequiredParameterError(
                 description="patron_pid is required"

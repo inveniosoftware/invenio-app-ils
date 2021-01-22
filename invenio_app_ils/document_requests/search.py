@@ -21,8 +21,9 @@ class DocumentRequestSearch(RecordsSearch):
         index = "document_requests"
         doc_types = None
 
-    def search_by_document_pid(self, document_pid=None, filter_states=None,
-                               exclude_states=None):
+    def search_by_document_pid(
+        self, document_pid=None, filter_states=None, exclude_states=None
+    ):
         """Retrieve requests based on the given document pid."""
         search = self
 
@@ -45,10 +46,7 @@ class DocumentRequestSearch(RecordsSearch):
         search = self
 
         if patron_pid:
-            search = search.filter(
-                "term",
-                patron_pid=patron_pid
-            )
+            search = search.filter("term", patron_pid=patron_pid)
         else:
             raise MissingRequiredParameterError(
                 description="patron_pid is required"

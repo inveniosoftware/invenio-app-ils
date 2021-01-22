@@ -15,7 +15,9 @@ from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
 
 from invenio_app_ils.records.metadata_extensions import (
-    MetadataExtensions, add_es_metadata_extensions)
+    MetadataExtensions,
+    add_es_metadata_extensions,
+)
 
 from .circulation import config as circulation_config
 from .circulation.receivers import register_circulation_signals

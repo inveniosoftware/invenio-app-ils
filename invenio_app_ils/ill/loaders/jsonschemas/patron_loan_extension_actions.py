@@ -12,8 +12,9 @@ from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import EXCLUDE, ValidationError, fields, pre_load, validates
 
-from invenio_app_ils.circulation.loaders.schemas.json.base import \
-    transaction_location_pid_validator
+from invenio_app_ils.circulation.loaders.schemas.json.base import (
+    transaction_location_pid_validator,
+)
 from invenio_app_ils.ill.api import BorrowingRequest
 
 

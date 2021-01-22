@@ -23,8 +23,9 @@ class ItemSearch(RecordsSearch):
         index = "items"
         doc_types = None
 
-    def search_by_document_pid(self, document_pid=None, filter_states=None,
-                               exclude_states=None):
+    def search_by_document_pid(
+        self, document_pid=None, filter_states=None, exclude_states=None
+    ):
         """Retrieve items based on the given document pid."""
         search = self
 
@@ -46,15 +47,14 @@ class ItemSearch(RecordsSearch):
         self,
         internal_location_pid=None,
         filter_states=None,
-        exclude_states=None
+        exclude_states=None,
     ):
         """Retrieve items based on the given internal location pid."""
         search = self
 
         if internal_location_pid:
             search = search.filter(
-                "term",
-                internal_location_pid=internal_location_pid
+                "term", internal_location_pid=internal_location_pid
             )
         else:
             raise MissingRequiredParameterError(
@@ -69,18 +69,14 @@ class ItemSearch(RecordsSearch):
         return search
 
     def search_by_location_pid(
-        self,
-        location_pid=None,
-        filter_states=None,
-        exclude_states=None
+        self, location_pid=None, filter_states=None, exclude_states=None
     ):
         """Retrieve items based on the given location pid."""
         search = self
 
         if location_pid:
             search = search.filter(
-                "term",
-                **{"internal_location.location_pid": location_pid}
+                "term", **{"internal_location.location_pid": location_pid}
             )
         else:
             raise MissingRequiredParameterError(
@@ -106,4 +102,3 @@ def get_items_aggregated_by_statuses(document_pid):
     search.aggs.bucket("statuses", aggs)
 
     return search
-
