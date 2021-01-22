@@ -55,17 +55,19 @@ def search_filter_record_permissions():
     return Q("bool", filter=[combined_filter])
 
 
-def _ils_search_factory(self, search, validator):
+def ils_search_factory(self, search, validator=None):
     """Search factory with Query String validator.
 
     :param self: REST view.
     :param search: Elastic search DSL search instance.
     :returns: Tuple with search instance and URL arguments.
     """
+
     def query_parser(qstr=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
+        fields = getattr(search, "boosted_fields", []) + ["*"]
         if qstr:
-            return Q('query_string', query=qstr)
+            return Q("query_string", query=qstr, fields=fields)
         return Q()
 
     from invenio_records_rest.facets import default_facets_factory
@@ -73,19 +75,20 @@ def _ils_search_factory(self, search, validator):
 
     query_string = request.values.get("q")
 
-    search, query_string = validator(search, query_string)
+    if validator:
+        search, query_string = validator(search, query_string)
     query = query_parser(query_string)
 
     try:
         search = search.query(query)
     except SyntaxError:
         current_app.logger.debug(
-            "Failed parsing query: {0}".format(
-                request.values.get('q', '')),
-            exc_info=True)
+            "Failed parsing query: {0}".format(request.values.get("q", "")),
+            exc_info=True,
+        )
         raise SearchQueryError(query_string)
 
-    search_index = getattr(search, '_original_index', search._index)[0]
+    search_index = getattr(search, "_original_index", search._index)[0]
     search, urlkwargs = default_facets_factory(search, search_index)
     search, sortkwargs = default_sorter_factory(search, search_index)
     for key, value in sortkwargs.items():
@@ -117,4 +120,4 @@ def _filter_by_current_patron(search, query_string=None):
 
 def search_factory_filter_by_patron(self, search):
     """Prepare query string to filter records by current logged in user."""
-    return _ils_search_factory(self, search, _filter_by_current_patron)
+    return ils_search_factory(self, search, _filter_by_current_patron)

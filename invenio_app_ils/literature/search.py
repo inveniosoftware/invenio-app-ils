@@ -10,11 +10,12 @@
 from invenio_search.api import DefaultFilter, RecordsSearch
 
 from invenio_app_ils.search_permissions import (
-    _ils_search_factory, search_filter_record_permissions)
+    ils_search_factory, search_filter_record_permissions)
 
 
 def search_factory_literature(self, search):
     """Search factory for literature (series and documents)."""
+
     def filter_periodical_issues(search, query_string=None):
         """Filter periodical issues unless include_all is specified."""
         from distutils.util import strtobool
@@ -29,18 +30,26 @@ def search_factory_literature(self, search):
             issue_query_string = "NOT document_type:PERIODICAL_ISSUE"
             if query_string:
                 query_string = "{} AND {}".format(
-                    query_string,
-                    issue_query_string
+                    query_string, issue_query_string
                 )
             else:
                 query_string = issue_query_string
         return search, query_string
 
-    return _ils_search_factory(self, search, filter_periodical_issues)
+    return ils_search_factory(self, search, filter_periodical_issues)
 
 
 class LiteratureSearch(RecordsSearch):
     """Literature search that searches both documents and series."""
+
+    boosted_fields = [
+        "title^8",
+        "author^6",
+        "imprint.publisher^4",
+        "edition^4",
+        "keywords^2",
+        "abstract^2",
+    ]
 
     class Meta:
         """Search for documents and series."""

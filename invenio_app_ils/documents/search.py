@@ -16,6 +16,15 @@ from invenio_app_ils.search_permissions import search_filter_record_permissions
 class DocumentSearch(RecordsSearch):
     """RecordsSearch for documents."""
 
+    boosted_fields = [
+        "title^8",
+        "author^6",
+        "imprint.publisher^4",
+        "edition^4",
+        "keywords^2",
+        "abstract^2",
+    ]
+
     class Meta:
         """Search only on documents index."""
 
