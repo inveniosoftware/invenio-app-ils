@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a24 (released 2021-01-25)
+
+- add internal_note to document request schema
+- add validation for series mode of issuance
+
+
 Version 1.0.0a23 (released 2021-01-18)
 
 - improve ES mapping
