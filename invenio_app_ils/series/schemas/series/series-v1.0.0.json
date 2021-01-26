@@ -36,6 +36,10 @@
             "format": "uri",
             "minLength": 1,
             "type": "string"
+          },
+          "note": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "required": ["value"],
