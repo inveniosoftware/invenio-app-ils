@@ -36,7 +36,7 @@ class AccessUrlSchema(Schema):
 
         unknown = EXCLUDE
 
-    access_restriction = fields.Str()
+    access_restriction = fields.List(fields.Str())
     description = fields.Str()
     open_access = fields.Bool()
     value = fields.URL()
