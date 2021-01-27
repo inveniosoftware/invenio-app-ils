@@ -20,8 +20,13 @@
         "additionalProperties": false,
         "properties": {
           "access_restriction": {
-            "minLength": 1,
-            "type": "string"
+            "items": {
+              "title": "Access restriction type",
+              "type": "string"
+            },
+            "title": "List of access restriction types (Vocabulary)",
+            "type": "array",
+            "uniqueItems": true
           },
           "open_access": {
             "type": "boolean",

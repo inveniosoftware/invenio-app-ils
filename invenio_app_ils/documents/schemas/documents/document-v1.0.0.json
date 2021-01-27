@@ -499,7 +499,6 @@
     "publication_info": {
       "items": {
         "additionalProperties": false,
-        "description": "#TODO DISCUSS",
         "properties": {
           "artid": {
             "minLength": 1,
