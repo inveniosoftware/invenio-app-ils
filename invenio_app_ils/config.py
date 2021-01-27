@@ -167,7 +167,7 @@ ILS_MAIL_ENABLE_TEST_RECIPIENTS = False
 ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
 
 #: Document request message creator class
-ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"
+ILS_DOCUMENT_REQUEST_MAIL_MSG_CREATOR = "invenio_app_ils.document_requests.mail.factory:default_document_request_message_creator"  # noqa
 #: Document request email templates
 ILS_DOCUMENT_REQUEST_MAIL_TEMPLATES = {}
 #: Global email templates
@@ -212,15 +212,15 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(minutes=60),
     },
     "send_expiring_loans_loans": {
-        "task": "invenio_app_ils.circulation.mail.tasks.send_expiring_loans_mail_reminder",
+        "task": "invenio_app_ils.circulation.mail.tasks.send_expiring_loans_mail_reminder",  # noqa
         "schedule": crontab(minute=0, hour=0),  # every day, midnight
     },
     "cancel_expired_loan": {
-        "task": "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests",
+        "task": "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests",  # noqa
         "schedule": crontab(minute=0, hour=1),  # every day, 1am
     },
     "send_overdue_loan_reminders": {
-        "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
+        "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",  # noqa
         "schedule": crontab(minute=0, hour=2),  # every day, 2am
     },
     "stats-process-events": {
@@ -234,14 +234,15 @@ CELERY_BEAT_SCHEDULE = {
         "args": [("record-view-agg", "file-download-agg")],
     },
     "clean_locations_past_closures_exceptions": {
-        "task": "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions",
+        "task": "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions",  # noqa
         "schedule": crontab(
             0, 0, day_of_month=31, month_of_year=1
         ),  # January 31st of every year
     },
 }
 
-#: When the closures of a location are updated, start a task to update the active loans.
+#: When the closures of a location are updated,
+# start a task to update the active loans.
 EXTEND_LOANS_LOCATION_UPDATED = True
 
 #: Time at which the task should be run.
@@ -320,8 +321,8 @@ _EITMID_CONVERTER = (
 _LOCID_CONVERTER = (
     'pid(locid, record_class="invenio_app_ils.locations.api:Location")'
 )
-_ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'
-_DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
+_ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'  # noqa
+_DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'  # noqa
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 )
@@ -340,7 +341,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Document,
         indexer_class=DocumentIndexer,
         search_factory_imp="invenio_app_ils.search_permissions"
-            ":ils_search_factory",
+        ":ils_search_factory",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.documents.loaders:document_loader"
@@ -418,7 +419,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=EItem,
         indexer_class=EItemIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.eitems.loaders:eitem_loader")
+            "application/json": "invenio_app_ils.eitems.loaders:eitem_loader"
         },
         record_serializers={
             "application/json": (
@@ -533,7 +534,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=InternalLocationIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.internal_locations.loaders:internal_location_loader"
+                "invenio_app_ils.internal_locations.loaders:internal_location_loader"  # noqa
             )
         },
         record_serializers={
@@ -606,7 +607,7 @@ RECORDS_REST_ENDPOINTS = dict(
         ":search_factory_filter_by_patron",
         record_loaders={
             "application/json": (
-                "invenio_app_ils.document_requests.loaders:document_request_loader"
+                "invenio_app_ils.document_requests.loaders:document_request_loader"  # noqa
             )
         },
         record_serializers={
@@ -632,7 +633,8 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
-        list_permission_factory_imp=authenticated_user_permission,  # auth via search_factory
+        # auth via search_factory
+        list_permission_factory_imp=authenticated_user_permission,
         create_permission_factory_imp=authenticated_user_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -653,7 +655,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -1098,7 +1100,7 @@ ILS_VOCABULARIES = [
 
 ILS_VOCABULARY_SOURCES = {
     "json": "invenio_app_ils.vocabularies.sources:json_source",
-    "opendefinition": "invenio_app_ils.vocabularies.sources:opendefinition_source",
+    "opendefinition": "invenio_app_ils.vocabularies.sources:opendefinition_source",  # noqa
 }
 
 OPENDEFINITION_JSONRESOLVER_HOST = "inveniosoftware.org"

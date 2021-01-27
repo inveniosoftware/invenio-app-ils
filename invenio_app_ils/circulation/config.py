@@ -23,6 +23,7 @@ from invenio_records_rest.facets import terms_filter
 from invenio_app_ils.documents.api import document_exists
 from invenio_app_ils.facets import (
     date_range_filter,
+    keyed_range_filter,
     overdue_agg,
     overdue_loans_filter,
 )
@@ -301,6 +302,12 @@ ILS_CIRCULATION_RECORDS_REST_FACETS = dict(
             state=dict(terms=dict(field="state")),
             delivery=dict(terms=dict(field="delivery.method")),
             returns=overdue_agg,
+            availability=dict(
+                range=dict(
+                    field="available_items_for_loan_count",
+                    ranges=[{"key": "Available for loan", "from": 1}],
+                )
+            ),
         ),
         post_filters={
             "state": terms_filter("state"),
@@ -308,6 +315,10 @@ ILS_CIRCULATION_RECORDS_REST_FACETS = dict(
             "returns.end_date": overdue_loans_filter("end_date"),
             "loans_from_date": date_range_filter("start_date", "gte"),
             "loans_to_date": date_range_filter("start_date", "lte"),
+            "availability": keyed_range_filter(
+                "available_items_for_loan_count",
+                {"Available for loan": {"gt": 0}},
+            ),
         },
     )
 )
