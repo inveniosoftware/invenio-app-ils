@@ -239,13 +239,13 @@ def update_dates_loan(
         if request_start_date or request_expire_date:
             raise IlsException(
                 description="Cannot modify request dates of "
-                            "an active or completed loan."
+                "an active or completed loan."
             )
         if start_date:
             if start_date > today:
                 raise InvalidParameterError(
                     description="Start date cannot be in "
-                                "the future for active loans."
+                    "the future for active loans."
                 )
             data["start_date"] = start_date
         if end_date:
@@ -256,7 +256,7 @@ def update_dates_loan(
         if start_date or end_date:
             raise IlsException(
                 description="Cannot modify dates of "
-                            "a pending or cancelled loan."
+                "a pending or cancelled loan."
             )
         if request_start_date:
             data["request_start_date"] = request_start_date

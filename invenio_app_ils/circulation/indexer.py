@@ -12,6 +12,7 @@ from datetime import datetime
 from celery import shared_task
 from flask import current_app
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
@@ -37,7 +38,20 @@ def index_referenced_records(loan):
         item = resolve_item_from_loan(loan["item_pid"])
         referenced.append(dict(pid_type=loan["item_pid"]["type"], record=item))
 
-    # index the document
+    # index the loan itself: this is needed because of the extra field
+    # `available_items_for_loan_count` added when indexing.
+    # To calculate the value of this field, a search on the `loans`
+    # indexed is performed and this loan has to be already indexed
+    # with its latest data.
+    # At the first indexing, `available_items_for_loan_count` value might
+    # be wrong and corrected at the second re-indexing.
+    loan_class = current_circulation.loan_record_cls
+    loan_record = loan_class.get_record_by_pid(loan["pid"])
+    referenced.append(
+        dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan_record)
+    )
+
+    # index the loan and referenced records
     indexer.index(indexed, referenced)
 
 
@@ -49,3 +63,25 @@ class LoanIndexer(RecordIndexer):
         super().index(loan)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_referenced_records.apply_async((loan,), eta=eta)
+
+
+def index_item_availability_for_loan(loan_dict):
+    """Indexer hook to modify the loan record dict before indexing.
+
+    The `available_items_for_loan_count` field is added to the loan
+    only on the search index because it is needed for search
+    aggregation/filtering.
+    It is not needed when fetching the loan details.
+    """
+    document_class = current_app_ils.document_record_cls
+    document_record = document_class.get_record_by_pid(
+        loan_dict.get("document_pid")
+    )
+    document = document_record.replace_refs()
+
+    items_available_for_loan_count = document.get("circulation", {}).get(
+        "available_items_for_loan_count"
+    )
+    loan_dict[
+        "available_items_for_loan_count"
+    ] = items_available_for_loan_count

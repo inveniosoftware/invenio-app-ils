@@ -20,6 +20,7 @@ from invenio_app_ils.records.metadata_extensions import (
 )
 
 from .circulation import config as circulation_config
+from .circulation.indexer import index_item_availability_for_loan
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from .documents.api import DOCUMENT_PID_TYPE
@@ -202,6 +203,7 @@ class InvenioAppIls(object):
             self.app = app
             self.init_app(app)
             self.init_metadata_extensions(app)
+            self.init_loan_indexer_hook(app)
 
     def init_app(self, app):
         """Flask application initialization."""
@@ -246,6 +248,15 @@ class InvenioAppIls(object):
                 index="{0}s-{0}-v1.0.0".format(rec_type),
             )
 
+    def init_loan_indexer_hook(self, app):
+        """Custom loan indexer hook init."""
+        before_record_index.dynamic_connect(
+            before_loan_index_hook,
+            sender=app,
+            weak=False,
+            index="{0}s-{0}-v1.0.0".format("loan"),
+        )
+
     def update_config_records_rest(self, app):
         """Merge overridden circ records rest into global records rest."""
         for k in dir(circulation_config):
@@ -282,8 +293,22 @@ def before_record_index_hook(
 
     :param sender: The entity sending the signal.
     :param json: The dumped Record dict which will be indexed.
-    :param record: The correspondng Record object.
+    :param record: The corresponding Record object.
     :param index: The index in which the json will be indexed.
     :param kwargs: Any other parameters.
     """
     add_es_metadata_extensions(json)  # mutates json
+
+
+def before_loan_index_hook(
+    sender, json=None, record=None, index=None, **kwargs
+):
+    """Hook to transform loan record before ES indexing.
+
+    :param sender: The entity sending the signal.
+    :param json: The dumped Record dict which will be indexed.
+    :param record: The corresponding Record object.
+    :param index: The index in which the json will be indexed.
+    :param kwargs: Any other parameters.
+    """
+    index_item_availability_for_loan(json)

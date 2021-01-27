@@ -1522,7 +1522,7 @@ def pages():
             description="Contact",
             content="You can contact InvenioILS developers on "
             '<a href="https://gitter.im/inveniosoftware/invenio">'
-                    'our chatroom</a>',
+            "our chatroom</a>",
             template_name="invenio_pages/default.html",
         ),
     ]

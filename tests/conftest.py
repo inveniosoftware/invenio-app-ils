@@ -25,10 +25,9 @@ def users(app, db):
     """Create admin, librarians and patrons."""
     # with Postgresql, when dropping the User table, the sequence is not
     # automatically reset to 1, causing issues with the tests demo data.
-    if db.engine.driver != "pysqlite":
-        db.session.execute(
-            "ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART"
-        )
+    db.session.execute(
+        "ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART"
+    )
     db.session.commit()
 
     with db.session.begin_nested():

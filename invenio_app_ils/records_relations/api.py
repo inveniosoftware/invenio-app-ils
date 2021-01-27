@@ -89,6 +89,7 @@ class RecordRelationsExtraMetadata(object):
         """Remove any presence of the given PID in extra metadata."""
         field = cls.field_name()
         if field in record and relation_name in record[field]:
+
             def keep_pid_func(m):
                 """Keep the pid."""
                 return not (
