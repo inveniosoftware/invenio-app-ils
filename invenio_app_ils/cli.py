@@ -746,7 +746,7 @@ class SeriesGenerator(Generator):
             dict(
                 value=obj["title"],
                 type="TRANSLATED_TITLE",
-                language="FR",
+                language="FRA",
                 source="CERN",
             ),
         ]
@@ -1293,8 +1293,25 @@ def data(
     with open(os.path.join(vocabulary_dir, "tags.json")) as f:
         tags = json.loads(f.read())
 
-    with open(os.path.join(vocabulary_dir, "languages.json")) as f:
-        languages = json.loads(f.read())
+    languages = [
+        {"key": "AAR", "text": "Afar (aar)", "type": "language"},
+        {"key": "ABK", "text": "Abkhazian (abk)", "type": "language"},
+        {"key": "AFR", "text": "Afrikaans (afr)", "type": "language"},
+        {"key": "III", "text": "Sichuan Yi (iii)", "type": "language"},
+        {"key": "IKU", "text": "Inuktitut (iku)", "type": "language"},
+        {"key": "ILE", "text": "Interlingue (ile)", "type": "language"},
+        {
+            "key": "INA",
+            "text": "Interlingua (International Auxiliary Language \
+                Association) (ina)",
+            "type": "language",
+        },
+        {"key": "IND", "text": "Indonesian (ind)", "type": "language"},
+        {"key": "IPK", "text": "Inupiaq (ipk)", "type": "language"},
+        {"key": "ISL", "text": "Icelandic (isl)", "type": "language"},
+        {"key": "ITA", "text": "Italian (ita)", "type": "language"},
+        {"key": "JAV", "text": "Javanese (jav)", "type": "language"},
+    ]
 
     holder = Holder(
         patrons_pids=["1", "2", "5", "6"],
@@ -1615,6 +1632,9 @@ def setup(
         run_command("vocabulary index json --force {}".format(json_files))
         run_command("vocabulary index opendefinition spdx --force")
         run_command("vocabulary index opendefinition opendefinition --force")
+
+        # index languages
+        run_command("vocabulary index languages --force")
 
     # Assign actions
     run_command("access allow superuser-access role admin")

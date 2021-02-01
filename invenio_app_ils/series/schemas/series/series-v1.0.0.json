@@ -58,9 +58,9 @@
           "additionalProperties": false,
           "properties": {
             "language": {
-              "maxLength": 2,
-              "minLength": 2,
-              "title": "ISO 639-1 language code (Vocabulary)",
+              "maxLength": 3,
+              "minLength": 3,
+              "title": "ISO 639-3 language code (Vocabulary)",
               "type": "string"
             },
             "value": {
@@ -184,6 +184,9 @@
     },
     "languages": {
       "items": {
+        "maxLength": 3,
+        "minLength": 3,
+        "title": "ISO 639-3 language code",
         "type": "string"
       },
       "type": "array",

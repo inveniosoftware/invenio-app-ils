@@ -56,6 +56,39 @@ def index_json(filenames, force):
     click.echo("indexed {} vocabularies".format(index_count))
 
 
+@index.command(name="languages")
+@click.option("--force", is_flag=True)
+@with_appcontext
+def index_languages(force):
+    """Index languages in Elasticsearch."""
+    import pycountry
+
+    if not force:
+        click.confirm(
+            "Are you sure you want to index the languages?", abort=True
+        )
+    index_count = 0
+    click.echo("indexing languages...")
+
+    cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
+    Vocabulary = cfg["record_class"]
+    indexer = cfg["indexer_class"]()
+
+    with click.progressbar(pycountry.languages) as bar:
+        for lang in bar:
+            if hasattr(lang, "alpha_3") and hasattr(lang, "alpha_2"):
+                lang_dict = {
+                    "type": "language",
+                    "key": lang.alpha_3.upper(),
+                    "text": "{} ({})".format(lang.name, lang.alpha_3),
+                }
+                lang_rec = Vocabulary(**lang_dict)
+                indexer.index(lang_rec)
+                index_count += 1
+
+    click.echo("indexed {} vocabularies".format(index_count))
+
+
 @index.command(name="opendefinition")
 @click.argument("loader")
 @click.option("--path", default=None)
@@ -124,12 +157,12 @@ def languages(output):
 
     results = []
     for lang in pycountry.languages:
-        if hasattr(lang, "alpha_2"):
+        if hasattr(lang, "alpha_2") and hasattr(lang, "alpha_3"):
             results.append(
                 {
                     "type": "language",
-                    "key": lang.alpha_2.upper(),
-                    "text": "{} ({})".format(lang.name, lang.alpha_2),
+                    "key": lang.alpha_3.upper(),
+                    "text": "{} ({})".format(lang.name, lang.alpha_3),
                 }
             )
     with open(output, "w+") as f:
