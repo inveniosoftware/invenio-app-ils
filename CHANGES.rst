@@ -7,6 +7,14 @@
 Changes
 =======
 
+Version 1.0.0a25 (released 2021-02-02)
+
+- update invenio to 3.4
+- change language standard to ISO 639-3
+- change eitem urls access_restriction field
+- add item availability to loan search
+
+
 Version 1.0.0a24 (released 2021-01-25)
 
 - add internal_note to document request schema
