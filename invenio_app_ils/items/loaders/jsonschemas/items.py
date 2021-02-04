@@ -53,7 +53,6 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     legacy_library_id = fields.Str()
     medium = fields.Str(required=True)
     number_of_pages = fields.Int()
-    physical_description = fields.Str()
     price = fields.Nested(PriceSchema)
     shelf = fields.Str()
     status = fields.Str(required=True, validate=validate.OneOf(Item.STATUSES))

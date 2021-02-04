@@ -309,9 +309,6 @@
         "number_of_pages": {
           "type": "integer"
         },
-        "physical_description": {
-          "type": "text"
-        },
         "pid": {
           "type": "keyword"
         },
