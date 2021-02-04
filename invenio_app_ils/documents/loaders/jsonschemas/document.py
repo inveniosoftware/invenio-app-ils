@@ -249,6 +249,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     note = fields.Str()
     number_of_pages = fields.Str()
     other_authors = fields.Bool()
+    physical_description = fields.Str()
     publication_info = fields.List(fields.Nested(PublicationInfoSchema))
     publication_year = fields.Str(required=True)
     restricted = fields.Bool(missing=False)

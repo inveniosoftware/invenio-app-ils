@@ -826,6 +826,9 @@
             }
           },
           "type": "object"
+       },
+        "physical_description": {
+          "type": "text"
        }
       }
     }

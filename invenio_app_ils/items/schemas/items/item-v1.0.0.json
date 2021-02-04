@@ -140,10 +140,6 @@
 
       "type": "object"
     },
-    "physical_description": {
-      "title": "Physical description of an item",
-      "type": "string"
-    },
     "shelf": {
       "type": "string",
       "title": "The shelf location of this Item"

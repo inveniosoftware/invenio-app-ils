@@ -728,6 +728,10 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
+    },
+    "physical_description": {
+      "title": "Physical description of a document",
+      "type": "string"
     }
   }
 }
