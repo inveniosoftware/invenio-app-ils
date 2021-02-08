@@ -15,6 +15,7 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.circulation.stats.api import fetch_most_loaned_documents
+from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.documents.api import (
     DOCUMENT_PID_FETCHER,
     DOCUMENT_PID_TYPE,
@@ -74,7 +75,7 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
         endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
         document_endpoint = endpoints.get(DOCUMENT_PID_TYPE, {})
         self.max_result_window = document_endpoint.get(
-            "max_result_window", 10000
+            "max_result_window", RECORDS_REST_MAX_RESULT_WINDOW
         )
 
     def _validate_bucket_size(self):
@@ -86,7 +87,7 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
             msg = "Parameter `size` is not a number: {}".format(size_param)
             raise InvalidParameterError(description=msg)
 
-        if value >= self.max_result_window:
+        if value > self.max_result_window:
             msg = "Parameter `size` should be lower than {}".format(
                 self.max_result_window
             )

@@ -9,6 +9,7 @@
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
+from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.permissions import (
     PatronOwnerPermission,
     authenticated_user_permission,
@@ -76,12 +77,16 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         list_route="/ill/borrowing-requests/",
         item_route="/ill/borrowing-requests/<{0}:pid_value>".format(
             _BORROWING_REQUEST_CONVERTER
         ),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
         # auth via search_factory
@@ -108,12 +113,17 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/ill/libraries/",
         item_route="/ill/libraries/<{0}:pid_value>".format(_LIBRARY_CONVERTER),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=backoffice_permission,

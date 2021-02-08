@@ -327,7 +327,8 @@ _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 )
 
-_RECORDS_REST_MAX_RESULT_WINDOW = 10000
+RECORDS_REST_MAX_RESULT_WINDOW = 5000
+RECORDS_REST_VOCAB_MAX_RESULT_WINDOW = 500
 PIDSTORE_RECID_FIELD = "pid"
 # name of the URL arg to choose response serializer
 REST_MIMETYPE_QUERY_ARG_NAME = "format"
@@ -367,7 +368,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         list_permission_factory_imp=allow_all,  # auth via search filter
@@ -403,7 +404,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/items/",
         item_route="/items/<{0}:pid_value>".format(_PITMID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=backoffice_permission,
@@ -439,7 +440,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/eitems/",
         item_route="/eitems/<{0}:pid_value>".format(_EITMID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=backoffice_permission,
@@ -475,7 +476,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/locations/",
         item_route="/locations/<{0}:pid_value>".format(_LOCID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         list_permission_factory_imp=allow_all,
@@ -517,7 +518,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/series/",
         item_route="/series/<{0}:pid_value>".format(_SERID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         list_permission_factory_imp=allow_all,
@@ -555,7 +556,7 @@ RECORDS_REST_ENDPOINTS = dict(
             _ILOCID_CONVERTER
         ),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=backoffice_permission,
@@ -588,7 +589,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route="/patrons/<pid({}):pid_value>".format(PATRON_PID_TYPE),
         list_route="/patrons/",
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=deny_all,
         list_permission_factory_imp=backoffice_permission,
@@ -630,7 +631,7 @@ RECORDS_REST_ENDPOINTS = dict(
             _DREQID_CONVERTER
         ),
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
         # auth via search_factory
@@ -666,7 +667,7 @@ RECORDS_REST_ENDPOINTS = dict(
         ),
         list_route="/vocabularies/",
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_VOCAB_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=deny_all,
         list_permission_factory_imp=authenticated_user_permission,
@@ -705,7 +706,7 @@ RECORDS_REST_ENDPOINTS = dict(
         ),
         list_route="/literature/",
         default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=deny_all,
         list_permission_factory_imp=allow_all,  # auth via search filter

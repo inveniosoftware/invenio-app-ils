@@ -20,6 +20,7 @@ from invenio_circulation.transitions.transitions import (
 )
 from invenio_records_rest.facets import terms_filter
 
+from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.documents.api import document_exists
 from invenio_app_ils.facets import (
     date_range_filter,
@@ -245,7 +246,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         ),
         default_media_type="application/json",
         links_factory_imp="invenio_circulation.links:loan_links_factory",
-        max_result_window=10000,
+        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=PatronOwnerPermission,
         # auth via search_factory
