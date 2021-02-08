@@ -63,11 +63,18 @@ def ils_search_factory(self, search, validator=None):
     :returns: Tuple with search instance and URL arguments.
     """
 
-    def query_parser(qstr=None):
+    def query_parser(search, qstr=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
-        fields = getattr(search, "boosted_fields", []) + ["*"]
         if qstr:
-            return Q("query_string", query=qstr, fields=fields)
+            boosted = getattr(search, "boosted_fields", [])
+            extra_params = {}
+            if boosted:
+                extra_params["fields"] = boosted + ["*"]
+                # add lenient parameter in order to fix
+                # parsing exception on data fields, see known issues
+                # https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-7.1.1.html  # noqa
+                extra_params["lenient"] = True
+            return Q("query_string", query=qstr, **extra_params)
         return Q()
 
     from invenio_records_rest.facets import default_facets_factory
@@ -77,7 +84,7 @@ def ils_search_factory(self, search, validator=None):
 
     if validator:
         search, query_string = validator(search, query_string)
-    query = query_parser(query_string)
+    query = query_parser(search, qstr=query_string)
 
     try:
         search = search.query(query)
