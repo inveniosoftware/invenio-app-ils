@@ -42,9 +42,6 @@ extras_require = {
     "sqlite": [
         "invenio-db[versioning]{}".format(invenio_db_version),
     ],
-    "vocabulary": [
-        "pycountry>=19.8.18",
-    ],
 }
 
 extras_require["all"] = []
@@ -55,7 +52,6 @@ for name, reqs in extras_require.items():
         "sqlite",
         "elasticsearch6",
         "elasticsearch7",
-        "vocabulary",
     ):
         continue
     extras_require["all"].extend(reqs)
@@ -86,6 +82,7 @@ install_requires = [
     "invenio-stats>=1.0.0a18,<1.1.0",
     "arrow>=0.16.0",
     "Flask-Debugtoolbar>=0.10.1",
+    "pycountry>=19.8.18",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
 ]
