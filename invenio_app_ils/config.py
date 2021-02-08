@@ -340,8 +340,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentSearch,
         record_class=Document,
         indexer_class=DocumentIndexer,
-        search_factory_imp="invenio_app_ils.search_permissions"
-        ":ils_search_factory",
+        search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
             "application/json": (
                 "invenio_app_ils.documents.loaders:document_loader"
@@ -490,8 +489,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=SeriesSearch,
         record_class=Series,
         indexer_class=SeriesIndexer,
-        search_factory_imp="invenio_app_ils.search_permissions"
-        ":ils_search_factory",
+        search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
             "application/json": (
                 "invenio_app_ils.series.loaders:series_loader"
@@ -603,8 +601,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentRequestSearch,
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
-        search_factory_imp="invenio_app_ils.search_permissions"
-        ":search_factory_filter_by_patron",
+        search_factory_imp="invenio_app_ils.search_permissions:search_factory_filter_by_patron",  # noqa
         record_loaders={
             "application/json": (
                 "invenio_app_ils.document_requests.loaders:document_request_loader"  # noqa
@@ -681,8 +678,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter=LITERATURE_PID_MINTER,
         pid_fetcher=LITERATURE_PID_FETCHER,
         search_class=LiteratureSearch,
-        search_factory_imp="invenio_app_ils.literature.search"
-        ":search_factory_literature",
+        search_factory_imp="invenio_app_ils.literature.search:search_factory_literature",  # noqa
         record_serializers={
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_response"
