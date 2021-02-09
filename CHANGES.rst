@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 1.0.0a26 (released 2021-02-09)
+
+- fix max_result_window config for searches
+- fix boosted search factories for ES v<7.7 compatibility
+
 Version 1.0.0a25 (released 2021-02-02)
 
 - update invenio to 3.4
