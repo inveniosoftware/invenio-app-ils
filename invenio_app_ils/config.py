@@ -327,7 +327,7 @@ _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 )
 
-RECORDS_REST_MAX_RESULT_WINDOW = 5000
+RECORDS_REST_MAX_RESULT_WINDOW = 10000
 RECORDS_REST_VOCAB_MAX_RESULT_WINDOW = 500
 PIDSTORE_RECID_FIELD = "pid"
 # name of the URL arg to choose response serializer
