@@ -4,7 +4,7 @@
     "authors": [
       {
         "full_name": "Delbourgo, Robert",
-        "roles": ["Author"]
+        "roles": ["DATA_CURATOR"]
       }
     ],
     "edition": "2",
@@ -40,7 +40,7 @@
     "authors": [
       {
         "full_name": "Knebl, Helmut",
-        "roles": ["Author"]
+        "roles": ["RESEARCHER"]
       }
     ],
     "imprint": {
@@ -67,7 +67,7 @@
     "authors": [
       {
         "full_name": "Einstein, Albert",
-        "roles": ["Author"]
+        "roles": ["RESEARCHER"]
       }
     ],
     "imprint": {
@@ -103,7 +103,7 @@
     "authors": [
       {
         "full_name": "Jacob, Irene",
-        "roles": ["Author"]
+        "roles": ["DATA_CURATOR"]
       }
     ],
     "imprint": {
@@ -138,7 +138,7 @@
     "authors": [
       {
         "full_name": "Grozin, A G",
-        "roles": ["Author"]
+        "roles": ["DATA_CURATOR"]
       }
     ],
     "imprint": {
@@ -173,7 +173,7 @@
     "authors": [
       {
         "full_name": "Schaa, Volker R W",
-        "roles": ["editor"]
+        "roles": ["EDITOR"]
       }
     ],
     "imprint": {

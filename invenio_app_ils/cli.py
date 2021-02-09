@@ -385,11 +385,11 @@ class DocumentGenerator(Generator):
                 }
             ],
             "identifiers": [{"scheme": "ORCID", "value": "1234AAA"}],
-            "roles": ["editor"],
+            "roles": ["EDITOR"],
         },
         {
             "full_name": "Doe, John",
-            "roles": ["AUTHOR"],
+            "roles": ["RESEARCHER"],
             "affiliations": [{"name": "CERN"}],
         },
     ]
