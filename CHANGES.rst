@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 1.0.0a27 (released 2021-02-10)
+
+- fix max_result_window config
+- restrict system emails from sending to system agents
+
 Version 1.0.0a26 (released 2021-02-09)
 
 - fix max_result_window config for searches
