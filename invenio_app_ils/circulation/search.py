@@ -72,6 +72,7 @@ def get_all_overdue_loans():
         search_cls()
         .filter("terms", state=states)
         .filter("range", end_date=dict(lt="now/d"))
+        .filter("range", patron_pid=dict(gte=0))
     )
 
 
