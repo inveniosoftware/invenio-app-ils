@@ -258,9 +258,7 @@
         "type": "object"
       },
       "extensions": {
-        "type": "object",
-        "dynamic": false,
-        "enabled": false
+        "type": "object"
       },
       "extensions_keywords": {
         "type": "object",

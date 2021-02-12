@@ -60,10 +60,7 @@ class MetadataExtensions(object):
             contexts.add(settings["@context"])
 
         # Validate extensions
-        prefixes = self.namespaces.keys()
         for field_key, field_cfg in self.extensions.items():
-            prefix = field_key.split(":", 1)[0]
-            assert prefix in prefixes
             self._validate_marshmallow_type(field_cfg)
             self._validate_elasticsearch_type(field_cfg)
 
