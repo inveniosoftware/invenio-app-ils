@@ -32,27 +32,27 @@ def app_config(app_config):
 
     app_config["ILS_RECORDS_METADATA_EXTENSIONS"] = {
         "document": {
-            "accelerator_experiments:accelerator": {
+            "accelerator_experiments_accelerator": {
                 "elasticsearch": "keyword",
                 "marshmallow": SanitizedUnicode(required=True),
             },
-            "accelerator_experiments:project": {
+            "accelerator_experiments_project": {
                 "elasticsearch": "text",
                 "marshmallow": SanitizedUnicode(),
             },
-            "accelerator_experiments:number_in_sequence": {
+            "accelerator_experiments_number_in_sequence": {
                 "elasticsearch": "long",
                 "marshmallow": Integer(),
             },
-            "accelerator_experiments:scientific_sequence": {
+            "accelerator_experiments_scientific_sequence": {
                 "elasticsearch": "long",
                 "marshmallow": List(Integer()),
             },
-            "standard_status:original_presentation_date": {
+            "standard_status_original_presentation_date": {
                 "elasticsearch": "date",
                 "marshmallow": DateString(),
             },
-            "standard_status:right_or_wrong": {
+            "standard_status_right_or_wrong": {
                 "elasticsearch": "boolean",
                 "marshmallow": Bool(),
             },
@@ -81,12 +81,12 @@ def test_metadata_extensions(db, es, testdata):
     document = testdata["documents"][0]
     data = {
         "extensions": {
-            "accelerator_experiments:accelerator": "LHCb",
-            "accelerator_experiments:project": "A project for experiment.",
-            "accelerator_experiments:number_in_sequence": 3,
-            "accelerator_experiments:scientific_sequence": [1, 1, 2, 3, 5, 8],
-            "standard_status:original_presentation_date": "2019-02-14",
-            "standard_status:right_or_wrong": True,
+            "accelerator_experiments_accelerator": "LHCb",
+            "accelerator_experiments_project": "A project for experiment.",
+            "accelerator_experiments_number_in_sequence": 3,
+            "accelerator_experiments_scientific_sequence": [1, 1, 2, 3, 5, 8],
+            "standard_status_original_presentation_date": "2019-02-14",
+            "standard_status_right_or_wrong": True,
         }
     }
     document.update(data)
@@ -101,29 +101,29 @@ def test_metadata_extensions(db, es, testdata):
     es_doc = es.get(index=_index, doc_type=_doc, id=_id)
     source = es_doc["_source"]
     expected_keywords = [
-        {"key": "accelerator_experiments:accelerator", "value": "LHCb"},
+        {"key": "accelerator_experiments_accelerator", "value": "LHCb"},
     ]
     expected_texts = [
         {
-            "key": "accelerator_experiments:project",
+            "key": "accelerator_experiments_project",
             "value": "A project for experiment.",
         },
     ]
     expected_longs = [
-        {"key": "accelerator_experiments:number_in_sequence", "value": 3},
+        {"key": "accelerator_experiments_number_in_sequence", "value": 3},
         {
-            "key": "accelerator_experiments:scientific_sequence",
+            "key": "accelerator_experiments_scientific_sequence",
             "value": [1, 1, 2, 3, 5, 8],
         },
     ]
     expected_dates = [
         {
-            "key": "standard_status:original_presentation_date",
+            "key": "standard_status_original_presentation_date",
             "value": "2019-02-14",
         },
     ]
     expected_booleans = [
-        {"key": "standard_status:right_or_wrong", "value": True},
+        {"key": "standard_status_right_or_wrong", "value": True},
     ]
     assert_unordered_equality(source["extensions_keywords"], expected_keywords)
     assert_unordered_equality(source["extensions_texts"], expected_texts)
@@ -144,27 +144,27 @@ def test_extensions():
     }
 
     ILS_RECORDS_METADATA_EXTENSIONS = {
-        "accelerator_experiments:accelerator": {
+        "accelerator_experiments_accelerator": {
             "elasticsearch": "keyword",
             "marshmallow": SanitizedUnicode(required=True),
         },
-        "accelerator_experiments:project": {
+        "accelerator_experiments_project": {
             "elasticsearch": "text",
             "marshmallow": SanitizedUnicode(),
         },
-        "accelerator_experiments:number_in_sequence": {
+        "accelerator_experiments_number_in_sequence": {
             "elasticsearch": "long",
             "marshmallow": Integer(),
         },
-        "accelerator_experiments:scientific_sequence": {
+        "accelerator_experiments_scientific_sequence": {
             "elasticsearch": "long",
             "marshmallow": List(Integer()),
         },
-        "standard_status:original_presentation_date": {
+        "standard_status_original_presentation_date": {
             "elasticsearch": "date",
             "marshmallow": DateString(),
         },
-        "standard_status:right_or_wrong": {
+        "standard_status_right_or_wrong": {
             "elasticsearch": "boolean",
             "marshmallow": Bool(),
         },
@@ -176,7 +176,7 @@ def test_extensions():
     ExtensionsSchema = extensions.to_schema()
 
     # Minimal if not absent
-    valid_minimal = {"accelerator_experiments:accelerator": "LHCb"}
+    valid_minimal = {"accelerator_experiments_accelerator": "LHCb"}
 
     data = ExtensionsSchema().load(valid_minimal)
 
@@ -184,12 +184,12 @@ def test_extensions():
 
     # Full
     valid_full = {
-        "accelerator_experiments:accelerator": "LHCb",
-        "accelerator_experiments:project": "A project for experiment.",
-        "accelerator_experiments:number_in_sequence": 3,
-        "accelerator_experiments:scientific_sequence": [1, 1, 2, 3, 5, 8],
-        "standard_status:original_presentation_date": "2019-02-14",
-        "standard_status:right_or_wrong": True,
+        "accelerator_experiments_accelerator": "LHCb",
+        "accelerator_experiments_project": "A project for experiment.",
+        "accelerator_experiments_number_in_sequence": 3,
+        "accelerator_experiments_scientific_sequence": [1, 1, 2, 3, 5, 8],
+        "standard_status_original_presentation_date": "2019-02-14",
+        "standard_status_right_or_wrong": True,
     }
 
     data = ExtensionsSchema().load(valid_full)
@@ -198,8 +198,8 @@ def test_extensions():
 
     # Invalid
     invalid_number_in_sequence = {
-        "accelerator_experiments:accelerator": "LHCb",
-        "accelerator_experiments:scientific_sequence": [1, "l", 2, 3, 5, 8],
+        "accelerator_experiments_accelerator": "LHCb",
+        "accelerator_experiments_scientific_sequence": [1, "l", 2, 3, 5, 8],
     }
     with pytest.raises(ValidationError):
         data = ExtensionsSchema().load(invalid_number_in_sequence)
