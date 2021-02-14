@@ -20,9 +20,9 @@ class DocumentRequestMessage(BlockTemplatedMessage):
 
     DEFAULT_TEMPLATES = dict(
         request_accepted="document_request_accept.html",
-        request_rejected_user_cancel="document_request_reject_user_cancel.html",  # noqa
-        request_rejected_in_catalog="document_request_reject_in_catalog.html",
-        request_rejected_not_found="document_request_reject_not_found.html",
+        request_declined_user_cancel="document_request_decline_user_cancel.html",  # noqa
+        request_declined_in_catalog="document_request_decline_in_catalog.html",
+        request_declined_not_found="document_request_decline_not_found.html",
     )
 
     def __init__(self, request, action=None, message_ctx={}, **kwargs):
@@ -37,9 +37,9 @@ class DocumentRequestMessage(BlockTemplatedMessage):
         if not action:
             raise NotImplementedError
 
-        if action == "request_rejected":
-            reject_reason = request.get("reject_reason", "")
-            action = "{}_{}".format(action, reject_reason.lower())
+        if action == "request_declined":
+            decline_reason = request.get("decline_reason", "")
+            action = "{}_{}".format(action, decline_reason.lower())
 
         if action not in templates:
             raise KeyError(

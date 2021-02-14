@@ -965,11 +965,11 @@ class DocumentRequestGenerator(Generator):
                 "request_type": "LOAN",
                 "medium": "PAPER",
             }
-            if state == "REJECTED":
-                obj["reject_reason"] = random.choice(
-                    DocumentRequest.REJECT_TYPES
+            if state == "DECLINED":
+                obj["decline_reason"] = random.choice(
+                    DocumentRequest.DECLINE_TYPES
                 )
-                if obj["reject_reason"] == "IN_CATALOG":
+                if obj["decline_reason"] == "IN_CATALOG":
                     obj["document_pid"] = self.random_document_pid()
             elif state == "ACCEPTED":
                 obj["document_pid"] = self.random_document_pid()

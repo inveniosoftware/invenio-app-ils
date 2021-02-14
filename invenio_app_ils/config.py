@@ -850,11 +850,11 @@ RECORDS_REST_FACETS = dict(
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         aggs=dict(
             state=dict(terms=dict(field="state")),
-            reject_reason=dict(terms=dict(field="reject_reason")),
+            decline_reason=dict(terms=dict(field="decline_reason")),
         ),
         post_filters=dict(
             state=terms_filter("state"),
-            reject_reason=terms_filter("reject_reason"),
+            decline_reason=terms_filter("decline_reason"),
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
@@ -926,18 +926,6 @@ ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 
 ILS_INDEXER_TASK_DELAY = timedelta(seconds=2)
 """Trigger delay for celery tasks to index referenced records."""
-
-# Accounts REST
-# ==============
-ACCOUNTS_REST_READ_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
-"""Default read user properties permission factory: reject any request."""
-
-ACCOUNTS_REST_UPDATE_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
-"""Default modify user properties permission factory: reject any request."""
-
-ACCOUNTS_REST_READ_USERS_LIST_PERMISSION_FACTORY = backoffice_permission
-"""Default list users permission factory: reject any request."""
-
 
 # The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
 ALLOWED_HTML_TAGS = []

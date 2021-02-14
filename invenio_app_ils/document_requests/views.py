@@ -19,9 +19,9 @@ from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.proxies import current_app_ils
 
 from .api import DOCUMENT_REQUEST_PID_TYPE
+from .loaders import document_request_decline_loader as dr_decline_loader
 from .loaders import document_request_document_loader as dr_document_loader
 from .loaders import document_request_provider_loader as dr_provider_loader
-from .loaders import document_request_reject_loader as dr_reject_loader
 from .mail.tasks import send_document_request_mail
 
 
@@ -59,7 +59,7 @@ def create_document_request_action_blueprint(app):
 
     _add_view(blueprint, DocumentRequestAcceptResource, "accept", None)
     _add_view(
-        blueprint, DocumentRequestRejectResource, "reject", dr_reject_loader
+        blueprint, DocumentRequestDeclineResource, "decline", dr_decline_loader
     )
     _add_view(
         blueprint,
@@ -212,24 +212,24 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
         return self.make_response(pid, record, 202)
 
 
-class DocumentRequestRejectResource(DocumentRequestActionResource):
-    """Reject request resource."""
+class DocumentRequestDeclineResource(DocumentRequestActionResource):
+    """Decline request resource."""
 
-    view_name = "{}_reject"
+    view_name = "{}_decline"
 
-    def reject_permission_factory(self, record):
-        """Reject permission factory."""
+    def decline_permission_factory(self, record):
+        """Decline permission factory."""
         action = "document-request-decline"
         permissions = current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"]
         view_permission = permissions(action)
         return view_permission(record)
 
     @pass_record
-    @need_record_permission("reject_permission_factory")
+    @need_record_permission("decline_permission_factory")
     def post(self, pid, record, **kwargs):
-        """Reject request post method."""
+        """Decline request post method."""
         data = self.loader()
-        reject_reason = data.get("reject_reason")
+        decline_reason = data.get("decline_reason")
         document_pid = data.get("document_pid")
 
         if record["state"] != "PENDING":
@@ -238,21 +238,21 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
                 "is in state: {}".format(record["state"])
             )
 
-        if not reject_reason:
+        if not decline_reason:
             raise DocumentRequestError(
-                "Missing required field: reject reason",
+                "Missing required field: decline reason",
                 errors=[
                     FieldError(
-                        field="reject_reason",
-                        message="Reject reason is required.",
+                        field="decline_reason",
+                        message="Decline reason is required.",
                     )
                 ],
             )
 
-        if reject_reason == "IN_CATALOG" and not document_pid:
+        if decline_reason == "IN_CATALOG" and not document_pid:
             raise DocumentRequestError(
-                "Document PID required for reject reason {}".format(
-                    reject_reason
+                "Document PID required for decline reason {}".format(
+                    decline_reason
                 ),
                 errors=[
                     FieldError(
@@ -262,14 +262,14 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
                 ],
             )
 
-        if reject_reason == "IN_CATALOG":
+        if decline_reason == "IN_CATALOG":
             record["document_pid"] = document_pid
 
-        record["state"] = "REJECTED"
-        record["reject_reason"] = reject_reason
+        record["state"] = "DECLINED"
+        record["decline_reason"] = decline_reason
 
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
-        send_document_request_mail(record, action="request_rejected")
+        send_document_request_mail(record, action="request_declined")
         return self.make_response(pid, record, 202)

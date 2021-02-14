@@ -154,8 +154,8 @@ def test_document_request_accept(client, json_headers, testdata, users):
         )
 
 
-def test_document_request_reject(client, json_headers, testdata, users):
-    """Test Document Request permissions to reject request."""
+def test_document_request_decline(client, json_headers, testdata, users):
+    """Test Document Request permissions to decline request."""
 
     tests = [
         ("patron1", "dreq-1", 202),
@@ -168,9 +168,10 @@ def test_document_request_reject(client, json_headers, testdata, users):
     for user, res_id, expected_resp_code in tests:
         user_login(client, user, users)
         url = url_for(
-            "invenio_app_ils_document_requests.dreqid_reject", pid_value=res_id
+            "invenio_app_ils_document_requests.dreqid_decline",
+            pid_value=res_id,
         )
-        data = {"reject_reason": "USER_CANCEL"}
+        data = {"decline_reason": "USER_CANCEL"}
         validate_response(
             client, "post", url, json_headers, data, expected_resp_code
         )

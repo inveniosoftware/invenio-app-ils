@@ -14,12 +14,12 @@
   },
   {
     "pid": "dreq-2",
-    "state": "REJECTED",
+    "state": "DECLINED",
     "patron_pid": "2",
     "request_type": "BUY",
     "medium": "PAPER",
     "title": "Test title 2",
-    "reject_reason": "Test."
+    "decline_reason": "Test."
   },
   {
     "pid": "dreq-3",
