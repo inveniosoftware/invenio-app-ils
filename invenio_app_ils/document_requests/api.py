@@ -47,7 +47,7 @@ class DocumentRequestValidator(RecordValidator):
         if state not in valid_states:
             raise DocumentRequestError("Invalid state: {}".format(state))
 
-    def validate_document_pid(self, document_pid, state, reject_reason):
+    def validate_document_pid(self, document_pid, state):
         """Validate data for accepted state."""
         # Requests must have a document and a provider (ILL, ACQ)
         if document_pid:
@@ -66,25 +66,25 @@ class DocumentRequestValidator(RecordValidator):
                 "State cannot be ACCEPTED without a document"
             )
 
-    def validate_rejection(self, document_pid, state, reject_reason):
-        """Validate rejection is correct."""
-        if state == "REJECTED" and not reject_reason:
+    def validate_decline(self, document_pid, state, decline_reason):
+        """Validate decline is correct."""
+        if state == "DECLINED" and not decline_reason:
             raise DocumentRequestError(
-                "Need to provide a reason when rejecting a request"
+                "You have to provide a reason when declining a request"
             )
 
         if (
-            state == "REJECTED"
-            and reject_reason == "IN_CATALOG"
+            state == "DECLINING"
+            and decline_reason == "IN_CATALOG"
             and not document_pid
         ):
             raise DocumentRequestError(
-                "Document Request cannot be Rejected with reason IN_CATALOG "
+                "Document Request cannot be declined with reason IN_CATALOG "
                 "without providing a document_pid."
             )
 
-    def validate_acceptance(self, document_pid, physical_item_provider, state):
-        """Validate rejection is correct."""
+    def validate_accept(self, document_pid, physical_item_provider, state):
+        """Validate accept is correct."""
         if state == "ACCEPTED" and (
             not document_pid or not physical_item_provider
         ):
@@ -101,20 +101,20 @@ class DocumentRequestValidator(RecordValidator):
 
         document_pid = record.get("document_pid", None)
         state = record.get("state", None)
-        reject_reason = record.get("reject_reason", None)
+        decline_reason = record.get("decline_reason", None)
         physical_item_provider = record.get("physical_item_provider", None)
 
         self.validate_state(state, valid_states)
-        self.validate_document_pid(document_pid, state, reject_reason)
-        self.validate_rejection(document_pid, state, reject_reason)
-        self.validate_acceptance(document_pid, physical_item_provider, state)
+        self.validate_document_pid(document_pid, state)
+        self.validate_decline(document_pid, state, decline_reason)
+        self.validate_accept(document_pid, physical_item_provider, state)
 
 
 class DocumentRequest(IlsRecord):
     """DocumentRequest record class."""
 
-    STATES = ["ACCEPTED", "PENDING", "REJECTED"]
-    REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND", "OTHER"]
+    STATES = ["ACCEPTED", "PENDING", "DECLINED"]
+    DECLINE_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND", "OTHER"]
 
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"

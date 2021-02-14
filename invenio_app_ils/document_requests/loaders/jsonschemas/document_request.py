@@ -10,8 +10,9 @@
 from flask import g
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields.sanitizedhtml import SanitizedHTML
-from marshmallow import EXCLUDE, Schema, ValidationError, fields
+from marshmallow import EXCLUDE, Schema, ValidationError, fields, validate
 
+from invenio_app_ils.document_requests.api import DocumentRequest
 from invenio_app_ils.permissions import backoffice_permission
 
 
@@ -53,15 +54,21 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     issn = SanitizedHTML()
     issue = SanitizedHTML()
     journal_title = SanitizedHTML()
+    legacy_id = fields.Str()
     medium = fields.Str(required=True)
     note = SanitizedHTML()
     page = SanitizedHTML()
     patron_pid = fields.Str(required=True, validate=validate_patron)
-    payment_info = fields.Str()
-    payment_method = fields.Str()
+    payment_info = SanitizedHTML()
+    payment_method = SanitizedHTML()
     physical_item_provider = fields.Nested(PhysicalItemProviderSchema)
     publication_year = fields.Int()
     request_type = fields.Str(required=True)
+    decline_reason = fields.Str(
+        # add empty string in case the value must be reset
+        validate=validate.OneOf(DocumentRequest.DECLINE_TYPES + [""])
+    )
     standard_number = SanitizedHTML()
+    state = fields.Str(validate=validate.OneOf(DocumentRequest.STATES))
     title = SanitizedHTML(required=True)
     volume = SanitizedHTML()
