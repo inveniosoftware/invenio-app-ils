@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 1.0.0a28 (released 2021-02-16)
+
+- add cookies config for improved security
+- fix data model extensions facets
+- adapt document data model field physical_description
+- fixes for literature request API
+
 Version 1.0.0a27 (released 2021-02-10)
 
 - fix max_result_window config
