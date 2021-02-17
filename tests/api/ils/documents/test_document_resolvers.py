@@ -20,7 +20,10 @@ def test_document_resolvers(app, testdata):
     assert "relations" in document
 
     # circulation
-    assert "active_loans" in document["circulation"]
+    assert "active_loans_count" in document["circulation"]
+    assert "pending_loans_count" in document["circulation"]
+    assert "overdue_loans_count" in document["circulation"]
+    assert "past_loans_count" in document["circulation"]
 
     # item and eitems
     assert document["items"]["total"] == 9 and document["items"]["hits"]

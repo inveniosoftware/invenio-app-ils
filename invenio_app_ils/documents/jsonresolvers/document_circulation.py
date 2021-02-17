@@ -100,19 +100,19 @@ def jsonresolver_loader(url_map):
         )
 
         circulation = {
-            "active_loans": active_loans_count,
+            "active_loans_count": active_loans_count,
             "available_items_for_loan_count": available_items_for_loan_count,
             "can_circulate_items_count": items_count - unavailable_items_count,
             "items_for_reference_count": items_for_reference_count,
             "overbooked": pending_loans_count > available_items_for_loan_count,
-            "overdue_loans": overdue_loans_count,
+            "overdue_loans_count": overdue_loans_count,
             "past_loans_count": past_loans_count,
-            "pending_loans": pending_loans_count,
+            "pending_loans_count": pending_loans_count,
         }
 
         if (
             circulation["overbooked"]
-            or circulation["active_loans"]
+            or circulation["active_loans_count"]
             >= circulation["available_items_for_loan_count"]
         ):
             next_available_loans = (
