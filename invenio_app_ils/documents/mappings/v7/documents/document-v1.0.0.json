@@ -124,7 +124,7 @@
       },
       "circulation": {
         "properties": {
-          "active_loans": {
+          "active_loans_count": {
             "type": "integer"
           },
           "can_circulate_items_count": {
@@ -142,13 +142,13 @@
           "overbooked": {
             "type": "boolean"
           },
-          "overdue_loans": {
+          "overdue_loans_count": {
             "type": "integer"
           },
           "past_loans_count": {
             "type": "integer"
           },
-          "pending_loans": {
+          "pending_loans_count": {
             "type": "integer"
           }
         },

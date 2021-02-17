@@ -751,6 +751,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
             title="Title",
             order=6,
         ),
+        loan_requests=dict(
+            fields=["circulation.pending_loans_count"],
+            title="Loan requests",
+            order=7,
+        ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
         created=dict(fields=["_created"], title="Recently added", order=1),
