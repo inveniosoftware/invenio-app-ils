@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2021 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,11 +10,11 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.documents.api import Document
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import (
     get_field_value_for_record as get_field_value,
 )
-from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default
+from invenio_app_ils.records.jsonresolvers.api import get_pid_or_default, pick
 
 from ..api import DocumentRequest
 
@@ -30,16 +30,17 @@ def jsonresolver_loader(url_map):
     @get_pid_or_default(default_value=dict())
     def get_document(document_pid):
         """Return the Document record."""
+        Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(document_pid)
-        authors = []
-        for author in document.get("authors", []):
-            if "full_name" in author:
-                authors.append(author["full_name"])
-        return {
-            "pid": document.get("pid"),
-            "title": document.get("title", ""),
-            "authors": authors,
-        }
+        return pick(
+            document,
+            "authors",
+            "cover_metadata",
+            "edition",
+            "pid",
+            "publication_year",
+            "title",
+        )
 
     def document_resolver(document_request_pid):
         """Get the Document record for the given DocumentRequest or raise."""

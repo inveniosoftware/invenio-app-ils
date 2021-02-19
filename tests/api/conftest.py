@@ -119,11 +119,6 @@ def testdata(app, db, es_clear, users):
     data = load_json_from_datadir("loans.json")
     loans = _create_records(db, data, Loan, CIRCULATION_LOAN_PID_TYPE)
 
-    data = load_json_from_datadir("document_requests.json")
-    doc_reqs = _create_records(
-        db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
-    )
-
     data = load_json_from_datadir("acq_vendors.json")
     acq_vendors = _create_records(db, data, Vendor, VENDOR_PID_TYPE)
 
@@ -136,6 +131,11 @@ def testdata(app, db, es_clear, users):
     data = load_json_from_datadir("ill_borrowing_requests.json")
     ill_brw_reqs = _create_records(
         db, data, BorrowingRequest, BORROWING_REQUEST_PID_TYPE
+    )
+
+    data = load_json_from_datadir("document_requests.json")
+    doc_reqs = _create_records(
+        db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
     )
 
     # index

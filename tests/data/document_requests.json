@@ -8,8 +8,8 @@
     "request_type": "LOAN",
     "document_pid": "docid-1",
     "physical_item_provider": {
-      "pid": "acq-order-pid",
-      "pid_type": "acquisition"
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
     }
   },
   {
@@ -30,8 +30,8 @@
     "document_pid": "docid-1",
     "title": "Test title 3",
     "physical_item_provider": {
-      "pid": "acq-order-pid",
-      "pid_type": "acquisition"
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
     }
   },
 
@@ -44,8 +44,8 @@
     "document_pid": "docid-2",
     "title": "Test title 4",
     "physical_item_provider": {
-      "pid": "acq-order-pid",
-      "pid_type": "acquisition"
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
     }
   },
   {
@@ -57,8 +57,8 @@
     "request_type": "LOAN",
     "document_pid": "docid-1",
     "physical_item_provider": {
-      "pid": "acq-order-pid",
-      "pid_type": "acquisition"
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
     }
   },
   {
@@ -70,8 +70,8 @@
     "request_type": "LOAN",
     "document_pid": "docid-1",
     "physical_item_provider": {
-      "pid": "acq-order-pid",
-      "pid_type": "acquisition"
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
     }
   }
 ]
