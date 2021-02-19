@@ -19,10 +19,7 @@ from invenio_pidstore.errors import (
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import (
-    ItemDocumentNotFoundError,
-    ItemHasPastLoansError,
-)
+from invenio_app_ils.errors import DocumentNotFoundError, ItemHasPastLoansError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
@@ -51,12 +48,12 @@ class ItemValidator(RecordValidator):
 
     def ensure_document_exists(self, document_pid):
         """Ensure document exists or raise."""
-        from invenio_app_ils.documents.api import Document
+        Document = current_app_ils.document_record_cls
 
         try:
             Document.get_record_by_pid(document_pid)
         except PIDDoesNotExistError:
-            raise ItemDocumentNotFoundError(document_pid)
+            raise DocumentNotFoundError(document_pid)
 
     def ensure_item_can_be_updated(self, record):
         """Raises an exception if the item's status cannot be updated."""

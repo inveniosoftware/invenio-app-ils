@@ -33,9 +33,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "mode"
-      ],
       "type": "object"
     },
     "price": {

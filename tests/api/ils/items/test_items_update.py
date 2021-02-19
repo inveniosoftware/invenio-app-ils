@@ -11,10 +11,7 @@ import pytest
 from elasticsearch import VERSION as ES_VERSION
 
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
-from invenio_app_ils.errors import (
-    ItemDocumentNotFoundError,
-    ItemHasPastLoansError,
-)
+from invenio_app_ils.errors import DocumentNotFoundError, ItemHasPastLoansError
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 
 lt_es7 = ES_VERSION[0] < 7
@@ -46,5 +43,5 @@ def test_update_item(db, testdata):
     # change document to one that does not exist
     item = Item.get_record_by_pid("itemid-1")
     item["document_pid"] = "not_found_doc"
-    with pytest.raises(ItemDocumentNotFoundError):
+    with pytest.raises(DocumentNotFoundError):
         item.commit()
