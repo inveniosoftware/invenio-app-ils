@@ -46,7 +46,7 @@ class PaymentSchema(Schema):
     debit_date = DateString()
     debit_note = fields.Str()
     internal_purchase_requisition_id = fields.Str()
-    mode = fields.Str(required=True)
+    mode = fields.Str()
 
 
 class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
@@ -63,7 +63,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     due_date = DateString()
     expected_delivery_date = DateString()
     legacy_id = fields.Str()
-    library_pid = fields.Str(required=True)  # TODO: validate
+    library_pid = fields.Str(required=True)
     notes = fields.Str()
     patron_pid = fields.Str(required=True)
     payment = fields.Nested(PaymentSchema)

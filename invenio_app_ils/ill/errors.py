@@ -16,3 +16,14 @@ class ILLError(IlsException):
     def __init__(self, description):
         """Initialize exception."""
         super().__init__(description=description)
+
+
+class LibraryNotFoundError(ILLError):
+    """Raised when a library could not be found."""
+
+    description = "Library PID '{}' was not found"
+
+    def __init__(self, library_pid, **kwargs):
+        """Initialize exception."""
+        self.description = self.description.format(library_pid)
+        super().__init__(description=self.description)

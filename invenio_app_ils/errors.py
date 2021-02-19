@@ -202,8 +202,8 @@ class InvalidParameterError(IlsException):
     """Exception raised when an invalid parameter is has been given."""
 
 
-class ItemDocumentNotFoundError(IlsException):
-    """Raised when trying to attach a non-existing document in an item."""
+class DocumentNotFoundError(IlsException):
+    """Raised when a document could not be found."""
 
     description = "Document PID '{}' was not found"
 

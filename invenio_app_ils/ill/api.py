@@ -15,6 +15,7 @@ from flask import current_app
 from flask_login import current_user
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
@@ -23,15 +24,17 @@ from invenio_app_ils.circulation.api import (
     circulation_default_loan_duration_for_item,
 )
 from invenio_app_ils.errors import (
+    DocumentNotFoundError,
+    PatronNotFoundError,
     RecordHasReferencesError,
     UnknownItemPidTypeError,
 )
 from invenio_app_ils.fetchers import pid_fetcher
-from invenio_app_ils.ill.errors import ILLError
+from invenio_app_ils.ill.errors import ILLError, LibraryNotFoundError
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
-from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.records.api import IlsRecord, RecordValidator
 
 LIBRARY_PID_TYPE = "illlid"
 LIBRARY_PID_MINTER = "illlid"
@@ -88,11 +91,66 @@ borrowing_request_pid_fetcher = partial(
 )
 
 
+class IllValidator(RecordValidator):
+    """Ill record validator."""
+
+    def validate_cancel(self, status, cancel_reason):
+        """Validate decline is correct."""
+        if status == "CANCELLED" and not cancel_reason:
+            raise ILLError(
+                "You have to provide a cancel reason when cancelling a request"
+            )
+        if cancel_reason and not status == "CANCELLED":
+            raise ILLError(
+                "If you select a cancel reason you need to select"
+                " \"Cancelled\" in the state"
+            )
+
+    def ensure_document_exists(self, document_pid):
+        """Ensure document exists or raise."""
+        Document = current_app_ils.document_record_cls
+        try:
+            Document.get_record_by_pid(document_pid)
+        except PIDDoesNotExistError:
+            raise DocumentNotFoundError(document_pid)
+
+    def ensure_patron_exists(self, patron_pid):
+        """Ensure patron exists or raise."""
+        try:
+            current_app_ils.patron_cls.get_patron(patron_pid)
+        except PatronNotFoundError:
+            raise PatronNotFoundError(patron_pid)
+
+    def ensure_library_exists(self, library_pid):
+        """Ensure library exists or raise."""
+        Library = current_ils_ill.library_record_cls
+        try:
+            Library.get_record_by_pid(library_pid)
+        except PIDDoesNotExistError:
+            raise LibraryNotFoundError(library_pid)
+
+    def validate(self, record, **kwargs):
+        """Validate record before create and commit."""
+        super().validate(record, **kwargs)
+
+        status = record["status"]
+        cancel_reason = record.get("cancel_reason", None)
+        document_pid = record["document_pid"]
+        library_pid = record["library_pid"]
+        patron_pid = record["patron_pid"]
+
+        self.validate_cancel(status, cancel_reason)
+        self.ensure_document_exists(document_pid)
+        self.ensure_library_exists(library_pid)
+        self.ensure_patron_exists(patron_pid)
+
+
 class BorrowingRequest(IlsRecord):
     """ILL borrowing request class."""
 
     _pid_type = BORROWING_REQUEST_PID_TYPE
     _schema = "ill_borrowing_requests/borrowing_request-v1.0.0.json"
+    _validator = IllValidator()
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/ill/"
         "borrowing-requests/{brw_req_pid}/document"

@@ -69,6 +69,8 @@ def test_brwreq_create_loan_fails_on_wrong_status(
     def _update_brwreq_with_new_status(pid, status):
         rec = BorrowingRequest.get_record_by_pid(pid)
         rec["status"] = status
+        if status == "CANCELLED":
+            rec["cancel_reason"] = "OTHER"
         rec.commit()
         db.session.commit()
 

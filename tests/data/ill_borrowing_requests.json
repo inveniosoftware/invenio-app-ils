@@ -37,6 +37,7 @@
     "patron_pid": "2",
     "pid": "illbid-5",
     "status": "CANCELLED",
+    "cancel_reason": "USER_CANCEL",
     "type": "ELECTRONIC"
   },
   {
