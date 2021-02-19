@@ -14,10 +14,14 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.document_requests.search import DocumentRequestSearch
+from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
+from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.errors import DocumentRequestError
 from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
+from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
 
 DOCUMENT_REQUEST_PID_TYPE = "dreqid"
@@ -47,24 +51,48 @@ class DocumentRequestValidator(RecordValidator):
         if state not in valid_states:
             raise DocumentRequestError("Invalid state: {}".format(state))
 
-    def validate_document_pid(self, document_pid, state):
-        """Validate data for accepted state."""
-        # Requests must have a document and a provider (ILL, ACQ)
+    def validate_document_pid(self, document_pid):
+        """Validate document existence."""
         if document_pid:
             try:
-                search = DocumentRequestSearch()
-                search.search_by_document_pid(document_pid)
+                Document = current_app_ils.document_record_cls
+                Document.get_record_by_pid(document_pid)
             except PIDDoesNotExistError:
-                # Missing document_pid
                 raise DocumentRequestError(
-                    "State cannot be ACCEPTED because a document with "
-                    "PID {} doesn't exist".format(document_pid)
+                    "The document with PID {} doesn't exist".format(
+                        document_pid
+                    )
                 )
 
-        if state == "ACCEPTED" and not document_pid:
-            raise DocumentRequestError(
-                "State cannot be ACCEPTED without a document"
-            )
+    def validate_physical_item_provider(self, physical_item_provider):
+        """Validate physical_item_provider existence."""
+        if physical_item_provider:
+
+            pid = physical_item_provider.get("pid", None)
+            pid_type = physical_item_provider.get("pid_type", None)
+            if not pid or not pid_type:
+                raise DocumentRequestError(
+                    "The physical item provider must have both pid_type and "
+                    "pid fields."
+                )
+
+            if pid_type == ORDER_PID_TYPE:
+                Provider = current_ils_acq.order_record_cls
+            elif pid_type == BORROWING_REQUEST_PID_TYPE:
+                Provider = current_ils_ill.borrowing_request_record_cls
+            else:
+                raise DocumentRequestError(
+                    "Unknown pid_type {}".format(pid_type)
+                )
+
+            try:
+                Provider.get_record_by_pid(pid)
+            except PIDDoesNotExistError:
+                raise DocumentRequestError(
+                    "Record with PID {0}:{1} doesn't exist".format(
+                        pid_type, pid
+                    )
+                )
 
     def validate_decline(self, document_pid, state, decline_reason):
         """Validate decline is correct."""
@@ -105,7 +133,8 @@ class DocumentRequestValidator(RecordValidator):
         physical_item_provider = record.get("physical_item_provider", None)
 
         self.validate_state(state, valid_states)
-        self.validate_document_pid(document_pid, state)
+        self.validate_document_pid(document_pid)
+        self.validate_physical_item_provider(physical_item_provider)
         self.validate_decline(document_pid, state, decline_reason)
         self.validate_accept(document_pid, physical_item_provider, state)
 

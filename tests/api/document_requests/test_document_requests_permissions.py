@@ -100,8 +100,8 @@ def test_document_request_add_provider(client, json_headers, testdata, users):
         )
         data = {
             "physical_item_provider": {
-                "pid": "acquisition-order-pid",
-                "pid_type": "acquisition",
+                "pid": "acqoid-1",
+                "pid_type": "acqoid",
             }
         }
         validate_response(

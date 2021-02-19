@@ -19,17 +19,95 @@
         "document": {
           "properties": {
             "authors": {
+              "properties": {
+                "affiliations": {
+                  "properties": {
+                    "identifiers": {
+                      "properties": {
+                        "scheme": {
+                          "type": "keyword"
+                        },
+                        "value": {
+                          "type": "keyword"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  },
+                  "type": "object"
+                },
+                "alternative_names": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "full_name": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "identifiers": {
+                  "properties": {
+                    "material": {
+                      "type": "keyword"
+                    },
+                    "scheme": {
+                      "type": "keyword"
+                    },
+                    "value": {
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "object"
+                },
+                "roles": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "cover_metadata": {
+              "properties": {},
+              "type": "object"
+            },
+            "edition": {
               "type": "text"
             },
             "pid": {
               "type": "keyword"
             },
+            "publication_year": {
+              "type": "keyword"
+            },
             "title": {
-              "type": "text"
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
             }
           },
           "type": "object"
         },
+
         "document_pid": {
           "type": "keyword"
         },
