@@ -773,6 +773,9 @@
           },
           "value": {
             "type": "keyword"
+          },
+          "meta": {
+            "type": "text"
           }
         },
         "type": "object"
