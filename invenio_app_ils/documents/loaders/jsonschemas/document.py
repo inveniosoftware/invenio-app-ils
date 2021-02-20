@@ -72,6 +72,7 @@ class UrlSchema(Schema):
 
     description = fields.Str()
     value = fields.URL(required=True)
+    meta = fields.Str()
 
 
 class AlternativeTitleSchema(Schema):

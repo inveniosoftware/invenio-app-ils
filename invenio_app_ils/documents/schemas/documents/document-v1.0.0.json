@@ -719,6 +719,10 @@
             "format": "uri",
             "minLength": 1,
             "type": "string"
+          },
+          "meta": {
+            "type": "string",
+            "description": "System information about the url."
           }
         },
         "required": ["value"],
