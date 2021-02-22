@@ -372,7 +372,7 @@ class EItemGenerator(Generator):
 class DocumentGenerator(Generator):
     """Document Generator."""
 
-    PERIODICAL_ISSUE = "PERIODICAL_ISSUE"
+    SERIAL_ISSUE = "SERIAL_ISSUE"
     AUTHORS = [
         {"full_name": "Close, Frank"},
         {"full_name": "CERN", "type": "ORGANISATION"},
@@ -553,7 +553,7 @@ class DocumentGenerator(Generator):
             objs.append(
                 self.generate_document(
                     index,
-                    document_type=self.PERIODICAL_ISSUE,
+                    document_type=self.SERIAL_ISSUE,
                     title="Volume {} Issue {}".format(volume, issue),
                     publication_year=str(publication_year),
                 )
@@ -851,7 +851,7 @@ class RecordRelationsGenerator(Generator):
             docs = [
                 doc
                 for doc in documents
-                if doc["document_type"] != "PERIODICAL_ISSUE"
+                if doc["document_type"] != "SERIAL_ISSUE"
             ]
             return random.sample(docs, randint(1, min(5, len(docs))))
 
@@ -862,7 +862,7 @@ class RecordRelationsGenerator(Generator):
 
         serial_children = []
         for document in documents:
-            if document["document_type"] == "PERIODICAL_ISSUE":
+            if document["document_type"] == "SERIAL_ISSUE":
                 serial_children.append(document)
 
         objs.append(serial_parent)

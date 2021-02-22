@@ -41,7 +41,8 @@ class Document(IlsRecordWithRelations):
         "BOOK",
         "PROCEEDING",
         "STANDARD",
-        "PERIODICAL_ISSUE",
+        "SERIAL_ISSUE",
+        "ARTICLE"
     ]
 
     _pid_type = DOCUMENT_PID_TYPE
