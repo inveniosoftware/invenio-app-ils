@@ -18,7 +18,7 @@ from invenio_app_ils.search_permissions import (
 def search_factory_literature(self, search):
     """Search factory for literature (series and documents)."""
 
-    def filter_periodical_issues(search, query_string=None):
+    def filter_serial_issues(search, query_string=None):
         """Filter periodical issues unless include_all is specified."""
         from distutils.util import strtobool
 
@@ -29,7 +29,7 @@ def search_factory_literature(self, search):
             include_all = "yes"
 
         if not strtobool(include_all):
-            issue_query_string = "NOT document_type:PERIODICAL_ISSUE"
+            issue_query_string = "NOT document_type:SERIAL_ISSUE"
             if query_string:
                 query_string = "{} AND {}".format(
                     query_string, issue_query_string
@@ -38,7 +38,7 @@ def search_factory_literature(self, search):
                 query_string = issue_query_string
         return search, query_string
 
-    return ils_search_factory(self, search, filter_periodical_issues)
+    return ils_search_factory(self, search, filter_serial_issues)
 
 
 class LiteratureSearch(RecordsSearch):
