@@ -9,7 +9,7 @@ your loan request for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_r
 {% endblock %}
 
 {% block body_html %}
-Dear {{ patron.name }},
+Dear {{ patron.name }},<br/><br/>
 
-your loan request for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been registered.
+your loan request for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been <b>registered</b>.<br/>
 {% endblock %}
