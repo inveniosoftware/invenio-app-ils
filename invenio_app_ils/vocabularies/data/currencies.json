@@ -2,16 +2,16 @@
   {
     "key": "CHF",
     "type": "currencies",
-    "text": "Swiss Franc"
+    "text": "CHF"
   },
   {
     "key": "EUR",
     "type": "currencies",
-    "text": "Euro"
+    "text": "EUR"
   },
   {
     "key": "USD",
     "type": "currencies",
-    "text": "US Dollar"
+    "text": "USD"
   }
 ]
