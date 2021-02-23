@@ -10,6 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
+from invenio_app_ils.documents.utils import flatten_authors
 from invenio_app_ils.items.api import Item
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import (
@@ -31,7 +32,7 @@ def jsonresolver_loader(url_map):
         """Return the Document record."""
         Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(document_pid)
-        return pick(
+        obj = pick(
             document,
             "authors",
             "cover_metadata",
@@ -40,6 +41,8 @@ def jsonresolver_loader(url_map):
             "publication_year",
             "title",
         )
+        obj["authors"] = flatten_authors(obj["authors"])
+        return obj
 
     def document_resolver(item_pid):
         """Return the Document record for the given Item or raise."""

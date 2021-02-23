@@ -282,8 +282,6 @@ def circulation_default_loan_duration_for_item(item):
         return timedelta(weeks=2)
     elif value == "THREE_WEEKS":
         return timedelta(weeks=3)
-    elif value == "FOUR_WEEKS":
-        return timedelta(weeks=4)
     else:
         # default: NO_RESTRICTION
         return timedelta(weeks=4)

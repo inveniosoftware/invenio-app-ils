@@ -39,6 +39,9 @@
         },
         "document": {
           "properties": {
+            "authors": {
+              "type": "text"
+            },
             "cover_metadata": {
               "properties": {},
               "type": "object"

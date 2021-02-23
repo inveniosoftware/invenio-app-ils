@@ -123,7 +123,6 @@ class Item(IlsRecord):
         "ONE_WEEK",
         "TWO_WEEKS",
         "THREE_WEEKS",
-        "FOUR_WEEKS",
     ]
 
     @classmethod

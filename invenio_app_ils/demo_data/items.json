@@ -10,7 +10,7 @@
     "barcode": "CM-B00065507",
     "legacy_id": "2706047",
     "legacy_library_id": "6",
-    "circulation_restriction": "FOUR_WEEKS"
+    "circulation_restriction": "TWO_WEEKS"
   },
   {
     "created_by": {
@@ -23,7 +23,7 @@
     "barcode": "CM-B00065300",
     "legacy_id": "2705205",
     "legacy_library_id": "6",
-    "circulation_restriction": "FOUR_WEEKS"
+    "circulation_restriction": "TWO_WEEKS"
   },
   {
     "created_by": {
@@ -36,7 +36,7 @@
     "barcode": "CM-B00065527",
     "legacy_id": "2704388",
     "legacy_library_id": "6",
-    "circulation_restriction": "FOUR_WEEKS"
+    "circulation_restriction": "TWO_WEEKS"
   },
   {
     "created_by": {
@@ -49,7 +49,7 @@
     "barcode": "CM-B00064755",
     "legacy_id": "2703680",
     "legacy_library_id": "6",
-    "circulation_restriction": "FOUR_WEEKS"
+    "circulation_restriction": "TWO_WEEKS"
   },
   {
     "created_by": {
@@ -62,7 +62,7 @@
     "barcode": "CM-B00065289",
     "legacy_id": "2702176",
     "legacy_library_id": "6",
-    "circulation_restriction": "FOUR_WEEKS"
+    "circulation_restriction": "TWO_WEEKS"
   },
   {
     "created_by": {
