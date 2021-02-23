@@ -198,6 +198,9 @@
             },
             "document": {
               "properties": {
+                "authors": {
+                  "type": "text"
+                },
                 "cover_metadata": {
                   "properties": {},
                   "type": "object"
@@ -208,8 +211,16 @@
                 "pid": {
                   "type": "keyword"
                 },
+                "publication_year": {
+                  "type": "keyword"
+                },
                 "title": {
-                  "type": "text"
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               },
               "type": "object"

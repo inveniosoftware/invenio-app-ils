@@ -10,14 +10,24 @@
 from functools import partial
 
 from flask import current_app
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.acquisition.errors import (
+    AcquisitionError,
+    VendorNotFoundError,
+)
 from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.errors import (
+    DocumentNotFoundError,
+    PatronNotFoundError,
+    RecordHasReferencesError,
+)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
-from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.records.api import IlsRecord, RecordValidator
 
 VENDOR_PID_TYPE = "acqvid"
 VENDOR_PID_MINTER = "acqvid"
@@ -67,6 +77,67 @@ order_pid_minter = partial(pid_minter, provider_cls=OrderIdProvider)
 order_pid_fetcher = partial(pid_fetcher, provider_cls=OrderIdProvider)
 
 
+class OrderValidator(RecordValidator):
+    """Order record validator."""
+
+    def validate_cancel(self, status, cancel_reason):
+        """Validate decline is correct."""
+        if status == "CANCELLED" and not cancel_reason:
+            raise AcquisitionError(
+                "You have to provide a cancel reason when cancelling the order"
+            )
+        if cancel_reason and not status == "CANCELLED":
+            raise AcquisitionError(
+                "If you select a cancel reason you need to select"
+                " \"Cancelled\" in the state"
+            )
+
+    def ensure_vendor_exists(self, vendor_pid):
+        """Ensure vendor exists or raise."""
+        Vendor = current_ils_acq.vendor_record_cls
+        try:
+            Vendor.get_record_by_pid(vendor_pid)
+        except PIDDoesNotExistError:
+            raise VendorNotFoundError(vendor_pid)
+
+    def ensure_document_exists(self, document_pid):
+        """Ensure document exists or raise."""
+        Document = current_app_ils.document_record_cls
+        try:
+            Document.get_record_by_pid(document_pid)
+        except PIDDoesNotExistError:
+            raise DocumentNotFoundError(document_pid)
+
+    def ensure_patron_exists(self, patron_pid):
+        """Ensure patron exists or raise."""
+        try:
+            current_app_ils.patron_cls.get_patron(patron_pid)
+        except PatronNotFoundError:
+            raise PatronNotFoundError(patron_pid)
+
+    def validate_order_line(self, order_line):
+        """Validate document and patron of the given order line."""
+        document_pid = order_line["document_pid"]
+        self.ensure_document_exists(document_pid)
+        patron_pid = order_line.get("patron_pid")
+        if patron_pid:
+            self.ensure_patron_exists(patron_pid)
+
+    def validate(self, record, **kwargs):
+        """Validate record before create and commit."""
+        super().validate(record, **kwargs)
+
+        status = record["status"]
+        cancel_reason = record.get("cancel_reason")
+        vendor_pid = record["vendor_pid"]
+        order_lines = record["order_lines"]
+
+        self.validate_cancel(status, cancel_reason)
+        self.ensure_vendor_exists(vendor_pid)
+        for order_line in order_lines:
+            self.validate_order_line(order_line)
+
+
 class Order(IlsRecord):
     """Acquisition order class."""
 
@@ -76,6 +147,7 @@ class Order(IlsRecord):
         "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
     )
     _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"  # noqa
+    _validator = OrderValidator()
 
     STATUSES = ["PENDING", "ORDERED", "RECEIVED", "CANCELLED"]
 

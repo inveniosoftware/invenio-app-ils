@@ -11,6 +11,7 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
+from invenio_app_ils.documents.utils import flatten_authors
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import (
@@ -26,7 +27,18 @@ def jsonresolver_loader(url_map):
 
     def document_resolver(order_line, doc):
         """Resolve the Document for the given Order Line."""
-        order_line["document"] = pick(doc, "cover_metadata", "pid", "title")
+        order_line["document"] = pick(
+            doc,
+            "authors",
+            "cover_metadata",
+            "edition",
+            "pid",
+            "publication_year",
+            "title",
+        )
+        order_line["document"]["authors"] = flatten_authors(
+            order_line["document"]["authors"]
+        )
         return doc
 
     def order_lines_resolver(order_pid):
