@@ -30,13 +30,13 @@ class OrderLineSchema(Schema):
     budget_code = fields.Str()
     copies_ordered = fields.Int(required=True)
     copies_received = fields.Int()
-    document_pid = fields.Str(required=True)  # TODO: validate
+    document_pid = fields.Str(required=True)
     inter_departmental_transaction_id = fields.Str()
     is_donation = fields.Bool()
     is_patron_suggestion = fields.Bool()
     medium = fields.Str(required=True)
     notes = fields.Str()
-    patron_pid = fields.Str()  # TODO: validate
+    patron_pid = fields.Str()
     payment_mode = fields.Str()
     purchase_type = fields.Str()
     recipient = fields.Str(required=True)
@@ -57,7 +57,7 @@ class PaymentSchema(Schema):
     debit_date = DateString()
     debit_note = fields.Str()
     internal_purchase_requisition_id = fields.Str()
-    mode = fields.Str(required=True)
+    mode = fields.Str()
 
 
 class OrderSchemaV1(RecordMetadataSchemaJSONV1):
@@ -82,7 +82,7 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     received_date = DateString()
     status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
     updated_by = fields.Nested(ChangedBySchema)
-    vendor_pid = fields.Str(required=True)  # TODO: validate
+    vendor_pid = fields.Str(required=True)
 
     @pre_load
     def set_changed_by(self, data, **kwargs):

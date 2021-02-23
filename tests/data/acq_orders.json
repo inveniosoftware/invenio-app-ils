@@ -68,6 +68,22 @@
     ],
     "pid": "acqoid-5",
     "status": "CANCELLED",
+    "cancel_reason": "A reason",
+    "vendor_pid": "acqvid-2"
+  },
+  {
+    "order_date": "2020-01-29",
+    "order_lines": [
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-1",
+        "medium": "hardcover",
+        "recipient": "patron",
+        "patron_pid": "1"
+      }
+    ],
+    "pid": "acqoid-6",
+    "status": "ORDERED",
     "vendor_pid": "acqvid-2"
   }
 ]

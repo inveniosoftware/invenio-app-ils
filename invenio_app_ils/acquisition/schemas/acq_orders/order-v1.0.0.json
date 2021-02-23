@@ -36,7 +36,7 @@
           "type": "string"
         },
         "notes": {
-          "title": "The notes of Acquisition order",
+          "title": "Order line notes",
           "type": "string"
         },
         "patron_pid": {
@@ -100,9 +100,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "mode"
-      ],
       "type": "object"
     },
     "price": {

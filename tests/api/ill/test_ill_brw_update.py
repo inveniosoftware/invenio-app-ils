@@ -41,7 +41,7 @@ def test_update_ill_brw(db, testdata):
     borrowing_request = BorrowingRequest.get_record_by_pid(
         borrowing_request_pid
     )
-    borrowing_request["patron_pid"] = "-10"
+    borrowing_request["patron_pid"] = "9999"
     with pytest.raises(PatronNotFoundError):
         borrowing_request.commit()
 
