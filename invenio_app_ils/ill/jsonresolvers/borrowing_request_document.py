@@ -10,6 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
+from invenio_app_ils.documents.utils import flatten_authors
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import (
     get_field_value_for_record as get_field_value,
@@ -32,14 +33,17 @@ def jsonresolver_loader(url_map):
         """Return the Document record."""
         Document = current_app_ils.document_record_cls
         document = Document.get_record_by_pid(document_pid)
-        return pick(
+        obj = pick(
             document,
+            "authors",
             "cover_metadata",
             "edition",
             "pid",
             "publication_year",
             "title",
         )
+        obj["authors"] = flatten_authors(obj["authors"])
+        return obj
 
     def borrowing_request_resolver(request_pid):
         """Return the Document record for the given Brw Request or raise."""

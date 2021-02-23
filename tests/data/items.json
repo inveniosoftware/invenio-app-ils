@@ -49,7 +49,7 @@
     "barcode": "123456789-5",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
-    "circulation_restriction": "FOUR_WEEKS",
+    "circulation_restriction": "ONE_WEEK",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}

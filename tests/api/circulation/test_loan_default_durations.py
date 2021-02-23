@@ -24,9 +24,6 @@ FAKE_LOAN_ITEM_TWO_WEEKS = {
 FAKE_LOAN_ITEM_THREE_WEEKS = {
     "item_pid": {"type": "pitmid", "value": "itemid-4"}
 }
-FAKE_LOAN_ITEM_FOUR_WEEKS = {
-    "item_pid": {"type": "pitmid", "value": "itemid-5"}
-}
 
 
 def test_loans_default_durations(testdata):
@@ -46,7 +43,4 @@ def test_loans_default_durations(testdata):
         )
         assert duration_func(FAKE_LOAN_ITEM_THREE_WEEKS, None) == timedelta(
             weeks=3
-        )
-        assert duration_func(FAKE_LOAN_ITEM_FOUR_WEEKS, None) == timedelta(
-            weeks=4
         )

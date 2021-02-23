@@ -11,6 +11,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_pidstore.errors import PIDDeletedError
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
+from invenio_app_ils.documents.utils import flatten_authors
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import (
@@ -85,5 +86,6 @@ def document_resolver(loan_pid):
             "publication_year",
             "title",
         )
+        obj["authors"] = flatten_authors(obj["authors"])
 
     return obj
