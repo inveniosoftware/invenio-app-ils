@@ -1,0 +1,62 @@
+[
+  {
+    "key": "PAPERBACK",
+    "type": "doc_identifiers_materials",
+    "text": "Print version, paperback"
+  },
+  {
+    "key": "HARDBACK",
+    "type": "doc_identifiers_materials",
+    "text": "Print version, hardback"
+  },
+  {
+    "key": "ELECTRONIC",
+    "type": "doc_identifiers_materials",
+    "text": "Electronic version"
+  },
+  {
+    "key": "PRINT_VERSION",
+    "type": "doc_identifiers_materials",
+    "text": "Print version"
+  },
+  {
+    "key": "REPRINT_HARDBACK",
+    "type": "doc_identifiers_materials",
+    "text": "Print version, hardback (reprint)"
+  },
+  {
+    "key": "REPRINT_PAPERBACK",
+    "type": "doc_identifiers_materials",
+    "text": "Print version, paperback (reprint)"
+  },
+  {
+    "key": "AUDIO_CD",
+    "type": "doc_identifiers_materials",
+    "text": "Audio CD"
+  },
+  {
+    "key": "AUDIOBOOK",
+    "type": "doc_identifiers_materials",
+    "text": "Audiobook"
+  },
+  {
+    "key": "CD_ROM",
+    "type": "doc_identifiers_materials",
+    "text": "CD-ROM"
+  },
+  {
+    "key": "DISKETTE",
+    "type": "doc_identifiers_materials",
+    "text": "Diskette"
+  },
+  {
+    "key": "DVD",
+    "type": "doc_identifiers_materials",
+    "text": "DVD"
+  },
+  {
+    "key": "VHS",
+    "type": "doc_identifiers_materials",
+    "text": "VHS"
+  }
+]
