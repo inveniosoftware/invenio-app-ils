@@ -1,0 +1,22 @@
+[
+  {
+    "key": "LOC",
+    "type": "doc_subjects",
+    "text": "Loc"
+  },
+  {
+    "key": "UDC",
+    "type": "doc_subjects",
+    "text": "UDC"
+  },
+  {
+    "key": "DEWEY",
+    "type": "doc_subjects",
+    "text": "Dewey"
+  },
+  {
+    "key": "ICS",
+    "type": "doc_subjects",
+    "text": "ICS"
+  }
+]
