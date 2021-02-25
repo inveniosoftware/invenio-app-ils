@@ -213,6 +213,17 @@ class DocumentNotFoundError(IlsException):
         self.description = self.description.format(document_pid)
 
 
+class InternalLocationNotFoundError(IlsException):
+    """Raised when an internal location could not be found."""
+
+    description = "Internal Location PID '{}' was not found"
+
+    def __init__(self, internal_location_pid, **kwargs):
+        """Initialize exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(internal_location_pid)
+
+
 class UnknownItemPidTypeError(IlsException):
     """Raised when the given item PID type is unknown."""
 

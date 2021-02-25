@@ -59,7 +59,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     bucket_id = fields.Str()
     created_by = fields.Nested(ChangedBySchema)
     description = fields.Str()
-    document_pid = fields.Str(required=True)  # TODO: validate
+    document_pid = fields.Str(required=True)
     files = fields.List(fields.Nested(FileSchema))
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     internal_notes = fields.Str()

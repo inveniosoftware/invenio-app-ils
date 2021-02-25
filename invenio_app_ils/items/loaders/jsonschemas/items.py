@@ -45,8 +45,8 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
         required=True, validate=validate.OneOf(Item.CIRCULATION_RESTRICTIONS)
     )
     description = fields.Str()
-    document_pid = fields.Str(required=True)  # TODO: validate
-    internal_location_pid = fields.Str(required=True)  # TODO: validate
+    document_pid = fields.Str(required=True)
+    internal_location_pid = fields.Str(required=True)
     internal_notes = fields.Str()
     isbns = fields.List(fields.Nested(ISBNSchema))
     legacy_id = fields.Str()

@@ -11,12 +11,15 @@ from functools import partial
 
 from flask import current_app
 from invenio_files_rest.models import ObjectVersion
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.errors import DocumentNotFoundError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
-from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.records.api import IlsRecord, RecordValidator
 
 EITEM_PID_TYPE = "eitmid"
 EITEM_PID_MINTER = "eitmid"
@@ -31,6 +34,26 @@ eitem_pid_minter = partial(pid_minter, provider_cls=EItemIdProvider)
 eitem_pid_fetcher = partial(pid_fetcher, provider_cls=EItemIdProvider)
 
 
+class EItemValidator(RecordValidator):
+    """EItem record validator."""
+
+    def ensure_document_exists(self, document_pid):
+        """Ensure document exists or raise."""
+        Document = current_app_ils.document_record_cls
+        try:
+            Document.get_record_by_pid(document_pid)
+        except PIDDoesNotExistError:
+            raise DocumentNotFoundError(document_pid)
+
+    def validate(self, record, **kwargs):
+        """Validate record before create and commit."""
+        super().validate(record, **kwargs)
+
+        document_pid = record["document_pid"]
+
+        self.ensure_document_exists(document_pid)
+
+
 class EItem(IlsRecord):
     """EItem record class."""
 
@@ -42,6 +65,7 @@ class EItem(IlsRecord):
     _files_resolver_path = (
         "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/files"
     )
+    _validator = EItemValidator()
 
     @classmethod
     def get_document_pid(cls, eitem_pid):
