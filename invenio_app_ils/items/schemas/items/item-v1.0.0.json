@@ -5,13 +5,11 @@
   "required": [
     "$schema",
     "created_by",
-    "internal_location",
     "internal_location_pid",
     "barcode",
     "status",
     "pid",
     "document_pid",
-    "document",
     "circulation_restriction",
     "medium"
   ],

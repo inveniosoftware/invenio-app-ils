@@ -9,7 +9,6 @@
 
 from functools import partial
 
-from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from invenio_pidstore.errors import (
@@ -19,7 +18,11 @@ from invenio_pidstore.errors import (
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import DocumentNotFoundError, ItemHasPastLoansError
+from invenio_app_ils.errors import (
+    DocumentNotFoundError,
+    InternalLocationNotFoundError,
+    ItemHasPastLoansError,
+)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
@@ -27,8 +30,6 @@ from invenio_app_ils.records.api import IlsRecord, RecordValidator
 from ..circulation.utils import resolve_item_from_loan
 from ..errors import RecordHasReferencesError
 from ..proxies import current_app_ils
-
-lt_es7 = ES_VERSION[0] < 7
 
 ITEM_PID_TYPE = "pitmid"
 ITEM_PID_MINTER = "pitmid"
@@ -55,28 +56,38 @@ class ItemValidator(RecordValidator):
         except PIDDoesNotExistError:
             raise DocumentNotFoundError(document_pid)
 
+    def ensure_internal_location_exists(self, internal_location_pid):
+        """Ensure internal location exists or raise."""
+        InternalLocation = current_app_ils.internal_location_record_cls
+
+        try:
+            InternalLocation.get_record_by_pid(internal_location_pid)
+        except PIDDoesNotExistError:
+            raise InternalLocationNotFoundError(internal_location_pid)
+
     def ensure_item_can_be_updated(self, record):
         """Raises an exception if the item's status cannot be updated."""
-        latest_version = record.revisions[-1]
         document_changed = False
-        if latest_version:
-            latest_version_document_pid = latest_version.get(
-                "document_pid", None
-            )
-            document_changed = latest_version_document_pid != record.get(
-                "document_pid", None
+        has_previous_version = len(record.revisions) > 0
+        if has_previous_version:
+            latest_version = record.revisions[-1]
+            latest_version_document_pid = latest_version["document_pid"]
+            current_version_document_pid = record["document_pid"]
+            document_changed = (
+                latest_version_document_pid != current_version_document_pid
             )
         if document_changed:
             pid = record["pid"]
             item_pid = dict(value=pid, type=ITEM_PID_TYPE)
-            if search_by_pid(
+            has_loans = search_by_pid(
                 item_pid=item_pid,
                 filter_states=current_app.config[
                     "CIRCULATION_STATES_LOAN_ACTIVE"
                 ]
                 + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
                 + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
-            ).count():
+            ).count() > 0
+            if has_loans:
                 raise ItemHasPastLoansError(
                     "Not possible to update the document field if "
                     "the item already has past or active loans."
@@ -86,11 +97,13 @@ class ItemValidator(RecordValidator):
         """Validate record before create and commit."""
         super().validate(record, **kwargs)
 
-        document_pid = record.get("document_pid", None)
-        if document_pid:
-            self.ensure_document_exists(document_pid)
+        document_pid = record["document_pid"]
+        self.ensure_document_exists(document_pid)
         if record.created:
             self.ensure_item_can_be_updated(record)
+
+        internal_location_pid = record["internal_location_pid"]
+        self.ensure_internal_location_exists(internal_location_pid)
 
 
 class Item(IlsRecord):

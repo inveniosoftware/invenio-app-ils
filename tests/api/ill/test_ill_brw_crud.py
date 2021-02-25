@@ -5,19 +5,40 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test record delete."""
+"""Test record CRUD."""
 
 import pytest
-from elasticsearch import VERSION as ES_VERSION
 
 from invenio_app_ils.errors import DocumentNotFoundError, PatronNotFoundError
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.ill.errors import ILLError, LibraryNotFoundError
 
-lt_es7 = ES_VERSION[0] < 7
+
+def test_brw_req_refs(app, testdata):
+    """Test creation of a borrowing request."""
+    brw_req = BorrowingRequest.create(
+        dict(
+            pid="illlid-99",
+            document_pid="docid-1",
+            patron_pid="1",
+            library_pid="illlid-1",
+            status="PENDING",
+            type="PHYSICAL_COPY",
+        )
+    )
+    assert "$schema" in brw_req
+    assert "library" in brw_req and "$ref" in brw_req["library"]
+    assert "document" in brw_req and "$ref" in brw_req["document"]
+    assert "patron" in brw_req and "$ref" in brw_req["patron"]
+
+    brw_req = BorrowingRequest.get_record_by_pid("illbid-1")
+    brw_req = brw_req.replace_refs()
+    assert "library" in brw_req and brw_req["library"]["name"]
+    assert "document" in brw_req and brw_req["document"]["title"]
+    assert "patron" in brw_req and brw_req["patron"]["name"]
 
 
-def test_update_ill_brw(db, testdata):
+def test_ill_brw_validation(db, testdata):
     """Test validation when updating a borrowing request."""
     borrowing_request_pid = testdata["ill_brw_reqs"][0]["pid"]
 

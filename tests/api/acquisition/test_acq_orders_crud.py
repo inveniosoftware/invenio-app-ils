@@ -11,7 +11,6 @@ from copy import deepcopy
 from datetime import datetime
 
 import pytest
-from elasticsearch import VERSION as ES_VERSION
 
 from invenio_app_ils.acquisition.api import Order
 from invenio_app_ils.acquisition.errors import (
@@ -19,8 +18,6 @@ from invenio_app_ils.acquisition.errors import (
     VendorNotFoundError,
 )
 from invenio_app_ils.errors import DocumentNotFoundError, PatronNotFoundError
-
-lt_es7 = ES_VERSION[0] < 7
 
 
 def _assert_extra_fields(order):
