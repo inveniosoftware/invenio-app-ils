@@ -7,10 +7,6 @@
     "$schema": {
       "type": "string"
     },
-    "abbreviated_title": {
-      "type": "string",
-      "description": "Abbreviated series title"
-    },
     "abstract": {
       "type": "string",
       "description": ""
@@ -66,10 +62,6 @@
             "value": {
               "minLength": 1,
               "type": "string"
-            },
-            "source": {
-              "type": "string",
-              "title": "Source of the alternative title."
             },
             "type": {
               "type": "string",

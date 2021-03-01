@@ -12,9 +12,6 @@
       "_updated": {
         "type": "date"
       },
-      "abbreviated_title": {
-        "type": "text"
-      },
       "abstract": {
         "type": "text"
       },
