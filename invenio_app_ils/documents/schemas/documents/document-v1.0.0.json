@@ -496,6 +496,10 @@
       "title": "Document ID",
       "type": "string"
     },
+    "physical_description": {
+      "title": "Physical description of a document",
+      "type": "string"
+    },
     "publication_info": {
       "items": {
         "additionalProperties": false,
@@ -732,10 +736,6 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
-    },
-    "physical_description": {
-      "title": "Physical description of a document",
-      "type": "string"
     }
   }
 }

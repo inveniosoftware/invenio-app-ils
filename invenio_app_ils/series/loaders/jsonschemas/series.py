@@ -50,7 +50,6 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
-    abbreviated_title = fields.Str()
     abstract = fields.Str()
     access_urls = fields.Nested(AccessUrlSchema, many=True)
     alternative_titles = fields.Nested(AlternativeTitleSchema, many=True)

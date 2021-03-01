@@ -489,6 +489,22 @@ class DocumentGenerator(Generator):
         "978-1-60309-440-5",
     ]
 
+    LICENSE = {
+        "license":
+            {
+                "id": "license-0bsd", "maintainer": "", "status": "active",
+                "title": "BSD Zero Clause License (0BSD)",
+                "url": "http://landley.net/toybox/license.html"
+            },
+        "material": "paper"
+       }
+
+    COPYRIGHTS = {
+        "holder": "INSTITUTION", "material": "paper",
+        "statement": "Copyright statement",
+        "url": "https://test.com", "year": 1990
+    }
+
     def generate_document(self, index, **kwargs):
         """Generate document data."""
         publication_year = kwargs.get(
@@ -500,6 +516,7 @@ class DocumentGenerator(Generator):
             "pid": self.create_pid(),
             "title": lorem.sentence(),
             "cover_metadata": {"ISBN": isbn, "urls": {}},
+            "copyrights": [self.COPYRIGHTS],
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
             "document_type": random.choice(Document.DOCUMENT_TYPES),
@@ -523,11 +540,15 @@ class DocumentGenerator(Generator):
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
             "identifiers": [{"scheme": "ISBN", "value": isbn}],
+            "alternative_identifiers": [{"scheme": "ARXIV",
+                                         "value": "1234.1234"}],
             "imprint": {
                 **imprint,
                 "date": "{}-08-02".format(publication_year),
             },
+            "licenses": [self.LICENSE],
             "publication_year": publication_year,
+            "subjects": [{"value": "515.353", "scheme": "Dewey"}],
             "urls": [
                 {
                     "description": "{}".format(lorem.sentence()),
@@ -743,6 +764,7 @@ class SeriesGenerator(Generator):
         obj["abbreviated_title"] = obj["title"].split()[0]
         obj["alternative_titles"] = [
             dict(value=obj["title"], type="SUBTITLE"),
+            dict(value=obj["title"].split()[0], type="ABBREVIATION"),
             dict(
                 value=obj["title"],
                 type="TRANSLATED_TITLE",
@@ -1219,8 +1241,8 @@ class OrderGenerator(Generator):
             }
             obj["expected_delivery_date"] = (
                 self.random_date(now, now + timedelta(days=400))
-                .date()
-                .isoformat()
+                    .date()
+                    .isoformat()
             )
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
@@ -1521,8 +1543,8 @@ def pages():
             title="Contact",
             description="Contact",
             content="You can contact InvenioILS developers on "
-            '<a href="https://gitter.im/inveniosoftware/invenio">'
-            "our chatroom</a>",
+                    '<a href="https://gitter.im/inveniosoftware/invenio">'
+                    "our chatroom</a>",
             template_name="invenio_pages/default.html",
         ),
     ]

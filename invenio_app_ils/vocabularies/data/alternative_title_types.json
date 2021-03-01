@@ -16,6 +16,11 @@
   },
   {
     "type": "alternative_title_type",
+    "key": "ABBREVIATION",
+    "text": "Abbreviation"
+  },
+  {
+    "type": "alternative_title_type",
     "key": "OTHER",
     "text": "Other"
   }
