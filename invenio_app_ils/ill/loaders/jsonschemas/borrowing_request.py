@@ -74,9 +74,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     )
     total = fields.Nested(PriceSchema)
     total_main_currency = fields.Nested(PriceSchema)
-    type = fields.Str(
-        required=True, validate=validate.OneOf(BorrowingRequest.TYPES)
-    )
+    type = fields.Str(required=True)
     updated_by = fields.Nested(ChangedBySchema)
 
     @pre_load

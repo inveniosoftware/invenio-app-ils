@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2018-2021 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Test internal locations."""
+
 import json
 
+import pytest
 from flask import url_for
 
+from invenio_app_ils.errors import LocationNotFoundError
+from invenio_app_ils.internal_locations.api import InternalLocation
 from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
@@ -17,6 +21,16 @@ _INTERNAL_LOCATION_PID = "ilocid-1"
 _INTERNAL_LOCATION_NAME = "A location"
 _ITEM_ENDPOINT = "invenio_records_rest.ilocid_item"
 _LIST_ENDPOINT = "invenio_records_rest.ilocid_list"
+
+
+def test_internal_locations_validation(db, testdata):
+    """Test validation when updating an Internal Location."""
+    intloc_pid = testdata["internal_locations"][0]["pid"]
+    intloc = InternalLocation.get_record_by_pid(intloc_pid)
+
+    intloc["location_pid"] = "not_found_pid"
+    with pytest.raises(LocationNotFoundError):
+        intloc.commit()
 
 
 def test_internal_locations_permissions(client, testdata, json_headers, users):
