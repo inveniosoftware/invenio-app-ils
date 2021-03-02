@@ -10,14 +10,18 @@
 from functools import partial
 
 from flask import current_app
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.errors import (
+    LocationNotFoundError,
+    RecordHasReferencesError,
+)
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
-from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.records.api import IlsRecord, RecordValidator
 
 INTERNAL_LOCATION_PID_TYPE = "ilocid"
 INTERNAL_LOCATION_PID_MINTER = "ilocid"
@@ -39,6 +43,26 @@ internal_location_pid_fetcher = partial(
 )
 
 
+class InternalLocationValidator(RecordValidator):
+    """Internal Location record validator."""
+
+    def ensure_location_exists(self, location_pid):
+        """Ensure internal location exists or raise."""
+        Location = current_app_ils.location_record_cls
+
+        try:
+            Location.get_record_by_pid(location_pid)
+        except PIDDoesNotExistError:
+            raise LocationNotFoundError(location_pid)
+
+    def validate(self, record, **kwargs):
+        """Validate record before create and commit."""
+        super().validate(record, **kwargs)
+
+        location_pid = record["location_pid"]
+        self.ensure_location_exists(location_pid)
+
+
 class InternalLocation(IlsRecord):
     """Internal Location record class."""
 
@@ -48,6 +72,7 @@ class InternalLocation(IlsRecord):
         "{scheme}://{host}/api/resolver/"
         "internal-locations/{internal_location_pid}/location"
     )
+    _validator = InternalLocationValidator()
 
     @classmethod
     def build_resolver_fields(cls, data):

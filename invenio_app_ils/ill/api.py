@@ -103,7 +103,7 @@ class IllValidator(RecordValidator):
         if cancel_reason and not status == "CANCELLED":
             raise ILLError(
                 "If you select a cancel reason you need to select"
-                " \"Cancelled\" in the state"
+                ' "Cancelled" in the state'
             )
 
     def ensure_document_exists(self, document_pid):
@@ -164,7 +164,6 @@ class BorrowingRequest(IlsRecord):
         "borrowing-requests/{brw_req_pid}/patron"
     )
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
-    TYPES = ["PHYSICAL_COPY", "ELECTRONIC"]
     EXTENSION_STATUSES = ["PENDING", "DECLINED"]
 
     @classmethod

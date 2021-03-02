@@ -89,7 +89,7 @@ class OrderValidator(RecordValidator):
         if cancel_reason and not status == "CANCELLED":
             raise AcquisitionError(
                 "If you select a cancel reason you need to select"
-                " \"Cancelled\" in the state"
+                ' "Cancelled" in the state'
             )
 
     def ensure_vendor_exists(self, vendor_pid):

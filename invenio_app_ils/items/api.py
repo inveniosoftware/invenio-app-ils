@@ -79,14 +79,17 @@ class ItemValidator(RecordValidator):
         if document_changed:
             pid = record["pid"]
             item_pid = dict(value=pid, type=ITEM_PID_TYPE)
-            has_loans = search_by_pid(
-                item_pid=item_pid,
-                filter_states=current_app.config[
-                    "CIRCULATION_STATES_LOAN_ACTIVE"
-                ]
-                + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
-                + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
-            ).count() > 0
+            has_loans = (
+                search_by_pid(
+                    item_pid=item_pid,
+                    filter_states=current_app.config[
+                        "CIRCULATION_STATES_LOAN_ACTIVE"
+                    ]
+                    + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+                    + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
+                ).count()
+                > 0
+            )
             if has_loans:
                 raise ItemHasPastLoansError(
                     "Not possible to update the document field if "
