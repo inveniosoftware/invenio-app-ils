@@ -186,7 +186,7 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
 
     def prepare_data():
         """Prepare data."""
-        days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
+        max_days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
         loans = testdata["loans"]
 
         recs = []
@@ -199,7 +199,7 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
             recs.append(loan)
 
         # expiring loans
-        date = now + timedelta(days=days)
+        date = now + timedelta(days=max_days)
         new_end_date(loans[0], date)
         new_end_date(loans[1], date)
         new_end_date(loans[2], date)
@@ -207,7 +207,7 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
         # not expiring
         remaining_not_overdue = loans[3:]
         for loan in remaining_not_overdue:
-            days = random.choice([-2, -1, 0, 1, 2])
+            days = random.choice([-2, -1, max_days+1, max_days+2])
             date = now + timedelta(days=days)
             new_end_date(loan, date)
         db.session.commit()
