@@ -27,8 +27,7 @@ def cancel_expired_loan_requests():
     SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
     system_agent_id = str(SystemAgent.id)
 
-    expired_loans = get_all_expired_loans().execute()
-    for hit in expired_loans.hits:
+    for hit in get_all_expired_loans().scan():
         loan = Loan.get_record_by_pid(hit.pid)
         duration_days = current_app.config[
             "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"

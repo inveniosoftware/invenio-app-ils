@@ -33,6 +33,7 @@ def fetch_most_loaned_documents(from_date, to_date, bucket_size):
     doc_search = current_app_ils.document_search_cls()
     doc_search = doc_search.with_preference_param().params(version=True)
     doc_search = doc_search.search_by_pid(*document_pids)
+    doc_search = doc_search[0:bucket_size]
     result = doc_search.execute()
 
     for hit in result.hits:

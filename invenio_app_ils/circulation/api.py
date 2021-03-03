@@ -86,7 +86,7 @@ def _set_item_to_can_circulate(item_pid):
 
 
 def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
-    """Return True if patron has an active loan/request for given document."""
+    """Return loan/request if it's active for the given patron and document."""
     states = (
         current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
         + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
@@ -95,13 +95,13 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-
-    return (
-        search_result,
-        search_result.hits.total > 0
-        if lt_es7
-        else search_result.hits.total.value > 0,
-    )
+    total = search_result.hits.total \
+        if lt_es7 \
+        else search_result.hits.total.value
+    if total > 0:
+        return search_result.hits[0]
+    else:
+        return None
 
 
 def request_loan(
@@ -112,12 +112,12 @@ def request_loan(
     **kwargs
 ):
     """Create a new loan and trigger the first transition to PENDING."""
-    search_result, loan_found = patron_has_active_loan_or_request_on_document(
+    loan_or_request_found = patron_has_active_loan_or_request_on_document(
         patron_pid, document_pid
     )
-    if loan_found:
+    if loan_or_request_found:
         if (
-            search_result.hits[0].state
+            loan_or_request_found.state
             in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
         ):
             raise PatronHasRequestOnDocumentError(patron_pid, document_pid)
