@@ -86,7 +86,7 @@ def index_languages(force):
                 indexer.index(lang_rec)
                 index_count += 1
 
-    click.echo("indexed {} vocabularies".format(index_count))
+    click.echo("indexed {} languages".format(index_count))
 
 
 @index.command(name="opendefinition")

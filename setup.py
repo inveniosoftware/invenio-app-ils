@@ -119,6 +119,12 @@ setup(
             "stats = invenio_stats.cli:stats",
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
         ],
+        "invenio_db.models": [
+            "ils_email_log = invenio_app_ils.mail.models",
+        ],
+        "invenio_admin.views": [
+            "ils_email_log_view = invenio_app_ils.mail.admin:email_log",
+        ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",
             "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll",
@@ -138,6 +144,8 @@ setup(
             "ils_document_stats = invenio_app_ils.records.views:create_document_stats_blueprint",
             "ils_files = invenio_app_ils.files.views:create_files_blueprint",
             "ils_patrons = invenio_app_ils.patrons.views:get_user_loan_information_blueprint",
+            "ils_emails_list = invenio_app_ils.mail.views:get_emails_list_blueprint",
+            "ils_emails_item = invenio_app_ils.mail.views:get_emails_item_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config",

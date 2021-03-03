@@ -57,6 +57,19 @@ class OrderSearch(RecordsSearch):
             )
         return search
 
+    def get_ongoing_orders_by_patron_pid(self, patron_pid=None):
+        """Get pending and ordered orders by patron pid."""
+        active_states = ["PENDING", "ORDERED"]
+        if patron_pid:
+            search = self.search_by_patron_pid(patron_pid).filter(
+                "terms", status=active_states
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="patron_pid is required"
+            )
+        return search
+
     def search_by_vendor_pid(self, vendor_pid=None):
         """Search by vendor pid."""
         search = self

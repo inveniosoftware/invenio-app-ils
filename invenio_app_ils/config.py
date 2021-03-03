@@ -1121,3 +1121,5 @@ ILS_RECORDS_METADATA_EXTENSIONS = {}
 # Define the class for the Anonymous and SystemAgent patrons
 ILS_PATRON_ANONYMOUS_CLASS = AnonymousPatron
 ILS_PATRON_SYSTEM_AGENT_CLASS = SystemAgent
+
+DB_VERSIONING_USER_MODEL = None

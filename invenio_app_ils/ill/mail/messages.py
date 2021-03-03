@@ -10,6 +10,7 @@ import os
 
 from flask import current_app
 
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.mail.messages import BlockTemplatedMessage
 
 
@@ -27,6 +28,7 @@ class ILLMessage(BlockTemplatedMessage):
     def __init__(self, record, action=None, message_ctx={}, **kwargs):
         """Create a ILL message based on the borrowing request record."""
         self.record = record
+        self.action = action
 
         templates = dict(
             self.DEFAULT_TEMPLATES,
@@ -51,5 +53,7 @@ class ILLMessage(BlockTemplatedMessage):
     def dump(self):
         """Dump borrowing request email data."""
         data = super().dump()
-        data["borrowing_request_pid"] = self.record["pid"]
+        data["pid_value"] = self.record["pid"]
+        data["pid_type"] = BORROWING_REQUEST_PID_TYPE
+        data["action"] = self.action
         return data

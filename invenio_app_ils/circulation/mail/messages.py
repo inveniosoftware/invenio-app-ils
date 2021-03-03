@@ -11,6 +11,7 @@ import os
 
 from flask import current_app
 from invenio_circulation.api import get_available_item_by_doc_pid
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 
 from invenio_app_ils.mail.messages import BlockTemplatedMessage
 
@@ -34,6 +35,7 @@ class LoanMessage(BlockTemplatedMessage):
     def __init__(self, loan, action, message_ctx, **kwargs):
         """Create loan message based on the loan action."""
         self.loan = loan
+        self.action = action
 
         templates = dict(
             self.default_templates,
@@ -71,5 +73,7 @@ class LoanMessage(BlockTemplatedMessage):
     def dump(self):
         """Dump loan email data."""
         data = super().dump()
-        data["loan_pid"] = self.loan["pid"]
+        data["pid_value"] = self.loan["pid"]
+        data["pid_type"] = CIRCULATION_LOAN_PID_TYPE
+        data["action"] = self.action
         return data

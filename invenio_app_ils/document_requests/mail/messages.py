@@ -10,6 +10,7 @@ import os
 
 from flask import current_app
 
+from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.mail.messages import BlockTemplatedMessage
 
 
@@ -28,6 +29,7 @@ class DocumentRequestMessage(BlockTemplatedMessage):
     def __init__(self, request, action=None, message_ctx={}, **kwargs):
         """Create an e-mail message based on the new doc request record."""
         self.request = request
+        self.action = action
 
         templates = dict(
             self.DEFAULT_TEMPLATES,
@@ -56,5 +58,7 @@ class DocumentRequestMessage(BlockTemplatedMessage):
     def dump(self):
         """Dump document request email data."""
         data = super().dump()
-        data["document_request_pid"] = self.request["pid"]
+        data["pid_value"] = self.request["pid"]
+        data["pid_type"] = DOCUMENT_REQUEST_PID_TYPE
+        data["action"] = self.action
         return data

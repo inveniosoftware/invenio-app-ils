@@ -25,7 +25,9 @@ from invenio_app_ils.mail.tasks import send_ils_email
 celery_logger = get_task_logger(__name__)
 
 
-def send_loan_mail(action, loan, message_ctx={}, **kwargs):
+def send_loan_mail(
+    action, loan, is_manually_triggered=False, message_ctx={}, **kwargs
+):
     """Send loan email message asynchronously and log the result in Celery.
 
     :param action: the triggered loan action.
@@ -47,14 +49,17 @@ def send_loan_mail(action, loan, message_ctx={}, **kwargs):
         recipients=[patron.email],
         **kwargs,
     )
-    send_ils_email(msg)
+    send_ils_email(msg, is_manually_triggered)
 
 
-def send_loan_overdue_reminder_mail(loan, days_ago):
+def send_loan_overdue_reminder_mail(
+    loan, days_ago, is_manually_triggered=False
+):
     """Send loan overdue email."""
     send_loan_mail(
         action="overdue_reminder",
         loan=loan,
+        is_manually_triggered=is_manually_triggered,
         message_ctx=dict(days_ago=days_ago),
     )
 
@@ -96,4 +101,5 @@ def send_loan_end_date_updated_mail(loan):
     send_loan_mail(
         action="extend",
         loan=loan,
+        is_manually_triggered=False,
     )
