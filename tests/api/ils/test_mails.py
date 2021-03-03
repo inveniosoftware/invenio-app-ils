@@ -8,10 +8,17 @@
 """Test email notifications."""
 
 import pytest
+from flask import url_for
 from jinja2.exceptions import TemplateError, TemplateNotFound
 
 from invenio_app_ils.circulation.mail.messages import BlockTemplatedMessage
-from invenio_app_ils.mail.tasks import send_ils_email
+from invenio_app_ils.mail.models import EmailLog
+from invenio_app_ils.mail.tasks import (
+    log_error_mail,
+    log_successful_mail,
+    send_ils_email,
+)
+from tests.helpers import user_login
 
 
 class TestMessage(BlockTemplatedMessage):
@@ -92,3 +99,49 @@ def test_send_only_to_test_recipients(app_with_mail, mocker):
         assert outbox[0].recipients == fake_recipients
 
     app_with_mail.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = False
+
+
+def test_email_db_table_and_endpoint(
+    app_with_mail, users, client, json_headers
+):
+    """Test creation of email in db table and read emails from endpoint."""
+    request = {"id": "test-id", "task": "test-task"}
+    data = {
+        "id": "test-id",
+        "recipients": ["patron1@test.com"],
+        "is_manually_triggered": True,
+        "message_id": "1",
+    }
+    exc = "An error occured."
+    log_successful_mail(None, data)
+
+    log_error_mail(request=request, exc=exc, traceback=None, data=data)
+
+    assert EmailLog.query.filter_by(id=1).one().send_log == "Success"
+    assert (
+        EmailLog.query.filter_by(id=2).one().send_log
+        == "Error: 'An error occured.'"
+    )
+
+    ITEM_ENDPOINT = "invenio_app_ils_emails_item.get_email"
+    LIST_ENDPOINT = "invenio_app_ils_emails_list.get_emails"
+
+    user_login(client, "librarian", users)
+
+    url = url_for(LIST_ENDPOINT)
+    res = client.get(url, headers=json_headers)
+
+    assert (
+        res.get_json()["hits"][0]["send_log"] == "Error: 'An error occured.'"
+    )
+    assert res.get_json()["hits"][1]["send_log"] == "Success"
+
+    url = url_for(ITEM_ENDPOINT, id=1)
+    res = client.get(url, headers=json_headers)
+    assert res.get_json()["send_log"] == "Success"
+    assert res.get_json()["id"] == 1
+
+    url = url_for(ITEM_ENDPOINT, id=2)
+    res = client.get(url, headers=json_headers)
+    assert res.get_json()["send_log"] == "Error: 'An error occured.'"
+    assert res.get_json()["id"] == 2

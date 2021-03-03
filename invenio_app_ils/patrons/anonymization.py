@@ -28,6 +28,7 @@ from invenio_app_ils.errors import (
     PatronNotFoundError,
 )
 from invenio_app_ils.ill.proxies import current_ils_ill
+from invenio_app_ils.mail.models import EmailLog
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 
@@ -95,6 +96,16 @@ def anonymize_patron_data(patron_pid, force=False):
                 patron_pid, n_loans
             )
         )
+    OrderSearch = current_ils_acq.order_search_cls
+    n_orders = (
+        OrderSearch().get_ongoing_orders_by_patron_pid(patron_pid).count()
+    )
+    if n_orders > 0:
+        raise AnonymizationActiveLoansError(
+            "Cannot delete user {0}: found {1} active orders.".format(
+                patron_pid, n_orders
+            )
+        )
 
     # get anonymous patron values
     cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
@@ -107,19 +118,22 @@ def anonymize_patron_data(patron_pid, force=False):
     for hit in patron_loans:
         loan = Loan.get_record_by_pid(hit.pid)
 
-        cancelled = current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"]
-        if loan["state"] not in cancelled:
+        completed = (
+            current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"]
+            + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+        )
+        if loan["state"] not in completed:
             params = deepcopy(loan)
             params.update(
                 dict(
-                    cancel_reason="Loan request cancelled because of user "
-                    "deletion.",
+                    cancel_reason="Loan request cancelled by the system.",
                     transaction_user_pid=str(SystemAgent.id),
                 )
             )
             loan = current_circulation.circulation.trigger(
                 loan, **dict(params, trigger="cancel")
             )
+        loan["patron_pid"] = anonymous_patron_fields["pid"]
         loan["patron"] = anonymous_patron_fields
         loan.commit()
         current_circulation.loan_indexer().index(loan)
@@ -135,6 +149,7 @@ def anonymize_patron_data(patron_pid, force=False):
     for hit in patron_borrowing_requests:
         borrowing_request = BorrowingRequest.get_record_by_pid(hit.pid)
         borrowing_request["patron"] = anonymous_patron_fields
+        borrowing_request["patron_pid"] = anonymous_patron_fields["pid"]
         borrowing_request.commit()
         indexer.index(borrowing_request)
         indices += 1
@@ -151,21 +166,28 @@ def anonymize_patron_data(patron_pid, force=False):
             document_request["state"] = "DECLINED"
             document_request["decline_reason"] = "USER_CANCEL"
         document_request["patron"] = anonymous_patron_fields
+        document_request["patron_pid"] = anonymous_patron_fields["pid"]
         document_request.commit()
         current_app_ils.document_request_indexer.index(document_request)
         indices += 1
 
-    OrderSearch = current_ils_acq.order_search_cls
     patron_acquisitions = OrderSearch().search_by_patron_pid(patron_pid).scan()
 
     Order = current_ils_acq.order_record_cls
     for hit in patron_acquisitions:
         acquisition = Order.get_record_by_pid(hit.pid)
+        for line in acquisition["order_lines"]:
+            if line["patron_pid"] == patron_pid:
+                line["patron_pid"] = anonymous_patron_fields["pid"]
+        acquisition.commit()
         current_ils_acq.order_indexer.index(acquisition)
         indices += 1
 
-    # Delete rows from db
+    # delete rows from db
     dropped = delete_user_account(patron_pid)
+
+    # anonymize recipient id in emails
+    emails = anonymize_patron_in_email_logs(patron_pid)
 
     db.session.commit()
     if patron:
@@ -175,7 +197,7 @@ def anonymize_patron_data(patron_pid, force=False):
         except NotFoundError:
             pass
 
-    return dropped, indices
+    return dropped, indices, emails
 
 
 def delete_user_account(patron_pid):
@@ -183,6 +205,7 @@ def delete_user_account(patron_pid):
     dropped = 0
 
     with db.session.begin_nested():
+
         d = db.session.query(userrole).filter(userrole.c.user_id == patron_pid)
         dropped += d.delete(synchronize_session=False) or 0
 
@@ -221,3 +244,18 @@ def delete_user_account(patron_pid):
         dropped += User.query.filter(User.id == patron_pid).delete() or 0
 
     return dropped
+
+
+def anonymize_patron_in_email_logs(patron_pid):
+    """Anonymizes patron in email log db."""
+    email_anonymizations = 0
+    AnonymousPatron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
+
+    with db.session.begin_nested():
+        emails = EmailLog.query.filter_by(recipient_user_id=patron_pid).all()
+        for email in emails:
+            email.recipient_user_id = AnonymousPatron.id
+            email_anonymizations += 1
+    db.session.commit()
+
+    return email_anonymizations

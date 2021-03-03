@@ -157,7 +157,9 @@ class LoanMailResource(IlsCirculationResource):
         is_overdue = days_ago > 0
         if not is_overdue:
             raise OverdueLoansMailError(description="This loan is not overdue")
-        send_loan_overdue_reminder_mail(record, days_ago)
+        send_loan_overdue_reminder_mail(
+            record, days_ago, is_manually_triggered=True
+        )
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )

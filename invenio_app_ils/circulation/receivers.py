@@ -54,5 +54,7 @@ def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
 def send_email_after_loan_change(_, initial_loan, loan, trigger):
     """Send email notification when the loan changes."""
     send_loan_mail(
-        action=trigger, loan=loan, message_ctx=dict(initial_loan=initial_loan)
+        action=trigger,
+        loan=loan,
+        message_ctx=dict(initial_loan=initial_loan),
     )

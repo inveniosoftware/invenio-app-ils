@@ -100,8 +100,11 @@ class Patron(dict):
             raise PatronNotFoundError(patron_pid)
 
         SystemAgent = current_app.config["ILS_PATRON_SYSTEM_AGENT_CLASS"]
+        AnonymousPatron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
         if str(patron_pid) == str(SystemAgent.id):
             return SystemAgent()
+        if str(patron_pid) == str(AnonymousPatron.id):
+            return AnonymousPatron()
 
         return cls(patron_pid)
 
