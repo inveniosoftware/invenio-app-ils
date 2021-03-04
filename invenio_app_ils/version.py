@@ -11,4 +11,4 @@ This file is imported by ``invenio_app_ils.__init__``,
 and parsed by ``setup.py``.
 """
 
-__version__ = "1.0.0a28"
+__version__ = "1.0.0a29"
