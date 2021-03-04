@@ -7,6 +7,16 @@
 Changes
 =======
 
+Version 1.0.0a29 (released 2021-03-04)
+
+- update borrowing request schema
+- fix circulation restrictions
+- fix author limit on resolvers
+- fix currency vocabulary
+- add html formatting to the email templates
+- add meta field to document urls
+- add email logging in DB
+
 Version 1.0.0a28 (released 2021-02-16)
 
 - add cookies config for improved security
