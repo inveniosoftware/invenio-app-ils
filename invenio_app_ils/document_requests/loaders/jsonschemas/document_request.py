@@ -72,3 +72,4 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     state = fields.Str(validate=validate.OneOf(DocumentRequest.STATES))
     title = SanitizedHTML(required=True)
     volume = SanitizedHTML()
+    publisher = SanitizedHTML()
