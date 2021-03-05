@@ -108,6 +108,10 @@
     "volume": {
       "title": "Volume of the requested document",
       "type": "string"
+    },
+    "publisher": {
+      "title": "Publisher of the requested document",
+      "type": "string"
     }
   },
   "required": [

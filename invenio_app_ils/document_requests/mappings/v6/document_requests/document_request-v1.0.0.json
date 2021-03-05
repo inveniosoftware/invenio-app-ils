@@ -189,6 +189,9 @@
         },
         "volume": {
           "type": "text"
+        },
+        "publisher": {
+          "type": "text"
         }
       }
     }
