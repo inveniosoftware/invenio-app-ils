@@ -42,6 +42,18 @@ class AccessUrlSchema(Schema):
     value = fields.URL()
 
 
+class PhysicalVolumes(Schema):
+    """Physical volumes schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    description = fields.Str()
+    location = fields.Str()
+
+
 class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     """Series schema."""
 
@@ -74,6 +86,8 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     title = fields.Str(required=True)
     updated_by = fields.Nested(ChangedBySchema)
     urls = fields.Nested(UrlSchema, many=True)
+    electronic_volumes_description = fields.Str()
+    physical_volumes = fields.Nested(PhysicalVolumes, many=True)
 
     def dump_extensions(self, obj):
         """Dumps the extensions value.
