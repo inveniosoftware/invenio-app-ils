@@ -322,6 +322,30 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
+    },
+    "electronic_volumes_description": {
+      "type": "string",
+      "title": "Electronic items description"
+    },
+    "physical_volumes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "location": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "title": "Physical volumes description and location",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
     }
   }
 }
