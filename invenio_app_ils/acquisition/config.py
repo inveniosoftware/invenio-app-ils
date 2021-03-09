@@ -15,24 +15,11 @@ from invenio_app_ils.permissions import (
     superuser_permission,
 )
 
-from .api import (
-    ORDER_PID_FETCHER,
-    ORDER_PID_MINTER,
-    ORDER_PID_TYPE,
-    VENDOR_PID_FETCHER,
-    VENDOR_PID_MINTER,
-    VENDOR_PID_TYPE,
-    Order,
-    Vendor,
-)
-from .indexer import VendorIndexer
-from .search import OrderSearch, VendorSearch
+from .api import ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE, Order
+from .search import OrderSearch
 
 _ORDER_CONVERTER = (
     'pid(acqoid, record_class="invenio_app_ils.acquisition.api:Order")'
-)
-_VENDOR_CONVERTER = (
-    'pid(acqvid, record_class="invenio_app_ils.acquisition.api:Vendor")'
 )
 
 RECORDS_REST_ENDPOINTS = dict(
@@ -76,46 +63,6 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=superuser_permission,
     ),
-    acqvid=dict(
-        pid_type=VENDOR_PID_TYPE,
-        pid_minter=VENDOR_PID_MINTER,
-        pid_fetcher=VENDOR_PID_FETCHER,
-        search_class=VendorSearch,
-        indexer_class=VendorIndexer,
-        record_class=Vendor,
-        record_loaders={
-            "application/json": (
-                "invenio_app_ils.acquisition.loaders:vendor_loader"
-            )
-        },
-        record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
-        },
-        search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
-        },
-        search_serializers_aliases={
-            "csv": "text/csv",
-            "json": "application/json",
-        },
-        list_route="/acquisition/vendors/",
-        item_route="/acquisition/vendors/<{0}:pid_value>".format(
-            _VENDOR_CONVERTER
-        ),
-        default_media_type="application/json",
-        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
-        error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
-        create_permission_factory_imp=backoffice_permission,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
-    ),
 )
 
 RECORDS_REST_SORT_OPTIONS = dict(
@@ -142,30 +89,17 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=5,
         ),
     ),
-    acq_vendors=dict(  # VendorSearch.Meta.index
-        name=dict(fields=["name.keyword"], title="Name", order=1),
-        created=dict(
-            fields=["_created"],
-            title="Recently added",
-            order=2,
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            order=3,
-        ),
-    ),
 )
 
-FACET_VENDOR_LIMIT = 5
+FACET_PROVIDER_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
     acq_orders=dict(  # OrderSearch.Meta.index
         aggs=dict(
             status=dict(terms=dict(field="status")),
-            vendor=dict(
+            provider=dict(
                 terms=dict(
-                    field="vendor.name.keyword", size=FACET_VENDOR_LIMIT
+                    field="provider.name.keyword", size=FACET_PROVIDER_LIMIT
                 )
             ),
             payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
@@ -173,7 +107,7 @@ RECORDS_REST_FACETS = dict(
         ),
         post_filters=dict(
             status=terms_filter("status"),
-            vendor=terms_filter("vendor.name.keyword"),
+            provider=terms_filter("provider.name.keyword"),
             payment_mode=terms_filter("order_lines.payment_mode"),
             medium=terms_filter("order_lines.medium"),
         ),

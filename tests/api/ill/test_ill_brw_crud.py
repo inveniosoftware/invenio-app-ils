@@ -11,7 +11,8 @@ import pytest
 
 from invenio_app_ils.errors import DocumentNotFoundError, PatronNotFoundError
 from invenio_app_ils.ill.api import BorrowingRequest
-from invenio_app_ils.ill.errors import ILLError, LibraryNotFoundError
+from invenio_app_ils.ill.errors import ILLError
+from invenio_app_ils.providers.errors import ProviderNotFoundError
 
 
 def test_brw_req_refs(app, testdata):
@@ -21,19 +22,19 @@ def test_brw_req_refs(app, testdata):
             pid="illlid-99",
             document_pid="docid-1",
             patron_pid="1",
-            library_pid="illlid-1",
+            provider_pid="ill-provid-1",
             status="PENDING",
             type="PHYSICAL_COPY",
         )
     )
     assert "$schema" in brw_req
-    assert "library" in brw_req and "$ref" in brw_req["library"]
+    assert "provider" in brw_req and "$ref" in brw_req["provider"]
     assert "document" in brw_req and "$ref" in brw_req["document"]
     assert "patron" in brw_req and "$ref" in brw_req["patron"]
 
     brw_req = BorrowingRequest.get_record_by_pid("illbid-1")
     brw_req = brw_req.replace_refs()
-    assert "library" in brw_req and brw_req["library"]["name"]
+    assert "provider" in brw_req and brw_req["provider"]["name"]
     assert "document" in brw_req and brw_req["document"]["title"]
     assert "patron" in brw_req and brw_req["patron"]["name"]
 
@@ -50,12 +51,12 @@ def test_ill_brw_validation(db, testdata):
     with pytest.raises(DocumentNotFoundError):
         borrowing_request.commit()
 
-    # change library pid
+    # change provider pid
     borrowing_request = BorrowingRequest.get_record_by_pid(
         borrowing_request_pid
     )
-    borrowing_request["library_pid"] = "not_found_lib"
-    with pytest.raises(LibraryNotFoundError):
+    borrowing_request["provider_pid"] = "not_found_lib"
+    with pytest.raises(ProviderNotFoundError):
         borrowing_request.commit()
 
     # change patron pid

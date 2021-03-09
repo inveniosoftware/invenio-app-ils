@@ -88,6 +88,7 @@ def test_example_loader(app_with_mail, example_message_factory):
 def test_send_only_to_test_recipients(app_with_mail, mocker):
     """Tests that send only to test recipients works."""
     app_with_mail.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = True
+    succ = mocker.patch("invenio_app_ils.mail.tasks.log_successful_mail")
 
     msg = TestMessage(recipients=["realemail@test.com"])
 
@@ -95,15 +96,14 @@ def test_send_only_to_test_recipients(app_with_mail, mocker):
     with app_with_mail.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
         send_ils_email(msg)
+        assert succ.s.called
         assert len(outbox) == 1
         assert outbox[0].recipients == fake_recipients
 
     app_with_mail.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = False
 
 
-def test_email_db_table_and_endpoint(
-    app_with_mail, users, client, json_headers
-):
+def test_email_db_table_and_endpoint(users, client, json_headers):
     """Test creation of email in db table and read emails from endpoint."""
     request = {"id": "test-id", "task": "test-task"}
     data = {

@@ -25,7 +25,7 @@ def _create_on_loan_brwreq(
     def _create_brwreq(patron_id):
         brwreq = dict(
             document_pid="docid-3",
-            library_pid="illlid-2",
+            provider_pid="ill-provid-2",
             patron_pid=patron_id,
             status="REQUESTED",
             type="PHYSICAL_COPY",

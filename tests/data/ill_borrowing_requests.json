@@ -1,7 +1,7 @@
 [
   {
     "document_pid": "docid-1",
-    "library_pid": "illlid-1",
+    "provider_pid": "ill-provid-1",
     "patron_pid": "1",
     "pid": "illbid-1",
     "status": "PENDING",
@@ -9,7 +9,7 @@
   },
   {
     "document_pid": "docid-2",
-    "library_pid": "illlid-1",
+    "provider_pid": "ill-provid-1",
     "patron_pid": "2",
     "pid": "illbid-2",
     "status": "REQUESTED",
@@ -17,7 +17,7 @@
   },
   {
     "document_pid": "docid-3",
-    "library_pid": "illlid-2",
+    "provider_pid": "ill-provid-2",
     "patron_pid": "1",
     "pid": "illbid-3",
     "status": "ON_LOAN",
@@ -25,7 +25,7 @@
   },
   {
     "document_pid": "docid-4",
-    "library_pid": "illlid-2",
+    "provider_pid": "ill-provid-2",
     "patron_pid": "1",
     "pid": "illbid-4",
     "status": "RETURNED",
@@ -33,7 +33,7 @@
   },
   {
     "document_pid": "docid-5",
-    "library_pid": "illlid-2",
+    "provider_pid": "ill-provid-2",
     "patron_pid": "2",
     "pid": "illbid-5",
     "status": "CANCELLED",
@@ -42,7 +42,7 @@
   },
   {
     "document_pid": "docid-3",
-    "library_pid": "illlid-1",
+    "provider_pid": "ill-provid-1",
     "patron_pid": "2",
     "pid": "illbid-6",
     "status": "ON_LOAN",
@@ -50,7 +50,7 @@
   },
   {
     "document_pid": "docid-3",
-    "library_pid": "illlid-1",
+    "provider_pid": "ill-provid-1",
     "patron_pid": "1",
     "pid": "illbid-7",
     "status": "ON_LOAN",
@@ -63,7 +63,7 @@
   },
   {
     "document_pid": "docid-3",
-    "library_pid": "illlid-1",
+    "provider_pid": "ill-provid-1",
     "patron_pid": "1",
     "pid": "illbid-8",
     "status": "ON_LOAN",

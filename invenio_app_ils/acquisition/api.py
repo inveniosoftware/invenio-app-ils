@@ -14,55 +14,14 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.acquisition.errors import (
-    AcquisitionError,
-    VendorNotFoundError,
-)
-from invenio_app_ils.acquisition.proxies import current_ils_acq
-from invenio_app_ils.errors import (
-    DocumentNotFoundError,
-    PatronNotFoundError,
-    RecordHasReferencesError,
-)
+from invenio_app_ils.acquisition.errors import AcquisitionError
+from invenio_app_ils.errors import DocumentNotFoundError, PatronNotFoundError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
+from invenio_app_ils.providers.errors import ProviderNotFoundError
+from invenio_app_ils.providers.proxies import current_ils_prov
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
-
-VENDOR_PID_TYPE = "acqvid"
-VENDOR_PID_MINTER = "acqvid"
-VENDOR_PID_FETCHER = "acqvid"
-
-VendorIdProvider = type(
-    "VendorIdProvider",
-    (RecordIdProviderV2,),
-    dict(pid_type=VENDOR_PID_TYPE, default_status=PIDStatus.REGISTERED),
-)
-vendor_pid_minter = partial(pid_minter, provider_cls=VendorIdProvider)
-vendor_pid_fetcher = partial(pid_fetcher, provider_cls=VendorIdProvider)
-
-
-class Vendor(IlsRecord):
-    """Acquisition vendor class."""
-
-    _pid_type = VENDOR_PID_TYPE
-    _schema = "acq_vendors/vendor-v1.0.0.json"
-
-    def delete(self, **kwargs):
-        """Delete record."""
-        search_cls = current_ils_acq.order_search_cls
-        order_search_res = search_cls().search_by_vendor_pid(self["pid"])
-        if order_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Vendor",
-                record_id=self["pid"],
-                ref_type="Order",
-                ref_ids=sorted(
-                    [res["pid"] for res in order_search_res.scan()]
-                ),
-            )
-        return super().delete(**kwargs)
-
 
 ORDER_PID_TYPE = "acqoid"
 ORDER_PID_MINTER = "acqoid"
@@ -92,13 +51,13 @@ class OrderValidator(RecordValidator):
                 ' "Cancelled" in the state'
             )
 
-    def ensure_vendor_exists(self, vendor_pid):
-        """Ensure vendor exists or raise."""
-        Vendor = current_ils_acq.vendor_record_cls
+    def ensure_provider_exists(self, provider_pid):
+        """Ensure provider exists or raise."""
+        Provider = current_ils_prov.provider_record_cls
         try:
-            Vendor.get_record_by_pid(vendor_pid)
+            Provider.get_record_by_pid(provider_pid)
         except PIDDoesNotExistError:
-            raise VendorNotFoundError(vendor_pid)
+            raise ProviderNotFoundError(provider_pid)
 
     def ensure_document_exists(self, document_pid):
         """Ensure document exists or raise."""
@@ -129,11 +88,11 @@ class OrderValidator(RecordValidator):
 
         status = record["status"]
         cancel_reason = record.get("cancel_reason")
-        vendor_pid = record["vendor_pid"]
+        provider_pid = record["provider_pid"]
         order_lines = record["order_lines"]
 
         self.validate_cancel(status, cancel_reason)
-        self.ensure_vendor_exists(vendor_pid)
+        self.ensure_provider_exists(provider_pid)
         for order_line in order_lines:
             self.validate_order_line(order_line)
 
@@ -143,9 +102,7 @@ class Order(IlsRecord):
 
     _pid_type = ORDER_PID_TYPE
     _schema = "acq_orders/order-v1.0.0.json"
-    _vendor_resolver_path = (
-        "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
-    )
+    _provider_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/provider"  # noqa
     _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"  # noqa
     _validator = OrderValidator()
 
@@ -165,8 +122,8 @@ class Order(IlsRecord):
     @classmethod
     def build_resolver_fields(cls, data):
         """Build resolver fields."""
-        data["vendor"] = {
-            "$ref": cls._vendor_resolver_path.format(
+        data["provider"] = {
+            "$ref": cls._provider_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 order_pid=data["pid"],

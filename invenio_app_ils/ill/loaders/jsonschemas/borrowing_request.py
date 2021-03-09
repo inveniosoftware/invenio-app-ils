@@ -63,7 +63,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     due_date = DateString()
     expected_delivery_date = DateString()
     legacy_id = fields.Str()
-    library_pid = fields.Str(required=True)
+    provider_pid = fields.Str(required=True)
     notes = fields.Str()
     patron_pid = fields.Str(required=True)
     payment = fields.Nested(PaymentSchema)

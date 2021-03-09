@@ -12,16 +12,6 @@ from invenio_search.api import RecordsSearch
 from invenio_app_ils.errors import MissingRequiredParameterError
 
 
-class LibrarySearch(RecordsSearch):
-    """Search for ILL libraries."""
-
-    class Meta:
-        """Search only on libraries index."""
-
-        index = "ill_libraries"
-        doc_types = None
-
-
 class BorrowingRequestsSearch(RecordsSearch):
     """Search for ILL borrowing requests."""
 
@@ -55,15 +45,15 @@ class BorrowingRequestsSearch(RecordsSearch):
             )
         return search
 
-    def search_by_library_pid(self, library_pid=None):
-        """Retrieve BorrowingRequests with the given library_pid."""
+    def search_by_provider_pid(self, provider_pid=None):
+        """Retrieve BorrowingRequests with the given provider_pid."""
         search = self
 
-        if library_pid:
-            search = search.filter("term", library_pid=library_pid)
+        if provider_pid:
+            search = search.filter("term", provider_pid=provider_pid)
         else:
             raise MissingRequiredParameterError(
-                description="library_pid is required"
+                description="provider_pid is required"
             )
 
         return search

@@ -26,14 +26,14 @@ def test_ill_brwreqs_list_permissions(client, testdata, json_headers, users):
         status="PENDING",
         document_pid="docid-1",
         patron_pid="1",
-        library_pid="illlid-1",
+        provider_pid="ill-provid-1",
         type="PHYSICAL_COPY",
     )
     patron2_brwreq = dict(
         status="PENDING",
         document_pid="docid-1",
         patron_pid="2",
-        library_pid="illlid-1",
+        provider_pid="ill-provid-1",
         type="PHYSICAL_COPY",
     )
 
@@ -88,7 +88,7 @@ def test_ill_brwreq_details_permissions(client, testdata, json_headers, users):
         status="PENDING",
         document_pid="docid-1",
         patron_pid="1",
-        library_pid="illlid-1",
+        provider_pid="ill-provid-1",
         type="PHYSICAL_COPY",
     )
 

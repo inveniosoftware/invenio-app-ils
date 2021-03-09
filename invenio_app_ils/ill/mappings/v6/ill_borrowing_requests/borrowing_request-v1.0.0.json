@@ -73,7 +73,7 @@
         "legacy_id": {
           "type": "keyword"
         },
-        "library": {
+        "provider": {
           "properties": {
             "name": {
               "fields": {
@@ -89,7 +89,7 @@
           },
           "type": "object"
         },
-        "library_pid": {
+        "provider_pid": {
           "type": "keyword"
         },
         "notes": {
