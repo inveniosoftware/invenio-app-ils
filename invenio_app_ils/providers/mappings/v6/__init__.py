@@ -5,4 +5,4 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Acquisition JSON resolver module."""
+"""Invenio Providers ES v6 mappings."""

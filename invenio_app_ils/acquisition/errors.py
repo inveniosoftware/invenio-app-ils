@@ -16,14 +16,3 @@ class AcquisitionError(IlsException):
     def __init__(self, description):
         """Initialize exception."""
         super().__init__(description=description)
-
-
-class VendorNotFoundError(AcquisitionError):
-    """Raised when a vendor cannot not be found."""
-
-    description = "Vendor PID '{}' was not found"
-
-    def __init__(self, vendor_pid, **kwargs):
-        """Initialize exception."""
-        self.description = self.description.format(vendor_pid)
-        super().__init__(description=self.description)

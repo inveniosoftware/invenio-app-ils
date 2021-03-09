@@ -13,17 +13,15 @@ from datetime import datetime
 import pytest
 
 from invenio_app_ils.acquisition.api import Order
-from invenio_app_ils.acquisition.errors import (
-    AcquisitionError,
-    VendorNotFoundError,
-)
+from invenio_app_ils.acquisition.errors import AcquisitionError
 from invenio_app_ils.errors import DocumentNotFoundError, PatronNotFoundError
+from invenio_app_ils.providers.errors import ProviderNotFoundError
 
 
 def _assert_extra_fields(order):
     """Test that extra fields are automatically added."""
     assert "$schema" in order
-    assert "vendor" in order and "$ref" in order["vendor"]
+    assert "provider" in order and "$ref" in order["provider"]
     assert (
         "resolved_order_lines" in order
         and "$ref" in order["resolved_order_lines"]
@@ -32,7 +30,7 @@ def _assert_extra_fields(order):
 
 def _assert_refs_values(order):
     """Test that refs are replaced correctly"""
-    assert "vendor" in order and order["vendor"]["name"]
+    assert "provider" in order and order["provider"]["name"]
     for order_line in order["resolved_order_lines"]:
         assert "document" in order_line and order_line["document"]["title"]
         assert "patron" in order_line and order_line["patron"]["name"]
@@ -45,7 +43,7 @@ def test_order_refs(app, testdata):
             pid="acqoid-99",
             order_date=datetime.now().isoformat(),
             status="ORDERED",
-            vendor_pid="acqvid-1",
+            provider_pid="acq-provid-1",
             order_lines=[
                 dict(
                     document_pid="docid-3",
@@ -81,10 +79,10 @@ def test_acq_order_validation(db, testdata):
     with pytest.raises(AcquisitionError):
         order.commit()
 
-    # change vendor pid
+    # change provider pid
     order = deepcopy(orginal_order)
-    order["vendor_pid"] = "not-existing"
-    with pytest.raises(VendorNotFoundError):
+    order["provider_pid"] = "not-existing"
+    with pytest.raises(ProviderNotFoundError):
         order.commit()
 
     order = deepcopy(orginal_order)

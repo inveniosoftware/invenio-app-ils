@@ -57,8 +57,8 @@ def create_email_log_entry(data, log_message):
     try:
         patron = User.query.filter_by(email=data["recipients"][0]).one()
     except NoResultFound as ex:
-        current_app.logger.exception(ex)
-        return
+        current_app.logger.warning(ex)
+        patron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
     recipient_id = str(patron.id)
 
     data_dict = dict(

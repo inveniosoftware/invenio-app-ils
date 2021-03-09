@@ -21,14 +21,9 @@ from .api import (
     BORROWING_REQUEST_PID_FETCHER,
     BORROWING_REQUEST_PID_MINTER,
     BORROWING_REQUEST_PID_TYPE,
-    LIBRARY_PID_FETCHER,
-    LIBRARY_PID_MINTER,
-    LIBRARY_PID_TYPE,
     BorrowingRequest,
-    Library,
 )
-from .indexer import LibraryIndexer
-from .search import BorrowingRequestsSearch, LibrarySearch
+from .search import BorrowingRequestsSearch
 
 ###############################################################################
 # ILS ILL
@@ -46,9 +41,6 @@ ILS_ILL_MAIL_TEMPLATES = {}
 
 _BORROWING_REQUEST_CONVERTER = (
     'pid(illbid, record_class="invenio_app_ils.ill.api:BorrowingRequest")'
-)
-_LIBRARY_CONVERTER = (
-    'pid(illlid, record_class="invenio_app_ils.ill.api:Library")'
 )
 
 RECORDS_REST_ENDPOINTS = dict(
@@ -95,42 +87,6 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=superuser_permission,
     ),
-    illlid=dict(
-        pid_type=LIBRARY_PID_TYPE,
-        pid_minter=LIBRARY_PID_MINTER,
-        pid_fetcher=LIBRARY_PID_FETCHER,
-        search_class=LibrarySearch,
-        indexer_class=LibraryIndexer,
-        record_class=Library,
-        record_loaders={
-            "application/json": ("invenio_app_ils.ill.loaders:library_loader")
-        },
-        record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
-        },
-        search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
-            "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
-        },
-        search_serializers_aliases={
-            "csv": "text/csv",
-            "json": "application/json",
-        },
-        list_route="/ill/libraries/",
-        item_route="/ill/libraries/<{0}:pid_value>".format(_LIBRARY_CONVERTER),
-        default_media_type="application/json",
-        max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
-        error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
-        create_permission_factory_imp=backoffice_permission,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
-    ),
 )
 
 RECORDS_REST_SORT_OPTIONS = dict(
@@ -157,30 +113,17 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=6,
         ),
     ),
-    ill_libraries=dict(  # LibrarySearch.Meta.index
-        name=dict(fields=["name.keyword"], title="Name", order=1),
-        created=dict(
-            fields=["_created"],
-            title="Recently added",
-            order=2,
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            order=3,
-        ),
-    ),
 )
 
-FACET_LIBRARYLIMIT = 5
+FACET_PROVIDER_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
     ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
         aggs=dict(
             status=dict(terms=dict(field="status")),
-            library=dict(
+            provider=dict(
                 terms=dict(
-                    field="library.name.keyword", size=FACET_LIBRARYLIMIT
+                    field="provider.name.keyword", size=FACET_PROVIDER_LIMIT
                 )
             ),
             patron_loan_extension=dict(
@@ -191,7 +134,7 @@ RECORDS_REST_FACETS = dict(
         ),
         post_filters=dict(
             status=terms_filter("status"),
-            library=terms_filter("library.name.keyword"),
+            provider=terms_filter("provider.name.keyword"),
             patron_loan_extension=terms_filter("patron_loan.extension.status"),
             type=terms_filter("terms"),
             payment_mode=terms_filter("payment.mode"),

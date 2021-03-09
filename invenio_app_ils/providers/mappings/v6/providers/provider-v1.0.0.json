@@ -10,7 +10,7 @@
     }
   },
   "mappings": {
-    "vendor-v1.0.0": {
+    "provider-v1.0.0": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
@@ -48,6 +48,9 @@
           "type": "keyword"
         },
         "pid": {
+          "type": "keyword"
+        },
+        "type": {
           "type": "keyword"
         }
       }

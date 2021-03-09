@@ -64,12 +64,7 @@
           "title": "Price per unit for the order line"
         }
       },
-      "required": [
-        "document_pid",
-        "recipient",
-        "medium",
-        "copies_ordered"
-      ],
+      "required": ["document_pid", "recipient", "medium", "copies_ordered"],
       "type": "object"
     },
     "payment": {
@@ -114,10 +109,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "value",
-        "currency"
-      ],
+      "required": ["value", "currency"],
       "type": "object"
     }
   },
@@ -216,8 +208,8 @@
       "title": "Last update entity information",
       "type": "object"
     },
-    "vendor_pid": {
-      "title": "The persistent identifier of its Vendor",
+    "provider_pid": {
+      "title": "The persistent identifier of its Provider",
       "type": "string"
     }
   },
@@ -227,7 +219,7 @@
     "order_lines",
     "pid",
     "status",
-    "vendor_pid"
+    "provider_pid"
   ],
   "title": "Schema for Acquisition order",
   "type": "object"

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Store 1",
+    "pid": "acq-provid-1",
+    "type": "VENDOR"
+  },
+  {
+    "name": "Store 2",
+    "pid": "acq-provid-2",
+    "type": "VENDOR"
+  }
+]

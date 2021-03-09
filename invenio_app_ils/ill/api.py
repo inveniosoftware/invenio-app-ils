@@ -26,50 +26,15 @@ from invenio_app_ils.circulation.api import (
 from invenio_app_ils.errors import (
     DocumentNotFoundError,
     PatronNotFoundError,
-    RecordHasReferencesError,
     UnknownItemPidTypeError,
 )
 from invenio_app_ils.fetchers import pid_fetcher
-from invenio_app_ils.ill.errors import ILLError, LibraryNotFoundError
-from invenio_app_ils.ill.proxies import current_ils_ill
+from invenio_app_ils.ill.errors import ILLError
 from invenio_app_ils.minters import pid_minter
+from invenio_app_ils.providers.errors import ProviderNotFoundError
+from invenio_app_ils.providers.proxies import current_ils_prov
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord, RecordValidator
-
-LIBRARY_PID_TYPE = "illlid"
-LIBRARY_PID_MINTER = "illlid"
-LIBRARY_PID_FETCHER = "illlid"
-
-LibraryIdProvider = type(
-    "LibraryIdProvider",
-    (RecordIdProviderV2,),
-    dict(pid_type=LIBRARY_PID_TYPE, default_status=PIDStatus.REGISTERED),
-)
-library_pid_minter = partial(pid_minter, provider_cls=LibraryIdProvider)
-library_pid_fetcher = partial(pid_fetcher, provider_cls=LibraryIdProvider)
-
-
-class Library(IlsRecord):
-    """ILL library class."""
-
-    _pid_type = LIBRARY_PID_TYPE
-    _schema = "ill_libraries/library-v1.0.0.json"
-
-    def delete(self, **kwargs):
-        """Delete record."""
-        search_cls = current_ils_ill.borrowing_request_search_cls
-        requests_search_res = search_cls().search_by_library_pid(self["pid"])
-        if requests_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Library",
-                record_id=self["pid"],
-                ref_type="BorrowingRequest",
-                ref_ids=sorted(
-                    [res["pid"] for res in requests_search_res.scan()]
-                ),
-            )
-        return super().delete(**kwargs)
-
 
 BORROWING_REQUEST_PID_TYPE = "illbid"
 BORROWING_REQUEST_PID_MINTER = "illbid"
@@ -121,13 +86,13 @@ class IllValidator(RecordValidator):
         except PatronNotFoundError:
             raise PatronNotFoundError(patron_pid)
 
-    def ensure_library_exists(self, library_pid):
-        """Ensure library exists or raise."""
-        Library = current_ils_ill.library_record_cls
+    def ensure_provider_exists(self, provider_pid):
+        """Ensure provider exists or raise."""
+        Provider = current_ils_prov.provider_record_cls
         try:
-            Library.get_record_by_pid(library_pid)
+            Provider.get_record_by_pid(provider_pid)
         except PIDDoesNotExistError:
-            raise LibraryNotFoundError(library_pid)
+            raise ProviderNotFoundError(provider_pid)
 
     def validate(self, record, **kwargs):
         """Validate record before create and commit."""
@@ -136,12 +101,12 @@ class IllValidator(RecordValidator):
         status = record["status"]
         cancel_reason = record.get("cancel_reason", None)
         document_pid = record["document_pid"]
-        library_pid = record["library_pid"]
+        provider_pid = record["provider_pid"]
         patron_pid = record["patron_pid"]
 
         self.validate_cancel(status, cancel_reason)
         self.ensure_document_exists(document_pid)
-        self.ensure_library_exists(library_pid)
+        self.ensure_provider_exists(provider_pid)
         self.ensure_patron_exists(patron_pid)
 
 
@@ -155,9 +120,9 @@ class BorrowingRequest(IlsRecord):
         "{scheme}://{host}/api/resolver/ill/"
         "borrowing-requests/{brw_req_pid}/document"
     )
-    _library_resolver_path = (
+    _provider_resolver_path = (
         "{scheme}://{host}/api/resolver/ill/"
-        "borrowing-requests/{brw_req_pid}/library"
+        "borrowing-requests/{brw_req_pid}/provider"
     )
     _patron_resolver_path = (
         "{scheme}://{host}/api/resolver/ill/"
@@ -176,8 +141,8 @@ class BorrowingRequest(IlsRecord):
                 brw_req_pid=data["pid"],
             )
         }
-        data["library"] = {
-            "$ref": cls._library_resolver_path.format(
+        data["provider"] = {
+            "$ref": cls._provider_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 brw_req_pid=data["pid"],

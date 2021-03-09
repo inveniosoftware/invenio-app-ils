@@ -55,7 +55,7 @@ def test_brwreq_create_loan_fails_on_wrong_status(
     def _create_new_brwreq(data=None):
         brwreq = data or dict(
             document_pid="docid-3",
-            library_pid="illlid-2",
+            provider_pid="ill-provid-2",
             patron_pid="1",
             status="PENDING",
             type="PHYSICAL_COPY",

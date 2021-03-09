@@ -24,7 +24,7 @@ def test_acq_orders_permissions(client, testdata, json_headers, users):
     dummy_acquisition_order = dict(
         status="PENDING",
         order_date="2020-02-25",
-        vendor_pid="acqvid-1",
+        provider_pid="acq-provid-1",
         order_lines=[
             dict(
                 copies_ordered=3,

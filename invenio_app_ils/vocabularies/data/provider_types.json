@@ -1,0 +1,12 @@
+[
+  {
+    "type": "provider_type",
+    "key": "LIBRARY",
+    "text": "Library"
+  },
+  {
+    "type": "provider_type",
+    "key": "VENDOR",
+    "text": "Vendor"
+  }
+]

@@ -34,22 +34,18 @@ from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
 
-from .acquisition.api import ORDER_PID_TYPE, VENDOR_PID_TYPE, Order, Vendor
+from .acquisition.api import ORDER_PID_TYPE, Order
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE, EItem
-from .ill.api import (
-    BORROWING_REQUEST_PID_TYPE,
-    LIBRARY_PID_TYPE,
-    BorrowingRequest,
-    Library,
-)
+from .ill.api import BORROWING_REQUEST_PID_TYPE, BorrowingRequest
 from .internal_locations.api import (
     INTERNAL_LOCATION_PID_TYPE,
     InternalLocation,
 )
 from .items.api import ITEM_PID_TYPE, Item
 from .locations.api import LOCATION_PID_TYPE, Location
+from .providers.api import PROVIDER_PID_TYPE, Provider
 from .proxies import current_app_ils
 from .records_relations.api import (
     RecordRelationsParentChild,
@@ -1025,7 +1021,7 @@ class LibraryGenerator(Generator):
 
     def generate(self):
         """Generate."""
-        size = self.holder.vendors["total"]
+        size = self.holder.libraries["total"]
         objs = []
         for pid in range(1, size + 1):
             obj = {
@@ -1035,6 +1031,7 @@ class LibraryGenerator(Generator):
                 "email": "visits.service@cern.ch",
                 "phone": "+41 (0) 22 76 776 76",
                 "notes": lorem.sentence(),
+                "type": "LIBRARY",
             }
             objs.append(obj)
 
@@ -1044,7 +1041,7 @@ class LibraryGenerator(Generator):
         """Persist."""
         recs = []
         for obj in self.holder.libraries["objs"]:
-            rec = self._persist(LIBRARY_PID_TYPE, "pid", Library.create(obj))
+            rec = self._persist(PROVIDER_PID_TYPE, "pid", Provider.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -1063,8 +1060,8 @@ class BorrowingRequestGenerator(Generator):
         """Get a random document PID."""
         return random.choice(self.holder.pids("documents", "pid"))
 
-    def random_library_pid(self):
-        """Get a random library PID if the state is ACCEPTED."""
+    def random_provider_pid(self):
+        """Get a random provider PID if the state is ACCEPTED."""
         return random.choice(self.holder.pids("libraries", "pid"))
 
     def random_price(self, currency, min_value=10.0):
@@ -1084,7 +1081,7 @@ class BorrowingRequestGenerator(Generator):
             obj = {
                 "pid": self.create_pid(),
                 "status": status,
-                "library_pid": self.random_library_pid(),
+                "provider_pid": self.random_provider_pid(),
                 "document_pid": self.random_document_pid(),
                 "patron_pid": random.choice(self.holder.patrons_pids),
                 "type": "ELECTRONIC",
@@ -1136,7 +1133,7 @@ class BorrowingRequestGenerator(Generator):
 
 
 class VendorGenerator(Generator):
-    """Vendor generator."""
+    """Provider generator."""
 
     def random_name(self):
         """Generate random name."""
@@ -1155,6 +1152,7 @@ class VendorGenerator(Generator):
                 "email": "visits.service@cern.ch",
                 "phone": "+41 (0) 22 76 776 76",
                 "notes": lorem.sentence(),
+                "type": "VENDOR",
             }
             objs.append(obj)
 
@@ -1164,7 +1162,7 @@ class VendorGenerator(Generator):
         """Persist."""
         recs = []
         for obj in self.holder.vendors["objs"]:
-            rec = self._persist(VENDOR_PID_TYPE, "pid", Vendor.create(obj))
+            rec = self._persist(PROVIDER_PID_TYPE, "pid", Provider.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -1223,7 +1221,7 @@ class OrderGenerator(Generator):
             obj = {
                 "pid": self.create_pid(),
                 "created_by_pid": self.holder.librarian_pid,
-                "vendor_pid": random.choice(self.holder.vendors["objs"])[
+                "provider_pid": random.choice(self.holder.vendors["objs"])[
                     "pid"
                 ],
                 "status": status,

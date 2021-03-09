@@ -82,7 +82,7 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     received_date = DateString()
     status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
     updated_by = fields.Nested(ChangedBySchema)
-    vendor_pid = fields.Str(required=True)
+    provider_pid = fields.Str(required=True)
 
     @pre_load
     def set_changed_by(self, data, **kwargs):

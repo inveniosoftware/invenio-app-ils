@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test acquisition vendors."""
+"""Test ILL providers."""
 
 import json
 
@@ -14,20 +14,21 @@ from flask import url_for
 from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
-VENDOR_PID = "acqvid-1"
-VENDOR_NAME = "A vendor"
-ITEM_ENDPOINT = "invenio_records_rest.acqvid_item"
-LIST_ENDPOINT = "invenio_records_rest.acqvid_list"
+PROVIDER_PID = "ill-provid-1"
+PROVIDER_NAME = "A library"
+PROVIDER_TYPE = "LIBRARY"
+ITEM_ENDPOINT = "invenio_records_rest.provid_item"
+LIST_ENDPOINT = "invenio_records_rest.provid_list"
 
 
-def test_acq_vendors_permissions(client, testdata, json_headers, users):
-    """Test vendors endpoints permissions."""
-    dummy_acquisition_vendor = dict(name=VENDOR_NAME)
+def test_ill_providers_permissions(client, testdata, json_headers, users):
+    """Test providers endpoints permissions."""
+    dummy_provider = dict(name=PROVIDER_NAME, type=PROVIDER_TYPE)
     tests = [
-        ("admin", _HTTP_OK, dummy_acquisition_vendor),
-        ("librarian", _HTTP_OK, dummy_acquisition_vendor),
-        ("patron1", [403], dummy_acquisition_vendor),
-        ("anonymous", [401], dummy_acquisition_vendor),
+        ("admin", _HTTP_OK, dummy_provider),
+        ("librarian", _HTTP_OK, dummy_provider),
+        ("patron1", [403], dummy_provider),
+        ("anonymous", [401], dummy_provider),
     ]
 
     def _test_list(expected_status):
@@ -44,29 +45,30 @@ def test_acq_vendors_permissions(client, testdata, json_headers, users):
 
         if res.status_code < 400:
             record = res.get_json()["metadata"]
-            assert record["name"] == VENDOR_NAME
+            assert record["name"] == PROVIDER_NAME
+            assert record["type"] == PROVIDER_TYPE
             return record["pid"]
 
     def _test_update(expected_status, data, pid):
         """Test record update."""
-        pid_value = pid or VENDOR_PID
+        pid_value = pid or PROVIDER_PID
         url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
         res = client.put(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code in expected_status
         if res.status_code < 400:
             record = res.get_json()["metadata"]
-            assert record["name"] == VENDOR_NAME
+            assert record["name"] == PROVIDER_NAME
 
     def _test_read(expected_status, pid):
         """Test record read."""
-        pid_value = pid or VENDOR_PID
+        pid_value = pid or PROVIDER_PID
         url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
         res = client.get(url, headers=json_headers)
         assert res.status_code in expected_status
 
     def _test_delete(expected_status, pid):
         """Test record delete."""
-        pid_value = pid or VENDOR_PID
+        pid_value = pid or PROVIDER_PID
         url = url_for(ITEM_ENDPOINT, pid_value=pid_value)
         res = client.delete(url, headers=json_headers)
         assert res.status_code in expected_status

@@ -14,7 +14,7 @@ from werkzeug.utils import cached_property
 from invenio_app_ils.ext import handle_rest_exceptions
 
 from . import config
-from .api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
+from .api import BORROWING_REQUEST_PID_TYPE
 
 
 class _InvenioIlsIllState(object):
@@ -50,21 +50,6 @@ class _InvenioIlsIllState(object):
     def borrowing_request_indexer_cls(self):
         """Return a Borrowing Request indexer instance."""
         return self.indexer_by_pid_type(BORROWING_REQUEST_PID_TYPE)
-
-    @cached_property
-    def library_record_cls(self):
-        """Return the Library record class."""
-        return self.record_class_by_pid_type(LIBRARY_PID_TYPE)
-
-    @cached_property
-    def library_search_cls(self):
-        """Return the Library search instance."""
-        return self.search_by_pid_type(LIBRARY_PID_TYPE)
-
-    @cached_property
-    def library_indexer(self):
-        """Return a Library indexer instance."""
-        return self.indexer_by_pid_type(LIBRARY_PID_TYPE)
 
 
 class InvenioIlsIll(object):

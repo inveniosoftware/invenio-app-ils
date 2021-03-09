@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "address": {
+      "title": "The address of the provider",
+      "type": "string"
+    },
+    "email": {
+      "title": "The email of provider",
+      "type": "string"
+    },
+    "legacy_ids": {
+      "title": "The previous ids of this provider before data migration",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "name": {
+      "title": "The name of provider",
+      "type": "string"
+    },
+    "notes": {
+      "title": "The notes of provider",
+      "type": "string"
+    },
+    "phone": {
+      "title": "The phone of provider",
+      "type": "string"
+    },
+    "pid": {
+      "title": "The persistent identifier of provider",
+      "type": "string"
+    },
+    "type": {
+      "title": "The type of the provider (Vocabulary)",
+      "type": "string"
+    }
+  },
+  "required": ["$schema", "pid", "name", "type"],
+  "title": "Schema for Provider",
+  "type": "object"
+}

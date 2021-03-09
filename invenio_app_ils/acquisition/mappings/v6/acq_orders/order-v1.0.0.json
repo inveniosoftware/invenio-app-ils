@@ -314,7 +314,7 @@
           },
           "type": "object"
         },
-        "vendor": {
+        "provider": {
           "properties": {
             "address": {
               "type": "text"
@@ -343,7 +343,7 @@
           },
           "type": "object"
         },
-        "vendor_pid": {
+        "provider_pid": {
           "type": "keyword"
         }
       }

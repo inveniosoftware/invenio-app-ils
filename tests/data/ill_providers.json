@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Library 1",
+    "pid": "ill-provid-1",
+    "type": "LIBRARY"
+  },
+  {
+    "name": "Library 2",
+    "pid": "ill-provid-2",
+    "type": "LIBRARY"
+  }
+]

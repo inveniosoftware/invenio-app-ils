@@ -18,12 +18,7 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.acquisition.api import (
-    ORDER_PID_TYPE,
-    VENDOR_PID_TYPE,
-    Order,
-    Vendor,
-)
+from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, Order
 from invenio_app_ils.circulation.mail.factory import message_factory
 from invenio_app_ils.document_requests.api import (
     DOCUMENT_REQUEST_PID_TYPE,
@@ -33,9 +28,7 @@ from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE, Document
 from invenio_app_ils.eitems.api import EITEM_PID_TYPE, EItem
 from invenio_app_ils.ill.api import (
     BORROWING_REQUEST_PID_TYPE,
-    LIBRARY_PID_TYPE,
     BorrowingRequest,
-    Library,
 )
 from invenio_app_ils.internal_locations.api import (
     INTERNAL_LOCATION_PID_TYPE,
@@ -43,6 +36,7 @@ from invenio_app_ils.internal_locations.api import (
 )
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 from invenio_app_ils.locations.api import LOCATION_PID_TYPE, Location
+from invenio_app_ils.providers.api import PROVIDER_PID_TYPE, Provider
 from invenio_app_ils.series.api import SERIES_PID_TYPE, Series
 from tests.helpers import (
     document_ref_builder,
@@ -119,14 +113,14 @@ def testdata(app, db, es_clear, users):
     data = load_json_from_datadir("loans.json")
     loans = _create_records(db, data, Loan, CIRCULATION_LOAN_PID_TYPE)
 
-    data = load_json_from_datadir("acq_vendors.json")
-    acq_vendors = _create_records(db, data, Vendor, VENDOR_PID_TYPE)
+    data = load_json_from_datadir("acq_providers.json")
+    acq_providers = _create_records(db, data, Provider, PROVIDER_PID_TYPE)
 
     data = load_json_from_datadir("acq_orders.json")
     acq_orders = _create_records(db, data, Order, ORDER_PID_TYPE)
 
-    data = load_json_from_datadir("ill_libraries.json")
-    ill_libraries = _create_records(db, data, Library, LIBRARY_PID_TYPE)
+    data = load_json_from_datadir("ill_providers.json")
+    ill_providers = _create_records(db, data, Provider, PROVIDER_PID_TYPE)
 
     data = load_json_from_datadir("ill_borrowing_requests.json")
     ill_brw_reqs = _create_records(
@@ -149,9 +143,9 @@ def testdata(app, db, es_clear, users):
         + eitems
         + loans
         + doc_reqs
-        + acq_vendors
+        + acq_providers
         + acq_orders
-        + ill_libraries
+        + ill_providers
         + ill_brw_reqs
     ):
         ri.index(rec)
@@ -167,9 +161,9 @@ def testdata(app, db, es_clear, users):
         "loans": loans,
         "locations": locations,
         "series": series,
-        "acq_vendors": acq_vendors,
+        "acq_providers": acq_providers,
         "acq_orders": acq_orders,
-        "ill_libraries": ill_libraries,
+        "ill_providers": ill_providers,
         "ill_brw_reqs": ill_brw_reqs,
     }
 

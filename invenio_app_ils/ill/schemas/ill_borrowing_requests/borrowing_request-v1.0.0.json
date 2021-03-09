@@ -47,10 +47,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "value",
-        "currency"
-      ],
+      "required": ["value", "currency"],
       "type": "object"
     }
   },
@@ -102,17 +99,17 @@
       "type": "string",
       "title": "The previous id of this borrowing request before data migration"
     },
-    "library": {
+    "provider": {
       "properties": {
         "$ref": {
           "type": "string"
         }
       },
-      "title": "The link, as a resolver, to the lending library",
+      "title": "The link, as a resolver, to the lending provider",
       "type": "object"
     },
-    "library_pid": {
-      "title": "The persistent identifier of the lending library",
+    "provider_pid": {
+      "title": "The persistent identifier of the lending provider",
       "type": "string"
     },
     "notes": {
@@ -211,7 +208,7 @@
     "status",
     "document_pid",
     "patron_pid",
-    "library_pid",
+    "provider_pid",
     "type"
   ],
   "title": "Schema for the ILL borrowing request",
