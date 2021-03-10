@@ -389,16 +389,22 @@ class DocumentGenerator(Generator):
             "affiliations": [{"name": "CERN"}],
         },
     ]
-    CONFERENCE_INFO = {
-        "acronym": "CHEP",
-        "country": "AU",
-        "dates": "1 - 20 Nov. 2019",
-        "identifiers": [{"scheme": "OTHER", "value": "CHEP2019"}],
-        "place": "Adelaide",
-        "series": "CHEP",
-        "title": "Conference on Computing in High Energy Physics",
-        "year": 2019,
-    }
+    CONFERENCE_INFO = [
+        {
+            "acronym": "CHEP",
+            "country": "AU",
+            "dates": "1 - 20 Nov. 2019",
+            "identifiers": [{"scheme": "OTHER", "value": "CHEP2019"}],
+            "place": "Adelaide",
+            "series": "CHEP",
+            "title": "Conference on Computing in High Energy Physics",
+            "year": 2019,
+        },
+        {
+            "place": "London",
+            "title": "Conference on Physics in High Energy Physics",
+        },
+    ]
     IMPRINTS = [
         {"date": "2019-08-02", "place": "Geneva", "publisher": "CERN"},
         {"date": "2017-08-02", "place": "Hamburg", "publisher": "Springer"},

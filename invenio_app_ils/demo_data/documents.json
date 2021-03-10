@@ -198,14 +198,16 @@
         "value": "9783954501960"
       }
     ],
-    "conference_info": {
-      "year": 2018,
-      "dates": "10 - 14 Sep. 2018",
-      "place": "Catania",
-      "title": "23rd International Workshop on ECR Ion Sources",
-      "series": "International Workshop on ECR Ion Sources",
-      "country": "IT"
-    },
+    "conference_info": [
+      {
+        "year": 2018,
+        "dates": "10 - 14 Sep. 2018",
+        "place": "Catania",
+        "title": "23rd International Workshop on ECR Ion Sources",
+        "series": "International Workshop on ECR Ion Sources",
+        "country": "IT"
+      }
+    ],
     "number_of_pages": "43",
     "publication_year": "2019"
   }
