@@ -188,55 +188,60 @@
       "type": "object"
     },
     "conference_info": {
-      "properties": {
-        "acronym": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "country": {
-          "minLength": 1,
-          "title": "ISO Country (Vocabulary)",
-          "type": "string"
-        },
-        "dates": {
-          "minLength": 1,
-          "title": "Conference dates.",
-          "type": "string"
-        },
-        "identifiers": {
-          "description": "Conference identifiers",
-          "items": {
-            "scheme": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "acronym": {
+            "minLength": 1,
+            "type": "string"
           },
-          "minLength": 1,
-          "required": ["scheme", "value"],
-          "type": "array"
+          "country": {
+            "minLength": 1,
+            "title": "ISO Country (Vocabulary)",
+            "type": "string"
+          },
+          "dates": {
+            "minLength": 1,
+            "title": "Conference dates.",
+            "type": "string"
+          },
+          "identifiers": {
+            "description": "Conference identifiers",
+            "items": {
+              "scheme": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "minLength": 1,
+            "required": ["scheme", "value"],
+            "type": "array"
+          },
+          "place": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "series": {
+            "minLength": 1,
+            "title": "Conference as a part of series.",
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "year": {
+            "minLength": 1,
+            "type": "integer"
+          }
         },
-        "place": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "series": {
-          "minLength": 1,
-          "title": "Conference as a part of series.",
-          "type": "string"
-        },
-        "title": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "year": {
-          "minLength": 1,
-          "type": "integer"
-        }
+        "required": ["place", "title"],
+        "type": "object"
       },
-      "required": ["place", "title"],
-      "type": "object"
+      "title": "List of conference info",
+      "type": "array"
     },
     "copyrights": {
       "items": {
