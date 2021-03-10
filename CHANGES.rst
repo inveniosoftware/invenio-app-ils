@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 1.0.0a30 (released 2021-03-10)
+
+- replace vendors and external libraries with provider record type
+- fix document extensions data schema
+- fix internal search queries
+- add publisher field to document request
+
 Version 1.0.0a29 (released 2021-03-04)
 
 - update borrowing request schema
