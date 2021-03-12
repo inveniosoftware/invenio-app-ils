@@ -10,11 +10,12 @@
 import json
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
 
+from ..proxies import current_app_ils
 from .api import (
-    VOCABULARY_PID_TYPE,
+    VOCABULARY_TYPE_COUNTRY,
+    VOCABULARY_TYPE_LANGUAGE,
     delete_vocabulary_from_index,
     load_vocabularies,
 )
@@ -47,8 +48,7 @@ def index_json(filenames, force):
     for filename in filenames:
         click.echo("indexing vocabularies in {}...".format(filename))
         vocabularies = load_vocabularies(source, filename)
-        cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-        indexer = cfg["indexer_class"]()
+        indexer = current_app_ils.vocabulary_indexer
         with click.progressbar(vocabularies) as bar:
             for vocabulary in bar:
                 indexer.index(vocabulary)
@@ -70,15 +70,13 @@ def index_languages(force):
     index_count = 0
     click.echo("indexing languages...")
 
-    cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-    Vocabulary = cfg["record_class"]
-    indexer = cfg["indexer_class"]()
-
+    Vocabulary = current_app_ils.vocabulary_record_cls
+    indexer = current_app_ils.vocabulary_indexer
     with click.progressbar(pycountry.languages) as bar:
         for lang in bar:
             if hasattr(lang, "alpha_3") and hasattr(lang, "alpha_2"):
                 lang_dict = {
-                    "type": "language",
+                    "type": VOCABULARY_TYPE_LANGUAGE,
                     "key": lang.alpha_3.upper(),
                     "text": "{} ({})".format(lang.name, lang.alpha_3),
                 }
@@ -114,8 +112,7 @@ def index_opendefinition(loader, path, whitelist_status, force):
     vocabularies = load_vocabularies(
         "opendefinition", loader, path, whitelist_status
     )
-    cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-    indexer = cfg["indexer_class"]()
+    indexer = current_app_ils.vocabulary_indexer
     with click.progressbar(vocabularies) as bar:
         for vocabulary in bar:
             indexer.index(vocabulary)
@@ -139,7 +136,7 @@ def countries(output):
     for country in pycountry.countries:
         results.append(
             {
-                "type": "country",
+                "type": VOCABULARY_TYPE_COUNTRY,
                 "key": country.alpha_2,
                 "text": "{} ({})".format(country.name, country.alpha_2),
             }
@@ -147,27 +144,6 @@ def countries(output):
     with open(output, "w+") as f:
         json.dump(results, f, sort_keys=True, indent=2)
         click.echo("stored {} countries in {}".format(len(results), output))
-
-
-@generate.command()
-@click.option("--output", "-o", default="languages.json")
-def languages(output):
-    """Generate JSON file containing all languages."""
-    import pycountry
-
-    results = []
-    for lang in pycountry.languages:
-        if hasattr(lang, "alpha_2") and hasattr(lang, "alpha_3"):
-            results.append(
-                {
-                    "type": "language",
-                    "key": lang.alpha_3.upper(),
-                    "text": "{} ({})".format(lang.name, lang.alpha_3),
-                }
-            )
-    with open(output, "w+") as f:
-        json.dump(results, f, sort_keys=True, indent=2)
-        click.echo("stored {} languages in {}".format(len(results), output))
 
 
 @vocabulary.command()

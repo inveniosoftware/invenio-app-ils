@@ -9,9 +9,8 @@
 
 import json
 
-from flask import current_app
-
-from ..api import VOCABULARY_PID_TYPE, validate_vocabulary
+from ...proxies import current_app_ils
+from ..api import validate_vocabulary
 from .base import VocabularySource
 
 
@@ -27,8 +26,7 @@ class JSONVocabularySource(VocabularySource):
     def load(self):
         """Load vocabularies from JSON file."""
         vocabularies = []
-        cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-        Vocabulary = cfg["record_class"]
+        Vocabulary = current_app_ils.vocabulary_record_cls
         with open(self.filename, "r") as f:
             for obj in json.load(f):
                 vocabulary = Vocabulary(**obj)

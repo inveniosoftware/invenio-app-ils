@@ -39,9 +39,6 @@
             "language": {
               "type": "keyword"
             },
-            "source": {
-              "type": "keyword"
-            },
             "type": {
               "type": "keyword"
             },

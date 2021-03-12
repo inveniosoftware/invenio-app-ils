@@ -207,7 +207,7 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
         # not expiring
         remaining_not_overdue = loans[3:]
         for loan in remaining_not_overdue:
-            days = random.choice([-2, -1, max_days+1, max_days+2])
+            days = random.choice([-2, -1, max_days + 1, max_days + 2])
             date = now + timedelta(days=days)
             new_end_date(loan, date)
         db.session.commit()

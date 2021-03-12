@@ -46,9 +46,6 @@
             "language": {
               "type": "keyword"
             },
-            "source": {
-              "type": "keyword"
-            },
             "type": {
               "type": "keyword"
             },
@@ -313,7 +310,7 @@
         "imprint": {
           "properties": {
             "date": {
-              "type": "date"
+              "type": "text"
             },
             "place": {
               "type": "keyword"
@@ -790,7 +787,7 @@
               "type": "keyword"
             },
             "dates": {
-              "type": "keyword"
+              "type": "text"
             },
             "identifiers": {
               "properties": {

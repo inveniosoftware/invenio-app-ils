@@ -32,6 +32,7 @@ from .locations.api import LOCATION_PID_TYPE
 from .locations.receivers import register_location_signals
 from .patrons.api import PATRON_PID_TYPE
 from .series.api import SERIES_PID_TYPE
+from .vocabularies.api import VOCABULARY_PID_TYPE
 
 
 def handle_rest_exceptions(exception):
@@ -192,6 +193,21 @@ class _InvenioAppIlsState(object):
     def series_indexer(self):
         """Return a series indexer instance."""
         return self.indexer_by_pid_type(SERIES_PID_TYPE)
+
+    @cached_property
+    def vocabulary_record_cls(self):
+        """Return the vocabulary record class."""
+        return self.record_class_by_pid_type(VOCABULARY_PID_TYPE)
+
+    @cached_property
+    def vocabulary_search_cls(self):
+        """Return the vocabulary search cls."""
+        return self.search_by_pid_type(VOCABULARY_PID_TYPE)
+
+    @cached_property
+    def vocabulary_indexer(self):
+        """Return a vocabulary indexer instance."""
+        return self.indexer_by_pid_type(VOCABULARY_PID_TYPE)
 
 
 class InvenioAppIls(object):
