@@ -10,12 +10,7 @@
         "type": "keyword"
       },
       "key": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
+        "type": "keyword"
       },
       "text": {
         "type": "text"

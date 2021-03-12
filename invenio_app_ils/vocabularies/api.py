@@ -16,6 +16,12 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
 from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.proxies import current_app_ils
+
+# hardcoded values for vocabularies that are not customizable via JSON files
+VOCABULARY_TYPE_LANGUAGE = "language"
+VOCABULARY_TYPE_COUNTRY = "country"
+VOCABULARY_TYPE_LICENSE = "license"
 
 VOCABULARY_PID_TYPE = "vocid"
 VOCABULARY_PID_MINTER = "vocid"
@@ -92,8 +98,7 @@ def load_vocabularies(source_name, *args, **kwargs):
 
 def delete_vocabulary_from_index(type, force=False, key=None):
     """Delete vocabulary from index given a type and optionally a key."""
-    cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-    search = cfg["search_class"]()
+    search = current_app_ils.vocabulary_search_cls()
     if key is None:
         results = search.search_by_type(type)
     else:

@@ -95,9 +95,9 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-    total = search_result.hits.total \
-        if lt_es7 \
-        else search_result.hits.total.value
+    total = (
+        search_result.hits.total if lt_es7 else search_result.hits.total.value
+    )
     if total > 0:
         return search_result.hits[0]
     else:

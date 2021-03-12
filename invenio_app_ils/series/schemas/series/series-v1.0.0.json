@@ -49,29 +49,27 @@
     },
     "alternative_titles": {
       "description": "Alternative titles of the document",
-      "items": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "language": {
-              "maxLength": 3,
-              "minLength": 3,
-              "title": "ISO 639-3 language code (Vocabulary)",
-              "type": "string"
-            },
-            "value": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "type": {
-              "type": "string",
-              "title": "Type of alternative title (Vocabulary)"
-            }
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "ISO 639-3 language code (Vocabulary)",
+            "type": "string"
           },
-          "required": ["value"],
-          "type": "object"
-        }
-      ],
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type of alternative title (Vocabulary)"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
       "minItems": 1,
       "type": "array",
       "uniqueItems": true

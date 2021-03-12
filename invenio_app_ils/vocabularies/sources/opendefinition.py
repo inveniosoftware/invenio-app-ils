@@ -7,10 +7,10 @@
 
 """Vocabulary Invenio-OpenDefinition source module."""
 
-from flask import current_app
 from invenio_opendefinition import current_opendefinition
 
-from ..api import VOCABULARY_PID_TYPE, validate_vocabulary
+from ...proxies import current_app_ils
+from ..api import VOCABULARY_TYPE_LICENSE, validate_vocabulary
 from .base import VocabularySource
 
 
@@ -31,8 +31,7 @@ class OpenDefinitionVocabularySource(VocabularySource):
             raise KeyError("Loader {} does not exist".format(self.loader))
 
         vocabularies = []
-        cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
-        Vocabulary = cfg["record_class"]
+        Vocabulary = current_app_ils.vocabulary_record_cls
         licenses = current_opendefinition.loaders[self.loader](self.path)
         for _license in licenses.values():
             data = {
@@ -52,7 +51,7 @@ class OpenDefinitionVocabularySource(VocabularySource):
                 data["status"] = _license["status"]
 
             vocabulary = Vocabulary(
-                type="license",
+                type=VOCABULARY_TYPE_LICENSE,
                 key=_license["id"],
                 text="{} ({})".format(_license["title"], _license["id"]),
                 data=data,

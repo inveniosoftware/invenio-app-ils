@@ -37,7 +37,7 @@ def create_circulation_blueprint(app):
     )
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
-    options = endpoints.get("loanid", {})
+    options = endpoints.get(CIRCULATION_LOAN_PID_TYPE, {})
     default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {

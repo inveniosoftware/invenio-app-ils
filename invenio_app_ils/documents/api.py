@@ -8,6 +8,7 @@
 """ILS Document APIs."""
 
 from functools import partial
+from urllib.parse import quote_plus
 
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
@@ -20,6 +21,9 @@ from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records_relations.api import IlsRecordWithRelations
+from invenio_app_ils.vocabularies.jsonresolvers.licenses import (
+    REF_LICENSE_URL_ABSOLUTE_PATH,
+)
 
 DOCUMENT_PID_TYPE = "docid"
 DOCUMENT_PID_MINTER = "docid"
@@ -62,6 +66,7 @@ class Document(IlsRecordWithRelations):
     _stock_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/stock"
     )
+    _license_resolver_path = REF_LICENSE_URL_ABSOLUTE_PATH
 
     @classmethod
     def build_resolver_fields(cls, data):
@@ -104,6 +109,14 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"],
             )
         }
+
+        for lic in data.get("licenses", []):
+            license_id = quote_plus(lic["license"]["id"])
+            lic["license"]["$ref"] = cls._license_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                license_id=license_id,
+            )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):

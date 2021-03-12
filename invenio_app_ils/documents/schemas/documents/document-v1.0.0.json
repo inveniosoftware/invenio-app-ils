@@ -46,33 +46,27 @@
     },
     "alternative_titles": {
       "description": "Alternative titles of the document",
-      "items": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "language": {
-              "maxLength": 3,
-              "minLength": 3,
-              "title": "ISO 639-3 language code (Vocabulary)",
-              "type": "string"
-            },
-            "source": {
-              "title": "Source of the alternative title.",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type of alternative title (Vocabulary)",
-              "type": "string"
-            },
-            "value": {
-              "minLength": 1,
-              "type": "string"
-            }
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "ISO 639-3 language code (Vocabulary)",
+            "type": "string"
           },
-          "required": ["value"],
-          "type": "object"
-        }
-      ],
+          "type": {
+            "title": "Type of alternative title (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
@@ -171,7 +165,6 @@
           }
         },
         "required": ["full_name"],
-        "default": { "full_name": "Various authors" },
         "type": "object"
       },
       "minItems": 1,
@@ -451,19 +444,11 @@
               "id": {
                 "type": "string"
               },
-              "maintainer": {
-                "type": "string"
-              },
-              "status": {
-                "enum": ["active", "superseded", "retired"]
-              },
-              "title": {
-                "type": "string"
-              },
-              "url": {
+              "$ref": {
                 "type": "string"
               }
             },
+            "required": ["id"],
             "title": "Open-definition license",
             "type": "object"
           },
@@ -472,6 +457,7 @@
             "type": "string"
           }
         },
+        "required": ["license"],
         "type": "object"
       },
       "minItems": 1,

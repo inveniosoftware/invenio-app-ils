@@ -237,6 +237,7 @@ setup(
             "order_order_lines = invenio_app_ils.acquisition.jsonresolvers.order_order_lines",
             "order_provider = invenio_app_ils.acquisition.jsonresolvers.order_provider",
             "series_relations = invenio_app_ils.series.jsonresolvers.series_relations",
+            "vocabularies_licenses = invenio_app_ils.vocabularies.jsonresolvers.licenses",
         ],
         "invenio_celery.tasks": [
             "ils_indexer_acquisitions = invenio_app_ils.acquisition.indexer",

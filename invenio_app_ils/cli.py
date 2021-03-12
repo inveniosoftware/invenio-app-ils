@@ -319,13 +319,11 @@ class EItemGenerator(Generator):
                 "internal_notes": "{}".format(lorem.text()),
                 "urls": [
                     {
-                        "value":
-                            "https://home.cern/science/physics/dark-matter",
+                        "value": "https://home.cern/science/physics/a",
                         "description": "Dark matter",
                     },
                     {
-                        "value":
-                            "https://home.cern/science/physics/antimatter",
+                        "value": "https://home.cern/science/physics/b",
                         "description": "Anti matter",
                     },
                 ],
@@ -371,6 +369,8 @@ class DocumentGenerator(Generator):
     SERIAL_ISSUE = "SERIAL_ISSUE"
     AUTHORS = [
         {"full_name": "Close, Frank"},
+        {"full_name": "Harrison, Stacey"},
+        {"full_name": "Glover, Bruno"},
         {"full_name": "CERN", "type": "ORGANISATION"},
         {
             "full_name": "Doe, Jane",
@@ -384,7 +384,7 @@ class DocumentGenerator(Generator):
             "roles": ["EDITOR"],
         },
         {
-            "full_name": "Doe, John",
+            "full_name": "Haigh, Jill",
             "roles": ["RESEARCHER"],
             "affiliations": [{"name": "CERN"}],
         },
@@ -492,19 +492,18 @@ class DocumentGenerator(Generator):
     ]
 
     LICENSE = {
-        "license":
-            {
-                "id": "license-0bsd", "maintainer": "", "status": "active",
-                "title": "BSD Zero Clause License (0BSD)",
-                "url": "http://landley.net/toybox/license.html"
-            },
-        "material": "paper"
-       }
+        "license": {
+            "id": "license-0bsd",
+        },
+        "material": "paper",
+    }
 
     COPYRIGHTS = {
-        "holder": "INSTITUTION", "material": "paper",
+        "holder": "INSTITUTION",
+        "material": "paper",
         "statement": "Copyright statement",
-        "url": "https://test.com", "year": 1990
+        "url": "https://test.com",
+        "year": 1990,
     }
 
     def generate_document(self, index, **kwargs):
@@ -514,12 +513,13 @@ class DocumentGenerator(Generator):
         )
         imprint = random.choice(self.IMPRINTS)
         isbn = random.choice(self.ISBNS)
+        n_authors = randint(1, len(self.AUTHORS))
         obj = {
             "pid": self.create_pid(),
             "title": lorem.sentence(),
             "cover_metadata": {"ISBN": isbn, "urls": {}},
             "copyrights": [self.COPYRIGHTS],
-            "authors": random.sample(self.AUTHORS, randint(1, 3)),
+            "authors": random.sample(self.AUTHORS, n_authors),
             "abstract": "{}".format(lorem.text()),
             "document_type": random.choice(Document.DOCUMENT_TYPES),
             "created_by": {"type": "script", "value": "demo"},
@@ -542,8 +542,9 @@ class DocumentGenerator(Generator):
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
             "identifiers": [{"scheme": "ISBN", "value": isbn}],
-            "alternative_identifiers": [{"scheme": "ARXIV",
-                                         "value": "1234.1234"}],
+            "alternative_identifiers": [
+                {"scheme": "ARXIV", "value": "1234.1234"}
+            ],
             "imprint": {
                 **imprint,
                 "date": "{}-08-02".format(publication_year),
@@ -771,7 +772,6 @@ class SeriesGenerator(Generator):
                 value=obj["title"],
                 type="TRANSLATED_TITLE",
                 language="FRA",
-                source="CERN",
             ),
         ]
         obj["internal_notes"] = [
@@ -1245,8 +1245,8 @@ class OrderGenerator(Generator):
             }
             obj["expected_delivery_date"] = (
                 self.random_date(now, now + timedelta(days=400))
-                    .date()
-                    .isoformat()
+                .date()
+                .isoformat()
             )
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
@@ -1547,8 +1547,8 @@ def pages():
             title="Contact",
             description="Contact",
             content="You can contact InvenioILS developers on "
-                    '<a href="https://gitter.im/inveniosoftware/invenio">'
-                    "our chatroom</a>",
+            '<a href="https://gitter.im/inveniosoftware/invenio">'
+            "our chatroom</a>",
             template_name="invenio_pages/default.html",
         ),
     ]

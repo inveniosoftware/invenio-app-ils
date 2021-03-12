@@ -26,4 +26,4 @@ class VocabularySearch(RecordsSearch):
     def search_by_type_and_key(self, type, key):
         """Search vocabularies by type and key."""
         search = self.search_by_type(type)
-        return search.filter("term", **{"key.keyword": key})
+        return search.filter("term", **{"key": key})

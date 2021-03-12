@@ -48,7 +48,7 @@ def get_all_expiring_loans(expiring_in_days):
             "range",
             end_date=dict(
                 gte="{}||/d".format(datetime.today().date()),
-                lte="{}||/d".format(future)
+                lte="{}||/d".format(future),
             ),
         )
     )

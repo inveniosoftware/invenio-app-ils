@@ -84,7 +84,6 @@ class AlternativeTitleSchema(Schema):
         unknown = EXCLUDE
 
     language = fields.Str()
-    source = fields.Str()
     type = fields.Str()
     value = fields.Str(required=True)
 
@@ -199,10 +198,6 @@ class OpenDefinitionLicenseSchema(Schema):
         unknown = EXCLUDE
 
     id = fields.Str(required=True)
-    maintainer = fields.Str()
-    status = fields.Str()
-    title = fields.Str()
-    url = fields.Str()
 
 
 class LicenseSchema(Schema):
@@ -214,7 +209,7 @@ class LicenseSchema(Schema):
         unknown = EXCLUDE
 
     internal_notes = fields.Str()
-    license = fields.Nested(OpenDefinitionLicenseSchema)
+    license = fields.Nested(OpenDefinitionLicenseSchema, required=True)
     material = fields.Str()
 
 
