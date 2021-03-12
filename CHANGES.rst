@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 1.0.0a31 (released 2021-03-12)
+
+- add volumes description fields to series
+- change conference field type
+
 Version 1.0.0a30 (released 2021-03-10)
 
 - replace vendors and external libraries with provider record type
