@@ -43,7 +43,7 @@ class Document(IlsRecordWithRelations):
 
     DOCUMENT_TYPES = [
         "BOOK",
-        "PROCEEDING",
+        "PROCEEDINGS",
         "STANDARD",
         "SERIAL_ISSUE",
         "ARTICLE",

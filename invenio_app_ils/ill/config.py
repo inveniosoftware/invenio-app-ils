@@ -136,7 +136,7 @@ RECORDS_REST_FACETS = dict(
             status=terms_filter("status"),
             provider=terms_filter("provider.name.keyword"),
             patron_loan_extension=terms_filter("patron_loan.extension.status"),
-            type=terms_filter("terms"),
+            type=terms_filter("type"),
             payment_mode=terms_filter("payment.mode"),
         ),
     )
