@@ -1,5 +1,5 @@
 {% block subject %}
-InvenioILS: your literature request for "{{ request.title }}" has been approved.
+InvenioILS: literature request approved for "{{ request.title|safe }}"
 {% endblock %}
 
 {% block body_plain %}

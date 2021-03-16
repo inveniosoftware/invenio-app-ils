@@ -14,7 +14,6 @@ from flask import current_app
 from flask_mail import Message
 from jinja2.exceptions import TemplateError
 
-from invenio_app_ils.mail.utils import prepare_ctx_to_be_inserted_in_html
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.jsonresolvers.api import pick
 
@@ -86,7 +85,6 @@ class BlockTemplatedMessage(Message):
     def render_block(self, template, block_name):
         """Return a Jinja2 block as a string."""
         new_context = template.new_context
-        prepare_ctx_to_be_inserted_in_html(self.ctx)
         if block_name not in template.blocks:
             raise TemplateError("No block with name '{}'".format(block_name))
         lines = template.blocks[block_name](new_context(vars=self.ctx))

@@ -14,7 +14,6 @@ import arrow
 from flask import current_app, url_for
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
-from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
@@ -45,7 +44,7 @@ def test_email_on_loan_checkout(
 
     doc = Document.get_record_by_pid(loan_data["document_pid"])
     expected_subject = (
-        """InvenioILS: your loan for "{0}" has started.""".format(doc["title"])
+        "InvenioILS: loan started for \"{0}\"".format(doc["title"])
     )
     assert msg.subject == expected_subject
 
@@ -67,71 +66,6 @@ def test_email_on_loan_checkout(
         host=current_app.config["SPA_HOST"],
         path=current_app.config["SPA_PATHS"]["profile"],
     )
-    expected_body_plain = """Dear Patron One,
-
-your loan for "{doc_full_title}" <{literature_url}> has started.
-
-The due date is {loan_end_date}.
-
-You can see your ongoing and past loans in your profile page <{profile_url}>.
-
-Kind regards,
-InvenioILS""".format(
-        doc_full_title=full_title,
-        literature_url=literature_url,
-        loan_end_date=loan_data["end_date"],
-        profile_url=profile_url,
-    )
-    assert msg.body == expected_body_plain
-
-
-def test_email_with_special_characters(
-    client, app_with_mail, users, testdata, loan_params
-):
-    """Test that special characters are correctly displayed."""
-    loan_data = testdata["loans"][1]
-    loan = Loan.get_record_by_pid(loan_data["pid"])
-    doc = Document.get_record_by_pid(loan_data["document_pid"])
-    doc["title"] = \
-        "Spèciâl chäráctèrs: " \
-        "`,~,!,@,#,$,%,^,&,*,(,),_,-,+,=,{,[,},},|,\\,:,;,',<,>,.,?,/,º,ª"
-    doc.commit()
-    db.session.commit()
-    with app_with_mail.extensions["mail"].record_messages() as outbox:
-        user_login(client, "admin", users)
-
-        assert len(outbox) == 0
-        current_circulation.circulation.trigger(
-            loan, **dict(loan_params, trigger="checkout")
-        )
-        assert len(outbox) == 1
-        msg = outbox[0]
-
-    expected_subject = (
-        """InvenioILS: your loan for "{0}" has started.""".format(doc["title"])
-    )
-    assert msg.subject == expected_subject
-
-    edition_year = " ({edition} - {year})".format(
-        edition=doc["edition"], year=doc["publication_year"]
-    )
-
-    full_title = "{title}, {author}{edition_year}".format(
-        title=doc["title"],
-        author=doc["authors"][0]["full_name"],
-        edition_year=edition_year,
-    )
-
-    literature_url = "{host}{path}".format(
-        host=current_app.config["SPA_HOST"],
-        path=current_app.config["SPA_PATHS"]["literature"]
-        % {"pid": doc["pid"]},
-    )
-    profile_url = "{host}{path}".format(
-        host=current_app.config["SPA_HOST"],
-        path=current_app.config["SPA_PATHS"]["profile"],
-    )
-
     expected_body_plain = """Dear Patron One,
 
 your loan for "{doc_full_title}" <{literature_url}> has started.
