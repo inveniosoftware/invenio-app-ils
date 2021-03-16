@@ -10,9 +10,9 @@
     "text": "Print version, hardback"
   },
   {
-    "key": "ELECTRONIC",
+    "key": "E-BOOK",
     "type": "doc_identifiers_materials",
-    "text": "Electronic version"
+    "text": "E-book"
   },
   {
     "key": "PRINT_VERSION",

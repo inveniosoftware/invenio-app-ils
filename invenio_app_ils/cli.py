@@ -1090,7 +1090,7 @@ class BorrowingRequestGenerator(Generator):
                 "provider_pid": self.random_provider_pid(),
                 "document_pid": self.random_document_pid(),
                 "patron_pid": random.choice(self.holder.patrons_pids),
-                "type": "ELECTRONIC",
+                "type": "E-BOOK",
                 "notes": lorem.sentence(),
             }
 

@@ -52,8 +52,8 @@ class RecordRelationIndexer(RecordIndexer):
 
         for rec in records:
             add_referenced(rec["pid"], rec._pid_type)
-            # TODO: we are indexing too many records here. The records to index
-            # depend on the relation changed:
+            # Suggestion: we are indexing too many records here. The records to
+            # index depend on the relation changed:
             # * for parent/child -> only child
             # * for siblings -> all
             # * for sequence -> only previous or next
