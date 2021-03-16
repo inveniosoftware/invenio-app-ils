@@ -44,7 +44,7 @@ def test_email_on_loan_checkout(
 
     doc = Document.get_record_by_pid(loan_data["document_pid"])
     expected_subject = (
-        """InvenioILS: your loan for "{0}" has started.""".format(doc["title"])
+        "InvenioILS: loan started for \"{0}\"".format(doc["title"])
     )
     assert msg.subject == expected_subject
 

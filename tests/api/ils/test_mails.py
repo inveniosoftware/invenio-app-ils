@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2021 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -32,19 +32,25 @@ class TestMessage(BlockTemplatedMessage):
 def test_block_templated_message_full(app_with_mail):
     """Test that the subject, body and html are read correctly."""
     with app_with_mail.app_context():
+        # remove footer
+        app_with_mail.config["ILS_GLOBAL_MAIL_TEMPLATES"] = {}
+
         full = BlockTemplatedMessage("mail/subject_body_html.html")
         assert full.subject == "Test subject."
-        assert "Test body." in full.body
-        assert "Test html." in full.html
+        assert "Test body." == full.body
+        assert "Test html." == full.html
 
 
 def test_block_templated_message_body_same_as_html(app_with_mail):
     """Test that the subject and body are read correctly."""
     with app_with_mail.app_context():
+        # remove footer
+        app_with_mail.config["ILS_GLOBAL_MAIL_TEMPLATES"] = {}
+
         blank = BlockTemplatedMessage("mail/subject_body.html")
         assert blank.subject == "Test subject."
-        assert "Test body." in blank.body
-        assert "Test body." in blank.html
+        assert "Test body." == blank.body
+        assert "Test body." == blank.html
 
 
 def test_invalid_block_templated_message_templates(app_with_mail):
@@ -57,6 +63,26 @@ def test_invalid_block_templated_message_templates(app_with_mail):
         with pytest.raises(TemplateError) as ex:
             BlockTemplatedMessage("mail/subject_only.html")
         assert "No block with name 'body_plain'" in str(ex.value)
+
+
+def test_message_templates_escaping(app_with_mail):
+    """Test templates escaping."""
+    title = "Spèciâl chäráctèrs: " \
+        "`,~,!,@,#,$,%,^,&,*,(,),_,-,+,=,{,[,},},|,\\,:,;,',<,>,.,?,/,º,ª " \
+        "<script>alert('test');</script>"
+    ctx = dict(title=title)
+    with app_with_mail.app_context():
+        # remove footer
+        app_with_mail.config["ILS_GLOBAL_MAIL_TEMPLATES"] = {}
+
+        full = BlockTemplatedMessage("mail/subject_body_html_ctx.html", ctx)
+
+        assert full.subject == "Test \"{0}\" subject.".format(title)
+
+        from jinja2 import escape
+        escaped = escape(title)
+        assert "Test \"{0}\" body.".format(escaped) == full.body
+        assert "Test \"{0}\" html.".format(escaped) == full.html
 
 
 def test_block_template_with_missing_template(app_with_mail):
@@ -112,7 +138,7 @@ def test_email_db_table_and_endpoint(users, client, json_headers):
         "is_manually_triggered": True,
         "message_id": "1",
     }
-    exc = "An error occured."
+    exc = "An error occurred."
     log_successful_mail(None, data)
 
     log_error_mail(request=request, exc=exc, traceback=None, data=data)
@@ -120,7 +146,7 @@ def test_email_db_table_and_endpoint(users, client, json_headers):
     assert EmailLog.query.filter_by(id=1).one().send_log == "Success"
     assert (
         EmailLog.query.filter_by(id=2).one().send_log
-        == "Error: 'An error occured.'"
+        == "Error: 'An error occurred.'"
     )
 
     ITEM_ENDPOINT = "invenio_app_ils_emails_item.get_email"
@@ -132,7 +158,7 @@ def test_email_db_table_and_endpoint(users, client, json_headers):
     res = client.get(url, headers=json_headers)
 
     assert (
-        res.get_json()["hits"][0]["send_log"] == "Error: 'An error occured.'"
+        res.get_json()["hits"][0]["send_log"] == "Error: 'An error occurred.'"
     )
     assert res.get_json()["hits"][1]["send_log"] == "Success"
 
@@ -143,5 +169,5 @@ def test_email_db_table_and_endpoint(users, client, json_headers):
 
     url = url_for(ITEM_ENDPOINT, id=2)
     res = client.get(url, headers=json_headers)
-    assert res.get_json()["send_log"] == "Error: 'An error occured.'"
+    assert res.get_json()["send_log"] == "Error: 'An error occurred.'"
     assert res.get_json()["id"] == 2

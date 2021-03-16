@@ -1,5 +1,5 @@
 {% block subject %}
-InvenioILS: your loan extension request for "{{ document.title }}" has been registered.
+InvenioILS: loan extension request registered for "{{ document.title|safe }}"
 {% endblock %}
 
 {% block body_plain %}

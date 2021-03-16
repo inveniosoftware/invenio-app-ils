@@ -116,7 +116,6 @@ def get_common_message_ctx(record):
     """Get common context for emails."""
     Patron = current_app_ils.patron_cls
     patron = Patron.get_patron(record["patron_pid"])
-
     message_ctx = dict(patron=patron)
 
     if "document_pid" in record:

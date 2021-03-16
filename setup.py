@@ -13,7 +13,7 @@ from setuptools import find_packages, setup
 
 readme = open("README.rst").read()
 
-invenio_db_version = ">=1.0.6,<1.1.0"
+invenio_db_version = ">=1.0.8,<1.1.0"
 invenio_search_version = "1.3.1,<1.4.0"
 
 tests_require = [

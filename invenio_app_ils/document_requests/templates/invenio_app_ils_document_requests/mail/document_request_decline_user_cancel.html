@@ -1,5 +1,5 @@
 {% block subject %}
-InvenioILS: you have cancelled your literature request for "{{ request.title }}".
+InvenioILS: literature request declined for "{{ request.title|safe }}"
 {% endblock %}
 
 {% block body_plain %}
