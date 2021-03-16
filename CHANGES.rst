@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version 1.0.0a32 (released 2021-03-16)
+
+- change license vocabulary to use resolver
+- rename proceedings and ebooks
+- prepare strings to be inserted in HTML
+
 Version 1.0.0a31 (released 2021-03-12)
 
 - add volumes description fields to series
