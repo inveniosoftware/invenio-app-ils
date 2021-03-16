@@ -37,7 +37,7 @@ def jsonresolver_loader(url_map):
             document_pid
         ).count()
         if eitems_count > 0:
-            mediums.append("ELECTRONIC_VERSION")
+            mediums.append("E-BOOK")
         return {
             "mediums": mediums,
         }

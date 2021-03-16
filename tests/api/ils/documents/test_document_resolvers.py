@@ -31,5 +31,5 @@ def test_document_resolvers(app, testdata):
 
     # stock
     mediums = set([item["medium"] for item in document["items"]["hits"]])
-    mediums.add("ELECTRONIC_VERSION")
+    mediums.add("E-BOOK")
     assert set(document["stock"]["mediums"]) == mediums
