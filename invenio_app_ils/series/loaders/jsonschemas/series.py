@@ -86,7 +86,6 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     title = fields.Str(required=True)
     updated_by = fields.Nested(ChangedBySchema)
     urls = fields.Nested(UrlSchema, many=True)
-    electronic_volumes_description = fields.Str()
     physical_volumes = fields.Nested(PhysicalVolumes, many=True)
 
     def dump_extensions(self, obj):

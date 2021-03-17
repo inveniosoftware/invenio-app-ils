@@ -321,10 +321,6 @@
       "type": "array",
       "uniqueItems": true
     },
-    "electronic_volumes_description": {
-      "type": "string",
-      "title": "Electronic items description"
-    },
     "physical_volumes": {
       "items": {
         "additionalProperties": false,

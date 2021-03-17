@@ -266,9 +266,6 @@
         },
         "type": "object"
       },
-      "electronic_volumes_description": {
-        "type": "text"
-      },
       "physical_volumes": {
         "properties": {
           "description": {
