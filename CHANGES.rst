@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a33 (released 2021-03-18)
+
+- series: remove electronic volumes description field
+
 Version 1.0.0a32 (released 2021-03-16)
 
 - change license vocabulary to use resolver
