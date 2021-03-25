@@ -362,7 +362,18 @@ def circulation_default_extension_duration(loan, initial_loan):
     # physical item
     Item = current_app_ils.item_record_cls
     item = Item.get_record_by_pid(item_pid["value"])
-    return circulation_default_loan_duration_for_item(item)
+    duration = circulation_default_loan_duration_for_item(item)
+
+    today = arrow.utcnow().date()
+    end_date = arrow.get(loan["end_date"]).date()
+    is_overdue = today > end_date
+    if is_overdue:
+        # when overdue, the extended end date is today + duration
+        end_date_to_today = today - end_date
+        return end_date_to_today + duration
+    else:
+        # when not overdue, the extended end date is end date + duration
+        return duration
 
 
 def circulation_item_location_retriever(item_pid):
