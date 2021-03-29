@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version 1.0.0a34 (released 2021-03-29)
+
+- Updates default loan extension
+
 Version 1.0.0a33 (released 2021-03-18)
 
 - series: remove electronic volumes description field
