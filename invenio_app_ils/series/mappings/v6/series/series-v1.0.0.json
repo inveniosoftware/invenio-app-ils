@@ -70,6 +70,9 @@
           },
           "type": "object"
         },
+        "document_type": {
+          "type": "keyword"
+        },
         "edition": {
           "type": "keyword"
         },
@@ -235,6 +238,10 @@
               "type": "object"
             }
           }
+        },
+        "series_type": {
+          "copy_to": "document_type",
+          "type": "keyword"
         },
         "tags": {
           "type": "keyword"

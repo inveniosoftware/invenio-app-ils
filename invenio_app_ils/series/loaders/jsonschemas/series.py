@@ -82,6 +82,7 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     note = fields.Str()
     publication_year = fields.Str()
     publisher = fields.Str()
+    series_type = fields.Str(validate=validate.OneOf(Series.SERIES_TYPES))
     tags = fields.List(fields.Str())
     title = fields.Str(required=True)
     updated_by = fields.Nested(ChangedBySchema)

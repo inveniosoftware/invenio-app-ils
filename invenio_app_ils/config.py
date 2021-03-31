@@ -913,11 +913,13 @@ RECORDS_REST_FACETS = dict(
             moi=dict(terms=dict(field="mode_of_issuance")),
             language=dict(terms=dict(field="languages")),
             relation=dict(terms=dict(field="relation_types")),
+            sertype=dict(terms=dict(field="series_type")),
         ),
         post_filters=dict(
             moi=terms_filter("mode_of_issuance"),
             language=terms_filter("languages"),
             relation=terms_filter("relation_types"),
+            sertype=terms_filter("series_type"),
         ),
     ),
 )
