@@ -33,6 +33,8 @@ series_pid_fetcher = partial(pid_fetcher, provider_cls=SeriesIdProvider)
 class Series(IlsRecordWithRelations):
     """Series record class."""
 
+    SERIES_TYPES = ["SERIAL", "PERIODICAL"]
+
     _pid_type = SERIES_PID_TYPE
     _schema = "series/series-v1.0.0.json"
     _relations_path = (

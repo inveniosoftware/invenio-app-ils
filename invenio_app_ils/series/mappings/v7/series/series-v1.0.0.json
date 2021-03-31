@@ -69,6 +69,9 @@
         },
         "type": "object"
       },
+      "document_type": {
+        "type": "keyword"
+      },
       "edition": {
         "type": "keyword"
       },
@@ -231,6 +234,10 @@
           }
         }
       },
+      "series_type": {
+        "copy_to": "document_type",
+        "type": "keyword"
+      },
       "tags": {
         "type": "keyword"
       },
@@ -261,8 +268,8 @@
             "type": "keyword"
           },
           "meta": {
-              "type": "text"
-            }
+            "type": "text"
+          }
         },
         "type": "object"
       },

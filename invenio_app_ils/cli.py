@@ -839,6 +839,7 @@ class SeriesGenerator(Generator):
                 "keywords": [
                     {"source": lorem.sentence(), "value": lorem.sentence()}
                 ],
+                "series_type": random.choice(Series.SERIES_TYPES),
             }
             if moi == "SERIAL":
                 self.random_serial(obj)
