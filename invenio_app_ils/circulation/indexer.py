@@ -65,13 +65,13 @@ class LoanIndexer(RecordIndexer):
         index_referenced_records.apply_async((loan,), eta=eta)
 
 
-def index_item_availability_for_loan(loan_dict):
+def index_extra_fields_for_loan(loan_dict):
     """Indexer hook to modify the loan record dict before indexing.
 
-    The `available_items_for_loan_count` field is added to the loan
-    only on the search index because it is needed for search
-    aggregation/filtering.
-    It is not needed when fetching the loan details.
+    The `available_items_for_loan_count` and `can_circulate_items_count` fields
+    are added to the loan only on the search index because they are needed for
+    search aggregation/filtering. They are not needed when fetching the loan
+    details.
     """
     document_class = current_app_ils.document_record_cls
     document_record = document_class.get_record_by_pid(
@@ -85,3 +85,8 @@ def index_item_availability_for_loan(loan_dict):
     loan_dict[
         "available_items_for_loan_count"
     ] = items_available_for_loan_count
+
+    can_circulate_items_count = document.get("circulation", {}).get(
+        "can_circulate_items_count"
+    )
+    loan_dict["can_circulate_items_count"] = can_circulate_items_count
