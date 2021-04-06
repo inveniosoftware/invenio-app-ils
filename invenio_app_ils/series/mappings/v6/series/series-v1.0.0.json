@@ -30,6 +30,9 @@
             },
             "value": {
               "type": "keyword"
+            },
+            "login_required": {
+              "type": "boolean"
             }
           }
         },
