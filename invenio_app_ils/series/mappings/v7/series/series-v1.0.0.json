@@ -29,6 +29,9 @@
           },
           "value": {
             "type": "keyword"
+          },
+          "login_required": {
+            "type": "boolean"
           }
         }
       },
@@ -261,8 +264,8 @@
             "type": "keyword"
           },
           "meta": {
-              "type": "text"
-            }
+            "type": "text"
+          }
         },
         "type": "object"
       },

@@ -33,6 +33,11 @@
             "minLength": 1,
             "type": "string"
           },
+          "login_required": {
+            "type": "boolean",
+            "title": "Indicate if the access to this link requires login",
+            "default": false
+          },
           "value": {
             "format": "uri",
             "minLength": 1,
