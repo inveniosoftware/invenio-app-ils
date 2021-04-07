@@ -1,3 +1,4 @@
+
 ..
     Copyright (C) 2018-2020 CERN.
 
@@ -6,6 +7,11 @@
 
 Changes
 =======
+
+Version 1.0.0a35 (released 2021-04-07)
+
+- add series type field to series schema
+- add item circulation statistics to loan search index
 
 Version 1.0.0a34 (released 2021-03-29)
 
