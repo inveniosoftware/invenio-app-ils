@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a36 (released 2021-04-07)
+
+- add login required to series access_urls
+
 Version 1.0.0a35 (released 2021-04-07)
 
 - add series type field to series schema
