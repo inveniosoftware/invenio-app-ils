@@ -213,14 +213,7 @@
       "type": "string"
     }
   },
-  "required": [
-    "$schema",
-    "order_date",
-    "order_lines",
-    "pid",
-    "status",
-    "provider_pid"
-  ],
+  "required": ["$schema", "order_lines", "pid", "status", "provider_pid"],
   "title": "Schema for Acquisition order",
   "type": "object"
 }
