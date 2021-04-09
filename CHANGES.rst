@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a37 (released 2021-04-09)
+
+- do not require order date in acquisition
+
 Version 1.0.0a36 (released 2021-04-07)
 
 - add login required to series access_urls
