@@ -824,7 +824,7 @@ RECORDS_REST_FACETS = dict(
             availability=dict(
                 range=dict(
                     field="circulation.available_items_for_loan_count",
-                    ranges=[{"key": "available for loan", "from": 1}],
+                    ranges=[{"key": "on shelf", "from": 1}],
                 ),
                 aggs={
                     "zero_doc_count_filter": {
@@ -844,7 +844,7 @@ RECORDS_REST_FACETS = dict(
             tag=terms_filter("tags"),
             availability=keyed_range_filter(
                 "circulation.available_items_for_loan_count",
-                {"available for loan": {"gt": 0}},
+                {"on shelf": {"gt": 0}},
             ),
             relation=terms_filter("relation_types"),
             medium=terms_filter("stock.mediums"),
