@@ -13,7 +13,7 @@
     "patron_pid": "2",
     "pid": "illbid-2",
     "status": "REQUESTED",
-    "type": "E-BOOK"
+    "type": "DIGITAL"
   },
   {
     "document_pid": "docid-3",
@@ -38,7 +38,7 @@
     "pid": "illbid-5",
     "status": "CANCELLED",
     "cancel_reason": "USER_CANCEL",
-    "type": "E-BOOK"
+    "type": "DIGITAL"
   },
   {
     "document_pid": "docid-3",
