@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a38 (released 2021-04-13)
+
+- rename e-books vocabularies values
+- rename availability facet
+
 Version 1.0.0a37 (released 2021-04-09)
 
 - do not require order date in acquisition
