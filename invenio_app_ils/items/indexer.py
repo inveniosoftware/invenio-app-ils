@@ -29,10 +29,10 @@ def index_referenced_records(item):
     indexed = dict(pid_type=ITEM_PID_TYPE, record=item)
     referenced = []
 
-    # fetch and index loans
+    # fetch and index loans of the items document (includes pending loans)
     loan_record_cls = current_circulation.loan_record_cls
-    item_pid = dict(type=ITEM_PID_TYPE, value=item["pid"])
-    for loan in search_loans_by_pid(item_pid=item_pid).scan():
+    document_pid = item["document_pid"]
+    for loan in search_loans_by_pid(document_pid=document_pid).scan():
         loan = loan_record_cls.get_record_by_pid(loan["pid"])
         referenced.append(
             dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)
