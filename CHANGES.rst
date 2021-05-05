@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a39 (released 2021-05-05)
+
+- bump invenio-circulation package version
+- reindex all document referenced loans on item indexing
+
 Version 1.0.0a38 (released 2021-04-13)
 
 - rename e-books vocabularies values
