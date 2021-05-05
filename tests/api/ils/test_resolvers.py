@@ -141,7 +141,7 @@ def test_jsonresolvers(testdata, mocker):
         referenced = _assert_origin(indexer, ITEM_PID_TYPE, pid)
 
         # should re-index loans
-        n_loans = 1  # from test data
+        n_loans = 2  # from test data, including pending
         _assert_contains(referenced, CIRCULATION_LOAN_PID_TYPE)
 
         # should re-index document
