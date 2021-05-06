@@ -15,7 +15,6 @@ from functools import partial
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from flask_login import current_user
-from invenio_circulation.api import Loan
 from invenio_circulation.config import (
     CIRCULATION_STATES_LOAN_ACTIVE,
     CIRCULATION_STATES_LOAN_COMPLETED,
@@ -85,6 +84,24 @@ def _set_item_to_can_circulate(item_pid):
         current_app_ils.item_indexer.index(item)
 
 
+def patron_has_request_on_document(patron_pid, document_pid):
+    """Return loan request for given patron and document."""
+    states = (
+            current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+        )
+    search = search_by_patron_item_or_document(
+        patron_pid=patron_pid, document_pid=document_pid, filter_states=states
+    )
+    search_result = search.execute()
+    total = (
+        search_result.hits.total if lt_es7 else search_result.hits.total.value
+    )
+    if total > 0:
+        return search_result.hits[0]
+    else:
+        return None
+
+
 def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
     """Return loan/request if it's active for the given patron and document."""
     states = (
@@ -112,6 +129,7 @@ def request_loan(
     **kwargs
 ):
     """Create a new loan and trigger the first transition to PENDING."""
+    loan_cls = current_circulation.loan_record_cls
     loan_or_request_found = patron_has_active_loan_or_request_on_document(
         patron_pid, document_pid
     )
@@ -135,7 +153,7 @@ def request_loan(
         transaction_user_pid=transaction_user_pid,
     )
     pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
-    loan = Loan.create(data=new_loan, id_=record_uuid)
+    loan = loan_cls.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)
     params.update(document_pid=document_pid, **kwargs)
@@ -184,6 +202,7 @@ def checkout_loan(
         the checkout. If False, the checkout will fail when the item cannot
         circulate.
     """
+    loan_cls = current_circulation.loan_record_cls
     if patron_has_active_loan_on_item(
         patron_pid=patron_pid, item_pid=item_pid
     ):
@@ -204,8 +223,18 @@ def checkout_loan(
         transaction_location_pid=transaction_location_pid,
         transaction_user_pid=transaction_user_pid,
     )
-    pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
-    loan = Loan.create(data=new_loan, id_=record_uuid)
+
+    # check if there is an existing request
+    loan = patron_has_request_on_document(
+        patron_pid, kwargs.get("document_pid")
+    )
+    if loan:
+        loan = loan_cls.get_record_by_pid(loan.pid)
+        pid = IlsCirculationLoanIdProvider.get(loan["pid"]).pid
+        loan.update(new_loan)
+    else:
+        pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
+        loan = loan_cls.create(data=new_loan, id_=record_uuid)
 
     params = deepcopy(loan)
     params.update(item_pid=item_pid, **kwargs)
