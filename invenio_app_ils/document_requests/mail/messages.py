@@ -24,6 +24,7 @@ class DocumentRequestMessage(BlockTemplatedMessage):
         request_declined_user_cancel="document_request_decline_user_cancel.html",  # noqa
         request_declined_in_catalog="document_request_decline_in_catalog.html",
         request_declined_not_found="document_request_decline_not_found.html",
+        request_declined_other="document_request_decline_other.html"
     )
 
     def __init__(self, request, action=None, message_ctx={}, **kwargs):
