@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a40 (released 2021-05-07)
+
+- document request add missing email template
+- eliminate stale loan requests
+
 Version 1.0.0a39 (released 2021-05-05)
 
 - bump invenio-circulation package version
