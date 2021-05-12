@@ -61,6 +61,7 @@ setup_requires = ["Babel>=2.8"]
 install_requires = [
     # --- Invenio ----------------------------------------------------------
     "invenio[base,auth]>=3.4.0,<3.5",
+    "invenio-base>=1.2.4",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.2.0,<1.3.0",
     "invenio-jsonschemas>=1.1.1,<1.2.0",
