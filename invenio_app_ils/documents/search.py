@@ -17,12 +17,13 @@ class DocumentSearch(RecordsSearch):
     """RecordsSearch for documents."""
 
     boosted_fields = [
-        "title^8",
-        "authors.full_name^6",
-        "imprint.publisher^4",
-        "edition^4",
-        "keywords^2",
-        "abstract^2",
+        "identifiers.value^12.0",
+        "title^8.0",
+        "authors.full_name^6.0",
+        "imprint.publisher^4.0",
+        "edition^4.0",
+        "keywords^2.0",
+        "abstract^2.0",
     ]
 
     class Meta:
