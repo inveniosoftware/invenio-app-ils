@@ -43,14 +43,8 @@ def get_all_expiring_loans(expiring_in_days):
     search_cls = current_circulation.loan_search_cls
     return (
         search_cls()
+        .filter("term", end_date=future.isoformat())
         .filter("terms", state=states)
-        .filter(
-            "range",
-            end_date=dict(
-                gte="{}||/d".format(datetime.today().date()),
-                lte="{}||/d".format(future),
-            ),
-        )
     )
 
 
