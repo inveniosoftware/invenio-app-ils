@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a41 (released 2021-05-12)
+
+- send expiring loans reminder only once
+- fix Flask and werkzeug version conflicts via invenio-app
+
 Version 1.0.0a40 (released 2021-05-07)
 
 - document request add missing email template
