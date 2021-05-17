@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a42 (released 2021-05-17)
+
+- boost search results for identifier fields
+
 Version 1.0.0a41 (released 2021-05-12)
 
 - send expiring loans reminder only once
