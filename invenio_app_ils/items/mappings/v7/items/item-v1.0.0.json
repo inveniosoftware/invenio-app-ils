@@ -118,6 +118,9 @@
             "properties": {},
             "type": "object"
           },
+          "document_type": {
+            "type": "keyword"
+          },
           "edition": {
             "type": "text"
           },
