@@ -870,6 +870,7 @@ RECORDS_REST_FACETS = dict(
             restrictions=dict(terms=dict(field="circulation_restriction")),
             location=dict(terms=dict(field="internal_location.location.name")),
             internal_location=dict(terms=dict(field="internal_location.name")),
+            document_type=dict(terms=dict(field="document.document_type")),
         ),
         filters=dict(),
         post_filters=dict(
@@ -881,6 +882,7 @@ RECORDS_REST_FACETS = dict(
             restrictions=terms_filter("circulation_restriction"),
             location=terms_filter("internal_location.location.name"),
             internal_location=terms_filter("internal_location.name"),
+            document_type=terms_filter("document.document_type"),
         ),
     ),
     eitems=dict(
