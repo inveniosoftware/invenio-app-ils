@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a43 (released 2021-05-27)
+
+- add document type to item index and facets
+
 Version 1.0.0a42 (released 2021-05-17)
 
 - boost search results for identifier fields
