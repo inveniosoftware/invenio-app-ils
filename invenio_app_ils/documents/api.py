@@ -16,8 +16,10 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records_relations.api import IlsRecordWithRelations
@@ -156,6 +158,19 @@ class Document(IlsRecordWithRelations):
                 ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
 
+        eitem_search = current_app_ils.eitem_search_cls()
+        eitem_search_res = eitem_search.search_by_document_pid(
+            document_pid=self["pid"]
+        )
+        if eitem_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self["pid"],
+                ref_type="EItem",
+                ref_ids=sorted([res["pid"] for res
+                                in eitem_search_res.scan()]),
+            )
+
         req_search = current_app_ils.document_request_search_cls()
         req_search_res = req_search.search_by_document_pid(
             document_pid=self["pid"]
@@ -167,7 +182,30 @@ class Document(IlsRecordWithRelations):
                 ref_type="DocumentRequest",
                 ref_ids=sorted([res["pid"] for res in req_search_res.scan()]),
             )
-
+        order_search = current_ils_acq.order_search_cls()
+        orders_refs_search = order_search.search_by_document_pid(
+            document_pid=self["pid"],
+        )
+        if orders_refs_search.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self["pid"],
+                ref_type="AcquisitionOrder",
+                ref_ids=sorted([res["pid"] for
+                                res in orders_refs_search.scan()]),
+            )
+        brw_req_search = current_ils_ill.borrowing_request_search_cls()
+        brw_req_refs_search = brw_req_search.search_by_document_pid(
+            document_pid=self["pid"],
+        )
+        if brw_req_refs_search.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self["pid"],
+                ref_type="BorrowingRequest",
+                ref_ids=sorted([res["pid"] for
+                                res in brw_req_refs_search.scan()]),
+            )
         return super().delete(**kwargs)
 
 
