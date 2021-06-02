@@ -17,6 +17,7 @@ class DocumentSearch(RecordsSearch):
     """RecordsSearch for documents."""
 
     boosted_fields = [
+        "identifiers.value.text^12.0",
         "identifiers.value^12.0",
         "title^8.0",
         "authors.full_name^6.0",

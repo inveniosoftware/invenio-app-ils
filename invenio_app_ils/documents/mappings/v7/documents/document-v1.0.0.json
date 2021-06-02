@@ -301,7 +301,12 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+                "text": {
+                  "type": "text"
+                }
+              }
           }
         },
         "type": "object"
