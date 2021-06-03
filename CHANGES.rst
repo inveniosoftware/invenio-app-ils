@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a44 (released 2021-06-02)
+
+- add identifiers text mapping field
+- add checks on dependencies of documents on delete
+
 Version 1.0.0a43 (released 2021-05-27)
 
 - add document type to item index and facets
