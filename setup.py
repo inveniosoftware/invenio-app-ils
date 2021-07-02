@@ -86,6 +86,10 @@ install_requires = [
     "pycountry>=19.8.18",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
+    # due to pip resolver issues
+    "itsdangerous<2.0,>=1.1.0",
+    "click<8.0,>=7.0",
+    "Jinja2<3.0,>=2.10.1",
 ]
 
 packages = find_packages()
