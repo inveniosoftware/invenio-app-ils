@@ -13,9 +13,15 @@ from flask import current_app
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records_relations.api import IlsRecordWithRelations
+from invenio_app_ils.relations.api import (
+    MULTIPART_MONOGRAPH_RELATION,
+    SERIAL_RELATION,
+    ParentChildRelation,
+)
 
 SERIES_PID_TYPE = "serid"
 SERIES_PID_MINTER = "serid"
@@ -68,3 +74,26 @@ class Series(IlsRecordWithRelations):
         """Update Series record."""
         super().update(*args, **kwargs)
         self.build_resolver_fields(self)
+
+    def delete(self, **kwargs):
+        """Delete record with relations."""
+        related_refs = set()
+        pcr_multipart = ParentChildRelation(MULTIPART_MONOGRAPH_RELATION)
+        pcr_serial = ParentChildRelation(SERIAL_RELATION)
+        related_multipart_volumes = pcr_multipart.get_children_of(
+            self.pid)
+        related_serial_volumes = pcr_serial.get_children_of(
+            self.pid)
+        for child_pid in related_serial_volumes + \
+                related_multipart_volumes:
+            related_refs.add("{pid_value}:{pid_type}".format(
+                pid_value=child_pid.pid_value, pid_type=child_pid.pid_type))
+
+        if related_refs:
+            raise RecordHasReferencesError(
+                record_type=self.__class__.__name__,
+                record_id=self["pid"],
+                ref_type="volumes",
+                ref_ids=sorted(ref for ref in related_refs),
+            )
+        super(Series, self).delete(**kwargs)
