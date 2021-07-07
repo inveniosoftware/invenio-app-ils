@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a46 (released 2021-07-07)
+
+- relations: fix related record deletion
+
 Version 1.0.0a45 (released 2021-07-07)
 
 - series: add dependency check on delete action
