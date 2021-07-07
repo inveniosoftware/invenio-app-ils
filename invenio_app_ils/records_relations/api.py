@@ -471,3 +471,4 @@ class IlsRecordWithRelations(IlsRecord):
                 ref_type="related",
                 ref_ids=sorted(ref for ref in related_refs),
             )
+        super().delete(**kwargs)
