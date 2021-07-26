@@ -47,19 +47,6 @@
         }
       }
     },
-    "internal_notes": {
-      "type": "string",
-      "title": "Any extra description for this EItem reserved for internal usage"
-    },
-    "open_access": {
-      "type": "boolean",
-      "title": "Indicate if the access to this EItem is open or not",
-      "default": true
-    },
-    "pid": {
-      "type": "string",
-      "title": "The persistent identifier of this EItem"
-    },
     "identifiers": {
       "items": {
         "properties": {
@@ -80,6 +67,23 @@
       },
       "title": "List of Identifiers of the record",
       "type": "array"
+    },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this EItem reserved for internal usage"
+    },
+    "open_access": {
+      "type": "boolean",
+      "title": "Indicate if the access to this EItem is open or not",
+      "default": true
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this EItem"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source of the record."
     },
     "urls": {
       "items": {
