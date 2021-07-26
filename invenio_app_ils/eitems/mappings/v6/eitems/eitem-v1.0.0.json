@@ -108,6 +108,9 @@
         "pid": {
           "type": "keyword"
         },
+        "source": {
+          "type": "keyword"
+        },
         "urls": {
           "properties": {
             "description": {

@@ -64,6 +64,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     internal_notes = fields.Str()
     open_access = fields.Bool(missing=True)
+    source = fields.Str()
     urls = fields.List(fields.Nested(URLSchema))
 
     @pre_load

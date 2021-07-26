@@ -1,0 +1,12 @@
+[
+  {
+    "key": "EBL",
+    "type": "eitem_sources",
+    "text": "E-Book Central"
+  },
+  {
+    "key": "SAFARI",
+    "type": "eitem_sources",
+    "text": "O'Reilly"
+  }
+]
