@@ -131,14 +131,71 @@ class Document(IlsRecordWithRelations):
         super().update(*args, **kwargs)
         self.build_resolver_fields(self)
 
-    def delete(self, **kwargs):
-        """Delete Document record."""
+    def search_loan_references(self):
+        """Search for referencing loans."""
         loan_search_res = search_by_pid(
             document_pid=self["pid"],
-            filter_states=["PENDING"]
+            filter_states=current_app.config['CIRCULATION_STATES_LOAN_REQUEST']
             + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
-        if loan_search_res.count():
+        return loan_search_res
+
+    def search_item_references(self):
+        """Search for referencing items."""
+        item_search = current_app_ils.item_search_cls()
+        return item_search.search_by_document_pid(
+            document_pid=self["pid"]
+        )
+
+    def search_eitem_references(self):
+        """Search for referencing eitems."""
+        eitem_search = current_app_ils.eitem_search_cls()
+        return eitem_search.search_by_document_pid(
+            document_pid=self["pid"]
+        )
+
+    def search_doc_req_references(self):
+        """Search for referencing document requests."""
+        req_search = current_app_ils.document_request_search_cls()
+        return req_search.search_by_document_pid(
+            document_pid=self["pid"]
+        )
+
+    def search_order_references(self):
+        """Search for referencing orders."""
+        order_search = current_ils_acq.order_search_cls()
+        return order_search.search_by_document_pid(
+            document_pid=self["pid"],
+        )
+
+    def search_brw_req_references(self):
+        """Search for referencing borrowing requests."""
+        brw_req_search = current_ils_ill.borrowing_request_search_cls()
+        return brw_req_search.search_by_document_pid(
+            document_pid=self["pid"],
+        )
+
+    def has_references(self):
+        """Check if record has references."""
+        return any([
+            self.search_loan_references().count(),
+            self.search_item_references().count(),
+            self.search_eitem_references().count(),
+            self.search_doc_req_references().count(),
+            self.search_order_references().count(),
+            self.search_brw_req_references().count()
+        ])
+
+    def delete(self, **kwargs):
+        """Delete Document record."""
+        loan_search_res = self.search_loan_references()
+        item_search_res = self.search_item_references()
+        eitem_search_res = self.search_eitem_references()
+        req_search_res = self.search_doc_req_references()
+        orders_refs_search = self.search_order_references()
+        brw_req_refs_search = self.search_brw_req_references()
+
+        if self.search_loan_references().count():
             raise RecordHasReferencesError(
                 record_type="Document",
                 record_id=self["pid"],
@@ -146,10 +203,6 @@ class Document(IlsRecordWithRelations):
                 ref_ids=sorted([res["pid"] for res in loan_search_res.scan()]),
             )
 
-        item_search = current_app_ils.item_search_cls()
-        item_search_res = item_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
         if item_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Document",
@@ -158,10 +211,6 @@ class Document(IlsRecordWithRelations):
                 ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
 
-        eitem_search = current_app_ils.eitem_search_cls()
-        eitem_search_res = eitem_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
         if eitem_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Document",
@@ -171,10 +220,6 @@ class Document(IlsRecordWithRelations):
                                 in eitem_search_res.scan()]),
             )
 
-        req_search = current_app_ils.document_request_search_cls()
-        req_search_res = req_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
         if req_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Document",
@@ -182,10 +227,7 @@ class Document(IlsRecordWithRelations):
                 ref_type="DocumentRequest",
                 ref_ids=sorted([res["pid"] for res in req_search_res.scan()]),
             )
-        order_search = current_ils_acq.order_search_cls()
-        orders_refs_search = order_search.search_by_document_pid(
-            document_pid=self["pid"],
-        )
+
         if orders_refs_search.count():
             raise RecordHasReferencesError(
                 record_type="Document",
@@ -194,10 +236,7 @@ class Document(IlsRecordWithRelations):
                 ref_ids=sorted([res["pid"] for
                                 res in orders_refs_search.scan()]),
             )
-        brw_req_search = current_ils_ill.borrowing_request_search_cls()
-        brw_req_refs_search = brw_req_search.search_by_document_pid(
-            document_pid=self["pid"],
-        )
+
         if brw_req_refs_search.count():
             raise RecordHasReferencesError(
                 record_type="Document",
