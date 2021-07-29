@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a47 (released 2021-07-29)
+
+- document api: add discrete references search
+- eitem: add source field and vocab
+
 Version 1.0.0a46 (released 2021-07-07)
 
 - relations: fix related record deletion
