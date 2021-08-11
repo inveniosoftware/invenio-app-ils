@@ -47,9 +47,21 @@ def index_referenced_records(loan):
     # be wrong and corrected at the second re-indexing.
     loan_class = current_circulation.loan_record_cls
     loan_record = loan_class.get_record_by_pid(loan["pid"])
+
     referenced.append(
         dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan_record)
     )
+
+    # add all the other loans, as after indexing this one, they
+    # will be affected in search
+    pending_loans = \
+        document.search_loan_references().scan()
+
+    for loan_hit in pending_loans:
+        pending_loan = loan_class.get_record_by_pid(loan_hit.pid)
+        referenced.append(
+            dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=pending_loan)
+        )
 
     # index the loan and referenced records
     indexer.index(indexed, referenced)
