@@ -806,7 +806,11 @@
               "type": "object"
             },
             "place": {
-              "type": "keyword"
+              "type": "keyword",
+              "fields": {
+                "text":
+                  {"type": "text"}
+              }
             },
             "series": {
               "type": "text",

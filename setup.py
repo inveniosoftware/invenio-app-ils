@@ -90,6 +90,8 @@ install_requires = [
     "itsdangerous<2.0,>=1.1.0",
     "click<8.0,>=7.0",
     "Jinja2<3.0,>=2.10.1",
+    # unsupported ES version issue
+    "elasticsearch>=6.0.0,<7.14",
 ]
 
 packages = find_packages()
