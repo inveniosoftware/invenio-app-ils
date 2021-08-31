@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a48 (released 2021-08-31)
+
+- documents: add text field to mapping of conference place
+- loans: reindex all the pending loans on the parent when updating one of them
+
 Version 1.0.0a47 (released 2021-07-29)
 
 - document api: add discrete references search
