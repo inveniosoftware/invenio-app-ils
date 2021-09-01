@@ -1,0 +1,21 @@
+{% block title %}
+InvenioILS: loan cancelled for "{{ document.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+your loan for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been cancelled.
+{% if "cancel_reason" in loan %}
+Cancel reason: {{loan.cancel_reason}}
+{% endif %}
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.name }}, <br/><br/>
+
+your loan for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been <b>cancelled</b>.<br/><br/>
+{% if "cancel_reason" in loan %}
+Cancel reason: {{loan.cancel_reason}} <br/>
+{% endif %}
+{% endblock %}

@@ -102,8 +102,8 @@ def users(app, db):
 
 
 @pytest.fixture(scope="module")
-def app_with_mail(app):
-    """App with email test templates."""
+def app_with_notifs(app):
+    """App with notifications test templates."""
     app.register_blueprint(
         Blueprint(
             "invenio_app_ils_tests", __name__, template_folder="templates"

@@ -1,0 +1,18 @@
+{% block title %}
+InvenioILS: literature request declined for "{{ request.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+your literature request for "{{ request.title }}" has been declined because the literature you are looking for
+has not been found.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.name }},<br/><br/>
+
+your literature request for "{{ request.title }}" has been declined because the literature you are looking for
+has not been found.<br/>
+{% endblock %}
