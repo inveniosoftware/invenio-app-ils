@@ -1,0 +1,16 @@
+{% block title %}
+InvenioILS: literature request declined for "{{ request.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+you have cancelled your literature request for "{{ request.title }}".
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.name }},<br/><br/>
+
+you have <b>cancelled</b> your literature request for "{{ request.title }}".<br/>
+{% endblock %}

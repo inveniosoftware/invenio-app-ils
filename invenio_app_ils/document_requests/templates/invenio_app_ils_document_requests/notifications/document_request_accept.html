@@ -1,0 +1,16 @@
+{% block title %}
+InvenioILS: literature request approved for "{{ request.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+Your literature request for "{{ request.title }}" has been approved.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.name }},<br/><br/>
+
+Your literature request for "{{ request.title }}" has been <b>approved</b>.<br/>
+{% endblock %}

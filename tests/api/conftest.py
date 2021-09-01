@@ -223,16 +223,6 @@ def loan_params():
 
 
 @pytest.fixture()
-def example_message_factory():
-    """A basic functional test message loader."""
-
-    def loader(subject, body):
-        return Message(sender="test@test.ch", subject=subject, body=body)
-
-    return partial(message_factory, loader)
-
-
-@pytest.fixture()
 def bucket(bucket_from_dir):
     """Create temporary bucket fixture."""
     with tempfile.TemporaryDirectory(prefix="ils-test-") as temp_dir:

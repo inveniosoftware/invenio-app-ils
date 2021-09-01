@@ -35,6 +35,13 @@ ILS_ILL_MAIL_MSG_CREATOR = (
 #: ILL email templates
 ILS_ILL_MAIL_TEMPLATES = {}
 
+# Notification message creator
+ILS_NOTIFICATIONS_MSG_BUILDER_ILL = "invenio_app_ils.ill.notifications.api:notification_ill_msg_builder"  # noqa
+# Override default templates
+ILS_NOTIFICATIONS_TEMPLATES_ILL = {}
+# Function to select and filter which notifications should be sent
+ILS_NOTIFICATIONS_FILTER_ILL = lambda *args, **kwargs: True
+
 ###############################################################################
 # RECORDS REST
 ###############################################################################

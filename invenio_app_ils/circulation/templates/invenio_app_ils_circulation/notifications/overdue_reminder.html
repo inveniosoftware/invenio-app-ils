@@ -1,0 +1,21 @@
+{% block title %}
+InvenioILS: loan overdue for "{{ document.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+your loan on "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> expired {{ days_ago }} days ago.
+
+You have reached the maximum period for loaning the literature. You are kindly requested
+to return it at the library or request an extension for your loan.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.name }}, <br/><br/>
+
+your loan on <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> <b>expired {{ days_ago }} days ago</b>.<br/><br/>
+
+You have reached the maximum period for loaning the literature. You are kindly requested<br/>
+to return it at the library or request an extension for your loan.<br/>
+{% endblock %}

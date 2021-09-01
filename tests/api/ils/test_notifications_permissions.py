@@ -3,7 +3,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test mail permissions."""
+"""Test notifications permissions."""
 
 from flask import url_for
 
@@ -14,12 +14,12 @@ _HTTP_UNAUTHORIZED = [401]
 _HTTP_FORBIDDEN = [403]
 _HTTP_NOT_FOUND = [404]
 MAIL_ID = 1
-ITEM_ENDPOINT = "invenio_app_ils_emails_item.get_email"
-LIST_ENDPOINT = "invenio_app_ils_emails_list.get_emails"
+ITEM_ENDPOINT = "invenio_app_ils_notification.get_notification"
+LIST_ENDPOINT = "invenio_app_ils_notification.get_notificationss"
 
 
-def test_mail_read_permissions(client, json_headers, users):
-    """Test mail endpoints read permissions."""
+def test_notifications_read_permissions(client, json_headers, users):
+    """Test notifications endpoints read permissions."""
     list_tests = [
         ("admin", _HTTP_OK),
         ("librarian", _HTTP_OK),

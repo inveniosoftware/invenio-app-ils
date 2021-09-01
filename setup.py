@@ -128,9 +128,11 @@ setup(
         ],
         "invenio_db.models": [
             "ils_email_log = invenio_app_ils.mail.models",
+            "ils_notifications_logs = invenio_app_ils.notifications.models",
         ],
         "invenio_admin.views": [
             "ils_email_log_view = invenio_app_ils.mail.admin:email_log",
+            "ils_notifications_logs_view = invenio_app_ils.notifications.admin:notifications_logs",
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",
@@ -155,6 +157,7 @@ setup(
             "ils_patrons = invenio_app_ils.patrons.views:get_user_loan_information_blueprint",
             "ils_emails_list = invenio_app_ils.mail.views:get_emails_list_blueprint",
             "ils_emails_item = invenio_app_ils.mail.views:get_emails_item_blueprint",
+            "ils_notifications = invenio_app_ils.notifications.views:get_notifications_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config",
