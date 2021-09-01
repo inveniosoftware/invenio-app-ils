@@ -149,6 +149,30 @@ BABEL_DEFAULT_LANGUAGE = "en"
 BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 
 ###############################################################################
+# Notifications configuration
+###############################################################################
+# The backends to use when sending notifications.
+ILS_NOTIFICATIONS_BACKENDS_BUILDER = "invenio_app_ils.notifications.backends:notifications_backend_builder"
+# Notification message creator
+ILS_NOTIFICATIONS_MSG_BUILDER = "invenio_app_ils.notifications.messages:notification_msg_builder"  # noqa
+# Override default global common templates
+ILS_NOTIFICATIONS_TEMPLATES = {"footer": "footer.html"}
+# CIRCULATION
+# Notification message creator for loan notifications
+ILS_NOTIFICATIONS_MSG_BUILDER_CIRCULATION = "invenio_app_ils.circulation.notifications.messages:notification_loan_msg_builder"  # noqa
+# Function to select and filter which notifications should be sent
+ILS_NOTIFICATIONS_FILTER_CIRCULATION = lambda *args, **kwargs: True
+# Override default circulation templates
+ILS_NOTIFICATIONS_TEMPLATES_CIRCULATION = {}
+# DOCUMENT REQUESTS
+# Notification message creator for document requests notifications
+ILS_NOTIFICATIONS_MSG_BUILDER_DOCUMENT_REQUEST = "invenio_app_ils.document_requests.notifications.api:notification_document_request_msg_builder"  # noqa
+# Override default document requests templates
+ILS_NOTIFICATIONS_TEMPLATES_DOCUMENT_REQUEST = {}
+# Function to select and filter which notifications should be sent
+ILS_NOTIFICATIONS_FILTER_DOCUMENT_REQUEST = lambda *args, **kwargs: True
+
+###############################################################################
 # Email configuration
 ###############################################################################
 #: Email address for support.

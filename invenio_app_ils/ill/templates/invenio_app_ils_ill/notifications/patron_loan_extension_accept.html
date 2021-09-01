@@ -1,0 +1,20 @@
+{% block title %}
+InvenioILS: loan extension accepted for "{{ document.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+your loan extension for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has been accepted.
+
+The new due date is {{ patron_loan.end_date }}.
+{% endblock %}
+
+
+{% block body_html %}
+Dear {{ patron.name }},<br/><br/>
+
+your loan extension for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has been <b>accepted</b>.<br/>
+
+<b>The new due date is {{ patron_loan.end_date }}.</b><br/>
+{% endblock %}

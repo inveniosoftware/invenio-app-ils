@@ -1,0 +1,19 @@
+{% block title %}
+InvenioILS: loan started for "{{ document.title|safe }}"
+{% endblock %}
+
+{% block body_plain %}
+Dear {{ patron.name }},
+
+your loan for "{{ document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}> has started.
+
+The due date is {{ loan.end_date }}.
+{% endblock %}
+
+{% block body_html %}
+Dear {{ patron.name }}, <br/><br/>
+
+your loan for <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=document.pid) }}">"{{ document.full_title }}"</a> has <b>started</b>. <br/><br/>
+
+<b>The due date is {{ loan.end_date }}</b>.<br/>
+{% endblock %}

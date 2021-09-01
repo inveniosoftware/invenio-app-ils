@@ -160,6 +160,7 @@ def views_permissions_factory(action):
         "ill-brwreq-patron-loan-extension-accept",
         "ill-brwreq-patron-loan-extension-decline",
         "send-email-to-patron",
+        "send-notification-to-patron",
     ]
     is_patron_owner_permission = [
         "document-request-decline",
