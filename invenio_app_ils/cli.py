@@ -392,7 +392,7 @@ class DocumentGenerator(Generator):
     CONFERENCE_INFO = [
         {
             "acronym": "CHEP",
-            "country": "AU",
+            "country": "AUS",
             "dates": "1 - 20 Nov. 2019",
             "identifiers": [{"scheme": "OTHER", "value": "CHEP2019"}],
             "place": "Adelaide",
