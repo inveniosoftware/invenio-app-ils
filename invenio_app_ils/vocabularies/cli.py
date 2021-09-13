@@ -137,8 +137,8 @@ def countries(output):
         results.append(
             {
                 "type": VOCABULARY_TYPE_COUNTRY,
-                "key": country.alpha_2,
-                "text": "{} ({})".format(country.name, country.alpha_2),
+                "key": country.alpha_3,
+                "text": "{} ({})".format(country.name, country.alpha_3),
             }
         )
     with open(output, "w+") as f:
