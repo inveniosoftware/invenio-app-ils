@@ -52,8 +52,8 @@ services:
   db:
     image: postgres:12.4
     environment:
-      - "POSTGRES_USER=test"
-      - "POSTGRES_PASSWORD=psw"
+      - "POSTGRES_USER=invenio"
+      - "POSTGRES_PASSWORD=invenio"
       - "POSTGRES_DB=ils"
     ports:
       - "5432:5432"
