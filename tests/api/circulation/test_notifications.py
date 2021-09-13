@@ -17,22 +17,22 @@ from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.circulation.mail.tasks import (
-    send_expiring_loans_mail_reminder,
-    send_overdue_loans_mail_reminder,
+from invenio_app_ils.circulation.notifications.tasks import (
+    send_expiring_loans_notification_reminder,
+    send_overdue_loans_notification_reminder,
 )
 from invenio_app_ils.documents.api import Document
 from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login, user_logout
 
 
-def test_email_on_loan_checkout(
-    client, app_with_mail, users, testdata, loan_params
+def test_notifs_on_loan_checkout(
+    client, app_with_notifs, users, testdata, loan_params
 ):
     """Test that an email is sent on loan checkout."""
     loan_data = testdata["loans"][1]
     loan = Loan.get_record_by_pid(loan_data["pid"])
-    with app_with_mail.extensions["mail"].record_messages() as outbox:
+    with app_with_notifs.extensions["mail"].record_messages() as outbox:
         user_login(client, "admin", users)
 
         assert len(outbox) == 0
@@ -84,10 +84,12 @@ InvenioILS""".format(
     assert msg.body == expected_body_plain
 
 
-def test_email_on_overdue_permissions(client, testdata, json_headers, users):
+def test_notification_on_overdue_permissions(client, testdata, json_headers,
+                                             users):
     """Test that only the backoffice can send a reminder."""
     pid = testdata["loans"][0]["pid"]
-    url = url_for("invenio_app_ils_circulation.loanid_email", pid_value=pid)
+    url = url_for("invenio_app_ils_circulation.loanid_notification",
+                  pid_value=pid)
     tests = [("patron1", 403), ("anonymous", 401)]
     for username, expected_status in tests:
         user_login(client, username, users)
@@ -95,8 +97,8 @@ def test_email_on_overdue_permissions(client, testdata, json_headers, users):
         assert res.status_code == expected_status
 
 
-def test_email_on_overdue_loans(
-    app_with_mail, db, users, testdata, mocker, client, json_headers
+def test_notification_on_overdue_loans(
+    app_with_notifs, db, users, testdata, mocker, client, json_headers
 ):
     """Test that an email is sent for a loan that is overdue."""
     mocker.patch(
@@ -107,7 +109,7 @@ def test_email_on_overdue_loans(
     def prepare_data():
         """Prepare data."""
         days = current_app.config[
-            "ILS_CIRCULATION_MAIL_OVERDUE_REMINDER_INTERVAL"
+            "ILS_CIRCULATION_NOTIFICATION_OVERDUE_REMINDER_INTERVAL"
         ]
         loans = testdata["loans"]
 
@@ -151,33 +153,34 @@ def test_email_on_overdue_loans(
     prepare_data()
     loans = testdata["loans"]
 
-    email_url = url_for(
-        "invenio_app_ils_circulation.loanid_email",
+    notification_url = url_for(
+        "invenio_app_ils_circulation.loanid_notification",
         pid_value=loans[0]["pid"],
     )
 
-    res = client.post(email_url, headers=json_headers)
+    res = client.post(notification_url, headers=json_headers)
     assert res.status_code == 202
 
     # test individual not overdue loan
-    email_url = url_for(
-        "invenio_app_ils_circulation.loanid_email",
+    notification_url = url_for(
+        "invenio_app_ils_circulation.loanid_notification",
         pid_value=loans[2]["pid"],
     )
 
-    res = client.post(email_url, headers=json_headers)
+    res = client.post(notification_url, headers=json_headers)
     assert res.status_code == 400
 
     user_logout(client)
 
     # test all loans
-    with app_with_mail.extensions["mail"].record_messages() as outbox:
+    with app_with_notifs.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
-        send_overdue_loans_mail_reminder.apply_async()
+        send_overdue_loans_notification_reminder.apply_async()
         assert len(outbox) == 2
 
 
-def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
+def test_notification_on_expiring_loans(app_with_notifs, db, users,
+                                        testdata, mocker):
     """Test that an email is sent for a loan that is about to expire."""
     mocker.patch(
         "invenio_app_ils.patrons.api.Patron.get_patron",
@@ -220,7 +223,7 @@ def test_email_on_expiring_loans(app_with_mail, db, users, testdata, mocker):
 
     prepare_data()
 
-    with app_with_mail.extensions["mail"].record_messages() as outbox:
+    with app_with_notifs.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
-        send_expiring_loans_mail_reminder.apply_async()
+        send_expiring_loans_notification_reminder.apply_async()
         assert len(outbox) == 3

@@ -15,6 +15,20 @@ from flask import current_app
 from invenio_app_ils.notifications.models import NotificationsLogs
 
 
+def _log_notification_to_db(data, log_message):
+    """Log notification in DB."""
+    data_dict = dict(
+        action=data.get("action", None),
+        pid_type=data.get("pid_type", None),
+        pid_value=data.get("pid_value", None),
+        recipient_user_id=data["patron_id"],
+        is_manually_triggered=data["is_manually_triggered"],
+        message_id=data["id"],
+        send_log=log_message,
+    )
+    NotificationsLogs.create(data_dict)
+
+
 @shared_task
 def log_successful_notification(_, data):
     """Log successful notification task."""
@@ -44,17 +58,3 @@ def log_error_notification(request, exc, traceback, data, **kwargs):
         json.dumps(error, sort_keys=True), exc_info=exc
     )
     _log_notification_to_db(data, "Error: " + repr(exc))
-
-
-def _log_notification_to_db(data, log_message):
-    """Log notification in DB."""
-    data_dict = dict(
-        action=data.get("action", None),
-        pid_type=data.get("pid_type", None),
-        pid_value=data.get("pid_value", None),
-        recipient_user_id=data["patron_id"],
-        is_manually_triggered=data["is_manually_triggered"],
-        message_id=data["id"],
-        send_log=log_message,
-    )
-    NotificationsLogs.create(data_dict)

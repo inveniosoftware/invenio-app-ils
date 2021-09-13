@@ -16,7 +16,7 @@ from jinja2 import TemplateError
 class NotificationMsg:
     """Generate the notification message with params."""
 
-    TEMPLATES_DIR = "invenio_app_ils/notifications"
+    TEMPLATES_BASE_DIR = "invenio_app_ils/notifications"
 
     def __init__(self, template, ctx=None, **kwargs):
         """Build message body and HTML based on the provided template.
@@ -50,9 +50,10 @@ class NotificationMsg:
         except TemplateError:
             self.body_html = self.body_plain
 
-        footer_template = current_app.config.get("ILS_NOTIFICATIONS_TEMPLATES", {}).get("footer")
+        footer_template = current_app.config.get("ILS_NOTIFICATIONS_TEMPLATES",
+                                                 {}).get("footer")
         if footer_template:
-            path = os.path.join(self.TEMPLATES_DIR, footer_template)
+            path = os.path.join(self.TEMPLATES_BASE_DIR, footer_template)
             footer_tmpl = current_app.jinja_env.get_template(path)
             footer_plain = self.render_block(footer_tmpl, "footer_plain")
             try:

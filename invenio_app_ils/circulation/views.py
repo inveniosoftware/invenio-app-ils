@@ -20,11 +20,11 @@ from invenio_app_ils.circulation.loaders import (
     loan_update_dates_loader,
 )
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
-from invenio_app_ils.errors import OverdueLoansMailError
+from invenio_app_ils.errors import OverdueLoansNotificationError
 from invenio_app_ils.permissions import need_permissions
 
 from .api import checkout_loan, request_loan, update_dates_loan
-from .mail.tasks import send_loan_overdue_reminder_mail
+from .notifications.api import send_loan_overdue_reminder_notification
 
 
 def create_circulation_blueprint(app):
@@ -71,16 +71,16 @@ def create_circulation_blueprint(app):
         methods=["POST"],
     )
 
-    loan_mail_overdue = LoanMailResource.as_view(
-        LoanMailResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
+    loan_notification_overdue = LoanNotificationResource.as_view(
+        LoanNotificationResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory),
     )
 
     blueprint.add_url_rule(
-        "{0}/email-overdue".format(options["item_route"]),
-        view_func=loan_mail_overdue,
+        "{0}/notification-overdue".format(options["item_route"]),
+        view_func=loan_notification_overdue,
         methods=["POST"],
     )
 
@@ -144,20 +144,21 @@ class LoanCheckoutResource(IlsCirculationResource):
         )
 
 
-class LoanMailResource(IlsCirculationResource):
-    """Loan send email."""
+class LoanNotificationResource(IlsCirculationResource):
+    """Loan send notification."""
 
-    view_name = "{0}_email"
+    view_name = "{0}_notification"
 
-    @need_permissions("circulation-overdue-loan-email")
+    @need_permissions("circulation-overdue-loan-notification")
     @pass_record
     def post(self, pid, record, **kwargs):
-        """Loan email post method."""
+        """Loan notification post method."""
         days_ago = circulation_overdue_loan_days(record)
         is_overdue = days_ago > 0
         if not is_overdue:
-            raise OverdueLoansMailError(description="This loan is not overdue")
-        send_loan_overdue_reminder_mail(
+            raise OverdueLoansNotificationError(
+                description="This loan is not overdue")
+        send_loan_overdue_reminder_notification(
             record, days_ago, is_manually_triggered=True
         )
         return self.make_response(

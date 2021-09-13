@@ -193,14 +193,14 @@ def test_no_changes_on_exceptions(db, users, testdata):
 
 
 def test_extend_active_loans_location_closure(
-    db, users, testdata, app_with_mail
+    db, users, testdata, app_with_notifs
 ):
     """Test extension of active loans that finish on holidays."""
     prepare_data(db, _LOCATION_PID_1, _OPENING_EXCEPTIONS_WITH_PAST_EXCEPTIONS)
     prepare_loans_data(db, testdata)
     time.sleep(3)
 
-    with app_with_mail.extensions["mail"].record_messages() as outbox:
+    with app_with_notifs.extensions["mail"].record_messages() as outbox:
         assert len(outbox) == 0
         extend_active_loans_location_closure(_LOCATION_PID_1)
         assert len(outbox) == 2

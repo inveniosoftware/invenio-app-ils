@@ -18,10 +18,12 @@ class FakeMessage(NotificationMsg):
         super().__init__(template, **kwargs)
 
 
-def test_send_only_to_test_recipients(app_with_notifs, users, testdata, mocker):
+def test_send_only_to_test_recipients(app_with_notifs, users, testdata,
+                                      mocker):
     """Tests that send only to test recipients works."""
     app_with_notifs.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"] = True
-    succ = mocker.patch("invenio_app_ils.notifications.tasks.log_successful_mail")
+    succ = mocker.patch(
+        "invenio_app_ils.notifications.api.log_successful_notification")
 
     msg = FakeMessage()
     patron = Patron(users["patron1"].id)

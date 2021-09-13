@@ -23,7 +23,7 @@ from .loaders import (
     patron_loan_extension_decline_loader,
     patron_loan_extension_request_loader,
 )
-from .mail.tasks import send_ill_mail
+from .notifications.api import send_ill_notification
 from .proxies import current_ils_ill
 
 
@@ -156,7 +156,7 @@ class RequestPatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
-        send_ill_mail(record, action="extension_requested")
+        send_ill_notification(record, action="extension_requested")
         return self.make_response(pid, record, 200)
 
 
@@ -181,7 +181,7 @@ class AcceptPatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
-        send_ill_mail(record, action="extension_accepted")
+        send_ill_notification(record, action="extension_accepted")
         return self.make_response(pid, record, 200)
 
 
@@ -202,5 +202,5 @@ class DeclinePatronLoanExtensionResource(ILLPatronLoanExtensionActionResource):
         record.commit()
         db.session.commit()
         current_ils_ill.borrowing_request_indexer_cls().index(record)
-        send_ill_mail(record, action="extension_declined")
+        send_ill_notification(record, action="extension_declined")
         return self.make_response(pid, record, 200)

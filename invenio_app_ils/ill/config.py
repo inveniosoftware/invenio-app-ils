@@ -23,24 +23,17 @@ from .api import (
     BORROWING_REQUEST_PID_TYPE,
     BorrowingRequest,
 )
+from .notifications.api import ill_notifications_filter
 from .search import BorrowingRequestsSearch
 
 ###############################################################################
 # ILS ILL
 ###############################################################################
-#: ILL message creator class
-ILS_ILL_MAIL_MSG_CREATOR = (
-    "invenio_app_ils.ill.mail.factory:default_ill_message_creator"
-)
-#: ILL email templates
-ILS_ILL_MAIL_TEMPLATES = {}
-
-# Notification message creator
-ILS_NOTIFICATIONS_MSG_BUILDER_ILL = "invenio_app_ils.ill.notifications.api:notification_ill_msg_builder"  # noqa
+ILS_ILL_NOTIFICATIONS_MSG_BUILDER = "invenio_app_ils.ill.notifications.messages:notification_ill_msg_builder"  # noqa
 # Override default templates
-ILS_NOTIFICATIONS_TEMPLATES_ILL = {}
+ILS_ILL_NOTIFICATIONS_TEMPLATES = {}
 # Function to select and filter which notifications should be sent
-ILS_NOTIFICATIONS_FILTER_ILL = lambda *args, **kwargs: True
+ILS_ILL_NOTIFICATIONS_FILTER = ill_notifications_filter
 
 ###############################################################################
 # RECORDS REST

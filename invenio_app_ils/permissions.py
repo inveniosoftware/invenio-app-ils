@@ -149,7 +149,7 @@ def views_permissions_factory(action):
     is_backoffice_permission = [
         "circulation-loan-checkout",
         "circulation-loan-force-checkout",
-        "circulation-overdue-loan-email",
+        "circulation-overdue-loan-notification",
         "circulation-loan-update-dates",
         "relations-create",
         "relations-delete",
@@ -159,7 +159,6 @@ def views_permissions_factory(action):
         "ill-brwreq-patron-loan-create",
         "ill-brwreq-patron-loan-extension-accept",
         "ill-brwreq-patron-loan-extension-decline",
-        "send-email-to-patron",
         "send-notification-to-patron",
     ]
     is_patron_owner_permission = [

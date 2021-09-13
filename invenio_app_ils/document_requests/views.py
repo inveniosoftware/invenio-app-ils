@@ -22,7 +22,7 @@ from .api import DOCUMENT_REQUEST_PID_TYPE
 from .loaders import document_request_decline_loader as dr_decline_loader
 from .loaders import document_request_document_loader as dr_document_loader
 from .loaders import document_request_provider_loader as dr_provider_loader
-from .mail.tasks import send_document_request_mail
+from .notifications.api import send_document_request_notification
 
 
 def create_document_request_action_blueprint(app):
@@ -208,7 +208,7 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
-        send_document_request_mail(record, action="request_accepted")
+        send_document_request_notification(record, action="request_accepted")
         return self.make_response(pid, record, 202)
 
 
@@ -271,5 +271,5 @@ class DocumentRequestDeclineResource(DocumentRequestActionResource):
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
-        send_document_request_mail(record, action="request_declined")
+        send_document_request_notification(record, action="request_declined")
         return self.make_response(pid, record, 202)

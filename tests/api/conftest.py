@@ -8,10 +8,8 @@
 """Pytest fixtures and plugins for the API application."""
 
 import tempfile
-from functools import partial
 
 import pytest
-from flask_mail import Message
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -19,7 +17,6 @@ from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, Order
-from invenio_app_ils.circulation.mail.factory import message_factory
 from invenio_app_ils.document_requests.api import (
     DOCUMENT_REQUEST_PID_TYPE,
     DocumentRequest,
@@ -56,6 +53,7 @@ def app_config(app_config):
         "RATELIMIT_AUTHENTICATED_USER": "1000 per minute",
         "CIRCULATION_TRANSACTION_USER_VALIDATOR": lambda x: True,
         "EXTEND_LOANS_LOCATION_UPDATED": False,
+        "ILS_NOTIFICATIONS_TEMPLATES": {"footer": "footer.html"},
     }
     app_config.update(tests_config)
     return app_config
