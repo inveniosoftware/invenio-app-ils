@@ -266,7 +266,7 @@ EXTEND_LOANS_SCHEDULE_TIME = datetime.time(2)
 # Database
 ###############################################################################
 #: Database URI including user and password
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
+SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://invenio:invenio@localhost/ils"
 
 ###############################################################################
 # JSONSchemas
