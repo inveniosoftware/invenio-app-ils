@@ -11,13 +11,13 @@ import pytest
 from flask import url_for
 from jinja2.exceptions import TemplateError, TemplateNotFound
 
-from invenio_app_ils.notifications.api import send_notification
-from invenio_app_ils.notifications.messages import NotificationMsg
-from invenio_app_ils.notifications.models import NotificationsLogs
-from invenio_app_ils.notifications.tasks import (
+from invenio_app_ils.notifications.api import (
     log_error_notification,
     log_successful_notification,
+    send_notification,
 )
+from invenio_app_ils.notifications.messages import NotificationMsg
+from invenio_app_ils.notifications.models import NotificationsLogs
 from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login
 
@@ -93,6 +93,12 @@ def test_send_message_backend(app_with_notifs, users, testdata, mocker):
     send_mocked = mocker.patch(
         "invenio_app_ils.notifications.backends.mail.send"
     )
+    send_mocked.__name__ = "send"
+    send_mocked.__annotations__ = "send"
+    backends = mocker.patch(
+        "invenio_app_ils.notifications.api._get_notification_backends",
+        return_value=[send_mocked]
+    )
     with app_with_notifs.app_context():
         # remove footer
         app_with_notifs.config["ILS_NOTIFICATIONS_TEMPLATES"] = {}
@@ -101,7 +107,7 @@ def test_send_message_backend(app_with_notifs, users, testdata, mocker):
         patrons = [Patron(users["patron1"].id)]
         send_notification(patrons, msg)
 
-        assert send_mocked.s.called
+        assert send_mocked.apply_async.called
 
 
 class FakeMessage(NotificationMsg):
@@ -114,11 +120,12 @@ def test_log_successful_error_mail_task(
     app_with_notifs, users, testdata, mocker
 ):
     """Test that a successfully sent email is logged."""
+    # !attention the mocker has to patch function where it is used, not defined
     succ = mocker.patch(
-        "invenio_app_ils.notifications.tasks.log_successful_notification"
+        "invenio_app_ils.notifications.api.log_successful_notification"
     )
     err = mocker.patch(
-        "invenio_app_ils.notifications.tasks.log_error_notification"
+        "invenio_app_ils.notifications.api.log_error_notification"
     )
 
     patron = Patron(users["patron1"].id)
@@ -130,7 +137,8 @@ def test_log_successful_error_mail_task(
     assert err.s.called
 
 
-def test_notifications_db_table_and_endpoint(users, client, json_headers):
+def test_notifications_db_table_and_endpoint(users, client, json_headers,
+                                             app_with_notifs):
     """Test logging of notifs in db table and read from endpoint."""
     request = {"id": "test-id", "task": "test-task"}
     data = {
@@ -138,6 +146,7 @@ def test_notifications_db_table_and_endpoint(users, client, json_headers):
         "recipients": ["patron1@test.com"],
         "is_manually_triggered": True,
         "message_id": "1",
+        "patron_id": "1",
     }
     exc = "An error occurred."
     log_successful_notification(None, data)
@@ -154,10 +163,8 @@ def test_notifications_db_table_and_endpoint(users, client, json_headers):
     LIST_ENDPOINT = "invenio_app_ils_notifications.get_notifications"
 
     user_login(client, "librarian", users)
-
     url = url_for(LIST_ENDPOINT)
     res = client.get(url, headers=json_headers)
-
     assert (
         res.get_json()["hits"][0]["send_log"] == "Error: 'An error occurred.'"
     )
@@ -170,5 +177,7 @@ def test_notifications_db_table_and_endpoint(users, client, json_headers):
 
     url = url_for(ITEM_ENDPOINT, id=2)
     res = client.get(url, headers=json_headers)
-    assert res.get_json()["send_log"] == "Error: 'An error occurred.'"
+
+    assert res.get_json()["send_log"] ==\
+           "Error: 'An error occurred.'"
     assert res.get_json()["id"] == 2

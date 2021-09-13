@@ -72,6 +72,8 @@ class NotificationDocumentRequestMsg(NotificationMsg):
         return d
 
 
-def notification_document_request_msg_builder(record, **kwargs):
+def notification_document_request_msg_builder(record, action, msq_extra_ctx,
+                                              **kwargs):
     """Factory builder to create a notification msg."""
-    return NotificationDocumentRequestMsg(record, **kwargs)
+    return NotificationDocumentRequestMsg(record, action, msq_extra_ctx,
+                                          **kwargs)

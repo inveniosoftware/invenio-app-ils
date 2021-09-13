@@ -235,7 +235,7 @@ class InvenioAppIls(object):
         )
         app.register_blueprint(
             Blueprint(
-                "invenio_app_ils_circulation_mail",
+                "invenio_app_ils_circulation_notifications",
                 __name__,
                 template_folder="circulation/templates",
             )

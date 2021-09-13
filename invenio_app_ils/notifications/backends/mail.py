@@ -6,12 +6,13 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Mail backend."""
-
+from celery import shared_task
 from flask import current_app
 from flask_mail import Message
 from invenio_mail.tasks import send_email
 
 
+@shared_task
 def send(patrons, msg, **kwargs):
     """Send an email async with Invenio-Mail and log success / errors.
 
@@ -37,4 +38,3 @@ def get_recipients(patrons):
     if current_app.config["ILS_MAIL_ENABLE_TEST_RECIPIENTS"]:
         return current_app.config["ILS_MAIL_NOTIFY_TEST_RECIPIENTS"]
     return [patron["email"] for patron in patrons]
-

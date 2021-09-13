@@ -57,12 +57,14 @@ def list_activity(patron_pid):
 def anonymize(patron_pid, force):
     """Anonymize patron's data and activity."""
     if click.confirm("Are you sure you want to anonymize this patron?"):
-        dropped, indices, emails = anonymize_patron_data(patron_pid, force)
+        dropped, indices, notifications = \
+            anonymize_patron_data(patron_pid, force)
         msg = (
             "Successfully anonymized patron's activity: {dropped} rows "
-            "deleted from db, {indices} records re-indexed and {emails} emails"
+            "deleted from db, {indices} records re-indexed and "
+            "{notifications} notifications"
             " anonymized.".format(
-                dropped=dropped, indices=indices, emails=emails
+                dropped=dropped, indices=indices, notifications=notifications
             )
         )
         click.secho(msg, fg="green")

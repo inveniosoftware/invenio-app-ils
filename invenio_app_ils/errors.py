@@ -254,7 +254,7 @@ class RecordRelationsError(IlsException):
         super().__init__(description=description)
 
 
-class OverdueLoansMailError(IlsException):
+class OverdueLoansNotificationError(IlsException):
     """Raised when an error occurs with related records."""
 
     def __init__(self, description):

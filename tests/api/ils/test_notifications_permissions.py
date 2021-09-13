@@ -14,8 +14,8 @@ _HTTP_UNAUTHORIZED = [401]
 _HTTP_FORBIDDEN = [403]
 _HTTP_NOT_FOUND = [404]
 MAIL_ID = 1
-ITEM_ENDPOINT = "invenio_app_ils_notification.get_notification"
-LIST_ENDPOINT = "invenio_app_ils_notification.get_notificationss"
+ITEM_ENDPOINT = "invenio_app_ils_notifications.get_notification"
+LIST_ENDPOINT = "invenio_app_ils_notifications.get_notifications"
 
 
 def test_notifications_read_permissions(client, json_headers, users):

@@ -33,7 +33,7 @@ class NotificationILLMsg(NotificationMsg):
 
         templates = dict(
             self.DEFAULT_TEMPLATES,
-            **current_app.config["ILS_NOTIFICATIONS_TEMPLATES_ILL"],
+            **current_app.config["ILS_ILL_NOTIFICATIONS_TEMPLATES"],
         )
 
         if not action or action not in templates:
@@ -61,6 +61,6 @@ class NotificationILLMsg(NotificationMsg):
         return d
 
 
-def notification_ill_msg_builder(record, **kwargs):
+def notification_ill_msg_builder(record, action, msg_ctx, **kwargs):
     """Factory builder to create a notification msg."""
-    return NotificationILLMsg(record, **kwargs)
+    return NotificationILLMsg(record, action, msg_ctx, **kwargs)

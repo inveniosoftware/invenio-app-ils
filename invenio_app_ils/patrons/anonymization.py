@@ -28,7 +28,7 @@ from invenio_app_ils.errors import (
     PatronNotFoundError,
 )
 from invenio_app_ils.ill.proxies import current_ils_ill
-from invenio_app_ils.mail.models import EmailLog
+from invenio_app_ils.notifications.models import NotificationsLogs
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
 
@@ -186,8 +186,8 @@ def anonymize_patron_data(patron_pid, force=False):
     # delete rows from db
     dropped = delete_user_account(patron_pid)
 
-    # anonymize recipient id in emails
-    emails = anonymize_patron_in_email_logs(patron_pid)
+    # anonymize recipient id in notifications
+    notifications = anonymize_patron_in_notification_logs(patron_pid)
 
     db.session.commit()
     if patron:
@@ -197,7 +197,7 @@ def anonymize_patron_data(patron_pid, force=False):
         except NotFoundError:
             pass
 
-    return dropped, indices, emails
+    return dropped, indices, notifications
 
 
 def delete_user_account(patron_pid):
@@ -246,16 +246,17 @@ def delete_user_account(patron_pid):
     return dropped
 
 
-def anonymize_patron_in_email_logs(patron_pid):
-    """Anonymizes patron in email log db."""
-    email_anonymizations = 0
+def anonymize_patron_in_notification_logs(patron_pid):
+    """Anonymizes patron in notification log db."""
+    notification_anonymizations = 0
     AnonymousPatron = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
 
     with db.session.begin_nested():
-        emails = EmailLog.query.filter_by(recipient_user_id=patron_pid).all()
-        for email in emails:
-            email.recipient_user_id = AnonymousPatron.id
-            email_anonymizations += 1
+        notifications = NotificationsLogs.query.filter_by(
+            recipient_user_id=patron_pid).all()
+        for notification in notifications:
+            notification.recipient_user_id = AnonymousPatron.id
+            notification_anonymizations += 1
     db.session.commit()
 
-    return email_anonymizations
+    return notification_anonymizations

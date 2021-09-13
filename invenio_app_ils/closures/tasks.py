@@ -17,9 +17,9 @@ from flask import current_app
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
-from invenio_app_ils.circulation.mail.tasks import (
+from invenio_app_ils.circulation.notifications.tasks import (
     celery_logger,
-    send_loan_end_date_updated_mail,
+    send_loan_end_date_updated_notification,
 )
 from invenio_app_ils.circulation.search import get_active_loans
 from invenio_app_ils.closures.api import find_next_open_date
@@ -118,6 +118,6 @@ def extend_active_loans_location_closure(location_pid):
                 loan.commit()
                 current_circulation.loan_indexer().index(loan)
                 _log("extend_loan_closure_after", loan)
-                send_loan_end_date_updated_mail.apply_async((loan,))
+                send_loan_end_date_updated_notification.apply_async((loan,))
     db.session.commit()
     _log("extend_loan_closure_end", dict(modified_count=modified_count))

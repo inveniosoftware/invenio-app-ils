@@ -127,11 +127,9 @@ setup(
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
         ],
         "invenio_db.models": [
-            "ils_email_log = invenio_app_ils.mail.models",
             "ils_notifications_logs = invenio_app_ils.notifications.models",
         ],
         "invenio_admin.views": [
-            "ils_email_log_view = invenio_app_ils.mail.admin:email_log",
             "ils_notifications_logs_view = invenio_app_ils.notifications.admin:notifications_logs",
         ],
         "invenio_base.apps": [
@@ -155,8 +153,6 @@ setup(
             "ils_document_stats = invenio_app_ils.records.views:create_document_stats_blueprint",
             "ils_files = invenio_app_ils.files.views:create_files_blueprint",
             "ils_patrons = invenio_app_ils.patrons.views:get_user_loan_information_blueprint",
-            "ils_emails_list = invenio_app_ils.mail.views:get_emails_list_blueprint",
-            "ils_emails_item = invenio_app_ils.mail.views:get_emails_item_blueprint",
             "ils_notifications = invenio_app_ils.notifications.views:get_notifications_blueprint",
         ],
         "invenio_config.module": [
@@ -261,8 +257,9 @@ setup(
             "ils_indexer_locations = invenio_app_ils.locations.indexer",
             "ils_indexer_rec_relations = invenio_app_ils.records_relations.indexer",
             "ils_indexer_series = invenio_app_ils.series.indexer",
-            "ils_mails = invenio_app_ils.mail.tasks",
-            "ils_circulation_mails = invenio_app_ils.circulation.mail.tasks",
+            "ils_notifications = invenio_app_ils.notifications.tasks",
+            "ils_notifications_backends = invenio_app_ils.notifications.backends.mail",
+            "ils_circulation_notifications = invenio_app_ils.circulation.notifications.tasks",
             "ils_circulation = invenio_app_ils.circulation.tasks",
         ],
     },

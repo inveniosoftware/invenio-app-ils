@@ -9,13 +9,14 @@
 
 import json
 
-from celery import shared_task
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
 
+from invenio_app_ils.notifications.tasks import (
+    log_error_notification,
+    log_successful_notification,
+)
 from invenio_app_ils.proxies import current_app_ils
-
-from .tasks import log_error_notification, log_successful_notification
 
 
 def build_common_msg_ctx(record):
@@ -59,12 +60,16 @@ def build_common_msg_ctx(record):
     return msg_ctx
 
 
-def send_notification(patrons, msg, **kwargs):
-    """Send a notification using the configured backend(s)."""
+def _get_notification_backends(**kwargs):
     func_or_path = current_app.config["ILS_NOTIFICATIONS_BACKENDS_BUILDER"]
     builder = obj_or_import_string(func_or_path)
     backends = builder(**kwargs)
+    return backends
 
+
+def send_notification(patrons, msg, **kwargs):
+    """Send a notification using the configured backend(s)."""
+    backends = _get_notification_backends(**kwargs)
     if not backends:
         return
 
@@ -72,7 +77,7 @@ def send_notification(patrons, msg, **kwargs):
     serializable_msg = msg.to_dict()
     serializable_msg.update(
         dict(
-            is_manually_triggered=kwargs.get("is_manually_triggered", False),
+            is_manually_triggered=kwargs.pop("is_manually_triggered", False),
             patron_id=patrons[0].id,
         )
     )
@@ -87,8 +92,6 @@ def send_notification(patrons, msg, **kwargs):
     current_app.logger.info(json.dumps(log_msg, sort_keys=True))
 
     for send in backends:
-        # apply @shared_task decorator to the `send` function
-        send = shared_task(send)
         # send notification in a Celery task
         send.apply_async(
             args=[patrons, serializable_msg],
