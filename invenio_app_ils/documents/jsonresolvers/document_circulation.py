@@ -90,7 +90,9 @@ def jsonresolver_loader(url_map):
             loan = hit.to_dict()
             loan_item_type = loan.get("item_pid", {}).get("type")
             is_brw_req = loan_item_type == BORROWING_REQUEST_PID_TYPE
-            if is_brw_req:
+            if loan["state"] in \
+                current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"] \
+                    and is_brw_req:
                 active_ill_loans_count += 1
 
         active_ils_loans_count = active_loans_count - active_ill_loans_count
