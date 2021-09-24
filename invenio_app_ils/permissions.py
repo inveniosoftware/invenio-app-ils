@@ -145,7 +145,8 @@ class PatronOwnerPermission(Permission):
 
 def views_permissions_factory(action):
     """Return ILS views permissions factory."""
-    is_authenticated_user = ["circulation-loan-request", "patron-loans"]
+    is_authenticated_user = ["circulation-loan-request", "patron-loans",
+                             "bulk-loan-extension"]
     is_backoffice_permission = [
         "circulation-loan-checkout",
         "circulation-loan-force-checkout",

@@ -14,6 +14,8 @@ from flask import current_app
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 
+from invenio_app_ils.items.api import ITEM_PID_TYPE
+
 
 def get_loan_next_available_date(document_pid):
     """Return active loans on document sorted by the earliest end date."""
@@ -37,7 +39,7 @@ def get_active_loan_by_item_pid(item_pid):
 
 
 def get_all_expiring_loans(expiring_in_days):
-    """Return all loans that are expiring in the next <days> days."""
+    """Return all loans that are expiring in the <days> days."""
     future = (datetime.today() + timedelta(days=expiring_in_days)).date()
     states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
     search_cls = current_circulation.loan_search_cls
@@ -46,6 +48,33 @@ def get_all_expiring_loans(expiring_in_days):
         .filter("term", end_date=future.isoformat())
         .filter("terms", state=states)
     )
+
+
+def get_all_range_expiring_loans_by_patron_pid(expiring_in_days, patron_pid):
+    """Return loans expiring in the next <days> days for given patron."""
+    future = (datetime.today() + timedelta(days=expiring_in_days)).date()
+    states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    search_cls = current_circulation.loan_search_cls
+    return (
+        search_cls()
+        .filter("term", patron_pid=patron_pid)
+        .filter(
+            "range",
+            end_date=dict(
+                gte="{}||/d".format(datetime.today().date()),
+                lte="{}||/d".format(future),
+            ),
+        )
+        .filter("terms", state=states)
+    )
+
+
+def get_all_range_expiring_ils_loans_by_patron_pid(expiring_in_days,
+                                                   patron_pid):
+    """Return ILS loans expiring in the next <days> days for given patron."""
+    return get_all_range_expiring_loans_by_patron_pid(
+        expiring_in_days, patron_pid)\
+        .filter("term", item_pid__type=ITEM_PID_TYPE)
 
 
 def get_all_expired_loans():

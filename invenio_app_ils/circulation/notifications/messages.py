@@ -30,13 +30,23 @@ class NotificationLoanMsg(NotificationMsg):
         cancel="cancel.html",
         overdue_reminder="overdue_reminder.html",
         expiring_reminder="will_expire_in_reminder.html",
+        bulk_extend="bulk_extend.html"
     )
 
     def __init__(self, loan, action, msg_ctx, **kwargs):
         """Create message based on the record action."""
         self.loan = loan
         self.action = action
+        tpl_path = self.get_templates_path(action)
 
+        super().__init__(
+            template=tpl_path,
+            ctx=dict(loan=dict(loan), **msg_ctx, **kwargs),
+            **kwargs,
+        )
+
+    def get_templates_path(self, action):
+        """Get path of the messages template."""
         templates = dict(
             self.DEFAULT_TEMPLATES,
             **current_app.config["ILS_NOTIFICATIONS_TEMPLATES_CIRCULATION"],
@@ -51,11 +61,7 @@ class NotificationLoanMsg(NotificationMsg):
         tpl_name = self.get_template_name(action)
         tpl_filename = templates[tpl_name]
         tpl_path = os.path.join(self.TEMPLATES_DIR, tpl_filename)
-        super().__init__(
-            template=tpl_path,
-            ctx=dict(loan=dict(loan), **msg_ctx, **kwargs),
-            **kwargs,
-        )
+        return tpl_path
 
     def get_template_name(self, action):
         """Get the template filename based on the loan action."""
@@ -83,6 +89,29 @@ class NotificationLoanMsg(NotificationMsg):
         return d
 
 
+class NotificationBulkExtendLoanMsg(NotificationLoanMsg):
+    """Adapt notification message for bulk extend action."""
+
+    def __init__(self, action, msg_ctx, **kwargs):
+        """Constructor."""
+        super().__init__({}, action, msg_ctx, **kwargs)
+
+    def get_template_name(self, action):
+        """Get template name."""
+        return action
+
+    def to_dict(self):
+        """Translate message to dict."""
+        d = super(NotificationLoanMsg, self).to_dict()
+        d.update(
+            pid_type=CIRCULATION_LOAN_PID_TYPE,
+            action=self.action,
+        )
+        return d
+
+
 def notification_loan_msg_builder(loan, action, msg_ctx, **kwargs):
     """Factory builder to create a notification msg."""
+    if action == 'bulk_extend':
+        return NotificationBulkExtendLoanMsg(action, msg_ctx, **kwargs)
     return NotificationLoanMsg(loan, action, msg_ctx, **kwargs)

@@ -7,7 +7,8 @@
 
 """Invenio App ILS Circulation views."""
 
-from flask import Blueprint
+from flask import Blueprint, abort
+from flask_login import current_user
 from invenio_circulation.links import loan_links_factory
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_records_rest.utils import obj_or_import_string
@@ -18,13 +19,24 @@ from invenio_app_ils.circulation.loaders import (
     loan_checkout_loader,
     loan_request_loader,
     loan_update_dates_loader,
+    loans_bulk_update_loader,
 )
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 from invenio_app_ils.errors import OverdueLoansNotificationError
 from invenio_app_ils.permissions import need_permissions
 
-from .api import checkout_loan, request_loan, update_dates_loan
-from .notifications.api import send_loan_overdue_reminder_notification
+from ..patrons.api import patron_exists
+from .api import (
+    bulk_extend_loans,
+    checkout_loan,
+    request_loan,
+    update_dates_loan,
+)
+from .notifications.api import (
+    send_bulk_extend_notification,
+    send_loan_overdue_reminder_notification,
+)
+from .serializers import bulk_extend_v1_response
 
 
 def create_circulation_blueprint(app):
@@ -43,6 +55,11 @@ def create_circulation_blueprint(app):
     serializers = {
         mime: obj_or_import_string(func)
         for mime, func in rec_serializers.items()
+    }
+
+    bulk_loan_extension_serializers = {
+        "application/json":
+            bulk_extend_v1_response
     }
 
     loan_request = LoanRequestResource.as_view(
@@ -84,8 +101,21 @@ def create_circulation_blueprint(app):
         methods=["POST"],
     )
 
-    loan_update = LoanUpdateDates.as_view(
-        LoanUpdateDates.view_name.format(CIRCULATION_LOAN_PID_TYPE),
+    bulk_loan_extension = BulkLoanExtensionResource.as_view(
+        BulkLoanExtensionResource.view_name,
+        serializers=bulk_loan_extension_serializers,
+        default_media_type=default_media_type,
+        ctx=dict(loader=loans_bulk_update_loader),
+    )
+
+    blueprint.add_url_rule(
+        "/circulation/bulk-extend",
+        view_func=bulk_loan_extension,
+        methods=["POST"],
+    )
+
+    loan_update = LoanUpdateDatesResource.as_view(
+        LoanUpdateDatesResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(
@@ -144,6 +174,26 @@ class LoanCheckoutResource(IlsCirculationResource):
         )
 
 
+class BulkLoanExtensionResource(IlsCirculationResource):
+    """Bulk loan extension resource."""
+
+    view_name = "bulk_loan_extension"
+
+    @need_permissions("bulk-loan-extension")
+    def post(self, **kwargs):
+        """Loan checkout post method."""
+        data = self.loader()
+        if "patron_pid" not in data:
+            data["patron_pid"] = str(current_user.id)
+        if not patron_exists(data["patron_pid"]):
+            abort(400)
+        extended_loans, not_extended_loans = bulk_extend_loans(**data)
+        send_bulk_extend_notification(extended_loans, not_extended_loans,
+                                      patron_pid=data["patron_pid"]
+                                      )
+        return self.make_response(extended_loans, not_extended_loans, 202)
+
+
 class LoanNotificationResource(IlsCirculationResource):
     """Loan send notification."""
 
@@ -161,12 +211,13 @@ class LoanNotificationResource(IlsCirculationResource):
         send_loan_overdue_reminder_notification(
             record, days_ago, is_manually_triggered=True
         )
+
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )
 
 
-class LoanUpdateDates(IlsCirculationResource):
+class LoanUpdateDatesResource(IlsCirculationResource):
     """Loan update date."""
 
     view_name = "{0}_update_dates"
