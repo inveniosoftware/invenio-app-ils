@@ -53,10 +53,13 @@ def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
         indexer.index(rec)
 
 
-def send_notification_after_loan_change(_, initial_loan, loan, trigger):
+def send_notification_after_loan_change(_, initial_loan, loan, trigger,
+                                        **kwargs):
     """Send email notification when the loan changes."""
-    send_loan_notification(
-        action=trigger,
-        loan=loan,
-        msg_extra_ctx=dict(initial_loan=initial_loan),
-    )
+    send_notification = kwargs.get("send_notification", True)
+    if send_notification:
+        send_loan_notification(
+            action=trigger,
+            loan=loan,
+            msg_extra_ctx=dict(initial_loan=initial_loan),
+        )

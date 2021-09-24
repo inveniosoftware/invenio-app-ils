@@ -19,6 +19,7 @@ from invenio_circulation.config import (
     CIRCULATION_STATES_LOAN_ACTIVE,
     CIRCULATION_STATES_LOAN_COMPLETED,
 )
+from invenio_circulation.errors import CirculationException
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
@@ -26,8 +27,12 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.circulation.search import (
+    get_all_range_expiring_ils_loans_by_patron_pid,
+)
 from invenio_app_ils.errors import (
     IlsException,
+    InvalidLoanExtendError,
     InvalidParameterError,
     MissingRequiredParameterError,
     PatronHasLoanOnDocumentError,
@@ -245,6 +250,37 @@ def checkout_loan(
     )
 
     return pid, loan
+
+
+def bulk_extend_loans(patron_pid, **kwargs):
+    """Bulk extend qualified loans."""
+    loan_class = current_circulation.loan_record_cls
+    days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
+
+    loans_search = get_all_range_expiring_ils_loans_by_patron_pid(
+        expiring_in_days=days, patron_pid=patron_pid)
+
+    extended_loans = []
+    not_extended_loans = []
+    for loan in loans_search.scan():
+        loan_record = loan_class.get_record_by_pid(loan["pid"])
+        params = deepcopy(loan_record)
+        try:
+            extended_loan = current_circulation.circulation.trigger(
+                loan_record,
+                **dict(
+                    params,
+                    trigger="extend",
+                    transition_kwargs=dict(send_notification=False)
+                )
+            )
+            extended_loans.append(extended_loan)
+        except (CirculationException, InvalidLoanExtendError):
+            # has to be re-fetched due to mutable object returned by transition
+            loan_record = loan_class.get_record_by_pid(loan["pid"])
+            not_extended_loans.append(loan_record)
+
+    return extended_loans, not_extended_loans
 
 
 def update_dates_loan(

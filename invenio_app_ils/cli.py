@@ -641,7 +641,7 @@ class LoanGenerator(Generator):
 
     def _fill_loan_with_valid_loan(self, loan):
         """Add fields to the loan with dates valid for a on-going loan."""
-        transaction_date = arrow.utcnow() - timedelta(days=randint(10, 30))
+        transaction_date = arrow.utcnow() - timedelta(days=randint(20, 30))
         start_date = transaction_date - timedelta(days=randint(1, 5))
         end_date = start_date + timedelta(days=30)
         loan["transaction_date"] = transaction_date.isoformat()

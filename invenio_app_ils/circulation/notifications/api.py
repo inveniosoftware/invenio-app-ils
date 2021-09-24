@@ -14,6 +14,7 @@ from invenio_app_ils.notifications.api import (
     build_common_msg_ctx,
     send_notification,
 )
+from invenio_app_ils.patrons.api import Patron
 
 
 def _build_circulation_msg_ctx():
@@ -66,6 +67,45 @@ def send_expiring_loan_reminder_notification(loan, expiring_in_days):
         loan=loan,
         msg_extra_ctx=dict(expiring_in_days=expiring_in_days),
     )
+
+
+def send_bulk_extend_notification(extended_loans,
+                                  not_extended_loans,
+                                  patron_pid,
+                                  action="bulk_extend",
+                                  msg_extra_ctx=None,
+                                  **kwargs):
+    """Send notification to patron about bulk extend action."""
+    _filter = current_app.config["ILS_CIRCULATION_NOTIFICATIONS_FILTER"]
+    if _filter and _filter({}, action, **kwargs) is False:
+        return
+
+    msg_ctx = msg_extra_ctx or {}
+    msg_ctx["patron"] = Patron.get_patron(patron_pid)
+    extended_loans_ctx, not_extended_loans_ctx = [], []
+    for loan in extended_loans:
+        context = {"loan": loan}
+        context.update(build_common_msg_ctx(loan))
+        extended_loans_ctx.append(context)
+    for loan in not_extended_loans:
+        context = {"loan": loan}
+        context.update(build_common_msg_ctx(loan))
+        not_extended_loans_ctx.append(context)
+
+    msg_ctx.update(extended_loans=extended_loans_ctx,
+                   not_extended_loans_ctx=not_extended_loans_ctx)
+    msg_ctx.update(_build_circulation_msg_ctx())
+
+    func_or_path = current_app.config[
+        "ILS_CIRCULATION_NOTIFICATIONS_MSG_BUILDER"
+    ]
+    builder = obj_or_import_string(func_or_path)
+    msg = builder({}, action, msg_ctx, **kwargs)
+
+    patron = msg_ctx["patron"]
+    patrons = [patron]
+
+    send_notification(patrons, msg, **kwargs)
 
 
 def circulation_filter_notifications(record, action, **kwargs):
