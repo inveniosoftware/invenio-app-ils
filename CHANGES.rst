@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a49 (released 2021-09-27)
+
+- document: fix loan calculation on the resolver
+- change country codes to 3-letter standard
+
 Version 1.0.0a48 (released 2021-08-31)
 
 - documents: add text field to mapping of conference place
