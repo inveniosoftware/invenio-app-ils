@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a50 (released 2021-09-27)
+
+- add notifications module with configurable backends
+
 Version 1.0.0a49 (released 2021-09-27)
 
 - document: fix loan calculation on the resolver
