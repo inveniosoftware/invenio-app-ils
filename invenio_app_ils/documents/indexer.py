@@ -158,3 +158,13 @@ class DocumentIndexer(RecordIndexer):
         super().index(document)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_referenced_records.apply_async((document,), eta=eta)
+
+
+@shared_task(ignore_result=True)
+def index_document(document_pid):
+    """Async document indexer."""
+    document_class = current_app_ils.document_record_cls
+
+    document_indexer = current_app_ils.document_indexer
+    document = document_class.get_record_by_pid(document_pid)
+    document_indexer.index(document)
