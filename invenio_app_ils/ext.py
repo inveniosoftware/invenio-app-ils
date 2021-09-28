@@ -31,6 +31,7 @@ from .items.api import ITEM_PID_TYPE
 from .locations.api import LOCATION_PID_TYPE
 from .locations.receivers import register_location_signals
 from .patrons.api import PATRON_PID_TYPE
+from .records.receivers import register_record_signals
 from .series.api import SERIES_PID_TYPE
 from .vocabularies.api import VOCABULARY_PID_TYPE
 
@@ -298,6 +299,7 @@ class InvenioAppIlsREST(InvenioAppIls):
         """Register signals."""
         register_circulation_signals()
         register_files_signals()
+        register_record_signals()
         if app.config["EXTEND_LOANS_LOCATION_UPDATED"]:
             register_location_signals()
 
