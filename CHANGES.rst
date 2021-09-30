@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a51 (released 2021-09-30)
+
+- add bulk loan extension feature
+
 Version 1.0.0a50 (released 2021-09-27)
 
 - add notifications module with configurable backends
