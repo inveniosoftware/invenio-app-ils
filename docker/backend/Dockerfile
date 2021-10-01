@@ -10,7 +10,10 @@ FROM python:3.6
 RUN apt-get update && apt-get upgrade -y && apt-get install apt-file -y && apt-file update
 RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && bash nodesource_setup.sh
 RUN apt-get install -y nodejs git curl vim
-RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
+
+# setuptools<58: https://setuptools.pypa.io/en/latest/history.html#v58-0-0
+# the `fs` package relies on `2to3`
+RUN pip install --upgrade "setuptools<58" wheel pip uwsgi uwsgitop uwsgi-tools
 
 RUN python -m site
 RUN python -m site --user-site

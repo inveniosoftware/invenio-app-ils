@@ -88,7 +88,7 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports: ["5601:5601"]
   flower:
-    image: mher/flower
+    image: mher/flower:0.9.7
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
     ports:
       - "5555:5555"
