@@ -76,7 +76,7 @@ install_requires = [
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
     "invenio-banners>=1.0.0a1,<1.1.0",
-    "invenio-circulation>=1.0.0a32,<1.1.0",
+    "invenio-circulation>=1.0.0a33,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "invenio-pages>=1.0.0a5,<1.1.0",
     "invenio-pidrelations>=1.0.0a7,<1.1.0",
