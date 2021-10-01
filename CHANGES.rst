@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a52 (released 2021-10-01)
+
+- update invenio circulation
+
 Version 1.0.0a51 (released 2021-09-30)
 
 - add bulk loan extension feature
