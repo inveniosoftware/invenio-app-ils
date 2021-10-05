@@ -188,9 +188,12 @@ class BulkLoanExtensionResource(IlsCirculationResource):
         if not patron_exists(data["patron_pid"]):
             abort(400)
         extended_loans, not_extended_loans = bulk_extend_loans(**data)
-        send_bulk_extend_notification(extended_loans, not_extended_loans,
-                                      patron_pid=data["patron_pid"]
-                                      )
+        if extended_loans:
+            send_bulk_extend_notification(
+                extended_loans,
+                not_extended_loans,
+                patron_pid=data["patron_pid"]
+            )
         return self.make_response(extended_loans, not_extended_loans, 202)
 
 

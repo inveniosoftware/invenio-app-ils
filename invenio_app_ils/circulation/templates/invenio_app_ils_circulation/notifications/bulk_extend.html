@@ -13,7 +13,7 @@ your loans have been extended as follows:
 {% endif %}
 
 {% if not_extended_loans %}
-your loans for
+your loans for:
 {% for obj in not_extended_loans %}
 "{{ obj.document.full_title }}" <{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=obj.document.pid) }}>
 {% endfor %}
@@ -26,18 +26,18 @@ could not be extended. Contact the library for more information or consult your 
 Dear {{ patron.name }}, <br/><br/>
 
 {% if extended_loans %}
-your loans have been extended as follows:
+your loans have been extended as follows:<br/>
 {% for obj in extended_loans %}
 <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=obj.document.pid) }}">"{{ obj.document.full_title }}"</a> until <b>{{ obj.loan.end_date }}</b><br/>
-{% endfor %}<br/><br/>
+{% endfor %}
 {% endif %}
 
 {% if not_extended_loans %}
-your loans for: <br/><br/>
+{% if extended_loans %}<br/> {% endif %}
+your loans for: <br/>
 {% for obj in not_extended_loans %}
 <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['literature']|format(pid=obj.document.pid) }}">"{{ obj.document.full_title }}"</a><br/>
 {% endfor %}
-could not be extended. Contact the library for more information or consult your <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['profile'] }}">profile</a><br/> page.<br/><br/>
+could not be extended. Contact the library for more information or consult your <a href="{{ spa_routes.HOST }}{{ spa_routes.PATHS['profile'] }}">profile</a><br/> page.
 {% endif %}
-
 {% endblock %}
