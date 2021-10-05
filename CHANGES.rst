@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a53 (released 2021-10-05)
+
+- bulk extend: supress sending notification on empty extended loans set
+
 Version 1.0.0a52 (released 2021-10-01)
 
 - update invenio circulation
