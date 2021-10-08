@@ -1,0 +1,636 @@
+<p>This guide explains how to perform search queries on InvenioILS using easy to understand examples.</p>
+
+<h3>Simple search (one or multiple terms)</h3>
+
+<p><strong>Example:</strong> <a href="/search?q=dark%20matter"><code>dark matter</code></a></p>
+
+<p>Results will match records with the <em>terms</em> <code>dark</code> <em>or</em> <code>matter</code> in <em>any field</em>.
+
+<p>You can require <em>presence</em> of both terms using either the <code>+</code> or <code>AND</code> operator:</p>
+
+<p><strong>Examples:</strong> <a href="/search?q=%2Bdark%20%2Bmatter"><code>+dark +matter</code></a> or <a href="/search?q=dark%20AND%20matter"><code>dark AND matter</code></a></p>
+
+<p>You can require <em>absence</em> of one or more terms using either the <code>-</code> or <code>NOT</code> operator:</p>
+
+<p><strong>Examples:</strong> <a href="/search?q=-dark%20%2Bmatter"><code>-dark +matter</code></a> or <a href="/search?q=NOT%20dark%20AND%20matter"><code>NOT dark AND matter</code></a></p>
+
+
+<h3 id="phrasesearch">Phrase search</h3>
+
+<p><strong>Example:</strong> <a href="/search?q=%22dark%20matter%22"><code>"dark matter"</code></a></p>
+
+<p>Results will match records with the <em>phrase</em> <code>dark matter</code> in <em>any field</em>.</p>
+
+<h3 id="fieldsearch">Field search</h3>
+
+<p><strong>Example:</strong> <a href="/search?q=title:matter"><code>title:matter</code></a></p>
+
+<p>Results will match records with the <em>term</em> <code>matter</code> in the <em>field</em> <code>title</code>. If you want to search for multiple terms in the title you must <strong>group the terms</strong> using parenthesis:</p>
+
+<p><strong>Example:</strong> <a href="/search?q=title:(dark%20matter)"><code>title:(dark matter)</code></a></p>
+
+<p>See the field reference below for the full list of fields you can search.</p>
+
+<h3 id="combinedsimplephraseorfieldsearch">Combined simple, phrase or field search</h3>
+
+<p><strong>Example:</strong> <a href="/search?q=%2Btitle:%22dark%20matter%22%20-title:experiment"><code>+title:"dark matter" -title:experiment</code></a> or <a href="/search?q=title:(-dark%20%2Bmatter)"><code>title:(-dark +matter)</code></a></p>
+
+<p>You can combine simple, phrase and field search to construct advanced search queries.</p>
+
+<h3 id="rangesearch">Range search</h3>
+
+<p><strong>Example:</strong> <a href="/search?q=publication_year:[2020 TO 2021]"><code>publication_year:[2020 TO 2021]</code></a> (note, you must capitalize <code>TO</code>).</p>
+
+<p>Results will match any record with a publication date between 2020-01-01 and 2021-12-31 (both dates inclusive).</p>
+
+<p>Examples of other ranges:</p>
+
+<ul>
+<li><code>publication_year:{* TO 2020}</code> - All days until 2020.</li>
+
+<li><code>publication_year:[2020 TO *]</code> - All days from 2020.</li>
+
+</ul>
+
+<h3 id="phrasesearch">Examples of searches on literature</h3>
+
+<h4>Identifiers</h4>
+
+<strong>Example:</strong>
+
+<ul>
+<li><a href="/search?q=9814749133"><code>"9814749133"</code></a> or <a href="/search?q=9789814749138"><code>"9789814749138"</code></a> - ISBN 10 or 13</li>
+<li><a href="/search?q=10.1016\/j.physletb.208020"><code>"10.1016/j.physletb.208020"</code></a> - DOI</li>
+<li><a href="/search?q=1745-2481"><code>"1745-2481"</code></a> - ISSN</li>
+  <li><a href="/search?q=NF-EN-81-80"><code>"NF-EN-81-80”</code></a> - Standard number</li>
+</ul>
+
+<p>Results will match exactly the provided identifier.</p>
+
+<h4>Author and affiliation</h4>
+
+<strong>Example:</strong>
+
+<ul>
+<li><a href="/search?q=authors.full_name:(Albert%20Einstein)"><code>authors.full_name:(Albert Einstein)</code></a> - literature from a specific author</li>
+<li><a href="/search?q=authors.affiliations.name:CERN"><code>authors.affiliations.name:CERN</code></a> - literature whose author is affiliated to CERN</li>
+  <li><a href="/search?q=authors.full_name.keyword: /Otto, .%2B/"><code>full_name.keyword: /Otto, .+/</code></a> - Look for authors whose last name is Otto</li>
+</ul>
+
+<h4>Literature source</h4>
+
+<strong>Example:</strong>
+
+<ul>
+<li><a href="/search?q=conference_info.acronym:(CHEP*)%20AND%20conference_info.year:2019"><code>conference_info.acronym:(CHEP*) AND conference_info.year:2019</code></a> - conference papers from a particular year</li>
+<li><a href="/search?q=publication_info.journal_title: 'Nucl. Instrum. Methods Phys. Res., A'"><code>publication_info.journal_title: "Nucl. Instrum. Methods Phys. Res., A"</code></a> - publications in a journal</li>
+<li><a href="/search?q=publication_year:2020"><code>publication_year:2020</code></a> - publication year to disambiguate versions</li>
+</ul>
+
+<h3 id="rankingsorting">Ranking/Sorting</h3>
+
+<p>By default all searches are sorted according to an internal ranking algorithm that scores each match against your query. In both the user interface and REST API, it's possible to sort the results by:</p>
+
+<ul>
+<li>Recently added</li>
+<li>Most relevant</li>
+<li>Available copies</li>
+<li>Most loaned</li>
+<li>Publication year [oldest / newest]</li>
+<li>Title [A-Z / Z-A]</li>
+</ul>
+
+<h3 id="advancedconcepts">Advanced concepts</h3>
+
+<h4 id="boosting">Boosting</h4>
+
+<p>You can use the boost operator <code>^</code> when one term is more relevant than another. For instance, you can search for all records with the phrase <em>Dark matter</em> in either <em>title</em> or <em>description</em> field, but rank records with the phrase in the <em>title</em> field higher:</p>
+
+<p><strong>Example:</strong> <a href="/search?q=title:%22dark%20matter%22^5%20description:%22dark matter%22"><code>title:"dark matter"^5 description:"dark matter"</code></a></p>
+
+<p>Note: <code>^</code> is followed by a positive floating point number specifying the boost value compared to the default 1.
+
+<h4 id="fuzziness">Fuzziness</h4>
+
+<p>You can search for terms similar to but not exactly like your search term using the fuzzy operator <code>~</code>.</p>
+
+<p><strong>Example:</strong> <a href="/search?q=drak~"><code>drak~</code></a></p>
+
+<p>Results will match records with terms similar to <code>drak</code> which would e.g. also match <code>dark</code>.</p>
+
+<h4 id="proximitysearches">Proximity searches</h4>
+
+<p>A phrase search like <code>"collision theory"</code> by default expect all terms in exactly the same order, and thus for instance would not match the record entitled <em>"Quantum collision theory"</em>, but not the record <em>"Theory of heavy ion collision physics in hadron therapy"</em>. A proximity search allows that the terms are not in the exact order and may include other terms inbetween. The degree of flexiblity is specified by an integer afterwards:</p>
+
+<p><strong>Example:</strong> <a href="/search?q=%22collision%20theory%22~10"><code>"collision theory"~10</code></a></p>
+
+<h4 id="wildcards">Wildcards</h4>
+
+<p>You can use wildcards in search terms to replace a single character (using <code>?</code> operator) or zero or more characters (using <code>*</code> operator).</p>
+
+<p><strong>Example:</strong> <a href="/search?q=title:(crab%20cavit*)"><code>title:(crab cavit*)</code></a></p>
+
+The result will match the literature with title referring to cavities also in languages other than english.
+
+<p>Wildcard searches can be slow and should normally be avoided if possible.</p>
+
+<hr />
+
+<h2 id="fieldsreference">Fields reference</h2>
+
+<p>The table below lists the data type of each field. Below is a quick description
+of what each data type means and what is possible.</p>
+
+<ul>
+<li><strong>string</strong>: Field does not require exact match (example field: <code>title</code>).</li>
+
+<li><strong>string (exact)</strong>: Field requires exact match (example field: <code>title</code>).</li>
+
+<li><strong>CV</strong>: Controlled vocabularies but take only a specific list of values.</li>
+
+<li><strong>integer</strong>: A number (range queries possible).</li>
+
+<li><strong>datetime</strong>: An ISO8601 date or datetime, e.g. <code>2020-12-31</code> (range queries possible).</li>
+
+<li><strong>boolean</strong>: <code>true</code> or <code>false</code>.</li>
+</ul>
+
+<p>In case of multiple subfields, (<code>\*</code>) applies to all of them</p>
+
+<h3 id="fieldsreferencecommon">Common fields</h3>
+
+<table class="ui selectable single line striped unstackable compact table"><thead><tr>
+<th align="left">Field name</th>
+<th align="left">Type</th>
+<th align="left">Notes</th></tr></thead>
+<tbody>
+
+<tr>
+  <td data-label="Field Name"><code>abstract</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_abstracts</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_identifiers.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Identifiers: material, scheme, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_titles.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_titles.language</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_titles.source</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_titles.type</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>alternative_titles.value</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>created_by.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>created_by.type</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>created_by.value</code></td>
+  <td>string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>edition</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>identifiers.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Identifiers: material, scheme, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>keywords.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Keywords: source, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>languages</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>note</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>pid</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_year</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>relation_types</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>relations.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>tags</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>title</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>updated_by.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>updated_by.type</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>updated_by.value</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>urls.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">URLs: description, value</td>
+</tr>
+
+</tbody>
+</table>
+
+<h3 id="fieldsreferencedocuments">Documents</h3>
+
+<table class="ui selectable single line striped unstackable compact table"><thead><tr>
+<th align="left">Field name</th>
+<th align="left">Type</th>
+<th align="left">Notes</th></tr></thead>
+<tbody>
+
+<tr>
+  <td data-label="Field Name"><code>authors.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.affiliations.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td class="truncate" data-label="Field Name"><code>authors.affiliations.identifiers.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Identifiers: scheme, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.affiliations.name</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.alternative_names</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.full_name</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.identifiers.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Identifiers: material, scheme, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.roles</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors.type</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.active_loans</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td class="truncate" data-label="Field Name"><code>circulation.can_circulate_items_count</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td class="truncate" data-label="Field Name"><code>circulation.available_items_for_loan_count</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.has_items_on_site</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.next_available_date</code></td>
+  <td data-label="Type">date</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.overbooked</code></td>
+  <td data-label="Type">boolean</td>
+  <td></td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.overdue_loans</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.past_loans_count</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>circulation.pending_loans</code></td>
+  <td data-label="Type">integer</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>curated</code></td>
+  <td data-label="Type">boolean</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>document_type</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>eitems.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">E-Items</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>imprint.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>imprint.date</code></td>
+  <td data-label="Type">date</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>imprint.place</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>imprint.publisher</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>imprint.reprint</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>items.\*</code></td>
+  <td data-label="Type">string</td>
+  <td>Items</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.id</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.maintainer</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.status</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.title</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.license.url</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>licenses.material</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>number_of_pages</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>other_authors</code></td>
+  <td data-label="Type">boolean</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.artid</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.journal_issue</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.journal_title</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.journal_volume</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.note</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.pages</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publication_info.year</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>restricted</code></td>
+  <td data-label="Type">boolean</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>source</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>stock.mediums</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>subjects.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">Subjects: scheme, value</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>table_of_content</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+
+</tbody>
+</table>
+
+
+<h3 id="fieldsreferenceseries">Series</h3>
+
+
+<table class="ui selectable single line striped unstackable compact table"><thead><tr>
+<th align="left">Field name</th>
+<th align="left">Type</th>
+<th align="left">Notes</th></tr></thead>
+<tbody>
+
+<tr>
+  <td data-label="Field Name"><code>abbreviated_title</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>access_urls.\*</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>access_urls.access_restriction</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>access_urls.description</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>access_urls.open_access</code></td>
+  <td data-label="Type">boolean</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>access_urls.value</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>authors</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>isbn</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>issn</code></td>
+  <td data-label="Type">string (exact)</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>mode_of_issuance</code></td>
+  <td data-label="Type">CV</td>
+  <td data-label="Notes">-</td>
+</tr>
+<tr>
+  <td data-label="Field Name"><code>publisher</code></td>
+  <td data-label="Type">string</td>
+  <td data-label="Notes">-</td>
+</tr>
+
+</tbody>
+</table>

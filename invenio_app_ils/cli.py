@@ -18,6 +18,7 @@ from random import randint
 import arrow
 import click
 import lorem
+import pkg_resources
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
@@ -1535,6 +1536,16 @@ def fixtures():
 @with_appcontext
 def pages():
     """Register static pages."""
+
+    def page_data(page):
+        return (
+            pkg_resources.resource_stream(
+                "invenio_app_ils", os.path.join("static_pages", page)
+            )
+            .read()
+            .decode("utf8")
+        )
+
     pages = [
         Page(
             url="/about",
@@ -1552,10 +1563,18 @@ def pages():
             "our chatroom</a>",
             template_name="invenio_pages/default.html",
         ),
+        Page(
+            url="/guide/search",
+            title="Search guide",
+            description="Search guide",
+            content=page_data("search_guide.html"),
+            template_name="invenio_pages/default.html",
+        ),
     ]
     with db.session.begin_nested():
         Page.query.delete()
         db.session.add_all(pages)
+    db.session.commit()
     click.echo("static pages created :)")
 
 
