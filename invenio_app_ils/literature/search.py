@@ -46,6 +46,7 @@ class LiteratureSearch(RecordsSearch):
 
     boosted_fields = [
         "identifiers.value^12.0",
+        "identifiers.value.text^12.0",
         "title^8.0",
         "authors.full_name^6.0",
         "imprint.publisher^4.0",
