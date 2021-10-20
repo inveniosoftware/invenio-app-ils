@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 1.0.0a54 (released 2021-10-20)
+
+- literature search: improved relevance of results
+- Search Guide: add search guide static page
 
 Version 1.0.0a53 (released 2021-10-05)
 
