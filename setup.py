@@ -24,7 +24,7 @@ tests_require = [
 ]
 
 extras_require = {
-    "docs": ["Sphinx>=3"],
+    "docs": ["Sphinx>=4.2.0"],
     "lorem": ["lorem>=0.1.1 "],
     "tests": tests_require,
     "elasticsearch6": [
