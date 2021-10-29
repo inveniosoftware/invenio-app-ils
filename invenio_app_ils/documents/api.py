@@ -175,16 +175,22 @@ class Document(IlsRecordWithRelations):
             document_pid=self["pid"],
         )
 
-    def has_references(self):
+    def has_references(self, excluded=None):
         """Check if record has references."""
-        return any([
-            self.search_loan_references().count(),
-            self.search_item_references().count(),
-            self.search_eitem_references().count(),
-            self.search_doc_req_references().count(),
-            self.search_order_references().count(),
-            self.search_brw_req_references().count()
-        ])
+        references = {
+            "loan": self.search_loan_references().count(),
+            "item": self.search_item_references().count(),
+            "eitem": self.search_eitem_references().count(),
+            "doc": self.search_doc_req_references().count(),
+            "order": self.search_order_references().count(),
+            "bwr": self.search_brw_req_references().count(),
+        }
+
+        if excluded:
+            for exclude in excluded:
+                references.pop(exclude, None)
+
+        return any(list(references.values()))
 
     def delete(self, **kwargs):
         """Delete Document record."""
@@ -195,7 +201,7 @@ class Document(IlsRecordWithRelations):
         orders_refs_search = self.search_order_references()
         brw_req_refs_search = self.search_brw_req_references()
 
-        if self.search_loan_references().count():
+        if loan_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Document",
                 record_id=self["pid"],
