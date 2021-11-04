@@ -1,4 +1,17 @@
 {
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
   "mappings": {
     "document-v1.0.0": {
       "date_detection": false,
@@ -261,36 +274,56 @@
         "extensions_keywords": {
           "type": "object",
           "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "keyword" }
+            "key": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
           }
         },
         "extensions_texts": {
           "type": "object",
           "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "text" }
+            "key": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "text"
+            }
           }
         },
         "extensions_longs": {
           "type": "object",
           "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "long" }
+            "key": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "long"
+            }
           }
         },
         "extensions_dates": {
           "type": "object",
           "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "date" }
+            "key": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "date"
+            }
           }
         },
         "extensions_booleans": {
           "type": "object",
           "properties": {
-            "key": { "type": "keyword" },
-            "value": { "type": "boolean" }
+            "key": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "boolean"
+            }
           }
         },
         "identifiers": {
@@ -755,6 +788,10 @@
           "fields": {
             "keyword": {
               "type": "keyword"
+            },
+            "normalized_keyword": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
             }
           }
         },
@@ -808,8 +845,9 @@
             "place": {
               "type": "keyword",
               "fields": {
-                "text":
-                  {"type": "text"}
+                "text": {
+                  "type": "text"
+                }
               }
             },
             "series": {
@@ -833,10 +871,10 @@
             }
           },
           "type": "object"
-       },
+        },
         "physical_description": {
           "type": "text"
-       }
+        }
       }
     }
   }

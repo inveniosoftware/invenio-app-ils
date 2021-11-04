@@ -1,4 +1,17 @@
 {
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
   "mappings": {
     "series-v1.0.0": {
       "date_detection": false,
@@ -254,6 +267,10 @@
           "fields": {
             "keyword": {
               "type": "keyword"
+            },
+            "normalized_keyword": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
             }
           }
         },
