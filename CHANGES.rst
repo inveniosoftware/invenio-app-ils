@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 1.0.0a55 (released 2021-11-05)
+
+- search: add normalised keyword search to support case insensitive exact match
+
 Version 1.0.0a54 (released 2021-10-20)
 
 - literature search: improved relevance of results
