@@ -28,7 +28,7 @@ from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.circulation.search import (
-    get_all_range_expiring_ils_loans_by_patron_pid,
+    get_all_expiring_or_overdue_loans_by_patron_pid,
 )
 from invenio_app_ils.errors import (
     IlsException,
@@ -45,7 +45,6 @@ from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 
 lt_es7 = ES_VERSION[0] < 7
-
 
 # override default `invenio-circulation` minters to use the base32 PIDs
 # CIRCULATION_LOAN_PID_TYPE is already defined in `invenio-circulation`
@@ -92,8 +91,8 @@ def _set_item_to_can_circulate(item_pid):
 def patron_has_request_on_document(patron_pid, document_pid):
     """Return loan request for given patron and document."""
     states = (
-            current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
-        )
+        current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+    )
     search = search_by_patron_item_or_document(
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
@@ -255,13 +254,13 @@ def checkout_loan(
 def bulk_extend_loans(patron_pid, **kwargs):
     """Bulk extend qualified loans."""
     loan_class = current_circulation.loan_record_cls
-    days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
 
-    loans_search = get_all_range_expiring_ils_loans_by_patron_pid(
-        expiring_in_days=days, patron_pid=patron_pid)
+    loans_search = \
+        get_all_expiring_or_overdue_loans_by_patron_pid(patron_pid=patron_pid)
 
     extended_loans = []
     not_extended_loans = []
+
     for loan in loans_search.scan():
         loan_record = loan_class.get_record_by_pid(loan["pid"])
         params = deepcopy(loan_record)
@@ -304,13 +303,13 @@ def update_dates_loan(
         if request_start_date or request_expire_date:
             raise IlsException(
                 description="Cannot modify request dates of "
-                "an active or completed loan."
+                            "an active or completed loan."
             )
         if start_date:
             if start_date > today:
                 raise InvalidParameterError(
                     description="Start date cannot be in "
-                    "the future for active loans."
+                                "the future for active loans."
                 )
             data["start_date"] = start_date
         if end_date:
@@ -321,7 +320,7 @@ def update_dates_loan(
         if start_date or end_date:
             raise IlsException(
                 description="Cannot modify dates of "
-                "a pending or cancelled loan."
+                            "a pending or cancelled loan."
             )
         if request_start_date:
             data["request_start_date"] = request_start_date

@@ -69,12 +69,19 @@ def get_all_range_expiring_loans_by_patron_pid(expiring_in_days, patron_pid):
     )
 
 
-def get_all_range_expiring_ils_loans_by_patron_pid(expiring_in_days,
-                                                   patron_pid):
-    """Return ILS loans expiring in the next <days> days for given patron."""
-    return get_all_range_expiring_loans_by_patron_pid(
-        expiring_in_days, patron_pid)\
+def get_all_expiring_or_overdue_loans_by_patron_pid(patron_pid):
+    """Return ILS loans expiring or overdue for given patron."""
+    days = current_app.config["ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS"]
+    future = (datetime.today() + timedelta(days=days)).date()
+    states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+    search_cls = current_circulation.loan_search_cls
+    return (
+        search_cls()
+        .filter("term", patron_pid=patron_pid)
         .filter("term", item_pid__type=ITEM_PID_TYPE)
+        .filter("range", end_date=dict(lte="{}||/d".format(future)))
+        .filter("terms", state=states)
+    )
 
 
 def get_all_expired_loans():
