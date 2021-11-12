@@ -7,6 +7,11 @@
 
 Changes
 =======
+
+Version 1.0.0a56 (released 2021-11-12)
+
+- Bulk loan extension: add overdue loans to bulk extend functionality
+
 Version 1.0.0a55 (released 2021-11-05)
 
 - search: add normalised keyword search to support case insensitive exact match
