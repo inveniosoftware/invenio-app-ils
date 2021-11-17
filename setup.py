@@ -19,8 +19,7 @@ invenio_search_version = "1.3.1,<1.4.0"
 tests_require = [
     "mock>=2.0.0",
     "pytest-invenio>=1.4.0,<1.5.0",
-    "pytest-mock>=1.6.0",
-    "celery[pytest]>=4.4.0,<5.1",  # Temporary, until fixed in `pytest-invenio`
+    "pytest-mock>=1.6.0"
 ]
 
 extras_require = {
@@ -61,17 +60,17 @@ setup_requires = ["Babel>=2.8"]
 install_requires = [
     # --- Invenio ----------------------------------------------------------
     "invenio[base,auth]>=3.4.0,<3.5",
-    "invenio-base>=1.2.4",
+    "invenio-base>=1.2.5",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.2.0,<1.3.0",
     "invenio-jsonschemas>=1.1.1,<1.2.0",
-    "invenio-oaiserver>=1.2.0,<1.3.0",
-    "invenio-pidstore>=1.2.1,<1.3.0",
-    "invenio-records-rest>=1.7.0,<1.9.0",
+    "invenio-oaiserver>=1.3.0",
+    "invenio-pidstore>=1.2.2,<1.3.0",
+    "invenio-records-rest>=1.7.0,<1.8.0",
     # Note: Invenio-Records v1.5.x is allowed on purpose in v3.4 to
     # allow the relations support to be released once it's more mature
     # without having to release Invenio v3.5.
-    "invenio-records>=1.4.0,<1.6.0",
+    "invenio-records>=1.6.0",
     # --- `files` bundle with only invenio-files-rest ----------------------
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
@@ -81,7 +80,6 @@ install_requires = [
     "invenio-pages>=1.0.0a5,<1.1.0",
     "invenio-pidrelations>=1.0.0a7,<1.1.0",
     "invenio-stats>=1.0.0a18,<1.1.0",
-    "arrow>=0.16.0",
     "Flask-Debugtoolbar>=0.10.1",
     "pycountry>=19.8.18",
     # needed to have namedtuple json serialized as dict
@@ -92,6 +90,19 @@ install_requires = [
     "Jinja2<3.0,>=2.10.1",
     # unsupported ES version issue
     "elasticsearch>=6.0.0,<7.14",
+    "Werkzeug>=1.0.1,<2.0",
+    "Jinja2>=2.11,<3",
+    "pluggy>=0.13.1,<1.0.0",
+    # breaking changes in version 4
+    "jsonschema>=3.0.0,<4.0.0",
+    # version conflict by invenio-oauth2server
+    "WTForms<3.0.0,>=2.3.3",
+    # invenio-celery conflict fix
+    "celery<5.2,>=5.1.0",
+    # https://github.com/inveniosoftware/invenio-accounts/issues/379
+    "Flask-WTF==0.14.3",
+    # marshmallow backwards compatibility in invenio-records-rest failing in python3.8
+    "marshmallow==3.14.0",
 ]
 
 packages = find_packages()
