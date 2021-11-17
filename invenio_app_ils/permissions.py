@@ -9,7 +9,7 @@
 
 from functools import wraps
 
-from flask import abort, current_app, has_request_context
+from flask import abort, current_app, g, has_request_context
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
@@ -107,7 +107,9 @@ def loan_extend_circulation_permission(loan):
     if current_user.is_anonymous:
         abort(401)
 
-    if current_user.id == int(loan["patron_pid"]):
+    is_admin_or_librarian = backoffice_permission().allows(g.identity)
+    is_logged_in_patron_owner = current_user.id == int(loan["patron_pid"])
+    if not is_admin_or_librarian and is_logged_in_patron_owner:
         Document = current_app_ils.document_record_cls
         document_rec = Document.get_record_by_pid(loan["document_pid"])
         document = document_rec.replace_refs()
