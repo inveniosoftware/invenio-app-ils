@@ -242,6 +242,10 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
                 "invenio_app_ils.circulation.serializers:csv_v1_search"
             ),
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         list_route="/circulation/loans/",
         item_route="/circulation/loans/<{0}:pid_value>".format(
             _LOANID_CONVERTER
