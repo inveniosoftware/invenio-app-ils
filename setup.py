@@ -75,7 +75,7 @@ install_requires = [
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
     "invenio-banners>=1.0.0a1,<1.1.0",
-    "invenio-circulation>=1.0.0a33,<1.1.0",
+    "invenio-circulation>=1.0.0a34,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "invenio-pages>=1.0.0a5,<1.1.0",
     "invenio-pidrelations>=1.0.0a7,<1.1.0",
@@ -84,7 +84,11 @@ install_requires = [
     "pycountry>=19.8.18",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
-    "click<8.0,>=7.0",
+    # due to pip resolver issues
+    "itsdangerous<2.0.1,>=1.1.0",
+    "flask>=1.0.4,<2.0.2",
+    "werkzeug>=1.0.1,<2.0.2",
+    "click<8.0,>=7.1.2",
     # unsupported ES version issue
     "elasticsearch>=6.0.0,<7.14",
     "pluggy>=0.13.1,<1.0.0",
