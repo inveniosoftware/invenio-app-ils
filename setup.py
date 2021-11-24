@@ -58,7 +58,7 @@ for name, reqs in extras_require.items():
 setup_requires = ["Babel>=2.8"]
 
 install_requires = [
-    # --- Invenio ----------------------------------------------------------
+   # --- Invenio ----------------------------------------------------------
     "invenio[base,auth]>=3.4.0,<3.5",
     "invenio-base>=1.2.5",
     # --- `metadata` bundle without records UI -----------------------------
@@ -87,11 +87,8 @@ install_requires = [
     # due to pip resolver issues
     "itsdangerous<2.0,>=1.1.0",
     "click<8.0,>=7.0",
-    "Jinja2<3.0,>=2.10.1",
     # unsupported ES version issue
     "elasticsearch>=6.0.0,<7.14",
-    "Werkzeug>=1.0.1,<2.0",
-    "Jinja2>=2.11,<3",
     "pluggy>=0.13.1,<1.0.0",
     # breaking changes in version 4
     "jsonschema>=3.0.0,<4.0.0",
@@ -101,8 +98,6 @@ install_requires = [
     "celery<5.2,>=5.1.0",
     # https://github.com/inveniosoftware/invenio-accounts/issues/379
     "Flask-WTF==0.14.3",
-    # marshmallow backwards compatibility in invenio-records-rest failing in python3.8
-    "marshmallow==3.14.0",
 ]
 
 packages = find_packages()
