@@ -66,7 +66,7 @@ install_requires = [
     "invenio-jsonschemas>=1.1.1,<1.2.0",
     "invenio-oaiserver>=1.3.0",
     "invenio-pidstore>=1.2.2,<1.3.0",
-    "invenio-records-rest>=1.7.0,<1.8.0",
+    "invenio-records-rest>=1.9.0, <1.10.0",
     # Note: Invenio-Records v1.5.x is allowed on purpose in v3.4 to
     # allow the relations support to be released once it's more mature
     # without having to release Invenio v3.5.
@@ -75,7 +75,7 @@ install_requires = [
     "invenio-files-rest>=1.2.0,<1.3.0",
     # --- extra deps of ILS ------------------------------------------------
     "invenio-banners>=1.0.0a1,<1.1.0",
-    "invenio-circulation>=1.0.0a33,<1.1.0",
+    "invenio-circulation>=1.0.0a35,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "invenio-pages>=1.0.0a5,<1.1.0",
     "invenio-pidrelations>=1.0.0a7,<1.1.0",
@@ -84,14 +84,8 @@ install_requires = [
     "pycountry>=19.8.18",
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
-    # due to pip resolver issues
-    "itsdangerous<2.0,>=1.1.0",
-    "click<8.0,>=7.0",
-    "Jinja2<3.0,>=2.10.1",
     # unsupported ES version issue
     "elasticsearch>=6.0.0,<7.14",
-    "Werkzeug>=1.0.1,<2.0",
-    "Jinja2>=2.11,<3",
     "pluggy>=0.13.1,<1.0.0",
     # breaking changes in version 4
     "jsonschema>=3.0.0,<4.0.0",
@@ -101,8 +95,6 @@ install_requires = [
     "celery<5.2,>=5.1.0",
     # https://github.com/inveniosoftware/invenio-accounts/issues/379
     "Flask-WTF==0.14.3",
-    # marshmallow backwards compatibility in invenio-records-rest failing in python3.8
-    "marshmallow==3.14.0",
 ]
 
 packages = find_packages()

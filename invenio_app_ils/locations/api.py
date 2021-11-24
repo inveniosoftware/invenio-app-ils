@@ -60,7 +60,7 @@ class Location(IlsRecord):
         try:
             # invalidate cached property
             del current_app_ils.get_default_location_pid
-        except AttributeError:
+        except (AttributeError, KeyError):
             pass
 
         return rec
