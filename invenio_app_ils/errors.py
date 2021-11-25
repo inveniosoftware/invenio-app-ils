@@ -27,7 +27,7 @@ class IlsException(RESTException):
         """The status name."""
         return type(self).__name__
 
-    def get_body(self, environ=None):
+    def get_body(self, environ=None, scope=None):
         """Get the request body."""
         body = dict(
             status=self.code,
