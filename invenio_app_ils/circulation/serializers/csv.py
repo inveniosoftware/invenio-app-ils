@@ -20,6 +20,10 @@ from .custom_fields import (
 class LoanCSVSerializer(CSVSerializer):
     """Serialize loan."""
 
+    def __init__(self, *args, **kwargs):
+        """Initialization."""
+        super().__init__(*args, **kwargs)
+
     def transform_record(self, pid, record, links_factory=None, **kwargs):
         """Transform record into an intermediate representation."""
         loan = super().transform_record(
