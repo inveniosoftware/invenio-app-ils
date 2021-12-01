@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a57 (released 2021-12-01)
+
+- global: fix installation issues by dependencies
+
 Version 1.0.0a56 (released 2021-11-12)
 
 - Bulk loan extension: add overdue loans to bulk extend functionality
