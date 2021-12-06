@@ -284,8 +284,8 @@ REST_CSRF_ENABLED = True
 ###############################################################################
 REST_ENABLE_CORS = True
 CORS_SEND_WILDCARD = False
-CORS_SUPPORTS_CREDENTIALS = True
- 
+CORS_SUPPORTS_CREDENTIALS = False
+
 ###############################################################################
 # Flask configuration
 ###############################################################################
