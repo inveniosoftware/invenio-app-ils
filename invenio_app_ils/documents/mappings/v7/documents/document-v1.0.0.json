@@ -9,6 +9,18 @@
             "lowercase"
           ]
         }
+      },
+      "analyzer": {
+        "min_length_2": {
+          "tokenizer": "standard",
+          "filter": [ "min_length_2" ]
+        }
+      },
+      "filter": {
+        "min_length_2": {
+          "type": "length",
+          "min": 2
+        }
       }
     }
   },
@@ -106,6 +118,11 @@
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "full_words": {
+                "type": "text",
+                "analyzer": "min_length_2",
+                "search_analyzer": "min_length_2"
               }
             }
           },
