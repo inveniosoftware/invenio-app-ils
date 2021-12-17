@@ -68,16 +68,16 @@ class _InvenioAppIlsState(object):
         return pid.pid_value, pid
 
     def record_class_by_pid_type(self, pid_type):
-        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        endpoints = current_app.config["RECORDS_REST_ENDPOINTS"]
         return endpoints[pid_type]["record_class"]
 
     def indexer_by_pid_type(self, pid_type):
-        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        endpoints = current_app.config["RECORDS_REST_ENDPOINTS"]
         _cls = endpoints[pid_type]["indexer_class"]
         return _cls()
 
     def search_by_pid_type(self, pid_type):
-        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+        endpoints = current_app.config["RECORDS_REST_ENDPOINTS"]
         return endpoints[pid_type]["search_class"]
 
     @cached_property
