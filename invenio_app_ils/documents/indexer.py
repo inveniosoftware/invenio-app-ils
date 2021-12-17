@@ -15,6 +15,7 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
+from invenio_pidstore.errors import PIDDeletedError
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
@@ -63,9 +64,13 @@ def get_related_records(document_pid):
     """Get referenced records via relations."""
     referenced = []
     doc_record_cls = current_app_ils.document_record_cls
-    record = doc_record_cls.get_record_by_pid(document_pid)
+    try:
+        record = doc_record_cls.get_record_by_pid(document_pid)
+    except PIDDeletedError:
+        # Document might have been deleted while reindexing asynchronously.
+        return referenced
     relations = record.relations
-    for relation_type, related_records in relations.items():
+    for _, related_records in relations.items():
         for obj in related_records:
             rec = IlsRecord.get_record_by_pid(
                 obj["pid_value"], pid_type=obj["pid_type"]

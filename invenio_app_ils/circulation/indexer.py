@@ -14,6 +14,7 @@ from flask import current_app
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
+from invenio_pidstore.errors import PIDDeletedError
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
@@ -86,19 +87,24 @@ def index_extra_fields_for_loan(loan_dict):
     details.
     """
     document_class = current_app_ils.document_record_cls
-    document_record = document_class.get_record_by_pid(
-        loan_dict.get("document_pid")
-    )
+    try:
+        document_record = document_class.get_record_by_pid(
+            loan_dict["document_pid"]
+        )
+    except PIDDeletedError:
+        # Document might have been deleted while reindexing asynchronously.
+        return
+
     document = document_record.replace_refs()
 
-    items_available_for_loan_count = document.get("circulation", {}).get(
+    items_available_for_loan_count = document["circulation"][
         "available_items_for_loan_count"
-    )
+    ]
     loan_dict[
         "available_items_for_loan_count"
     ] = items_available_for_loan_count
 
-    can_circulate_items_count = document.get("circulation", {}).get(
+    can_circulate_items_count = document["circulation"][
         "can_circulate_items_count"
-    )
+    ]
     loan_dict["can_circulate_items_count"] = can_circulate_items_count
