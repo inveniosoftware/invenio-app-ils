@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a58 (released 2021-12-17)
+
+- add words length limiter on document author name indexing
+- add case insensitive search on document publisher
+
 Version 1.0.0a57 (released 2021-12-01)
 
 - global: fix installation issues by dependencies
