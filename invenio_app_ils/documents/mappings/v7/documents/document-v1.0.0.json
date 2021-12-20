@@ -352,7 +352,7 @@
           "publisher": {
             "type": "keyword",
             "fields": {
-              "keyword": {
+              "text": {
                 "type": "text"
               }
             }
