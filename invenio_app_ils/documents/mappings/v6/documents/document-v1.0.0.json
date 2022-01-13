@@ -373,7 +373,7 @@
             "publisher": {
               "type": "keyword",
               "fields": {
-                "keyword": {
+                "text": {
                   "type": "text"
                 }
               }
@@ -393,7 +393,12 @@
               "type": "keyword"
             },
             "value": {
-              "type": "keyword"
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              }
             }
           },
           "type": "object"
@@ -516,7 +521,12 @@
           "type": "text"
         },
         "number_of_pages": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "text": {
+              "type": "text"
+            }
+          }
         },
         "other_authors": {
           "type": "boolean"
@@ -533,13 +543,23 @@
               "type": "keyword"
             },
             "journal_title": {
-              "type": "keyword"
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              }
             },
             "journal_volume": {
               "type": "keyword"
             },
             "note": {
-              "type": "keyword"
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              }
             },
             "pages": {
               "type": "keyword"
@@ -778,7 +798,12 @@
           "type": "boolean"
         },
         "source": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "text": {
+              "type": "text"
+            }
+          }
         },
         "stock": {
           "properties": {
@@ -859,7 +884,12 @@
                   "type": "keyword"
                 },
                 "value": {
-                  "type": "keyword"
+                  "type": "keyword",
+                    "fields": {
+                      "text": {
+                        "type": "text"
+                      }
+                  }
                 }
               },
               "type": "object"
