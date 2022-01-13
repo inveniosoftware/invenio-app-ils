@@ -89,7 +89,12 @@
         "type": "keyword"
       },
       "edition": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text"
+          }
+        }
       },
       "extensions": {
         "type": "object",
@@ -140,7 +145,12 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+              "text": {
+                "type": "text"
+              }
+            }
           }
         },
         "type": "object"
@@ -154,7 +164,12 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+                "text": {
+                  "type": "text"
+                }
+            }
           }
         },
         "type": "object"
@@ -190,7 +205,12 @@
       "publisher": {
         "fields": {
           "keyword": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+                "text": {
+                  "type": "text"
+                }
+            }
           }
         },
         "type": "text"

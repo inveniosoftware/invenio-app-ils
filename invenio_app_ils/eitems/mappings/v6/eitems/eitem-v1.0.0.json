@@ -94,7 +94,12 @@
               "type": "keyword"
             },
             "value": {
-              "type": "keyword"
+              "type": "keyword",
+              "fields": {
+              "text": {
+                "type": "text"
+              }
+            }
             }
           },
           "type": "object"
@@ -109,7 +114,12 @@
           "type": "keyword"
         },
         "source": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "text": {
+              "type": "text"
+            }
+        }
         },
         "urls": {
           "properties": {
