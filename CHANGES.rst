@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a59 (released 2022-01-17)
+
+- add alternative mappings to text fields in documents e-items and series
+
 Version 1.0.0a58 (released 2021-12-17)
 
 - add words length limiter on document author name indexing
