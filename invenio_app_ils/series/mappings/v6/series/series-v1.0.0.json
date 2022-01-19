@@ -210,12 +210,7 @@
         "publisher": {
           "fields": {
             "keyword": {
-              "type": "keyword",
-              "fields": {
-                "text": {
-                  "type": "text"
-                }
-              }
+              "type": "keyword"
             }
           },
           "type": "text"
