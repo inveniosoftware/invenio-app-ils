@@ -95,6 +95,8 @@ install_requires = [
     "celery<5.2,>=5.1.0",
     # https://github.com/inveniosoftware/invenio-accounts/issues/379
     "Flask-WTF==0.14.3",
+    # Version 2.1.0 removes `TimedJSONWebSignatureSerializer`
+    "itsdangerous>=1.1,<2.1"
 ]
 
 packages = find_packages()
