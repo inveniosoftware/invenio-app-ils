@@ -93,7 +93,7 @@ install_requires = [
     "WTForms<3.0.0,>=2.3.3",
     # invenio-celery conflict fix
     "celery<5.2,>=5.1.0",
-    # https://github.com/inveniosoftware/invenio-accounts/issues/379
+    # https://github.com/inveniosoftware/invenio-accounts/issues/379 test
     "Flask-WTF==0.14.3",
 ]
 
