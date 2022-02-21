@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a61 (released 2022-02-21)
+
+- Pin `itsdangerous` because v2.1.0 removes `TimedJSONWebSignatureSerializer`
+
 Version 1.0.0a60 (released 2022-02-21)
 
 - upgrade invenio-opendefinition
