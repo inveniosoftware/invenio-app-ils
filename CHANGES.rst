@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a60 (released 2022-02-21)
+
+- upgrade invenio-opendefinition
+
 Version 1.0.0a59 (released 2022-01-17)
 
 - add alternative mappings to text fields in documents e-items and series
