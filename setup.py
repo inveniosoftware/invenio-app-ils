@@ -13,7 +13,7 @@ from setuptools import find_packages, setup
 
 readme = open("README.rst").read()
 
-invenio_db_version = ">=1.0.9,<1.1.0"
+invenio_db_version = ">=1.0.14,<1.1.0"
 invenio_search_version = "1.3.1,<1.4.0"
 
 tests_require = [
@@ -60,7 +60,7 @@ setup_requires = ["Babel>=2.8"]
 install_requires = [
     # --- Invenio ----------------------------------------------------------
     "invenio[base,auth]>=3.4.0,<3.5",
-    "invenio-base>=1.2.5",
+    "invenio-base>=1.2.10",
     # --- `metadata` bundle without records UI -----------------------------
     "invenio-indexer>=1.2.0,<1.3.0",
     "invenio-jsonschemas>=1.1.1,<1.2.0",
@@ -93,10 +93,11 @@ install_requires = [
     "WTForms<3.0.0,>=2.3.3",
     # invenio-celery conflict fix
     "celery<5.2,>=5.1.0",
-    # https://github.com/inveniosoftware/invenio-accounts/issues/379
-    "Flask-WTF==0.14.3",
     # Version 2.1.0 removes `TimedJSONWebSignatureSerializer`
-    "itsdangerous>=1.1,<2.1"
+    "itsdangerous>=1.1,<2.1",
+    #  Version 2.1.0 removes `werkzeug.security.safe_str_cmp`
+    "Werkzeug>=1.0.1,<2.1.0",
+    "SQLAlchemy>=1.3.0,<1.4.0"
 ]
 
 packages = find_packages()

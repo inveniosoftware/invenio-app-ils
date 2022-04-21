@@ -74,7 +74,7 @@ def test_message_templates_escaping(app_with_notifs):
 
         assert full.title == 'Test "{0}" title.'.format(title)
 
-        from jinja2 import escape
+        from markupsafe import escape
 
         escaped = escape(title)
         assert 'Test "{0}" body.'.format(escaped) == full.body_plain
