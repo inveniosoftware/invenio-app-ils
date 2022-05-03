@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a62 (released 2022-05-02)
+
+- document: preserve legacy_recid on update
+
 Version 1.0.0a61 (released 2022-02-21)
 
 - Pin `itsdangerous` because v2.1.0 removes `TimedJSONWebSignatureSerializer`
