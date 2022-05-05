@@ -241,7 +241,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     internal_notes = fields.List(fields.Nested(InternalNoteSchema))
     keywords = fields.List(fields.Nested(KeywordSchema))
     languages = fields.List(fields.Str())
-    legacy_recid = fields.Str()
+    legacy_recid = fields.Int()
     licenses = fields.List(fields.Nested(LicenseSchema))
     note = fields.Str()
     number_of_pages = fields.Str()
