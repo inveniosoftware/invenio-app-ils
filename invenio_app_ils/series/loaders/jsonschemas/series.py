@@ -77,7 +77,7 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     issn = fields.Str()
     keywords = fields.List(fields.Nested(KeywordSchema))
     languages = fields.List(fields.Str())
-    legacy_recid = fields.Str()
+    legacy_recid = fields.Int()
     mode_of_issuance = fields.Str(
         required=True, validate=validate.OneOf(Series.MODE_OF_ISSUANCE)
     )
