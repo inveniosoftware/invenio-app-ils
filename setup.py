@@ -26,9 +26,6 @@ extras_require = {
     "docs": ["Sphinx>=4.2.0"],
     "lorem": ["lorem>=0.1.1 "],
     "tests": tests_require,
-    "elasticsearch6": [
-        "invenio-search[elasticsearch6]>={}".format(invenio_search_version),
-    ],
     "elasticsearch7": [
         "invenio-search[elasticsearch7]>={}".format(invenio_search_version),
     ],
@@ -49,7 +46,6 @@ for name, reqs in extras_require.items():
         "mysql",
         "posgresql",
         "sqlite",
-        "elasticsearch6",
         "elasticsearch7",
     ):
         continue
@@ -85,7 +81,7 @@ install_requires = [
     # needed to have namedtuple json serialized as dict
     "simplejson>=3.8.1",
     # unsupported ES version issue
-    "elasticsearch>=6.0.0,<7.14",
+    "elasticsearch>=7.0.0,<7.14",
     "pluggy>=0.13.1,<1.0.0",
     # breaking changes in version 4
     "jsonschema>=3.0.0,<4.0.0",

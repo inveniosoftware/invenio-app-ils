@@ -8,7 +8,6 @@
 """Resolve the circulation status referenced in the Document."""
 
 import jsonresolver
-from elasticsearch import VERSION as ES_VERSION
 from werkzeug.routing import Rule
 
 from invenio_app_ils.circulation.search import (
@@ -18,8 +17,6 @@ from invenio_app_ils.circulation.search import (
 )
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.items.search import get_items_aggregated_by_statuses
-
-lt_es7 = ES_VERSION[0] < 7
 
 
 # Note: there must be only one resolver per file,
@@ -76,7 +73,7 @@ def jsonresolver_loader(url_map):
         item_statuses = get_items_aggregated_by_statuses(document_pid)
         item_result = item_statuses.execute()
         items_count = (
-            item_result.hits.total if lt_es7 else item_result.hits.total.value
+            item_result.hits.total.value
         )
         for bucket in item_result.aggregations.statuses.buckets:
             if bucket["key"] not in "CAN_CIRCULATE":
@@ -120,11 +117,7 @@ def jsonresolver_loader(url_map):
             next_available_loans = (
                 get_loan_next_available_date(document_pid).execute().hits
             )
-            total = (
-                next_available_loans.total
-                if lt_es7
-                else next_available_loans.total.value
-            )
+            total = next_available_loans.total.value
             if total > 0:
                 next_date = next_available_loans[0].end_date
                 circulation["next_available_date"] = next_date

@@ -7,10 +7,7 @@
 
 """Vocabulary indexer APIs."""
 
-from elasticsearch import VERSION as ES_VERSION
 from invenio_indexer.api import RecordIndexer
-
-lt_es7 = ES_VERSION[0] < 7
 
 
 class VocabularyIndexer(RecordIndexer):
@@ -34,5 +31,5 @@ class VocabularyIndexer(RecordIndexer):
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        doc_type = record._doc_type if lt_es7 else "_doc"
+        doc_type = "_doc"
         return (record._index, doc_type)

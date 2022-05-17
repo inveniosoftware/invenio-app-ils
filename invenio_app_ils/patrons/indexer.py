@@ -10,7 +10,6 @@
 from datetime import datetime
 
 from celery import shared_task
-from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_accounts.models import User
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -27,8 +26,6 @@ from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.patrons.api import PATRON_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
-
-lt_es7 = ES_VERSION[0] < 7
 
 
 def get_loans(patron_pid):
@@ -119,7 +116,7 @@ class PatronBaseIndexer(RecordIndexer):
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        doc_type = record._doc_type if lt_es7 else "_doc"
+        doc_type = "_doc"
         return record._index, doc_type
 
     def index_by_id(self, record_uuid, **kwargs):

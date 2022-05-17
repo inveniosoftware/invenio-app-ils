@@ -12,7 +12,6 @@ from copy import copy, deepcopy
 from datetime import date, timedelta
 from functools import partial
 
-from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from flask_login import current_user
 from invenio_circulation.config import (
@@ -43,8 +42,6 @@ from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.items.api import Item
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
-
-lt_es7 = ES_VERSION[0] < 7
 
 # override default `invenio-circulation` minters to use the base32 PIDs
 # CIRCULATION_LOAN_PID_TYPE is already defined in `invenio-circulation`
@@ -98,7 +95,7 @@ def patron_has_request_on_document(patron_pid, document_pid):
     )
     search_result = search.execute()
     total = (
-        search_result.hits.total if lt_es7 else search_result.hits.total.value
+        search_result.hits.total.value
     )
     if total > 0:
         return search_result.hits[0]
@@ -117,7 +114,7 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
     )
     search_result = search.execute()
     total = (
-        search_result.hits.total if lt_es7 else search_result.hits.total.value
+        search_result.hits.total.value
     )
     if total > 0:
         return search_result.hits[0]
@@ -178,11 +175,7 @@ def patron_has_active_loan_on_item(patron_pid, item_pid):
         filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
     )
     search_result = search.execute()
-    return (
-        search_result.hits.total > 0
-        if lt_es7
-        else search_result.hits.total.value > 0
-    )
+    return search_result.hits.total.value > 0
 
 
 def checkout_loan(
