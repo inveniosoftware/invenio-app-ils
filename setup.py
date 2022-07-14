@@ -268,6 +268,9 @@ setup(
             "ils_circulation_notifications = invenio_app_ils.circulation.notifications.tasks",
             "ils_circulation = invenio_app_ils.circulation.tasks",
         ],
+        'invenio_base.blueprints': [
+            'logged_out = invenio_app_ils.views:logged_out_blueprint'
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,
