@@ -7,7 +7,7 @@
 
 """Invenio App ILS views."""
 
-from flask import g, jsonify, Blueprint, render_template
+from flask import Blueprint, g, jsonify, render_template
 from invenio_accounts.views.rest import UserInfoView, default_user_payload
 from invenio_userprofiles import UserProfile
 

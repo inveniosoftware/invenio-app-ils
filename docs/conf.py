@@ -7,11 +7,7 @@
 
 """Sphinx configuration."""
 
-from __future__ import print_function
-
 import os
-
-import sphinx.environment
 
 # -- General configuration ------------------------------------------------
 
@@ -19,6 +15,7 @@ import sphinx.environment
 #needs_sphinx = '1.0'
 
 # Do not warn on external images.
+
 suppress_warnings = ['image.nonlocal_uri']
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -73,7 +70,8 @@ release = version
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
+
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
