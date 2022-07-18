@@ -15,6 +15,7 @@ from flask import Blueprint
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
+from invenio_app.factory import create_app as _create_app
 from invenio_userprofiles import UserProfile
 
 from invenio_app_ils.permissions import backoffice_access_action
@@ -121,3 +122,10 @@ def app_with_notifs(app):
     # override default app jinja_loader to add the new path
     app.jinja_loader = enhanced_jinja_loader
     yield app
+
+
+@pytest.fixture(scope="module")
+def create_app():
+    """Create test app."""
+    return _create_app
+
