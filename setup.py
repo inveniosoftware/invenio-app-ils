@@ -269,7 +269,7 @@ setup(
             "ils_circulation = invenio_app_ils.circulation.tasks",
         ],
         'invenio_base.blueprints': [
-            'logged_out = invenio_app_ils.views:logged_out_blueprint'
+            'logged_out = invenio_app_ils.views:create_logged_out_blueprint'
         ],
     },
     extras_require=extras_require,

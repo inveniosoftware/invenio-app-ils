@@ -244,6 +244,10 @@ class InvenioAppIls(object):
         # disable warnings being logged to Sentry
         logging.getLogger("py.warnings").propagate = False
 
+        # each production instance has its own post-logout configuration
+        if app.config["DEBUG"]:
+            app.config['SECURITY_POST_LOGOUT_VIEW'] = '/logged-out'
+
     def init_metadata_extensions(self, app):
         """Metadata extensions initialization."""
         for rec_type in app.config["ILS_RECORDS_METADATA_EXTENSIONS"].keys():

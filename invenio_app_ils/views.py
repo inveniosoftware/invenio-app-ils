@@ -41,10 +41,16 @@ class UserInfoResource(UserInfoView):
         return jsonify(user_payload), 200
 
 
-logged_out_blueprint = Blueprint('logged_out', __name__)
+def create_logged_out_blueprint(app):
+    """Create logged_out blueprint."""
+    blueprint = Blueprint('logged_out', __name__)
+    if app.config["DEBUG"]:
+        blueprint.add_url_rule(
+            "/logged-out",
+            view_func=logged_out_view,
+        )
+    return blueprint
 
 
-@logged_out_blueprint.route('/logged_out')
-def logged_out():
-    """The logged out view."""
+def logged_out_view():
     return render_template('logged_out.html')

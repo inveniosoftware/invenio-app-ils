@@ -207,7 +207,6 @@ ACCOUNTS_REST_AUTH_VIEWS = _ACCOUNTS_REST_AUTH_VIEWS
 
 ACCOUNTS_REST_CONFIRM_EMAIL_ENDPOINT = "/accounts/confirm-email"
 
-SECURITY_POST_LOGOUT_VIEW = "/logged_out"
 ###############################################################################
 # Celery configuration
 ###############################################################################
