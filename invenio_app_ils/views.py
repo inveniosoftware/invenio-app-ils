@@ -7,7 +7,7 @@
 
 """Invenio App ILS views."""
 
-from flask import g, jsonify
+from flask import Blueprint, g, jsonify, render_template
 from invenio_accounts.views.rest import UserInfoView, default_user_payload
 from invenio_userprofiles import UserProfile
 
@@ -39,3 +39,19 @@ class UserInfoResource(UserInfoView):
             )
         )
         return jsonify(user_payload), 200
+
+
+def create_logged_out_blueprint(app):
+    """Create logged_out blueprint."""
+    blueprint = Blueprint('logged_out', __name__)
+    if app.config["DEBUG"]:
+        blueprint.add_url_rule(
+            "/logged-out",
+            view_func=logged_out_view,
+        )
+    return blueprint
+
+
+def logged_out_view():
+    """Render logged_out view."""
+    return render_template('logged_out.html')
