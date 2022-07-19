@@ -53,4 +53,5 @@ def create_logged_out_blueprint(app):
 
 
 def logged_out_view():
+    """Render logged_out view."""
     return render_template('logged_out.html')
