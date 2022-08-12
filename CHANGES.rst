@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0a64 (released 2022-08-12)
+
+- fix redirection page after logout
+- add copy to field for volume
+
 Version 1.0.0a63 (released 2022-05-05)
 
 - document: preserve legacy_recid on update as int
