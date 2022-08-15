@@ -555,9 +555,6 @@
       "relation_types": {
         "type": "keyword"
       },
-      "volume": {
-        "type": "keyword"
-      },
       "relations": {
         "properties": {
           "next": {
@@ -694,7 +691,8 @@
                 "type": "text"
               },
               "volume": {
-                "type": "keyword"
+                "type": "keyword",
+                "copy_to": "volume"
               }
             },
             "type": "object"
@@ -849,6 +847,14 @@
           }
         },
         "type": "object"
+      },
+      "volume": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "conference_info": {
         "properties": {
