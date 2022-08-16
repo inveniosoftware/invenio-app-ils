@@ -1,12 +1,16 @@
 
 ..
-    Copyright (C) 2018-2020 CERN.
+    Copyright (C) 2018-2022 CERN.
 
     invenio-app-ils is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version 1.0.0a65 (released 2022-08-16)
+
+- fix mappings for documents volume field
 
 Version 1.0.0a64 (released 2022-08-12)
 
