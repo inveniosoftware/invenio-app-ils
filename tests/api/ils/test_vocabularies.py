@@ -21,7 +21,7 @@ def test_vocabularies_permissions(client, testdata, json_headers, users):
         ("admin", [200]),
         ("librarian", [200]),
         ("patron1", [200]),
-        ("anonymous", [401]),
+        ("anonymous", [200]),
     ]
 
     def _test_list(expected_status):
