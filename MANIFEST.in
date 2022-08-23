@@ -26,6 +26,7 @@ include scripts/console
 include scripts/server
 include scripts/setup
 include scripts/update
+include .git-blame-ignore-revs
 prune docs/_build
 recursive-include invenio_app_ils *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
