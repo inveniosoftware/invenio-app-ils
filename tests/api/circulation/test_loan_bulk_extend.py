@@ -17,8 +17,8 @@ from invenio_circulation.proxies import current_circulation
 from invenio_search import current_search
 
 from invenio_app_ils.circulation.api import bulk_extend_loans
-from invenio_app_ils.cli import current_app_ils
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
+from invenio_app_ils.proxies import current_app_ils
 from tests.api.conftest import _create_records
 from tests.helpers import user_login
 

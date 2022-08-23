@@ -28,49 +28,39 @@ jobs:
     strategy:
       matrix:
           tests-chunk: [acquisition, circulation, document_requests, ill, ils]
-          python-version: [3.6, 3.7, 3.8]
-          requirements-level: [min, pypi]
-          db-service: [postgresql9, postgresql12]
+          python-version: [3.7, 3.9]
+          requirements-level: [pypi]
+          db-service: [postgresql12, postgresql14]
           search-service: [elasticsearch6, elasticsearch7]
-          exclude:
-          - python-version: 3.6
-            requirements-level: pypi
-
-          - python-version: 3.7
-            requirements-level: min
-
-          - python-version: 3.8
-            requirements-level: min
-
-          - db-service: postgresql12
-            requirements-level: min
-
-          - search-service: elasticsearch7
-            requirements-level: min
-
-          - db-service: postgresql9
-            requirements-level: pypi
-
-          - search-service: elasticsearch6
-            requirements-level: pypi
-
           include:
-          - db-service: postgresql9
-            DB_EXTRAS: "postgresql"
+          - db-service: postgresql14
+            DB: postgresql
+            POSTGRESQL_VERSION: POSTGRESQL_14_LATEST
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            DB_EXTRAS: postgresql
 
           - db-service: postgresql12
-            DB_EXTRAS: "postgresql"
+            DB: postgresql
+            POSTGRESQL_VERSION: POSTGRESQL_12_LATEST
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            DB_EXTRAS: postgresql
 
           - search-service: elasticsearch6
-            SEARCH_EXTRAS: "elasticsearch6"
+            SEARCH: elasticsearch
+            ELASTICSEARCH_VERSION: ELASTICSEARCH_6_LATEST
+            SEARCH_EXTRAS: elasticsearch6
 
           - search-service: elasticsearch7
-            SEARCH_EXTRAS: "elasticsearch7"
+            SEARCH: elasticsearch
+            ELASTICSEARCH_VERSION: ELASTICSEARCH_7_LATEST
+            SEARCH_EXTRAS: elasticsearch7
 
     env:
-      DB: ${{ matrix.db-service }}
-      SEARCH: ${{ matrix.search-service }}
-      EXTRAS: all,${{ matrix.DB_EXTRAS }},${{ matrix.SEARCH_EXTRAS }}
+      SQLALCHEMY_DATABASE_URI: ${{matrix.SQLALCHEMY_DATABASE_URI}}
+      POSTGRESQL_VERSION: ${{matrix.POSTGRESQL_VERSION}}
+      DB: ${{ matrix.DB }}
+      SEARCH: ${{ matrix.SEARCH }}
+      EXTRAS: tests,lorem,${{ matrix.DB_EXTRAS }},${{ matrix.SEARCH_EXTRAS }}
 
     steps:
       - name: Checkout
@@ -86,7 +76,7 @@ jobs:
         run: |
           python -m pip install setuptools">=57.0.0,<58.0.0"
           python -m pip install --upgrade pip py wheel requirements-builder
-          requirements-builder -e "$EXTRAS" --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          requirements-builder -e $EXTRAS --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
 
       - name: Cache pip
         uses: actions/cache@v2

@@ -8,6 +8,6 @@
 
 set -e
 
-pip install -e .[all,elasticsearch7,postgresql]
+pip install -e .[lorem,elasticsearch7,postgresql]
 CWD=`pwd`
 bash "${CWD}/scripts/build_assets"

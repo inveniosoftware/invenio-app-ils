@@ -9,6 +9,8 @@
 
 import os
 
+from invenio_app_ils import __version__
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -45,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'invenio-app-ils'
-copyright = u'2018, CERN'
+copyright = u'2018-2022, CERN'
 author = u'CERN'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -55,12 +57,7 @@ author = u'CERN'
 # The short X.Y version.
 
 # Get the version string. Cannot be done with import!
-g = {}
-with open(os.path.join(os.path.dirname(__file__), '..',
-                       'invenio_app_ils', 'version.py'),
-          'rt') as fp:
-    exec(fp.read(), g)
-    version = g['__version__']
+version = __version__
 
 # The full version, including alpha/beta/rc tags.
 release = version

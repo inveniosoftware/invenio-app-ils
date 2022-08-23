@@ -29,12 +29,11 @@ function cleanup() {
 }
 trap cleanup EXIT
 
-python -m check_manifest --ignore ".*-requirements.txt"
+python -m check_manifest
 python -m sphinx.cmd.build -qnNW docs docs/_build/html
 # running pytest only to trigger pycodestyle check
 python -m pytest
 eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch} --cache ${CACHE:-redis} --env)"
 python -m pytest tests/api/$1
 tests_exit_code=$?
-python -m sphinx.cmd.build -qnNW -b doctest docs docs/_build/doctest
 exit "$tests_exit_code"
