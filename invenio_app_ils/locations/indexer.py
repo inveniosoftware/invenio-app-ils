@@ -26,14 +26,10 @@ def get_internal_locations(location_pid):
     intloc_search_cls = current_app_ils.internal_location_search_cls
     intloc_record_cls = current_app_ils.internal_location_record_cls
     for iloc in (
-        intloc_search_cls()
-        .search_by_location_pid(location_pid=location_pid)
-        .scan()
+        intloc_search_cls().search_by_location_pid(location_pid=location_pid).scan()
     ):
         intloc = intloc_record_cls.get_record_by_pid(iloc["pid"])
-        referenced.append(
-            dict(pid_type=INTERNAL_LOCATION_PID_TYPE, record=intloc)
-        )
+        referenced.append(dict(pid_type=INTERNAL_LOCATION_PID_TYPE, record=intloc))
     return referenced
 
 
@@ -43,9 +39,7 @@ def get_items(location_pid):
     item_search_cls = current_app_ils.item_search_cls
     item_record_cls = current_app_ils.item_record_cls
     for item in (
-        item_search_cls()
-        .search_by_location_pid(location_pid=location_pid)
-        .scan()
+        item_search_cls().search_by_location_pid(location_pid=location_pid).scan()
     ):
         item = item_record_cls.get_record_by_pid(item["pid"])
         referenced.append(dict(pid_type=ITEM_PID_TYPE, record=item))

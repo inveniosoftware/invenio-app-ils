@@ -12,12 +12,7 @@ from invenio_records_rest.facets import terms_filter
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.permissions import backoffice_permission
 
-from .api import (
-    PROVIDER_PID_FETCHER,
-    PROVIDER_PID_MINTER,
-    PROVIDER_PID_TYPE,
-    Provider,
-)
+from .api import PROVIDER_PID_FETCHER, PROVIDER_PID_MINTER, PROVIDER_PID_TYPE, Provider
 from .indexer import ProviderIndexer
 from .search import ProviderSearch
 
@@ -34,19 +29,13 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=ProviderIndexer,
         record_class=Provider,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.providers.loaders:provider_loader"
-            )
+            "application/json": ("invenio_app_ils.providers.loaders:provider_loader")
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
         search_serializers_aliases={

@@ -9,9 +9,7 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from invenio_app_ils.literature.serializers.custom_fields import (
-    field_cover_metadata,
-)
+from invenio_app_ils.literature.serializers.custom_fields import field_cover_metadata
 
 from .custom_fields import (
     field_is_overdue,
@@ -36,9 +34,7 @@ class LoanJSONSerializer(JSONSerializer):
         field_cover_metadata(loan["metadata"].get("document", {}))
         return loan
 
-    def transform_search_hit(
-        self, pid, record_hit, links_factory=None, **kwargs
-    ):
+    def transform_search_hit(self, pid, record_hit, links_factory=None, **kwargs):
         """Transform search result hit into an intermediate representation."""
         hit = super().transform_search_hit(
             pid, record_hit, links_factory=links_factory, **kwargs

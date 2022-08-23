@@ -10,10 +10,7 @@
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
 
-from invenio_app_ils.notifications.api import (
-    build_common_msg_ctx,
-    send_notification,
-)
+from invenio_app_ils.notifications.api import build_common_msg_ctx, send_notification
 from invenio_app_ils.patrons.api import Patron
 
 
@@ -36,9 +33,7 @@ def send_loan_notification(loan, action, msg_extra_ctx=None, **kwargs):
     msg_ctx.update(build_common_msg_ctx(loan))
     msg_ctx.update(_build_circulation_msg_ctx())
 
-    func_or_path = current_app.config[
-        "ILS_CIRCULATION_NOTIFICATIONS_MSG_BUILDER"
-    ]
+    func_or_path = current_app.config["ILS_CIRCULATION_NOTIFICATIONS_MSG_BUILDER"]
     builder = obj_or_import_string(func_or_path)
     msg = builder(loan, action, msg_ctx, **kwargs)
 
@@ -69,12 +64,14 @@ def send_expiring_loan_reminder_notification(loan, expiring_in_days):
     )
 
 
-def send_bulk_extend_notification(extended_loans,
-                                  not_extended_loans,
-                                  patron_pid,
-                                  action="bulk_extend",
-                                  msg_extra_ctx=None,
-                                  **kwargs):
+def send_bulk_extend_notification(
+    extended_loans,
+    not_extended_loans,
+    patron_pid,
+    action="bulk_extend",
+    msg_extra_ctx=None,
+    **kwargs
+):
     """Send notification to patron about bulk extend action."""
     _filter = current_app.config["ILS_CIRCULATION_NOTIFICATIONS_FILTER"]
     if _filter and _filter({}, action, **kwargs) is False:
@@ -92,13 +89,12 @@ def send_bulk_extend_notification(extended_loans,
         context.update(build_common_msg_ctx(loan))
         not_extended_loans_ctx.append(context)
 
-    msg_ctx.update(extended_loans=extended_loans_ctx,
-                   not_extended_loans_ctx=not_extended_loans_ctx)
+    msg_ctx.update(
+        extended_loans=extended_loans_ctx, not_extended_loans_ctx=not_extended_loans_ctx
+    )
     msg_ctx.update(_build_circulation_msg_ctx())
 
-    func_or_path = current_app.config[
-        "ILS_CIRCULATION_NOTIFICATIONS_MSG_BUILDER"
-    ]
+    func_or_path = current_app.config["ILS_CIRCULATION_NOTIFICATIONS_MSG_BUILDER"]
     builder = obj_or_import_string(func_or_path)
     msg = builder({}, action, msg_ctx, **kwargs)
 

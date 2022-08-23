@@ -22,10 +22,7 @@ def _assert_extra_fields(order):
     """Test that extra fields are automatically added."""
     assert "$schema" in order
     assert "provider" in order and "$ref" in order["provider"]
-    assert (
-        "resolved_order_lines" in order
-        and "$ref" in order["resolved_order_lines"]
-    )
+    assert "resolved_order_lines" in order and "$ref" in order["resolved_order_lines"]
 
 
 def _assert_refs_values(order):

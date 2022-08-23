@@ -254,9 +254,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "title": rec_docid_2["title"],
                                 "languages": rec_docid_2["languages"],
                                 "document_type": rec_docid_2["document_type"],
-                                "publication_year": rec_docid_2[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_2["publication_year"],
                             },
                         },
                         {
@@ -267,9 +265,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
                                 "languages": rec_docid_6["languages"],
-                                "publication_year": rec_docid_6[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_6["publication_year"],
                             },
                         },
                     ],
@@ -307,9 +303,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "title": rec_docid_2["title"],
                                 "languages": rec_docid_2["languages"],
                                 "document_type": rec_docid_2["document_type"],
-                                "publication_year": rec_docid_2[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_2["publication_year"],
                             },
                         },
                         {
@@ -320,9 +314,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
                                 "languages": rec_docid_6["languages"],
-                                "publication_year": rec_docid_6[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_6["publication_year"],
                             },
                         },
                     ]
@@ -415,9 +407,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "edition": rec_docid_1["edition"],
                                 "languages": rec_docid_1["languages"],
                                 "document_type": rec_docid_1["document_type"],
-                                "publication_year": rec_docid_1[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_1["publication_year"],
                             },
                         },
                         {
@@ -428,9 +418,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
                                 "languages": rec_docid_6["languages"],
-                                "publication_year": rec_docid_6[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_6["publication_year"],
                             },
                         },
                     ],
@@ -465,9 +453,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "edition": rec_docid_1["edition"],
                                 "languages": rec_docid_1["languages"],
                                 "document_type": rec_docid_1["document_type"],
-                                "publication_year": rec_docid_1[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_1["publication_year"],
                             },
                         }
                     ],
@@ -519,9 +505,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "edition": rec_docid_1["edition"],
                                 "languages": rec_docid_1["languages"],
                                 "document_type": rec_docid_1["document_type"],
-                                "publication_year": rec_docid_1[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_1["publication_year"],
                             },
                         },
                         {
@@ -532,9 +516,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "title": rec_docid_6["title"],
                                 "document_type": rec_docid_6["document_type"],
                                 "languages": rec_docid_6["languages"],
-                                "publication_year": rec_docid_6[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_6["publication_year"],
                             },
                         },
                     ]
@@ -555,9 +537,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "edition": rec_docid_1["edition"],
                                 "languages": rec_docid_1["languages"],
                                 "document_type": rec_docid_1["document_type"],
-                                "publication_year": rec_docid_1[
-                                    "publication_year"
-                                ],
+                                "publication_year": rec_docid_1["publication_year"],
                             },
                         }
                     ]
@@ -586,9 +566,7 @@ def _test_sibl_invalid_relations_should_fail(
         relation_type = invalid["relation_type"]
 
         api_endpoint = (
-            api_endpoint_documents
-            if first_pid_type == "docid"
-            else api_endpoint_series
+            api_endpoint_documents if first_pid_type == "docid" else api_endpoint_series
         )
 
         url = url_for(api_endpoint, pid_value=first_pid_value)

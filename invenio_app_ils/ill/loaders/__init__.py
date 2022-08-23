@@ -19,12 +19,6 @@ from .jsonschemas.patron_loan_extension_actions import (
 
 borrowing_request_loader = ils_marshmallow_loader(BorrowingRequestSchemaV1)
 patron_loan_create_action_loader = ils_marshmallow_loader(CreateLoanSchemaV1)
-patron_loan_extension_request_loader = ils_marshmallow_loader(
-    RequestExtensionSchemaV1
-)
-patron_loan_extension_accept_loader = ils_marshmallow_loader(
-    AcceptExtensionSchemaV1
-)
-patron_loan_extension_decline_loader = ils_marshmallow_loader(
-    DeclineExtensionSchemaV1
-)
+patron_loan_extension_request_loader = ils_marshmallow_loader(RequestExtensionSchemaV1)
+patron_loan_extension_accept_loader = ils_marshmallow_loader(AcceptExtensionSchemaV1)
+patron_loan_extension_decline_loader = ils_marshmallow_loader(DeclineExtensionSchemaV1)

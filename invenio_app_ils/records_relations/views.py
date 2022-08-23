@@ -43,8 +43,7 @@ def create_relations_blueprint(app):
         default_media_type = options.get("default_media_type", "")
         rec_serializers = options.get("record_serializers", {})
         serializers = {
-            mime: obj_or_import_string(func)
-            for mime, func in rec_serializers.items()
+            mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
         }
         record_relations = view_class.as_view(
             view_class.view_name.format(pid_type),
@@ -86,9 +85,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             child_pid_value = payload.pop("child_pid_value")
             child_pid_type = payload.pop("child_pid_type")
         except KeyError as key:
-            raise RecordRelationsError(
-                "The `{}` is a required field".format(key)
-            )
+            raise RecordRelationsError("The `{}` is a required field".format(key))
 
         return (
             parent_pid_value,
@@ -167,9 +164,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             pid_value = payload.pop("pid_value")
             pid_type = payload.pop("pid_type")
         except KeyError as key:
-            raise RecordRelationsError(
-                "The `{}` is a required field".format(key)
-            )
+            raise RecordRelationsError("The `{}` is a required field".format(key))
 
         return pid_value, pid_type, payload
 
@@ -193,19 +188,14 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
 
         if pid_value == record["pid"] and pid_type == record._pid_type:
             raise RecordRelationsError(
-                "Cannot create a relation for PID `{}` with itself".format(
-                    pid_value
-                )
+                "Cannot create a relation for PID `{}` with itself".format(pid_value)
             )
 
         second = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         rr = RecordRelationsSiblings()
         modified_record = rr.add(
-            first=record,
-            second=second,
-            relation_type=relation_type,
-            **metadata
+            first=record, second=second, relation_type=relation_type, **metadata
         )
         return modified_record, record, second
 
@@ -220,9 +210,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<relation name>"
             }
         """
-        pid_value, pid_type, _ = self._validate_siblings_creation_payload(
-            payload
-        )
+        pid_value, pid_type, _ = self._validate_siblings_creation_payload(payload)
 
         second = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
@@ -240,14 +228,9 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             previous_pid_value = payload.pop("previous_pid_value")
             previous_pid_type = payload.pop("previous_pid_type")
         except KeyError as key:
-            raise RecordRelationsError(
-                "The `{}` is a required field".format(key)
-            )
+            raise RecordRelationsError("The `{}` is a required field".format(key))
 
-        if (
-            record["pid"] != next_pid_value
-            and record["pid"] != previous_pid_value
-        ):
+        if record["pid"] != next_pid_value and record["pid"] != previous_pid_value:
             raise RecordRelationsError(
                 "Cannot create a relation for other record than one with PID "
                 "`{}`".format(record["pid"])
@@ -256,9 +239,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         if next_pid_value == previous_pid_value:
             raise RecordRelationsError(
                 "Cannot create a sequence with the same next PID `{}`"
-                "and previous PID `{}`".format(
-                    next_pid_value, previous_pid_value
-                )
+                "and previous PID `{}`".format(next_pid_value, previous_pid_value)
             )
 
         return (
@@ -290,9 +271,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             metadata,
         ) = self._validate_sequence_creation_payload(record, payload)
 
-        next_rec = IlsRecord.get_record_by_pid(
-            next_pid_value, pid_type=next_pid_type
-        )
+        next_rec = IlsRecord.get_record_by_pid(next_pid_value, pid_type=next_pid_type)
 
         previous_rec = IlsRecord.get_record_by_pid(
             previous_pid_value, pid_type=previous_pid_type
@@ -327,9 +306,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             metadata,
         ) = self._validate_sequence_creation_payload(record, payload)
 
-        next_rec = IlsRecord.get_record_by_pid(
-            next_pid_value, pid_type=next_pid_type
-        )
+        next_rec = IlsRecord.get_record_by_pid(next_pid_value, pid_type=next_pid_type)
 
         previous_rec = IlsRecord.get_record_by_pid(
             prev_pid_value, pid_type=prev_pid_type
@@ -364,14 +341,10 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                     record, rt, payload
                 )
             elif rt in SEQUENCE_RELATION_TYPES:
-                first, second = self._create_sequence_relation(
-                    record, rt, payload
-                )
+                first, second = self._create_sequence_relation(record, rt, payload)
                 modified = second
             else:
-                raise RecordRelationsError(
-                    "Invalid relation type `{}`".format(rt.name)
-                )
+                raise RecordRelationsError("Invalid relation type `{}`".format(rt.name))
 
             db.session.commit()
 
@@ -426,14 +399,10 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                     record, rt, payload
                 )
             elif rt in SEQUENCE_RELATION_TYPES:
-                first, second = self._delete_sequence_relation(
-                    record, rt, payload
-                )
+                first, second = self._delete_sequence_relation(record, rt, payload)
                 modified = first
             else:
-                raise RecordRelationsError(
-                    "Invalid relation type `{}`".format(rt.name)
-                )
+                raise RecordRelationsError("Invalid relation type `{}`".format(rt.name))
 
             db.session.commit()
 
@@ -441,10 +410,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             records_to_index.append(second)
 
             # if the record is the modified, return the modified version
-            if (
-                modified.pid == record.pid
-                and modified._pid_type == record._pid_type
-            ):
+            if modified.pid == record.pid and modified._pid_type == record._pid_type:
                 return modified
             return record
 

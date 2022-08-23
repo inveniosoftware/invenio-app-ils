@@ -23,9 +23,7 @@ from .api import RecordRelationsExtraMetadata as RelationsExtraMetadata
 class RelationObjectBuilderMixin(object):
     """Relations object builder."""
 
-    def build_relations_object(
-        self, pid_value, pid_type, relation_name, **kwargs
-    ):
+    def build_relations_object(self, pid_value, pid_type, relation_name, **kwargs):
         """Build and return each object of `relations` field."""
         r = {
             "pid_value": pid_value,
@@ -92,9 +90,7 @@ class ParentChildRetriever(RelationObjectBuilderMixin):
             name = relation_type.name
 
             for parent_pid in pcr.get_parents_of(self.child_record.pid):
-                r = self._build_relation_obj(
-                    self.child_record, parent_pid, name
-                )
+                r = self._build_relation_obj(self.child_record, parent_pid, name)
                 relations.setdefault(name, [])
                 relations[name].append(r)
         return relations
@@ -154,9 +150,7 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
 
         sibling = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
-        metadata = self._get_extra_metadata(
-            self.record, sibling, relation_type
-        )
+        metadata = self._get_extra_metadata(self.record, sibling, relation_type)
         # copy the extra metadata into the relation, if any
         r.update(metadata)
 

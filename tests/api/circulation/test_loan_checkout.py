@@ -36,9 +36,7 @@ def test_anonymous_cannot_request_loan_on_item(client, json_headers, testdata):
     assert res.status_code == 401
 
 
-def test_librarian_can_checkout_item_for_user(
-    client, json_headers, users, testdata
-):
+def test_librarian_can_checkout_item_for_user(client, json_headers, users, testdata):
     """Test that librarian can checkout a loan on a item for a patron."""
     user_login(client, "librarian", users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
@@ -70,9 +68,7 @@ def test_force_checkout_specific_permissions(
         else:
             return default_factory(action)
 
-    app.config[
-        "ILS_VIEWS_PERMISSIONS_FACTORY"
-    ] = custom_views_permissions_factory
+    app.config["ILS_VIEWS_PERMISSIONS_FACTORY"] = custom_views_permissions_factory
 
     # prepare request
     url = url_for("invenio_app_ils_circulation.loan_checkout")
@@ -130,9 +126,7 @@ def test_checkout_conditions_librarian(client, json_headers, users, testdata):
     assert item["status"] == "CAN_CIRCULATE"
 
 
-def test_checkout_loader_start_end_dates(
-    app, client, json_headers, users, testdata
-):
+def test_checkout_loader_start_end_dates(app, client, json_headers, users, testdata):
     """Test that start and end dates request parameters."""
     librarian = users["librarian"]
     user_login(client, "librarian", users)

@@ -16,10 +16,7 @@ from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.circulation.stats.api import fetch_most_loaned_documents
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
-from invenio_app_ils.documents.api import (
-    DOCUMENT_PID_FETCHER,
-    DOCUMENT_PID_TYPE,
-)
+from invenio_app_ils.documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_TYPE
 from invenio_app_ils.errors import InvalidParameterError
 from invenio_app_ils.permissions import need_permissions
 
@@ -29,13 +26,10 @@ def create_most_loaned_documents_view(blueprint, app):
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
     document_endpoint = endpoints.get(DOCUMENT_PID_TYPE, {})
     default_media_type = document_endpoint.get("default_media_type", "")
-    search_serializers_aliases = document_endpoint.get(
-        "search_serializers_aliases", ""
-    )
+    search_serializers_aliases = document_endpoint.get("search_serializers_aliases", "")
     search_serializers = document_endpoint.get("search_serializers")
     serializers = {
-        mime: obj_or_import_string(func)
-        for mime, func in search_serializers.items()
+        mime: obj_or_import_string(func) for mime, func in search_serializers.items()
     }
 
     view_class = MostLoanedDocumentsResource
@@ -54,9 +48,7 @@ def create_most_loaned_documents_view(blueprint, app):
 
 def create_circulation_stats_blueprint(app):
     """Add statistics views to the blueprint."""
-    blueprint = Blueprint(
-        "invenio_app_ils_circulation_stats", __name__, url_prefix=""
-    )
+    blueprint = Blueprint("invenio_app_ils_circulation_stats", __name__, url_prefix="")
 
     create_most_loaned_documents_view(blueprint, app)
 
@@ -134,9 +126,7 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
         """
         size = self._validate_bucket_size()
         from_date, to_date = self._validate_start_date_range()
-        most_loaned_documents = fetch_most_loaned_documents(
-            from_date, to_date, size
-        )
+        most_loaned_documents = fetch_most_loaned_documents(from_date, to_date, size)
         return self.make_response(
             pid_fetcher=current_pidstore.fetchers[DOCUMENT_PID_FETCHER],
             search_result=most_loaned_documents,

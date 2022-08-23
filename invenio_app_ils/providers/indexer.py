@@ -38,17 +38,13 @@ def provider_index_referenced_records(provider):
     brwreq_pid_type = BORROWING_REQUEST_PID_TYPE
 
     for rec in (
-        vendor_search_cls()
-        .search_by_provider_pid(provider_pid=provider["pid"])
-        .scan()
+        vendor_search_cls().search_by_provider_pid(provider_pid=provider["pid"]).scan()
     ):
         rec = vendor_record_cls.get_record_by_pid(rec["pid"])
         referenced.append(dict(pid_type=vendor_pid_type, record=rec))
 
     for rec in (
-        brwreq_search_cls()
-        .search_by_provider_pid(provider_pid=provider["pid"])
-        .scan()
+        brwreq_search_cls().search_by_provider_pid(provider_pid=provider["pid"]).scan()
     ):
         rec = brwreq_record_cls.get_record_by_pid(rec["pid"])
         referenced.append(dict(pid_type=brwreq_pid_type, record=rec))

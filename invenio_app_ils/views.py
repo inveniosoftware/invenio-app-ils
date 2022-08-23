@@ -17,9 +17,7 @@ class UserInfoResource(UserInfoView):
 
     def get_user_roles(self):
         """Get all user roles."""
-        return [
-            need.value for need in g.identity.provides if need.method == "role"
-        ]
+        return [need.value for need in g.identity.provides if need.method == "role"]
 
     def success_response(self, user):
         """Return response with current user's information."""
@@ -43,7 +41,7 @@ class UserInfoResource(UserInfoView):
 
 def create_logged_out_blueprint(app):
     """Create logged_out blueprint."""
-    blueprint = Blueprint('logged_out', __name__)
+    blueprint = Blueprint("logged_out", __name__)
     if app.config["DEBUG"]:
         blueprint.add_url_rule(
             "/logged-out",
@@ -54,4 +52,4 @@ def create_logged_out_blueprint(app):
 
 def logged_out_view():
     """Render logged_out view."""
-    return render_template('logged_out.html')
+    return render_template("logged_out.html")

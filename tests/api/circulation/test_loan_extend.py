@@ -16,9 +16,7 @@ from flask import url_for
 from invenio_circulation.api import Loan
 from invenio_db import db
 
-from invenio_app_ils.circulation.api import (
-    circulation_default_loan_duration_for_item,
-)
+from invenio_app_ils.circulation.api import circulation_default_loan_duration_for_item
 from invenio_app_ils.items.api import Item
 from tests.helpers import user_login
 
@@ -34,9 +32,7 @@ def _checkout_loan_pid1(client, json_headers, users, loan_params):
             pid_value=loan_pid,
             action="checkout",
         )
-        resp = client.post(
-            checkout_url, headers=json_headers, data=json.dumps(params)
-        )
+        resp = client.post(checkout_url, headers=json_headers, data=json.dumps(params))
         assert resp.status_code == 202
         return resp.get_json()
 
@@ -48,9 +44,7 @@ def _checkout_loan_pid1(client, json_headers, users, loan_params):
     return _checkout(loan_pid, params)
 
 
-def test_loan_extend_permissions(
-    client, json_headers, users, testdata, loan_params
-):
+def test_loan_extend_permissions(client, json_headers, users, testdata, loan_params):
     """Test loan can be extended."""
     params = deepcopy(loan_params)
     del params["transaction_date"]
@@ -105,9 +99,7 @@ def test_loan_extension_end_date(
 
         expected_end_date = new_end_date + item_loan_duration
 
-        res = client.post(
-            extend_url, headers=json_headers, data=json.dumps(params)
-        )
+        res = client.post(extend_url, headers=json_headers, data=json.dumps(params))
         assert res.status_code == 202
         new_loan = res.get_json()["metadata"]
         assert new_loan["end_date"] == expected_end_date.date().isoformat()
@@ -120,9 +112,7 @@ def test_loan_extension_end_date(
         _set_loan_end_date(loan_pid, new_end_date)
 
         expected_end_date = now + item_loan_duration
-        res = client.post(
-            extend_url, headers=json_headers, data=json.dumps(params)
-        )
+        res = client.post(extend_url, headers=json_headers, data=json.dumps(params))
         assert res.status_code == 202
         new_loan = res.get_json()["metadata"]
         # loan new end date should start from now

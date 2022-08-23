@@ -30,9 +30,7 @@ class DocumentRequestSearch(RecordsSearch):
         if document_pid:
             search = search.filter("term", document_pid=document_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="document_pid is required"
-            )
+            raise MissingRequiredParameterError(description="document_pid is required")
 
         if filter_states:
             search = search.filter("terms", state=filter_states)
@@ -48,7 +46,5 @@ class DocumentRequestSearch(RecordsSearch):
         if patron_pid:
             search = search.filter("term", patron_pid=patron_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="patron_pid is required"
-            )
+            raise MissingRequiredParameterError(description="patron_pid is required")
         return search

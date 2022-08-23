@@ -11,10 +11,7 @@ from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
 
 from invenio_app_ils.ill.errors import ILLError
-from invenio_app_ils.notifications.api import (
-    build_common_msg_ctx,
-    send_notification,
-)
+from invenio_app_ils.notifications.api import build_common_msg_ctx, send_notification
 
 
 def _build_ill_msg_ctx(brw_req):

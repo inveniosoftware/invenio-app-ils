@@ -57,8 +57,7 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
                             "The loan start date cannot be after the end date."
                         ],
                         "end_date": [
-                            "The loan end date cannot"
-                            " be before the start date."
+                            "The loan end date cannot" " be before the start date."
                         ],
                     }
                 )

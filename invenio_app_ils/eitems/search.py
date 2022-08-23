@@ -31,9 +31,7 @@ class EItemSearch(RecordsSearch):
         if document_pid:
             search = search.filter("term", document_pid=document_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="document_pid is required"
-            )
+            raise MissingRequiredParameterError(description="document_pid is required")
 
         if filter_states:
             search = search.filter("terms", status=filter_states)
@@ -49,16 +47,12 @@ class EItemSearch(RecordsSearch):
         if bucket_id:
             search = search.filter("term", bucket_id=bucket_id)
         else:
-            raise MissingRequiredParameterError(
-                description="bucket_id is required"
-            )
+            raise MissingRequiredParameterError(description="bucket_id is required")
 
         results = search.execute()
         if len(results) != 1:
             # There should always be one bucket associated with an eitem when
             # downloading a file.
-            msg = "found 0 or multiple records with bucket {0}".format(
-                bucket_id
-            )
+            msg = "found 0 or multiple records with bucket {0}".format(bucket_id)
             current_app.logger.warning(msg)
         return results

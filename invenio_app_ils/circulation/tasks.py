@@ -29,9 +29,7 @@ def cancel_expired_loan_requests():
 
     for hit in get_all_expired_loans().scan():
         loan = Loan.get_record_by_pid(hit.pid)
-        duration_days = current_app.config[
-            "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
-        ]
+        duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
         params = deepcopy(loan)
         params.update(
             dict(
@@ -40,9 +38,7 @@ def cancel_expired_loan_requests():
                 transaction_user_pid=system_agent_id,
             )
         )
-        current_circulation.circulation.trigger(
-            loan, **dict(params, trigger="cancel")
-        )
+        current_circulation.circulation.trigger(loan, **dict(params, trigger="cancel"))
 
         loan.commit()
         db.session.commit()

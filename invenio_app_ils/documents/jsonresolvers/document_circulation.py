@@ -43,41 +43,26 @@ def jsonresolver_loader(url_map):
         past_loans_count = 0
         active_loans_count = 0
         pending_loans_count = 0
-        loans_search = get_loans_aggregated_by_states(
-            document_pid, loan_states
-        )
+        loans_search = get_loans_aggregated_by_states(document_pid, loan_states)
 
         loans_result = loans_search.execute()
 
         for bucket in loans_result.aggregations.states.buckets:
-            if (
-                bucket["key"]
-                in current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
-            ):
+            if bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]:
                 past_loans_count += bucket["doc_count"]
-            elif (
-                bucket["key"]
-                in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-            ):
+            elif bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]:
                 active_loans_count += bucket["doc_count"]
-            elif (
-                bucket["key"]
-                in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
-            ):
+            elif bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]:
                 pending_loans_count += bucket["doc_count"]
 
-        overdue_loans_count = get_overdue_loans_by_doc_pid(
-            document_pid
-        ).count()
+        overdue_loans_count = get_overdue_loans_by_doc_pid(document_pid).count()
 
         # items
         unavailable_items_count = 0
         items_for_reference_count = 0
         item_statuses = get_items_aggregated_by_statuses(document_pid)
         item_result = item_statuses.execute()
-        items_count = (
-            item_result.hits.total if lt_es7 else item_result.hits.total.value
-        )
+        items_count = item_result.hits.total if lt_es7 else item_result.hits.total.value
         for bucket in item_result.aggregations.statuses.buckets:
             if bucket["key"] not in "CAN_CIRCULATE":
                 unavailable_items_count += bucket["doc_count"]
@@ -90,9 +75,10 @@ def jsonresolver_loader(url_map):
             loan = hit.to_dict()
             loan_item_type = loan.get("item_pid", {}).get("type")
             is_brw_req = loan_item_type == BORROWING_REQUEST_PID_TYPE
-            if loan["state"] in \
-                current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"] \
-                    and is_brw_req:
+            if (
+                loan["state"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+                and is_brw_req
+            ):
                 active_ill_loans_count += 1
 
         active_ils_loans_count = active_loans_count - active_ill_loans_count

@@ -10,7 +10,5 @@
 from flask import current_app
 from werkzeug.local import LocalProxy
 
-current_ils_prov = LocalProxy(
-    lambda: current_app.extensions["invenio-ils-prov"]
-)
+current_ils_prov = LocalProxy(lambda: current_app.extensions["invenio-ils-prov"])
 """Helper proxy to get the current ILS Providers extension."""

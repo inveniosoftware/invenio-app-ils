@@ -13,11 +13,7 @@ from flask import abort, current_app, g, has_request_context
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
-from invenio_access.permissions import (
-    Permission,
-    authenticated_user,
-    superuser_access,
-)
+from invenio_access.permissions import Permission, authenticated_user, superuser_access
 from invenio_records_rest.utils import allow_all, deny_all
 
 from invenio_app_ils.errors import InvalidLoanExtendError
@@ -140,15 +136,16 @@ class PatronOwnerPermission(Permission):
 
     def __init__(self, record):
         """Constructor."""
-        super().__init__(
-            UserNeed(int(record["patron_pid"])), backoffice_access_action
-        )
+        super().__init__(UserNeed(int(record["patron_pid"])), backoffice_access_action)
 
 
 def views_permissions_factory(action):
     """Return ILS views permissions factory."""
-    is_authenticated_user = ["circulation-loan-request", "patron-loans",
-                             "bulk-loan-extension"]
+    is_authenticated_user = [
+        "circulation-loan-request",
+        "patron-loans",
+        "bulk-loan-extension",
+    ]
     is_backoffice_permission = [
         "circulation-loan-checkout",
         "circulation-loan-force-checkout",

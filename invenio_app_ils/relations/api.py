@@ -77,9 +77,7 @@ SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
 SEQUENCE_RELATION_TYPES = [SEQUENCE_RELATION]
 
 ILS_PIDRELATIONS_TYPES = (
-    PARENT_CHILD_RELATION_TYPES
-    + SIBLINGS_RELATION_TYPES
-    + SEQUENCE_RELATION_TYPES
+    PARENT_CHILD_RELATION_TYPES + SIBLINGS_RELATION_TYPES + SEQUENCE_RELATION_TYPES
 )
 
 
@@ -185,9 +183,7 @@ class ParentChildRelation(Relation):
             )
 
         with db.session.begin_nested():
-            return PIDRelation.create(
-                parent_pid, child_pid, self.relation_type.id
-            )
+            return PIDRelation.create(parent_pid, child_pid, self.relation_type.id)
 
     def remove(self, parent_pid, child_pid):
         """Delete the relation for the given PIDs."""
@@ -299,9 +295,7 @@ class SiblingsRelation(Relation):
             pids_to_relate.add(first_pid)
             pids_to_relate.add(second_pid)
 
-            self._recreate_relations_with_random_parent(
-                all_relations, pids_to_relate
-            )
+            self._recreate_relations_with_random_parent(all_relations, pids_to_relate)
 
     def remove(self, pid):
         """Remove the only possible relation of this given PID.
@@ -357,9 +351,7 @@ class SiblingsRelation(Relation):
                     )
                 )
 
-            self._recreate_relations_with_random_parent(
-                all_relations, pids_to_relate
-            )
+            self._recreate_relations_with_random_parent(all_relations, pids_to_relate)
 
 
 class SequenceRelation(Relation):
@@ -386,9 +378,7 @@ class SequenceRelation(Relation):
             )
 
         with db.session.begin_nested():
-            return PIDRelation.create(
-                previous_pid, next_pid, self.relation_type.id
-            )
+            return PIDRelation.create(previous_pid, next_pid, self.relation_type.id)
 
     def remove(self, previous_pid, next_pid):
         """Delete the relation for the given PIDs."""

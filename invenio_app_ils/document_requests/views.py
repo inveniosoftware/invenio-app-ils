@@ -35,8 +35,7 @@ def create_document_request_action_blueprint(app):
         default_media_type = options.get("default_media_type", "")
         rec_serializers = options.get("record_serializers", {})
         serializers = {
-            mime: obj_or_import_string(func)
-            for mime, func in rec_serializers.items()
+            mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
         }
 
         blueprint.add_url_rule(
@@ -58,9 +57,7 @@ def create_document_request_action_blueprint(app):
     )
 
     _add_view(blueprint, DocumentRequestAcceptResource, "accept", None)
-    _add_view(
-        blueprint, DocumentRequestDeclineResource, "decline", dr_decline_loader
-    )
+    _add_view(blueprint, DocumentRequestDeclineResource, "decline", dr_decline_loader)
     _add_view(
         blueprint,
         DocumentRequestDocumentResource,
@@ -194,8 +191,7 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
 
         if "document_pid" not in record:
             raise DocumentRequestError(
-                "document_pid is required for the Document Request to be "
-                "accepted."
+                "document_pid is required for the Document Request to be " "accepted."
             )
 
         if "physical_item_provider" not in record:
@@ -251,9 +247,7 @@ class DocumentRequestDeclineResource(DocumentRequestActionResource):
 
         if decline_reason == "IN_CATALOG" and not document_pid:
             raise DocumentRequestError(
-                "Document PID required for decline reason {}".format(
-                    decline_reason
-                ),
+                "Document PID required for decline reason {}".format(decline_reason),
                 errors=[
                     FieldError(
                         field="document_pid",

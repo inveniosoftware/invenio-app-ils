@@ -43,9 +43,7 @@ class RecordRelationIndexer(RecordIndexer):
         indexed = dict(pid_type=record._pid_type, record=record)
 
         def add_referenced(pid_value, pid_type):
-            same_record = (
-                pid_value == record["pid"] and pid_type == record._pid_type
-            )
+            same_record = pid_value == record["pid"] and pid_type == record._pid_type
             pid = (pid_value, pid_type)
             if not same_record and pid not in referenced:
                 referenced.add(pid)

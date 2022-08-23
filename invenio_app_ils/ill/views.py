@@ -41,8 +41,7 @@ def create_ill_blueprint(app):
     default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {
-        mime: obj_or_import_string(func)
-        for mime, func in rec_serializers.items()
+        mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
     }
 
     def create_view(view_cls, path, loader):
@@ -123,8 +122,7 @@ class ILLPatronLoanExtensionActionResource(ILLActionResource):
         """Validate that the extension action can be performed."""
         loan = record.patron_loan.get()
         is_loan_active = (
-            loan["state"]
-            in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            loan["state"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         )
         if not is_loan_active:
             raise ILLError("This interlibrary loan is not active.")

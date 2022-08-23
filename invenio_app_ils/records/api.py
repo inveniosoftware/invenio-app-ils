@@ -41,9 +41,7 @@ class IlsRecord(Record):
     @cached_property
     def pid(self):
         """Get the PersistentIdentifier for this record."""
-        return PersistentIdentifier.get(
-            pid_type=self._pid_type, pid_value=self["pid"]
-        )
+        return PersistentIdentifier.get(pid_type=self._pid_type, pid_value=self["pid"])
 
     @staticmethod
     def pid_type_to_record_class(pid_type):
@@ -58,13 +56,9 @@ class IlsRecord(Record):
             pid_type = cls._pid_type
         else:
             new_cls = cls.pid_type_to_record_class(pid_type)
-            return new_cls.get_record_by_pid(
-                pid_value, with_deleted=with_deleted
-            )
+            return new_cls.get_record_by_pid(pid_value, with_deleted=with_deleted)
 
-        resolver = Resolver(
-            pid_type=pid_type, object_type="rec", getter=cls.get_record
-        )
+        resolver = Resolver(pid_type=pid_type, object_type="rec", getter=cls.get_record)
         _, record = resolver.resolve(str(pid_value))
         return record
 

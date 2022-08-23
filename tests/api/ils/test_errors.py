@@ -117,8 +117,7 @@ def test_record_has_references_error(app):
 def test_item_has_active_loan_error(app):
     loan_pid = "1"
     msg = (
-        "Could not update item because it has an active loan with "
-        "pid: {loan_pid}."
+        "Could not update item because it has an active loan with " "pid: {loan_pid}."
     ).format(loan_pid=loan_pid)
     with pytest.raises(ItemHasActiveLoanError) as ex:
         raise ItemHasActiveLoanError(loan_pid=loan_pid)

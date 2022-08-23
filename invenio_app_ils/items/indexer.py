@@ -34,9 +34,7 @@ def index_referenced_records(item):
     document_pid = item["document_pid"]
     for loan in search_loans_by_pid(document_pid=document_pid).scan():
         loan = loan_record_cls.get_record_by_pid(loan["pid"])
-        referenced.append(
-            dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)
-        )
+        referenced.append(dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan))
 
     # fetch and index the document
     document_cls = current_app_ils.document_record_cls

@@ -23,10 +23,7 @@ from invenio_app_ils.document_requests.api import (
 )
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE, Document
 from invenio_app_ils.eitems.api import EITEM_PID_TYPE, EItem
-from invenio_app_ils.ill.api import (
-    BORROWING_REQUEST_PID_TYPE,
-    BorrowingRequest,
-)
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, BorrowingRequest
 from invenio_app_ils.internal_locations.api import (
     INTERNAL_LOCATION_PID_TYPE,
     InternalLocation,
@@ -92,9 +89,7 @@ def testdata(app, db, es_clear, users):
     locations = _create_records(db, data, Location, LOCATION_PID_TYPE)
 
     data = load_json_from_datadir("internal_locations.json")
-    int_locs = _create_records(
-        db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE
-    )
+    int_locs = _create_records(db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE)
 
     data = load_json_from_datadir("series.json")
     series = _create_records(db, data, Series, SERIES_PID_TYPE)
@@ -126,9 +121,7 @@ def testdata(app, db, es_clear, users):
     )
 
     data = load_json_from_datadir("document_requests.json")
-    doc_reqs = _create_records(
-        db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
-    )
+    doc_reqs = _create_records(db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE)
 
     # index
     ri = RecordIndexer()
@@ -198,9 +191,7 @@ def item_record(app):
         "barcode": "123456789-1",
         "title": "Test item x",
         "internal_location_pid": "ilocid-1",
-        "internal_location": {
-            "$ref": internal_location_ref_builder(app, "itemid-1")
-        },
+        "internal_location": {"$ref": internal_location_ref_builder(app, "itemid-1")},
         "medium": "NOT_SPECIFIED",
         "status": "CAN_CIRCULATE",
         "circulation_restriction": "NO_RESTRICTION",

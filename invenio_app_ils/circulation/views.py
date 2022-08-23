@@ -26,12 +26,7 @@ from invenio_app_ils.errors import OverdueLoansNotificationError
 from invenio_app_ils.permissions import need_permissions
 
 from ..patrons.api import patron_exists
-from .api import (
-    bulk_extend_loans,
-    checkout_loan,
-    request_loan,
-    update_dates_loan,
-)
+from .api import bulk_extend_loans, checkout_loan, request_loan, update_dates_loan
 from .notifications.api import (
     send_bulk_extend_notification,
     send_loan_overdue_reminder_notification,
@@ -53,14 +48,10 @@ def create_circulation_blueprint(app):
     default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {
-        mime: obj_or_import_string(func)
-        for mime, func in rec_serializers.items()
+        mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
     }
 
-    bulk_loan_extension_serializers = {
-        "application/json":
-            bulk_extend_v1_response
-    }
+    bulk_loan_extension_serializers = {"application/json": bulk_extend_v1_response}
 
     loan_request = LoanRequestResource.as_view(
         LoanRequestResource.view_name,
@@ -77,9 +68,7 @@ def create_circulation_blueprint(app):
         LoanCheckoutResource.view_name,
         serializers=serializers,
         default_media_type=default_media_type,
-        ctx=dict(
-            links_factory=loan_links_factory, loader=loan_checkout_loader
-        ),
+        ctx=dict(links_factory=loan_links_factory, loader=loan_checkout_loader),
     )
 
     blueprint.add_url_rule(
@@ -118,9 +107,7 @@ def create_circulation_blueprint(app):
         LoanUpdateDatesResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
-        ctx=dict(
-            links_factory=loan_links_factory, loader=loan_update_dates_loader
-        ),
+        ctx=dict(links_factory=loan_links_factory, loader=loan_update_dates_loader),
     )
 
     blueprint.add_url_rule(
@@ -153,9 +140,7 @@ class LoanRequestResource(IlsCirculationResource):
         data = self.loader()
         pid, loan = request_loan(**data)
 
-        return self.make_response(
-            pid, loan, 202, links_factory=self.links_factory
-        )
+        return self.make_response(pid, loan, 202, links_factory=self.links_factory)
 
 
 class LoanCheckoutResource(IlsCirculationResource):
@@ -169,9 +154,7 @@ class LoanCheckoutResource(IlsCirculationResource):
         data = self.loader()
         pid, loan = checkout_loan(**data)
 
-        return self.make_response(
-            pid, loan, 202, links_factory=self.links_factory
-        )
+        return self.make_response(pid, loan, 202, links_factory=self.links_factory)
 
 
 class BulkLoanExtensionResource(IlsCirculationResource):
@@ -190,9 +173,7 @@ class BulkLoanExtensionResource(IlsCirculationResource):
         extended_loans, not_extended_loans = bulk_extend_loans(**data)
         if extended_loans:
             send_bulk_extend_notification(
-                extended_loans,
-                not_extended_loans,
-                patron_pid=data["patron_pid"]
+                extended_loans, not_extended_loans, patron_pid=data["patron_pid"]
             )
         return self.make_response(extended_loans, not_extended_loans, 202)
 
@@ -209,15 +190,12 @@ class LoanNotificationResource(IlsCirculationResource):
         days_ago = circulation_overdue_loan_days(record)
         is_overdue = days_ago > 0
         if not is_overdue:
-            raise OverdueLoansNotificationError(
-                description="This loan is not overdue")
+            raise OverdueLoansNotificationError(description="This loan is not overdue")
         send_loan_overdue_reminder_notification(
             record, days_ago, is_manually_triggered=True
         )
 
-        return self.make_response(
-            pid, record, 202, links_factory=self.links_factory
-        )
+        return self.make_response(pid, record, 202, links_factory=self.links_factory)
 
 
 class LoanUpdateDatesResource(IlsCirculationResource):
@@ -232,6 +210,4 @@ class LoanUpdateDatesResource(IlsCirculationResource):
         data = self.loader()
         update_dates_loan(record, **data)
 
-        return self.make_response(
-            pid, record, 202, links_factory=self.links_factory
-        )
+        return self.make_response(pid, record, 202, links_factory=self.links_factory)

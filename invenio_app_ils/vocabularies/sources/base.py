@@ -33,9 +33,7 @@ class VocabularySource(metaclass=ABCMeta):
 
         # Validate vocabulary type
         if vocabulary.type not in current_app.config["ILS_VOCABULARIES"]:
-            raise VocabularyError(
-                "Invalid vocabulary type: {}".format(vocabulary.type)
-            )
+            raise VocabularyError("Invalid vocabulary type: {}".format(vocabulary.type))
 
         # JSONSchema validation
         schema = current_jsonschemas.get_schema(vocabulary._schema)

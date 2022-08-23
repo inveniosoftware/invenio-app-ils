@@ -48,9 +48,7 @@ def jsonresolver_loader(url_map):
     def borrowing_request_resolver(request_pid):
         """Return the Document record for the given Brw Request or raise."""
         request_record_cls = current_ils_ill.borrowing_request_record_cls
-        document_pid = get_field_value(
-            request_record_cls, request_pid, "document_pid"
-        )
+        document_pid = get_field_value(request_record_cls, request_pid, "document_pid")
         return get_document(document_pid)
 
     url_map.add(

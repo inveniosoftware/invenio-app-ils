@@ -68,14 +68,10 @@ def _create_on_loan_brwreq_random_dates(patron_id, client, json_headers):
     return brwreq, brwreq["pid"]
 
 
-def _create_on_loan_brwreq_with_pending_extension(
-    patron_id, client, json_headers
-):
+def _create_on_loan_brwreq_with_pending_extension(patron_id, client, json_headers):
     """Create a new ON_LOAN ILL borrowing request with pending extension."""
     today = arrow.utcnow().date().isoformat()
-    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates(
-        "1", client, json_headers
-    )
+    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates("1", client, json_headers)
     res = _request_extension_action(brwreq_pid, client, json_headers)
     assert res.status_code == 200
 
@@ -92,9 +88,7 @@ def _create_on_loan_brwreq_with_pending_extension(
 
 def _request_extension_action(pid, client, json_headers):
     """Send HTTP request to request extension of ILL Borrowing Request."""
-    url = url_for(
-        "invenio_app_ils_ill.illbid_request_extension", pid_value=pid
-    )
+    url = url_for("invenio_app_ils_ill.illbid_request_extension", pid_value=pid)
     return client.post(url, headers=json_headers, data=json.dumps({}))
 
 
@@ -107,21 +101,15 @@ def _accept_extension_action(pid, data, client, json_headers):
 
 def _decline_extension_action(pid, _, client, json_headers):
     """Send HTTP request to decline extension of ILL Borrowing Request."""
-    url = url_for(
-        "invenio_app_ils_ill.illbid_decline_extension", pid_value=pid
-    )
+    url = url_for("invenio_app_ils_ill.illbid_decline_extension", pid_value=pid)
     return client.post(url, headers=json_headers, data=json.dumps({}))
 
 
-def test_brwreq_request_extension_only_owner(
-    client, testdata, json_headers, users
-):
+def test_brwreq_request_extension_only_owner(client, testdata, json_headers, users):
     """Test that patron can request extension only for his own loan."""
     user_login(client, "librarian", users)
 
-    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates(
-        "1", client, json_headers
-    )
+    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates("1", client, json_headers)
 
     # anonymous, forbidden
     user_logout(client)
@@ -143,9 +131,7 @@ def test_brwreq_request_extension_only_owner(
 
     # create a new one with patron2 owner, librarian can request extension
     user_login(client, "librarian", users)
-    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates(
-        "2", client, json_headers
-    )
+    brwreq, brwreq_pid = _create_on_loan_brwreq_random_dates("2", client, json_headers)
     res = _request_extension_action(brwreq_pid, client, json_headers)
     assert res.status_code == 200
     assert extension["status"] == "PENDING"
@@ -242,9 +228,7 @@ def test_brwreq_accept_decline_extension_should_fail_when_loan_not_active(
         assert res.status_code == 400
 
 
-def test_brwreq_accept_extension_success(
-    client, testdata, json_headers, users
-):
+def test_brwreq_accept_extension_success(client, testdata, json_headers, users):
     """Test accept extension success."""
     user_login(client, "librarian", users)
 
@@ -269,9 +253,7 @@ def test_brwreq_accept_extension_success(
     assert "status" not in patron_loan["extension"]
 
 
-def test_brwreq_decline_extension_success(
-    client, testdata, json_headers, users
-):
+def test_brwreq_decline_extension_success(client, testdata, json_headers, users):
     """Test declone extension success."""
     user_login(client, "librarian", users)
 

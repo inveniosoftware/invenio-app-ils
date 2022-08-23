@@ -30,9 +30,7 @@ class InternalLocationSearch(RecordsSearch):
         if location_pid:
             search = search.filter("term", location_pid=location_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="location_pid is required"
-            )
+            raise MissingRequiredParameterError(description="location_pid is required")
 
         if filter_states:
             search = search.filter("terms", state=filter_states)

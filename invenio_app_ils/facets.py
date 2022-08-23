@@ -93,8 +93,7 @@ def overdue_loans_filter(field):
                     args[key] = value
 
         return Range(**{field: args}) & Q(
-            "terms",
-            **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
+            "terms", **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
         )
 
     return inner
@@ -104,9 +103,7 @@ def overdue_agg():
     """Create a custom aggregation with dynamic dates."""
     return dict(
         filter=dict(
-            terms=dict(
-                state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-            )
+            terms=dict(state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"])
         ),
         aggs=dict(
             end_date=dict(

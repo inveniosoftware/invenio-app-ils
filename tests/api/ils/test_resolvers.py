@@ -34,9 +34,7 @@ def test_jsonresolvers(testdata, mocker):
     """Test that all records referencing a changed record are re-indexed."""
 
     def _get_mock():
-        return mocker.patch(
-            "invenio_app_ils.indexer.ReferencedRecordsIndexer.index"
-        )
+        return mocker.patch("invenio_app_ils.indexer.ReferencedRecordsIndexer.index")
 
     def _assert_origin(indexer, pid_type, pid_value):
         """Assert that origin is called and return all referenced."""

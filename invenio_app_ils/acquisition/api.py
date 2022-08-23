@@ -102,7 +102,9 @@ class Order(IlsRecord):
 
     _pid_type = ORDER_PID_TYPE
     _schema = "acq_orders/order-v1.0.0.json"
-    _provider_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/provider"  # noqa
+    _provider_resolver_path = (
+        "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/provider"  # noqa
+    )
     _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"  # noqa
     _validator = OrderValidator()
 

@@ -31,9 +31,7 @@ DOCUMENT_REQUEST_PID_FETCHER = "dreqid"
 DocumentRequestIdProvider = type(
     "DocumentRequestIdProvider",
     (RecordIdProviderV2,),
-    dict(
-        pid_type=DOCUMENT_REQUEST_PID_TYPE, default_status=PIDStatus.REGISTERED
-    ),
+    dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
 document_request_pid_minter = partial(
     pid_minter, provider_cls=DocumentRequestIdProvider
@@ -59,9 +57,7 @@ class DocumentRequestValidator(RecordValidator):
                 Document.get_record_by_pid(document_pid)
             except PIDDoesNotExistError:
                 raise DocumentRequestError(
-                    "The document with PID {} doesn't exist".format(
-                        document_pid
-                    )
+                    "The document with PID {} doesn't exist".format(document_pid)
                 )
 
     def validate_physical_item_provider(self, physical_item_provider):
@@ -81,17 +77,13 @@ class DocumentRequestValidator(RecordValidator):
             elif pid_type == BORROWING_REQUEST_PID_TYPE:
                 Provider = current_ils_ill.borrowing_request_record_cls
             else:
-                raise DocumentRequestError(
-                    "Unknown pid_type {}".format(pid_type)
-                )
+                raise DocumentRequestError("Unknown pid_type {}".format(pid_type))
 
             try:
                 Provider.get_record_by_pid(pid)
             except PIDDoesNotExistError:
                 raise DocumentRequestError(
-                    "Record with PID {0}:{1} doesn't exist".format(
-                        pid_type, pid
-                    )
+                    "Record with PID {0}:{1} doesn't exist".format(pid_type, pid)
                 )
 
     def validate_decline(self, document_pid, state, decline_reason):
@@ -101,11 +93,7 @@ class DocumentRequestValidator(RecordValidator):
                 "You have to provide a reason when declining a request"
             )
 
-        if (
-            state == "DECLINING"
-            and decline_reason == "IN_CATALOG"
-            and not document_pid
-        ):
+        if state == "DECLINING" and decline_reason == "IN_CATALOG" and not document_pid:
             raise DocumentRequestError(
                 "Document Request cannot be declined with reason IN_CATALOG "
                 "without providing a document_pid."
@@ -113,9 +101,7 @@ class DocumentRequestValidator(RecordValidator):
 
     def validate_accept(self, document_pid, physical_item_provider, state):
         """Validate accept is correct."""
-        if state == "ACCEPTED" and (
-            not document_pid or not physical_item_provider
-        ):
+        if state == "ACCEPTED" and (not document_pid or not physical_item_provider):
             raise DocumentRequestError(
                 "Need to provide a document_pid and a physical_item_provider "
                 "when accepting a request"

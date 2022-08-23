@@ -50,8 +50,9 @@ class NotificationMsg:
         except TemplateError:
             self.body_html = self.body_plain
 
-        footer_template = current_app.config.get("ILS_NOTIFICATIONS_TEMPLATES",
-                                                 {}).get("footer")
+        footer_template = current_app.config.get("ILS_NOTIFICATIONS_TEMPLATES", {}).get(
+            "footer"
+        )
         if footer_template:
             path = os.path.join(self.TEMPLATES_BASE_DIR, footer_template)
             footer_tmpl = current_app.jinja_env.get_template(path)
@@ -81,7 +82,7 @@ class NotificationMsg:
             title=self.title,
             body_plain=self.body_plain,
             body_html=self.body_html,
-            msg_cls=self.__class__.__name__
+            msg_cls=self.__class__.__name__,
         )
 
 

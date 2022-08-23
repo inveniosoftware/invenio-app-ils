@@ -31,9 +31,7 @@ def test_get_document_request_endpoint(client, json_headers, testdata, users):
     for user, res_id, expected_resp_code in tests:
         user_login(client, user, users)
         url = url_for("invenio_records_rest.dreqid_item", pid_value=res_id)
-        validate_response(
-            client, "get", url, json_headers, None, expected_resp_code
-        )
+        validate_response(client, "get", url, json_headers, None, expected_resp_code)
 
 
 def test_document_request_add_document(client, json_headers, testdata, users):
@@ -53,14 +51,10 @@ def test_document_request_add_document(client, json_headers, testdata, users):
             pid_value=res_id,
         )
         data = {"document_pid": "docid-1"}
-        validate_response(
-            client, "post", url, json_headers, data, expected_resp_code
-        )
+        validate_response(client, "post", url, json_headers, data, expected_resp_code)
 
 
-def test_document_request_remove_document(
-    client, json_headers, testdata, users
-):
+def test_document_request_remove_document(client, json_headers, testdata, users):
     """Test remove document from Document Request permissions."""
 
     tests = [
@@ -77,9 +71,7 @@ def test_document_request_remove_document(
             pid_value=res_id,
         )
         data = {"document_pid": "docid-1"}
-        validate_response(
-            client, "delete", url, json_headers, data, expected_resp_code
-        )
+        validate_response(client, "delete", url, json_headers, data, expected_resp_code)
 
 
 def test_document_request_add_provider(client, json_headers, testdata, users):
@@ -104,14 +96,10 @@ def test_document_request_add_provider(client, json_headers, testdata, users):
                 "pid_type": "acqoid",
             }
         }
-        validate_response(
-            client, "post", url, json_headers, data, expected_resp_code
-        )
+        validate_response(client, "post", url, json_headers, data, expected_resp_code)
 
 
-def test_document_request_remove_provider(
-    client, json_headers, testdata, users
-):
+def test_document_request_remove_provider(client, json_headers, testdata, users):
     """Test remove provider from Document Request permissions."""
 
     tests = [
@@ -127,9 +115,7 @@ def test_document_request_remove_provider(
             "invenio_app_ils_document_requests.dreqid_provider",
             pid_value=res_id,
         )
-        validate_response(
-            client, "delete", url, json_headers, None, expected_resp_code
-        )
+        validate_response(client, "delete", url, json_headers, None, expected_resp_code)
 
 
 def test_document_request_accept(client, json_headers, testdata, users):
@@ -149,9 +135,7 @@ def test_document_request_accept(client, json_headers, testdata, users):
             "invenio_app_ils_document_requests.dreqid_accept", pid_value=res_id
         )
         data = {"state": "ACCEPTED"}
-        validate_response(
-            client, "post", url, json_headers, data, expected_resp_code
-        )
+        validate_response(client, "post", url, json_headers, data, expected_resp_code)
 
 
 def test_document_request_decline(client, json_headers, testdata, users):
@@ -172,6 +156,4 @@ def test_document_request_decline(client, json_headers, testdata, users):
             pid_value=res_id,
         )
         data = {"decline_reason": "USER_CANCEL"}
-        validate_response(
-            client, "post", url, json_headers, data, expected_resp_code
-        )
+        validate_response(client, "post", url, json_headers, data, expected_resp_code)

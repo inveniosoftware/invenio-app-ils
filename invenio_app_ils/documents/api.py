@@ -135,7 +135,7 @@ class Document(IlsRecordWithRelations):
         """Search for referencing loans."""
         loan_search_res = search_by_pid(
             document_pid=self["pid"],
-            filter_states=current_app.config['CIRCULATION_STATES_LOAN_REQUEST']
+            filter_states=current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
             + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
         return loan_search_res
@@ -143,23 +143,17 @@ class Document(IlsRecordWithRelations):
     def search_item_references(self):
         """Search for referencing items."""
         item_search = current_app_ils.item_search_cls()
-        return item_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
+        return item_search.search_by_document_pid(document_pid=self["pid"])
 
     def search_eitem_references(self):
         """Search for referencing eitems."""
         eitem_search = current_app_ils.eitem_search_cls()
-        return eitem_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
+        return eitem_search.search_by_document_pid(document_pid=self["pid"])
 
     def search_doc_req_references(self):
         """Search for referencing document requests."""
         req_search = current_app_ils.document_request_search_cls()
-        return req_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
+        return req_search.search_by_document_pid(document_pid=self["pid"])
 
     def search_order_references(self):
         """Search for referencing orders."""
@@ -177,14 +171,16 @@ class Document(IlsRecordWithRelations):
 
     def has_references(self):
         """Check if record has references."""
-        return any([
-            self.search_loan_references().count(),
-            self.search_item_references().count(),
-            self.search_eitem_references().count(),
-            self.search_doc_req_references().count(),
-            self.search_order_references().count(),
-            self.search_brw_req_references().count()
-        ])
+        return any(
+            [
+                self.search_loan_references().count(),
+                self.search_item_references().count(),
+                self.search_eitem_references().count(),
+                self.search_doc_req_references().count(),
+                self.search_order_references().count(),
+                self.search_brw_req_references().count(),
+            ]
+        )
 
     def delete(self, **kwargs):
         """Delete Document record."""
@@ -216,8 +212,7 @@ class Document(IlsRecordWithRelations):
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="EItem",
-                ref_ids=sorted([res["pid"] for res
-                                in eitem_search_res.scan()]),
+                ref_ids=sorted([res["pid"] for res in eitem_search_res.scan()]),
             )
 
         if req_search_res.count():
@@ -233,8 +228,7 @@ class Document(IlsRecordWithRelations):
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="AcquisitionOrder",
-                ref_ids=sorted([res["pid"] for
-                                res in orders_refs_search.scan()]),
+                ref_ids=sorted([res["pid"] for res in orders_refs_search.scan()]),
             )
 
         if brw_req_refs_search.count():
@@ -242,8 +236,7 @@ class Document(IlsRecordWithRelations):
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="BorrowingRequest",
-                ref_ids=sorted([res["pid"] for
-                                res in brw_req_refs_search.scan()]),
+                ref_ids=sorted([res["pid"] for res in brw_req_refs_search.scan()]),
             )
         return super().delete(**kwargs)
 

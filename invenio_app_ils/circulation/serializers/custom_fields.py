@@ -19,8 +19,7 @@ def field_is_overdue(metadata):
     """Calculate if the loan is overdue."""
     metadata["is_overdue"] = False
     is_loan_active = (
-        metadata["state"]
-        in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        metadata["state"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
     )
     if is_loan_active and "end_date" in metadata:
         metadata["is_overdue"] = circulation_overdue_loan_days(metadata) > 0
@@ -50,13 +49,9 @@ def field_transaction_location(metadata):
         return
     Location = current_app_ils.location_record_cls
     try:
-        transaction_location = Location.get_record_by_pid(
-            transaction_location_pid
-        )
+        transaction_location = Location.get_record_by_pid(transaction_location_pid)
     except PIDDeletedError:
-        metadata["transaction_location"] = {
-            "name": "This location was deleted."
-        }
+        metadata["transaction_location"] = {"name": "This location was deleted."}
         return
     except PIDDoesNotExistError:
         metadata["transaction_location"] = {"name": "Location PID invalid."}

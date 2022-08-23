@@ -16,16 +16,10 @@ from invenio_app_ils.ill.api import (
     circulation_default_loan_duration,
 )
 
-FAKE_LOAN_ITEM_NO_RESTRICTIONS = {
-    "item_pid": {"type": "pitmid", "value": "itemid-1"}
-}
+FAKE_LOAN_ITEM_NO_RESTRICTIONS = {"item_pid": {"type": "pitmid", "value": "itemid-1"}}
 FAKE_LOAN_ITEM_ONE_WEEK = {"item_pid": {"type": "pitmid", "value": "itemid-2"}}
-FAKE_LOAN_ITEM_TWO_WEEKS = {
-    "item_pid": {"type": "pitmid", "value": "itemid-3"}
-}
-FAKE_LOAN_ITEM_THREE_WEEKS = {
-    "item_pid": {"type": "pitmid", "value": "itemid-4"}
-}
+FAKE_LOAN_ITEM_TWO_WEEKS = {"item_pid": {"type": "pitmid", "value": "itemid-3"}}
+FAKE_LOAN_ITEM_THREE_WEEKS = {"item_pid": {"type": "pitmid", "value": "itemid-4"}}
 
 
 def test_loans_default_durations(testdata):
@@ -37,21 +31,13 @@ def test_loans_default_durations(testdata):
         circulation_default_extension_duration,
     ):
         FAKE_LOAN_ITEM_NO_RESTRICTIONS["end_date"] = not_overdue_end_date
-        assert duration_func(
-            FAKE_LOAN_ITEM_NO_RESTRICTIONS, None
-        ) == timedelta(weeks=4)
+        assert duration_func(FAKE_LOAN_ITEM_NO_RESTRICTIONS, None) == timedelta(weeks=4)
 
         FAKE_LOAN_ITEM_ONE_WEEK["end_date"] = not_overdue_end_date
-        assert duration_func(FAKE_LOAN_ITEM_ONE_WEEK, None) == timedelta(
-            weeks=1
-        )
+        assert duration_func(FAKE_LOAN_ITEM_ONE_WEEK, None) == timedelta(weeks=1)
 
         FAKE_LOAN_ITEM_TWO_WEEKS["end_date"] = not_overdue_end_date
-        assert duration_func(FAKE_LOAN_ITEM_TWO_WEEKS, None) == timedelta(
-            weeks=2
-        )
+        assert duration_func(FAKE_LOAN_ITEM_TWO_WEEKS, None) == timedelta(weeks=2)
 
         FAKE_LOAN_ITEM_THREE_WEEKS["end_date"] = not_overdue_end_date
-        assert duration_func(FAKE_LOAN_ITEM_THREE_WEEKS, None) == timedelta(
-            weeks=3
-        )
+        assert duration_func(FAKE_LOAN_ITEM_THREE_WEEKS, None) == timedelta(weeks=3)

@@ -30,9 +30,7 @@ _WEEKDAY_NAMES = [
     "saturday",
     "sunday",
 ]
-_WEEKDAY_INDICES = {
-    weekday_name: i for i, weekday_name in enumerate(_WEEKDAY_NAMES)
-}
+_WEEKDAY_INDICES = {weekday_name: i for i, weekday_name in enumerate(_WEEKDAY_NAMES)}
 
 
 def validate_time(value):
@@ -109,9 +107,7 @@ class OpeningWeekdaySchema(Schema):
             previous = None
             for current in times:
                 if previous and previous["end_time"] >= current["start_time"]:
-                    raise ValidationError(
-                        "Time periods must not overlap.", "times"
-                    )
+                    raise ValidationError("Time periods must not overlap.", "times")
                 previous = current
         else:
             if "times" in data:
@@ -156,9 +152,7 @@ class LocationSchemaV1(RecordMetadataSchemaJSONV1):
     name = fields.Str(required=True)
     notes = fields.Str()
     opening_exceptions = fields.List(fields.Nested(OpeningExceptionSchema))
-    opening_weekdays = fields.List(
-        fields.Nested(OpeningWeekdaySchema), required=True
-    )
+    opening_weekdays = fields.List(fields.Nested(OpeningWeekdaySchema), required=True)
     phone = fields.Str()
 
     @post_load
@@ -174,8 +168,7 @@ class LocationSchemaV1(RecordMetadataSchemaJSONV1):
             index = _WEEKDAY_INDICES[name]
             if new_weekdays[index]:
                 raise ValidationError(
-                    "There are two distinct configurations for the "
-                    "same weekday.",
+                    "There are two distinct configurations for the " "same weekday.",
                     "opening_weekdays",
                 )
             new_weekdays[index] = weekday

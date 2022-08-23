@@ -27,8 +27,7 @@ celery_logger = get_task_logger(__name__)
 @shared_task
 def send_overdue_loans_notification_reminder():
     """Send notification message for loans that are overdue every X days."""
-    days = current_app.config[
-        "ILS_CIRCULATION_NOTIFICATION_OVERDUE_REMINDER_INTERVAL"]
+    days = current_app.config["ILS_CIRCULATION_NOTIFICATION_OVERDUE_REMINDER_INTERVAL"]
     for hit in get_all_overdue_loans().scan():
         loan = hit.to_dict()
         days_ago = circulation_overdue_loan_days(loan)

@@ -22,9 +22,7 @@ class ChangedBySchema(Schema):
 
         unknown = EXCLUDE
 
-    type = fields.Str(
-        required=True, validate=validate.OneOf(IlsRecord.CURATOR_TYPES)
-    )
+    type = fields.Str(required=True, validate=validate.OneOf(IlsRecord.CURATOR_TYPES))
     value = fields.Str()
 
 

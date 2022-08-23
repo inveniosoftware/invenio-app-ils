@@ -37,9 +37,7 @@ def get_loans(patron_pid):
     loan_record_cls = current_circulation.loan_record_cls
     for hit in search_by_patron_pid(patron_pid=patron_pid).scan():
         loan = loan_record_cls.get_record_by_pid(hit["pid"])
-        referenced.append(
-            dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)
-        )
+        referenced.append(dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan))
     return referenced
 
 
@@ -52,9 +50,7 @@ def get_document_requests(patron_pid):
         docreq_search_cls().search_by_patron_pid(patron_pid=patron_pid).scan()
     ):
         docreq = docreq_record_cls.get_record_by_pid(request["pid"])
-        referenced.append(
-            dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq)
-        )
+        referenced.append(dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq))
     return referenced
 
 
@@ -78,9 +74,7 @@ def get_ill_borrowing_requests(patron_pid):
     search = brw_req_search_cls().search_by_patron_pid(patron_pid)
     for hit in search.scan():
         brw_req = brw_req_record_cls.get_record_by_pid(hit["pid"])
-        referenced.append(
-            dict(pid_type=BORROWING_REQUEST_PID_TYPE, record=brw_req)
-        )
+        referenced.append(dict(pid_type=BORROWING_REQUEST_PID_TYPE, record=brw_req))
     return referenced
 
 

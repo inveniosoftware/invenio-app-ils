@@ -40,9 +40,7 @@ def index():
 def index_json(filenames, force):
     """Index JSON-based vocabularies in Elasticsearch."""
     if not force:
-        click.confirm(
-            "Are you sure you want to index the vocabularies?", abort=True
-        )
+        click.confirm("Are you sure you want to index the vocabularies?", abort=True)
     source = "json"
     index_count = 0
     for filename in filenames:
@@ -64,9 +62,7 @@ def index_languages(force):
     import pycountry
 
     if not force:
-        click.confirm(
-            "Are you sure you want to index the languages?", abort=True
-        )
+        click.confirm("Are you sure you want to index the languages?", abort=True)
     index_count = 0
     click.echo("indexing languages...")
 
@@ -100,18 +96,12 @@ def index_languages(force):
 def index_opendefinition(loader, path, whitelist_status, force):
     """Index JSON-based vocabularies in Elasticsearch."""
     if not force:
-        click.confirm(
-            "Are you sure you want to index the vocabularies?", abort=True
-        )
+        click.confirm("Are you sure you want to index the vocabularies?", abort=True)
     index_count = 0
-    click.echo(
-        "indexing licenses from loader {} and path {}...".format(loader, path)
-    )
+    click.echo("indexing licenses from loader {} and path {}...".format(loader, path))
     if whitelist_status:
         whitelist_status = whitelist_status.split(",")
-    vocabularies = load_vocabularies(
-        "opendefinition", loader, path, whitelist_status
-    )
+    vocabularies = load_vocabularies("opendefinition", loader, path, whitelist_status)
     indexer = current_app_ils.vocabulary_indexer
     with click.progressbar(vocabularies) as bar:
         for vocabulary in bar:
@@ -164,8 +154,6 @@ def delete(type, force, key):
             "Do you want to continue?".format(count, type),
             abort=True,
         ):
-            count = delete_vocabulary_from_index(
-                type=type, force=True, key=key
-            )
+            count = delete_vocabulary_from_index(type=type, force=True, key=key)
 
     click.echo("deleted {} vocabularies".format(count))

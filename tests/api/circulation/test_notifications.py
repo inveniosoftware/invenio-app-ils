@@ -26,9 +26,7 @@ from invenio_app_ils.patrons.api import Patron
 from tests.helpers import user_login, user_logout
 
 
-def test_notifs_on_loan_checkout(
-    client, app_with_notifs, users, testdata, loan_params
-):
+def test_notifs_on_loan_checkout(client, app_with_notifs, users, testdata, loan_params):
     """Test that an email is sent on loan checkout."""
     loan_data = testdata["loans"][1]
     loan = Loan.get_record_by_pid(loan_data["pid"])
@@ -43,9 +41,7 @@ def test_notifs_on_loan_checkout(
         msg = outbox[0]
 
     doc = Document.get_record_by_pid(loan_data["document_pid"])
-    expected_subject = (
-        "InvenioILS: loan started for \"{0}\"".format(doc["title"])
-    )
+    expected_subject = 'InvenioILS: loan started for "{0}"'.format(doc["title"])
     assert msg.subject == expected_subject
 
     edition_year = " ({edition} - {year})".format(
@@ -59,8 +55,7 @@ def test_notifs_on_loan_checkout(
 
     literature_url = "{host}{path}".format(
         host=current_app.config["SPA_HOST"],
-        path=current_app.config["SPA_PATHS"]["literature"]
-        % {"pid": doc["pid"]},
+        path=current_app.config["SPA_PATHS"]["literature"] % {"pid": doc["pid"]},
     )
     profile_url = "{host}{path}".format(
         host=current_app.config["SPA_HOST"],
@@ -84,12 +79,10 @@ InvenioILS""".format(
     assert msg.body == expected_body_plain
 
 
-def test_notification_on_overdue_permissions(client, testdata, json_headers,
-                                             users):
+def test_notification_on_overdue_permissions(client, testdata, json_headers, users):
     """Test that only the backoffice can send a reminder."""
     pid = testdata["loans"][0]["pid"]
-    url = url_for("invenio_app_ils_circulation.loanid_notification",
-                  pid_value=pid)
+    url = url_for("invenio_app_ils_circulation.loanid_notification", pid_value=pid)
     tests = [("patron1", 403), ("anonymous", 401)]
     for username, expected_status in tests:
         user_login(client, username, users)
@@ -179,8 +172,7 @@ def test_notification_on_overdue_loans(
         assert len(outbox) == 2
 
 
-def test_notification_on_expiring_loans(app_with_notifs, db, users,
-                                        testdata, mocker):
+def test_notification_on_expiring_loans(app_with_notifs, db, users, testdata, mocker):
     """Test that an email is sent for a loan that is about to expire."""
     mocker.patch(
         "invenio_app_ils.patrons.api.Patron.get_patron",

@@ -17,10 +17,7 @@ from invenio_records.api import Record
 from invenio_search.api import RecordsSearch
 
 from invenio_app_ils.errors import UnauthorizedSearchError
-from invenio_app_ils.records.permissions import (
-    RecordPermission,
-    create_records_action,
-)
+from invenio_app_ils.records.permissions import RecordPermission, create_records_action
 from invenio_app_ils.search_permissions import _filter_by_patron
 from tests.helpers import user_login
 
@@ -99,7 +96,7 @@ def test_record_generic_access(client, db, users, with_access):
 
 @pytest.fixture()
 def with_role_creator(db):
-    """"Create a new role and assign action."""
+    """ "Create a new role and assign action."""
     role = Role(name="records-creators")
     db.session.add(role)
     db.session.commit()

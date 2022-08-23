@@ -29,9 +29,7 @@ def jsonresolver_loader(url_map):
     @get_pid_or_default(default_value=dict())
     def get_internal_location(internal_location_pid):
         """Return the InternalLocation record."""
-        internal_location = InternalLocation.get_record_by_pid(
-            internal_location_pid
-        )
+        internal_location = InternalLocation.get_record_by_pid(internal_location_pid)
         del internal_location["$schema"]
         if "notes" in internal_location:
             del internal_location["notes"]
@@ -40,9 +38,7 @@ def jsonresolver_loader(url_map):
 
     def internal_location_resolver(item_pid):
         """Return the IntLoc record for the given Item or raise."""
-        internal_loc_pid = get_field_value(
-            Item, item_pid, "internal_location_pid"
-        )
+        internal_loc_pid = get_field_value(Item, item_pid, "internal_location_pid")
         return get_internal_location(internal_loc_pid)
 
     url_map.add(

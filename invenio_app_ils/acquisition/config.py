@@ -10,17 +10,12 @@ from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
-from invenio_app_ils.permissions import (
-    backoffice_permission,
-    superuser_permission,
-)
+from invenio_app_ils.permissions import backoffice_permission, superuser_permission
 
 from .api import ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE, Order
 from .search import OrderSearch
 
-_ORDER_CONVERTER = (
-    'pid(acqoid, record_class="invenio_app_ils.acquisition.api:Order")'
-)
+_ORDER_CONVERTER = 'pid(acqoid, record_class="invenio_app_ils.acquisition.api:Order")'
 
 RECORDS_REST_ENDPOINTS = dict(
     acqoid=dict(
@@ -31,19 +26,13 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Order,
         indexer_class=RecordIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.acquisition.loaders:order_loader"
-            )
+            "application/json": ("invenio_app_ils.acquisition.loaders:order_loader")
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
@@ -51,9 +40,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "json": "application/json",
         },
         list_route="/acquisition/orders/",
-        item_route="/acquisition/orders/<{0}:pid_value>".format(
-            _ORDER_CONVERTER
-        ),
+        item_route="/acquisition/orders/<{0}:pid_value>".format(_ORDER_CONVERTER),
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -98,9 +85,7 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             status=dict(terms=dict(field="status")),
             provider=dict(
-                terms=dict(
-                    field="provider.name.keyword", size=FACET_PROVIDER_LIMIT
-                )
+                terms=dict(field="provider.name.keyword", size=FACET_PROVIDER_LIMIT)
             ),
             payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
             medium=dict(terms=dict(field="order_lines.medium")),

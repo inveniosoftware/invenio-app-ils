@@ -51,11 +51,7 @@ from invenio_app_ils.permissions import (
 
 from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
 from .indexer import LoanIndexer
-from .jsonresolvers.loan import (
-    document_resolver,
-    item_resolver,
-    loan_patron_resolver,
-)
+from .jsonresolvers.loan import document_resolver, item_resolver, loan_patron_resolver
 from .notifications.api import circulation_filter_notifications
 from .transitions.transitions import ILSItemOnLoanToItemOnLoan, ILSToItemOnLoan
 from .utils import (
@@ -109,9 +105,7 @@ CIRCULATION_DOCUMENT_EXISTS = document_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
 
-CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = (
-    circulation_transaction_location_validator
-)
+CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = circulation_transaction_location_validator
 
 CIRCULATION_TRANSACTION_USER_VALIDATOR = circulation_transaction_user_validator
 
@@ -134,9 +128,7 @@ CIRCULATION_POLICIES = dict(
 
 CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
 
-CIRCULATION_ITEM_RESOLVING_PATH = (
-    "/api/resolver/circulation/loans/<loan_pid>/item"
-)
+CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/circulation/loans/<loan_pid>/item"
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
@@ -150,9 +142,7 @@ CIRCULATION_DOCUMENT_RESOLVER_ENDPOINT = document_resolver
 
 CIRCULATION_PATRON_REF_BUILDER = circulation_build_patron_ref
 
-CIRCULATION_PATRON_RESOLVING_PATH = (
-    "/api/resolver/circulation/loans/<loan_pid>/patron"
-)
+CIRCULATION_PATRON_RESOLVING_PATH = "/api/resolver/circulation/loans/<loan_pid>/patron"
 
 CIRCULATION_PATRON_RESOLVER_ENDPOINT = loan_patron_resolver
 
@@ -225,9 +215,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         record_class=Loan,
         indexer_class=LoanIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_circulation.records.loaders:loan_loader"
-            )
+            "application/json": ("invenio_circulation.records.loaders:loan_loader")
         },
         record_serializers={
             "application/json": (
@@ -238,18 +226,14 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.circulation.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.circulation.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.circulation.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
             "json": "application/json",
         },
         list_route="/circulation/loans/",
-        item_route="/circulation/loans/<{0}:pid_value>".format(
-            _LOANID_CONVERTER
-        ),
+        item_route="/circulation/loans/<{0}:pid_value>".format(_LOANID_CONVERTER),
         default_media_type="application/json",
         links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,

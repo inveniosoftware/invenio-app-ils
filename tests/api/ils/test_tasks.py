@@ -192,9 +192,7 @@ def test_no_changes_on_exceptions(db, users, testdata):
     assert record_2["opening_exceptions"] == []
 
 
-def test_extend_active_loans_location_closure(
-    db, users, testdata, app_with_notifs
-):
+def test_extend_active_loans_location_closure(db, users, testdata, app_with_notifs):
     """Test extension of active loans that finish on holidays."""
     prepare_data(db, _LOCATION_PID_1, _OPENING_EXCEPTIONS_WITH_PAST_EXCEPTIONS)
     prepare_loans_data(db, testdata)

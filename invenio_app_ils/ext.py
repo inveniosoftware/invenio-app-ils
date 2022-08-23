@@ -246,17 +246,13 @@ class InvenioAppIls(object):
 
         # each production instance has its own post-logout configuration
         if app.config["DEBUG"]:
-            app.config['SECURITY_POST_LOGOUT_VIEW'] = '/logged-out'
+            app.config["SECURITY_POST_LOGOUT_VIEW"] = "/logged-out"
 
     def init_metadata_extensions(self, app):
         """Metadata extensions initialization."""
         for rec_type in app.config["ILS_RECORDS_METADATA_EXTENSIONS"].keys():
-            namespaces = app.config["ILS_RECORDS_METADATA_NAMESPACES"].get(
-                rec_type, {}
-            )
-            extensions = app.config["ILS_RECORDS_METADATA_EXTENSIONS"].get(
-                rec_type, {}
-            )
+            namespaces = app.config["ILS_RECORDS_METADATA_NAMESPACES"].get(rec_type, {})
+            extensions = app.config["ILS_RECORDS_METADATA_EXTENSIONS"].get(rec_type, {})
             setattr(
                 app.extensions["invenio-app-ils"],
                 "{}_metadata_extensions".format(rec_type),
@@ -308,9 +304,7 @@ class InvenioAppIlsREST(InvenioAppIls):
             register_location_signals()
 
 
-def before_record_index_hook(
-    sender, json=None, record=None, index=None, **kwargs
-):
+def before_record_index_hook(sender, json=None, record=None, index=None, **kwargs):
     """Hook to transform record before indexing in ES.
 
     :param sender: The entity sending the signal.
@@ -322,9 +316,7 @@ def before_record_index_hook(
     add_es_metadata_extensions(json)  # mutates json
 
 
-def before_loan_index_hook(
-    sender, json=None, record=None, index=None, **kwargs
-):
+def before_loan_index_hook(sender, json=None, record=None, index=None, **kwargs):
     """Hook to transform loan record before ES indexing.
 
     :param sender: The entity sending the signal.

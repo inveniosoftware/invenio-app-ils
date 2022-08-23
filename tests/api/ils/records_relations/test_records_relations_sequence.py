@@ -93,9 +93,7 @@ def _test_sequence(client, json_headers):
                             "relation_order": "continues",
                             "record_metadata": {
                                 "title": prev_rec["title"],
-                                "mode_of_issuance": prev_rec[
-                                    "mode_of_issuance"
-                                ],
+                                "mode_of_issuance": prev_rec["mode_of_issuance"],
                             },
                         }
                     ]
@@ -115,9 +113,7 @@ def _test_sequence(client, json_headers):
                             "relation_order": "is_continued_by",
                             "record_metadata": {
                                 "title": next_rec["title"],
-                                "mode_of_issuance": next_rec[
-                                    "mode_of_issuance"
-                                ],
+                                "mode_of_issuance": next_rec["mode_of_issuance"],
                             },
                         }
                     ]
@@ -213,9 +209,7 @@ def _test_split_sequence(client, json_headers, testdata):
             # serid-2
             recrel_assert_record_relations(
                 prev_rec,
-                expected={
-                    "relations": {"sequence": second_records + [serid_1]}
-                },
+                expected={"relations": {"sequence": second_records + [serid_1]}},
             )
 
             # serid-3 and serid-4
@@ -231,9 +225,7 @@ def _test_split_sequence(client, json_headers, testdata):
                                 "relation_order": "continues",
                                 "record_metadata": {
                                     "title": prev_rec["title"],
-                                    "mode_of_issuance": prev_rec[
-                                        "mode_of_issuance"
-                                    ],
+                                    "mode_of_issuance": prev_rec["mode_of_issuance"],
                                 },
                             }
                         ]

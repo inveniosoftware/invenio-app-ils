@@ -51,9 +51,7 @@ def test_anonymous_cannot_get_any_loan(client, json_headers, testdata):
     assert res.status_code == 401
 
 
-def test_admin_or_librarian_can_get_any_loan(
-    client, json_headers, users, testdata
-):
+def test_admin_or_librarian_can_get_any_loan(client, json_headers, users, testdata):
     """Test that admins and librarians can get any loan."""
     for username in ["admin", "librarian"]:
         user_login(client, username, users)
@@ -103,9 +101,7 @@ def _test_post_new_loan(client, json_headers, user_id, response_code):
         return data["pid"]
 
 
-def _test_replace_existing_loan(
-    client, json_headers, user_id, loanid, response_code
-):
+def _test_replace_existing_loan(client, json_headers, user_id, loanid, response_code):
     """Test PUT existing loan."""
     url = url_for("invenio_records_rest.loanid_item", pid_value=loanid)
     params = deepcopy(NEW_LOAN)

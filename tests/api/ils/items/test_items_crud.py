@@ -11,10 +11,7 @@ from copy import deepcopy
 
 import pytest
 
-from invenio_app_ils.errors import (
-    DocumentNotFoundError,
-    InternalLocationNotFoundError,
-)
+from invenio_app_ils.errors import DocumentNotFoundError, InternalLocationNotFoundError
 from invenio_app_ils.items.api import Item
 
 

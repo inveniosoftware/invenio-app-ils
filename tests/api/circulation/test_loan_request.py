@@ -50,9 +50,7 @@ def test_patron_can_request_loan(client, json_headers, users, testdata):
     assert loan["transaction_date"]
 
 
-def test_patron_can_cancel_loan(
-    client, json_headers, users, testdata, app_config
-):
+def test_patron_can_cancel_loan(client, json_headers, users, testdata, app_config):
     """Test that a patron can cancel its own loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
     user = user_login(client, "patron3", users)
@@ -77,16 +75,12 @@ def test_patron_can_cancel_loan(
 
     # Try to cancel a loan that belongs to patron3 as patron1
     user_login(client, "patron1", users)
-    cancel_res = client.post(
-        cancel_url, headers=json_headers, data=json.dumps(payload)
-    )
+    cancel_res = client.post(cancel_url, headers=json_headers, data=json.dumps(payload))
     assert cancel_res.status_code == 403
 
     # Try to cancel a loan that belongs to patron3 as patron3
     user_login(client, "patron3", users)
-    cancel_res = client.post(
-        cancel_url, headers=json_headers, data=json.dumps(payload)
-    )
+    cancel_res = client.post(cancel_url, headers=json_headers, data=json.dumps(payload))
     assert cancel_res.status_code == 202
 
 

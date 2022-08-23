@@ -44,41 +44,31 @@ def test_ill_brw_validation(db, testdata):
     borrowing_request_pid = testdata["ill_brw_reqs"][0]["pid"]
 
     # change document pid
-    borrowing_request = BorrowingRequest.get_record_by_pid(
-        borrowing_request_pid
-    )
+    borrowing_request = BorrowingRequest.get_record_by_pid(borrowing_request_pid)
     borrowing_request["document_pid"] = "not_found_doc"
     with pytest.raises(DocumentNotFoundError):
         borrowing_request.commit()
 
     # change provider pid
-    borrowing_request = BorrowingRequest.get_record_by_pid(
-        borrowing_request_pid
-    )
+    borrowing_request = BorrowingRequest.get_record_by_pid(borrowing_request_pid)
     borrowing_request["provider_pid"] = "not_found_lib"
     with pytest.raises(ProviderNotFoundError):
         borrowing_request.commit()
 
     # change patron pid
-    borrowing_request = BorrowingRequest.get_record_by_pid(
-        borrowing_request_pid
-    )
+    borrowing_request = BorrowingRequest.get_record_by_pid(borrowing_request_pid)
     borrowing_request["patron_pid"] = "9999"
     with pytest.raises(PatronNotFoundError):
         borrowing_request.commit()
 
     # add cancel reason without status CANCELLED
-    borrowing_request = BorrowingRequest.get_record_by_pid(
-        borrowing_request_pid
-    )
+    borrowing_request = BorrowingRequest.get_record_by_pid(borrowing_request_pid)
     borrowing_request["cancel_reason"] = "USER_CANCEL"
     with pytest.raises(ILLError):
         borrowing_request.commit()
 
     # update status to CANCELLED without cancel_reason
-    borrowing_request = BorrowingRequest.get_record_by_pid(
-        borrowing_request_pid
-    )
+    borrowing_request = BorrowingRequest.get_record_by_pid(borrowing_request_pid)
     borrowing_request["status"] = "CANCELLED"
     with pytest.raises(ILLError):
         borrowing_request.commit()

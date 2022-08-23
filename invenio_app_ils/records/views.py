@@ -34,8 +34,7 @@ def create_document_stats_blueprint(app):
         default_media_type = options.get("default_media_type", "")
         rec_serializers = options.get("record_serializers", {})
         serializers = {
-            mime: obj_or_import_string(func)
-            for mime, func in rec_serializers.items()
+            mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
         }
 
         stats_view = DocumentStatsResource.as_view(

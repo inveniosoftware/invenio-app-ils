@@ -32,9 +32,7 @@ class ItemSearch(RecordsSearch):
         if document_pid:
             search = search.filter("term", document_pid=document_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="document_pid is required"
-            )
+            raise MissingRequiredParameterError(description="document_pid is required")
 
         if filter_states:
             search = search.filter("terms", status=filter_states)
@@ -53,9 +51,7 @@ class ItemSearch(RecordsSearch):
         search = self
 
         if internal_location_pid:
-            search = search.filter(
-                "term", internal_location_pid=internal_location_pid
-            )
+            search = search.filter("term", internal_location_pid=internal_location_pid)
         else:
             raise MissingRequiredParameterError(
                 description="internal_location_pid is required"
@@ -79,9 +75,7 @@ class ItemSearch(RecordsSearch):
                 "term", **{"internal_location.location_pid": location_pid}
             )
         else:
-            raise MissingRequiredParameterError(
-                description="location_pid is required"
-            )
+            raise MissingRequiredParameterError(description="location_pid is required")
 
         if filter_states:
             search = search.filter("terms", status=filter_states)

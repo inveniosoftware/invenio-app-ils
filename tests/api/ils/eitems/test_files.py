@@ -45,9 +45,7 @@ def _test_data_exists(key, res):
     assert key in data
 
 
-def test_create_bucket_endpoint(
-    client, json_headers, location, testdata, users
-):
+def test_create_bucket_endpoint(client, json_headers, location, testdata, users):
     """Test GET permissions."""
     user_login(client, "admin", users)
 
@@ -58,9 +56,7 @@ def test_create_bucket_endpoint(
         "invenio_app_ils_files.eitmid_bucket", pid_value="eitemid-4"
     )
 
-    res1 = _test_response(
-        client, "post", url_with_bucket_id, json_headers, None, 200
-    )
+    res1 = _test_response(client, "post", url_with_bucket_id, json_headers, None, 200)
     _test_data_exists("bucket_id", res1)
     res2 = _test_response(
         client, "post", url_without_bucket_id, json_headers, None, 201
@@ -68,9 +64,7 @@ def test_create_bucket_endpoint(
     _test_data_exists("bucket_id", res2)
 
 
-def test_create_bucket_permissions(
-    client, json_headers, location, testdata, users
-):
+def test_create_bucket_permissions(client, json_headers, location, testdata, users):
     """Test create bucket permissions."""
     url = url_for("invenio_app_ils_files.eitmid_bucket", pid_value="eitemid-1")
     _test_response(client, "post", url, json_headers, None, 401)
@@ -86,9 +80,7 @@ def test_create_bucket_permissions(
         _test_response(client, "post", url, json_headers, None, status_code)
 
 
-def test_upload_files_permissions(
-    client, json_headers, bucket, testdata, users
-):
+def test_upload_files_permissions(client, json_headers, bucket, testdata, users):
     """Test upload files permissions."""
     filename = "myfile.txt"
     data = b"hello world"
@@ -115,9 +107,7 @@ def test_upload_files_permissions(
         )
 
 
-def test_download_files_permissions(
-    client, json_headers, location, testdata, users
-):
+def test_download_files_permissions(client, json_headers, location, testdata, users):
     """Test download files permissions."""
 
     tests = [

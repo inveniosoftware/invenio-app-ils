@@ -13,10 +13,7 @@ from datetime import timedelta
 import arrow
 from flask import url_for
 
-from invenio_app_ils.ill.api import (
-    BORROWING_REQUEST_PID_TYPE,
-    BorrowingRequest,
-)
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE, BorrowingRequest
 from tests.helpers import user_login
 
 _HTTP_OK = [200, 201, 204]
@@ -37,9 +34,7 @@ def _assert_create_loan_action_fails(pid, data, client, json_headers):
     assert res.status_code == 400
 
 
-def test_brwreq_create_loan_only_backoffice(
-    client, testdata, json_headers, users
-):
+def test_brwreq_create_loan_only_backoffice(client, testdata, json_headers, users):
     """Test that patron have no permission of creating loans from ILLs."""
     user_login(client, "patron1", users)
     res = _create_loan_action("illbid-2", dict(), client, json_headers)
@@ -79,9 +74,7 @@ def test_brwreq_create_loan_fails_on_wrong_status(
 
         now = arrow.utcnow()
         future = now + timedelta(days=15)
-        data = dict(
-            loan_start_date=now.isoformat(), loan_end_date=future.isoformat()
-        )
+        data = dict(loan_start_date=now.isoformat(), loan_end_date=future.isoformat())
         _assert_create_loan_action_fails(pid, data, client, json_headers)
 
     pid = _create_new_brwreq()
@@ -152,9 +145,7 @@ def test_brwreq_create_loan_fails_on_loan_pid_already_attached(
     _assert_create_loan_action_fails(pid, data, client, json_headers)
 
 
-def test_brwreq_create_loan_succeeds(
-    db, client, testdata, json_headers, users
-):
+def test_brwreq_create_loan_succeeds(db, client, testdata, json_headers, users):
     """Test borrowing requests create loan action succeeds."""
     user = user_login(client, "librarian", users)
 

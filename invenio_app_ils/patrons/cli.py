@@ -57,8 +57,7 @@ def list_activity(patron_pid):
 def anonymize(patron_pid, force):
     """Anonymize patron's data and activity."""
     if click.confirm("Are you sure you want to anonymize this patron?"):
-        dropped, indices, notifications = \
-            anonymize_patron_data(patron_pid, force)
+        dropped, indices, notifications = anonymize_patron_data(patron_pid, force)
         msg = (
             "Successfully anonymized patron's activity: {dropped} rows "
             "deleted from db, {indices} records re-indexed and "

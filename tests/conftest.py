@@ -53,23 +53,17 @@ def users(app, db):
         )
         # Give role to admin
         admin_role = Role(name="admin")
-        db.session.add(
-            ActionRoles(action=superuser_access.value, role=admin_role)
-        )
+        db.session.add(ActionRoles(action=superuser_access.value, role=admin_role))
         datastore.add_role_to_user(admin, admin_role)
         # Give role to librarian
         librarian_role = Role(name="librarian")
         db.session.add(
-            ActionRoles(
-                action=backoffice_access_action.value, role=librarian_role
-            )
+            ActionRoles(action=backoffice_access_action.value, role=librarian_role)
         )
         datastore.add_role_to_user(librarian, librarian_role)
         # Give role to librarian2
         db.session.add(
-            ActionRoles(
-                action=backoffice_access_action.value, role=librarian_role
-            )
+            ActionRoles(action=backoffice_access_action.value, role=librarian_role)
         )
         datastore.add_role_to_user(librarian2, librarian_role)
     db.session.commit()
@@ -106,9 +100,7 @@ def users(app, db):
 def app_with_notifs(app):
     """App with notifications test templates."""
     app.register_blueprint(
-        Blueprint(
-            "invenio_app_ils_tests", __name__, template_folder="templates"
-        )
+        Blueprint("invenio_app_ils_tests", __name__, template_folder="templates")
     )
     # add extra test templates to the search app blueprint, to fake the
     # existence of `invenio-theme` base templates.
@@ -128,4 +120,3 @@ def app_with_notifs(app):
 def create_app():
     """Create test app."""
     return _create_app
-

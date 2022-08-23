@@ -28,9 +28,7 @@ class BorrowingRequestsSearch(RecordsSearch):
         if document_pid:
             search = search.filter("term", document_pid=document_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="document_pid is required"
-            )
+            raise MissingRequiredParameterError(description="document_pid is required")
         return search
 
     def search_by_patron_pid(self, patron_pid=None):
@@ -40,9 +38,7 @@ class BorrowingRequestsSearch(RecordsSearch):
         if patron_pid:
             search = search.filter("term", patron_pid=patron_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="patron_pid is required"
-            )
+            raise MissingRequiredParameterError(description="patron_pid is required")
         return search
 
     def search_by_provider_pid(self, provider_pid=None):
@@ -52,8 +48,6 @@ class BorrowingRequestsSearch(RecordsSearch):
         if provider_pid:
             search = search.filter("term", provider_pid=provider_pid)
         else:
-            raise MissingRequiredParameterError(
-                description="provider_pid is required"
-            )
+            raise MissingRequiredParameterError(description="provider_pid is required")
 
         return search

@@ -49,20 +49,15 @@ def index_referenced_records(loan):
     loan_class = current_circulation.loan_record_cls
     loan_record = loan_class.get_record_by_pid(loan["pid"])
 
-    referenced.append(
-        dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan_record)
-    )
+    referenced.append(dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan_record))
 
     # add all the other loans, as after indexing this one, they
     # will be affected in search
-    pending_loans = \
-        document.search_loan_references().scan()
+    pending_loans = document.search_loan_references().scan()
 
     for loan_hit in pending_loans:
         pending_loan = loan_class.get_record_by_pid(loan_hit.pid)
-        referenced.append(
-            dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=pending_loan)
-        )
+        referenced.append(dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=pending_loan))
 
     # index the loan and referenced records
     indexer.index(indexed, referenced)
@@ -88,9 +83,7 @@ def index_extra_fields_for_loan(loan_dict):
     """
     document_class = current_app_ils.document_record_cls
     try:
-        document_record = document_class.get_record_by_pid(
-            loan_dict["document_pid"]
-        )
+        document_record = document_class.get_record_by_pid(loan_dict["document_pid"])
     except PIDDeletedError:
         # Document might have been deleted while reindexing asynchronously.
         return
@@ -100,11 +93,7 @@ def index_extra_fields_for_loan(loan_dict):
     items_available_for_loan_count = document["circulation"][
         "available_items_for_loan_count"
     ]
-    loan_dict[
-        "available_items_for_loan_count"
-    ] = items_available_for_loan_count
+    loan_dict["available_items_for_loan_count"] = items_available_for_loan_count
 
-    can_circulate_items_count = document["circulation"][
-        "can_circulate_items_count"
-    ]
+    can_circulate_items_count = document["circulation"]["can_circulate_items_count"]
     loan_dict["can_circulate_items_count"] = can_circulate_items_count

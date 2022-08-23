@@ -71,16 +71,13 @@ def notify_location_updated(location_pid):
 
     def is_already_running():
         inspect = Inspect(app=current_app.extensions["invenio-celery"].celery)
-        filtered_results = filter(
-            None, [inspect.scheduled(), inspect.active()]
-        )
+        filtered_results = filter(None, [inspect.scheduled(), inspect.active()])
         for results in filtered_results:
             for result in results.values():
                 for task in result:
                     request = task["request"]
                     matches_name = (
-                        request["name"]
-                        == extend_active_loans_location_closure.name
+                        request["name"] == extend_active_loans_location_closure.name
                     )
                     matches_location = request["args"][0] == location_pid
                     if matches_name and matches_location:
@@ -95,9 +92,7 @@ def notify_location_updated(location_pid):
         if eta <= now:
             eta += timedelta(days=1)
 
-        extend_active_loans_location_closure.apply_async(
-            args=[location_pid], eta=eta
-        )
+        extend_active_loans_location_closure.apply_async(args=[location_pid], eta=eta)
 
 
 @shared_task
@@ -110,9 +105,7 @@ def extend_active_loans_location_closure(location_pid):
             new_end_date = find_next_open_date(location_pid, current_end_date)
             if new_end_date != current_end_date:  # Update loan
                 modified_count += 1
-                loan = current_circulation.loan_record_cls.get_record_by_pid(
-                    hit.pid
-                )
+                loan = current_circulation.loan_record_cls.get_record_by_pid(hit.pid)
                 _log("extend_loan_closure_before", loan)
                 loan.update(end_date=new_end_date.isoformat())
                 loan.commit()

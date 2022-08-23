@@ -36,7 +36,7 @@ from tests.helpers import user_login, user_logout
 
 
 def check_user_deleted(user_pid):
-    """ Check if user was deleted from database. """
+    """Check if user was deleted from database."""
     with db.session.begin_nested():
         user_identity = UserIdentity.query.filter(
             UserIdentity.id_user == user_pid
@@ -49,9 +49,7 @@ def check_user_deleted(user_pid):
         ).first()
         assert remote_account is None
 
-        user_profile = UserProfile.query.filter(
-            UserProfile.user_id == user_pid
-        ).first()
+        user_profile = UserProfile.query.filter(UserProfile.user_id == user_pid).first()
         assert user_profile is None
 
         user = User.query.filter(User.id == user_pid).first()
@@ -59,13 +57,13 @@ def check_user_deleted(user_pid):
 
 
 def check_user_exists(user_pid):
-    """ Check if user exists in database. """
+    """Check if user exists in database."""
     with db.session.begin_nested():
         assert patron_exists(user_pid)
 
 
 def check_user_activity(app, user_pid, client, json_headers):
-    """ Check if there are records related to the user. """
+    """Check if there are records related to the user."""
     # wait ES refresh
     current_search.flush_and_refresh(index="*")
 
@@ -84,9 +82,7 @@ def check_user_activity(app, user_pid, client, json_headers):
         res = client.get(url, headers=json_headers)
         assert res.get_json()["metadata"]["patron"] == anonymous_patron_fields
 
-    borrowing_requests = (
-        BorrowingRequestsSearch().search_by_patron_pid(user_pid).scan()
-    )
+    borrowing_requests = BorrowingRequestsSearch().search_by_patron_pid(user_pid).scan()
     for hit in borrowing_requests:
         # test ES
         assert hit["patron"] == anonymous_patron_fields
@@ -98,9 +94,7 @@ def check_user_activity(app, user_pid, client, json_headers):
         res = client.get(url, headers=json_headers)
         assert res.get_json()["metadata"]["patron"] == anonymous_patron_fields
 
-    document_requests = (
-        DocumentRequestSearch().search_by_patron_pid(user_pid).scan()
-    )
+    document_requests = DocumentRequestSearch().search_by_patron_pid(user_pid).scan()
     for hit in document_requests:
         # test ES
         assert hit["patron"] == anonymous_patron_fields
@@ -140,9 +134,7 @@ def cancel_active_loans(patron_pid, client, users):
                 transaction_user_pid=str(user.id),
             )
         )
-        current_circulation.circulation.trigger(
-            loan, **dict(params, trigger="cancel")
-        )
+        current_circulation.circulation.trigger(loan, **dict(params, trigger="cancel"))
 
         loan.commit()
         db.session.commit()

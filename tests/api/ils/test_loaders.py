@@ -38,9 +38,7 @@ def test_post_partial_internal_location(client, json_headers, testdata, users):
     user_login(client, "admin", users)
     del NEW_INTERNAL_LOCATION["location_pid"]
     url = url_for("invenio_records_rest.ilocid_list")
-    validate_response(
-        client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 400
-    )
+    validate_response(client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 400)
 
 
 def test_post_item(client, json_headers, testdata, users, item_record):
@@ -48,8 +46,6 @@ def test_post_item(client, json_headers, testdata, users, item_record):
     user_login(client, "admin", users)
     url = url_for("invenio_records_rest.pitmid_list")
     del item_record["pid"]
-    res = validate_response(
-        client, "post", url, json_headers, item_record, 201
-    )
+    res = validate_response(client, "post", url, json_headers, item_record, 201)
     data = json.loads(res.data.decode("utf-8"))["metadata"]
     assert "name" in data["internal_location"]

@@ -54,7 +54,5 @@ def log_error_notification(request, exc, traceback, data, **kwargs):
         exception=repr(exc),
         data=data,
     )
-    current_app.logger.exception(
-        json.dumps(error, sort_keys=True), exc_info=exc
-    )
+    current_app.logger.exception(json.dumps(error, sort_keys=True), exc_info=exc)
     _log_notification_to_db(data, "Error: " + repr(exc))

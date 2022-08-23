@@ -9,10 +9,7 @@
 
 from copy import deepcopy
 
-from invenio_app_ils.errors import (
-    RecordHasReferencesError,
-    RecordRelationsError,
-)
+from invenio_app_ils.errors import RecordHasReferencesError, RecordRelationsError
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.relations.api import (
     MULTIPART_MONOGRAPH_RELATION,
@@ -44,9 +41,7 @@ class RecordRelationsExtraMetadata(object):
         return r
 
     @classmethod
-    def get_extra_metadata_from(
-        cls, record, relation_name, pid_value, pid_type
-    ):
+    def get_extra_metadata_from(cls, record, relation_name, pid_value, pid_type):
         """Return the extra metadata dict for the given PID and type."""
         metadata = record.get(cls.field_name(), {}).get(relation_name, [])
         for m in metadata:
@@ -83,9 +78,7 @@ class RecordRelationsExtraMetadata(object):
         record.commit()
 
     @classmethod
-    def remove_extra_metadata_from(
-        cls, record, relation_name, pid_value, pid_type
-    ):
+    def remove_extra_metadata_from(cls, record, relation_name, pid_value, pid_type):
         """Remove any presence of the given PID in extra metadata."""
         field = cls.field_name()
         if field in record and relation_name in record[field]:
@@ -171,9 +164,7 @@ class RecordRelationsParentChild(RecordRelations):
                 )
 
         # when child is Document, parent is any type of Series
-        is_series_doc = isinstance(child, Document) and isinstance(
-            parent, Series
-        )
+        is_series_doc = isinstance(child, Document) and isinstance(parent, Series)
         # when child is Multipart Monograph, parent is only Serials
         is_serial_mm = (
             isinstance(child, Series)
@@ -215,9 +206,7 @@ class RecordRelationsParentChild(RecordRelations):
 
         if relation_allows_metadata and has_allowed_metadata:
             # filter and keep only allowed metadata
-            allowed = {
-                k: v for k, v in kwargs.items() if k in self.allowed_metadata
-            }
+            allowed = {k: v for k, v in kwargs.items() if k in self.allowed_metadata}
             # store relation metadata in the child record
             RecordRelationsExtraMetadata.add_extra_metadata_to(
                 child,
@@ -261,9 +250,7 @@ class RecordRelationsSiblings(RecordRelations):
         from invenio_app_ils.series.api import Series
 
         # records must be of the same type
-        same_document = isinstance(first, Document) and isinstance(
-            second, Document
-        )
+        same_document = isinstance(first, Document) and isinstance(second, Document)
         same_series = (
             isinstance(first, Series)
             and isinstance(second, Series)
@@ -312,9 +299,7 @@ class RecordRelationsSiblings(RecordRelations):
                 )
             )
 
-        if not (
-            valid_edition_fields or valid_language_fields or valid_other_fields
-        ):
+        if not (valid_edition_fields or valid_language_fields or valid_other_fields):
             raise RecordRelationsError(
                 "Cannot create relation `{}` "
                 "between PID `{}` and  PID `{}`,"
@@ -357,9 +342,7 @@ class RecordRelationsSiblings(RecordRelations):
 
         if has_allowed_metadata:
             # filter and keep only allowed metadata
-            allowed = {
-                k: v for k, v in kwargs.items() if k in self.allowed_metadata
-            }
+            allowed = {k: v for k, v in kwargs.items() if k in self.allowed_metadata}
             # store relation metadata in the first record
             RecordRelationsExtraMetadata.add_extra_metadata_to(
                 first,
@@ -394,9 +377,7 @@ class RecordRelationsSequence(RecordRelations):
         """Constructor."""
         self.relation_types = SEQUENCE_RELATION_TYPES
 
-    def _validate_relation_between_records(
-        self, previous_rec, next_rec, relation_name
-    ):
+    def _validate_relation_between_records(self, previous_rec, next_rec, relation_name):
         """Validate relation between type of records."""
         from invenio_app_ils.series.api import Series
 
@@ -428,17 +409,13 @@ class RecordRelationsSequence(RecordRelations):
         )
 
         sequence_relation = SequenceRelation(relation_type)
-        sequence_relation.add(
-            previous_pid=previous_rec.pid, next_pid=next_rec.pid
-        )
+        sequence_relation.add(previous_pid=previous_rec.pid, next_pid=next_rec.pid)
 
     def remove(self, previous_rec, next_rec, relation_type):
         """Remove sequence relation between previous and next records."""
         self._validate_relation_type(relation_type)
         sequence_relation = SequenceRelation(relation_type)
-        sequence_relation.remove(
-            previous_pid=previous_rec.pid, next_pid=next_rec.pid
-        )
+        sequence_relation.remove(previous_pid=previous_rec.pid, next_pid=next_rec.pid)
 
 
 class IlsRecordWithRelations(IlsRecord):

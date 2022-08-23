@@ -55,13 +55,9 @@ def jsonresolver_loader(url_map):
 
             # grouping by location (can circulate and not on loan)
             location_name = (
-                item.get("internal_location", {})
-                .get("location", {})
-                .get("name", "")
+                item.get("internal_location", {}).get("location", {}).get("name", "")
             )
-            internal_location_name = item.get("internal_location", {}).get(
-                "name", ""
-            )
+            internal_location_name = item.get("internal_location", {}).get("name", "")
             if location_name not in by_location:
                 by_location[location_name] = {
                     internal_location_name: [],

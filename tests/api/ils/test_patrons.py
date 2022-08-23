@@ -28,9 +28,7 @@ def _patron_loans_request(client, json_headers, document_pid):
     return json.loads(response.data.decode("utf-8"))
 
 
-def _assert_patron_loans_information(
-    client, json_headers, document_pid, expect
-):
+def _assert_patron_loans_information(client, json_headers, document_pid, expect):
     """Assert patron loan information."""
     resp = _patron_loans_request(client, json_headers, document_pid)
     assert resp == expect
@@ -62,9 +60,7 @@ def test_patrons_permissions(client, testdata, json_headers, users):
         _test_list(expected_status)
 
 
-def test_patron_loans_information(
-    client, json_headers, testdata_most_loaned, users
-):
+def test_patron_loans_information(client, json_headers, testdata_most_loaned, users):
     """Test patron loans information API endpoint."""
     _assert_error_when_not_authenticated(client, json_headers, "docid-1")
     user_login(client, "librarian", users)

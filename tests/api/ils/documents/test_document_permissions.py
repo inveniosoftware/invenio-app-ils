@@ -53,17 +53,13 @@ def test_open_access_permissions(client, json_headers, testdata, users):
 
         # list endpoint
         user_login(client, user, users)
-        url = url_for(
-            "invenio_records_rest.docid_list", q="pid:{}".format(pid)
-        )
+        url = url_for("invenio_records_rest.docid_list", q="pid:{}".format(pid))
         res = client.get(url, headers=json_headers)
         hits = json.loads(res.data.decode("utf-8"))
         assert hits["hits"]["total"] == n_hits
 
 
-def test_access_permissions(
-    client, json_headers, testdata, users, with_access
-):
+def test_access_permissions(client, json_headers, testdata, users, with_access):
     """Test GET documents with `_access` ignoring `restricted`."""
     # set the documents to have read access only by patron2. `_access` should
     # be taken into account and take precedence over `restricted`.
@@ -98,9 +94,7 @@ def test_access_permissions(
 
         # list endpoint
         user_login(client, user, users)
-        url = url_for(
-            "invenio_records_rest.docid_list", q="pid:{}".format(pid)
-        )
+        url = url_for("invenio_records_rest.docid_list", q="pid:{}".format(pid))
         res = client.get(url, headers=json_headers)
         hits = json.loads(res.data.decode("utf-8"))
         assert hits["hits"]["total"] == n_hits

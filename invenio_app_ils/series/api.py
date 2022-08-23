@@ -43,9 +43,7 @@ class Series(IlsRecordWithRelations):
 
     _pid_type = SERIES_PID_TYPE
     _schema = "series/series-v1.0.0.json"
-    _relations_path = (
-        "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
-    )
+    _relations_path = "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
 
     MODE_OF_ISSUANCE = [
         "MULTIPART_MONOGRAPH",
@@ -80,14 +78,14 @@ class Series(IlsRecordWithRelations):
         related_refs = set()
         pcr_multipart = ParentChildRelation(MULTIPART_MONOGRAPH_RELATION)
         pcr_serial = ParentChildRelation(SERIAL_RELATION)
-        related_multipart_volumes = pcr_multipart.get_children_of(
-            self.pid)
-        related_serial_volumes = pcr_serial.get_children_of(
-            self.pid)
-        for child_pid in related_serial_volumes + \
-                related_multipart_volumes:
-            related_refs.add("{pid_value}:{pid_type}".format(
-                pid_value=child_pid.pid_value, pid_type=child_pid.pid_type))
+        related_multipart_volumes = pcr_multipart.get_children_of(self.pid)
+        related_serial_volumes = pcr_serial.get_children_of(self.pid)
+        for child_pid in related_serial_volumes + related_multipart_volumes:
+            related_refs.add(
+                "{pid_value}:{pid_type}".format(
+                    pid_value=child_pid.pid_value, pid_type=child_pid.pid_type
+                )
+            )
 
         if related_refs:
             raise RecordHasReferencesError(

@@ -31,9 +31,7 @@ def jsonresolver_loader(url_map):
     def borrowing_request_resolver(request_pid):
         """Return the Provider record for the given Brw Request or raise."""
         request_record_cls = current_ils_ill.borrowing_request_record_cls
-        provider_pid = get_field_value(
-            request_record_cls, request_pid, "provider_pid"
-        )
+        provider_pid = get_field_value(request_record_cls, request_pid, "provider_pid")
 
         provider_record_cls = current_ils_prov.provider_record_cls
         provider = provider_record_cls.get_record_by_pid(provider_pid)

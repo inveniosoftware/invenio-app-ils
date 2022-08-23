@@ -44,9 +44,7 @@ def _assert_most_loaned(client, json_headers, from_date, to_date, expect):
         assert hit["metadata"]["loan_extensions"] == expect[pid]["extensions"]
 
 
-def test_stats_most_loaned_documents(
-    client, json_headers, testdata_most_loaned, users
-):
+def test_stats_most_loaned_documents(client, json_headers, testdata_most_loaned, users):
     """Test most loaned documents API endpoint."""
     user_login(client, "librarian", users)
 
@@ -64,9 +62,7 @@ def test_stats_most_loaned_documents(
         },
     )
     # Test checking range which should be empty
-    _assert_most_loaned(
-        client, json_headers, "2019-01-01", "2019-01-01", expect={}
-    )
+    _assert_most_loaned(client, json_headers, "2019-01-01", "2019-01-01", expect={})
     # Test range only including the first loan
     _assert_most_loaned(
         client,
@@ -94,9 +90,7 @@ def test_stats_most_loaned_documents(
         expect={"docid-3": dict(loans=1, extensions=3)},
     )
     # outside end range
-    _assert_most_loaned(
-        client, json_headers, "2019-05-21", "2019-12-31", expect={}
-    )
+    _assert_most_loaned(client, json_headers, "2019-05-21", "2019-12-31", expect={})
 
 
 def test_stats_downloads_views_permissions(
@@ -121,14 +115,10 @@ def test_stats_downloads_views_permissions(
 
     # permission for librarian
     user_login(client, "librarian", users)
-    res = client.post(
-        url_open_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
-    res = client.post(
-        url_closed_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_closed_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
     user_logout(client)
@@ -136,25 +126,17 @@ def test_stats_downloads_views_permissions(
     # permission for patron
     user_login(client, "patron1", users)
 
-    res = client.post(
-        url_open_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
-    res = client.post(
-        url_closed_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_closed_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 403
 
     user_logout(client)
 
     # permission for unauthenticated user
-    res = client.post(
-        url_open_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
-    res = client.post(
-        url_closed_access, headers=json_headers, data=json.dumps(params)
-    )
+    res = client.post(url_closed_access, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 401

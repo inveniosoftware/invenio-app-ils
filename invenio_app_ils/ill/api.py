@@ -125,8 +125,7 @@ class BorrowingRequest(IlsRecord):
         "borrowing-requests/{brw_req_pid}/provider"
     )
     _patron_resolver_path = (
-        "{scheme}://{host}/api/resolver/ill/"
-        "borrowing-requests/{brw_req_pid}/patron"
+        "{scheme}://{host}/api/resolver/ill/" "borrowing-requests/{brw_req_pid}/patron"
     )
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
     EXTENSION_STATUSES = ["PENDING", "DECLINED"]

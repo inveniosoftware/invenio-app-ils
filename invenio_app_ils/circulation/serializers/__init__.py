@@ -23,5 +23,4 @@ json_v1 = LoanJSONSerializer(ILSRecordSchemaJSONV1, replace_refs=True)
 json_v1_response = record_responsify_no_etag(json_v1, "application/json")
 json_v1_search = search_responsify(json_v1, "application/json")
 
-bulk_extend_v1_response = bulk_loan_extend_responsify(json_v1,
-                                                      'application/json')
+bulk_extend_v1_response = bulk_loan_extend_responsify(json_v1, "application/json")

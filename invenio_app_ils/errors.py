@@ -101,8 +101,7 @@ class ItemHasActiveLoanError(IlsException):
     """The item which we are trying to update has an active loan."""
 
     description = (
-        "Could not update item because it has an active loan with "
-        "pid: {loan_pid}."
+        "Could not update item because it has an active loan with " "pid: {loan_pid}."
     )
 
     def __init__(self, loan_pid, **kwargs):

@@ -138,9 +138,7 @@ def test_extensions():
         "accelerator_experiments": {
             "@context": "https://example.com/accelerator_experiments/terms"
         },
-        "standard_status": {
-            "@context": "https://example.com/standard_status/terms"
-        },
+        "standard_status": {"@context": "https://example.com/standard_status/terms"},
     }
 
     ILS_RECORDS_METADATA_EXTENSIONS = {

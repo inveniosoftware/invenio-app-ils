@@ -90,14 +90,12 @@ def test_message_with_missing_template(app_with_notifs):
 
 def test_send_message_backend(app_with_notifs, users, testdata, mocker):
     """Test that notifications backend is called when sending."""
-    send_mocked = mocker.patch(
-        "invenio_app_ils.notifications.backends.mail.send"
-    )
+    send_mocked = mocker.patch("invenio_app_ils.notifications.backends.mail.send")
     send_mocked.__name__ = "send"
     send_mocked.__annotations__ = "send"
     backends = mocker.patch(
         "invenio_app_ils.notifications.api._get_notification_backends",
-        return_value=[send_mocked]
+        return_value=[send_mocked],
     )
     with app_with_notifs.app_context():
         # remove footer
@@ -116,17 +114,11 @@ class FakeMessage(NotificationMsg):
         super().__init__(template, **kwargs)
 
 
-def test_log_successful_error_mail_task(
-    app_with_notifs, users, testdata, mocker
-):
+def test_log_successful_error_mail_task(app_with_notifs, users, testdata, mocker):
     """Test that a successfully sent email is logged."""
     # !attention the mocker has to patch function where it is used, not defined
-    succ = mocker.patch(
-        "invenio_app_ils.notifications.api.log_successful_notification"
-    )
-    err = mocker.patch(
-        "invenio_app_ils.notifications.api.log_error_notification"
-    )
+    succ = mocker.patch("invenio_app_ils.notifications.api.log_successful_notification")
+    err = mocker.patch("invenio_app_ils.notifications.api.log_error_notification")
 
     patron = Patron(users["patron1"].id)
 
@@ -137,8 +129,9 @@ def test_log_successful_error_mail_task(
     assert err.s.called
 
 
-def test_notifications_db_table_and_endpoint(users, client, json_headers,
-                                             app_with_notifs):
+def test_notifications_db_table_and_endpoint(
+    users, client, json_headers, app_with_notifs
+):
     """Test logging of notifs in db table and read from endpoint."""
     request = {"id": "test-id", "task": "test-task"}
     data = {
@@ -165,9 +158,7 @@ def test_notifications_db_table_and_endpoint(users, client, json_headers,
     user_login(client, "librarian", users)
     url = url_for(LIST_ENDPOINT)
     res = client.get(url, headers=json_headers)
-    assert (
-        res.get_json()["hits"][0]["send_log"] == "Error: 'An error occurred.'"
-    )
+    assert res.get_json()["hits"][0]["send_log"] == "Error: 'An error occurred.'"
     assert res.get_json()["hits"][1]["send_log"] == "Success"
 
     url = url_for(ITEM_ENDPOINT, id=1)
@@ -178,6 +169,5 @@ def test_notifications_db_table_and_endpoint(users, client, json_headers,
     url = url_for(ITEM_ENDPOINT, id=2)
     res = client.get(url, headers=json_headers)
 
-    assert res.get_json()["send_log"] ==\
-           "Error: 'An error occurred.'"
+    assert res.get_json()["send_log"] == "Error: 'An error occurred.'"
     assert res.get_json()["id"] == 2

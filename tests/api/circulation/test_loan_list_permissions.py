@@ -26,9 +26,7 @@ def test_anonymous_cannot_search_any_loan(client, json_headers, users):
     assert res.status_code == 401
 
 
-def test_admin_or_librarian_can_search_any_loan(
-    client, json_headers, users, testdata
-):
+def test_admin_or_librarian_can_search_any_loan(client, json_headers, users, testdata):
     """Test that admins and librarians can search any loan."""
     for username in ["admin", "librarian"]:
         user_login(client, username, users)
@@ -38,9 +36,7 @@ def test_admin_or_librarian_can_search_any_loan(
         assert len(hits["hits"]["hits"]) == len(testdata["loans"])
 
 
-def test_patrons_can_search_their_own_loans(
-    client, json_headers, users, testdata
-):
+def test_patrons_can_search_their_own_loans(client, json_headers, users, testdata):
     """Test that patrons can search their own loans."""
 
     def _validate_only_patron_loans(res, user, state):
@@ -74,9 +70,7 @@ def test_patrons_can_search_their_own_loans(
         _validate_only_patron_loans(res, user, state)
 
 
-def test_patrons_cannot_search_other_loans(
-    client, json_headers, users, testdata
-):
+def test_patrons_cannot_search_other_loans(client, json_headers, users, testdata):
     """Test that patrons cannot search for loans of other patrons."""
     user_login(client, "patron1", users)
     res = _search_loans(

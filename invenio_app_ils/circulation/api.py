@@ -54,9 +54,7 @@ ILS_CIRCULATION_LOAN_FETCHER = "ilsloanid"
 IlsCirculationLoanIdProvider = type(
     "IlsCirculationLoanIdProvider",
     (RecordIdProviderV2,),
-    dict(
-        pid_type=CIRCULATION_LOAN_PID_TYPE, default_status=PIDStatus.REGISTERED
-    ),
+    dict(pid_type=CIRCULATION_LOAN_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
 ils_circulation_loan_pid_minter = partial(
     pid_minter, provider_cls=IlsCirculationLoanIdProvider
@@ -90,16 +88,12 @@ def _set_item_to_can_circulate(item_pid):
 
 def patron_has_request_on_document(patron_pid, document_pid):
     """Return loan request for given patron and document."""
-    states = (
-        current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
-    )
+    states = current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
     search = search_by_patron_item_or_document(
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-    total = (
-        search_result.hits.total if lt_es7 else search_result.hits.total.value
-    )
+    total = search_result.hits.total if lt_es7 else search_result.hits.total.value
     if total > 0:
         return search_result.hits[0]
     else:
@@ -116,9 +110,7 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-    total = (
-        search_result.hits.total if lt_es7 else search_result.hits.total.value
-    )
+    total = search_result.hits.total if lt_es7 else search_result.hits.total.value
     if total > 0:
         return search_result.hits[0]
     else:
@@ -179,9 +171,7 @@ def patron_has_active_loan_on_item(patron_pid, item_pid):
     )
     search_result = search.execute()
     return (
-        search_result.hits.total > 0
-        if lt_es7
-        else search_result.hits.total.value > 0
+        search_result.hits.total > 0 if lt_es7 else search_result.hits.total.value > 0
     )
 
 
@@ -207,9 +197,7 @@ def checkout_loan(
         circulate.
     """
     loan_cls = current_circulation.loan_record_cls
-    if patron_has_active_loan_on_item(
-        patron_pid=patron_pid, item_pid=item_pid
-    ):
+    if patron_has_active_loan_on_item(patron_pid=patron_pid, item_pid=item_pid):
         raise PatronHasLoanOnItemError(patron_pid, item_pid)
     optional_delivery = kwargs.get("delivery")
     if optional_delivery:
@@ -229,9 +217,7 @@ def checkout_loan(
     )
 
     # check if there is an existing request
-    loan = patron_has_request_on_document(
-        patron_pid, kwargs.get("document_pid")
-    )
+    loan = patron_has_request_on_document(patron_pid, kwargs.get("document_pid"))
     if loan:
         loan = loan_cls.get_record_by_pid(loan.pid)
         pid = IlsCirculationLoanIdProvider.get(loan["pid"]).pid
@@ -255,8 +241,9 @@ def bulk_extend_loans(patron_pid, **kwargs):
     """Bulk extend qualified loans."""
     loan_class = current_circulation.loan_record_cls
 
-    loans_search = \
-        get_all_expiring_or_overdue_loans_by_patron_pid(patron_pid=patron_pid)
+    loans_search = get_all_expiring_or_overdue_loans_by_patron_pid(
+        patron_pid=patron_pid
+    )
 
     extended_loans = []
     not_extended_loans = []
@@ -270,7 +257,7 @@ def bulk_extend_loans(patron_pid, **kwargs):
                 **dict(
                     params,
                     trigger="extend",
-                    transition_kwargs=dict(send_notification=False)
+                    transition_kwargs=dict(send_notification=False),
                 )
             )
             extended_loans.append(extended_loan)
@@ -303,13 +290,13 @@ def update_dates_loan(
         if request_start_date or request_expire_date:
             raise IlsException(
                 description="Cannot modify request dates of "
-                            "an active or completed loan."
+                "an active or completed loan."
             )
         if start_date:
             if start_date > today:
                 raise InvalidParameterError(
                     description="Start date cannot be in "
-                                "the future for active loans."
+                    "the future for active loans."
                 )
             data["start_date"] = start_date
         if end_date:
@@ -319,8 +306,7 @@ def update_dates_loan(
     else:  # Pending or cancelled
         if start_date or end_date:
             raise IlsException(
-                description="Cannot modify dates of "
-                            "a pending or cancelled loan."
+                description="Cannot modify dates of " "a pending or cancelled loan."
             )
         if request_start_date:
             data["request_start_date"] = request_start_date

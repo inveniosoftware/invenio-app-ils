@@ -45,12 +45,8 @@ def search_filter_record_permissions():
         # if not `_access`, check if open access as before.
         _access_field_exists = Q("exists", field="_access.read")
         provides = _get_user_provides()
-        user_can_read = _access_field_exists & Q(
-            "terms", **{"_access.read": provides}
-        )
-        combined_filter = user_can_read | (
-            ~_access_field_exists & ~is_restricted
-        )
+        user_can_read = _access_field_exists & Q("terms", **{"_access.read": provides})
+        combined_filter = user_can_read | (~_access_field_exists & ~is_restricted)
 
     return Q("bool", filter=[combined_filter])
 
@@ -118,9 +114,7 @@ def _filter_by_patron(patron_id, search, query_string=None):
 def _filter_by_current_patron(search, query_string=None):
     """Filter search results by patron_pid."""
     # if the logged in user is not librarian or admin, validate the query
-    if has_request_context() and not backoffice_permission().allows(
-        g.identity
-    ):
+    if has_request_context() and not backoffice_permission().allows(g.identity):
         return _filter_by_patron(g.identity.id, search, query_string)
     return search, query_string
 

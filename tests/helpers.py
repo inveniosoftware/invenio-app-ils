@@ -85,14 +85,10 @@ def validate_data(key, expected_output, res):
         assert data[key] == expected_output
 
 
-def validate_response(
-    client, req_method, url, headers, data, expected_resp_code
-):
+def validate_response(client, req_method, url, headers, data, expected_resp_code):
     """Util function testing response code."""
     if data:
-        res = getattr(client, req_method)(
-            url, headers=headers, data=json.dumps(data)
-        )
+        res = getattr(client, req_method)(url, headers=headers, data=json.dumps(data))
     else:
         res = getattr(client, req_method)(url, headers=headers)
     assert expected_resp_code == res.status_code

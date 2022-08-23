@@ -48,14 +48,10 @@ def test_ill_brwreqs_list_permissions(client, testdata, json_headers, users):
     # create records
     list_url = url_for(LIST_ENDPOINT)
     user_login(client, "admin", users)
-    res = client.post(
-        list_url, headers=json_headers, data=json.dumps(patron1_brwreq)
-    )
+    res = client.post(list_url, headers=json_headers, data=json.dumps(patron1_brwreq))
     patron1_brwreq_pid = res.get_json()["metadata"]["pid"]
 
-    res = client.post(
-        list_url, headers=json_headers, data=json.dumps(patron2_brwreq)
-    )
+    res = client.post(list_url, headers=json_headers, data=json.dumps(patron2_brwreq))
     patron2_brwreq_pid = res.get_json()["metadata"]["pid"]
     all_pids = [patron1_brwreq_pid, patron2_brwreq_pid]
     # wait for ES
@@ -72,9 +68,7 @@ def test_ill_brwreqs_list_permissions(client, testdata, json_headers, users):
         user_login(client, username, users)
         results = _test_list(expected_status, all_pids)
         assert results["hits"]["total"] == len(expected_pids)
-        found_pids = [
-            hit["metadata"]["pid"] for hit in results["hits"]["hits"]
-        ]
+        found_pids = [hit["metadata"]["pid"] for hit in results["hits"]["hits"]]
         assert set(expected_pids) == set(found_pids)
 
     # anonymous

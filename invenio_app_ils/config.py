@@ -49,9 +49,7 @@ from .document_requests.api import (
     DOCUMENT_REQUEST_PID_TYPE,
     DocumentRequest,
 )
-from .document_requests.notifications.api import (
-    document_request_notification_filter,
-)
+from .document_requests.notifications.api import document_request_notification_filter
 from .document_requests.search import DocumentRequestSearch
 from .documents.api import (
     DOCUMENT_PID_FETCHER,
@@ -60,12 +58,7 @@ from .documents.api import (
     Document,
 )
 from .documents.search import DocumentSearch
-from .eitems.api import (
-    EITEM_PID_FETCHER,
-    EITEM_PID_MINTER,
-    EITEM_PID_TYPE,
-    EItem,
-)
+from .eitems.api import EITEM_PID_FETCHER, EITEM_PID_MINTER, EITEM_PID_TYPE, EItem
 from .eitems.search import EItemSearch
 from .facets import (
     default_value_when_missing_filter,
@@ -104,12 +97,7 @@ from .permissions import (
     views_permissions_factory,
 )
 from .records.permissions import record_read_permission_factory
-from .series.api import (
-    SERIES_PID_FETCHER,
-    SERIES_PID_MINTER,
-    SERIES_PID_TYPE,
-    Series,
-)
+from .series.api import SERIES_PID_FETCHER, SERIES_PID_MINTER, SERIES_PID_TYPE, Series
 from .series.search import SeriesSearch
 from .views import UserInfoResource
 from .vocabularies.api import (
@@ -155,9 +143,13 @@ BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 # Notifications configuration
 ###############################################################################
 # The backends to use when sending notifications.
-ILS_NOTIFICATIONS_BACKENDS_BUILDER = "invenio_app_ils.notifications.backends:notifications_backend_builder"  # noqa
+ILS_NOTIFICATIONS_BACKENDS_BUILDER = (
+    "invenio_app_ils.notifications.backends:notifications_backend_builder"  # noqa
+)
 # Notification message creator
-ILS_NOTIFICATIONS_MSG_BUILDER = "invenio_app_ils.notifications.messages:notification_msg_builder"  # noqa
+ILS_NOTIFICATIONS_MSG_BUILDER = (
+    "invenio_app_ils.notifications.messages:notification_msg_builder"  # noqa
+)
 # Override default global common templates
 ILS_NOTIFICATIONS_TEMPLATES = {"footer": "footer.html"}
 # DOCUMENT REQUESTS
@@ -166,8 +158,7 @@ ILS_NOTIFICATIONS_MSG_BUILDER_DOCUMENT_REQUEST = "invenio_app_ils.document_reque
 # Override default document requests templates
 ILS_NOTIFICATIONS_TEMPLATES_DOCUMENT_REQUEST = {}
 # Function to select and filter which notifications should be sent
-ILS_NOTIFICATIONS_FILTER_DOCUMENT_REQUEST = \
-    document_request_notification_filter
+ILS_NOTIFICATIONS_FILTER_DOCUMENT_REQUEST = document_request_notification_filter
 ###############################################################################
 # Email configuration
 ###############################################################################
@@ -324,23 +315,13 @@ OAISERVER_ID_PREFIX = "oai:invenio-app-ils:"
 ###############################################################################
 # RECORDS REST
 ###############################################################################
-_DOCID_CONVERTER = (
-    'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
-)
-_PITMID_CONVERTER = (
-    'pid(pitmid, record_class="invenio_app_ils.items.api:Item")'
-)
-_EITMID_CONVERTER = (
-    'pid(eitmid, record_class="invenio_app_ils.eitems.api:EItem")'
-)
-_LOCID_CONVERTER = (
-    'pid(locid, record_class="invenio_app_ils.locations.api:Location")'
-)
+_DOCID_CONVERTER = 'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
+_PITMID_CONVERTER = 'pid(pitmid, record_class="invenio_app_ils.items.api:Item")'
+_EITMID_CONVERTER = 'pid(eitmid, record_class="invenio_app_ils.eitems.api:EItem")'
+_LOCID_CONVERTER = 'pid(locid, record_class="invenio_app_ils.locations.api:Location")'
 _ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.internal_locations.api:InternalLocation")'  # noqa
 _DREQID_CONVERTER = 'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'  # noqa
-_SERID_CONVERTER = (
-    'pid(serid, record_class="invenio_app_ils.series.api:Series")'
-)
+_SERID_CONVERTER = 'pid(serid, record_class="invenio_app_ils.series.api:Series")'
 
 RECORDS_REST_MAX_RESULT_WINDOW = 10000
 RECORDS_REST_VOCAB_MAX_RESULT_WINDOW = 500
@@ -358,9 +339,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=DocumentIndexer,
         search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.documents.loaders:document_loader"
-            )
+            "application/json": ("invenio_app_ils.documents.loaders:document_loader")
         },
         record_serializers={
             "application/json": (
@@ -371,9 +350,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.literature.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -401,14 +378,10 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": "invenio_app_ils.items.loaders:item_loader"
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.items.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.items.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.items.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.items.serializers:json_v1_search"),
             "text/csv": "invenio_app_ils.items.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -437,14 +410,10 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": "invenio_app_ils.eitems.loaders:eitem_loader"
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -470,19 +439,13 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Location,
         indexer_class=LocationIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.locations.loaders:location_loader"
-            )
+            "application/json": ("invenio_app_ils.locations.loaders:location_loader")
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search")
         },
         search_serializers_aliases={
             "json": "application/json",
@@ -507,9 +470,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=SeriesIndexer,
         search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.series.loaders:series_loader"
-            )
+            "application/json": ("invenio_app_ils.series.loaders:series_loader")
         },
         record_serializers={
             "application/json": (
@@ -520,9 +481,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.literature.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -552,22 +511,16 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
-            )
+            "application/json": ("invenio_records_rest.serializers:json_v1_search")
         },
         search_serializers_aliases={
             "json": "application/json",
         },
         list_route="/internal-locations/",
-        item_route="/internal-locations/<{0}:pid_value>".format(
-            _ILOCID_CONVERTER
-        ),
+        item_route="/internal-locations/<{0}:pid_value>".format(_ILOCID_CONVERTER),
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -585,14 +538,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Patron,
         indexer_class=PatronIndexer,
         record_serializers={
-            "application/json": (
-                "invenio_records_rest.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_records_rest.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -624,14 +573,10 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -639,9 +584,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "json": "application/json",
         },
         list_route="/document-requests/",
-        item_route="/document-requests/<{0}:pid_value>".format(
-            _DREQID_CONVERTER
-        ),
+        item_route="/document-requests/<{0}:pid_value>".format(_DREQID_CONVERTER),
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -660,23 +603,17 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=VocabularyIndexer,
         record_class=Vocabulary,
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
             "json": "application/json",
         },
-        item_route="/vocabularies/<pid({}):pid_value>".format(
-            VOCABULARY_PID_TYPE
-        ),
+        item_route="/vocabularies/<pid({}):pid_value>".format(VOCABULARY_PID_TYPE),
         list_route="/vocabularies/",
         default_media_type="application/json",
         max_result_window=RECORDS_REST_VOCAB_MAX_RESULT_WINDOW,
@@ -704,17 +641,13 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.literature.serializers:json_v1_search"
             ),
-            "text/csv": (
-                "invenio_app_ils.literature.serializers:csv_v1_search"
-            ),
+            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
             "csv": "text/csv",
             "json": "application/json",
         },
-        item_route="/literature/<pid({}):pid_value>".format(
-            LITERATURE_PID_TYPE
-        ),
+        item_route="/literature/<pid({}):pid_value>".format(LITERATURE_PID_TYPE),
         list_route="/literature/",
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
@@ -907,11 +840,7 @@ RECORDS_REST_FACETS = dict(
                     filters=dict(
                         has_files=dict(exists=dict(field="files.file_id")),
                         no_files=dict(
-                            bool=dict(
-                                must_not=dict(
-                                    exists=dict(field="files.file_id")
-                                )
-                            )
+                            bool=dict(must_not=dict(exists=dict(field="files.file_id")))
                         ),
                     )
                 )
@@ -919,9 +848,7 @@ RECORDS_REST_FACETS = dict(
         ),
         post_filters=dict(
             access=terms_filter("open_access"),
-            has_files=exists_value_filter(
-                "files.file_id", filter_value="has_files"
-            ),
+            has_files=exists_value_filter("files.file_id", filter_value="has_files"),
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index

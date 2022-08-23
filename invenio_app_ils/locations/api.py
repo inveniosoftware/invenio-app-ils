@@ -45,9 +45,7 @@ class Location(IlsRecord):
     def delete(self, **kwargs):
         """Delete Location record."""
         iloc_search = current_app_ils.internal_location_search_cls()
-        iloc_search_res = iloc_search.search_by_location_pid(
-            location_pid=self["pid"]
-        )
+        iloc_search_res = iloc_search.search_by_location_pid(location_pid=self["pid"])
         if iloc_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Location",

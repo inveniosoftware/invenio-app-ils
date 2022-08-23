@@ -29,7 +29,9 @@ from .search import BorrowingRequestsSearch
 ###############################################################################
 # ILS ILL
 ###############################################################################
-ILS_ILL_NOTIFICATIONS_MSG_BUILDER = "invenio_app_ils.ill.notifications.messages:notification_ill_msg_builder"  # noqa
+ILS_ILL_NOTIFICATIONS_MSG_BUILDER = (
+    "invenio_app_ils.ill.notifications.messages:notification_ill_msg_builder"  # noqa
+)
 # Override default templates
 ILS_ILL_NOTIFICATIONS_TEMPLATES = {}
 # Function to select and filter which notifications should be sent
@@ -54,19 +56,13 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=RecordIndexer,
         record_class=BorrowingRequest,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.ill.loaders:borrowing_request_loader"
-            )
+            "application/json": ("invenio_app_ils.ill.loaders:borrowing_request_loader")
         },
         record_serializers={
-            "application/json": (
-                "invenio_app_ils.ill.serializers:json_v1_response"
-            )
+            "application/json": ("invenio_app_ils.ill.serializers:json_v1_response")
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.ill.serializers:json_v1_search"
-            ),
+            "application/json": ("invenio_app_ils.ill.serializers:json_v1_search"),
             "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
         },
         search_serializers_aliases={
@@ -122,9 +118,7 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             status=dict(terms=dict(field="status")),
             provider=dict(
-                terms=dict(
-                    field="provider.name.keyword", size=FACET_PROVIDER_LIMIT
-                )
+                terms=dict(field="provider.name.keyword", size=FACET_PROVIDER_LIMIT)
             ),
             patron_loan_extension=dict(
                 terms=dict(field="patron_loan.extension.status")

@@ -31,9 +31,7 @@ def request_start_date_default():
 
 def request_expire_date_default():
     """Set default value for request_expire_date field."""
-    duration_days = current_app.config[
-        "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
-    ]
+    duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
     duration = timedelta(days=duration_days)
     now = arrow.get().utcnow()
     return (now + duration).date().isoformat()
@@ -84,9 +82,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         """Validate dates values."""
         start = arrow.get(data["request_start_date"]).date()
         end = arrow.get(data["request_expire_date"]).date()
-        duration_days = current_app.config[
-            "ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
-        ]
+        duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
         duration = timedelta(days=duration_days)
 
         if end < start:
@@ -99,9 +95,8 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
                 }
             )
         elif end - start > duration:
-            message = (
-                "The request duration "
-                + "cannot be longer than {} days.".format(duration_days)
+            message = "The request duration " + "cannot be longer than {} days.".format(
+                duration_days
             )
             raise ValidationError(
                 {

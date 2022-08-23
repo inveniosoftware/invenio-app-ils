@@ -21,9 +21,7 @@ lt_es7 = ES_VERSION[0] < 7
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
 
-REF_LICENSE_URL_ABSOLUTE_PATH = (
-    "{scheme}://{host}/api/resolver/licenses/{license_id}"
-)
+REF_LICENSE_URL_ABSOLUTE_PATH = "{scheme}://{host}/api/resolver/licenses/{license_id}"
 REF_LICENSE_URL_RELATIVE_PATH = "/api/resolver/licenses/<license_id>"
 
 
@@ -41,11 +39,7 @@ def jsonresolver_loader(url_map):
             type=VOCABULARY_TYPE_LICENSE, key=unquote_plus(_id)
         )
         search_result = search.execute()
-        total = (
-            search_result.hits.total
-            if lt_es7
-            else search_result.hits.total.value
-        )
+        total = search_result.hits.total if lt_es7 else search_result.hits.total.value
 
         _license = dict()
         if total == 1:

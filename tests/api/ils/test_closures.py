@@ -71,8 +71,7 @@ def test_location_permissions(client, testdata, json_headers, users):
     dummy_location = dict(
         name=_LOCATION_NAME,
         opening_weekdays=[
-            {"weekday": w, "is_open": True, "times": _DEFAULT_TIMES}
-            for w in _WEEKDAYS
+            {"weekday": w, "is_open": True, "times": _DEFAULT_TIMES} for w in _WEEKDAYS
         ],
         opening_exceptions=[],
     )
@@ -136,9 +135,7 @@ def test_location_permissions(client, testdata, json_headers, users):
 
 def test_location_validation(client, json_headers, users, testdata):
     def _test_update_location_closures(data, expected_code):
-        url = url_for(
-            "invenio_records_rest.locid_item", pid_value=_LOCATION_PID
-        )
+        url = url_for("invenio_records_rest.locid_item", pid_value=_LOCATION_PID)
         res = client.get(url, headers=json_headers)
         assert res.status_code == 200
         metadata = res.get_json()["metadata"]
@@ -161,9 +158,7 @@ def test_location_validation(client, json_headers, users, testdata):
 
     def _test_update_times(times, expected_code):
         ref = "monday"
-        times_data = [
-            {"start_time": start, "end_time": end} for start, end in times
-        ]
+        times_data = [{"start_time": start, "end_time": end} for start, end in times]
         data = [
             {
                 "weekday": w,
@@ -271,9 +266,7 @@ def test_find_next_open_date(app, db, testdata):
         Location = current_app_ils.location_record_cls
         record = Location.get_record_by_pid(_LOCATION_PID)
 
-        record.update(
-            _build_location_closures_data(closed_weekdays, exceptions)
-        )
+        record.update(_build_location_closures_data(closed_weekdays, exceptions))
         record.commit()
         db.session.commit()
         current_app_ils.location_indexer.index(record)
@@ -281,9 +274,7 @@ def test_find_next_open_date(app, db, testdata):
         return record
 
     def _test(start_date, expected_next_open_date):
-        next_open = find_next_open_date(
-            _LOCATION_PID, _date_from_string(start_date)
-        )
+        next_open = find_next_open_date(_LOCATION_PID, _date_from_string(start_date))
         if expected_next_open_date:
             assert next_open == _date_from_string(expected_next_open_date)
         else:

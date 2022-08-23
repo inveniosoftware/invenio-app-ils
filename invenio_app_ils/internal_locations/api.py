@@ -14,10 +14,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
-from invenio_app_ils.errors import (
-    LocationNotFoundError,
-    RecordHasReferencesError,
-)
+from invenio_app_ils.errors import LocationNotFoundError, RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils

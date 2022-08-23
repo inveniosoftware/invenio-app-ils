@@ -19,8 +19,6 @@ csv_v1 = BorrowingRequestCSVSerializer(ILSRecordSchemaJSONV1)
 csv_v1_response = record_responsify_no_etag(csv_v1, "text/csv")
 csv_v1_search = search_responsify(csv_v1, "text/csv")
 
-json_v1 = BorrowingRequestJSONSerializer(
-    ILSRecordSchemaJSONV1, replace_refs=True
-)
+json_v1 = BorrowingRequestJSONSerializer(ILSRecordSchemaJSONV1, replace_refs=True)
 json_v1_response = record_responsify_no_etag(json_v1, "application/json")
 json_v1_search = search_responsify(json_v1, "application/json")

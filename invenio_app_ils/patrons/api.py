@@ -29,9 +29,7 @@ PatronIdProvider = type(
     dict(pid_type=PATRON_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
 patron_pid_minter = None
-patron_pid_fetcher = partial(
-    pid_fetcher, provider_cls=PatronIdProvider, pid_field="id"
-)
+patron_pid_fetcher = partial(pid_fetcher, provider_cls=PatronIdProvider, pid_field="id")
 
 
 class Patron(dict):

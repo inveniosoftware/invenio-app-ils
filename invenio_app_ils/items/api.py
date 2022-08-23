@@ -11,10 +11,7 @@ from functools import partial
 
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_pidstore.errors import (
-    PersistentIdentifierError,
-    PIDDoesNotExistError,
-)
+from invenio_pidstore.errors import PersistentIdentifierError, PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
@@ -82,9 +79,7 @@ class ItemValidator(RecordValidator):
             has_loans = (
                 search_by_pid(
                     item_pid=item_pid,
-                    filter_states=current_app.config[
-                        "CIRCULATION_STATES_LOAN_ACTIVE"
-                    ]
+                    filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
                     + current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
                     + current_app.config["CIRCULATION_STATES_LOAN_CANCELLED"],
                 ).count()
@@ -115,15 +110,11 @@ class Item(IlsRecord):
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
     _validator = ItemValidator()
-    _loan_resolver_path = (
-        "{scheme}://{host}/api/resolver/items/{item_pid}/loan"
-    )
+    _loan_resolver_path = "{scheme}://{host}/api/resolver/items/{item_pid}/loan"
     _internal_location_resolver_path = (
         "{scheme}://{host}/api/resolver/items/{item_pid}/internal-location"
     )
-    _document_resolver_path = (
-        "{scheme}://{host}/api/resolver/items/{item_pid}/document"
-    )
+    _document_resolver_path = "{scheme}://{host}/api/resolver/items/{item_pid}/document"
     STATUSES = [
         "CAN_CIRCULATE",
         "FOR_REFERENCE_ONLY",

@@ -62,9 +62,7 @@ class EItem(IlsRecord):
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/document"
     )
-    _files_resolver_path = (
-        "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/files"
-    )
+    _files_resolver_path = "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/files"
     _validator = EItemValidator()
 
     @classmethod
@@ -113,7 +111,5 @@ class EItem(IlsRecord):
 def eitem_event_builder(event, sender_app, obj=None, **kwargs):
     """Add eitem metadata to the event."""
     record = kwargs["record"]
-    event.update(
-        dict(eitem_pid=record["pid"], document_pid=record.get("document_pid"))
-    )
+    event.update(dict(eitem_pid=record["pid"], document_pid=record.get("document_pid")))
     return event

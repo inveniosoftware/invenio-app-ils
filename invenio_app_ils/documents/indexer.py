@@ -36,9 +36,7 @@ def get_items(document_pid):
     item_search_cls = current_app_ils.item_search_cls
     item_record_cls = current_app_ils.item_record_cls
     for item in (
-        item_search_cls()
-        .search_by_document_pid(document_pid=document_pid)
-        .scan()
+        item_search_cls().search_by_document_pid(document_pid=document_pid).scan()
     ):
         item = item_record_cls.get_record_by_pid(item["pid"])
         referenced.append(dict(pid_type=ITEM_PID_TYPE, record=item))
@@ -51,9 +49,7 @@ def get_eitems(document_pid):
     eitem_search_cls = current_app_ils.eitem_search_cls
     eitem_record_cls = current_app_ils.eitem_record_cls
     for eitem in (
-        eitem_search_cls()
-        .search_by_document_pid(document_pid=document_pid)
-        .scan()
+        eitem_search_cls().search_by_document_pid(document_pid=document_pid).scan()
     ):
         eitem = eitem_record_cls.get_record_by_pid(eitem["pid"])
         referenced.append(dict(pid_type=EITEM_PID_TYPE, record=eitem))
@@ -85,14 +81,10 @@ def get_document_requests(document_pid):
     docreq_search_cls = current_app_ils.document_request_search_cls
     docreq_record_cls = current_app_ils.document_request_record_cls
     for request in (
-        docreq_search_cls()
-        .search_by_document_pid(document_pid=document_pid)
-        .scan()
+        docreq_search_cls().search_by_document_pid(document_pid=document_pid).scan()
     ):
         docreq = docreq_record_cls.get_record_by_pid(request["pid"])
-        referenced.append(
-            dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq)
-        )
+        referenced.append(dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq))
     return referenced
 
 
@@ -102,9 +94,7 @@ def get_loans(document_pid):
     loan_record_cls = current_circulation.loan_record_cls
     for loan in search_loans_by_pid(document_pid=document_pid).scan():
         loan = loan_record_cls.get_record_by_pid(loan["pid"])
-        referenced.append(
-            dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)
-        )
+        referenced.append(dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan))
     return referenced
 
 
@@ -128,9 +118,7 @@ def get_ill_borrowing_requests(document_pid):
     search = brw_req_search_cls().search_by_document_pid(document_pid)
     for hit in search.scan():
         brw_req = brw_req_record_cls.get_record_by_pid(hit["pid"])
-        referenced.append(
-            dict(pid_type=BORROWING_REQUEST_PID_TYPE, record=brw_req)
-        )
+        referenced.append(dict(pid_type=BORROWING_REQUEST_PID_TYPE, record=brw_req))
     return referenced
 
 

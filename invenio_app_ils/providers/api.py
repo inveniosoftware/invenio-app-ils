@@ -41,14 +41,10 @@ class Provider(IlsRecord):
     def delete(self, **kwargs):
         """Delete record."""
         order_search_cls = current_ils_acq.order_search_cls
-        search_order_res = order_search_cls().search_by_provider_pid(
-            self["pid"]
-        )
+        search_order_res = order_search_cls().search_by_provider_pid(self["pid"])
 
         brwreq_search_cls = current_ils_ill.borrowing_request_search_cls
-        search_brwreq_res = brwreq_search_cls().search_by_provider_pid(
-            self["pid"]
-        )
+        search_brwreq_res = brwreq_search_cls().search_by_provider_pid(self["pid"])
 
         if search_order_res.count() or search_brwreq_res.count():
             order_ref_ids = [res["pid"] for res in search_order_res.scan()]

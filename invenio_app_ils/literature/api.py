@@ -25,6 +25,4 @@ LiteratureIdProvider = type(
     dict(pid_type=LITERATURE_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
 literature_pid_minter = dummy_pid_minter
-literature_pid_fetcher = partial(
-    pid_fetcher, provider_cls=LiteratureIdProvider
-)
+literature_pid_fetcher = partial(pid_fetcher, provider_cls=LiteratureIdProvider)

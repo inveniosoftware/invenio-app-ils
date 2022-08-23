@@ -35,9 +35,7 @@ class NotificationDocumentRequestMsg(NotificationMsg):
 
         templates = dict(
             self.DEFAULT_TEMPLATES,
-            **current_app.config[
-                "ILS_NOTIFICATIONS_TEMPLATES_DOCUMENT_REQUEST"
-            ],
+            **current_app.config["ILS_NOTIFICATIONS_TEMPLATES_DOCUMENT_REQUEST"],
         )
 
         if not action:
@@ -72,8 +70,6 @@ class NotificationDocumentRequestMsg(NotificationMsg):
         return d
 
 
-def notification_document_request_msg_builder(record, action, msq_extra_ctx,
-                                              **kwargs):
+def notification_document_request_msg_builder(record, action, msq_extra_ctx, **kwargs):
     """Factory builder to create a notification msg."""
-    return NotificationDocumentRequestMsg(record, action, msq_extra_ctx,
-                                          **kwargs)
+    return NotificationDocumentRequestMsg(record, action, msq_extra_ctx, **kwargs)

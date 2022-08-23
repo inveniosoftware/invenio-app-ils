@@ -58,20 +58,17 @@ def retrieve_user_loans_information(patron_pid, document_pid):
     loan_result = loans_search.execute()
     for bucket in loan_result.aggregations.states.buckets:
         if (
-            bucket["key"]
-            in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
             and bucket["doc_count"] > 0
         ):
             user_information["has_active_loan"] = True
         elif (
-            bucket["key"]
-            in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
+            bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
             and bucket["doc_count"] > 0
         ):
             user_information["is_requested"] = True
         elif (
-            bucket["key"]
-            in current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+            bucket["key"] in current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
             and bucket["doc_count"] > 0
         ):
             search = search_by_patron_item_or_document(

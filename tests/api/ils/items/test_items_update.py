@@ -24,12 +24,8 @@ def test_update_item(db, testdata):
         for t in testdata["items"]:
             if t["status"] == "CAN_CIRCULATE":
                 item_pid = dict(type=ITEM_PID_TYPE, value=t["pid"])
-                active_loan = (
-                    get_active_loan_by_item_pid(item_pid).execute().hits
-                )
-                total = (
-                    active_loan.total if lt_es7 else active_loan.total.value
-                )
+                active_loan = get_active_loan_by_item_pid(item_pid).execute().hits
+                total = active_loan.total if lt_es7 else active_loan.total.value
                 if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 

@@ -30,7 +30,7 @@ class NotificationLoanMsg(NotificationMsg):
         cancel="cancel.html",
         overdue_reminder="overdue_reminder.html",
         expiring_reminder="will_expire_in_reminder.html",
-        bulk_extend="bulk_extend.html"
+        bulk_extend="bulk_extend.html",
     )
 
     def __init__(self, loan, action, msg_ctx, **kwargs):
@@ -67,9 +67,7 @@ class NotificationLoanMsg(NotificationMsg):
         """Get the template filename based on the loan action."""
         new_state = self.loan["state"]
         document_pid = self.loan.get("document_pid")
-        is_request = (
-            new_state in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
-        )
+        is_request = new_state in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
         if (
             is_request
             and document_pid
@@ -112,6 +110,6 @@ class NotificationBulkExtendLoanMsg(NotificationLoanMsg):
 
 def notification_loan_msg_builder(loan, action, msg_ctx, **kwargs):
     """Factory builder to create a notification msg."""
-    if action == 'bulk_extend':
+    if action == "bulk_extend":
         return NotificationBulkExtendLoanMsg(action, msg_ctx, **kwargs)
     return NotificationLoanMsg(loan, action, msg_ctx, **kwargs)

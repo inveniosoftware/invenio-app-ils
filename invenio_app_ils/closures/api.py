@@ -51,9 +51,7 @@ def _is_open_on(location, date):
 
 def find_next_open_date(location_pid, date):
     """Finds the next day where this location is open."""
-    location = current_app_ils.location_record_cls.get_record_by_pid(
-        location_pid
-    )
+    location = current_app_ils.location_record_cls.get_record_by_pid(location_pid)
     _infinite_loop_guard = date + timedelta(days=365)
     while date < _infinite_loop_guard:
         if _is_open_on(location, date):
@@ -64,6 +62,5 @@ def find_next_open_date(location_pid, date):
     raise IlsException(
         description="Cannot find any date for which the "
         "location %s is open after the given date %s."
-        "Please check opening/closures dates."
-        % (location_pid, date.isoformat())
+        "Please check opening/closures dates." % (location_pid, date.isoformat())
     )

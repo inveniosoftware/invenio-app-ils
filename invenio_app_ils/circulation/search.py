@@ -21,9 +21,7 @@ def get_loan_next_available_date(document_pid):
     """Return active loans on document sorted by the earliest end date."""
     return search_by_pid(
         document_pid=document_pid,
-        filter_states=current_app.config.get(
-            "CIRCULATION_STATES_LOAN_ACTIVE", []
-        ),
+        filter_states=current_app.config.get("CIRCULATION_STATES_LOAN_ACTIVE", []),
         sort_by_field="end_date",
     )
 
@@ -32,9 +30,7 @@ def get_active_loan_by_item_pid(item_pid):
     """Return any active loans for the given item."""
     return search_by_pid(
         item_pid=item_pid,
-        filter_states=current_app.config.get(
-            "CIRCULATION_STATES_LOAN_ACTIVE", []
-        ),
+        filter_states=current_app.config.get("CIRCULATION_STATES_LOAN_ACTIVE", []),
     )
 
 
@@ -110,9 +106,9 @@ def get_all_overdue_loans():
 def get_overdue_loans_by_doc_pid(document_pid):
     """Return any overdue loans for the given document."""
     states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-    return search_by_pid(
-        document_pid=document_pid, filter_states=states
-    ).filter("range", end_date=dict(lt="now/d"))
+    return search_by_pid(document_pid=document_pid, filter_states=states).filter(
+        "range", end_date=dict(lt="now/d")
+    )
 
 
 def get_most_loaned_documents(from_date, to_date, bucket_size):
@@ -173,9 +169,7 @@ def get_loans_by_patron_pid(patron_pid):
 def get_active_loans_by_patron_pid(patron_pid):
     """Returns a search for all the active loans of a given patron."""
     active_states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-    search = get_loans_by_patron_pid(patron_pid).filter(
-        "terms", state=active_states
-    )
+    search = get_loans_by_patron_pid(patron_pid).filter("terms", state=active_states)
     return search
 
 

@@ -21,13 +21,9 @@ from invenio_app_ils.ill.api import BorrowingRequest
 def validate_statuses(record):
     """Validate that the extension action can be performed."""
     if record["status"] != "ON_LOAN":
-        raise ValidationError(
-            "This interlibrary loan is currently not on loan."
-        )
+        raise ValidationError("This interlibrary loan is currently not on loan.")
 
-    ext_status = (
-        record.get("patron_loan", {}).get("extension", {}).get("status")
-    )
+    ext_status = record.get("patron_loan", {}).get("extension", {}).get("status")
     # status = None is valid, no extension requested yet
     has_status = ext_status is not None
     is_valid = ext_status in BorrowingRequest.EXTENSION_STATUSES
@@ -58,8 +54,7 @@ class RequestExtensionSchemaV1(InvenioBaseSchema):
         ext_status = validate_statuses(record)
         if ext_status == "PENDING":
             raise ValidationError(
-                "An extension for this interlibrary loan has already been "
-                "requested."
+                "An extension for this interlibrary loan has already been " "requested."
             )
         elif ext_status == "DECLINED":
             raise ValidationError(
