@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a66 (released 2022-08-24)
+
+- allows vocabularies values to be queried via REST API
+
 Version 1.0.0a65 (released 2022-08-16)
 
 - fix mappings for documents volume field
