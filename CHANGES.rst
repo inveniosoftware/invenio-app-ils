@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a67 (released 2022-09-15)
+
+- removes ES6 support
+
 Version 1.0.0a66 (released 2022-08-24)
 
 - allows vocabularies values to be queried via REST API
