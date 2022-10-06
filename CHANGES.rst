@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a68 (released 2022-10-06)
+
+- bump pycountry
+
 Version 1.0.0a67 (released 2022-09-15)
 
 - removes ES6 support
