@@ -1226,17 +1226,6 @@ def demo():
 
 
 @demo.command()
-def locations():
-    """Create demo locations."""
-    click.echo("Creating locations...")
-    fake_holder = type("FakeHolder", (object,), {"location": {}})
-    loc_generator = LocationGenerator(fake_holder, minter)
-    loc_generator.generate()
-    rec = loc_generator.persist()
-    RecordIndexer().index(rec)
-
-
-@demo.command()
 @click.option("--docs", "n_docs", default=20)
 @click.option("--items", "n_items", default=50)
 @click.option("--eitems", "n_eitems", default=30)
@@ -1248,6 +1237,7 @@ def locations():
 @click.option("--orders", "n_orders", default=30)
 @click.option("--libraries", "n_libraries", default=10)
 @click.option("--borrowing-requests", "n_borrowing_requests", default=10)
+@click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
 def data(
     n_docs,
@@ -1261,6 +1251,7 @@ def data(
     n_orders,
     n_libraries,
     n_borrowing_requests,
+    verbose,
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -1308,6 +1299,64 @@ def data(
         total_borrowing_requests=n_borrowing_requests,
         total_libraries=n_libraries,
     )
+
+    # Create roles to restrict access
+    _run_command("roles create admin", verbose)
+    _run_command("roles create librarian", verbose)
+
+    # Create users
+    _run_command("users create patron1@test.ch -a --password=123456", verbose)  # ID 1
+    create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
+    _run_command("users create patron2@test.ch -a --password=123456", verbose)  # ID 2
+    create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
+    _run_command("users create admin@test.ch -a --password=123456", verbose)  # ID 3
+    create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
+    _run_command("users create librarian@test.ch -a --password=123456", verbose)  # ID 4
+    create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
+    _run_command("users create patron3@test.ch -a --password=123456", verbose)  # ID 5
+    create_userprofile_for("patron3@test.ch", "patron3", "Medrod Tara")
+    _run_command("users create patron4@test.ch -a --password=123456", verbose)  # ID 6
+    create_userprofile_for("patron4@test.ch", "patron4", "Devi Cupid")
+
+    # Assign roles
+    _run_command("roles add admin@test.ch admin", verbose)
+    _run_command("roles add librarian@test.ch librarian", verbose)
+
+    # Index vocabularies
+    vocabularies_dir = os.path.join(CURRENT_DIR, "vocabularies", "data")
+    json_files = " ".join(
+        os.path.join(vocabularies_dir, name)
+        for name in os.listdir(vocabularies_dir)
+        if name.endswith(".json")
+    )
+    _run_command("vocabulary index json --force {}".format(json_files), verbose)
+    _run_command("vocabulary index opendefinition spdx --force", verbose)
+    _run_command("vocabulary index opendefinition opendefinition --force", verbose)
+
+    # index languages
+    _run_command("vocabulary index languages --force", verbose)
+
+    # Assign actions
+    _run_command("access allow superuser-access role admin", verbose)
+    _run_command("access allow ils-backoffice-access role librarian", verbose)
+
+    # Create demo locations
+    click.echo("Creating locations and internal locations...")
+    fake_holder = type("FakeHolder", (object,), {"location": {}})
+    loc_generator = LocationGenerator(fake_holder, minter)
+    loc_generator.generate()
+    rec = loc_generator.persist()
+    indexer.index(rec)
+    current_search.flush_and_refresh(index="*")
+
+    # Index patrons
+    _run_command("patrons index", verbose)
+
+    # Create files location
+    _run_command("files location --default ils /tmp/ils-files", verbose)
+
+    # Create static pages
+    _run_command("fixtures pages", verbose)
 
     # InternalLocations
     intlocs_generator = InternalLocationGenerator(holder, minter)
@@ -1395,6 +1444,7 @@ def data(
     click.secho("Now indexing...", fg="green")
     # process queue so items can resolve circulation status correctly
     indexer.process_bulk_queue()
+    current_search.flush_and_refresh(index="*")
 
     # index eitems
     indexer.bulk_index([str(r.id) for r in rec_eitems])
@@ -1407,6 +1457,7 @@ def data(
     click.secho("Now indexing...", fg="green")
     # process queue so documents can resolve circulation correctly
     indexer.process_bulk_queue()
+    current_search.flush_and_refresh(index="*")
 
     # index libraries
     indexer.bulk_index([str(r.id) for r in rec_libraries])
@@ -1422,8 +1473,6 @@ def data(
 
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()
-
-    # flush all indices after indexing, otherwise ES won't be ready for tests
     current_search.flush_and_refresh(index="*")
 
     # index documents
@@ -1454,6 +1503,7 @@ def data(
 
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()
+    current_search.flush_and_refresh(index="*")
 
 
 def create_userprofile_for(email, username, full_name):
@@ -1465,6 +1515,57 @@ def create_userprofile_for(email, username, full_name):
         profile.full_name = full_name
         db.session.add(profile)
         db.session.commit()
+
+
+def _run_command(command, verbose, catch_exceptions=False):
+    from invenio_base.app import create_cli
+
+    click.secho("ils {}...".format(command), fg="green")
+
+    cli = create_cli()
+    runner = current_app.test_cli_runner()
+
+    res = runner.invoke(cli, command, catch_exceptions=catch_exceptions)
+    if verbose:
+        click.secho(res.output)
+
+
+@click.command()
+@click.option("--recreate-db", is_flag=True, help="Recreating DB.")
+@click.option("--skip-demo-data", is_flag=True, help="Skip creating demo data.")
+@click.option("--verbose", is_flag=True, help="Verbose output.")
+@with_appcontext
+def setup(
+    recreate_db,
+    skip_demo_data,
+    verbose,
+):
+    """ILS setup command."""
+    import redis
+    from flask import current_app
+
+    click.secho("ils setup started...", fg="blue")
+
+    # Clean redis
+    redis.StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"]).flushall()
+    click.secho("redis cache cleared...", fg="red")
+
+    # Remove and create db and indexes
+    if recreate_db:
+        _run_command("db destroy --yes-i-know", verbose=verbose, catch_exceptions=True)
+        _run_command("db init", verbose)
+    else:
+        _run_command("db drop --yes-i-know", verbose)
+    _run_command("db create", verbose)
+    _run_command("index destroy --force --yes-i-know", verbose)
+    _run_command("index init --force", verbose)
+    _run_command("index queue init purge", verbose)
+
+    # Generate demo data
+    if not skip_demo_data:
+        _run_command("demo data {}".format("--verbose" if verbose else ""), verbose)
+
+    click.secho("ils setup finished successfully", fg="blue")
 
 
 @click.group()
@@ -1516,114 +1617,3 @@ def pages():
         db.session.add_all(pages)
     db.session.commit()
     click.echo("static pages created :)")
-
-
-@click.command()
-@click.option("--recreate-db", is_flag=True, help="Recreating DB.")
-@click.option("--skip-demo-data", is_flag=True, help="Skip creating demo data.")
-@click.option("--skip-file-location", is_flag=True, help="Skip creating file location.")
-@click.option("--skip-patrons", is_flag=True, help="Skip creating patrons.")
-@click.option("--skip-vocabularies", is_flag=True, help="Skip creating vocabularies.")
-@click.option("--skip-pages", is_flag=True, help="Skip creating static pages.")
-@click.option("--verbose", is_flag=True, help="Verbose output.")
-@with_appcontext
-def setup(
-    recreate_db,
-    skip_demo_data,
-    skip_file_location,
-    skip_patrons,
-    skip_vocabularies,
-    skip_pages,
-    verbose,
-):
-    """ILS setup command."""
-    import redis
-    from flask import current_app
-    from invenio_base.app import create_cli
-
-    click.secho("ils setup started...", fg="blue")
-
-    # Clean redis
-    redis.StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"]).flushall()
-    click.secho("redis cache cleared...", fg="red")
-
-    cli = create_cli()
-    runner = current_app.test_cli_runner()
-
-    def run_command(command, catch_exceptions=False):
-        click.secho("ils {}...".format(command), fg="green")
-        res = runner.invoke(cli, command, catch_exceptions=catch_exceptions)
-        if verbose:
-            click.secho(res.output)
-
-    # Remove and create db and indexes
-    if recreate_db:
-        run_command("db destroy --yes-i-know", catch_exceptions=True)
-        run_command("db init")
-    else:
-        run_command("db drop --yes-i-know")
-    run_command("db create")
-    run_command("index destroy --force --yes-i-know")
-    run_command("index init --force")
-    run_command("index queue init purge")
-
-    # Create roles to restrict access
-    run_command("roles create admin")
-    run_command("roles create librarian")
-
-    if not skip_patrons:
-        # Create users
-        run_command("users create patron1@test.ch -a --password=123456")  # ID 1
-        create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
-        run_command("users create patron2@test.ch -a --password=123456")  # ID 2
-        create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
-        run_command("users create admin@test.ch -a --password=123456")  # ID 3
-        create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
-        run_command("users create librarian@test.ch -a --password=123456")  # ID 4
-        create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
-        run_command("users create patron3@test.ch -a --password=123456")  # ID 5
-        create_userprofile_for("patron3@test.ch", "patron3", "Medrod Tara")
-        run_command("users create patron4@test.ch -a --password=123456")  # ID 6
-        create_userprofile_for("patron4@test.ch", "patron4", "Devi Cupid")
-
-        # Assign roles
-        run_command("roles add admin@test.ch admin")
-        run_command("roles add librarian@test.ch librarian")
-
-    if not skip_vocabularies:
-        vocabularies_dir = os.path.join(CURRENT_DIR, "vocabularies", "data")
-        json_files = " ".join(
-            os.path.join(vocabularies_dir, name)
-            for name in os.listdir(vocabularies_dir)
-            if name.endswith(".json")
-        )
-        run_command("vocabulary index json --force {}".format(json_files))
-        run_command("vocabulary index opendefinition spdx --force")
-        run_command("vocabulary index opendefinition opendefinition --force")
-
-        # index languages
-        run_command("vocabulary index languages --force")
-
-    # Assign actions
-    run_command("access allow superuser-access role admin")
-    run_command("access allow ils-backoffice-access role librarian")
-
-    # Create one location as first
-    run_command("demo locations")
-
-    # Index patrons
-    run_command("patrons index")
-
-    # Create files location
-    if not skip_file_location:
-        run_command("files location --default ils /tmp/ils-files")
-
-    # Generate demo data
-    if not skip_demo_data:
-        run_command("demo data")
-
-    # Create static pages
-    if not skip_pages:
-        run_command("fixtures pages")
-
-    click.secho("ils setup finished successfully", fg="blue")
