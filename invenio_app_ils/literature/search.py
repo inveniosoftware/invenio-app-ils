@@ -31,7 +31,7 @@ def search_factory_literature(self, search):
         if not strtobool(include_all):
             issue_query_string = "NOT document_type:SERIAL_ISSUE"
             if query_string:
-                query_string = "{} AND {}".format(query_string, issue_query_string)
+                query_string = "({}) AND ({})".format(query_string, issue_query_string)
             else:
                 query_string = issue_query_string
         return search, query_string
