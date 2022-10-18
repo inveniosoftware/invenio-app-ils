@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0a69 (released 2022-10-18)
+
+- adapt literature search query
+
 Version 1.0.0a68 (released 2022-10-06)
 
 - bump pycountry
