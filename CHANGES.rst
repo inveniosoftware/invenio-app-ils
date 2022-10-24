@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0rc1 (released 2022-10-24)
+
+- first release candidate
+
 Version 1.0.0a69 (released 2022-10-18)
 
 - adapt literature search query

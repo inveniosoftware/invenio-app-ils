@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
           tests-chunk: [acquisition, circulation, document_requests, ill, ils]
-          python-version: [3.7, 3.9]
+          python-version: [3.9]
           requirements-level: [pypi]
           db-service: [postgresql12, postgresql14]
           search-service: [elasticsearch7]
