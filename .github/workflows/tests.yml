@@ -31,7 +31,7 @@ jobs:
           python-version: [3.9]
           requirements-level: [pypi]
           db-service: [postgresql12, postgresql14]
-          search-service: [elasticsearch7]
+          search-service: [elasticsearch7, opensearch1]
           include:
           - db-service: postgresql14
             DB: postgresql
@@ -44,6 +44,10 @@ jobs:
             POSTGRESQL_VERSION: POSTGRESQL_12_LATEST
             SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
             DB_EXTRAS: postgresql
+
+          - search-service: opensearch1
+            SEARCH: opensearch1
+            SEARCH_EXTRAS: elasticsearch7
 
           - search-service: elasticsearch7
             SEARCH: elasticsearch

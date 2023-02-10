@@ -32,6 +32,9 @@ trap cleanup EXIT
 python -m check_manifest
 python -m sphinx.cmd.build -qnNW docs docs/_build/html
 eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch} --cache ${CACHE:-redis} --env)"
+if [ "${SEARCH}" = "opensearch1" ]; then
+    curl -XPUT localhost:9200/_cluster/settings -H "Content-Type:application/json" -d "{\"persistent\": {\"compatibility\": {\"override_main_response_version\": \"true\"}}}"
+fi
 python -m pytest tests/api/$1
 tests_exit_code=$?
 exit "$tests_exit_code"
