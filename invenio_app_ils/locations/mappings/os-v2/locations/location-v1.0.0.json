@@ -1,0 +1,90 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "address": {
+        "type": "text"
+      },
+      "email": {
+        "type": "text",
+        "analyzer": "email"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "notes": {
+        "type": "text"
+      },
+      "opening_exceptions": {
+        "properties": {
+          "title": {
+            "type": "keyword"
+          },
+          "is_open": {
+            "type": "boolean"
+          },
+          "start_date": {
+            "type": "date"
+          },
+          "end_date": {
+            "type": "date"
+          }
+        },
+        "type": "object"
+      },
+      "opening_weekdays": {
+        "properties": {
+          "weekday": {
+            "type": "keyword"
+          },
+          "is_open": {
+            "type": "boolean"
+          },
+          "times": {
+            "properties": {
+              "start_time": {
+                "type": "text"
+              },
+              "end_time": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "phone": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      }
+    }
+  }
+}

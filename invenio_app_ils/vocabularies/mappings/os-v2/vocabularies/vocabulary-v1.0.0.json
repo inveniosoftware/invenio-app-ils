@@ -1,0 +1,23 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "data": {
+        "type": "object"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "key": {
+        "type": "keyword"
+      },
+      "text": {
+        "type": "text"
+      },
+      "type": {
+        "type": "keyword"
+      }
+    }
+  }
+}

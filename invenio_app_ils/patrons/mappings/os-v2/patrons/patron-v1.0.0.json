@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "email": {
+        "type": "text",
+        "analyzer": "email"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "location_pid": {
+        "type": "keyword"
+      }
+    }
+  }
+}

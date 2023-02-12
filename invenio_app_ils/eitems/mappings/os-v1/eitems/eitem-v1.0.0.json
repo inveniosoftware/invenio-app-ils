@@ -1,0 +1,139 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "bucket_id": {
+        "type": "keyword"
+      },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "description": {
+        "type": "text"
+      },
+      "document": {
+        "properties": {
+          "authors": {
+            "type": "text"
+          },
+          "cover_metadata": {
+            "properties": {},
+            "type": "object"
+          },
+          "edition": {
+            "type": "text"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "publication_year": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          }
+        },
+        "type": "object"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "files": {
+        "properties": {
+          "bucket": {
+            "type": "keyword"
+          },
+          "checksum": {
+            "type": "keyword"
+          },
+          "file_id": {
+            "type": "keyword"
+          },
+          "key": {
+            "type": "keyword"
+          },
+          "size": {
+            "type": "keyword"
+          },
+          "version_id": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "identifiers": {
+        "properties": {
+          "material": {
+            "type": "keyword"
+          },
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword",
+            "fields": {
+              "text": {
+                "type": "text"
+              }
+            }
+          }
+        },
+        "type": "object"
+      },
+      "internal_notes": {
+        "type": "text"
+      },
+      "open_access": {
+        "type": "boolean"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "source": {
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text"
+          }
+        }
+      },
+      "urls": {
+        "properties": {
+          "description": {
+            "type": "text"
+          },
+          "value": {
+            "type": "keyword"
+          },
+          "login_required": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

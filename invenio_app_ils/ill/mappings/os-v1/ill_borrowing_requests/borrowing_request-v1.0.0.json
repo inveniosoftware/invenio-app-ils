@@ -1,0 +1,240 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "cancel_reason": {
+        "type": "text"
+      },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "document": {
+        "properties": {
+          "authors": {
+            "type": "text"
+          },
+          "cover_metadata": {
+            "properties": {},
+            "type": "object"
+          },
+          "edition": {
+            "type": "text"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "publication_year": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "due_date": {
+        "type": "date"
+      },
+      "expected_delivery_date": {
+        "type": "date"
+      },
+      "legacy_id": {
+        "type": "keyword"
+      },
+      "provider": {
+        "properties": {
+          "name": {
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            },
+            "type": "text"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "provider_pid": {
+        "type": "keyword"
+      },
+      "notes": {
+        "type": "text"
+      },
+      "patron": {
+        "properties": {
+          "email": {
+            "type": "text",
+            "analyzer": "email"
+          },
+          "id": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "location_pid": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "patron_pid": {
+        "type": "keyword"
+      },
+      "patron_loan": {
+        "properties": {
+          "extension": {
+            "properties": {
+              "notes": {
+                "type": "text"
+              },
+              "request_date": {
+                "type": "date"
+              },
+              "status": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "payment": {
+        "properties": {
+          "budget_code": {
+            "type": "keyword"
+          },
+          "debit_cost": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          },
+          "debit_cost_main_currency": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          },
+          "debit_date": {
+            "type": "date"
+          },
+          "debit_note": {
+            "type": "text"
+          },
+          "internal_purchase_requisition_id": {
+            "type": "keyword"
+          },
+          "mode": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "received_date": {
+        "type": "date"
+      },
+      "request_date": {
+        "type": "date"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "total": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
+      },
+      "total_main_currency": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "updated_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}
