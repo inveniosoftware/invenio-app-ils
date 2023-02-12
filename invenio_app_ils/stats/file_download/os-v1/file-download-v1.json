@@ -1,0 +1,69 @@
+{
+  "index_patterns": ["__SEARCH_INDEX_PREFIX__events-stats-file-download-*"],
+  "settings": {
+    "index": {
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "dynamic": false,
+    "dynamic_templates": [
+      {
+        "date_fields": {
+          "match_mapping_type": "date",
+          "mapping": {
+            "type": "date",
+            "format": "strict_date_hour_minute_second"
+          }
+        }
+      }
+    ],
+    "numeric_detection": false,
+    "properties": {
+      "bucket_id": {
+        "type": "keyword"
+      },
+      "collection": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "eitem_pid": {
+        "type": "keyword"
+      },
+      "file_id": {
+        "type": "keyword"
+      },
+      "file_key": {
+        "type": "keyword"
+      },
+      "is_robot": {
+        "type": "boolean"
+      },
+      "size": {
+        "type": "double"
+      },
+      "timestamp": {
+        "type": "date",
+        "format": "strict_date_hour_minute_second"
+      },
+      "unique_id": {
+        "type": "keyword"
+      },
+      "unique_session_id": {
+        "type": "keyword"
+      },
+      "visitor_id": {
+        "type": "keyword"
+      }
+    }
+  },
+  "aliases": {
+    "__SEARCH_INDEX_PREFIX__events-stats-file-download": {}
+  }
+}
