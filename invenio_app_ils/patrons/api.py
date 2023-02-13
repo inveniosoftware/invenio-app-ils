@@ -36,7 +36,7 @@ class Patron(dict):
     """Patron record class."""
 
     _index = "patrons-patron-v1.0.0"
-    _doc_type = "patron-v1.0.0"
+    _doc_type = None
     # Fake schema used to identify pid type from ES hit
     _schema = "patrons/patron-v1.0.0.json"
 

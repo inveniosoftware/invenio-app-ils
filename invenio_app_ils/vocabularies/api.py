@@ -42,7 +42,7 @@ class Vocabulary(dict):
     """Vocabulary record class."""
 
     _index = "vocabularies-vocabulary-v1.0.0"
-    _doc_type = "vocabulary-v1.0.0"
+    _doc_type = None
     _schema = "vocabularies/vocabulary-v1.0.0.json"
 
     def __init__(self, type, key, text, data=None):

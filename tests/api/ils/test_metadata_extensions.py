@@ -96,9 +96,8 @@ def test_metadata_extensions(db, es, testdata):
     index_result = indexer.index(document)
 
     _index = index_result["_index"]
-    _doc = index_result["_type"]
     _id = index_result["_id"]
-    es_doc = es.get(index=_index, doc_type=_doc, id=_id)
+    es_doc = es.get(index=_index, id=_id)
     source = es_doc["_source"]
     expected_keywords = [
         {"key": "accelerator_experiments_accelerator", "value": "LHCb"},
