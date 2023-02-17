@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-FROM python:3.6
+FROM python:3.11
 
 RUN apt-get update && apt-get upgrade -y && apt-get install apt-file -y && apt-file update
 RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && bash nodesource_setup.sh
