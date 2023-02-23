@@ -34,5 +34,5 @@ class VocabularyIndexer(RecordIndexer):
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        doc_type = record._doc_type if lt_es7 else "_doc"
+        doc_type = None
         return (record._index, doc_type)

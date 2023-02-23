@@ -275,7 +275,7 @@ REST_CSRF_ENABLED = True
 ###############################################################################
 REST_ENABLE_CORS = True
 CORS_SEND_WILDCARD = False
-CORS_SUPPORTS_CREDENTIALS = False
+CORS_SUPPORTS_CREDENTIALS = True
 
 ###############################################################################
 # Flask configuration
@@ -874,6 +874,9 @@ ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 
 ILS_INDEXER_TASK_DELAY = timedelta(seconds=2)
 """Trigger delay for celery tasks to index referenced records."""
+
+INDEXER_DEFAULT_DOC_TYPE = None
+"""Set deprecated doc type to none."""
 
 # The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
 ALLOWED_HTML_TAGS = []
