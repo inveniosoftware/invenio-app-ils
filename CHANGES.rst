@@ -8,6 +8,15 @@
 Changes
 =======
 
+Version 1.0.0rc2 (released 2023-03-07)
+
+- add opensearch docker image
+- add opensearch v1 and v2 mappings
+- remove doc type to enable opensearch2 compatibility
+- bump invenio-stats and invenio-indexer to opensearch2 compatible versions
+- bump invenio-circulation to opensearch-compatible alpha release
+- remove ES6 mappings
+
 Version 1.0.0rc1 (released 2022-10-24)
 
 - first release candidate
