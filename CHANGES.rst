@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0rc3 (released 2023-03-10)
+
+- Remove ES v6 mappings
+
 Version 1.0.0rc2 (released 2023-03-07)
 
 - add opensearch docker image
