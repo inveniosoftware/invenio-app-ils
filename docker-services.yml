@@ -50,7 +50,7 @@ services:
     ports:
       - "6379:6379"
   db:
-    image: postgres:12.4
+    image: postgres:14
     environment:
       - "POSTGRES_USER=test"
       - "POSTGRES_PASSWORD=psw"
@@ -63,7 +63,6 @@ services:
       - "15672:15672"
       - "5672:5672"
   search:
-    # to use ES7: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.1
     image: opensearchproject/opensearch:2.5.0
     environment:
       - bootstrap.memory_lock=true
@@ -80,15 +79,16 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-  # TODO: opensearch dashboards
-  kibana:
-    # to use ES6: docker.elastic.co/kibana/kibana-oss:6.8.8
-    # to use ES7: docker.elastic.co/kibana/kibana-oss:7.9.1
-    image: docker.elastic.co/kibana/kibana-oss:7.9.1
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:{{ dashboards_version }}
+    ports:
+      - "5601:5601"
+    expose:
+      - "5601"
     environment:
-      - "ELASTICSEARCH_URL=http://es:9200"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports: ["5601:5601"]
+      # settings only for development. DO NOT use in production!
+      - 'OPENSEARCH_HOSTS=["http://search:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
   flower:
     image: mher/flower:0.9.7
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/

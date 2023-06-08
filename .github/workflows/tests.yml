@@ -30,7 +30,7 @@ jobs:
           tests-chunk: [acquisition, circulation, document_requests, ill, ils]
           python-version: [3.9]
           requirements-level: [pypi]
-          db-service: [postgresql12,postgresql14]
+          db-service: [postgresql13,postgresql14]
           search-service: [elasticsearch7,opensearch2]
           include:
           - db-service: postgresql14
@@ -39,9 +39,9 @@ jobs:
             SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
             DB_EXTRAS: postgresql
 
-          - db-service: postgresql12
+          - db-service: postgresql13
             DB: postgresql
-            POSTGRESQL_VERSION: POSTGRESQL_12_LATEST
+            POSTGRESQL_VERSION: POSTGRESQL_13_LATEST
             SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
             DB_EXTRAS: postgresql
 
