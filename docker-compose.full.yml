@@ -33,7 +33,7 @@ services:
       - static_data:/opt/invenio_app_ils/var/instance
     links:
       - cache
-      - es
+      - search
       - mq
       - db
   # Worker
@@ -45,7 +45,7 @@ services:
     image: invenio_app_ils-worker
     links:
       - cache
-      - es
+      - search
       - mq
       - db
   # Monitoring
@@ -68,9 +68,9 @@ services:
     extends:
       file: docker-services.yml
       service: mq
-  es:
+  search:
     extends:
       file: docker-services.yml
-      service: es
+      service: search
 volumes:
   static_data:
