@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0rc4 (released 2023-07-04)
+
+- Fix docker-compose file
+
 Version 1.0.0rc3 (released 2023-03-10)
 
 - Remove ES v6 mappings
