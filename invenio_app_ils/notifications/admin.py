@@ -7,7 +7,7 @@
 
 from flask import Blueprint
 from flask_admin.contrib.sqla import ModelView
-from flask_babelex import gettext as _
+from invenio_i18n import gettext as _
 
 from invenio_app_ils.notifications.models import NotificationsLogs
 

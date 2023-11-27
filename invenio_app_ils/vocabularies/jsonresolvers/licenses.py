@@ -10,13 +10,13 @@
 from urllib.parse import unquote_plus
 
 import jsonresolver
-from elasticsearch import VERSION as ES_VERSION
+from invenio_search.engine import uses_es7
 from werkzeug.routing import Rule
 
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.vocabularies.api import VOCABULARY_TYPE_LICENSE
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered

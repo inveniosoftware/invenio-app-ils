@@ -9,7 +9,7 @@
 
 import re
 
-from elasticsearch_dsl import Q
+from invenio_search.engine import dsl
 from flask import current_app, g, has_request_context, request
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
@@ -31,11 +31,11 @@ def _get_user_provides():
 def search_filter_record_permissions():
     """Filter list of results by `_access` and `restricted` fields."""
     if not has_request_context() or backoffice_permission().allows(g.identity):
-        return Q()
+        return dsl.Q()
 
     # A record is public if `restricted` field False or missing
-    restricted_field_missing = ~Q("exists", field="restricted")
-    is_restricted = restricted_field_missing | Q("term", restricted=False)
+    restricted_field_missing = ~dsl.Q("exists", field="restricted")
+    is_restricted = restricted_field_missing | dsl.Q("term", restricted=False)
 
     combined_filter = is_restricted
 
@@ -43,12 +43,12 @@ def search_filter_record_permissions():
         # if `_access`, check `_access.read` against the user. It takes
         # precedence over `restricted`.
         # if not `_access`, check if open access as before.
-        _access_field_exists = Q("exists", field="_access.read")
+        _access_field_exists = dsl.Q("exists", field="_access.read")
         provides = _get_user_provides()
-        user_can_read = _access_field_exists & Q("terms", **{"_access.read": provides})
+        user_can_read = _access_field_exists & dsl.Q("terms", **{"_access.read": provides})
         combined_filter = user_can_read | (~_access_field_exists & ~is_restricted)
 
-    return Q("bool", filter=[combined_filter])
+    return dsl.Q("bool", filter=[combined_filter])
 
 
 def ils_search_factory(self, search, validator=None):
@@ -70,8 +70,8 @@ def ils_search_factory(self, search, validator=None):
                 # parsing exception on data fields, see known issues
                 # https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-7.1.1.html  # noqa
                 extra_params["lenient"] = True
-            return Q("query_string", query=qstr, **extra_params)
-        return Q()
+            return dsl.Q("query_string", query=qstr, **extra_params)
+        return dsl.Q()
 
     from invenio_records_rest.facets import default_facets_factory
     from invenio_records_rest.sorter import default_sorter_factory
