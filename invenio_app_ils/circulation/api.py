@@ -12,9 +12,10 @@ from copy import copy, deepcopy
 from datetime import date, timedelta
 from functools import partial
 
-from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from flask_login import current_user
+from invenio_search.engine import uses_es7
+
 from invenio_circulation.config import (
     CIRCULATION_STATES_LOAN_ACTIVE,
     CIRCULATION_STATES_LOAN_COMPLETED,
@@ -44,7 +45,7 @@ from invenio_app_ils.items.api import Item
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 # override default `invenio-circulation` minters to use the base32 PIDs
 # CIRCULATION_LOAN_PID_TYPE is already defined in `invenio-circulation`

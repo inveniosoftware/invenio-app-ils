@@ -9,7 +9,7 @@
 
 from datetime import datetime, timedelta
 
-from elasticsearch_dsl import A, Q
+from invenio_search.engine import dsl
 from flask import current_app
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
@@ -127,13 +127,13 @@ def get_most_loaned_documents(from_date, to_date, bucket_size):
     search = search_cls().query(
         "bool",
         must=[
-            Q("terms", state=states),
-            Q("range", start_date=dict(gte=from_date, lte=to_date)),
+            dsl.Q("terms", state=states),
+            dsl.Q("range", start_date=dict(gte=from_date, lte=to_date)),
         ],
     )
 
     # Aggregation with sub-aggregation to calculate the extension count sum
-    aggs = A("terms", field="document_pid", size=bucket_size)
+    aggs = dsl.A("terms", field="document_pid", size=bucket_size)
     aggs = aggs.metric("extensions", "sum", field="extension_count")
     search.aggs.bucket("most_loaned_documents", aggs)
 
@@ -154,7 +154,7 @@ def get_loans_aggregated_by_states(document_pid, states, patron_pid=None):
     if patron_pid:
         search = search.filter("term", patron_pid=patron_pid)
     # Aggregation
-    aggs = A("terms", field="state")
+    aggs = dsl.A("terms", field="state")
     search.aggs.bucket("states", aggs)
 
     return search

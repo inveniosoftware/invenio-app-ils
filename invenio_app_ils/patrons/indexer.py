@@ -10,7 +10,6 @@
 from datetime import datetime
 
 from celery import shared_task
-from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_accounts.models import User
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -18,6 +17,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_pid
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
+from invenio_search.engine import uses_es7
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
@@ -28,7 +28,7 @@ from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.patrons.api import PATRON_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 
 def get_loans(patron_pid):

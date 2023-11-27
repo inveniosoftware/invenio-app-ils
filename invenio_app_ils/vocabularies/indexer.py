@@ -7,10 +7,10 @@
 
 """Vocabulary indexer APIs."""
 
-from elasticsearch import VERSION as ES_VERSION
 from invenio_indexer.api import RecordIndexer
+from invenio_search.engine import uses_es7
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 
 class VocabularyIndexer(RecordIndexer):

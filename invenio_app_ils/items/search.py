@@ -7,8 +7,8 @@
 
 """ILS Items search APIs."""
 
-from elasticsearch_dsl import A, Q
 from invenio_search.api import RecordsSearch
+from invenio_search.engine import dsl
 
 from invenio_app_ils.errors import MissingRequiredParameterError
 from invenio_app_ils.proxies import current_app_ils
@@ -92,7 +92,7 @@ def get_items_aggregated_by_statuses(document_pid):
     search = search_cls().filter("term", document_pid=document_pid)
 
     # Aggregation
-    aggs = A("terms", field="status")
+    aggs = dsl.A("terms", field="status")
     search.aggs.bucket("statuses", aggs)
 
     return search

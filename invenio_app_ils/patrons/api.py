@@ -13,7 +13,7 @@ from flask import current_app
 from invenio_accounts.models import User
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
-from invenio_userprofiles.api import UserProfile
+from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.errors import PatronNotFoundError
 from invenio_app_ils.fetchers import pid_fetcher

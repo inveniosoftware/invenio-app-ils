@@ -7,9 +7,10 @@
 
 """Invenio App ILS Patrons views."""
 
-from elasticsearch import VERSION as ES_VERSION
 from flask import Blueprint, current_app
 from flask_login import current_user
+from invenio_search.engine import uses_es7
+
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from webargs import fields
 from webargs.flaskparser import use_kwargs
@@ -17,7 +18,7 @@ from webargs.flaskparser import use_kwargs
 from invenio_app_ils.circulation.search import get_loans_aggregated_by_states
 from invenio_app_ils.permissions import need_permissions
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 
 def get_user_loan_information_blueprint(_):

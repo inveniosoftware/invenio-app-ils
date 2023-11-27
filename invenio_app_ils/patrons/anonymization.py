@@ -10,7 +10,6 @@
 
 from copy import deepcopy
 
-from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_accounts.models import SessionActivity, User, userrole
 from invenio_circulation.proxies import current_circulation
@@ -28,6 +27,7 @@ from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.notifications.models import NotificationsLogs
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
+from invenio_search.engine import search as inv_search
 
 
 def get_patron_activity(patron_pid):
@@ -189,7 +189,7 @@ def anonymize_patron_data(patron_pid, force=False):
         try:
             patron_indexer = current_app_ils.patron_indexer
             patron_indexer.delete(patron)
-        except NotFoundError:
+        except inv_search.NotFoundError:
             pass
 
     return dropped, indices, notifications

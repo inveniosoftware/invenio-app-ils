@@ -8,7 +8,7 @@
 """Resolve the circulation status referenced in the Document."""
 
 import jsonresolver
-from elasticsearch import VERSION as ES_VERSION
+from invenio_search.engine import uses_es7
 from werkzeug.routing import Rule
 
 from invenio_app_ils.circulation.search import (
@@ -19,7 +19,7 @@ from invenio_app_ils.circulation.search import (
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.items.search import get_items_aggregated_by_statuses
 
-lt_es7 = ES_VERSION[0] < 7
+lt_es7 = not uses_es7
 
 
 # Note: there must be only one resolver per file,
