@@ -47,7 +47,7 @@ jobs:
 
           - search-service: opensearch2
             SEARCH: opensearch2
-            SEARCH_EXTRAS: elasticsearch7
+            SEARCH_EXTRAS: opensearch2
 
           - search-service: elasticsearch7
             SEARCH: elasticsearch
