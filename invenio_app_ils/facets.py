@@ -27,8 +27,7 @@ def keyed_range_filter(field, range_query, **kwargs):
                     args[key] = value
 
         args.update(kwargs.copy())
-
-        return dsl.Range(**{field: args})
+        return dsl.RangeField(**{field: args})
 
     return inner
 
@@ -92,8 +91,14 @@ def overdue_loans_filter(field):
                 for key, value in mappings.items():
                     args[key] = value
 
-        return dsl.Range(**{field: args}) & Q(
-            "terms", **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
+        return dsl.query.Bool(
+            [
+                dsl.RangeField(**{field: args}),
+                dsl.Q(
+                    "terms",
+                    **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
+                ),
+            ]
         )
 
     return inner
@@ -139,6 +144,6 @@ def date_range_filter(field, comparator):
             input_date = str(arrow.get(values[0]).date())
         except arrow.parser.ParserError:
             raise ValueError("Input should be a date")
-        return dsl.Range(**{field: {comparator: input_date}})
+        return dsl.RangeField(**{field: {comparator: input_date}})
 
     return inner

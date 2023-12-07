@@ -11,8 +11,8 @@ from datetime import timedelta
 
 import arrow
 import pytest
-from elasticsearch_dsl.query import Bool, Q, Range, Terms
 from flask import current_app
+from invenio_search.engine import dsl
 
 from invenio_app_ils.facets import (
     date_range_filter,
@@ -27,9 +27,9 @@ def test_keyed_range_filter():
     range_query = {"None": {"lt": 1}, "1+": {"gte": 1}}
     rfilter = keyed_range_filter("field", range_query)
 
-    assert rfilter(["None"]) == Range(field={"lt": 1})
-    assert rfilter(["1+"]) == Range(field={"gte": 1})
-    assert rfilter(["None", "1+"]) == Range(field={"gte": 1, "lt": 1})
+    assert rfilter(["None"]) == dsl.RangeField(field={"lt": 1})
+    assert rfilter(["1+"]) == dsl.RangeField(field={"gte": 1})
+    assert rfilter(["None", "1+"]) == dsl.RangeField(field={"gte": 1, "lt": 1})
 
 
 def test_current_ranged_loans_filter(app):
@@ -37,20 +37,24 @@ def test_current_ranged_loans_filter(app):
     with app.app_context():
         rfilter = overdue_loans_filter("field")
 
-        current_loans_query = Terms(
+        current_loans_query = dsl.query.Terms(
             state=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         )
 
         overdue = rfilter(["Overdue"])
         field = {"lt": str(arrow.utcnow().date())}
-        assert overdue == Range(field=field) & current_loans_query
+        assert overdue == dsl.query.Bool(
+            [dsl.RangeField(field=field), current_loans_query]
+        )
 
         upcoming = rfilter(["Upcoming return"])
         field = {
             "gte": str(arrow.utcnow().date()),
             "lte": str((arrow.utcnow() + timedelta(days=7)).date()),
         }
-        assert upcoming == Range(field=field) & current_loans_query
+        assert upcoming == dsl.query.Bool(
+            [dsl.RangeField(field=field), current_loans_query]
+        )
 
 
 def test_default_value_when_missing_filter(app):
@@ -58,8 +62,8 @@ def test_default_value_when_missing_filter(app):
     with app.app_context():
         rfilter = default_value_when_missing_filter("field", "missing val")
 
-        assert rfilter("test") == Terms(field="test")
-        assert rfilter("missing val") == Bool(
+        assert rfilter("test") == dsl.query.Terms(field="test")
+        assert rfilter("missing val") == dsl.query.Bool(
             **{"must_not": {"exists": {"field": "field"}}}
         )
 
@@ -74,8 +78,10 @@ def test_date_range_filter(app):
         to_filter = date_range_filter("field", "lte")
 
         try:
-            assert from_filter([input_date]) == Range(field={"gte": input_date})
-            assert to_filter([input_date]) == Range(field={"lte": input_date})
+            assert from_filter([input_date]) == dsl.RangeField(
+                field={"gte": input_date}
+            )
+            assert to_filter([input_date]) == dsl.RangeField(field={"lte": input_date})
         except (ValueError, AssertionError):
             with pytest.raises(ValueError):
                 from_filter([input_date])
