@@ -11,10 +11,11 @@
 from copy import deepcopy
 
 from flask import current_app
-from invenio_accounts.models import SessionActivity, User, userrole
+from invenio_accounts.models import SessionActivity, User, userrole, LoginInformation
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
+from invenio_search.engine import search as inv_search
 from invenio_userprofiles.models import UserProfile
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
@@ -27,7 +28,6 @@ from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.notifications.models import NotificationsLogs
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
 from invenio_app_ils.proxies import current_app_ils
-from invenio_search.engine import search as inv_search
 
 
 def get_patron_activity(patron_pid):
@@ -200,7 +200,6 @@ def delete_user_account(patron_pid):
     dropped = 0
 
     with db.session.begin_nested():
-
         d = db.session.query(userrole).filter(userrole.c.user_id == patron_pid)
         dropped += d.delete(synchronize_session=False) or 0
 
@@ -227,6 +226,12 @@ def delete_user_account(patron_pid):
 
         dropped += (
             UserProfile.query.filter(UserProfile.user_id == patron_pid).delete() or 0
+        )
+        dropped += (
+            LoginInformation.query.filter(
+                LoginInformation.user_id == patron_pid
+            ).delete()
+            or 0
         )
         dropped += User.query.filter(User.id == patron_pid).delete() or 0
 
