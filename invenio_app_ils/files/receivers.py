@@ -14,7 +14,7 @@ from invenio_files_rest.signals import file_deleted, file_uploaded
 from invenio_app_ils.eitems.indexer import index_eitem_after_files_changed
 
 
-def on_file_changed(obj):
+def on_file_changed(sender, obj=None):
     """Index eitems after files changed."""
     eta = arrow.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
     index_eitem_after_files_changed.apply_async([str(obj.bucket_id)], eta=eta)
