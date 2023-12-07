@@ -9,8 +9,8 @@
 
 import re
 
-from invenio_search.engine import dsl
 from flask import current_app, g, has_request_context, request
+from invenio_search.engine import dsl
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
 from invenio_app_ils.permissions import backoffice_permission
@@ -45,7 +45,9 @@ def search_filter_record_permissions():
         # if not `_access`, check if open access as before.
         _access_field_exists = dsl.Q("exists", field="_access.read")
         provides = _get_user_provides()
-        user_can_read = _access_field_exists & dsl.Q("terms", **{"_access.read": provides})
+        user_can_read = _access_field_exists & dsl.Q(
+            "terms", **{"_access.read": provides}
+        )
         combined_filter = user_can_read | (~_access_field_exists & ~is_restricted)
 
     return dsl.Q("bool", filter=[combined_filter])

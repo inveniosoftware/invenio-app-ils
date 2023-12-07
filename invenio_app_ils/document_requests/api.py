@@ -63,7 +63,6 @@ class DocumentRequestValidator(RecordValidator):
     def validate_physical_item_provider(self, physical_item_provider):
         """Validate physical_item_provider existence."""
         if physical_item_provider:
-
             pid = physical_item_provider.get("pid", None)
             pid_type = physical_item_provider.get("pid_type", None)
             if not pid or not pid_type:
