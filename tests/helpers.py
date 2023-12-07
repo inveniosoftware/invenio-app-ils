@@ -63,19 +63,26 @@ def user_login(client, username, users):
     user_logout(client)
     if username != "anonymous":
         user = User.query.get(users[username].id)
-        # needed for sessions/http requests
-        login_user_via_session(client, user)
         # needed for Identity/Permissions loading
-        login_user(user)
+        login_user(user, remember=True)
+        # needed for sessions/http requests
+        login_user_via_session(client, email=user.email)
+
         return user
 
 
 def user_logout(client):
     """Util function to log out user."""
     with client.session_transaction() as sess:
+        from flask import g
+
         if "user_id" in sess:
             del sess["user_id"]
+            del sess["_user_id"]
             logout_user()
+
+        if "_login_user" in g:
+            del g._login_user
 
 
 def validate_data(key, expected_output, res):
