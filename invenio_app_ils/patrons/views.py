@@ -9,9 +9,8 @@
 
 from flask import Blueprint, current_app
 from flask_login import current_user
-from invenio_search.engine import uses_es7
-
 from invenio_circulation.search.api import search_by_patron_item_or_document
+from invenio_search.engine import uses_es7
 from webargs import fields
 from webargs.flaskparser import use_kwargs
 

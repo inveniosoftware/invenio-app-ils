@@ -8,13 +8,10 @@
 """Test record delete."""
 
 import pytest
-from elasticsearch import VERSION as ES_VERSION
 
 from invenio_app_ils.circulation.search import get_active_loan_by_item_pid
 from invenio_app_ils.errors import DocumentNotFoundError, ItemHasPastLoansError
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
-
-lt_es7 = ES_VERSION[0] < 7
 
 
 def test_update_item(db, testdata):
@@ -25,7 +22,7 @@ def test_update_item(db, testdata):
             if t["status"] == "CAN_CIRCULATE":
                 item_pid = dict(type=ITEM_PID_TYPE, value=t["pid"])
                 active_loan = get_active_loan_by_item_pid(item_pid).execute().hits
-                total = active_loan.total if lt_es7 else active_loan.total.value
+                total = active_loan.total.value
                 if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 

@@ -9,10 +9,10 @@
 
 from datetime import datetime, timedelta
 
-from invenio_search.engine import dsl
 from flask import current_app
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
+from invenio_search.engine import dsl
 
 from invenio_app_ils.items.api import ITEM_PID_TYPE
 

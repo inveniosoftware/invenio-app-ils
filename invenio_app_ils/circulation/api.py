@@ -14,8 +14,6 @@ from functools import partial
 
 from flask import current_app
 from flask_login import current_user
-from invenio_search.engine import uses_es7
-
 from invenio_circulation.config import (
     CIRCULATION_STATES_LOAN_ACTIVE,
     CIRCULATION_STATES_LOAN_COMPLETED,
@@ -27,6 +25,7 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
+from invenio_search.engine import uses_es7
 
 from invenio_app_ils.circulation.search import (
     get_all_expiring_or_overdue_loans_by_patron_pid,
