@@ -126,7 +126,6 @@ def test_loan_extend_permissions(
     client, json_headers, users, testdata, loan_params, db
 ):
     def _run_asserts(extended_loans, loans, patron_pid="1"):
-
         assert len(extended_loans) >= len(loans)
 
         for extended_loan in extended_loans:
