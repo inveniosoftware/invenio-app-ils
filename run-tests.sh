@@ -31,7 +31,7 @@ trap cleanup EXIT
 
 python -m check_manifest
 python -m sphinx.cmd.build -qnNW docs docs/_build/html
-eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-opensearch} --cache ${CACHE:-redis} --mq ${MQ:-rabbitmq} --env)"
+eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-opensearch2} --cache ${CACHE:-redis} --mq ${MQ:-rabbitmq} --env)"
 if [ "${SEARCH}" = "opensearch2" ]; then
     curl -XPUT localhost:9200/_cluster/settings -H "Content-Type:application/json" -d "{\"persistent\": {\"compatibility\": {\"override_main_response_version\": \"true\"}}}"
 fi
