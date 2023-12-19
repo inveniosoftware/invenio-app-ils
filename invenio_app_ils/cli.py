@@ -1238,6 +1238,7 @@ def demo():
 @click.option("--libraries", "n_libraries", default=10)
 @click.option("--borrowing-requests", "n_borrowing_requests", default=10)
 @click.option("--verbose", is_flag=True, help="Verbose output.")
+@click.option("--skip-admin", "skip_admin", is_flag=True)
 @with_appcontext
 def data(
     n_docs,
@@ -1252,6 +1253,7 @@ def data(
     n_libraries,
     n_borrowing_requests,
     verbose,
+    skip_admin=False
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -1283,9 +1285,9 @@ def data(
     ]
 
     holder = Holder(
-        patrons_pids=["1", "2", "5", "6"],
+        patrons_pids=["1", "2", "5", "4"],
         languages=languages,
-        librarian_pid="4",
+        librarian_pid="3",
         tags=tags,
         total_intloc=n_intlocs,
         total_items=n_items,
@@ -1309,17 +1311,21 @@ def data(
     create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
     _run_command("users create patron2@test.ch -a --password=123456", verbose)  # ID 2
     create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
-    _run_command("users create admin@test.ch -a --password=123456", verbose)  # ID 3
-    create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
-    _run_command("users create librarian@test.ch -a --password=123456", verbose)  # ID 4
+
+
+    _run_command("users create librarian@test.ch -a --password=123456", verbose)  # ID 3
     create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
-    _run_command("users create patron3@test.ch -a --password=123456", verbose)  # ID 5
+    _run_command("users create patron3@test.ch -a --password=123456", verbose)  # ID 4
     create_userprofile_for("patron3@test.ch", "patron3", "Medrod Tara")
-    _run_command("users create patron4@test.ch -a --password=123456", verbose)  # ID 6
+    _run_command("users create patron4@test.ch -a --password=123456", verbose)  # ID 5
     create_userprofile_for("patron4@test.ch", "patron4", "Devi Cupid")
 
-    # Assign roles
-    _run_command("roles add admin@test.ch admin", verbose)
+    if not skip_admin:
+        _run_command("users create admin@test.ch -a --password=123456", verbose)  # ID 6
+        create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
+        _run_command("roles add admin@test.ch admin", verbose)
+
+    # assign roles
     _run_command("roles add librarian@test.ch librarian", verbose)
 
     # Index vocabularies
@@ -1534,11 +1540,13 @@ def _run_command(command, verbose, catch_exceptions=False):
 @click.option("--recreate-db", is_flag=True, help="Recreating DB.")
 @click.option("--skip-demo-data", is_flag=True, help="Skip creating demo data.")
 @click.option("--verbose", is_flag=True, help="Verbose output.")
+@click.option("--skip-admin", "skip_admin", is_flag=True)
 @with_appcontext
 def setup(
     recreate_db,
     skip_demo_data,
     verbose,
+    skip_admin=False,
 ):
     """ILS setup command."""
     import redis
@@ -1560,10 +1568,11 @@ def setup(
     _run_command("index destroy --force --yes-i-know", verbose)
     _run_command("index init --force", verbose)
     _run_command("index queue init purge", verbose)
-
     # Generate demo data
     if not skip_demo_data:
-        _run_command("demo data {}".format("--verbose" if verbose else ""), verbose)
+        cmd = "demo data {}".format("--verbose" if verbose else "")
+        cmd = f'{cmd} {"--skip-admin" if skip_admin else ""}'
+        _run_command(cmd, verbose)
 
     click.secho("ils setup finished successfully", fg="blue")
 
