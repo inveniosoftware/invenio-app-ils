@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 1.0.0rc5 (released 2023-12-20)
+
+- demo data: optional admin account creation
+
 Version 1.0.0rc4 (released 2023-07-04)
 
 - Fix docker-compose file
