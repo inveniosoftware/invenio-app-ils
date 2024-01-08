@@ -83,6 +83,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         start = arrow.get(data["request_start_date"]).date()
         end = arrow.get(data["request_expire_date"]).date()
         duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
+        loan_request_offset = timedelta(days=current_app.config["ILS_CIRCULATION_LOAD_REQUEST_OFFSET"])
         duration = timedelta(days=duration_days)
 
         if end < start:
@@ -100,6 +101,14 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
             message = "The request duration " + "cannot be longer than {} days.".format(
                 duration_days
             )
+            raise ValidationError(
+                {
+                    "request_start_date": [message],
+                    "request_expire_date": [message],
+                }
+            )
+        elif end - start < loan_request_offset:
+            message = "The request end date can only be {} days after the request start date.".format(loan_request_offset.days)
             raise ValidationError(
                 {
                     "request_start_date": [message],
