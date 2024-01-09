@@ -121,6 +121,6 @@ def _filter_by_current_patron(search, query_string=None):
     return search, query_string
 
 
-def search_factory_filter_by_patron(self, search):
+def search_factory_filter_by_patron(self, search, query_parser=None):
     """Prepare query string to filter records by current logged in user."""
     return ils_search_factory(self, search, _filter_by_current_patron)
