@@ -215,7 +215,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
         record_class=Loan,
         indexer_class=LoanIndexer,
         record_loaders={
-            "application/json": ("invenio_circulation.records.loaders:loan_loader")
+            "application/json": "invenio_circulation.records.loaders:loan_loader"
         },
         record_serializers={
             "application/json": (
@@ -226,7 +226,7 @@ ILS_CIRCULATION_RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.circulation.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.circulation.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.circulation.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",

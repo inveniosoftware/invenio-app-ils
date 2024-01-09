@@ -83,7 +83,7 @@ def _create_records(db, objs, cls, pid_type):
 
 
 @pytest.fixture()
-def testdata(app, db, es_clear, users):
+def testdata(app, db, search_clear, users):
     """Create, index and return test data."""
     data = load_json_from_datadir("locations.json")
     locations = _create_records(db, data, Location, LOCATION_PID_TYPE)

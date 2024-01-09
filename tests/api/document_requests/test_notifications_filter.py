@@ -24,9 +24,9 @@ def test_notification_document_request_filter(app_with_notifs, mocker, users, te
         # remove footer
         app_with_notifs.config["ILS_NOTIFICATIONS_TEMPLATES"] = {}
         # set filtering on the document requests
-        app_with_notifs.config[
-            "ILS_NOTIFICATIONS_FILTER_DOCUMENT_REQUEST"
-        ] = filter_document_request_messages
+        app_with_notifs.config["ILS_NOTIFICATIONS_FILTER_DOCUMENT_REQUEST"] = (
+            filter_document_request_messages
+        )
 
         send_document_request_notification(
             document_request, action="decline", msg_extra_ctx={}

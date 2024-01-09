@@ -56,14 +56,14 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=RecordIndexer,
         record_class=BorrowingRequest,
         record_loaders={
-            "application/json": ("invenio_app_ils.ill.loaders:borrowing_request_loader")
+            "application/json": "invenio_app_ils.ill.loaders:borrowing_request_loader"
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.ill.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.ill.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.ill.serializers:json_v1_search"),
-            "text/csv": ("invenio_app_ils.ill.serializers:csv_v1_search"),
+            "application/json": "invenio_app_ils.ill.serializers:json_v1_search",
+            "text/csv": "invenio_app_ils.ill.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",

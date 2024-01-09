@@ -88,10 +88,12 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         if end < start:
             raise ValidationError(
                 {
-                    "request_start_date": "The request start date "
-                    "cannot be after the end date.",
-                    "request_end_date": "The request end date "
-                    "cannot be before the start date.",
+                    "request_start_date": (
+                        "The request start date " "cannot be after the end date."
+                    ),
+                    "request_end_date": (
+                        "The request end date " "cannot be before the start date."
+                    ),
                 }
             )
         elif end - start > duration:

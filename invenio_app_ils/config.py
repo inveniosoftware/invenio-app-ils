@@ -221,7 +221,9 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=0),  # every day, midnight
     },
     "cancel_expired_loan": {
-        "task": "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests",  # noqa
+        "task": (
+            "invenio_app_ils.circulation.tasks.cancel_expired_loan_requests"
+        ),  # noqa
         "schedule": crontab(minute=0, hour=1),  # every day, 1am
     },
     "send_overdue_loan_reminders": {
@@ -239,7 +241,9 @@ CELERY_BEAT_SCHEDULE = {
         "args": [("record-view-agg", "file-download-agg")],
     },
     "clean_locations_past_closures_exceptions": {
-        "task": "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions",  # noqa
+        "task": (
+            "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions"
+        ),  # noqa
         "schedule": crontab(
             0, 0, day_of_month=31, month_of_year=1
         ),  # January 31st of every year
@@ -339,7 +343,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=DocumentIndexer,
         search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
-            "application/json": ("invenio_app_ils.documents.loaders:document_loader")
+            "application/json": "invenio_app_ils.documents.loaders:document_loader"
         },
         record_serializers={
             "application/json": (
@@ -347,10 +351,8 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.literature.serializers:json_v1_search"
-            ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "application/json": "invenio_app_ils.literature.serializers:json_v1_search",
+            "text/csv": "invenio_app_ils.literature.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -378,10 +380,10 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": "invenio_app_ils.items.loaders:item_loader"
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.items.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.items.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.items.serializers:json_v1_search"),
+            "application/json": "invenio_app_ils.items.serializers:json_v1_search",
             "text/csv": "invenio_app_ils.items.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -410,10 +412,10 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": "invenio_app_ils.eitems.loaders:eitem_loader"
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search",
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -439,13 +441,13 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Location,
         indexer_class=LocationIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.locations.loaders:location_loader")
+            "application/json": "invenio_app_ils.locations.loaders:location_loader"
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search"
         },
         search_serializers_aliases={
             "json": "application/json",
@@ -470,7 +472,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=SeriesIndexer,
         search_factory_imp="invenio_app_ils.search_permissions:ils_search_factory",  # noqa
         record_loaders={
-            "application/json": ("invenio_app_ils.series.loaders:series_loader")
+            "application/json": "invenio_app_ils.series.loaders:series_loader"
         },
         record_serializers={
             "application/json": (
@@ -478,10 +480,8 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.literature.serializers:json_v1_search"
-            ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "application/json": "invenio_app_ils.literature.serializers:json_v1_search",
+            "text/csv": "invenio_app_ils.literature.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -506,15 +506,13 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=InternalLocation,
         indexer_class=InternalLocationIndexer,
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.internal_locations.loaders:internal_location_loader"  # noqa
-            )
+            "application/json": "invenio_app_ils.internal_locations.loaders:internal_location_loader"  # noqa
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_records_rest.serializers:json_v1_search")
+            "application/json": "invenio_records_rest.serializers:json_v1_search"
         },
         search_serializers_aliases={
             "json": "application/json",
@@ -538,10 +536,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Patron,
         indexer_class=PatronIndexer,
         record_serializers={
-            "application/json": ("invenio_records_rest.serializers:json_v1_response")
+            "application/json": "invenio_records_rest.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search",
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -568,15 +566,13 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=DocumentRequestIndexer,
         search_factory_imp="invenio_app_ils.search_permissions:search_factory_filter_by_patron",  # noqa
         record_loaders={
-            "application/json": (
-                "invenio_app_ils.document_requests.loaders:document_request_loader"  # noqa
-            )
+            "application/json": "invenio_app_ils.document_requests.loaders:document_request_loader"  # noqa
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search",
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -603,10 +599,10 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=VocabularyIndexer,
         record_class=Vocabulary,
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search",
             "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
@@ -638,10 +634,8 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         search_serializers={
-            "application/json": (
-                "invenio_app_ils.literature.serializers:json_v1_search"
-            ),
-            "text/csv": ("invenio_app_ils.literature.serializers:csv_v1_search"),
+            "application/json": "invenio_app_ils.literature.serializers:json_v1_search",
+            "text/csv": "invenio_app_ils.literature.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -1043,7 +1037,9 @@ ILS_VOCABULARIES = [
 
 ILS_VOCABULARY_SOURCES = {
     "json": "invenio_app_ils.vocabularies.sources:json_source",
-    "opendefinition": "invenio_app_ils.vocabularies.sources:opendefinition_source",  # noqa
+    "opendefinition": (
+        "invenio_app_ils.vocabularies.sources:opendefinition_source"
+    ),  # noqa
 }
 
 OPENDEFINITION_JSONRESOLVER_HOST = "inveniosoftware.org"
