@@ -40,9 +40,11 @@ def jsonresolver_loader(url_map):
                 "internal_location": {
                     "name": item.get("internal_location", {}).get("name", ""),
                     "location": {
-                        "name": item.get("internal_location", {})
-                        .get("location", {})
-                        .get("name", "")
+                        "name": (
+                            item.get("internal_location", {})
+                            .get("location", {})
+                            .get("name", "")
+                        )
                     },
                 },
             }

@@ -26,14 +26,14 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Order,
         indexer_class=RecordIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.acquisition.loaders:order_loader")
+            "application/json": "invenio_app_ils.acquisition.loaders:order_loader"
         },
         record_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_response")
+            "application/json": "invenio_app_ils.records.serializers:json_v1_response"
         },
         search_serializers={
-            "application/json": ("invenio_app_ils.records.serializers:json_v1_search"),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "application/json": "invenio_app_ils.records.serializers:json_v1_search",
+            "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",

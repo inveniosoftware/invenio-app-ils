@@ -1253,7 +1253,7 @@ def data(
     n_libraries,
     n_borrowing_requests,
     verbose,
-    skip_admin=False
+    skip_admin=False,
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -1311,7 +1311,6 @@ def data(
     create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
     _run_command("users create patron2@test.ch -a --password=123456", verbose)  # ID 2
     create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
-
 
     _run_command("users create librarian@test.ch -a --password=123456", verbose)  # ID 3
     create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
