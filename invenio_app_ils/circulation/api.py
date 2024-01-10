@@ -25,7 +25,6 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
-from invenio_search.engine import uses_es7
 
 from invenio_app_ils.circulation.search import (
     get_all_expiring_or_overdue_loans_by_patron_pid,
@@ -43,8 +42,6 @@ from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.items.api import Item
 from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.proxies import current_app_ils
-
-lt_es7 = not uses_es7
 
 # override default `invenio-circulation` minters to use the base32 PIDs
 # CIRCULATION_LOAN_PID_TYPE is already defined in `invenio-circulation`
@@ -93,7 +90,7 @@ def patron_has_request_on_document(patron_pid, document_pid):
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-    total = search_result.hits.total if lt_es7 else search_result.hits.total.value
+    total = search_result.hits.total.value
     if total > 0:
         return search_result.hits[0]
     else:
@@ -110,7 +107,7 @@ def patron_has_active_loan_or_request_on_document(patron_pid, document_pid):
         patron_pid=patron_pid, document_pid=document_pid, filter_states=states
     )
     search_result = search.execute()
-    total = search_result.hits.total if lt_es7 else search_result.hits.total.value
+    total = search_result.hits.total.value
     if total > 0:
         return search_result.hits[0]
     else:
@@ -170,9 +167,7 @@ def patron_has_active_loan_on_item(patron_pid, item_pid):
         filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
     )
     search_result = search.execute()
-    return (
-        search_result.hits.total > 0 if lt_es7 else search_result.hits.total.value > 0
-    )
+    return search_result.hits.total.value > 0
 
 
 def checkout_loan(

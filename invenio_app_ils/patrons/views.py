@@ -10,14 +10,11 @@
 from flask import Blueprint, current_app
 from flask_login import current_user
 from invenio_circulation.search.api import search_by_patron_item_or_document
-from invenio_search.engine import uses_es7
 from webargs import fields
 from webargs.flaskparser import use_kwargs
 
 from invenio_app_ils.circulation.search import get_loans_aggregated_by_states
 from invenio_app_ils.permissions import need_permissions
-
-lt_es7 = not uses_es7
 
 
 def get_user_loan_information_blueprint(_):
@@ -79,11 +76,7 @@ def retrieve_user_loans_information(patron_pid, document_pid):
 
             search = search.sort({"end_date": {"order": "desc"}})
             search_result = search.execute()
-            has_past_loans = (
-                search_result.hits.total > 0
-                if lt_es7
-                else search_result.hits.total.value > 0
-            )
+            has_past_loans = search_result.hits.total.value > 0
             if has_past_loans:
                 last_loan = search_result.hits[0]
                 user_information["last_loan"] = last_loan["end_date"]
