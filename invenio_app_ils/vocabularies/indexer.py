@@ -8,9 +8,6 @@
 """Vocabulary indexer APIs."""
 
 from invenio_indexer.api import RecordIndexer
-from invenio_search.engine import uses_es7
-
-lt_es7 = not uses_es7
 
 
 class VocabularyIndexer(RecordIndexer):

@@ -11,7 +11,7 @@
 from copy import deepcopy
 
 from flask import current_app
-from invenio_accounts.models import SessionActivity, User, userrole, LoginInformation
+from invenio_accounts.models import LoginInformation, SessionActivity, User, userrole
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
