@@ -15,7 +15,7 @@ from invenio_app_ils.search_permissions import (
 )
 
 
-def search_factory_literature(self, search):
+def search_factory_literature(self, search, query_parser=None):
     """Search factory for literature (series and documents)."""
 
     def filter_serial_issues(search, query_string=None):
