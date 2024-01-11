@@ -8,6 +8,13 @@
 Changes
 =======
 
+Version 2.0.0rc1 (released 2024-01-11)
+
+- upgrade python version
+- remove ES v7 and below support
+- upgrade invenio packages
+- upgrade python dependencies
+
 Version 1.0.0rc5 (released 2023-12-20)
 
 - demo data: optional admin account creation
