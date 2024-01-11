@@ -172,7 +172,7 @@ def anonymize_patron_data(patron_pid, force=False):
     for hit in patron_acquisitions:
         acquisition = Order.get_record_by_pid(hit.pid)
         for line in acquisition["order_lines"]:
-            if line["patron_pid"] == patron_pid:
+            if line.get("patron_pid") == patron_pid:
                 line["patron_pid"] = anonymous_patron_fields["pid"]
         acquisition.commit()
         current_ils_acq.order_indexer.index(acquisition)
