@@ -85,5 +85,26 @@
     "pid": "acqoid-6",
     "status": "ORDERED",
     "provider_pid": "acq-provid-2"
+  },
+  {
+    "order_date": "2020-01-29",
+    "order_lines": [
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-1",
+        "medium": "hardcover",
+        "recipient": "patron",
+        "patron_pid": "4"
+      },
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-1",
+        "medium": "hardcover",
+        "recipient": "patron"
+      }
+    ],
+    "pid": "acqoid-7",
+    "status": "RECEIVED",
+    "provider_pid": "acq-provid-2"
   }
 ]
