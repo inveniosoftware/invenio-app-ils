@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 1.0.0rc6 (released 2024-01-12)
+
+- installation: upgrade invenio-i18n
+- anonymization: conditional read of patron_pid in acq orders
+
 Version 1.0.0rc5 (released 2023-12-20)
 
 - demo data: optional admin account creation
