@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 2.0.0rc2 (released 2024-01-12)
+
+- search: fix search factory function signature
+- anonymization: fix patron_pid retrieval on acq orders
+
 Version 2.0.0rc1 (released 2024-01-11)
 
 - upgrade python version
