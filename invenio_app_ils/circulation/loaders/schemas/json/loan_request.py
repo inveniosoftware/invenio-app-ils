@@ -68,7 +68,7 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
 
     @validates_schema()
     def validates_schema(self, data, **kwargs):
-        """Validate schema delivery field."""
+        """Validate schema fields."""
         delivery = data.get("delivery")
         # if delivery methods is configured, it has to be a mandatory field
         if (
@@ -77,13 +77,24 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         ):
             raise ValidationError("Delivery is required.", "delivery")
 
+        if current_app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"] < 0:
+            raise ValidationError(
+                {
+                    "ILS_CIRCULATION_LOAN_REQUEST_OFFSET": [
+                        "The minimum days after which a loan can start cannot be negative."
+                    ]
+                }
+            )
+
     @post_load()
     def postload_checks(self, data, **kwargs):
         """Validate dates values."""
         start = arrow.get(data["request_start_date"]).date()
         end = arrow.get(data["request_expire_date"]).date()
         duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
-        loan_request_offset = timedelta(days=current_app.config["ILS_CIRCULATION_LOAD_REQUEST_OFFSET"])
+        loan_request_offset = timedelta(
+            days=current_app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"]
+        )
         duration = timedelta(days=duration_days)
 
         if end < start:
@@ -108,11 +119,14 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
                 }
             )
         elif end - start < loan_request_offset:
-            message = "The request end date can only be {} days after the request start date.".format(loan_request_offset.days)
+            message = (
+                "The requested start date must be at least {} days from today.".format(
+                    loan_request_offset.days
+                )
+            )
             raise ValidationError(
                 {
                     "request_start_date": [message],
-                    "request_expire_date": [message],
                 }
             )
         return data
