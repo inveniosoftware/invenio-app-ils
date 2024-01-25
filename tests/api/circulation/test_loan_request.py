@@ -226,3 +226,73 @@ def test_request_loan_with_active_loan_or_loan_request(
     params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
+
+
+def test_request_loan_minimum_days(app, client, json_headers, users, testdata):
+    """Test that a patron can only request a loan after a set minimum days"""
+    url = url_for("invenio_app_ils_circulation.loan_request")
+    user = user_login(client, "patron1", users)
+    app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"] = 4
+    params = deepcopy(NEW_LOAN)
+
+    now = arrow.utcnow()
+    start_date = now.date().isoformat()
+    params["request_start_date"] = start_date
+    params["transaction_user_pid"] = str(user.id)
+
+    params["document_pid"] = "docid-4"
+    end_date = (now + timedelta(days=2)).date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."
+
+    params["document_pid"] = "docid-5"
+    end_date = (now - timedelta(days=2)).date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."
+
+    params["document_pid"] = "docid-6"
+    end_date = now.date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."
+
+    params["document_pid"] = "docid-7"
+    end_date = (now + timedelta(days=4)).date().isoformat()  # PASS
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "PENDING"
+    assert loan["document_pid"] == params["document_pid"]
+    assert loan["transaction_date"]
+
+    params["document_pid"] = "docid-8"
+    end_date = (now + timedelta(days=8)).date().isoformat()  # PASS
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "PENDING"
+    assert loan["document_pid"] == params["document_pid"]
+    assert loan["transaction_date"]
+
+    app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"] = -3
+
+    params["document_pid"] = "docid-9"
+    end_date = now.date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."
+
+    params["document_pid"] = "docid-10"
+    end_date = (now - timedelta(days=2)).date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."

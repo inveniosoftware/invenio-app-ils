@@ -74,8 +74,8 @@ from .utils import (
 ILS_CIRCULATION_NOTIFICATION_OVERDUE_REMINDER_INTERVAL = 3
 #: The maximum duration of a loan request
 ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
-#: Loan Request Offset Value
-ILS_CIRCULATION_LOAD_REQUEST_OFFSET = 0
+#: The minimum number of days after which a loan can start from the date of request
+ILS_CIRCULATION_LOAN_REQUEST_OFFSET = 0
 #: Period of time in days, before loans expire, for notifications etc.
 ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS = 7
 #: Optional delivery methods when requesting a new loan. Set to empty object to
