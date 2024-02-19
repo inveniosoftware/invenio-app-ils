@@ -52,6 +52,9 @@
         "type": "date",
         "format": "strict_date_hour_minute_second"
       },
+      "updated_timestamp": {
+        "type": "date"
+      },
       "unique_id": {
         "type": "keyword"
       },
