@@ -11,7 +11,7 @@ on:
   push:
     branches: master
   pull_request:
-    branches: 
+    branches:
       - master
       - "maint-**"
   schedule:
@@ -33,7 +33,7 @@ jobs:
           python-version: [3.9]
           requirements-level: [pypi]
           db-service: [postgresql13,postgresql14]
-          search-service: [elasticsearch7,opensearch2]
+          search-service: [opensearch2]
           include:
           - db-service: postgresql14
             DB: postgresql
@@ -50,11 +50,6 @@ jobs:
           - search-service: opensearch2
             SEARCH: opensearch2
             SEARCH_EXTRAS: opensearch2
-
-          - search-service: elasticsearch7
-            SEARCH: elasticsearch
-            ELASTICSEARCH_VERSION: ELASTICSEARCH_7_LATEST
-            SEARCH_EXTRAS: elasticsearch7
 
     env:
       SQLALCHEMY_DATABASE_URI: ${{matrix.SQLALCHEMY_DATABASE_URI}}
