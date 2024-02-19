@@ -9,7 +9,7 @@
 
 from functools import partial
 
-from flask import current_app
+from flask import current_app, request
 from invenio_files_rest.models import ObjectVersion
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
@@ -110,6 +110,15 @@ class EItem(IlsRecord):
 
 def eitem_event_builder(event, sender_app, obj=None, **kwargs):
     """Add eitem metadata to the event."""
-    record = kwargs["record"]
-    event.update(dict(eitem_pid=record["pid"], document_pid=record.get("document_pid")))
+    record = kwargs.get("record")
+    if not record and hasattr(request, "view_args"):
+        bucket_id = request.view_args["bucket_id"]
+        eitems_search = current_app_ils.eitem_search_cls()
+        eitems = eitems_search.search_by_bucket_id(bucket_id)
+        if len(eitems) == 1:
+            record = eitems[0]
+    if record:
+        event.update(
+            dict(eitem_pid=record["pid"], document_pid=record.get("document_pid"))
+        )
     return event
