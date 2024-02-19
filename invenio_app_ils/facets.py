@@ -27,7 +27,7 @@ def keyed_range_filter(field, range_query, **kwargs):
                     args[key] = value
 
         args.update(kwargs.copy())
-        return dsl.RangeField(**{field: args})
+        return dsl.query.Range(**{field: args})
 
     return inner
 

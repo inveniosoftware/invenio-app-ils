@@ -62,7 +62,7 @@ def ils_search_factory(self, search, validator=None):
     """
 
     def query_parser(search, qstr=None):
-        """Default parser that uses the Q() from elasticsearch_dsl."""
+        """Default parser that uses the Q() from invenio_search.engine.dsl."""
         if qstr:
             boosted = getattr(search, "boosted_fields", [])
             extra_params = {}
