@@ -10,7 +10,6 @@
 from flask import Blueprint, abort, current_app, request
 from flask_login import current_user
 from invenio_files_rest.models import ObjectVersion
-from invenio_files_rest.signals import file_downloaded
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
@@ -21,7 +20,7 @@ from invenio_app_ils.errors import StatsError
 from invenio_app_ils.permissions import backoffice_permission
 from invenio_app_ils.records.permissions import RecordPermission
 from invenio_app_ils.series.api import SERIES_PID_TYPE
-from invenio_app_ils.signals import record_viewed
+from invenio_app_ils.signals import record_viewed, file_downloaded
 
 
 def create_document_stats_blueprint(app):
@@ -67,7 +66,6 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
             if not current_user.is_authenticated:
                 abort(401)
             abort(403)
-
         data = request.get_json()
         event_name = data.get("event")
         if event_name == "record-view":
