@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 2.0.0rc3 (released 2024-02-19)
+
+- facets: fix range post filter
+
 Version 2.0.0rc2 (released 2024-01-12)
 
 - search: fix search factory function signature
