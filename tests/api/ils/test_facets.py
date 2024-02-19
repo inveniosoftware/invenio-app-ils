@@ -27,9 +27,9 @@ def test_keyed_range_filter():
     range_query = {"None": {"lt": 1}, "1+": {"gte": 1}}
     rfilter = keyed_range_filter("field", range_query)
 
-    assert rfilter(["None"]) == dsl.RangeField(field={"lt": 1})
-    assert rfilter(["1+"]) == dsl.RangeField(field={"gte": 1})
-    assert rfilter(["None", "1+"]) == dsl.RangeField(field={"gte": 1, "lt": 1})
+    assert rfilter(["None"]) == dsl.query.Range(field={"lt": 1})
+    assert rfilter(["1+"]) == dsl.query.Range(field={"gte": 1})
+    assert rfilter(["None", "1+"]) == dsl.query.Range(field={"gte": 1, "lt": 1})
 
 
 def test_current_ranged_loans_filter(app):
