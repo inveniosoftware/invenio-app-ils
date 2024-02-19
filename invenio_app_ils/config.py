@@ -879,7 +879,7 @@ ALLOWED_HTML_TAGS = []
 # =====
 STATS_EVENTS = {
     "file-download": {
-        "signal": "invenio_files_rest.signals.file_downloaded",
+        "signal": "invenio_app_ils.signals.file_downloaded",
         "templates": "invenio_app_ils.stats.file_download",
         "event_builders": [
             "invenio_app_ils.eitems.api:eitem_event_builder",
