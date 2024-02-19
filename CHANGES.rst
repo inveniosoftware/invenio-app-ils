@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 2.0.0rc4 (released 2024-02-19)
+
+- stats: emit custom signal for file download
+
 Version 2.0.0rc3 (released 2024-02-19)
 
 - facets: fix range post filter
