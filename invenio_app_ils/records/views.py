@@ -20,7 +20,7 @@ from invenio_app_ils.errors import StatsError
 from invenio_app_ils.permissions import backoffice_permission
 from invenio_app_ils.records.permissions import RecordPermission
 from invenio_app_ils.series.api import SERIES_PID_TYPE
-from invenio_app_ils.signals import record_viewed, file_downloaded
+from invenio_app_ils.signals import file_downloaded, record_viewed
 
 
 def create_document_stats_blueprint(app):

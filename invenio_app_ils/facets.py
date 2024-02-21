@@ -93,7 +93,7 @@ def overdue_loans_filter(field):
 
         return dsl.query.Bool(
             [
-                dsl.RangeField(**{field: args}),
+                dsl.query.Range(**{field: args}),
                 dsl.Q(
                     "terms",
                     **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
@@ -144,6 +144,6 @@ def date_range_filter(field, comparator):
             input_date = str(arrow.get(values[0]).date())
         except arrow.parser.ParserError:
             raise ValueError("Input should be a date")
-        return dsl.RangeField(**{field: {comparator: input_date}})
+        return dsl.query.Range(**{field: {comparator: input_date}})
 
     return inner
