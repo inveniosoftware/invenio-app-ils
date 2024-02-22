@@ -56,7 +56,7 @@ class RecordRelationIndexer(RecordIndexer):
             # * for siblings -> all
             # * for sequence -> only previous or next
             # this code should be moved up to the relation
-            relations = rec.relations
+            relations = rec.relations()
             for relation_type, related_records in relations.items():
                 for obj in related_records:
                     add_referenced(obj["pid_value"], obj["pid_type"])

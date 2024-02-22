@@ -26,7 +26,7 @@ def jsonresolver_loader(url_map):
     def relations_resolver(series_pid):
         """Resolve record relations."""
         series = Series.get_record_by_pid(series_pid)
-        return series.relations
+        return series.relations(sort_by = ["edition"])
 
     url_map.add(
         Rule(
