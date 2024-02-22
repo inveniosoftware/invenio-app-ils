@@ -26,7 +26,7 @@ def jsonresolver_loader(url_map):
     def relations_resolver(document_pid):
         """Resolve record relations and add metadata."""
         document = Document.get_record_by_pid(document_pid)
-        return document.relations
+        return document.relations(sort_by = ["edition"])
 
     url_map.add(
         Rule(

@@ -65,7 +65,7 @@ def get_related_records(document_pid):
     except PIDDeletedError:
         # Document might have been deleted while reindexing asynchronously.
         return referenced
-    relations = record.relations
+    relations = record.relations()
     for _, related_records in relations.items():
         for obj in related_records:
             rec = IlsRecord.get_record_by_pid(
