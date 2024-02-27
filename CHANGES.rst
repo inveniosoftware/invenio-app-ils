@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 2.0.0rc6 (released 2024-02-27)
+
+- facets: fix boolean query
+
 Version 2.0.0rc5 (released 2024-02-21)
 
 - facets: fix range query
