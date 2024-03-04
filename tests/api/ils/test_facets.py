@@ -44,8 +44,8 @@ def test_current_ranged_loans_filter(app):
         overdue = rfilter(["Overdue"])
         field = {"lt": str(arrow.utcnow().date())}
         assert overdue == dsl.query.Bool(
-            [dsl.RangeField(field=field), current_loans_query]
-        )
+            must=[dsl.query.Range(field=field),
+                  current_loans_query])
 
         upcoming = rfilter(["Upcoming return"])
         field = {
@@ -53,8 +53,8 @@ def test_current_ranged_loans_filter(app):
             "lte": str((arrow.utcnow() + timedelta(days=7)).date()),
         }
         assert upcoming == dsl.query.Bool(
-            [dsl.RangeField(field=field), current_loans_query]
-        )
+            must=[dsl.query.Range(field=field),
+                  current_loans_query])
 
 
 def test_default_value_when_missing_filter(app):
