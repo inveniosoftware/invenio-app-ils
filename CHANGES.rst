@@ -8,6 +8,18 @@
 Changes
 =======
 
+Version 2.0.0rc7 (released 2024-03-04)
+
+- circulation: Made loan request start date to be configurable and validated at the backend
+
+Version 2.0.0rc6 (released 2024-02-27)
+
+- facets: fix boolean query
+
+Version 2.0.0rc5 (released 2024-02-21)
+
+- facets: fix range query
+
 Version 2.0.0rc4 (released 2024-02-19)
 
 - stats: emit custom signal for file download

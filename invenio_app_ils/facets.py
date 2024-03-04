@@ -91,7 +91,9 @@ def overdue_loans_filter(field):
                 for key, value in mappings.items():
                     args[key] = value
         range_query = dsl.query.Range(**{field: args})
-        terms_query = dsl.Q("terms", **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]})
+        terms_query = dsl.Q(
+            "terms", **{"state": current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]}
+        )
 
         return dsl.query.Bool(must=[range_query, terms_query])
 
