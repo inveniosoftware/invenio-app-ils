@@ -95,6 +95,7 @@ class RecordHasReferencesError(IlsException):
             ref_type=ref_type,
             ref_ids=ref_ids,
         )
+        self.record_id = record_id
 
 
 class ItemHasActiveLoanError(IlsException):
