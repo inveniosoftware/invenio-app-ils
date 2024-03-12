@@ -296,3 +296,24 @@ def test_request_loan_minimum_days(app, client, json_headers, users, testdata):
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
     assert res.get_json()["message"] == "Validation error."
+
+    app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"] = 2
+
+    params["document_pid"] = "docid-11"
+    start_date_friday = now + timedelta(days=(4 - now.weekday() + 7) % 7)
+    params["request_start_date"] = start_date_friday
+
+    end_date_monday = (now + timedelta(days=3)).date().isoformat()  # FAIL
+    params["request_expire_date"] = end_date_monday
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 400
+    assert res.get_json()["message"] == "Validation error."
+
+    end_date_tuesday = (now + timedelta(days=4)).date().isoformat()  # PASS
+    params["request_expire_date"] = end_date_tuesday
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "PENDING"
+    assert loan["document_pid"] == params["document_pid"]
+    assert loan["transaction_date"]

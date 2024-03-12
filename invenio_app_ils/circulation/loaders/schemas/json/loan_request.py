@@ -12,6 +12,7 @@ from datetime import timedelta
 import arrow
 from flask import current_app
 from invenio_circulation.records.loaders.schemas.json import DateString
+from invenio_app_ils.proxies import current_app_ils
 from marshmallow import (
     Schema,
     ValidationError,
@@ -35,6 +36,46 @@ def request_expire_date_default():
     duration = timedelta(days=duration_days)
     now = arrow.get().utcnow()
     return (now + duration).date().isoformat()
+
+
+def get_offset_duration(request_start_date, location_pid, working_days_to_offset):
+    location = current_app_ils.location_record_cls.get_record_by_pid(location_pid)
+
+    weekdays = location["opening_weekdays"]
+    exceptions = location["opening_exceptions"]
+    disabled = set()
+
+    date = request_start_date
+    max_date = request_start_date + timedelta(
+        days=current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
+    )
+    while date <= max_date:
+        date_iso = date.isoformat()
+        is_open = weekdays[date.weekday() - 1]["is_open"]
+
+        for exception in exceptions:
+            start_date = arrow.get(exception["start_date"])
+            end_date = arrow.get(exception["end_date"])
+
+            if start_date <= date <= end_date:
+                is_open = exception["is_open"]
+
+        if not is_open:
+            disabled.add(date_iso)
+
+        date += timedelta(days=1)
+
+    total_offset_days = 0
+    date = request_start_date
+    while working_days_to_offset >= 0:
+        date_iso = date.isoformat()
+        if date_iso not in disabled:
+            disabled.add(date_iso)
+            working_days_to_offset -= 1
+        date += timedelta(days=1)
+        total_offset_days += 1
+
+    return timedelta(days=total_offset_days)
 
 
 class LoanRequestDeliverySchemaV1(Schema):
@@ -92,24 +133,28 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
         start = arrow.get(data["request_start_date"]).date()
         end = arrow.get(data["request_expire_date"]).date()
         duration_days = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
-        loan_request_offset = timedelta(
-            days=current_app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"]
-        )
         duration = timedelta(days=duration_days)
+
+        loan_request_offset = current_app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"]
+        offset_with_closures = get_offset_duration(
+            arrow.get(data["request_start_date"]),
+            data["transaction_location_pid"],
+            loan_request_offset,
+        )
 
         if end < start:
             raise ValidationError(
                 {
                     "request_start_date": (
-                        "The request start date " "cannot be after the end date."
+                        "The request start date cannot be after the end date."
                     ),
                     "request_end_date": (
-                        "The request end date " "cannot be before the start date."
+                        "The request end date cannot be before the start date."
                     ),
                 }
             )
         elif end - start > duration:
-            message = "The request duration " + "cannot be longer than {} days.".format(
+            message = "The request duration cannot be longer than {} days.".format(
                 duration_days
             )
             raise ValidationError(
@@ -118,11 +163,9 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
                     "request_expire_date": [message],
                 }
             )
-        elif end - start < loan_request_offset:
-            message = (
-                "The requested start date must be at least {} days from today.".format(
-                    loan_request_offset.days
-                )
+        elif end - start < offset_with_closures:
+            message = "The requested start date must be at least {} non-closure days from today.".format(
+                loan_request_offset
             )
             raise ValidationError(
                 {
