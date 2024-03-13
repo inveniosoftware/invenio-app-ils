@@ -300,7 +300,9 @@ def test_request_loan_minimum_days(app, client, json_headers, users, testdata):
     assert res.get_json()["message"] == "Validation error."
 
     params["document_pid"] = "docid-12"
-    end_date_tuesday = (start_date_friday + timedelta(days=4)).date().isoformat()  # PASS
+    end_date_tuesday = (
+        (start_date_friday + timedelta(days=4)).date().isoformat()
+    )  # PASS
     params["request_expire_date"] = end_date_tuesday
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
