@@ -49,15 +49,17 @@ def get_offset_duration(request_start_date, location_pid, working_days_to_offset
     max_date = request_start_date + timedelta(
         days=current_app.config["ILS_CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
     )
+    # Calculate all disabled days that need to be skipped
+    # Used in calculating non-closure days to offset in post-load checks
     while date <= max_date:
-        date_iso = date.isoformat()
-        is_open = weekdays[date.weekday() - 1]["is_open"]
+        date_iso = date.date().isoformat()
+        is_open = weekdays[date.weekday()]["is_open"]
 
         for exception in exceptions:
             start_date = arrow.get(exception["start_date"])
             end_date = arrow.get(exception["end_date"])
 
-            if start_date <= date <= end_date:
+            if start_date <= arrow.get(date.date()) <= end_date:
                 is_open = exception["is_open"]
 
         if not is_open:
@@ -67,8 +69,8 @@ def get_offset_duration(request_start_date, location_pid, working_days_to_offset
 
     total_offset_days = 0
     date = request_start_date
-    while working_days_to_offset >= 0:
-        date_iso = date.isoformat()
+    while working_days_to_offset > 0:
+        date_iso = date.date().isoformat()
         if date_iso not in disabled:
             disabled.add(date_iso)
             working_days_to_offset -= 1
