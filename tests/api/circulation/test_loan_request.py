@@ -27,6 +27,16 @@ NEW_LOAN = {
     "request_expire_date": "2019-09-20",
 }
 
+NEW_LOAN_2 = {
+    "document_pid": "CHANGE ME IN EACH TEST",
+    "patron_pid": "4",
+    "transaction_location_pid": "locid-4",  # With Sat and Sun closures
+    "pickup_location_pid": "locid-4",
+    "delivery": {"method": "PICKUP"},
+    "request_start_date": "2024-03-15",  # Friday
+    "request_expire_date": "CHANGE-MY-DATE",
+}
+
 
 def test_anonymous_cannot_request_loan(client, json_headers, testdata):
     """Test that anonymous users cannot request a loan."""
@@ -261,8 +271,18 @@ def test_request_loan_minimum_days(app, client, json_headers, users, testdata):
     assert res.status_code == 400
     assert res.get_json()["message"] == "Validation error."
 
+    params["document_pid"] = "docid-7"
+    end_date = (now + timedelta(days=4)).date().isoformat()  # PASS
+    params["request_expire_date"] = end_date
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "PENDING"
+    assert loan["document_pid"] == params["document_pid"]
+    assert loan["transaction_date"]
+
     params["document_pid"] = "docid-8"
-    end_date = (now + timedelta(days=7)).date().isoformat()  # PASS
+    end_date = (now + timedelta(days=8)).date().isoformat()  # PASS
     params["request_expire_date"] = end_date
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
@@ -288,25 +308,31 @@ def test_request_loan_minimum_days(app, client, json_headers, users, testdata):
     assert res.get_json()["message"] == "Validation error."
 
     app.config["ILS_CIRCULATION_LOAN_REQUEST_OFFSET"] = 2
-
-    start_date_friday = now + timedelta(days=(4 - now.weekday() + 7) % 7)
-    params["request_start_date"] = start_date_friday.date().isoformat()
+    # By-pass default location validation for testing closures on a different location
+    location_validator, app.config["CIRCULATION_TRANSACTION_LOCATION_VALIDATOR"] = (
+        app.config["CIRCULATION_TRANSACTION_LOCATION_VALIDATOR"],
+        lambda _: True,
+    )
+    # Request Date is Friday
+    params = deepcopy(NEW_LOAN_2)
+    params["transaction_user_pid"] = str(user.id)
 
     params["document_pid"] = "docid-11"
-    end_date_monday = (start_date_friday + timedelta(days=3)).date().isoformat()  # FAIL
-    params["request_expire_date"] = end_date_monday
+    # Monday
+    params["request_expire_date"] = "2024-03-18"  # FAIL
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
     assert res.get_json()["message"] == "Validation error."
 
     params["document_pid"] = "docid-12"
-    end_date_tuesday = (
-        (start_date_friday + timedelta(days=4)).date().isoformat()
-    )  # PASS
-    params["request_expire_date"] = end_date_tuesday
+    # Tuesday
+    params["request_expire_date"] = "2024-03-19"  # PASS
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
     assert loan["state"] == "PENDING"
     assert loan["document_pid"] == params["document_pid"]
     assert loan["transaction_date"]
+
+    # Set the config back to its original state
+    app.config["CIRCULATION_TRANSACTION_LOCATION_VALIDATOR"] = location_validator
