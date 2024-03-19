@@ -159,7 +159,7 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
         r.update(relevant_fields)
         return r
 
-    def get(self, sort_by=None):
+    def get(self):
         """Get all sibling relations with the current record."""
         relations = {}
         for relation_type in SIBLINGS_RELATION_TYPES:
@@ -172,8 +172,16 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
                 relations[name].append(r)
 
             # Pre-requisite: fields being sorted should be of the same type.
-            if sort_by and name in sort_by and name in relations.keys():
-                relations[name].sort(key=lambda rec: rec["record_metadata"][name])
+            keys_to_sort_by = []
+            for key in relation_type.sort_by:
+                if key in relations.keys():
+                    keys_to_sort_by.append(key)
+
+            # Sort by the keys available in the data in order
+            if keys_to_sort_by:
+                relations[name].sort(
+                    key=lambda rec: [rec[key] for key in keys_to_sort_by]
+                )
 
         return relations
 
@@ -229,14 +237,14 @@ class SequenceRetriever(RelationObjectBuilderMixin):
         return relations
 
 
-def get_relations(record, sort_by=None):
+def get_relations(record):
     """Get all relations for the given record."""
     relations = {}
 
     pc_rels = ParentChildRetriever(record).get()
     relations.update(pc_rels)
 
-    sibl_rels = SiblingsRetriever(record).get(sort_by)
+    sibl_rels = SiblingsRetriever(record).get()
     relations.update(sibl_rels)
 
     seq_rels = SequenceRetriever(record).get()

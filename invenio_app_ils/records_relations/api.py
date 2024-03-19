@@ -421,10 +421,11 @@ class RecordRelationsSequence(RecordRelations):
 class IlsRecordWithRelations(IlsRecord):
     """Add relations functionalities to records."""
 
-    def relations(self, sort_by=None):
+    @property
+    def relations(self):
         """Get record relations."""
         from .retriever import get_relations
-        return get_relations(self, sort_by)
+        return get_relations(self)
 
     def clear(self):
         """Clear IlsRecordWithRelations record."""
@@ -436,7 +437,7 @@ class IlsRecordWithRelations(IlsRecord):
     def delete(self, **kwargs):
         """Delete record with relations."""
         related_refs = set()
-        for name, related_objects in self.relations().items():
+        for name, related_objects in self.relations.items():
             for obj in related_objects:
                 related_refs.add("{pid_value}:{pid_type}".format(**obj))
         if related_refs:
