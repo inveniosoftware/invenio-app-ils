@@ -154,7 +154,7 @@ def _test_sibl_language_relation(client, json_headers):
         )
 
     def _test_delete():
-        """Test relation creation."""
+        """Test relation deletion."""
         rec1, rec2 = recrel_choose_endpoints_and_do_request(
             (client, json_headers, "DELETE"),
             (
@@ -183,13 +183,22 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
     first_pid_type = "docid"
     second_pid_value = "docid-1"
     second_pid_type = "docid"
+    third_pid_value = "docid-8"
+    third_pid_type = "docid"
     relation_type = "edition"
 
-    payload = {
-        "pid_value": second_pid_value,
-        "pid_type": second_pid_type,
-        "relation_type": relation_type,
-    }
+    payload = [
+        {
+            "pid_value": second_pid_value,
+            "pid_type": second_pid_type,
+            "relation_type": relation_type,
+        },
+        {
+            "pid_value": third_pid_value,
+            "pid_type": third_pid_type,
+            "relation_type": relation_type,
+        },
+    ]
 
     def _test_create():
         """Test relation creation."""
@@ -203,6 +212,9 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
             ),
             payload,
         )
+        rec3 = Document.get_record_by_pid(third_pid_value)
+        rec3 = rec3.replace_refs()
+
         recrel_assert_record_relations(
             rec1,
             expected={
@@ -219,20 +231,39 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "document_type": rec2["document_type"],
                                 "publication_year": rec2["publication_year"],
                             },
-                        }
+                        },
+                        {
+                            "pid_value": third_pid_value,
+                            "pid_type": third_pid_type,
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec3["title"],
+                                "edition": rec3["edition"],
+                                "document_type": rec3["document_type"],
+                                "publication_year": rec3["publication_year"],
+                            },
+                        },
                     ]
                 }
             },
         )
-
-        rec_docid_2 = get_test_record(testdata, "documents", "docid-2")
-        rec_docid_6 = get_test_record(testdata, "documents", "docid-6")
-
         recrel_assert_record_relations(
-            rec2,
+            rec3,
             expected={
                 "relations": {
                     "edition": [
+                        {
+                            "pid_value": second_pid_value,
+                            "pid_type": second_pid_type,
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec2["title"],
+                                "edition": rec2["edition"],
+                                "languages": rec2["languages"],
+                                "document_type": rec2["document_type"],
+                                "publication_year": rec2["publication_year"],
+                            },
+                        },
                         {
                             "pid_value": first_pid_value,
                             "pid_type": first_pid_type,
@@ -243,7 +274,42 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
                                 "document_type": rec1["document_type"],
                                 "publication_year": rec1["publication_year"],
                             },
-                        }
+                        },
+                    ]
+                }
+            },
+        )
+
+        rec_docid_2 = get_test_record(testdata, "documents", "docid-2")
+        rec_docid_6 = get_test_record(testdata, "documents", "docid-6")
+
+        recrel_assert_record_relations(
+            rec2,
+            {
+                "relations": {
+                    "edition": [
+                        {
+                            "pid_value": third_pid_value,
+                            "pid_type": third_pid_type,
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec3["title"],
+                                "edition": rec3["edition"],
+                                "document_type": rec3["document_type"],
+                                "publication_year": rec3["publication_year"],
+                            },
+                        },
+                        {
+                            "pid_value": first_pid_value,
+                            "pid_type": first_pid_type,
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec1["title"],
+                                "edition": rec1["edition"],
+                                "document_type": rec1["document_type"],
+                                "publication_year": rec1["publication_year"],
+                            },
+                        },
                     ],
                     "language": [
                         {
@@ -274,7 +340,7 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
         )
 
     def _test_delete():
-        """Test relation creation."""
+        """Test relation deletion."""
         rec1, rec2 = recrel_choose_endpoints_and_do_request(
             (client, json_headers, "DELETE"),
             (
@@ -285,11 +351,16 @@ def _test_sibl_edition_relation(client, json_headers, testdata):
             ),
             payload,
         )
+        rec3 = Document.get_record_by_pid(third_pid_value)
+        rec3 = rec3.replace_refs()
+
         recrel_assert_record_relations(rec1, expected={"relations": {}})
+        recrel_assert_record_relations(rec3, expected={"relations": {}})
 
         rec_docid_2 = get_test_record(testdata, "documents", "docid-2")
         rec_docid_6 = get_test_record(testdata, "documents", "docid-6")
 
+        # docid-1 should still have the languages relation created in the previous test
         recrel_assert_record_relations(
             rec2,
             expected={
@@ -383,6 +454,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
 
         rec_docid_1 = get_test_record(testdata, "documents", "docid-1")
         rec_docid_6 = get_test_record(testdata, "documents", "docid-6")
+        rec_docid_8 = get_test_record(testdata, "documents", "docid-8")
 
         recrel_assert_record_relations(
             rec1,
@@ -455,7 +527,18 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "document_type": rec_docid_1["document_type"],
                                 "publication_year": rec_docid_1["publication_year"],
                             },
-                        }
+                        },
+                        {
+                            "pid_value": rec_docid_8["pid"],
+                            "pid_type": "docid",
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec_docid_8["title"],
+                                "edition": rec_docid_8["edition"],
+                                "document_type": rec_docid_8["document_type"],
+                                "publication_year": rec_docid_8["publication_year"],
+                            },
+                        },
                     ],
                     "other": [
                         {
@@ -476,7 +559,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
         )
 
     def _test_delete():
-        """Test relation creation."""
+        """Test relation deletion."""
         rec1, rec2 = recrel_choose_endpoints_and_do_request(
             (client, json_headers, "DELETE"),
             (
@@ -490,6 +573,7 @@ def _test_sibl_other_relation(client, json_headers, testdata):
 
         rec_docid_1 = get_test_record(testdata, "documents", "docid-1")
         rec_docid_6 = get_test_record(testdata, "documents", "docid-6")
+        rec_docid_8 = get_test_record(testdata, "documents", "docid-8")
 
         recrel_assert_record_relations(
             rec1,
@@ -539,7 +623,18 @@ def _test_sibl_other_relation(client, json_headers, testdata):
                                 "document_type": rec_docid_1["document_type"],
                                 "publication_year": rec_docid_1["publication_year"],
                             },
-                        }
+                        },
+                        {
+                            "pid_value": rec_docid_8["pid"],
+                            "pid_type": "docid",
+                            "relation_type": "edition",
+                            "record_metadata": {
+                                "title": rec_docid_8["title"],
+                                "edition": rec_docid_8["edition"],
+                                "document_type": rec_docid_8["document_type"],
+                                "publication_year": rec_docid_8["publication_year"],
+                            },
+                        },
                     ]
                 }
             },
@@ -612,7 +707,7 @@ def test_siblings_relations(client, json_headers, testdata, users):
     # docid-1 --language--> docid-2 and docid-6
     _test_sibl_language_relation(client, json_headers)
 
-    # docid-3 --edition--> docid-1
+    # docid-3 --edition--> docid-1 and docid-8
     _test_sibl_edition_relation(client, json_headers, testdata)
 
     # docid-2 --other--> docid-3
