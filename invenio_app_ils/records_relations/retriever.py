@@ -173,9 +173,10 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
 
             # Pre-requisite: fields being sorted should be of the same type.
             # Sort by the keys available in the data in order
-            relations.get(name, []).sort(
-                key=lambda rec: [rec.get(key) for key in relation_type.sort_by]
-            )
+            if relation_type.sort_by:
+                relations.get(name, []).sort(
+                    key=lambda rec: [rec.get(key) for key in relation_type.sort_by]
+                )
 
         return relations
 
