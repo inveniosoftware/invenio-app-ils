@@ -27,7 +27,7 @@ LANGUAGE_RELATION = ILS_RELATION_TYPE(
     "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.relations.api.SiblingsRelation",
-    [],
+    None,
 )
 EDITION_RELATION = ILS_RELATION_TYPE(
     1,
@@ -45,7 +45,7 @@ OTHER_RELATION = ILS_RELATION_TYPE(
     "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.relations.api.SiblingsRelation",
-    [],
+    None,
 )
 MULTIPART_MONOGRAPH_RELATION = ILS_RELATION_TYPE(
     3,
@@ -54,7 +54,7 @@ MULTIPART_MONOGRAPH_RELATION = ILS_RELATION_TYPE(
     "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.relations.api.ParentChildRelation",
-    [],
+    None,
 )
 SERIAL_RELATION = ILS_RELATION_TYPE(
     4,
@@ -63,7 +63,7 @@ SERIAL_RELATION = ILS_RELATION_TYPE(
     "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.relations.api.ParentChildRelation",
-    [],
+    None,
 )
 SEQUENCE_RELATION = ILS_RELATION_TYPE(
     5,
@@ -72,7 +72,7 @@ SEQUENCE_RELATION = ILS_RELATION_TYPE(
     "invenio_app_ils.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.relations.api.SequenceRelation",
-    [],
+    None,
 )
 
 
