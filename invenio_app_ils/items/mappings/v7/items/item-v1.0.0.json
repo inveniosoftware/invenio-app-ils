@@ -266,6 +266,17 @@
       "shelf": {
         "type": "text"
       },
+      "identifiers": {
+        "properties": {
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
       "status": {
         "type": "keyword"
       }

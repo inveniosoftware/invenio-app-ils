@@ -434,6 +434,17 @@
               "shelf": {
                 "type": "keyword"
               },
+              "identifiers": {
+                "properties": {
+                  "description": {
+                    "type": "text"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
+              },
               "status": {
                 "type": "keyword"
               }
