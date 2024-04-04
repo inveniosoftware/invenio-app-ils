@@ -8,6 +8,16 @@
 Changes
 =======
 
+Version 2.0.0rc8 (released 2024-04-04)
+
+- records_relation: Simplify sorting
+- records_relations: Use sort_by paramemter from configs instead
+- relations: Add functionality to sort json refs by relation_type
+- tests: circulation: Add new location for testing closures
+- circulation: loan_request: Fix dates comparison in get_offset_duration
+- tests: loan request: fix test for minimum days before request
+- circulation: Consider closures dates when verifying loan request dates
+
 Version 2.0.0rc7 (released 2024-03-04)
 
 - circulation: Made loan request start date to be configurable and validated at the backend
