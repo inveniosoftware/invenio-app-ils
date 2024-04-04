@@ -142,6 +142,28 @@
       "type": "string",
       "title": "The shelf location of this Item"
     },
+    "identifiers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "scheme": {
+            "type": "string",
+            "title": "Type of identification"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string",
+            "title": "Scheme's value"
+          }
+        },
+        "required": ["scheme", "value"],
+        "title": "Identifiers",
+        "type": "object"
+      },
+      "title": "List of Identifiers",
+      "type": "array",
+      "uniqueItems": true
+    },
     "status": {
       "type": "string",
       "title": "The current status of this Item"

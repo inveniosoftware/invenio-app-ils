@@ -37,6 +37,7 @@ def jsonresolver_loader(url_map):
                 "status": item.get("status"),
                 "description": item.get("description"),
                 "shelf": item.get("shelf"),
+                "identifiers": item.get("identifiers"),
                 "internal_location": {
                     "name": item.get("internal_location", {}).get("name", ""),
                     "location": {

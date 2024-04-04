@@ -16,6 +16,7 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
     set_changed_by,
 )
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
+from invenio_app_ils.records.loaders.schemas.identifiers import IdentifiersSchema
 
 
 class ISBNSchema(Schema):
@@ -56,6 +57,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     price = fields.Nested(PriceSchema)
     shelf = fields.Str()
     status = fields.Str(required=True, validate=validate.OneOf(Item.STATUSES))
+    identifiers = fields.List(fields.Nested(IdentifiersSchema))
 
     @pre_load
     def set_changed_by(self, data, **kwargs):
