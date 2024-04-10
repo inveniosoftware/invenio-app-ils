@@ -11,6 +11,7 @@ import jsonresolver
 from werkzeug.routing import Rule
 
 from invenio_app_ils.proxies import current_app_ils
+from invenio_app_ils.eitems.api import EItem
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -32,9 +33,11 @@ def jsonresolver_loader(url_map):
         mediums = [
             bucket.key for bucket in search_response.aggregations.mediums.buckets
         ]
-        eitems_count = eitem_search.search_by_document_pid(document_pid).count()
-        if eitems_count > 0:
-            mediums.append("E-BOOK")
+        eitems = eitem_search.search_by_document_pid(document_pid)
+        for type in EItem.EITEM_TYPES:
+            type_count = eitems.filter("term", eitem_type=type).count()
+            if type_count > 0:
+                mediums.append(type)
         return {
             "mediums": mediums,
         }

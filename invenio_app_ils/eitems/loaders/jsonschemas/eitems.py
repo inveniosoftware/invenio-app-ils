@@ -8,8 +8,9 @@
 """EItems schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields, pre_load
+from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
+from invenio_app_ils.eitems.api import EItem
 from invenio_app_ils.documents.loaders.jsonschemas.document import IdentifierSchema
 from invenio_app_ils.records.loaders.schemas.changed_by import (
     ChangedBySchema,
@@ -58,6 +59,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     created_by = fields.Nested(ChangedBySchema)
     description = fields.Str()
     document_pid = fields.Str(required=True)
+    eitem_type = fields.Str(required=True, validate=validate.OneOf(EItem.EITEM_TYPES))
     files = fields.List(fields.Nested(FileSchema))
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     internal_notes = fields.Str()

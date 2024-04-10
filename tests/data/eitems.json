@@ -3,6 +3,7 @@
     "pid": "eitemid-1",
     "created_by": {"type": "script", "value": "demo"},
     "document_pid": "docid-1",
+    "eitem_type": "E-BOOK",
     "internal_notes": "An internal note",
     "description": "Description of the electronic item",
     "open_access": true,
@@ -14,6 +15,7 @@
     "pid": "eitemid-2",
     "created_by": {"type": "script", "value": "demo"},
     "document_pid": "docid-2",
+    "eitem_type": "E-BOOK",
     "internal_notes": "An internal note",
     "description": "Description of the electronic item",
     "open_access": false,
@@ -25,6 +27,7 @@
     "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
     "bucket_id": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
     "document_pid": "docid-3",
+    "eitem_type": "E-BOOK",
     "files": [
       {
         "bucket": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
@@ -50,6 +53,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
     "document_pid": "docid-1",
+    "eitem_type": "E-BOOK",
     "files": [],
     "open_access": true,
     "pid": "eitemid-4",
@@ -58,6 +62,7 @@
   {
     "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
     "document_pid": "docid-1",
+    "eitem_type": "E-BOOK",
     "files": [],
     "open_access": false,
     "pid": "eitemid-5",
