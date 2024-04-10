@@ -304,6 +304,7 @@ class EItemGenerator(Generator):
                     "value": "demo",
                 },
                 "document_pid": random.choice(doc_pids),
+                "eitem_type": random.choice(EItem.EITEM_TYPES),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
                 "urls": [

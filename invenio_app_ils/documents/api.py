@@ -49,6 +49,7 @@ class Document(IlsRecordWithRelations):
         "STANDARD",
         "SERIAL_ISSUE",
         "ARTICLE",
+        "MULTIMEDIA",
     ]
 
     _pid_type = DOCUMENT_PID_TYPE

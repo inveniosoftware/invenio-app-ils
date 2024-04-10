@@ -31,6 +31,7 @@ def jsonresolver_loader(url_map):
             eitems.append(
                 {
                     "pid": eitem.get("pid"),
+                    "eitem_type": eitem.get("eitem_type"),
                     "description": eitem.get("description"),
                     "identifiers": eitem.get("identifiers", []),
                     "internal_notes": eitem.get("internal_notes"),

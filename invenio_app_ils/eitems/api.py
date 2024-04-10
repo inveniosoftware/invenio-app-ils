@@ -57,6 +57,12 @@ class EItemValidator(RecordValidator):
 class EItem(IlsRecord):
     """EItem record class."""
 
+    EITEM_TYPES = [
+        "E-BOOK",
+        "AUDIOBOOK",
+        "VIDEO",
+    ]
+
     _pid_type = EITEM_PID_TYPE
     _schema = "eitems/eitem-v1.0.0.json"
     _document_resolver_path = (
