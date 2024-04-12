@@ -23,6 +23,7 @@ def test_eitems_permissions(client, testdata, json_headers, users):
     """Test eitems endpoints permissions."""
     dummy_eitem = dict(
         document_pid="docid-1",
+        eitem_type="E-BOOK",
         internal_notes="An internal note",
         description="Description of the electronic item",
         open_access=True,
