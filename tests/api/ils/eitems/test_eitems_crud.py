@@ -18,6 +18,7 @@ def test_eitem_refs(app, testdata):
     eitem = EItem.create(
         dict(
             pid="eitemid-99",
+            eitem_type="E-BOOK",
             document_pid="docid-1",
             created_by=dict(type="script", value="demo"),
         )
