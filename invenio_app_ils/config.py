@@ -829,7 +829,7 @@ RECORDS_REST_FACETS = dict(
     eitems=dict(
         aggs=dict(
             access=dict(terms=dict(field="open_access")),
-            eitemtype=dict(terms=dict(field="eitem_type")),
+            eitem_type=dict(terms=dict(field="eitem_type")),
             has_files=dict(
                 filters=dict(
                     filters=dict(
@@ -842,7 +842,7 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         post_filters=dict(
-            eitemtype=terms_filter("eitem_type"),
+            eitem_type=terms_filter("eitem_type"),
             access=terms_filter("open_access"),
             has_files=exists_value_filter("files.file_id", filter_value="has_files"),
         ),
