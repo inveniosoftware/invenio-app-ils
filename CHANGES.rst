@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 2.0.0rc9 (released 2024-04-25)
+
+- patch: add record pid to error display
+
 Version 2.0.0rc8 (released 2024-04-04)
 
 - records_relation: Simplify sorting

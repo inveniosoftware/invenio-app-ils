@@ -7,6 +7,6 @@
 
 """invenio-app-ils."""
 
-__version__ = "2.0.0rc8"
+__version__ = "2.0.0rc9"
 
 __all__ = ("__version__",)
