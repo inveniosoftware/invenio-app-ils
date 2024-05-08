@@ -175,7 +175,10 @@ class SiblingsRetriever(RelationObjectBuilderMixin):
             # Sort by the keys available in the data in order
             if relation_type.sort_by:
                 relations.get(name, []).sort(
-                    key=lambda rec: [rec.get(key) for key in relation_type.sort_by]
+                    key=lambda rec: [
+                        rec.get("record_metadata", {}).get(key)
+                        for key in relation_type.sort_by
+                    ]
                 )
 
         return relations
