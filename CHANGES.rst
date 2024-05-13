@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version 3.0.0rc1 (released 2024-05-13)
+
+- eitems: add required type field to data model (breaking change)
+- physical items: add identifiers field
+- documents: add MULTIMEDIA document type
+
 Version 2.0.0rc9 (released 2024-04-25)
 
 - patch: add record pid to error display
