@@ -61,9 +61,6 @@
       "document_pid": {
         "type": "keyword"
       },
-      "eitem_type": {
-        "type": "keyword"
-      },
       "files": {
         "properties": {
           "bucket": {
