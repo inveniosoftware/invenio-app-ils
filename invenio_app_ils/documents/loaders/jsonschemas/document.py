@@ -19,19 +19,7 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import (
     preserve_cover_metadata,
 )
-
-
-class IdentifierSchema(Schema):
-    """Identifier schema."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    material = fields.Str()
-    scheme = fields.Str(required=True)
-    value = fields.Str(required=True)
+from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 
 
 class AffiliationSchema(Schema):

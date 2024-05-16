@@ -13,7 +13,6 @@ from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.documents.loaders.jsonschemas.document import (
     AlternativeTitleSchema,
-    IdentifierSchema,
     InternalNoteSchema,
     KeywordSchema,
     UrlSchema,
@@ -25,6 +24,7 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import (
     preserve_cover_metadata,
 )
+from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 from invenio_app_ils.series.api import Series
 
 
