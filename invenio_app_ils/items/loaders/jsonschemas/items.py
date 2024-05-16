@@ -16,7 +16,7 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
     set_changed_by,
 )
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
-from invenio_app_ils.documents.loaders.jsonschemas.document import IdentifierSchema
+from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 
 
 class ISBNSchema(Schema):
