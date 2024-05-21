@@ -436,7 +436,7 @@
               },
               "identifiers": {
                 "properties": {
-                  "description": {
+                  "scheme": {
                     "type": "text"
                   },
                   "value": {
