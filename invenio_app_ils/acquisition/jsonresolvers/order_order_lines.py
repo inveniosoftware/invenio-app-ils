@@ -35,6 +35,7 @@ def jsonresolver_loader(url_map):
             "pid",
             "publication_year",
             "title",
+            "alternative_titles",
         )
         order_line["document"]["authors"] = flatten_authors(
             order_line["document"]["authors"]
