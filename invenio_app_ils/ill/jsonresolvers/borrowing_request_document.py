@@ -41,6 +41,7 @@ def jsonresolver_loader(url_map):
             "pid",
             "publication_year",
             "title",
+            "alternative_titles",
         )
         obj["authors"] = flatten_authors(obj["authors"])
         return obj

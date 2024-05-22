@@ -56,6 +56,20 @@
           },
           "title": {
             "type": "text"
+          },
+          "alternative_titles": {
+            "properties": {
+              "language": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "text"
+              }
+            },
+            "type": "object"
           }
         },
         "type": "object"
