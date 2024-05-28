@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version 3.0.0rc2 (released 2024-05-28)
+
+- mappings: Add alternative_titles in brwReqs and AcqOrders
+- records: loaders: schemas: Move IdentifierSchema from documents
+- documents: mappings: Update item identifiers description to scheme
+
 Version 3.0.0rc1 (released 2024-05-13)
 
 - eitems: add required type field to data model (breaking change)
