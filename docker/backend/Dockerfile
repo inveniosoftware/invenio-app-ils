@@ -7,13 +7,9 @@
 
 FROM registry.cern.ch/inveniosoftware/almalinux:1
 
-RUN apt-get update && apt-get upgrade -y && apt-get install apt-file -y && apt-file update
-RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && bash nodesource_setup.sh
-RUN apt-get install -y nodejs git curl vim
-
-# setuptools<58: https://setuptools.pypa.io/en/latest/history.html#v58-0-0
-# the `fs` package relies on `2to3`
-RUN pip install --upgrade "setuptools<58" wheel pip uwsgi uwsgitop uwsgi-tools
+RUN dnf update -y && dnf upgrade -y  && dnf update -y
+RUN cd /tmp && curl -sL  https://rpm.nodesource.com/setup_16.x  -o nodesource_setup.sh && bash nodesource_setup.sh
+RUN dnf install -y nodejs git vim
 
 RUN python -m site
 RUN python -m site --user-site
