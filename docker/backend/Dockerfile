@@ -35,6 +35,5 @@ RUN ./scripts/bootstrap
 RUN chgrp -R 0 ${WORKING_DIR} && \
     chmod -R g=u ${WORKING_DIR}
 
-RUN useradd invenio --uid 1000 --gid 0 && \
-    chown -R invenio:root ${WORKING_DIR}
+RUN chown -R invenio:root ${WORKING_DIR}
 USER 1000
