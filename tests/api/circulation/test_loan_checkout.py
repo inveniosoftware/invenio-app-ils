@@ -17,7 +17,12 @@ from flask_principal import UserNeed
 from invenio_access.permissions import Permission
 
 from invenio_app_ils.items.api import Item
-from tests.helpers import user_login
+from invenio_app_ils.permissions import (
+    authenticated_user_permission,
+    loan_checkout_permission,
+    views_permissions_factory,
+)
+from tests.helpers import user_login, user_logout
 
 NEW_LOAN = {
     "item_pid": "CHANGE ME IN EACH TEST",
@@ -208,3 +213,79 @@ def test_checkout_loader_start_end_dates(app, client, json_headers, users, testd
     params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
+
+
+def _views_permissions_factory(action):
+    """Override ILS views permissions factory."""
+    if action == "circulation-loan-checkout":
+        return authenticated_user_permission()
+    return views_permissions_factory(action)
+
+
+def test_self_checkout(app, client, json_headers, users, testdata):
+    """Tests for self checkout feature."""
+    app.config["ILS_SELF_CHECKOUT_ENABLED"] = True
+    app.config["ILS_VIEWS_PERMISSIONS_FACTORY"] = _views_permissions_factory
+    app.config["RECORDS_REST_ENDPOINTS"]["pitmid"][
+        "list_permission_factory_imp"
+    ] = authenticated_user_permission
+    app.config["ILS_CIRCULATION_RECORDS_REST_ENDPOINTS"]["loanid"][
+        "update_permission_factory_imp"
+    ] = loan_checkout_permission
+
+    # Self checkout by librarian should pass
+    librarian = users["librarian"]
+    user_login(client, "librarian", users)
+    params = deepcopy(NEW_LOAN)
+    params["item_pid"] = dict(type="pitmid", value="itemid-60")
+    params["transaction_user_pid"] = str(librarian.id)
+    params["patron_pid"] = str(librarian.id)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "ITEM_ON_LOAN"
+    assert loan["item_pid"] == params["item_pid"]
+    assert loan["patron_pid"] == str(librarian.id)
+    user_logout(client)
+
+    # Self checkout by patron should pass if patron_pid matches
+    patron3 = users["patron3"]
+    user_login(client, "patron3", users)
+    params = deepcopy(NEW_LOAN)
+    params["item_pid"] = dict(type="pitmid", value="itemid-61")
+    params["transaction_user_pid"] = str(patron3.id)
+    params["patron_pid"] = str(patron3.id)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+
+    assert res.status_code == 202
+    loan = res.get_json()["metadata"]
+    assert loan["state"] == "ITEM_ON_LOAN"
+    assert loan["item_pid"] == params["item_pid"]
+    assert loan["patron_pid"] == str(patron3.id)
+
+    # Self checkout should fail if feature flag is not set to true
+    app.config["ILS_SELF_CHECKOUT_ENABLED"] = False
+    params = deepcopy(NEW_LOAN)
+    params["item_pid"] = dict(type="pitmid", value="itemid-62")
+    params["transaction_user_pid"] = str(patron3.id)
+    params["patron_pid"] = str(patron3.id)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+
+    assert res.status_code == 403
+    user_logout(client)
+
+    # Self checkout should fail if if patron_pid doesn't match
+    patron1 = users["patron1"]
+    user_login(client, "patron1", users)
+    params = deepcopy(NEW_LOAN)
+    params["item_pid"] = dict(type="pitmid", value="itemid-63")
+    params["transaction_user_pid"] = str(patron1.id)
+    params["patron_pid"] = str(patron3.id)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+
+    assert res.status_code == 403

@@ -16,7 +16,7 @@ from invenio_access import action_factory
 from invenio_access.permissions import Permission, authenticated_user, superuser_access
 from invenio_records_rest.utils import allow_all, deny_all
 
-from invenio_app_ils.errors import InvalidLoanExtendError
+from invenio_app_ils.errors import InvalidLoanExtendError, LoanCheckoutByPatronForbidden
 from invenio_app_ils.proxies import current_app_ils
 
 backoffice_access_action = action_factory("ils-backoffice-access")
@@ -129,6 +129,30 @@ def patron_owner_permission(record):
         # allows performing the actions out of the request context f.e. CLI
         return allow_all()
     return PatronOwnerPermission(record)
+
+
+def loan_checkout_permission(*args, **kwargs):
+    """Return permission to allow admins and librarians to checkout and patrons to self-checkout if enabled."""
+    if not has_request_context():
+        # If from CLI, don't allow self-checkout
+        return backoffice_permission()
+    if current_user.is_anonymous:
+        abort(401)
+
+    is_admin_or_librarian = backoffice_permission().allows(g.identity)
+    if is_admin_or_librarian:
+        return backoffice_permission()
+    if len(args):
+        loan = args[0]
+    else:
+        loan = kwargs.get("record", {})
+    is_patron_current_user = current_user.id == int(loan.get("patron_pid"))
+    if (
+        current_app.config.get("ILS_SELF_CHECKOUT_ENABLED", False)
+        and is_patron_current_user
+    ):
+        return authenticated_user_permission()
+    raise LoanCheckoutByPatronForbidden(int(loan.get("patron_pid")), current_user.id)
 
 
 class PatronOwnerPermission(Permission):

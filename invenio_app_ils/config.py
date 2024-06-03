@@ -865,6 +865,7 @@ RECORDS_REST_FACETS = dict(
 
 # ILS
 # ===
+
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
 
@@ -1071,3 +1072,6 @@ ILS_PATRON_ANONYMOUS_CLASS = AnonymousPatron
 ILS_PATRON_SYSTEM_AGENT_CLASS = SystemAgent
 
 DB_VERSIONING_USER_MODEL = None
+
+# Feature Toggles
+ILS_SELF_CHECKOUT_ENABLED = False

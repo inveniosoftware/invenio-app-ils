@@ -180,6 +180,20 @@ class PatronHasLoanOnDocumentError(IlsException):
         )
 
 
+class LoanCheckoutByPatronForbidden(IlsException):
+    """A patron cannot checkout an item for another patron."""
+
+    code = 403
+    description = "Forbidden. Patron '{current_user_pid}' cannot checkout item for another Patron '{patron_pid}'."
+
+    def __init__(self, patron_pid, current_user_pid, **kwargs):
+        """Initialize LoanCheckoutByPatronForbidden exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(
+            patron_pid=patron_pid, current_user_pid=current_user_pid
+        )
+
+
 class NotImplementedConfigurationError(IlsException):
     """Exception raised when function is not implemented."""
 
