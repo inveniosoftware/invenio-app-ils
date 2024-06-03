@@ -47,6 +47,7 @@ from invenio_app_ils.permissions import (
     loan_extend_circulation_permission,
     patron_owner_permission,
     superuser_permission,
+    loan_checkout_permission,
 )
 
 from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER
@@ -161,7 +162,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="ITEM_ON_LOAN",
             trigger="checkout",
             transition=ILSToItemOnLoan,
-            permission_factory=backoffice_permission,
+            permission_factory=loan_checkout_permission,
         ),
     ],
     "PENDING": [
