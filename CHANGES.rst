@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 3.0.0rc3 (released 2024-06-07)
+
+- circulation: Support self checkout by patrons
+- Dockerfile: update backend base image python3.6 -> inveniosoftware/almalinux:1
+
 Version 3.0.0rc2 (released 2024-05-28)
 
 - mappings: Add alternative_titles in brwReqs and AcqOrders
