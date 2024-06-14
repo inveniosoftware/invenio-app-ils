@@ -1,0 +1,732 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Document",
+  "type": "object",
+  "required": [
+    "$schema",
+    "pid",
+    "title",
+    "authors",
+    "publication_year",
+    "document_type",
+    "created_by"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "abstract": {
+      "title": "Abstract of the document.",
+      "type": "string"
+    },
+    "alternative_abstracts": {
+      "items": {
+        "type": "string"
+      },
+      "title": "List of supplementary abstracts",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "alternative_identifiers": {
+      "items": {
+        "properties": {
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        }
+      },
+      "required": ["value", "scheme"],
+      "title": "List of internal identifiers of the record",
+      "type": "array"
+    },
+    "alternative_titles": {
+      "description": "Alternative titles of the document",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "ISO 639-3 language code (Vocabulary)",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type of alternative title (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "authors": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "affiliations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "identifiers": {
+                  "items": {
+                    "properties": {
+                      "scheme": {
+                        "title": "Affiliation identifier scheme",
+                        "type": "string"
+                      },
+                      "value": {
+                        "title": "Affiliation identifier value",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["value", "scheme"],
+                    "title": "Identifiers affiliation",
+                    "type": "object"
+                  },
+                  "title": "Affiliations identifiers list",
+                  "type": "array"
+                },
+                "name": {
+                  "title": "Affiliation name",
+                  "type": "string"
+                }
+              },
+              "required": ["name"],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "alternative_names": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "full_name": {
+            "minLength": 1,
+            "title": "Author name",
+            "type": "string"
+          },
+          "identifiers": {
+            "items": {
+              "additionalProperties": false,
+              "description": "It is mainly used to uniquely identify the authors of their articles.",
+              "properties": {
+                "scheme": {
+                  "minLength": 1,
+                  "title": "Author identifier scheme (Vocabulary)",
+                  "type": "string"
+                },
+                "value": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["scheme", "value"],
+              "title": "Author identifier",
+              "type": "object"
+            },
+            "minItems": 1,
+            "title": "Identifiers of the author",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "roles": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "List of author roles (Vocabulary)",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "type": {
+            "description": "Determines if the author is an institution or a person",
+            "title": "Type of the author (Vocabulary)",
+            "type": "string"
+          }
+        },
+        "required": ["full_name"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "Authors",
+      "type": "array",
+      "uniqueItems": false
+    },
+    "circulation": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "conference_info": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "acronym": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "country": {
+            "minLength": 1,
+            "title": "ISO Country (Vocabulary)",
+            "type": "string"
+          },
+          "dates": {
+            "minLength": 1,
+            "title": "Conference dates.",
+            "type": "string"
+          },
+          "identifiers": {
+            "description": "Conference identifiers",
+            "items": {
+              "scheme": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "minLength": 1,
+            "required": ["scheme", "value"],
+            "type": "array"
+          },
+          "place": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "series": {
+            "minLength": 1,
+            "title": "Conference series.",
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "year": {
+            "minLength": 1,
+            "type": "integer"
+          }
+        },
+        "required": ["place", "title"],
+        "type": "object"
+      },
+      "title": "List of conference info",
+      "type": "array"
+    },
+    "copyrights": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "holder": {
+            "minLength": 1,
+            "title": "Copyright holder",
+            "type": "string"
+          },
+          "material": {
+            "minLength": 1,
+            "title": "Material to which the copyright refers",
+            "type": "string"
+          },
+          "statement": {
+            "minLength": 1,
+            "title": "Copyright notice",
+            "type": "string"
+          },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Copyright notice URL",
+            "type": "string"
+          },
+          "year": {
+            "minimum": 1900,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of copyrights to documents in this record",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "cover_metadata": {
+      "type": "object"
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "curated": {
+      "type": "boolean"
+    },
+    "document_type": {
+      "title": "Document type",
+      "type": "string"
+    },
+    "edition": {
+      "minLength": 1,
+      "title": "Book edition indicator",
+      "type": "string"
+    },
+    "eitems": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "extensions": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": ["boolean", "number", "string"]
+            }
+          },
+          { "type": "boolean" },
+          { "type": "number" },
+          { "type": "string" }
+        ]
+      },
+      "description": "Configured additional metadata",
+      "type": "object"
+    },
+    "identifiers": {
+      "items": {
+        "properties": {
+          "material": {
+            "title": "Material to which the identifiers refers to.",
+            "type": "string"
+          },
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
+      },
+      "title": "List of Identifiers of the record",
+      "type": "array"
+    },
+    "imprint": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "minLength": 1,
+          "title": "Date of publication",
+          "type": "string"
+        },
+        "place": {
+          "minLength": 1,
+          "title": "Place of publication",
+          "type": "string"
+        },
+        "publisher": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reprint": {
+          "minLength": 1,
+          "title": "Reprint identifier",
+          "type": "string"
+        }
+      },
+      "title": "Imprint",
+      "type": "object"
+    },
+    "internal_notes": {
+      "items": {
+        "additionalProperties": false,
+        "description": "Visible only for Librarians",
+        "properties": {
+          "field": {
+            "title": "Field to which the note refers to",
+            "type": "string"
+          },
+          "user": {
+            "title": "User who has composed the note.",
+            "type": "string"
+          },
+          "value": {
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      },
+      "minItems": 1,
+      "title": "List of internal notes",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "items": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "keywords": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Keywords of the document",
+      "type": "array"
+    },
+    "languages": {
+      "items": {
+        "maxLength": 3,
+        "minLength": 3,
+        "title": "ISO 639-3 language code",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "List of languages of the document",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "licenses": {
+      "items": {
+        "properties": {
+          "internal_notes": {
+            "title": "Any extra information for this license reserved for library usage",
+            "type": "string"
+          },
+          "license": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "$ref": {
+                "type": "string"
+              }
+            },
+            "required": ["id"],
+            "title": "Open-definition license",
+            "type": "object"
+          },
+          "material": {
+            "title": "Material to which the license refers to",
+            "type": "string"
+          }
+        },
+        "required": ["license"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of licenses of the document (Vocabulary)",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "note": {
+      "title": "Notes of the record",
+      "type": "string"
+    },
+    "number_of_pages": {
+      "minLength": 1,
+      "title": "Number of pages of the physical items",
+      "type": "string"
+    },
+    "restricted": {
+      "default": false,
+      "title": "Indicate if the access to this Document is open or not",
+      "type": "boolean"
+    },
+    "other_authors": {
+      "title": "Indicates that there are other not listed authors.",
+      "type": "boolean"
+    },
+    "pid": {
+      "title": "Document ID",
+      "type": "string"
+    },
+    "physical_description": {
+      "title": "Physical description of a document",
+      "type": "string"
+    },
+    "publication_info": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "artid": {
+            "minLength": 1,
+            "title": "Article ID",
+            "type": "string"
+          },
+          "journal_issue": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "journal_title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "journal_volume": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "note": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pages": {
+            "minLength": 1,
+            "title": "Page range of the document",
+            "type": "string"
+          },
+          "year": {
+            "minimum": 1000,
+            "title": "Publication year",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of information on publication",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "publication_year": {
+      "minLength": 1,
+      "title": "Year of the publication of the record",
+      "type": "string"
+    },
+    "relations": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "relations_metadata": {
+      "properties": {
+        "edition": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid_value": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "language": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid_value": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "multipart_monograph": {
+          "properties": {
+            "pid": {
+              "type": "string"
+            },
+            "pid_type": {
+              "type": "string"
+            },
+            "volume": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "other": {
+          "items": {
+            "properties": {
+              "note": {
+                "type": "string"
+              },
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "serial": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "title": "Metadata to describe relations",
+      "type": "object"
+    },
+    "source": {
+      "title": "Source of the metadata",
+      "type": "string"
+    },
+    "stock": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "subjects": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "scheme": {
+            "title": "Scheme of subject classification.",
+            "type": "string"
+          },
+          "value": {
+            "title": "Subject classification",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"],
+        "title": "List of subjects of the document.",
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of subjects",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "table_of_content": {
+      "description": "List of chapters",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "tags": {
+      "items": {
+        "title": "Tag name",
+        "type": "string"
+      },
+      "title": "List of tags of the document (Vocabulary)",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "title": {
+      "title": "Title of the document",
+      "type": "string"
+    },
+    "updated_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Last update entity information",
+      "type": "object"
+    },
+    "urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "meta": {
+            "type": "string",
+            "description": "System information about the url."
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}
