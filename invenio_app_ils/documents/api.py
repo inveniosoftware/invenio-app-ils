@@ -53,7 +53,7 @@ class Document(IlsRecordWithRelations):
     ]
 
     _pid_type = DOCUMENT_PID_TYPE
-    _schema = "documents/document-v1.0.0.json"
+    _schema = "documents/document-v2.0.0.json"
     _circulation_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
     )

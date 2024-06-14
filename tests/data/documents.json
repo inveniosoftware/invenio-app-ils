@@ -1,6 +1,6 @@
 [
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-1",
     "created_by": {"type": "script", "value": "demo"},
     "title": "The Gulf: The Making of An American Sea",
@@ -17,7 +17,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-2",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
@@ -33,7 +33,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-3",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Half-light: Collected Poems 1965-2016",
@@ -49,7 +49,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-4",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
@@ -64,7 +64,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-5",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
@@ -74,7 +74,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-6",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
@@ -85,7 +85,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-7",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
@@ -95,7 +95,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-8",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Less: A Novel",
@@ -106,7 +106,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-9",
     "created_by": {"type": "script", "value": "demo"},
     "title": "The early years, 1879-1902",
@@ -119,7 +119,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-10",
     "created_by": {"type": "script", "value": "demo"},
     "title": "The Swiss years : writings, 1900-1909",
@@ -132,7 +132,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-11",
     "created_by": {"type": "script", "value": "demo"},
     "title": "The Swiss years : writings, 1909-1911",
@@ -145,7 +145,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-12",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Camera, equipment, and basic photographic techniques",
@@ -158,7 +158,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-13",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Visual concepts and composition",
@@ -171,7 +171,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-14",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Flavor physics and the TeV scale",
@@ -181,7 +181,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-15",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Symmetry and symmetry-breaking in semiconductors : fine structure of exciton states",
@@ -194,7 +194,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-16",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
@@ -204,7 +204,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-17",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
@@ -214,7 +214,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-closed-access",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Closed access document",
@@ -225,7 +225,7 @@
     "publication_year": "1950"
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
     "pid": "docid-open-access",
     "created_by": {"type": "script", "value": "demo"},
     "title": "Open access document",
