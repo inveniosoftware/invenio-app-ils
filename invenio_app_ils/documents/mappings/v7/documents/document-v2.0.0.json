@@ -2,11 +2,14 @@
   "settings": {
     "analysis": {
       "normalizer": {
-        "lowercase_normalizer": {
+        "custom_normalizer": {
           "type": "custom",
-          "char_filter": [],
+          "char_filter": [
+            "strip_special_chars"
+          ],
           "filter": [
-            "lowercase"
+            "lowercase",
+            "asciifolding"
           ]
         }
       },
@@ -14,12 +17,33 @@
         "min_length_2": {
           "tokenizer": "standard",
           "filter": [ "min_length_2" ]
+        },
+        "custom_analyzer": {
+          "tokenizer": "standard",
+          "type": "custom",
+          "char_filter": [
+            "strip_special_chars"
+          ],
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
         }
       },
       "filter": {
         "min_length_2": {
           "type": "length",
           "min": 2
+        },
+        "asciifolding": {
+          "type": "asciifolding"
+        }
+      },
+      "char_filter": {
+        "strip_special_chars": {
+          "type": "pattern_replace",
+          "pattern": "[\\p{Punct}\\p{S}]",
+          "replacement": ""
         }
       }
     }
@@ -123,6 +147,10 @@
                 "type": "text",
                 "analyzer": "min_length_2",
                 "search_analyzer": "min_length_2"
+              },
+              "normalized_keyword": {
+                "type": "keyword",
+                "normalizer": "custom_normalizer"
               }
             }
           },
@@ -617,7 +645,9 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               }
             },
             "type": "object"
@@ -638,7 +668,9 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               }
             },
             "type": "object"
@@ -656,7 +688,9 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               },
               "volume": {
                 "type": "keyword",
@@ -681,7 +715,9 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               }
             },
             "type": "object"
@@ -699,7 +735,9 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               },
               "volume": {
                 "type": "keyword",
@@ -830,9 +868,11 @@
           },
           "normalized_keyword": {
             "type": "keyword",
-            "normalizer": "lowercase_normalizer"
+            "normalizer": "custom_normalizer"
           }
-        }
+        },
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       },
       "updated_by": {
         "properties": {
@@ -915,8 +955,14 @@
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "normalized_keyword": {
+                "type": "keyword",
+                "normalizer": "custom_normalizer"
               }
-            }
+            },
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer"
           },
           "year": {
             "type": "keyword"
