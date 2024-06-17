@@ -13,6 +13,7 @@ from invenio_records_rest.schemas.fields import DateString, SanitizedUnicode
 from marshmallow import ValidationError
 from marshmallow.fields import Bool, Integer, List
 
+from invenio_app_ils.documents.api import Document
 from invenio_app_ils.records.metadata_extensions import MetadataExtensions
 
 
@@ -32,29 +33,32 @@ def app_config(app_config):
 
     app_config["ILS_RECORDS_METADATA_EXTENSIONS"] = {
         "document": {
-            "accelerator_experiments_accelerator": {
-                "elasticsearch": "keyword",
-                "marshmallow": SanitizedUnicode(required=True),
-            },
-            "accelerator_experiments_project": {
-                "elasticsearch": "text",
-                "marshmallow": SanitizedUnicode(),
-            },
-            "accelerator_experiments_number_in_sequence": {
-                "elasticsearch": "long",
-                "marshmallow": Integer(),
-            },
-            "accelerator_experiments_scientific_sequence": {
-                "elasticsearch": "long",
-                "marshmallow": List(Integer()),
-            },
-            "standard_status_original_presentation_date": {
-                "elasticsearch": "date",
-                "marshmallow": DateString(),
-            },
-            "standard_status_right_or_wrong": {
-                "elasticsearch": "boolean",
-                "marshmallow": Bool(),
+            "schema": Document._schema,
+            "fields": {
+                "accelerator_experiments_accelerator": {
+                    "elasticsearch": "keyword",
+                    "marshmallow": SanitizedUnicode(required=True),
+                },
+                "accelerator_experiments_project": {
+                    "elasticsearch": "text",
+                    "marshmallow": SanitizedUnicode(),
+                },
+                "accelerator_experiments_number_in_sequence": {
+                    "elasticsearch": "long",
+                    "marshmallow": Integer(),
+                },
+                "accelerator_experiments_scientific_sequence": {
+                    "elasticsearch": "long",
+                    "marshmallow": List(Integer()),
+                },
+                "standard_status_original_presentation_date": {
+                    "elasticsearch": "date",
+                    "marshmallow": DateString(),
+                },
+                "standard_status_right_or_wrong": {
+                    "elasticsearch": "boolean",
+                    "marshmallow": Bool(),
+                },
             },
         }
     }
