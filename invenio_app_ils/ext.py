@@ -23,7 +23,7 @@ from .circulation import config as circulation_config
 from .circulation.indexer import index_extra_fields_for_loan
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
-from .documents.api import DOCUMENT_PID_TYPE
+from .documents.api import DOCUMENT_PID_TYPE, Document
 from .eitems.api import EITEM_PID_TYPE
 from .files.receivers import register_files_signals
 from .internal_locations.api import INTERNAL_LOCATION_PID_TYPE
@@ -253,16 +253,17 @@ class InvenioAppIls(object):
         for rec_type in app.config["ILS_RECORDS_METADATA_EXTENSIONS"].keys():
             namespaces = app.config["ILS_RECORDS_METADATA_NAMESPACES"].get(rec_type, {})
             extensions = app.config["ILS_RECORDS_METADATA_EXTENSIONS"].get(rec_type, {})
+            rec_schema = extensions.get("schema", "{0}s-{0}-v1.0.0".format(rec_type))
             setattr(
                 app.extensions["invenio-app-ils"],
                 "{}_metadata_extensions".format(rec_type),
-                MetadataExtensions(namespaces, extensions),
+                MetadataExtensions(namespaces, extensions["fields"]),
             )
             before_record_index.dynamic_connect(
                 before_record_index_hook,
                 sender=app,
                 weak=False,
-                index="{0}s-{0}-v1.0.0".format(rec_type),
+                index=rec_schema.replace("/", "-").rstrip(".json"),
             )
 
     def init_loan_indexer_hook(self, app):
