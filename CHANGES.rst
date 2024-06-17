@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 3.0.0rc4 (released 2024-06-17)
+
+- serializers: handle PatronNotFound
+
 Version 3.0.0rc3 (released 2024-06-07)
 
 - circulation: Support self checkout by patrons
