@@ -36,7 +36,7 @@ def search_factory_literature(self, search, query_parser=None):
                 query_string = issue_query_string
         return search, query_string
 
-    return ils_search_factory(self, search, filter_serial_issues)
+    return ils_search_factory(self, search, query_parser, filter_serial_issues)
 
 
 class LiteratureSearch(RecordsSearch):
