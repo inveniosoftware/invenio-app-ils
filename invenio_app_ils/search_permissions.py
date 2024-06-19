@@ -53,15 +53,17 @@ def search_filter_record_permissions():
     return dsl.Q("bool", filter=[combined_filter])
 
 
-def ils_search_factory(self, search, validator=None):
-    """Search factory with Query String validator.
+def ils_search_factory(self, search, query_parser=None, validator=None):
+    """Search factory with Query String parser and validator.
 
     :param self: REST view.
     :param search: Elastic search DSL search instance.
+    :param query_parser: Custom Query parser DSL.
+    :param validator: Custom Validator for query string.
     :returns: Tuple with search instance and URL arguments.
     """
 
-    def query_parser(search, qstr=None):
+    def _query_parser(search, qstr=None, query_parser=None):
         """Default parser that uses the Q() from invenio_search.engine.dsl."""
         if qstr:
             boosted = getattr(search, "boosted_fields", [])
@@ -72,6 +74,8 @@ def ils_search_factory(self, search, validator=None):
                 # parsing exception on data fields, see known issues
                 # https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-7.1.1.html  # noqa
                 extra_params["lenient"] = True
+            if query_parser:
+                return query_parser(qstr, extra_params)
             return dsl.Q("query_string", query=qstr, **extra_params)
         return dsl.Q()
 
@@ -82,7 +86,7 @@ def ils_search_factory(self, search, validator=None):
 
     if validator:
         search, query_string = validator(search, query_string)
-    query = query_parser(search, qstr=query_string)
+    query = _query_parser(search, qstr=query_string, query_parser=query_parser)
 
     try:
         search = search.query(query)
@@ -123,4 +127,4 @@ def _filter_by_current_patron(search, query_string=None):
 
 def search_factory_filter_by_patron(self, search, query_parser=None):
     """Prepare query string to filter records by current logged in user."""
-    return ils_search_factory(self, search, _filter_by_current_patron)
+    return ils_search_factory(self, search, query_parser, _filter_by_current_patron)
