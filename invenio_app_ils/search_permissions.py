@@ -63,7 +63,7 @@ def ils_search_factory(self, search, query_parser=None, validator=None):
     :returns: Tuple with search instance and URL arguments.
     """
 
-    def _query_parser(search, qstr=None, query_parser=None):
+    def _query_parser(search, qstr=None, query_params_modifier=None):
         """Default parser that uses the Q() from invenio_search.engine.dsl."""
         if qstr:
             boosted = getattr(search, "boosted_fields", [])
@@ -74,8 +74,8 @@ def ils_search_factory(self, search, query_parser=None, validator=None):
                 # parsing exception on data fields, see known issues
                 # https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-7.1.1.html  # noqa
                 extra_params["lenient"] = True
-            if query_parser:
-                return query_parser(qstr, extra_params)
+            if query_params_modifier:
+                query_params_modifier(extra_params)
             return dsl.Q("query_string", query=qstr, **extra_params)
         return dsl.Q()
 
@@ -86,7 +86,7 @@ def ils_search_factory(self, search, query_parser=None, validator=None):
 
     if validator:
         search, query_string = validator(search, query_string)
-    query = _query_parser(search, qstr=query_string, query_parser=query_parser)
+    query = _query_parser(search, qstr=query_string, query_params_modifier=query_parser)
 
     try:
         search = search.query(query)
