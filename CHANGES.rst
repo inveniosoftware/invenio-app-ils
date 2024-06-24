@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 3.0.0rc5 (released 2024-06-24)
+
+- search: allow custom query parser
+
 Version 3.0.0rc4 (released 2024-06-17)
 
 - serializers: handle PatronNotFound
