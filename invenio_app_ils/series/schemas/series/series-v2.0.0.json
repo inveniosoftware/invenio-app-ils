@@ -1,0 +1,354 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Series",
+  "type": "object",
+  "required": ["$schema", "pid", "title", "mode_of_issuance"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "abstract": {
+      "type": "string",
+      "description": ""
+    },
+    "access_urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "access_restriction": {
+            "items": {
+              "title": "Access restriction type",
+              "type": "string"
+            },
+            "title": "List of access restriction types (Vocabulary)",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "open_access": {
+            "type": "boolean",
+            "title": "Indicate if the access to this URL is open or not",
+            "default": true
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "login_required": {
+            "type": "boolean",
+            "title": "Indicate if the access to this link requires login",
+            "default": false
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "alternative_titles": {
+      "description": "Alternative titles of the document",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "ISO 639-3 language code (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type of alternative title (Vocabulary)"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "authors": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "created_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "edition": {
+      "type": "string",
+      "description": "Edition"
+    },
+    "extensions": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": ["boolean", "number", "string"]
+            }
+          },
+          { "type": "boolean" },
+          { "type": "number" },
+          { "type": "string" }
+        ]
+      }
+    },
+    "identifiers": {
+      "items": {
+        "properties": {
+          "material": {
+            "type": "string",
+            "title": "Material to which the identifiers refers to."
+          },
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
+      },
+      "title": "List of Identifiers of the record",
+      "type": "array"
+    },
+    "internal_notes": {
+      "items": {
+        "additionalProperties": false,
+        "description": "Visible only for Librarians",
+        "properties": {
+          "field": {
+            "title": "Field to which the note refers to",
+            "type": "string"
+          },
+          "user": {
+            "type": "string",
+            "title": "User who has composed the note."
+          },
+          "value": {
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      },
+      "minItems": 1,
+      "title": "List of internal notes",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "keywords": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Keywords of the series",
+      "type": "array"
+    },
+    "languages": {
+      "items": {
+        "maxLength": 3,
+        "minLength": 3,
+        "title": "ISO 639-3 language code",
+        "type": "string"
+      },
+      "type": "array",
+      "title": "List of languages of the series (Vocabulary)",
+      "description": ""
+    },
+    "mode_of_issuance": {
+      "title": "Mode of issuance",
+      "type": "string",
+      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"],
+      "description": ""
+    },
+    "note": {
+      "title": "Note for the series",
+      "type": "string"
+    },
+    "pid": {
+      "title": "Series PID",
+      "type": "string"
+    },
+    "publication_year": {
+      "minLength": 1,
+      "title": "Year of the publication of the series",
+      "type": "string"
+    },
+    "publisher": {
+      "type": "string",
+      "title": "Publisher name"
+    },
+    "relations": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "relations_metadata": {
+      "type": "object",
+      "title": "Metadata to describe relations",
+      "properties": {
+        "multipart_monograph": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "series_type": {
+      "title": "Series type",
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "title": "Tag name",
+        "type": "string"
+      },
+      "title": "List of tags of the series (Vocabulary)",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "updated_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Last update entity information",
+      "type": "object"
+    },
+    "urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "meta": {
+            "type": "string",
+            "description": "System information about the url."
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "physical_volumes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "location": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "title": "Physical volumes description and location",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}
