@@ -42,7 +42,7 @@ class Series(IlsRecordWithRelations):
     SERIES_TYPES = ["SERIAL", "PERIODICAL"]
 
     _pid_type = SERIES_PID_TYPE
-    _schema = "series/series-v1.0.0.json"
+    _schema = "series/series-v2.0.0.json"
     _relations_path = "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
 
     MODE_OF_ISSUANCE = [
