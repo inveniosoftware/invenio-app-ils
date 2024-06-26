@@ -108,7 +108,7 @@ class Item(IlsRecord):
     """Item record class."""
 
     _pid_type = ITEM_PID_TYPE
-    _schema = "items/item-v1.0.0.json"
+    _schema = "items/item-v2.0.0.json"
     _validator = ItemValidator()
     _loan_resolver_path = "{scheme}://{host}/api/resolver/items/{item_pid}/loan"
     _internal_location_resolver_path = (

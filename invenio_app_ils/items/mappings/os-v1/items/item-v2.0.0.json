@@ -1,0 +1,326 @@
+{
+  "settings": {
+    "analysis": {
+      "normalizer": {
+        "custom_normalizer": {
+          "type": "custom",
+          "char_filter": [
+            "strip_special_chars"
+          ],
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      },
+      "analyzer": {
+        "email": {
+          "type": "custom",
+          "tokenizer": "uax_url_email"
+        },
+        "custom_analyzer": {
+          "tokenizer": "standard",
+          "type": "custom",
+          "char_filter": [
+            "strip_special_chars"
+          ],
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      },
+      "filter": {
+        "asciifolding": {
+          "type": "asciifolding"
+        }
+      },
+      "char_filter": {
+        "strip_special_chars": {
+          "type": "pattern_replace",
+          "pattern": "[\\p{Punct}\\p{S}]",
+          "replacement": ""
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "acquisition_pid": { "type": "keyword" },
+      "barcode": {
+        "type": "keyword"
+      },
+      "circulation": {
+        "properties": {
+          "document_pid": {
+            "type": "keyword"
+          },
+          "end_date": {
+            "type": "date"
+          },
+          "extension_count": {
+            "type": "short"
+          },
+          "is_overdue": {
+            "type": "boolean"
+          },
+          "item_pid": {
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "loan_pid": {
+            "type": "keyword"
+          },
+          "patron": {
+            "properties": {
+              "email": {
+                "type": "text",
+                "analyzer": "email"
+              },
+              "id": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "location_pid": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "patron_pid": {
+            "type": "keyword"
+          },
+          "start_date": {
+            "type": "date"
+          },
+          "state": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "circulation_restriction": {
+        "type": "keyword"
+      },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "description": {
+        "type": "text"
+      },
+      "document": {
+        "properties": {
+          "authors": {
+            "type": "text"
+          },
+          "cover_metadata": {
+            "properties": {},
+            "type": "object"
+          },
+          "document_type": {
+            "type": "keyword"
+          },
+          "edition": {
+            "type": "text"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "publication_year": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              },
+              "normalized_keyword": {
+                "type": "keyword",
+                "normalizer": "custom_normalizer"
+              }
+            },
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "internal_location": {
+        "properties": {
+          "legacy_id": {
+            "type": "keyword"
+          },
+          "location": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "legacy_id": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "keyword"
+              },
+              "opening_weekdays": {
+                "properties": {
+                  "weekday": {
+                    "type": "keyword"
+                  },
+                  "is_open": {
+                    "type": "boolean"
+                  },
+                  "times": {
+                    "properties": {
+                      "start_time": {
+                        "type": "keyword"
+                      },
+                      "end_time": {
+                        "type": "keyword"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "opening_exceptions": {
+                "properties": {
+                  "title": {
+                    "type": "keyword"
+                  },
+                  "is_open": {
+                    "type": "boolean"
+                  },
+                  "start_date": {
+                    "type": "date"
+                  },
+                  "end_date": {
+                    "type": "date"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "location_pid": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "keyword"
+          },
+          "notes": {
+            "type": "text"
+          },
+          "physical_location": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "internal_location_pid": {
+        "type": "keyword"
+      },
+      "internal_notes": {
+        "type": "text"
+      },
+      "isbns": {
+        "properties": {
+          "description": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "legacy_id": {
+        "type": "keyword"
+      },
+      "legacy_library_id": {
+        "type": "keyword"
+      },
+      "medium": {
+        "type": "keyword"
+      },
+      "number_of_pages": {
+        "type": "integer"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "price": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
+      },
+      "shelf": {
+        "type": "text"
+      },
+      "identifiers": {
+        "properties": {
+          "scheme": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "status": {
+        "type": "keyword"
+      }
+    }
+  }
+}
