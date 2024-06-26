@@ -24,7 +24,7 @@
     }
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v2.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v3.0.0.json",
     "bucket_id": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
     "document_pid": "docid-3",
     "eitem_type": "E-BOOK",
@@ -51,7 +51,7 @@
     "created_by": {"type": "script", "value": "demo"}
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v2.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v3.0.0.json",
     "document_pid": "docid-1",
     "eitem_type": "E-BOOK",
     "files": [],
@@ -60,7 +60,7 @@
     "created_by": {"type": "script", "value": "demo"}
   },
   {
-    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v2.0.0.json",
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v3.0.0.json",
     "document_pid": "docid-1",
     "eitem_type": "E-BOOK",
     "files": [],

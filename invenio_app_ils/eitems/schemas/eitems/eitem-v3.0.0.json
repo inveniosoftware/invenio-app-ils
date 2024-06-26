@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema EItem",
+  "type": "object",
+  "required": ["$schema", "pid", "document_pid", "created_by", "eitem_type"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "bucket_id": {
+      "type": "string",
+      "title": "The bucket identifier for this EItem"
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this EItem"
+    },
+    "document_pid": {
+      "type": "string",
+      "title": "The persistent identifier of its Document"
+    },
+    "eitem_type": {
+      "title": "EItem type",
+      "type": "string"
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "identifiers": {
+      "items": {
+        "properties": {
+          "material": {
+            "title": "Material to which the identifiers refers to.",
+            "type": "string"
+          },
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
+      },
+      "title": "List of Identifiers of the record",
+      "type": "array"
+    },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this EItem reserved for internal usage"
+    },
+    "open_access": {
+      "type": "boolean",
+      "title": "Indicate if the access to this EItem is open or not",
+      "default": true
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this EItem"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source of the record."
+    },
+    "urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "login_required": {
+            "type": "boolean",
+            "title": "Indicate if the access to this link requires login",
+            "default": false
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}
