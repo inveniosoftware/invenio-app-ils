@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Item",
+  "type": "object",
+  "required": [
+    "$schema",
+    "created_by",
+    "internal_location_pid",
+    "barcode",
+    "status",
+    "pid",
+    "document_pid",
+    "circulation_restriction",
+    "medium"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "acquisition_pid": {
+      "type": "string",
+      "title": "The persistent identifier of the acquisition"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "The barcode of this Item"
+    },
+    "circulation_restriction": {
+      "type": "string",
+      "title": "The circulation restriction on this Item"
+    },
+    "circulation": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this Item"
+    },
+    "document_pid": {
+      "type": "string",
+      "title": "The persistent identifier of its Document"
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "internal_location_pid": {
+      "type": "string",
+      "title": "The persistent identifier of its Internal Location"
+    },
+    "internal_location": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this Item reserved for library usage"
+    },
+    "isbns": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "title": "Free text, used to describe the document to ISBN refers to.",
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "ISBN",
+        "type": "object"
+      },
+      "title": "List of ISBNs",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "legacy_id": {
+      "type": "string",
+      "title": "The previous id of this Item before migration"
+    },
+    "legacy_library_id": {
+      "type": "string",
+      "title": "The previous id of the location of this Item before migration"
+    },
+    "medium": {
+      "type": "string",
+      "title": "The medium of this Item"
+    },
+    "number_of_pages": {
+      "minimum": 1,
+      "title": "Number of pages of the book",
+      "type": "integer"
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this Item"
+    },
+    "price": {
+      "properties": {
+        "currency": {
+          "title": "Currency of the price (Vocabulary)",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Price value",
+          "type": "number"
+        }
+      },
+
+      "type": "object"
+    },
+    "shelf": {
+      "type": "string",
+      "title": "The shelf location of this Item"
+    },
+    "identifiers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "scheme": {
+            "type": "string",
+            "title": "Type of identification"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string",
+            "title": "Scheme's value"
+          }
+        },
+        "required": ["scheme", "value"],
+        "title": "Identifiers",
+        "type": "object"
+      },
+      "title": "List of Identifiers",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "status": {
+      "type": "string",
+      "title": "The current status of this Item"
+    }
+  }
+}
