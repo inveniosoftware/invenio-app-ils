@@ -64,7 +64,7 @@ class EItem(IlsRecord):
     ]
 
     _pid_type = EITEM_PID_TYPE
-    _schema = "eitems/eitem-v2.0.0.json"
+    _schema = "eitems/eitem-v3.0.0.json"
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/document"
     )
