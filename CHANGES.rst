@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 4.0.0rc1 (released 2024-06-28)
+
+- search: improve search for accents and special characters
+          breaking change: requires updating the version of mappings and schema
+
 Version 3.0.0rc5 (released 2024-06-24)
 
 - search: allow custom query parser
