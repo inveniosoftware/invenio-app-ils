@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 4.0.0 (released 2024-08-07)
+
+- Initial full release
+
 Version 4.0.0rc1 (released 2024-06-28)
 
 - search: improve search for accents and special characters
