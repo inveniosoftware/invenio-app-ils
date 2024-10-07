@@ -16,7 +16,9 @@
       "analyzer": {
         "min_length_2": {
           "tokenizer": "standard",
-          "filter": [ "min_length_2" ]
+          "filter": [
+            "min_length_2"
+          ]
         },
         "custom_analyzer": {
           "tokenizer": "standard",
@@ -70,10 +72,14 @@
         "type": "date"
       },
       "abstract": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       },
       "alternative_abstracts": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       },
       "alternative_identifiers": {
         "properties": {
@@ -98,7 +104,9 @@
             "type": "keyword"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer"
           }
         },
         "type": "object"
@@ -120,6 +128,8 @@
               },
               "name": {
                 "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer",
                 "fields": {
                   "keyword": {
                     "type": "keyword"
@@ -131,6 +141,8 @@
           },
           "alternative_names": {
             "type": "text",
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer",
             "fields": {
               "keyword": {
                 "type": "keyword"
@@ -145,12 +157,17 @@
               },
               "full_words": {
                 "type": "text",
-                "analyzer": "min_length_2",
-                "search_analyzer": "min_length_2"
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               },
               "normalized_keyword": {
                 "type": "keyword",
                 "normalizer": "custom_normalizer"
+              },
+              "min_length_2": {
+                "type": "text",
+                "analyzer": "min_length_2",
+                "search_analyzer": "min_length_2"
               }
             }
           },
@@ -228,10 +245,19 @@
         "type": "boolean"
       },
       "document_type": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text",
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer"
+          }
+        }
       },
       "edition": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       },
       "eitems": {
         "properties": {
@@ -318,36 +344,56 @@
       "extensions_keywords": {
         "type": "object",
         "properties": {
-          "key": { "type": "keyword" },
-          "value": { "type": "keyword" }
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
         }
       },
       "extensions_texts": {
         "type": "object",
         "properties": {
-          "key": { "type": "keyword" },
-          "value": { "type": "text" }
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
         }
       },
       "extensions_longs": {
         "type": "object",
         "properties": {
-          "key": { "type": "keyword" },
-          "value": { "type": "long" }
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "long"
+          }
         }
       },
       "extensions_dates": {
         "type": "object",
         "properties": {
-          "key": { "type": "keyword" },
-          "value": { "type": "date" }
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "date"
+          }
         }
       },
       "extensions_booleans": {
         "type": "object",
         "properties": {
-          "key": { "type": "keyword" },
-          "value": { "type": "boolean" }
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "boolean"
+          }
         }
       },
       "identifiers": {
@@ -361,10 +407,10 @@
           "value": {
             "type": "keyword",
             "fields": {
-                "text": {
-                  "type": "text"
-                }
+              "text": {
+                "type": "text"
               }
+            }
           }
         },
         "type": "object"
@@ -375,13 +421,22 @@
             "type": "text"
           },
           "place": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+              "text": {
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
+              }
+            }
           },
           "publisher": {
             "type": "keyword",
             "fields": {
               "text": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               }
             }
           },
@@ -402,10 +457,12 @@
           "value": {
             "type": "keyword",
             "fields": {
-                "text": {
-                  "type": "text"
-                }
+              "text": {
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
               }
+            }
           }
         },
         "type": "object"
@@ -492,6 +549,8 @@
           },
           "value": {
             "type": "text",
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer",
             "fields": {
               "keyword": {
                 "type": "keyword"
@@ -521,7 +580,14 @@
                 "type": "keyword"
               },
               "title": {
-                "type": "keyword"
+                "type": "keyword",
+                "fields": {
+                  "text": {
+                    "type": "text",
+                    "analyzer": "custom_analyzer",
+                    "search_analyzer": "custom_analyzer"
+                  }
+                }
               },
               "url": {
                 "type": "keyword"
@@ -536,13 +602,15 @@
         "type": "object"
       },
       "note": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       },
       "number_of_pages": {
         "type": "keyword",
         "fields": {
           "text": {
-          "type": "text"
+            "type": "text"
           }
         }
       },
@@ -563,9 +631,11 @@
           "journal_title": {
             "type": "keyword",
             "fields": {
-                "text": {
-                  "type": "text"
-                }
+              "text": {
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
+              }
             }
           },
           "journal_volume": {
@@ -574,9 +644,9 @@
           "note": {
             "type": "keyword",
             "fields": {
-                "text": {
-                  "type": "text"
-                }
+              "text": {
+                "type": "text"
+              }
             }
           },
           "pages": {
@@ -589,7 +659,14 @@
         "type": "object"
       },
       "publication_year": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text",
+            "analyzer": "custom_analyzer",
+            "search_analyzer": "custom_analyzer"
+          }
+        }
       },
       "relation_types": {
         "type": "keyword"
@@ -849,7 +926,14 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "fields": {
+              "text": {
+                "type": "text",
+                "analyzer": "custom_analyzer",
+                "search_analyzer": "custom_analyzer"
+              }
+            }
           }
         },
         "type": "object"
@@ -901,6 +985,8 @@
       },
       "volume": {
         "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer",
         "fields": {
           "keyword": {
             "type": "keyword"
@@ -971,7 +1057,9 @@
         "type": "object"
       },
       "physical_description": {
-          "type": "text"
+        "type": "text",
+        "analyzer": "custom_analyzer",
+        "search_analyzer": "custom_analyzer"
       }
     }
   }
