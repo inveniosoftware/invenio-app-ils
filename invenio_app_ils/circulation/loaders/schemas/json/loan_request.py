@@ -12,7 +12,6 @@ from datetime import timedelta
 import arrow
 from flask import current_app
 from invenio_circulation.records.loaders.schemas.json import DateString
-from invenio_app_ils.proxies import current_app_ils
 from marshmallow import (
     Schema,
     ValidationError,
@@ -21,6 +20,8 @@ from marshmallow import (
     validates,
     validates_schema,
 )
+
+from invenio_app_ils.proxies import current_app_ils
 
 from .base import LoanBaseSchemaV1
 

@@ -10,8 +10,8 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.eitems.api import EItem
+from invenio_app_ils.proxies import current_app_ils
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
