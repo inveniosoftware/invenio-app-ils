@@ -134,25 +134,30 @@ def patron_owner_permission(record):
 def loan_checkout_permission(*args, **kwargs):
     """Return permission to allow admins and librarians to checkout and patrons to self-checkout if enabled."""
     if not has_request_context():
-        # If from CLI, don't allow self-checkout
+        # CLI or Celery task
         return backoffice_permission()
+
     if current_user.is_anonymous:
         abort(401)
 
     is_admin_or_librarian = backoffice_permission().allows(g.identity)
     if is_admin_or_librarian:
         return backoffice_permission()
+
+    # ensure that only the loan's patron can do operations on this loan
     if len(args):
         loan = args[0]
     else:
-        loan = kwargs.get("record", {})
-    is_patron_current_user = current_user.id == int(loan.get("patron_pid"))
+        loan = kwargs["record"]
+    is_patron_current_user = current_user.id == int(loan["patron_pid"])
+
     if (
-        current_app.config.get("ILS_SELF_CHECKOUT_ENABLED", False)
+        current_app.config["ILS_SELF_CHECKOUT_ENABLED"]
         and is_patron_current_user
     ):
         return authenticated_user_permission()
-    raise LoanCheckoutByPatronForbidden(int(loan.get("patron_pid")), current_user.id)
+
+    raise LoanCheckoutByPatronForbidden(int(loan["patron_pid"]), current_user.id)
 
 
 class PatronOwnerPermission(Permission):
@@ -171,7 +176,6 @@ def views_permissions_factory(action):
         "bulk-loan-extension",
     ]
     is_backoffice_permission = [
-        "circulation-loan-checkout",
         "circulation-loan-force-checkout",
         "circulation-overdue-loan-notification",
         "circulation-loan-update-dates",
@@ -195,4 +199,9 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action in is_patron_owner_permission:
         return PatronOwnerPermission
+    elif action == "circulation-loan-checkout":
+        if current_app.config["ILS_SELF_CHECKOUT_ENABLED"]:
+            return authenticated_user_permission()
+        else:
+            return backoffice_permission()
     return deny_all()
