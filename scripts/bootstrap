@@ -8,6 +8,6 @@
 
 set -e
 
-pip install -e .[lorem,opensearch2,postgresql]
+pip install -e .[lorem,opensearch2]
 CWD=`pwd`
 bash "${CWD}/scripts/build_assets"

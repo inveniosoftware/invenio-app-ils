@@ -7,7 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 # To run a test locally:
-# 1. eval "$(docker-services-cli up --db postgresql12 --search elasticsearch7 --cache redis --env)"
+# 1. eval "$(docker-services-cli up --db postgresql12 --search opensearch2 --cache redis --env)"
 # 2. python -m pytest -svvvv tests/api/ils/test_apis.py
 # 3. eval "$(docker-services-cli down --env)"
 
