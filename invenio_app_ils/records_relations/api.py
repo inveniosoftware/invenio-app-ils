@@ -425,6 +425,7 @@ class IlsRecordWithRelations(IlsRecord):
     def relations(self):
         """Get record relations."""
         from .retriever import get_relations
+
         return get_relations(self)
 
     def clear(self):

@@ -151,10 +151,7 @@ def loan_checkout_permission(*args, **kwargs):
         loan = kwargs["record"]
     is_patron_current_user = current_user.id == int(loan["patron_pid"])
 
-    if (
-        current_app.config["ILS_SELF_CHECKOUT_ENABLED"]
-        and is_patron_current_user
-    ):
+    if current_app.config["ILS_SELF_CHECKOUT_ENABLED"] and is_patron_current_user:
         return authenticated_user_permission()
 
     raise LoanCheckoutByPatronForbidden(int(loan["patron_pid"]), current_user.id)
@@ -168,36 +165,38 @@ class PatronOwnerPermission(Permission):
         super().__init__(UserNeed(int(record["patron_pid"])), backoffice_access_action)
 
 
+_is_authenticated_user = [
+    "circulation-loan-request",
+    "patron-loans",
+    "bulk-loan-extension",
+]
+_is_backoffice_permission = [
+    "circulation-loan-force-checkout",
+    "circulation-overdue-loan-notification",
+    "circulation-loan-update-dates",
+    "relations-create",
+    "relations-delete",
+    "stats-most-loaned",
+    "document-request-actions",
+    "bucket-create",
+    "ill-brwreq-patron-loan-create",
+    "ill-brwreq-patron-loan-extension-accept",
+    "ill-brwreq-patron-loan-extension-decline",
+    "send-notification-to-patron",
+]
+_is_patron_owner_permission = [
+    "document-request-decline",
+    "ill-brwreq-patron-loan-extension-request",
+]
+
+
 def views_permissions_factory(action):
     """Return ILS views permissions factory."""
-    is_authenticated_user = [
-        "circulation-loan-request",
-        "patron-loans",
-        "bulk-loan-extension",
-    ]
-    is_backoffice_permission = [
-        "circulation-loan-force-checkout",
-        "circulation-overdue-loan-notification",
-        "circulation-loan-update-dates",
-        "relations-create",
-        "relations-delete",
-        "stats-most-loaned",
-        "document-request-actions",
-        "bucket-create",
-        "ill-brwreq-patron-loan-create",
-        "ill-brwreq-patron-loan-extension-accept",
-        "ill-brwreq-patron-loan-extension-decline",
-        "send-notification-to-patron",
-    ]
-    is_patron_owner_permission = [
-        "document-request-decline",
-        "ill-brwreq-patron-loan-extension-request",
-    ]
-    if action in is_authenticated_user:
+    if action in _is_authenticated_user:
         return authenticated_user_permission()
-    elif action in is_backoffice_permission:
+    elif action in _is_backoffice_permission:
         return backoffice_permission()
-    elif action in is_patron_owner_permission:
+    elif action in _is_patron_owner_permission:
         return PatronOwnerPermission
     elif action == "circulation-loan-checkout":
         if current_app.config["ILS_SELF_CHECKOUT_ENABLED"]:

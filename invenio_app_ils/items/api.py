@@ -161,14 +161,26 @@ class Item(IlsRecord):
         }
 
     @classmethod
+    def enforce_constraints(cls, data, **kwargs):
+        """Enforce constraints.
+
+        :param data (dict): dict that can be mutated to enforce constraints.
+        """
+        # barcode is a required field and it should be always uppercase
+        data["barcode"] = data["barcode"].upper()
+
+    @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         cls.build_resolver_fields(data)
-        return super().create(data, id_=id_, **kwargs)
+        cls.enforce_constraints(data, **kwargs)
+        created = super().create(data, id_=id_, **kwargs)
+        return created
 
     def update(self, *args, **kwargs):
         """Update Item record."""
         super().update(*args, **kwargs)
+        self.enforce_constraints(self)
         self.build_resolver_fields(self)
 
     def delete(self, **kwargs):
