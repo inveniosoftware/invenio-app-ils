@@ -1,12 +1,18 @@
 
 ..
-    Copyright (C) 2018-2022 CERN.
+    Copyright (C) 2018-2024 CERN.
 
     invenio-app-ils is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version 4.1.0 (released 2024-10-21)
+
+- search: apply the same search analyzers to the fields that needs to be searchable.
+          This is required when using cross-field searches.
+          Re-create the documents and series indices to take advantage of this change.
 
 Version 4.0.0 (released 2024-08-07)
 
