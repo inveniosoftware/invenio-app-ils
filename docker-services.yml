@@ -78,7 +78,7 @@ services:
       - "9200:9200"
       - "9300:9300"
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{ dashboards_version }}
+    image: opensearchproject/opensearch-dashboards:2.11.1
     ports:
       - "5601:5601"
     expose:

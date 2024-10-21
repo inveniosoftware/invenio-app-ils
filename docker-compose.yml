@@ -22,3 +22,9 @@ services:
     extends:
       file: docker-services.yml
       service: search
+  opensearch-dashboards:
+    extends:
+      file: docker-services.yml
+      service: opensearch-dashboards
+    links:
+      - search
