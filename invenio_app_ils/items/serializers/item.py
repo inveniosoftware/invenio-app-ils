@@ -49,7 +49,7 @@ class ItemCSVSerializer(CSVSerializer):
             pid, record, links_factory=links_factory, **kwargs
         )
         filter_circulation(item)
-        field_cover_metadata(item.get('metadata', {}).get("document", {}))
+        field_cover_metadata(item.get("metadata", {}).get("document", {}))
         return item
 
     def transform_search_hit(self, pid, record_hit, links_factory=None, **kwargs):
@@ -58,7 +58,7 @@ class ItemCSVSerializer(CSVSerializer):
             pid, record_hit, links_factory=links_factory, **kwargs
         )
         filter_circulation(hit)
-        field_cover_metadata(hit.get('metadata', {}).get("document", {}))
+        field_cover_metadata(hit.get("metadata", {}).get("document", {}))
         return hit
 
 
@@ -71,7 +71,7 @@ class ItemJSONSerializer(JSONSerializer):
             pid, record, links_factory=links_factory, **kwargs
         )
         filter_circulation(item)
-        field_cover_metadata(item.get('metadata', {}).get("document", {}))
+        field_cover_metadata(item.get("metadata", {}).get("document", {}))
         return item
 
     def transform_search_hit(self, pid, record_hit, links_factory=None, **kwargs):
@@ -80,5 +80,5 @@ class ItemJSONSerializer(JSONSerializer):
             pid, record_hit, links_factory=links_factory, **kwargs
         )
         filter_circulation(hit)
-        field_cover_metadata(hit.get('metadata', {}).get("document", {}))
+        field_cover_metadata(hit.get("metadata", {}).get("document", {}))
         return hit

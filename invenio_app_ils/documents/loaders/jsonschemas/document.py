@@ -16,10 +16,10 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
     ChangedBySchema,
     set_changed_by,
 )
+from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 from invenio_app_ils.records.loaders.schemas.preserve_cover_metadata import (
     preserve_cover_metadata,
 )
-from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 
 
 class AffiliationSchema(Schema):

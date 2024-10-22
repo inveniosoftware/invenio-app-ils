@@ -17,7 +17,12 @@ from sqlalchemy import and_, or_
 from invenio_app_ils.errors import RecordRelationsError
 
 ILS_RELATION_TYPE = namedtuple(
-    "IlsRelationType", RelationType._fields + ("relation_class", "sort_by",)
+    "IlsRelationType",
+    RelationType._fields
+    + (
+        "relation_class",
+        "sort_by",
+    ),
 )
 
 LANGUAGE_RELATION = ILS_RELATION_TYPE(

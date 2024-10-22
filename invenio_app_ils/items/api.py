@@ -164,11 +164,13 @@ class Item(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         cls.build_resolver_fields(data)
+        data["barcode"] = data["barcode"].upper()
         return super().create(data, id_=id_, **kwargs)
 
     def update(self, *args, **kwargs):
         """Update Item record."""
         super().update(*args, **kwargs)
+        self["barcode"] = self["barcode"].upper()
         self.build_resolver_fields(self)
 
     def delete(self, **kwargs):

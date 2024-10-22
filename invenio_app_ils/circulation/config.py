@@ -44,10 +44,10 @@ from invenio_app_ils.permissions import (
     PatronOwnerPermission,
     authenticated_user_permission,
     backoffice_permission,
+    loan_checkout_permission,
     loan_extend_circulation_permission,
     patron_owner_permission,
     superuser_permission,
-    loan_checkout_permission,
 )
 
 from .api import ILS_CIRCULATION_LOAN_FETCHER, ILS_CIRCULATION_LOAN_MINTER

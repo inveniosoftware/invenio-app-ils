@@ -23,7 +23,7 @@ def test_item_refs(app, testdata):
             document_pid="docid-1",
             internal_location_pid="ilocid-4",
             created_by=dict(type="script", value="demo"),
-            barcode="348048",
+            barcode="cm-348048",
             status="CAN_CIRCULATE",
             circulation_restriction="NO_RESTRICTION",
             medium="PAPER",
@@ -31,6 +31,7 @@ def test_item_refs(app, testdata):
     )
     assert "$schema" in item
     assert "document" in item and "$ref" in item["document"]
+    assert item["barcode"] == "CM-348048"
     assert "internal_location" in item and "$ref" in item["internal_location"]
 
     item = Item.get_record_by_pid("itemid-1")

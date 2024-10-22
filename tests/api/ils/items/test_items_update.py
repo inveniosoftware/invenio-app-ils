@@ -26,6 +26,12 @@ def test_update_item(db, testdata):
                 if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 
+    item = Item.get_record_by_pid("itemid-1")
+    item["barcode"] = "aaabbbccc"
+    item.commit()
+    db.session.commit()
+    assert Item.get_record_by_pid("itemid-1")["barcode"] == "AAABBBCCC"
+
     # change document pid while is on loan
     item_pid, loan_pid = get_active_loan_pid_and_item_pid()
     item = Item.get_record_by_pid(item_pid)
