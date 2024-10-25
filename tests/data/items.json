@@ -1,7 +1,7 @@
 [
   {
     "pid": "itemid-1",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-1",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -12,7 +12,7 @@
   },
   {
     "pid": "itemid-2",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-2",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-2",
@@ -23,7 +23,7 @@
   },
   {
     "pid": "itemid-3",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-3",
     "document_pid": "docid-2",
     "internal_location_pid": "ilocid-1",
@@ -34,7 +34,7 @@
   },
   {
     "pid": "itemid-4",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-4",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-2",
@@ -45,7 +45,7 @@
   },
   {
     "pid": "itemid-5",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-5",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
@@ -56,7 +56,7 @@
   },
   {
     "pid": "itemid-6",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-6",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
@@ -67,7 +67,7 @@
   },
   {
     "pid": "itemid-7",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-7",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-2",
@@ -78,7 +78,7 @@
   },
   {
     "pid": "itemid-8",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-8",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -89,7 +89,7 @@
   },
   {
     "pid": "itemid-9",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-9",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -100,7 +100,7 @@
   },
   {
     "pid": "itemid-10",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-10",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -111,7 +111,7 @@
   },
   {
     "pid": "itemid-50",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-50",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -123,7 +123,7 @@
   },
   {
     "pid": "itemid-51",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-51",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-2",
@@ -135,7 +135,7 @@
   },
   {
     "pid": "itemid-52",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-52",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -147,7 +147,7 @@
   },
   {
     "pid": "itemid-53",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-53",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -159,7 +159,7 @@
   },
   {
     "pid": "itemid-54",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-54",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -171,7 +171,7 @@
   },
   {
     "pid": "itemid-55",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -182,7 +182,7 @@
   },
   {
     "pid": "itemid-56",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-54",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
@@ -193,7 +193,7 @@
   },
   {
     "pid": "itemid-57",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -204,7 +204,7 @@
   },
   {
     "pid": "itemid-MISSING",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -215,8 +215,8 @@
   },
   {
     "pid": "itemid-60",
-    "created_by": {"type": "script", "value": "demo"},
-    "barcode": "123456789-55",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-60",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
@@ -226,8 +226,8 @@
   },
   {
     "pid": "itemid-61",
-    "created_by": {"type": "script", "value": "demo"},
-    "barcode": "123456789-55",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-61",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
@@ -237,7 +237,7 @@
   },
   {
     "pid": "itemid-62",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -248,7 +248,7 @@
   },
   {
     "pid": "itemid-63",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
@@ -259,10 +259,32 @@
   },
   {
     "pid": "itemid-71",
-    "created_by": {"type": "script", "value": "demo"},
+    "created_by": { "type": "script", "value": "demo" },
     "barcode": "123456789-55",
-    "document_pid": "docid-17",
+    "document_pid": "docid-15",
     "internal_location_pid": "ilocid-4",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE",
+    "document": {}
+  },
+  {
+    "pid": "itemid-72",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-72",
+    "document_pid": "docid-16",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE",
+    "document": {}
+  },
+  {
+    "pid": "itemid-73",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-73",
+    "document_pid": "docid-17",
+    "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",

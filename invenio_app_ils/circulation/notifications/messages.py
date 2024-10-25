@@ -25,6 +25,7 @@ class NotificationLoanMsg(NotificationMsg):
         request="request.html",
         request_no_items="request_no_items.html",
         checkout="checkout.html",
+        self_checkout="self_checkout.html",
         checkin="checkin.html",
         extend="extend.html",
         cancel="cancel.html",

@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Response serializers for circulation module."""
+
 import json
 
 from flask import current_app

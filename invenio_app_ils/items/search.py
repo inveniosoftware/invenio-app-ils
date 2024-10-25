@@ -41,6 +41,19 @@ class ItemSearch(RecordsSearch):
 
         return search
 
+    def search_by_barcode(self, barcode, filter_states=None, exclude_states=None):
+        """Retrieve items matching the given barcode."""
+        search = self
+
+        search = search.filter("term", barcode=barcode)
+
+        if filter_states:
+            search = search.filter("terms", status=filter_states)
+        elif exclude_states:
+            search = search.exclude("terms", status=exclude_states)
+
+        return search
+
     def search_by_internal_location_pid(
         self,
         internal_location_pid=None,

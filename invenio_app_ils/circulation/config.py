@@ -44,7 +44,6 @@ from invenio_app_ils.permissions import (
     PatronOwnerPermission,
     authenticated_user_permission,
     backoffice_permission,
-    loan_checkout_permission,
     loan_extend_circulation_permission,
     patron_owner_permission,
     superuser_permission,
@@ -84,6 +83,7 @@ ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS = 7
 ILS_CIRCULATION_DELIVERY_METHODS = {
     "PICKUP": "Pick it up at the library desk",
     "DELIVERY": "Have it delivered to my office",
+    "SELF-CHECKOUT": "Self-checkout",
 }
 
 # Notification message creator for loan notifications
@@ -162,7 +162,13 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="ITEM_ON_LOAN",
             trigger="checkout",
             transition=ILSToItemOnLoan,
-            permission_factory=loan_checkout_permission,
+            permission_factory=backoffice_permission,
+        ),
+        dict(
+            dest="ITEM_ON_LOAN",
+            trigger="self_checkout",
+            transition=ILSToItemOnLoan,
+            permission_factory=authenticated_user_permission,
         ),
     ],
     "PENDING": [
@@ -171,6 +177,12 @@ CIRCULATION_LOAN_TRANSITIONS = {
             trigger="checkout",
             transition=ILSToItemOnLoan,
             permission_factory=backoffice_permission,
+        ),
+        dict(
+            dest="ITEM_ON_LOAN",
+            trigger="self_checkout",
+            transition=ILSToItemOnLoan,
+            permission_factory=authenticated_user_permission,
         ),
         dict(
             dest="CANCELLED",

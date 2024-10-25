@@ -15,13 +15,16 @@ import arrow
 from flask import url_for
 from flask_principal import UserNeed
 from invenio_access.permissions import Permission
+from invenio_search import current_search
 
-from invenio_app_ils.items.api import Item
-from invenio_app_ils.permissions import (
-    authenticated_user_permission,
-    loan_checkout_permission,
-    views_permissions_factory,
+from invenio_app_ils.errors import (
+    LoanSelfCheckoutDocumentOverbooked,
+    LoanSelfCheckoutItemActiveLoan,
+    LoanSelfCheckoutItemInvalidStatus,
 )
+from invenio_app_ils.items.api import Item
+from invenio_app_ils.items.serializers import item
+from invenio_app_ils.proxies import current_app_ils
 from tests.helpers import user_login, user_logout
 
 NEW_LOAN = {
@@ -30,7 +33,15 @@ NEW_LOAN = {
     "patron_pid": "3",
     "transaction_location_pid": "locid-1",
     "pickup_location_pid": "locid-1",
-    "delivery": {"method": "PICK_UP"},
+    "delivery": {"method": "PICKUP"},
+}
+
+NEW_LOAN_REQUEST = {
+    "document_pid": "CHANGE ME IN EACH TEST",
+    "patron_pid": "3",
+    "transaction_location_pid": "locid-1",
+    "pickup_location_pid": "locid-1",
+    "delivery": {"method": "PICKUP"},
 }
 
 
@@ -215,77 +226,171 @@ def test_checkout_loader_start_end_dates(app, client, json_headers, users, testd
     assert res.status_code == 400
 
 
-def _views_permissions_factory(action):
-    """Override ILS views permissions factory."""
-    if action == "circulation-loan-checkout":
-        return authenticated_user_permission()
-    return views_permissions_factory(action)
+def test_self_checkout_search(app, client, json_headers, users, testdata):
+    """Test self-checkout search."""
+    app.config["ILS_SELF_CHECKOUT_ENABLED"] = True
+
+    # test that anonymous user cannot search for barcodes
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(f"{url}?barcode=123456", headers=json_headers)
+    assert res.status_code == 401
+
+    user_login(client, "patron2", users)
+
+    # test the missing parameter error
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(url, headers=json_headers)
+    assert res.status_code == 400
+
+    # test that authenticated user can search for barcodes, but it will return
+    # 400 when not found
+    unexisting_barcode = "123456"
+    res = client.get(f"{url}?barcode={unexisting_barcode}", headers=json_headers)
+    assert res.status_code == 400
+
+    # test that an error is returned when the item cannot circulate
+    missing_item_barcode = "123456789-1"
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(f"{url}?barcode={missing_item_barcode}", headers=json_headers)
+    assert res.status_code == 400
+    # assert that the payload will contain the key error with a msg
+    response = res.get_json()
+    assert LoanSelfCheckoutItemInvalidStatus.description in response["message"]
+    assert LoanSelfCheckoutItemInvalidStatus.supportCode in response["supportCode"]
+
+    # create a loan on the same patron, and another one on another patron
+    user_login(client, "librarian", users)
+    url = url_for("invenio_app_ils_circulation.loan_checkout")
+
+    for item_pid, patron_pid in [
+        ("itemid-60", "2"),  # barcode 123456789-60
+        ("itemid-61", "1"),  # barcode 123456789-61
+    ]:
+        params = deepcopy(NEW_LOAN)
+        params["transaction_user_pid"] = str(users["librarian"].id)
+        params["item_pid"] = dict(type="pitmid", value=item_pid)
+        params["patron_pid"] = patron_pid
+        res = client.post(url, headers=json_headers, data=json.dumps(params))
+        assert res.status_code == 202
+
+    # ensure new loans and related items are fully indexed
+    current_search.flush_and_refresh(index="*")
+
+    user_login(client, "patron2", users)
+
+    # test that an error is returned when the item is already on loan by the same user
+    on_loan_same_patron_barcode = "123456789-60"
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(
+        f"{url}?barcode={on_loan_same_patron_barcode}", headers=json_headers
+    )
+    assert res.status_code == 400
+    # assert that the payload will contain the key error with a msg
+    response = res.get_json()
+    assert LoanSelfCheckoutItemActiveLoan.description in response["message"]
+    assert LoanSelfCheckoutItemActiveLoan.supportCode in response["supportCode"]
+
+    # test that an error is returned when the item is already on loan by another user
+    on_loan_other_patron_barcode = "123456789-61"
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(
+        f"{url}?barcode={on_loan_other_patron_barcode}", headers=json_headers
+    )
+    assert res.status_code == 400
+    # assert that the payload will contain the key error with a msg
+    response = res.get_json()
+    assert LoanSelfCheckoutItemActiveLoan.description in response["message"]
+    assert LoanSelfCheckoutItemActiveLoan.supportCode in response["supportCode"]
+
+    # test happy path
+    available_barcode = "123456789-10"
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(f"{url}?barcode={available_barcode}", headers=json_headers)
+    assert res.status_code == 200
+    response = res.get_json()
+    assert response["metadata"]["pid"] == "itemid-10"
 
 
 def test_self_checkout(app, client, json_headers, users, testdata):
-    """Tests for self checkout feature."""
-    app.config["ILS_SELF_CHECKOUT_ENABLED"] = True
-    app.config["ILS_VIEWS_PERMISSIONS_FACTORY"] = _views_permissions_factory
-    app.config["RECORDS_REST_ENDPOINTS"]["pitmid"][
-        "list_permission_factory_imp"
-    ] = authenticated_user_permission
-    app.config["ILS_CIRCULATION_RECORDS_REST_ENDPOINTS"]["loanid"][
-        "update_permission_factory_imp"
-    ] = loan_checkout_permission
+    """Test self-checkout."""
 
-    # Self checkout by librarian should pass
-    librarian = users["librarian"]
-    user_login(client, "librarian", users)
-    params = deepcopy(NEW_LOAN)
-    params["item_pid"] = dict(type="pitmid", value="itemid-60")
-    params["transaction_user_pid"] = str(librarian.id)
-    params["patron_pid"] = str(librarian.id)
-    url = url_for("invenio_app_ils_circulation.loan_checkout")
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    def _create_request(patron, document_pid):
+        url = url_for("invenio_app_ils_circulation.loan_request")
+        user = user_login(client, patron, users)
+        params = deepcopy(NEW_LOAN_REQUEST)
+        params["document_pid"] = document_pid
+        params["patron_pid"] = str(user.id)
+        params["transaction_user_pid"] = str(user.id)
+        res = client.post(url, headers=json_headers, data=json.dumps(params))
+        assert res.status_code == 202
+        current_search.flush_and_refresh(index="*")
 
-    assert res.status_code == 202
-    loan = res.get_json()["metadata"]
-    assert loan["state"] == "ITEM_ON_LOAN"
-    assert loan["item_pid"] == params["item_pid"]
-    assert loan["patron_pid"] == str(librarian.id)
-    user_logout(client)
+    def _self_checkout(patron, item_pid, document_pid):
+        params = deepcopy(NEW_LOAN)
+        params["document_pid"] = document_pid
+        params["item_pid"] = dict(type="pitmid", value=item_pid)
+        params["patron_pid"] = str(patron.id)
+        params["transaction_user_pid"] = str(patron.id)
+        return client.post(url, headers=json_headers, data=json.dumps(params))
 
-    # Self checkout by patron should pass if patron_pid matches
-    patron3 = users["patron3"]
-    user_login(client, "patron3", users)
-    params = deepcopy(NEW_LOAN)
-    params["item_pid"] = dict(type="pitmid", value="itemid-61")
-    params["transaction_user_pid"] = str(patron3.id)
-    params["patron_pid"] = str(patron3.id)
-    url = url_for("invenio_app_ils_circulation.loan_checkout")
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
 
-    assert res.status_code == 202
-    loan = res.get_json()["metadata"]
-    assert loan["state"] == "ITEM_ON_LOAN"
-    assert loan["item_pid"] == params["item_pid"]
-    assert loan["patron_pid"] == str(patron3.id)
-
-    # Self checkout should fail if feature flag is not set to true
     app.config["ILS_SELF_CHECKOUT_ENABLED"] = False
-    params = deepcopy(NEW_LOAN)
-    params["item_pid"] = dict(type="pitmid", value="itemid-62")
-    params["transaction_user_pid"] = str(patron3.id)
-    params["patron_pid"] = str(patron3.id)
-    url = url_for("invenio_app_ils_circulation.loan_checkout")
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
 
+    # test a logged in user cannot self-checkout when the feature is disabled
+    patron2 = user_login(client, "patron2", users)
+    res = client.post(url, headers=json_headers)
     assert res.status_code == 403
+
     user_logout(client)
+    app.config["ILS_SELF_CHECKOUT_ENABLED"] = True
 
-    # Self checkout should fail if if patron_pid doesn't match
-    patron1 = users["patron1"]
-    user_login(client, "patron1", users)
-    params = deepcopy(NEW_LOAN)
-    params["item_pid"] = dict(type="pitmid", value="itemid-63")
-    params["transaction_user_pid"] = str(patron1.id)
-    params["patron_pid"] = str(patron3.id)
-    url = url_for("invenio_app_ils_circulation.loan_checkout")
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    # test that anonymous user cannot self-checkout
+    res = client.post(url, headers=json_headers)
+    assert res.status_code == 401
 
-    assert res.status_code == 403
+    # test overbooked books
+    # create multiple requests from different patrons
+    _create_request("patron1", "docid-15")
+    _create_request("patron3", "docid-15")
+
+    document_rec = current_app_ils.document_record_cls.get_record_by_pid("docid-15")
+    document = document_rec.replace_refs()
+    assert document["circulation"]["overbooked"]
+
+    # test that user cannot self-checkout an overbooked book, without having a request
+    patron2 = user_login(client, "patron2", users)
+    res = _self_checkout(patron2, "itemid-71", "docid-15")
+    assert res.status_code == 400
+    response = res.get_json()
+    assert LoanSelfCheckoutDocumentOverbooked.description in response["message"]
+    assert LoanSelfCheckoutDocumentOverbooked.supportCode in response["supportCode"]
+
+    # test that user cannot self-checkout an overbooked book, having a request
+    # create request from the same patron
+    _create_request("patron2", "docid-15")
+    patron2 = user_login(client, "patron2", users)
+    res = _self_checkout(patron2, "itemid-71", "docid-15")
+    assert res.status_code == 400
+    response = res.get_json()
+    assert LoanSelfCheckoutDocumentOverbooked.description in response["message"]
+    assert LoanSelfCheckoutDocumentOverbooked.supportCode in response["supportCode"]
+
+    # test that user can self-checkout having a prior request
+    _create_request("patron2", "docid-16")
+
+    patron2 = user_login(client, "patron2", users)
+    res = _self_checkout(patron2, "itemid-72", "docid-16")
+    assert res.status_code == 202
+    response = res.get_json()
+    assert response["metadata"]["delivery"]["method"] == "SELF-CHECKOUT"
+
+    # test that user can self-checkout without having a prior request, even if there
+    # are other requests on the book (but not overbooked)
+    _create_request("patron1", "docid-17")
+
+    patron2 = user_login(client, "patron2", users)
+    res = _self_checkout(patron2, "itemid-73", "docid-17")
+    assert res.status_code == 202
+    response = res.get_json()
+    assert response["metadata"]["delivery"]["method"] == "SELF-CHECKOUT"
