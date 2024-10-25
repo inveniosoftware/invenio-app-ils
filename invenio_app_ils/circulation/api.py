@@ -30,10 +30,15 @@ from invenio_app_ils.circulation.search import (
     get_all_expiring_or_overdue_loans_by_patron_pid,
 )
 from invenio_app_ils.errors import (
+    DocumentOverbookedError,
     IlsException,
     InvalidLoanExtendError,
     InvalidParameterError,
+    ItemCannotCirculateError,
+    ItemHasActiveLoanError,
+    ItemNotFoundError,
     MissingRequiredParameterError,
+    MultipleItemsBarcodeFoundError,
     PatronHasLoanOnDocumentError,
     PatronHasLoanOnItemError,
     PatronHasRequestOnDocumentError,
@@ -119,7 +124,7 @@ def request_loan(
     patron_pid,
     transaction_location_pid,
     transaction_user_pid=None,
-    **kwargs
+    **kwargs,
 ):
     """Create a new loan and trigger the first transition to PENDING."""
     loan_cls = current_circulation.loan_record_cls
@@ -170,13 +175,54 @@ def patron_has_active_loan_on_item(patron_pid, item_pid):
     return search_result.hits.total.value > 0
 
 
+def _checkout_loan(
+    item_pid,
+    patron_pid,
+    transaction_location_pid,
+    trigger="checkout",
+    transaction_user_pid=None,
+    delivery=None,
+    **kwargs,
+):
+    """Checkout a loan."""
+    transaction_user_pid = transaction_user_pid or str(current_user.id)
+    loan_cls = current_circulation.loan_record_cls
+    # create a new loan
+    record_uuid = uuid.uuid4()
+    new_loan = dict(
+        patron_pid=patron_pid,
+        transaction_location_pid=transaction_location_pid,
+        transaction_user_pid=transaction_user_pid,
+    )
+
+    if delivery:
+        new_loan["delivery"] = delivery
+    # check if there is an existing request
+    loan = patron_has_request_on_document(patron_pid, kwargs.get("document_pid"))
+    if loan:
+        loan = loan_cls.get_record_by_pid(loan.pid)
+        pid = IlsCirculationLoanIdProvider.get(loan["pid"]).pid
+        loan.update(new_loan)
+    else:
+        pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
+        loan = loan_cls.create(data=new_loan, id_=record_uuid)
+
+    params = deepcopy(loan)
+    params.update(item_pid=item_pid, **kwargs)
+
+    loan = current_circulation.circulation.trigger(
+        loan, **dict(params, trigger=trigger)
+    )
+    return pid, loan
+
+
 def checkout_loan(
     item_pid,
     patron_pid,
     transaction_location_pid,
     transaction_user_pid=None,
     force=False,
-    **kwargs
+    **kwargs,
 ):
     """Create a new loan and trigger the first transition to ITEM_ON_LOAN.
 
@@ -191,7 +237,7 @@ def checkout_loan(
         the checkout. If False, the checkout will fail when the item cannot
         circulate.
     """
-    loan_cls = current_circulation.loan_record_cls
+
     if patron_has_active_loan_on_item(patron_pid=patron_pid, item_pid=item_pid):
         raise PatronHasLoanOnItemError(patron_pid, item_pid)
     optional_delivery = kwargs.get("delivery")
@@ -201,35 +247,86 @@ def checkout_loan(
     if force:
         _set_item_to_can_circulate(item_pid)
 
-    transaction_user_pid = transaction_user_pid or str(current_user.id)
-
-    # create a new loan
-    record_uuid = uuid.uuid4()
-    new_loan = dict(
-        patron_pid=patron_pid,
-        transaction_location_pid=transaction_location_pid,
+    return _checkout_loan(
+        item_pid,
+        patron_pid,
+        transaction_location_pid,
         transaction_user_pid=transaction_user_pid,
+        **kwargs,
     )
 
-    # check if there is an existing request
-    loan = patron_has_request_on_document(patron_pid, kwargs.get("document_pid"))
-    if loan:
-        loan = loan_cls.get_record_by_pid(loan.pid)
-        pid = IlsCirculationLoanIdProvider.get(loan["pid"]).pid
-        loan.update(new_loan)
-    else:
-        pid = ils_circulation_loan_pid_minter(record_uuid, data=new_loan)
-        loan = loan_cls.create(data=new_loan, id_=record_uuid)
 
-    params = deepcopy(loan)
-    params.update(item_pid=item_pid, **kwargs)
+def _ensure_item_loanable_via_self_checkout(item_pid):
+    """Self-checkout: return loanable item or raise when not loanable.
 
-    # trigger the transition to request
-    loan = current_circulation.circulation.trigger(
-        loan, **dict(params, trigger="checkout")
+    Implements the self-checkout rules to loan an item.
+    """
+    item = current_app_ils.item_record_cls.get_record_by_pid(item_pid)
+    item_dict = item.replace_refs()
+
+    if item_dict["status"] != "CAN_CIRCULATE":
+        raise ItemCannotCirculateError()
+
+    circulation_state = item_dict["circulation"].get("state")
+    has_active_loan = (
+        circulation_state and circulation_state in CIRCULATION_STATES_LOAN_ACTIVE
     )
+    if has_active_loan:
+        raise ItemHasActiveLoanError(loan_pid=item_dict["circulation"]["loan_pid"])
 
-    return pid, loan
+    document = current_app_ils.document_record_cls.get_record_by_pid(
+        item_dict["document_pid"]
+    )
+    document_dict = document.replace_refs()
+    if document_dict["circulation"].get("overbooked", False):
+        raise DocumentOverbookedError(
+            f"Cannot self-checkout the overbooked document {item_dict['document_pid']}"
+        )
+
+    return item
+
+
+def self_checkout_get_item_by_barcode(barcode):
+    """Search for an item by barcode.
+
+    :param barcode: the barcode of the item to search for
+    :return item: the item that was found, or raise in case of errors
+    """
+    item_search = current_app_ils.item_search_cls()
+    items = item_search.search_by_barcode(barcode).execute()
+    if items.hits.total.value == 0:
+        raise ItemNotFoundError(barcode=barcode)
+    if items.hits.total.value > 1:
+        raise MultipleItemsBarcodeFoundError(barcode)
+
+    item_pid = items.hits[0].pid
+    item = _ensure_item_loanable_via_self_checkout(item_pid)
+    return item_pid, item
+
+
+def self_checkout(
+    item_pid, patron_pid, transaction_location_pid, transaction_user_pid=None, **kwargs
+):
+    """Perform self-checkout.
+
+    :param item_pid: a dict containing `value` and `type` fields to
+        uniquely identify the item.
+    :param patron_pid: the PID value of the patron
+    :param transaction_location_pid: the PID value of the location where the
+        checkout is performed
+    :param transaction_user_pid: the PID value of the user that performed the
+        checkout
+    """
+    _ensure_item_loanable_via_self_checkout(item_pid["value"])
+    return _checkout_loan(
+        item_pid,
+        patron_pid,
+        transaction_location_pid,
+        transaction_user_pid=transaction_user_pid,
+        trigger="self_checkout",
+        delivery=dict(method="SELF-CHECKOUT"),
+        **kwargs,
+    )
 
 
 def bulk_extend_loans(patron_pid, **kwargs):
@@ -253,7 +350,7 @@ def bulk_extend_loans(patron_pid, **kwargs):
                     params,
                     trigger="extend",
                     transition_kwargs=dict(send_notification=False),
-                )
+                ),
             )
             extended_loans.append(extended_loan)
         except (CirculationException, InvalidLoanExtendError):

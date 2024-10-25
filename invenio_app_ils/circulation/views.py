@@ -7,7 +7,7 @@
 
 """Invenio App ILS Circulation views."""
 
-from flask import Blueprint, abort
+from flask import Blueprint, abort, request
 from flask_login import current_user
 from invenio_circulation.links import loan_links_factory
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -18,15 +18,35 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_app_ils.circulation.loaders import (
     loan_checkout_loader,
     loan_request_loader,
+    loan_self_checkout_loader,
     loan_update_dates_loader,
     loans_bulk_update_loader,
 )
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
-from invenio_app_ils.errors import OverdueLoansNotificationError
+from invenio_app_ils.errors import (
+    DocumentOverbookedError,
+    ItemCannotCirculateError,
+    ItemHasActiveLoanError,
+    ItemNotFoundError,
+    LoanSelfCheckoutDocumentOverbooked,
+    LoanSelfCheckoutItemActiveLoan,
+    LoanSelfCheckoutItemInvalidStatus,
+    LoanSelfCheckoutItemNotFound,
+    MissingRequiredParameterError,
+    OverdueLoansNotificationError,
+)
+from invenio_app_ils.items.api import ITEM_PID_TYPE
 from invenio_app_ils.permissions import need_permissions
 
 from ..patrons.api import patron_exists
-from .api import bulk_extend_loans, checkout_loan, request_loan, update_dates_loan
+from .api import (
+    bulk_extend_loans,
+    checkout_loan,
+    request_loan,
+    self_checkout,
+    self_checkout_get_item_by_barcode,
+    update_dates_loan,
+)
 from .notifications.api import (
     send_bulk_extend_notification,
     send_loan_overdue_reminder_notification,
@@ -43,52 +63,77 @@ def create_circulation_blueprint(app):
         url_prefix="",
     )
 
-    endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
-    options = endpoints.get(CIRCULATION_LOAN_PID_TYPE, {})
+    options = app.config["RECORDS_REST_ENDPOINTS"][CIRCULATION_LOAN_PID_TYPE]
     default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {
         mime: obj_or_import_string(func) for mime, func in rec_serializers.items()
     }
 
-    bulk_loan_extension_serializers = {"application/json": bulk_extend_v1_response}
-
+    # /request
     loan_request = LoanRequestResource.as_view(
         LoanRequestResource.view_name,
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory, loader=loan_request_loader),
     )
-
     blueprint.add_url_rule(
         "/circulation/loans/request", view_func=loan_request, methods=["POST"]
     )
 
+    # /checkout
     loan_checkout = LoanCheckoutResource.as_view(
         LoanCheckoutResource.view_name,
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory, loader=loan_checkout_loader),
     )
-
     blueprint.add_url_rule(
         "/circulation/loans/checkout",
         view_func=loan_checkout,
         methods=["POST"],
     )
 
+    # /self-checkout
+    item_rec_serializers = app.config["RECORDS_REST_ENDPOINTS"][ITEM_PID_TYPE].get(
+        "record_serializers", {}
+    )
+    item_serializers = {
+        mime: obj_or_import_string(func) for mime, func in item_rec_serializers.items()
+    }
+    loan_self_checkout_item = LoanSelfCheckoutResource.as_view(
+        LoanSelfCheckoutResource.view_name,
+        serializers={},  # required, even if `method_serializers` will override it
+        method_serializers={
+            "GET": item_serializers,
+            "POST": serializers,  # default loan serializers
+        },
+        default_media_type=default_media_type,
+        ctx=dict(
+            loan_links_factory=loan_links_factory, loader=loan_self_checkout_loader
+        ),
+    )
+    blueprint.add_url_rule(
+        "/circulation/loans/self-checkout",
+        view_func=loan_self_checkout_item,
+        methods=["GET", "POST"],
+    )
+
+    # /notification-overdue
     loan_notification_overdue = LoanNotificationResource.as_view(
         LoanNotificationResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory),
     )
-
     blueprint.add_url_rule(
         "{0}/notification-overdue".format(options["item_route"]),
         view_func=loan_notification_overdue,
         methods=["POST"],
     )
+
+    # /bulk-extend
+    bulk_loan_extension_serializers = {"application/json": bulk_extend_v1_response}
 
     bulk_loan_extension = BulkLoanExtensionResource.as_view(
         BulkLoanExtensionResource.view_name,
@@ -96,20 +141,19 @@ def create_circulation_blueprint(app):
         default_media_type=default_media_type,
         ctx=dict(loader=loans_bulk_update_loader),
     )
-
     blueprint.add_url_rule(
         "/circulation/bulk-extend",
         view_func=bulk_loan_extension,
         methods=["POST"],
     )
 
+    # /update-dates
     loan_update = LoanUpdateDatesResource.as_view(
         LoanUpdateDatesResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory, loader=loan_update_dates_loader),
     )
-
     blueprint.add_url_rule(
         "{0}/update-dates".format(options["item_route"]),
         view_func=loan_update,
@@ -155,6 +199,50 @@ class LoanCheckoutResource(IlsCirculationResource):
         pid, loan = checkout_loan(**data)
 
         return self.make_response(pid, loan, 202, links_factory=self.links_factory)
+
+
+class LoanSelfCheckoutResource(IlsCirculationResource):
+    """Loan self-checkout action resource."""
+
+    view_name = "loan_self_checkout"
+
+    @need_permissions("circulation-loan-self-checkout")
+    def get(self, **kwargs):
+        """Loan self-checkout GET method to retrieve items."""
+        try:
+            barcode = request.args["barcode"].upper()
+            assert barcode
+        except (KeyError, AssertionError):
+            msg = "Parameter `barcode` is missing"
+            raise MissingRequiredParameterError(description=msg)
+
+        try:
+            pid, item = self_checkout_get_item_by_barcode(barcode)
+        except ItemCannotCirculateError:
+            raise LoanSelfCheckoutItemInvalidStatus()
+        except ItemHasActiveLoanError:
+            raise LoanSelfCheckoutItemActiveLoan()
+        except DocumentOverbookedError:
+            raise LoanSelfCheckoutDocumentOverbooked()
+        except ItemNotFoundError:
+            raise LoanSelfCheckoutItemNotFound()
+
+        return self.make_response(pid, item, 200)
+
+    @need_permissions("circulation-loan-self-checkout")
+    def post(self, **kwargs):
+        """Loan self-checkout POST method to perform the checkout."""
+        data = self.loader()
+        try:
+            pid, loan = self_checkout(**data)
+        except ItemCannotCirculateError:
+            raise LoanSelfCheckoutItemInvalidStatus()
+        except ItemHasActiveLoanError:
+            raise LoanSelfCheckoutItemActiveLoan()
+        except DocumentOverbookedError:
+            raise LoanSelfCheckoutDocumentOverbooked()
+
+        return self.make_response(pid, loan, 202, links_factory=self.loan_links_factory)
 
 
 class BulkLoanExtensionResource(IlsCirculationResource):

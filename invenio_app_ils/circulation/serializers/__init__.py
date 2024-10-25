@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Loan serializers."""
+
 from invenio_records_rest.serializers.response import search_responsify
 
 from invenio_app_ils.records.schemas.json import ILSRecordSchemaJSONV1

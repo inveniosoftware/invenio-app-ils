@@ -132,7 +132,10 @@ def patron_owner_permission(record):
 
 
 def loan_checkout_permission(*args, **kwargs):
-    """Return permission to allow admins and librarians to checkout and patrons to self-checkout if enabled."""
+    """Loan checkout permissions checks.
+
+    Allow admins and librarians to checkout, patrons to self-checkout when enabled.
+    """
     if not has_request_context():
         # CLI or Celery task
         return backoffice_permission()
@@ -199,8 +202,10 @@ def views_permissions_factory(action):
     elif action in _is_patron_owner_permission:
         return PatronOwnerPermission
     elif action == "circulation-loan-checkout":
-        if current_app.config["ILS_SELF_CHECKOUT_ENABLED"]:
-            return authenticated_user_permission()
-        else:
-            return backoffice_permission()
+        return backoffice_permission()
+    elif (
+        action == "circulation-loan-self-checkout"
+        and current_app.config["ILS_SELF_CHECKOUT_ENABLED"]
+    ):
+        return authenticated_user_permission()
     return deny_all()
