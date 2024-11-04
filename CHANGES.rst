@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 4.2.0 (released 2024-11-04)
+
+- self-checkout: barcode is now always uppercased to make searches case-insensitive
+
 Version 4.1.0 (released 2024-10-21)
 
 - search: apply the same search analyzers to the fields that needs to be searchable.
@@ -55,7 +59,7 @@ Version 2.0.0rc9 (released 2024-04-25)
 Version 2.0.0rc8 (released 2024-04-04)
 
 - records_relation: Simplify sorting
-- records_relations: Use sort_by paramemter from configs instead
+- records_relations: Use sort_by parameter from configs instead
 - relations: Add functionality to sort json refs by relation_type
 - tests: circulation: Add new location for testing closures
 - circulation: loan_request: Fix dates comparison in get_offset_duration
