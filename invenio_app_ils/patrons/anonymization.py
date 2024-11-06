@@ -12,18 +12,22 @@ from copy import deepcopy
 
 from flask import current_app
 from invenio_accounts.models import LoginInformation, SessionActivity, User, userrole
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from invenio_search.engine import search as inv_search
 from invenio_userprofiles.models import UserProfile
 
+from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.circulation.search import (
     get_active_loans_by_patron_pid,
     get_loans_by_patron_pid,
 )
+from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.errors import AnonymizationActiveLoansError, PatronNotFoundError
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.notifications.models import NotificationsLogs
 from invenio_app_ils.patrons.api import get_patron_or_unknown_dump
@@ -106,9 +110,32 @@ def anonymize_patron_data(patron_pid, force=False):
     cls = current_app.config["ILS_PATRON_ANONYMOUS_CLASS"]
     anonymous_patron_fields = cls().dumps_loader()
 
+    Loan = current_circulation.loan_record_cls
+    BorrowingRequest = current_ils_ill.borrowing_request_record_cls
+    DocumentRequest = current_app_ils.document_request_record_cls
+    Order = current_ils_acq.order_record_cls
+
+    anonymized_records = {
+        CIRCULATION_LOAN_PID_TYPE: {
+            "indexer": current_circulation.loan_indexer(),
+            "records": [],
+        },
+        BORROWING_REQUEST_PID_TYPE: {
+            "indexer": current_ils_ill.borrowing_request_indexer_cls(),
+            "records": [],
+        },
+        DOCUMENT_REQUEST_PID_TYPE: {
+            "indexer": current_app_ils.document_request_indexer,
+            "records": [],
+        },
+        ORDER_PID_TYPE: {
+            "indexer": current_ils_acq.order_indexer,
+            "records": [],
+        },
+    }
+
     patron_loans = get_loans_by_patron_pid(patron_pid).scan()
 
-    Loan = current_circulation.loan_record_cls
     indices = 0
     for hit in patron_loans:
         loan = Loan.get_record_by_pid(hit.pid)
@@ -131,7 +158,7 @@ def anonymize_patron_data(patron_pid, force=False):
         loan["patron_pid"] = anonymous_patron_fields["pid"]
         loan["patron"] = anonymous_patron_fields
         loan.commit()
-        current_circulation.loan_indexer().index(loan)
+        anonymized_records[CIRCULATION_LOAN_PID_TYPE]["records"].append(loan)
         indices += 1
 
     BorrowingRequestsSearch = current_ils_ill.borrowing_request_search_cls
@@ -139,14 +166,12 @@ def anonymize_patron_data(patron_pid, force=False):
         BorrowingRequestsSearch().search_by_patron_pid(patron_pid).scan()
     )
 
-    BorrowingRequest = current_ils_ill.borrowing_request_record_cls
-    indexer = current_ils_ill.borrowing_request_indexer_cls()
     for hit in patron_borrowing_requests:
         borrowing_request = BorrowingRequest.get_record_by_pid(hit.pid)
         borrowing_request["patron"] = anonymous_patron_fields
         borrowing_request["patron_pid"] = anonymous_patron_fields["pid"]
         borrowing_request.commit()
-        indexer.index(borrowing_request)
+        anonymized_records[BORROWING_REQUEST_PID_TYPE]["records"].append(borrowing_request)
         indices += 1
 
     DocumentRequestSearch = current_app_ils.document_request_search_cls
@@ -154,7 +179,6 @@ def anonymize_patron_data(patron_pid, force=False):
         DocumentRequestSearch().search_by_patron_pid(patron_pid).scan()
     )
 
-    DocumentRequest = current_app_ils.document_request_record_cls
     for hit in patron_document_requests:
         document_request = DocumentRequest.get_record_by_pid(hit.pid)
         if document_request["state"] == "PENDING":
@@ -163,19 +187,18 @@ def anonymize_patron_data(patron_pid, force=False):
         document_request["patron"] = anonymous_patron_fields
         document_request["patron_pid"] = anonymous_patron_fields["pid"]
         document_request.commit()
-        current_app_ils.document_request_indexer.index(document_request)
+        anonymized_records[ORDER_PID_TYPE]["records"].append(document_request)
         indices += 1
 
     patron_acquisitions = OrderSearch().search_by_patron_pid(patron_pid).scan()
 
-    Order = current_ils_acq.order_record_cls
     for hit in patron_acquisitions:
         acquisition = Order.get_record_by_pid(hit.pid)
         for line in acquisition["order_lines"]:
             if line.get("patron_pid") == patron_pid:
                 line["patron_pid"] = anonymous_patron_fields["pid"]
         acquisition.commit()
-        current_ils_acq.order_indexer.index(acquisition)
+        anonymized_records[Order._pid_type]["records"].append(acquisition)
         indices += 1
 
     # delete rows from db
@@ -185,6 +208,13 @@ def anonymize_patron_data(patron_pid, force=False):
     notifications = anonymize_patron_in_notification_logs(patron_pid)
 
     db.session.commit()
+
+    # index all after committing to DB, to ensure that no errors occurred.
+    for value in anonymized_records.values():
+        indexer, records = value["indexer"], value["records"]
+        for record in records:
+            indexer.index(record)
+
     if patron:
         try:
             patron_indexer = current_app_ils.patron_indexer
