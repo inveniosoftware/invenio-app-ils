@@ -8,6 +8,15 @@
 Changes
 =======
 
+Version 4.3.0 (released 2024-11-19)
+
+- self-checkout: use dedicated endpoints for the entire workflow for better
+                 permissions check and error handling.
+                 Add a new loan transition and delivery method for self-checkout.
+- anonymization: ensure that re-indexing is happening after the commit to the db,
+                 to avoid premature re-indexing (and therefore index conflict version)
+                 when db rollback happens.
+
 Version 4.2.0 (released 2024-11-04)
 
 - self-checkout: barcode is now always uppercased to make searches case-insensitive
