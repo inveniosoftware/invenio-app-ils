@@ -8,6 +8,11 @@
 Changes
 =======
 
+
+Version 4.4.0 (released 2025-02-21)
+
+- installation: pin invenio-logging
+
 Version 4.3.0 (released 2024-11-19)
 
 - self-checkout: use dedicated endpoints for the entire workflow for better
