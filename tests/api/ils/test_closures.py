@@ -10,6 +10,7 @@
 import json
 
 import arrow
+import pytest
 from flask import url_for
 
 from invenio_app_ils.closures.api import find_next_open_date
@@ -21,6 +22,7 @@ _LOCATION_PID = "locid-1"
 _LOCATION_NAME = "Location name"
 _ITEM_ENDPOINT = "invenio_records_rest.locid_item"
 _LIST_ENDPOINT = "invenio_records_rest.locid_list"
+_CLOSURE_PERIODS_ENDPOINT = "invenio_app_ils_closures.location_closure_periods"
 _WEEKDAYS = [
     "monday",
     "tuesday",
@@ -261,7 +263,8 @@ def test_location_validation(client, json_headers, users, testdata):
     )
 
 
-def test_find_next_open_date(app, db, testdata):
+@pytest.fixture
+def location_closures_testdata(db, testdata):
     def _update_location_closures_data(closed_weekdays, exceptions):
         Location = current_app_ils.location_record_cls
         record = Location.get_record_by_pid(_LOCATION_PID)
@@ -272,13 +275,6 @@ def test_find_next_open_date(app, db, testdata):
         current_app_ils.location_indexer.index(record)
 
         return record
-
-    def _test(start_date, expected_next_open_date):
-        next_open = find_next_open_date(_LOCATION_PID, _date_from_string(start_date))
-        if expected_next_open_date:
-            assert next_open == _date_from_string(expected_next_open_date)
-        else:
-            assert next_open is None
 
     """
     Mon. Tue. Wed. Thu. Fri. Sat. Sun.
@@ -300,6 +296,15 @@ def test_find_next_open_date(app, db, testdata):
     ]
     _update_location_closures_data(closed_weekdays, exceptions)
 
+
+def test_find_next_open_date(app, location_closures_testdata):
+    def _test(start_date, expected_next_open_date):
+        next_open = find_next_open_date(_LOCATION_PID, _date_from_string(start_date))
+        if expected_next_open_date:
+            assert next_open == _date_from_string(expected_next_open_date)
+        else:
+            assert next_open is None
+
     _test("2000-01-01", "2000-01-06")
     _test("2000-01-04", "2000-01-06")
     _test("2000-01-06", "2000-01-06")
@@ -313,3 +318,36 @@ def test_find_next_open_date(app, db, testdata):
     _test("2000-01-30", "2000-01-30")
 
     _test("2000-02-05", "2000-02-07")
+
+
+def test_get_closure_periods(client, location_closures_testdata, json_headers):
+    """Test get closure periods."""
+    url = url_for(
+        _CLOSURE_PERIODS_ENDPOINT,
+        pid_value=_LOCATION_PID,
+        year=2000,
+    )
+    res = client.get(url, headers=json_headers)
+    assert res.status_code in _HTTP_OK
+
+    hits = json.loads(res.data.decode("utf-8"))["closure_periods"]
+    hits = [
+        (_date_from_string(hit["start"]), _date_from_string(hit["end"])) for hit in hits
+    ]
+
+    def _is_in_interval(date, interval):
+        return interval[0] <= date <= interval[1]
+
+    def _test(date, closed):
+        date = _date_from_string(date)
+        assert (
+            any(_is_in_interval(date, hit) for hit in hits) == closed
+        ), f"Date {date} is wrongfully marked as {'Open' if closed else 'Closed'}"
+
+    _test("2000-01-01", True)
+    _test("2000-01-06", False)
+    _test("2000-01-22", True)
+    _test("2000-01-23", True)
+    _test("2000-01-30", False)
+    _test("2000-02-01", False)
+    _test("2000-02-05", True)
