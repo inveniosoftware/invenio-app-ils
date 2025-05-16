@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2018-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -78,9 +78,9 @@ def _validate_delivery(delivery):
             )
 
 
-def _set_item_to_can_circulate(item_pid):
+def _set_item_to_can_circulate(item_pid_value):
     """Change the item status to CAN_CIRCULATE."""
-    item = Item.get_record_by_pid(item_pid["value"])
+    item = Item.get_record_by_pid(item_pid_value)
     if item["status"] != "CAN_CIRCULATE":
         item["status"] = "CAN_CIRCULATE"
         item.commit()
@@ -245,7 +245,7 @@ def checkout_loan(
         _validate_delivery(optional_delivery)
 
     if force:
-        _set_item_to_can_circulate(item_pid)
+        _set_item_to_can_circulate(item_pid["value"])
 
     return _checkout_loan(
         item_pid,
@@ -256,13 +256,18 @@ def checkout_loan(
     )
 
 
-def _ensure_item_loanable_via_self_checkout(item_pid):
+def _ensure_item_loanable_via_self_checkout(item_pid_value):
     """Self-checkout: return loanable item or raise when not loanable.
 
     Implements the self-checkout rules to loan an item.
     """
-    item = current_app_ils.item_record_cls.get_record_by_pid(item_pid)
+    item = current_app_ils.item_record_cls.get_record_by_pid(item_pid_value)
     item_dict = item.replace_refs()
+
+    if item_dict["status"] == "MISSING":
+        _set_item_to_can_circulate(item_pid_value)
+        item = current_app_ils.item_record_cls.get_record_by_pid(item_pid_value)
+        item_dict = item.replace_refs()
 
     if item_dict["status"] != "CAN_CIRCULATE":
         raise ItemCannotCirculateError()
