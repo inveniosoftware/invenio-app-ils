@@ -25,7 +25,7 @@ def create_closures_blueprint(app):
     blueprint = Blueprint("invenio_app_ils_closures", __name__, url_prefix="")
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
 
-    options = endpoints.get(LOCATION_PID_TYPE, {})
+    options = endpoints[LOCATION_PID_TYPE]
     default_media_type = options.get("default_media_type", "")
     closure_periods_serializers = {"application/json": closure_periods_response}
 
