@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2018-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -249,14 +249,28 @@ def test_self_checkout_search(app, client, json_headers, users, testdata):
     assert res.status_code == 400
 
     # test that an error is returned when the item cannot circulate
-    missing_item_barcode = "123456789-1"
+    in_binding_item_barcode = "123456789-74"
     url = url_for("invenio_app_ils_circulation.loan_self_checkout")
-    res = client.get(f"{url}?barcode={missing_item_barcode}", headers=json_headers)
+    res = client.get(f"{url}?barcode={in_binding_item_barcode}", headers=json_headers)
     assert res.status_code == 400
     # assert that the payload will contain the key error with a msg
     response = res.get_json()
     assert LoanSelfCheckoutItemInvalidStatus.description in response["message"]
     assert LoanSelfCheckoutItemInvalidStatus.supportCode in response["supportCode"]
+
+    # test that no error is returned when the item is marked as missing
+    missing_item_barcode = "123456789-1"
+    missing_item_pid = "itemid-1"
+    url = url_for("invenio_app_ils_circulation.loan_self_checkout")
+    res = client.get(f"{url}?barcode={missing_item_barcode}", headers=json_headers)
+    assert res.status_code == 200
+
+    # assert item is no longer marked as missing
+    response = res.get_json()
+    item_pid = response["metadata"]["pid"]
+    assert item_pid == missing_item_pid
+    item = Item.get_record_by_pid(item_pid)
+    assert item["status"] == "CAN_CIRCULATE"
 
     # create a loan on the same patron, and another one on another patron
     user_login(client, "librarian", users)
@@ -326,6 +340,7 @@ def test_self_checkout(app, client, json_headers, users, testdata):
         current_search.flush_and_refresh(index="*")
 
     def _self_checkout(patron, item_pid, document_pid):
+        url = url_for("invenio_app_ils_circulation.loan_self_checkout")
         params = deepcopy(NEW_LOAN)
         params["document_pid"] = document_pid
         params["item_pid"] = dict(type="pitmid", value=item_pid)
@@ -394,3 +409,14 @@ def test_self_checkout(app, client, json_headers, users, testdata):
     assert res.status_code == 202
     response = res.get_json()
     assert response["metadata"]["delivery"]["method"] == "SELF-CHECKOUT"
+
+    # test self-checkout with item marked as missing raises no error and marks the item as CAN_CIRCULATE
+    missing_item_pid = "itemid-1"
+    app.config["ILS_SELF_CHECKOUT_ENABLED"] = True
+    patron2 = user_login(client, "patron2", users)
+    res = _self_checkout(patron2, missing_item_pid, "docid-1")
+    assert res.status_code == 202
+    response = res.get_json()
+    assert response["metadata"]["delivery"]["method"] == "SELF-CHECKOUT"
+    item = Item.get_record_by_pid(missing_item_pid)
+    assert item["status"] == "CAN_CIRCULATE"

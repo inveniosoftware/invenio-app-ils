@@ -289,5 +289,16 @@
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
     "document": {}
+  },
+  {
+    "pid": "itemid-74",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-74",
+    "document_pid": "docid-17",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "IN_BINDING",
+    "document": {}
   }
 ]
