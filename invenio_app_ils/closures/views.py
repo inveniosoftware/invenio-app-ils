@@ -23,7 +23,7 @@ from invenio_app_ils.records.permissions import RecordPermission
 def create_closures_blueprint(app):
     """Create location closed periods blueprint."""
     blueprint = Blueprint("invenio_app_ils_closures", __name__, url_prefix="")
-    endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
+    endpoints = app.config["RECORDS_REST_ENDPOINTS"]
 
     options = endpoints[LOCATION_PID_TYPE]
     default_media_type = options.get("default_media_type", "")
