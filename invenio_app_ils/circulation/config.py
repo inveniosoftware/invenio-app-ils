@@ -81,6 +81,7 @@ ILS_CIRCULATION_LOAN_WILL_EXPIRE_DAYS = 7
 #: Optional delivery methods when requesting a new loan. Set to empty object to
 # disable it
 ILS_CIRCULATION_DELIVERY_METHODS = {
+    "NOT-SPECIFIED": "Not specified",
     "PICKUP": "Pick it up at the library desk",
     "DELIVERY": "Have it delivered to my office",
     "SELF-CHECKOUT": "Self-checkout",
