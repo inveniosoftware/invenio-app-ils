@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 4.5.0 (released 2025-06-04)
+
+- closures: added endpoint for closure periods in a year
+- circulation: self-checkout of MISSING items marks them as CAN_CIRCULATE
+- tests: Fix comment on running tests by bumping Postgres & adding param
 
 Version 4.4.0 (released 2025-02-21)
 
