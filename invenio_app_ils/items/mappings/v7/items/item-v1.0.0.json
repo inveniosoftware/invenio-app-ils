@@ -216,6 +216,9 @@
           },
           "pid": {
             "type": "keyword"
+          },
+          "accessible_by_patrons": {
+            "type": "boolean"
           }
         },
         "type": "object"
