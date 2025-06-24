@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021 CERN.
+# Copyright (C) 2021-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -61,6 +61,14 @@ def send_expiring_loan_reminder_notification(loan, expiring_in_days):
         action="expiring_reminder",
         loan=loan,
         msg_extra_ctx=dict(expiring_in_days=expiring_in_days),
+    )
+
+
+def send_dates_updated_notification(loan):
+    """Send reminder notification."""
+    send_loan_notification(
+        action="update_dates",
+        loan=loan,
     )
 
 

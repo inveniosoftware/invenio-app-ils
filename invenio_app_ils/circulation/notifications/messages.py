@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021 CERN.
+# Copyright (C) 2021-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -29,6 +29,7 @@ class NotificationLoanMsg(NotificationMsg):
         checkin="checkin.html",
         extend="extend.html",
         cancel="cancel.html",
+        update_dates="update_dates.html",
         overdue_reminder="overdue_reminder.html",
         expiring_reminder="will_expire_in_reminder.html",
         bulk_extend="bulk_extend.html",
