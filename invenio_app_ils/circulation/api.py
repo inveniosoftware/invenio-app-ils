@@ -26,6 +26,9 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
+from invenio_app_ils.circulation.notifications.api import (
+    send_dates_updated_notification,
+)
 from invenio_app_ils.circulation.search import (
     get_all_expiring_or_overdue_loans_by_patron_pid,
 )
@@ -375,14 +378,12 @@ def update_dates_loan(
 ):
     """Updates the dates of a loan."""
     state = record["state"]
-    is_active_or_completed = (
-        state in CIRCULATION_STATES_LOAN_ACTIVE
-        or state in CIRCULATION_STATES_LOAN_COMPLETED
-    )
+    is_active = state in CIRCULATION_STATES_LOAN_ACTIVE
+    is_completed = state in CIRCULATION_STATES_LOAN_COMPLETED
 
     data = copy(record)
 
-    if is_active_or_completed:
+    if is_active or is_completed:
         today = date.today().strftime("%Y-%m-%d")
         if request_start_date or request_expire_date:
             raise IlsException(
@@ -416,6 +417,9 @@ def update_dates_loan(
     record.commit()
     db.session.commit()
     current_circulation.loan_indexer().index(record)
+
+    if is_active:
+        send_dates_updated_notification(record)
 
     return record
 
