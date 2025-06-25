@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 4.6.0 (released 2025-06-25)
+
+- installation: remove breaking package version constraints
+
 Version 4.5.0 (released 2025-06-04)
 
 - closures: added endpoint for closure periods in a year
