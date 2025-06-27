@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -24,3 +24,4 @@ class InternalLocationSchemaV1(RecordMetadataSchemaJSONV1):
     legacy_ids = fields.List(fields.Str())
     notes = fields.Str()
     physical_location = fields.Str()
+    accessible_by_patrons = fields.Boolean(required=True)
