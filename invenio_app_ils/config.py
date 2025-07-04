@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2025 Graz University of Technology.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -296,10 +297,10 @@ MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = "Lax"
 #: Since HAProxy and Nginx route all requests no matter the host header
-#: provided, the allowed hosts variable is set to localhost. In production it
+#: provided, the trusted hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["localhost", "127.0.0.1"]
 
 #: Single Page Application host and routes, useful in templates/emails
 SPA_HOST = "https://127.0.0.1:3000"
