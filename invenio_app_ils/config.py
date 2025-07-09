@@ -1075,3 +1075,6 @@ DB_VERSIONING_USER_MODEL = None
 
 # Feature Toggles
 ILS_SELF_CHECKOUT_ENABLED = False
+
+# Use default frontpage
+THEME_FRONTPAGE = False
