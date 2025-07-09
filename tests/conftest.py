@@ -17,6 +17,7 @@ from flask_webpackext.manifest import (
     JinjaManifestEntry,
     JinjaManifestLoader,
 )
+from sqlalchemy import text
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
@@ -61,7 +62,7 @@ def users(app, db):
     """Create admin, librarians and patrons."""
     # with Postgresql, when dropping the User table, the sequence is not
     # automatically reset to 1, causing issues with the tests demo data.
-    db.session.execute("ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART")
+    db.session.execute(text("ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART"))
     db.session.commit()
 
     with db.session.begin_nested():
