@@ -255,9 +255,6 @@ def delete_user_account(patron_pid):
             dropped += ra.delete() or 0
 
         dropped += (
-            UserProfile.query.filter(UserProfile.user_id == patron_pid).delete() or 0
-        )
-        dropped += (
             LoginInformation.query.filter(
                 LoginInformation.user_id == patron_pid
             ).delete()
