@@ -49,7 +49,7 @@ def check_user_deleted(user_pid):
         ).first()
         assert remote_account is None
 
-        user_profile = UserProfile.query.filter(UserProfile.user_id == user_pid).first()
+        user_profile = UserProfile.get_by_userid(user_pid)
         assert user_profile is None
 
         user = User.query.filter(User.id == user_pid).first()
