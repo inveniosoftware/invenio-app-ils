@@ -1308,21 +1308,42 @@ def data(
     _run_command("roles create librarian", verbose)
 
     # Create users
-    _run_command("users create patron1@test.ch -a --password=123456", verbose)  # ID 1
-    create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
-    _run_command("users create patron2@test.ch -a --password=123456", verbose)  # ID 2
-    create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
+    patron1_profile = {"full_name": "Yannic Vilma"}
+    _run_command(
+        f"users create patron1@test.ch -a --password=123456 --profile '{json.dumps(patron1_profile)}'",
+        verbose,
+    )
 
-    _run_command("users create librarian@test.ch -a --password=123456", verbose)  # ID 3
-    create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
-    _run_command("users create patron3@test.ch -a --password=123456", verbose)  # ID 4
-    create_userprofile_for("patron3@test.ch", "patron3", "Medrod Tara")
-    _run_command("users create patron4@test.ch -a --password=123456", verbose)  # ID 5
-    create_userprofile_for("patron4@test.ch", "patron4", "Devi Cupid")
+    patron2_profile = {"full_name": "Diana Adi"}
+    _run_command(
+        f"users create patron2@test.ch -a --password=123456 --profile '{json.dumps(patron2_profile)}'",
+        verbose,
+    )
+
+    librarian_profile = {"full_name": "Hector Nabu"}
+    _run_command(
+        f"users create librarian@test.ch -a --password=123456 --profile '{json.dumps(librarian_profile)}'",
+        verbose,
+    )
+
+    patron3_profile = {"full_name": "Medrod Tara"}
+    _run_command(
+        f"users create patron3@test.ch -a --password=123456 --profile '{json.dumps(patron3_profile)}'",
+        verbose,
+    )
+
+    patron4_profile = {"full_name": "Devi Cupid"}
+    _run_command(
+        f"users create patron4@test.ch -a --password=123456 --profile '{json.dumps(patron4_profile)}'",
+        verbose,
+    )
 
     if not skip_admin:
-        _run_command("users create admin@test.ch -a --password=123456", verbose)  # ID 6
-        create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
+        admin_profile = {"full_name": "Zeki Ryoichi"}
+        _run_command(
+            f"users create admin@test.ch -a --password=123456 --profile '{json.dumps(admin_profile)}'",
+            verbose,
+        )
         _run_command("roles add admin@test.ch admin", verbose)
 
     # assign roles
