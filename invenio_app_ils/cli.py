@@ -30,7 +30,6 @@ from invenio_pages import Page
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_search import current_search
-from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
@@ -1531,17 +1530,6 @@ def data(
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()
     current_search.flush_and_refresh(index="*")
-
-
-def create_userprofile_for(email, username, full_name):
-    """Create a fake user profile."""
-    user = User.query.filter_by(email=email).one_or_none()
-    if user:
-        profile = UserProfile(user_id=int(user.get_id()))
-        profile.username = username
-        profile.full_name = full_name
-        db.session.add(profile)
-        db.session.commit()
 
 
 def _run_command(command, verbose, catch_exceptions=False):
