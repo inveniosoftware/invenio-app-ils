@@ -26,10 +26,13 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
-from invenio_pages import Page
+from invenio_pages.proxies import current_pages_service
+from invenio_pages.records.errors import PageNotFoundError
+from invenio_access.permissions import system_identity
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_search import current_search
+from invenio_i18n.proxies import current_i18n
 from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
@@ -1596,7 +1599,7 @@ def fixtures():
 def pages():
     """Register static pages."""
 
-    def page_data(page):
+    def get_page_content(page):
         return (
             pkg_resources.resource_stream(
                 "invenio_app_ils", os.path.join("static_pages", page)
@@ -1605,33 +1608,52 @@ def pages():
             .decode("utf8")
         )
 
-    pages = [
-        Page(
-            url="/about",
-            title="About",
-            description="About",
-            content="InvenioILS about page",
-            template_name="invenio_pages/default.html",
-        ),
-        Page(
-            url="/contact",
-            title="Contact",
-            description="Contact",
-            content="You can contact InvenioILS developers on "
-            '<a href="https://gitter.im/inveniosoftware/invenio">'
-            "our chatroom</a>",
-            template_name="invenio_pages/default.html",
-        ),
-        Page(
-            url="/guide/search",
-            title="Search guide",
-            description="Search guide",
-            content=page_data("search_guide.html"),
-            template_name="invenio_pages/default.html",
-        ),
+    pages_data = [
+        {
+            "url": "/about",
+            "title": "About",
+            "description": "About",
+            "content": "InvenioILS about page",
+        },
+        {
+            "url": "/contact",
+            "title": "Contact",
+            "description": "Contact",
+            "content": (
+                "You can contact InvenioILS developers on "
+                '<a href="https://gitter.im/inveniosoftware/invenio">'
+                "our chatroom</a>"
+            ),
+        },
+        {
+            "url": "/guide/search",
+            "title": "Search guide",
+            "description": "Search guide",
+            "template": "search_guide.html",
+        },
     ]
-    with db.session.begin_nested():
-        Page.query.delete()
-        db.session.add_all(pages)
-    db.session.commit()
-    click.echo("static pages created :)")
+
+    supported_languages = current_i18n.get_languages()
+
+    for entry in pages_data:
+        url = entry["url"]
+        for lang in supported_languages:
+            lang_code = lang[0]
+            try:
+                current_pages_service.read_by_url(system_identity, url, lang_code)
+            except PageNotFoundError:
+                page = {
+                    "url": url,
+                    "title": entry.get("title", ""),
+                    "description": entry.get("description", ""),
+                    "lang": lang_code,
+                    "template_name": current_app.config["PAGES_DEFAULT_TEMPLATE"],
+                    "content": (
+                        get_page_content(entry["template"])
+                        if entry.get("template")
+                        else entry.get("content", "")
+                    ),
+                }
+                current_pages_service.create(system_identity, page)
+
+    click.echo("Static pages created :)")
