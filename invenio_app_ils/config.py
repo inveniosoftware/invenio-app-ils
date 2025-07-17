@@ -1078,3 +1078,6 @@ ILS_SELF_CHECKOUT_ENABLED = False
 
 # Use default frontpage
 THEME_FRONTPAGE = False
+
+# Default template to render.
+PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
