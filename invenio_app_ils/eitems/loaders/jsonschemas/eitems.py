@@ -27,7 +27,7 @@ class URLSchema(Schema):
         unknown = EXCLUDE
 
     description = fields.Str()
-    login_required = fields.Bool(missing=True)
+    login_required = fields.Bool(load_default=True)
     value = fields.URL(required=True)
 
 
@@ -63,7 +63,7 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     files = fields.List(fields.Nested(FileSchema))
     identifiers = fields.List(fields.Nested(IdentifierSchema))
     internal_notes = fields.Str()
-    open_access = fields.Bool(missing=True)
+    open_access = fields.Bool(load_default=True)
     source = fields.Str()
     urls = fields.List(fields.Nested(URLSchema))
 
