@@ -40,7 +40,7 @@ class AccessUrlSchema(Schema):
     description = fields.Str()
     open_access = fields.Bool()
     value = fields.URL()
-    login_required = fields.Bool(missing=False)
+    login_required = fields.Bool(load_default=False)
 
 
 class PhysicalVolumes(Schema):

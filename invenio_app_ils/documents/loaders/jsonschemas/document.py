@@ -237,7 +237,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     physical_description = fields.Str()
     publication_info = fields.List(fields.Nested(PublicationInfoSchema))
     publication_year = fields.Str(required=True)
-    restricted = fields.Bool(missing=False)
+    restricted = fields.Bool(load_default=False)
     source = fields.Str()
     subjects = fields.List(fields.Nested(SubjectSchema))
     table_of_content = fields.List(fields.Str())

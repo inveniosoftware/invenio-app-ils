@@ -107,8 +107,8 @@ class LoanRequestSchemaV1(LoanBaseSchemaV1):
     """Loan request schema."""
 
     delivery = fields.Nested(LoanRequestDeliverySchemaV1)
-    request_expire_date = DateString(missing=request_expire_date_default)
-    request_start_date = DateString(missing=request_start_date_default)
+    request_expire_date = DateString(load_default=request_expire_date_default)
+    request_start_date = DateString(load_default=request_start_date_default)
 
     @validates_schema()
     def validates_schema(self, data, **kwargs):

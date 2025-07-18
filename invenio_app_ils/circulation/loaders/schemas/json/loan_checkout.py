@@ -26,7 +26,7 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
     item_pid = fields.Nested(LoanItemPIDSchemaV1, required=True)
     start_date = DateString()
     end_date = DateString()
-    force = fields.Bool(missing=False)
+    force = fields.Bool(load_default=False)
 
     @validates("force")
     def validate_force(self, value, **kwargs):
