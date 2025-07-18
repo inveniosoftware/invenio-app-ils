@@ -299,7 +299,7 @@ SESSION_COOKIE_SAMESITE = "Lax"
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["localhost", "127.0.0.1"]
 
 #: Single Page Application host and routes, useful in templates/emails
 SPA_HOST = "https://127.0.0.1:3000"
