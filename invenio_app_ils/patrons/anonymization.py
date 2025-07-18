@@ -60,7 +60,6 @@ def get_patron_activity(patron_pid):
     patron_loans = dump(get_loans_by_patron_pid(patron_pid))
 
     patron_profile = UserProfile.get_by_userid(patron_pid).__dict__
-    del patron_profile["_sa_instance_state"]
 
     patron_data = {
         "patron": patron,
