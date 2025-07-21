@@ -1081,3 +1081,5 @@ THEME_FRONTPAGE = False
 
 # Default template to render.
 PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
+# default app theme
+APP_THEME = ["semantic-ui"]
