@@ -18,7 +18,7 @@ from random import randint
 import arrow
 import click
 import lorem
-import pkg_resources
+import importlib.resources
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
@@ -1600,13 +1600,8 @@ def pages():
     """Register static pages."""
 
     def get_page_content(page):
-        return (
-            pkg_resources.resource_stream(
-                "invenio_app_ils", os.path.join("static_pages", page)
-            )
-            .read()
-            .decode("utf8")
-        )
+        with importlib.resources.files("invenio_app_ils").joinpath("static_pages", page).open("rb") as f:
+            return f.read().decode("utf8")
 
     pages_data = [
         {
