@@ -7,6 +7,7 @@
 
 """CLI for Invenio App ILS."""
 
+import importlib.resources
 import json
 import os
 import pathlib
@@ -18,21 +19,20 @@ from random import randint
 import arrow
 import click
 import lorem
-import importlib.resources
 from flask import current_app
 from flask.cli import with_appcontext
+from invenio_access.permissions import system_identity
 from invenio_accounts.models import User
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
+from invenio_i18n.proxies import current_i18n
 from invenio_indexer.api import RecordIndexer
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
-from invenio_access.permissions import system_identity
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_search import current_search
-from invenio_i18n.proxies import current_i18n
 from lorem.text import TextLorem
 
 from invenio_app_ils.errors import RecordRelationsError
@@ -1600,7 +1600,9 @@ def pages():
     """Register static pages."""
 
     def get_page_content(page):
-        with importlib.resources.files("invenio_app_ils").joinpath("static_pages", page).open("rb") as f:
+        with importlib.resources.files("invenio_app_ils").joinpath(
+            "static_pages", page
+        ).open("rb") as f:
             return f.read().decode("utf8")
 
     pages_data = [
