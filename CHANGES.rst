@@ -8,6 +8,14 @@
 Changes
 =======
 
+Version 5.0.0 (released 2025-08-12)
+
+- breaking changes: upgrade to flask 3
+- breaking changes: upgrade to sqlalchemy2
+- circulation: added NOT-SPECIFIED delivery method
+- circulation: changing loan dates sends out a mail to the patron
+- update: rename schema field parameter default to load_default
+
 Version 4.6.0 (released 2025-06-25)
 
 - installation: remove breaking package version constraints
