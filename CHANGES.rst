@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 5.0.1 (released 2025-08-13)
+
+- (fix) installation: remove phased out invenio-admin entry point
+
 Version 5.0.0 (released 2025-08-12)
 
 - breaking changes: upgrade to flask 3
