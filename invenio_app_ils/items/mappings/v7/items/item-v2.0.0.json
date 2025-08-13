@@ -190,6 +190,9 @@
           "legacy_id": {
             "type": "keyword"
           },
+          "accessible_by_patrons": {
+            "type": "boolean"
+          },
           "location": {
             "properties": {
               "pid": {
