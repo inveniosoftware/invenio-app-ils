@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 5.0.2 (released 2025-08-20)
+
+- fix: ensure the invenio_app_ils configuration is loaded before cds_ils
+
 Version 5.0.1 (released 2025-08-13)
 
 - (fix) installation: remove phased out invenio-admin entry point
