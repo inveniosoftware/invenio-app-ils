@@ -119,3 +119,30 @@ def eitem_event_builder(event, sender_app, obj=None, **kwargs):
     record = kwargs["record"]
     event.update(dict(eitem_pid=record["pid"], document_pid=record.get("document_pid")))
     return event
+
+
+def get_eitems_for_document_by_provider(document_pid, provider):
+    """Find eitem by document pid and provider.
+
+    :param document_pid: The PID of the document of the eitems to search for.
+    :param provider: The provider to filter eitems by.
+
+    :returns: A tuple of two search matches:
+
+        - **creator_match**: Eitems where the provider is listed as the creator.
+        - **source_match**: Eitems where the provider is listed as the source.
+    """
+
+    eitem_search = current_app_ils.eitem_search_cls()
+
+    creator_match = eitem_search.search_by_document_pid(
+        document_pid=document_pid
+    ).filter("term", created_by__value=provider)
+
+    source_match = (
+        eitem_search.search_by_document_pid(document_pid=document_pid)
+        .filter("term", source={"value": provider, "case_insensitive": True})
+        .exclude("term", created_by__value=provider)
+    )
+
+    return creator_match, source_match
