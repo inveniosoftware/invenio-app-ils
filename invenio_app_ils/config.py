@@ -1083,3 +1083,6 @@ THEME_FRONTPAGE = False
 PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
 # default app theme
 APP_THEME = ["semantic-ui"]
+
+# Site name.
+THEME_SITENAME = _("InvenioILS")
