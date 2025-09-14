@@ -240,6 +240,11 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(hours=3),
         "args": [("record-view-agg", "file-download-agg")],
     },
+    "stats_process_periodic_daily": {
+        "task": "invenio_app_ils.stats.event_builders.process_periodic_stats",
+        "schedule": crontab(minute=0, hour=3),  # every day, 3am
+        "args": [["items-count"]],
+    },
     "clean_locations_past_closures_exceptions": {
         "task": (
             "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions"
