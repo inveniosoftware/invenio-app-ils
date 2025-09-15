@@ -119,3 +119,35 @@ def eitem_event_builder(event, sender_app, obj=None, **kwargs):
     record = kwargs["record"]
     event.update(dict(eitem_pid=record["pid"], document_pid=record.get("document_pid")))
     return event
+
+
+def get_eitems_for_document_by_creator(document_pid, creator, case_insensitive=False):
+    """Find eitems by document pid and creator.
+
+    :param document_pid: The PID of the document of the eitems to search for.
+    :param creator: The creator to filter eitems by.
+    :param case_insensitive: Whether the creator match should be case insensitive.
+    """
+    eitem_search = current_app_ils.eitem_search_cls()
+    creator_match = eitem_search.search_by_document_pid(
+        document_pid=document_pid
+    ).filter(
+        "term",
+        created_by__value={"term": creator, "case_insensitive": case_insensitive},
+    )
+
+    return creator_match
+
+
+def get_eitems_for_document_by_source(document_pid, source, case_insensitive=False):
+    """Find eitems by document pid and source.
+
+    :param document_pid: The PID of the document of the eitems to search for.
+    :param source: The source to filter eitems by.
+    :param case_insensitive: Whether the source match should be case insensitive.
+    """
+    eitem_search = current_app_ils.eitem_search_cls()
+    source_match = eitem_search.search_by_document_pid(
+        document_pid=document_pid
+    ).filter("term", source={"value": source, "case_insensitive": case_insensitive})
+    return source_match
