@@ -38,7 +38,7 @@ def get_notifications_blueprint(_):
             "size": fields.Int(validate=[validate.Range(min=1, max=100)]),
         }
     )
-    @need_permissions("send-notification-to-patron")
+    @need_permissions("get-notifications-sent-to-patron")
     def get_notifications(
         recipient_user_id=None,
         pid_type=None,
@@ -69,7 +69,7 @@ def get_notifications_blueprint(_):
         return {"hits": notifications, "total": len(notifications)}
 
     @blueprint.route("/notifications/<int:id>")
-    @need_permissions("send-notification-to-patron")
+    @need_permissions("get-notifications-sent-to-patron")
     def get_notification(id):
         try:
             notification = NotificationsLogs.query.filter_by(id=id).one()
