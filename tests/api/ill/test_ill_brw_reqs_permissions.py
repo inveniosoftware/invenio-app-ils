@@ -61,6 +61,7 @@ def test_ill_brwreqs_list_permissions(client, testdata, json_headers, users):
     tests = [
         ("admin", _HTTP_OK, all_pids),
         ("librarian", _HTTP_OK, all_pids),
+        ("readonly", _HTTP_OK, all_pids),
         ("patron1", _HTTP_OK, [patron1_brwreq_pid]),
         ("patron2", _HTTP_OK, [patron2_brwreq_pid]),
     ]
@@ -131,6 +132,7 @@ def test_ill_brwreq_details_permissions(client, testdata, json_headers, users):
         ("patron2", [403], dummy_borrowing_request),
         ("patron1", [403], dummy_borrowing_request),
         ("librarian", _HTTP_OK, dummy_borrowing_request),
+        ("readonly", [403], dummy_borrowing_request),
         ("admin", _HTTP_OK, dummy_borrowing_request),
     ]
     for username, expected_status, data in tests:
@@ -144,6 +146,7 @@ def test_ill_brwreq_details_permissions(client, testdata, json_headers, users):
         ("patron2", [403]),
         ("patron1", _HTTP_OK),
         ("librarian", _HTTP_OK),
+        ("readonly", _HTTP_OK),
         ("admin", _HTTP_OK),
     ]
     for username, expected_status in tests:
@@ -156,6 +159,7 @@ def test_ill_brwreq_details_permissions(client, testdata, json_headers, users):
         ("patron2", [403]),
         ("patron1", [403]),
         ("librarian", [403]),
+        ("readonly", [403]),
         ("admin", _HTTP_OK),
     ]
     for username, expected_status in tests:

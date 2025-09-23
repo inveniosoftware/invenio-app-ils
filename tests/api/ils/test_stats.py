@@ -113,26 +113,24 @@ def test_stats_downloads_views_permissions(
     params = {}
     params["event"] = "record-view"
 
-    # permission for librarian
-    user_login(client, "librarian", users)
-    res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 202
+    tests = [
+        ("librarian", 202, 202),
+        ("readonly", 202, 202),
+        ("patron1", 202, 403),
+    ]
 
-    res = client.post(url_closed_access, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 202
+    for username, expected_status_open_access, expected_status_closed_access in tests:
+        user_login(client, username, users)
+        res = client.post(
+            url_open_access, headers=json_headers, data=json.dumps(params)
+        )
+        assert res.status_code == expected_status_open_access
 
-    user_logout(client)
-
-    # permission for patron
-    user_login(client, "patron1", users)
-
-    res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 202
-
-    res = client.post(url_closed_access, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 403
-
-    user_logout(client)
+        res = client.post(
+            url_closed_access, headers=json_headers, data=json.dumps(params)
+        )
+        assert res.status_code == expected_status_closed_access
+        user_logout(client)
 
     # permission for unauthenticated user
     res = client.post(url_open_access, headers=json_headers, data=json.dumps(params))

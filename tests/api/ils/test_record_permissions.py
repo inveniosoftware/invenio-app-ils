@@ -94,6 +94,51 @@ def test_record_generic_access(client, db, users, with_access):
         login_and_test("admin")
 
 
+def test_record_librarian_readonly_access(client, db, users, with_access):
+    """Test access control for library readonly role."""
+
+    tests = [
+        # readonly role should be able to read everything
+        ({"foo": "bar"}, "read", True),
+        (
+            {"_access": {"read": [2]}},
+            "read",
+            True,
+        ),  # should read user restricted records
+        (
+            {"_access": {"read": ["other-role"]}},
+            "read",
+            True,
+        ),  # should read role-restricted records
+        # readonly role should NOT be able to modify by default
+        ({"foo": "bar"}, "update", False),
+        ({"foo": "bar"}, "create", False),
+        ({"foo": "bar"}, "delete", False),
+        # readonly role should be able to modify ONLY when explicitly granted access
+        ({"_access": {"update": ["librarian-readonly"]}}, "update", True),
+        ({"_access": {"delete": ["librarian-readonly"]}}, "delete", True),
+        # readonly role should NOT be able to modify even with other user/role access
+        ({"_access": {"delete": ["admin"]}}, "delete", False),  # admin role access
+    ]
+
+    def login_and_test_readonly(username):
+        user = user_login(client, username, users)
+        # Create record
+        id = uuid.uuid4()
+        record = Record.create(access, id_=id)
+        factory = RecordPermission(record, action)
+
+        if action == "read":
+            assert factory.can()
+        else:
+            assert (
+                factory.can() if is_allowed else not factory.can()
+            ), f"FAILED: action={action}, access={access}, expected={is_allowed}"
+
+    for access, action, is_allowed in tests:
+        login_and_test_readonly("readonly")
+
+
 @pytest.fixture()
 def with_role_creator(db):
     """ "Create a new role and assign action."""

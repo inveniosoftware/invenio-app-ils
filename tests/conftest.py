@@ -17,13 +17,16 @@ from flask_webpackext.manifest import (
     JinjaManifestEntry,
     JinjaManifestLoader,
 )
-from sqlalchemy import text
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
 from invenio_app.factory import create_app as _create_app
+from sqlalchemy import text
 
-from invenio_app_ils.permissions import backoffice_access_action
+from invenio_app_ils.permissions import (
+    backoffice_access_action,
+    backoffice_readonly_access_action,
+)
 
 
 #
@@ -87,6 +90,11 @@ def users(app, db):
         librarian2 = datastore.create_user(
             email="librarian2@test.com", password="123456", active=True
         )
+        librarian_readonly = datastore.create_user(
+            email="readonly@test.com",
+            password="123456",
+            active=True,
+        )
         admin = datastore.create_user(
             email="admin@test.com", password="123456", active=True
         )
@@ -105,12 +113,22 @@ def users(app, db):
             ActionRoles(action=backoffice_access_action.value, role=librarian_role)
         )
         datastore.add_role_to_user(librarian2, librarian_role)
+        # Give role to readonly user
+        librarian_readonly_role = Role(name="librarian-readonly")
+        db.session.add(
+            ActionRoles(
+                action=backoffice_readonly_access_action.value,
+                role=librarian_readonly_role,
+            )
+        )
+        datastore.add_role_to_user(librarian_readonly, librarian_readonly_role)
     db.session.commit()
 
     return {
         "admin": admin,
         "librarian": librarian,
         "librarian2": librarian2,
+        "readonly": librarian_readonly,
         "patron1": patron1,
         "patron2": patron2,
         "patron3": patron3,

@@ -77,6 +77,14 @@ def test_items_permissions(client, testdata, item_record, json_headers, users):
         _test_read(expected_status, pid)
         _test_delete(expected_status, pid)
 
+    # Specific test for readonly account
+    user_login(client, "readonly", users)
+    _test_list([200])
+    _test_create([403], dummy_item)
+    _test_update([403], dummy_item, ITEM_PID)
+    _test_read([200], ITEM_PID)
+    _test_delete([403], ITEM_PID)
+
 
 def test_item_circulation(client, json_headers, testdata, users):
     """Test item circulation filtering."""

@@ -1308,6 +1308,7 @@ def data(
     # Create roles to restrict access
     _run_command("roles create admin", verbose)
     _run_command("roles create librarian", verbose)
+    _run_command("roles create librarian-readonly", verbose)
 
     # Create users
     patron1_profile = {"full_name": "Yannic Vilma"}
@@ -1325,6 +1326,12 @@ def data(
     librarian_profile = {"full_name": "Hector Nabu"}
     _run_command(
         f"users create librarian@test.ch -a --password=123456 --profile '{json.dumps(librarian_profile)}'",
+        verbose,
+    )
+
+    readonly_profile = {"full_name": "Ro Only"}
+    _run_command(
+        f"users create readonly@test.ch -a --password=123456 --profile '{json.dumps(readonly_profile)}'",
         verbose,
     )
 
@@ -1350,6 +1357,7 @@ def data(
 
     # assign roles
     _run_command("roles add librarian@test.ch librarian", verbose)
+    _run_command("roles add readonly@test.ch librarian-readonly", verbose)
 
     # Index vocabularies
     vocabularies_dir = os.path.join(CURRENT_DIR, "vocabularies", "data")
@@ -1368,6 +1376,9 @@ def data(
     # Assign actions
     _run_command("access allow superuser-access role admin", verbose)
     _run_command("access allow ils-backoffice-access role librarian", verbose)
+    _run_command(
+        "access allow ils-backoffice-readonly-access role librarian-readonly", verbose
+    )
 
     # Create demo locations
     click.echo("Creating locations and internal locations...")

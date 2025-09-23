@@ -10,7 +10,11 @@ from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
-from invenio_app_ils.permissions import backoffice_permission, superuser_permission
+from invenio_app_ils.permissions import (
+    backoffice_permission,
+    backoffice_read_permission,
+    superuser_permission,
+)
 
 from .api import ORDER_PID_FETCHER, ORDER_PID_MINTER, ORDER_PID_TYPE, Order
 from .search import OrderSearch
@@ -44,8 +48,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=backoffice_read_permission,
+        list_permission_factory_imp=backoffice_read_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=superuser_permission,

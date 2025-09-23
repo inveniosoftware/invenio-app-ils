@@ -72,6 +72,7 @@ def test_create_bucket_permissions(client, json_headers, location, testdata, use
     test_data = [
         ("admin", "eitemid-1", 201),
         ("librarian", "eitemid-2", 201),
+        ("readonly", "eitemid-2", 403),
         ("patron1", "eitemid-2", 403),
     ]
     for user, pid, status_code in test_data:
@@ -92,6 +93,7 @@ def test_upload_files_permissions(client, json_headers, bucket, testdata, users)
         ("anonymous", 404),
         ("admin", 200),
         ("librarian", 200),
+        ("readonly", 404),
         ("patron1", 404),
     ]
     for user, status_code in test_data:
@@ -117,6 +119,7 @@ def test_download_files_permissions(client, json_headers, location, testdata, us
                 ("anonymous", 200),
                 ("admin", 200),
                 ("librarian", 200),
+                ("readonly", 200),
                 ("patron1", 200),
             ],
         ),
@@ -126,6 +129,7 @@ def test_download_files_permissions(client, json_headers, location, testdata, us
                 ("anonymous", 404),
                 ("admin", 200),
                 ("librarian", 200),
+                ("readonly", 200),
                 ("patron1", 200),
             ],
         ),

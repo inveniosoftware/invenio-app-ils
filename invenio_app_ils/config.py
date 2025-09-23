@@ -91,9 +91,10 @@ from .patrons.api import (
 )
 from .patrons.search import PatronsSearch
 from .permissions import (
-    PatronOwnerPermission,
+    PatronOwnerReadPermission,
     authenticated_user_permission,
     backoffice_permission,
+    backoffice_read_permission,
     views_permissions_factory,
 )
 from .records.permissions import record_read_permission_factory
@@ -395,8 +396,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=backoffice_read_permission,
+        list_permission_factory_imp=backoffice_read_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -427,8 +428,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=backoffice_read_permission,
+        list_permission_factory_imp=backoffice_read_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -522,8 +523,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=backoffice_permission,
-        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=backoffice_read_permission,
+        list_permission_factory_imp=backoffice_read_permission,
         create_permission_factory_imp=backoffice_permission,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
@@ -552,7 +553,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=deny_all,
-        list_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=backoffice_read_permission,
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
@@ -584,7 +585,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=PatronOwnerPermission,
+        read_permission_factory_imp=PatronOwnerReadPermission,
         # auth via search_factory
         list_permission_factory_imp=authenticated_user_permission,
         create_permission_factory_imp=authenticated_user_permission,

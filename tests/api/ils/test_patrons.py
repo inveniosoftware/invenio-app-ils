@@ -45,6 +45,7 @@ def test_patrons_permissions(client, testdata, json_headers, users):
     tests = [
         ("admin", [200]),
         ("librarian", [200]),
+        ("readonly", [200]),
         ("patron1", [403]),
         ("anonymous", [401]),
     ]

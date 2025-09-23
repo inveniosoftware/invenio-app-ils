@@ -134,6 +134,14 @@ def test_location_permissions(client, testdata, json_headers, users):
         _test_read(read_statuses, pid)
         _test_delete(expected_status, pid)
 
+    # Specific test for readonly account
+    user_login(client, "readonly", users)
+    _test_list([200])
+    _test_create([403], dummy_location)
+    _test_update([403], dummy_location, _LOCATION_PID)
+    _test_read([200], _LOCATION_PID)
+    _test_delete([403], _LOCATION_PID)
+
 
 def test_location_validation(client, json_headers, users, testdata):
     def _test_update_location_closures(data, expected_code):
