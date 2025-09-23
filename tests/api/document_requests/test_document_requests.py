@@ -46,7 +46,11 @@ def test_request_list_permissions(client, testdata, json_headers, users):
         res = client.get(url, headers=json_headers)
         assert res.status_code == 200
         data = json.loads(res.data.decode("utf-8"))
-        is_admin = "librarian" in user.email or "admin" in user.email
+        is_admin = (
+            "librarian" in user.email
+            or "readonly" in user.email
+            or "admin" in user.email
+        )
         _compare_list_data(requests_by_patron, data, user.id, is_admin)
 
 

@@ -37,11 +37,13 @@ def test_open_access_permissions(client, json_headers, testdata, users):
         ("patron1", "docid-open-access", 200, 1),
         ("patron2", "docid-open-access", 200, 1),
         ("librarian", "docid-open-access", 200, 1),
+        ("readonly", "docid-open-access", 200, 1),
         ("admin", "docid-open-access", 200, 1),
         ("anonymous", "docid-closed-access", 401, 0),
         ("patron1", "docid-closed-access", 403, 0),
         ("patron2", "docid-closed-access", 403, 0),
         ("librarian", "docid-closed-access", 200, 1),
+        ("readonly", "docid-closed-access", 200, 1),
         ("admin", "docid-closed-access", 200, 1),
     ]
     for user, pid, status_code, n_hits in test_data:
@@ -78,11 +80,13 @@ def test_access_permissions(client, json_headers, testdata, users, with_access):
         ("patron1", "docid-open-access", 403, 0),
         ("patron2", "docid-open-access", 200, 1),  # should have access
         ("librarian", "docid-open-access", 200, 1),
+        ("readonly", "docid-open-access", 200, 1),
         ("admin", "docid-open-access", 200, 1),
         ("anonymous", "docid-closed-access", 401, 0),
         ("patron1", "docid-closed-access", 403, 0),
         ("patron2", "docid-closed-access", 200, 1),  # should have access
         ("librarian", "docid-closed-access", 200, 1),
+        ("readonly", "docid-closed-access", 200, 1),
         ("admin", "docid-closed-access", 200, 1),
     ]
     for user, pid, status_code, n_hits in test_data:

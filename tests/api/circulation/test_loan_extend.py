@@ -53,6 +53,7 @@ def test_loan_extend_permissions(client, json_headers, users, testdata, loan_par
     tests = [
         ("admin", 202),
         ("librarian", 202),
+        ("readonly", 403),
         ("patron1", 202),
         ("patron3", 403),
     ]

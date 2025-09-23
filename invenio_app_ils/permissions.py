@@ -20,6 +20,7 @@ from invenio_app_ils.errors import InvalidLoanExtendError, LoanCheckoutByPatronF
 from invenio_app_ils.proxies import current_app_ils
 
 backoffice_access_action = action_factory("ils-backoffice-access")
+backoffice_readonly_access_action = action_factory("ils-backoffice-readonly-access")
 
 
 def need_permissions(action):
@@ -60,6 +61,11 @@ def authenticated_user_permission(*args, **kwargs):
 def backoffice_permission(*args, **kwargs):
     """Return permission to allow only librarians and admins."""
     return Permission(backoffice_access_action)
+
+
+def backoffice_read_permission(*args, **kwargs):
+    """Return permission for backoffice (full or read-only) read access."""
+    return Permission(backoffice_access_action, backoffice_readonly_access_action)
 
 
 def superuser_permission(*args, **kwargs):
@@ -160,6 +166,18 @@ def loan_checkout_permission(*args, **kwargs):
     raise LoanCheckoutByPatronForbidden(int(loan["patron_pid"]), current_user.id)
 
 
+class PatronOwnerReadPermission(Permission):
+    """Return Permission to evaluate if the current user owns the record or has backoffice read access."""
+
+    def __init__(self, record):
+        """Constructor."""
+        super().__init__(
+            UserNeed(int(record["patron_pid"])),
+            backoffice_access_action,
+            backoffice_readonly_access_action,
+        )
+
+
 class PatronOwnerPermission(Permission):
     """Return Permission to evaluate if the current user owns the record."""
 
@@ -179,12 +197,14 @@ _is_backoffice_permission = [
     "circulation-loan-update-dates",
     "relations-create",
     "relations-delete",
-    "stats-most-loaned",
     "document-request-actions",
     "bucket-create",
     "ill-brwreq-patron-loan-create",
     "ill-brwreq-patron-loan-extension-accept",
     "ill-brwreq-patron-loan-extension-decline",
+]
+_is_backoffice_read_permission = [
+    "stats-most-loaned",
     "send-notification-to-patron",
 ]
 _is_patron_owner_permission = [
@@ -199,6 +219,8 @@ def views_permissions_factory(action):
         return authenticated_user_permission()
     elif action in _is_backoffice_permission:
         return backoffice_permission()
+    elif action in _is_backoffice_read_permission:
+        return backoffice_read_permission()
     elif action in _is_patron_owner_permission:
         return PatronOwnerPermission
     elif action == "circulation-loan-checkout":

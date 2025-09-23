@@ -23,6 +23,7 @@ def test_notifications_read_permissions(client, json_headers, users):
     list_tests = [
         ("admin", _HTTP_OK),
         ("librarian", _HTTP_OK),
+        ("readonly", _HTTP_OK),
         ("patron1", _HTTP_FORBIDDEN),
         ("anonymous", _HTTP_UNAUTHORIZED),
     ]
@@ -30,6 +31,7 @@ def test_notifications_read_permissions(client, json_headers, users):
     item_tests = [
         ("admin", _HTTP_NOT_FOUND),
         ("librarian", _HTTP_NOT_FOUND),
+        ("readonly", _HTTP_NOT_FOUND),
         ("patron1", _HTTP_FORBIDDEN),
         ("anonymous", _HTTP_UNAUTHORIZED),
     ]

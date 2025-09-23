@@ -24,6 +24,7 @@ def test_series_read_permissions(client, testdata, json_headers, users):
     tests = [
         ("admin", _HTTP_OK),
         ("librarian", _HTTP_OK),
+        ("readonly", _HTTP_OK),
         ("patron1", _HTTP_OK),
         ("anonymous", _HTTP_OK),
     ]
@@ -56,6 +57,7 @@ def test_series_edit_permissions(client, testdata, json_headers, users):
     tests = [
         ("admin", _HTTP_OK, dummy_series),
         ("librarian", _HTTP_OK, dummy_series),
+        ("readonly", [403], dummy_series),
         ("patron1", [403], dummy_series),
         ("anonymous", [401], dummy_series),
     ]

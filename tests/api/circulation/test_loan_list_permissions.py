@@ -88,6 +88,7 @@ def test_most_loaned_permissions(client, json_headers, users, testdata):
     tests = [
         ("admin", 200),
         ("librarian", 200),
+        ("readonly", 200),
         ("patron1", 403),
         ("anonymous", 401),
     ]

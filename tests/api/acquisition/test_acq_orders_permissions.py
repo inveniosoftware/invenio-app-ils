@@ -80,6 +80,7 @@ def test_acq_orders_permissions(client, testdata, json_headers, users):
         res = client.delete(url, headers=json_headers)
         assert res.status_code in expected_status
 
+    # test permission for list, create, update and read
     tests = [
         ("admin", _HTTP_OK, dummy_acquisition_order),
         ("librarian", _HTTP_OK, dummy_acquisition_order),
@@ -93,6 +94,15 @@ def test_acq_orders_permissions(client, testdata, json_headers, users):
         _test_update(expected_status, data, pid, user)
         _test_read(expected_status, pid)
 
+    # Specific test for readonly account
+    user = user_login(client, "readonly", users)
+    _test_list([200])
+    _test_create([403], dummy_acquisition_order, user)
+    _test_update([403], dummy_acquisition_order, ORDER_PID, user)
+    _test_read([200], ORDER_PID)
+    _test_delete([403], ORDER_PID)
+
+    # test permission for delete
     tests = [
         ("patron1", [403]),
         ("anonymous", [401]),

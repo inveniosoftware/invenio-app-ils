@@ -17,7 +17,7 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.eitems.api import EITEM_PID_TYPE
 from invenio_app_ils.errors import StatsError
-from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.permissions import backoffice_read_permission
 from invenio_app_ils.records.permissions import RecordPermission
 from invenio_app_ils.series.api import SERIES_PID_TYPE
 from invenio_app_ils.signals import file_downloaded, record_viewed
@@ -62,7 +62,7 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
     def post(self, pid, record, **kwargs):
         """Send a signal to count record view for the record stats."""
         factory = RecordPermission(record, "read")
-        if not factory.is_public() and not backoffice_permission().can():
+        if not factory.is_public() and not backoffice_read_permission().can():
             if not current_user.is_authenticated:
                 abort(401)
             abort(403)

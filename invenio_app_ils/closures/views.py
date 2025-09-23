@@ -16,7 +16,7 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_app_ils.locations.api import LOCATION_PID_TYPE
 from invenio_app_ils.closures.serializers import closure_periods_response
 from invenio_app_ils.closures.api import get_closure_periods
-from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.permissions import backoffice_read_permission
 from invenio_app_ils.records.permissions import RecordPermission
 
 
@@ -53,7 +53,7 @@ class LocationClosurePeriodsResource(ContentNegotiatedMethodView):
         """Get the date ranges for which a location is closure based in the specified year"""
 
         factory = RecordPermission(record, "read")
-        if not factory.is_public() and not backoffice_permission().can():
+        if not factory.is_public() and not backoffice_read_permission().can():
             if not current_user.is_authenticated:
                 abort(401)
             abort(403)

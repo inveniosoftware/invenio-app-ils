@@ -170,7 +170,9 @@ def anonymize_patron_data(patron_pid, force=False):
         borrowing_request["patron"] = anonymous_patron_fields
         borrowing_request["patron_pid"] = anonymous_patron_fields["pid"]
         borrowing_request.commit()
-        anonymized_records[BORROWING_REQUEST_PID_TYPE]["records"].append(borrowing_request)
+        anonymized_records[BORROWING_REQUEST_PID_TYPE]["records"].append(
+            borrowing_request
+        )
         indices += 1
 
     DocumentRequestSearch = current_app_ils.document_request_search_cls

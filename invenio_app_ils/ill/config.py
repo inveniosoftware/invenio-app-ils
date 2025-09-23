@@ -11,7 +11,7 @@ from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.permissions import (
-    PatronOwnerPermission,
+    PatronOwnerReadPermission,
     authenticated_user_permission,
     backoffice_permission,
     superuser_permission,
@@ -76,7 +76,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        read_permission_factory_imp=PatronOwnerPermission,
+        read_permission_factory_imp=PatronOwnerReadPermission,
         # auth via search_factory
         list_permission_factory_imp=authenticated_user_permission,
         create_permission_factory_imp=backoffice_permission,

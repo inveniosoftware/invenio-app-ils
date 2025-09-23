@@ -13,7 +13,7 @@ from flask import current_app, g, has_request_context, request
 from invenio_search.engine import dsl
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
-from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.permissions import backoffice_read_permission
 
 
 def _get_user_provides():
@@ -30,7 +30,7 @@ def _get_user_provides():
 
 def search_filter_record_permissions():
     """Filter list of results by `_access` and `restricted` fields."""
-    if not has_request_context() or backoffice_permission().allows(g.identity):
+    if not has_request_context() or backoffice_read_permission().allows(g.identity):
         return dsl.Q()
 
     # A record is public if `restricted` field False or missing
@@ -120,7 +120,7 @@ def _filter_by_patron(patron_id, search, query_string=None):
 def _filter_by_current_patron(search, query_string=None):
     """Filter search results by patron_pid."""
     # if the logged in user is not librarian or admin, validate the query
-    if has_request_context() and not backoffice_permission().allows(g.identity):
+    if has_request_context() and not backoffice_read_permission().allows(g.identity):
         return _filter_by_patron(g.identity.id, search, query_string)
     return search, query_string
 

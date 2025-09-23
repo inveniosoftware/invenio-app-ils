@@ -83,7 +83,7 @@ def test_notification_on_overdue_permissions(client, testdata, json_headers, use
     """Test that only the backoffice can send a reminder."""
     pid = testdata["loans"][0]["pid"]
     url = url_for("invenio_app_ils_circulation.loanid_notification", pid_value=pid)
-    tests = [("patron1", 403), ("anonymous", 401)]
+    tests = [("patron1", 403), ("anonymous", 401), ("readonly", 403)]
     for username, expected_status in tests:
         user_login(client, username, users)
         res = client.post(url, headers=json_headers)

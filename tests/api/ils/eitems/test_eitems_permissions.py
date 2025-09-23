@@ -83,3 +83,11 @@ def test_eitems_permissions(client, testdata, json_headers, users):
         _test_update(expected_status, data, pid)
         _test_read(expected_status, pid)
         _test_delete(expected_status, pid)
+
+    # Specific test for readonly account
+    user_login(client, "readonly", users)
+    _test_list([200])
+    _test_create([403], dummy_eitem)
+    _test_update([403], dummy_eitem, EITEM_PID)
+    _test_read([200], EITEM_PID)
+    _test_delete([403], EITEM_PID)

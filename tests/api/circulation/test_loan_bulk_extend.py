@@ -153,14 +153,21 @@ def test_loan_extend_permissions(
 
         _run_asserts(extended_loans, patron_1_ongoing_loans)
 
+    def test_readonly_cannot_extend_loans():
+        patron_1_ongoing_loans = _prepare_data(db, repeated_run_number=2)["loans"]
+
+        user_login(client, "readonly", users)
+
+        extended_loans, _ = bulk_extend_loans(patron_pid=1)
+
+        assert len(extended_loans) == 0
+
     def test_patron2_cannot_extend_patron1_loans():
-        _prepare_data(db, repeated_run_number=2)
+        _prepare_data(db, repeated_run_number=3)
 
         user_login(client, "patron2", users)
 
-        patron1_pid = "1"
-
-        extended_loans, _ = bulk_extend_loans(patron1_pid)
+        extended_loans, _ = bulk_extend_loans(1)
 
         assert len(extended_loans) == 0
 

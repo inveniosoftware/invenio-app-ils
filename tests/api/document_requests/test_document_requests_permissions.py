@@ -18,11 +18,13 @@ def test_get_document_request_endpoint(client, json_headers, testdata, users):
     tests = [
         ("patron1", "dreq-1", 200),
         ("librarian", "dreq-1", 200),
+        ("readonly", "dreq-1", 200),
         ("admin", "dreq-1", 200),
         ("patron2", "dreq-1", 403),
         ("anonymous", "dreq-1", 401),
         ("patron2", "dreq-2", 200),
         ("librarian", "dreq-2", 200),
+        ("readonly", "dreq-2", 200),
         ("admin", "dreq-2", 200),
         ("patron1", "dreq-2", 403),
         ("anonymous", "dreq-2", 401),
@@ -40,6 +42,7 @@ def test_document_request_add_document(client, json_headers, testdata, users):
     tests = [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
+        ("readonly", "dreq-1", 403),
         ("admin", "dreq-1", 202),
         ("anonymous", "dreq-1", 401),
     ]
@@ -60,6 +63,7 @@ def test_document_request_remove_document(client, json_headers, testdata, users)
     tests = [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
+        ("readonly", "dreq-1", 403),
         ("admin", "dreq-1", 202),
         ("anonymous", "dreq-1", 401),
     ]
@@ -80,6 +84,7 @@ def test_document_request_add_provider(client, json_headers, testdata, users):
     tests = [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
+        ("readonly", "dreq-1", 403),
         ("admin", "dreq-1", 202),
         ("anonymous", "dreq-1", 401),
     ]
@@ -105,6 +110,7 @@ def test_document_request_remove_provider(client, json_headers, testdata, users)
     tests = [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
+        ("readonly", "dreq-1", 403),
         ("admin", "dreq-1", 202),
         ("anonymous", "dreq-1", 401),
     ]
@@ -124,6 +130,7 @@ def test_document_request_accept(client, json_headers, testdata, users):
     tests = [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-5", 202),
+        ("readonly", "dreq-6", 403),
         ("admin", "dreq-6", 202),
         ("anonymous", "dreq-1", 401),
         ("admin", "dreq-2", 400),
@@ -144,6 +151,7 @@ def test_document_request_decline(client, json_headers, testdata, users):
     tests = [
         ("patron1", "dreq-1", 202),
         ("librarian", "dreq-5", 202),
+        ("readonly", "dreq-5", 403),
         ("admin", "dreq-6", 202),
         ("anonymous", "dreq-1", 401),
         ("admin", "dreq-2", 400),
