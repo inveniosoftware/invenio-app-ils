@@ -47,7 +47,10 @@ done
 function cleanup() {
     eval "$(docker-services-cli down --env)"
 }
-trap cleanup EXIT
+
+if [[ ${keep_services} -eq 0 ]]; then
+	trap cleanup EXIT
+fi
 
 python -m check_manifest
 python -m sphinx.cmd.build -qnNW docs docs/_build/html
