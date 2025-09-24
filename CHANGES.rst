@@ -8,7 +8,7 @@
 Changes
 =======
 
-Version 5.1.0 (unreleased)
+Version 5.1.0 (released 2025-09-24)
 
 - eitem: add api methods to get eitems by `created_by` and `source` fields
 
