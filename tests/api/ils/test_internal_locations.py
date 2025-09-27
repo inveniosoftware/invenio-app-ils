@@ -38,6 +38,7 @@ def test_internal_locations_permissions(client, testdata, json_headers, users):
     dummy_internal_location = dict(
         location_pid=testdata["locations"][0]["pid"],
         name=_INTERNAL_LOCATION_NAME,
+        accessible_by_patrons=True,
     )
     tests = [
         ("admin", _HTTP_OK, dummy_internal_location),

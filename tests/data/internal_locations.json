@@ -2,21 +2,31 @@
   {
     "pid": "ilocid-1",
     "location_pid": "locid-1",
-    "name": "Internal Library 1"
+    "name": "Internal Library 1",
+    "accessible_by_patrons": true
   },
   {
     "pid": "ilocid-2",
     "location_pid": "locid-1",
-    "name": "Internal Library 2"
+    "name": "Internal Library 2",
+    "accessible_by_patrons": true
   },
   {
     "pid": "ilocid-3",
     "location_pid": "locid-1",
-    "name": "Unused Internal Library"
+    "name": "Unused Internal Library",
+    "accessible_by_patrons": true
   },
   {
     "pid": "ilocid-4",
     "location_pid": "locid-2",
-    "name": "Another unused library"
+    "name": "Another unused library",
+    "accessible_by_patrons": true
+  },
+  {
+    "pid": "ilocid-5",
+    "location_pid": "locid-5",
+    "name": "Location not accessible by patrons",
+    "accessible_by_patrons": false
   }
 ]

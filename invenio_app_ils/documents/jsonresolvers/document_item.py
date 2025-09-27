@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2020 CERN.
+# Copyright (C) 2019-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -40,6 +40,9 @@ def jsonresolver_loader(url_map):
                 "identifiers": item.get("identifiers"),
                 "internal_location": {
                     "name": item.get("internal_location", {}).get("name", ""),
+                    "accessible_by_patrons": item.get("internal_location", {}).get(
+                        "accessible_by_patrons", True
+                    ),
                     "location": {
                         "name": (
                             item.get("internal_location", {})

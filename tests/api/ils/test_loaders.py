@@ -18,6 +18,7 @@ NEW_INTERNAL_LOCATION = {
     "legacy_ids": ["Test legacy id"],
     "name": "My test internal location",
     "physical_location": "Left from the right building",
+    "accessible_by_patrons": True,
     "notes": "In house",
 }
 
