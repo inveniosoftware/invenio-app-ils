@@ -241,6 +241,11 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(hours=3),
         "args": [("record-view-agg", "file-download-agg")],
     },
+    "stats_process_periodic_daily": {
+        "task": "invenio_app_ils.stats.event_builders.process_periodic_stats",
+        "schedule": crontab(minute=0, hour=3),  # every day, 3am
+        "args": [["items-count"]],
+    },
     "clean_locations_past_closures_exceptions": {
         "task": (
             "invenio_app_ils.closures.tasks.clean_locations_past_closures_exceptions"
@@ -921,6 +926,18 @@ STATS_EVENTS = {
             "suffix": "%Y-%m",
         },
     },
+    "items-count": {
+        "templates": "invenio_app_ils.stats.templates.events.items_count",
+        "event_builders": ["invenio_app_ils.stats.event_builders.count_items"],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_app_ils.stats.processors.add_timestamp_as_unique_id",
+            ],
+            "double_click_window": 30,
+            "suffix": "%Y-%m",
+        },
+    },
 }
 
 STATS_AGGREGATIONS = {
@@ -967,6 +984,20 @@ STATS_AGGREGATIONS = {
             ),
         ),
     ),
+    "items-count-agg": dict(
+        templates="invenio_app_ils.stats.templates.aggregations.items_count",
+        cls=StatAggregator,
+        params=dict(
+            event="items-count",
+            field=None,
+            interval="day",
+            index_interval="month",
+            copy_fields=dict(),
+            metric_fields=dict(
+                available_items_count=("avg", "available_items_count", {})
+            ),
+        ),
+    ),
 }
 
 STATS_QUERIES = {
@@ -1000,6 +1031,18 @@ STATS_QUERIES = {
             metric_fields=dict(
                 count=("sum", "count", {}),
                 unique_count=("sum", "unique_count", {}),
+            ),
+        ),
+    ),
+    "item-count": dict(
+        cls=ESTermsQuery,
+        permission_factory=None,
+        params=dict(
+            index="stats-items-count",
+            copy_fields=dict(),
+            required_filters=dict(),
+            metric_fields=dict(
+                available_items_count=("avg", "available_items_count", {})
             ),
         ),
     ),
