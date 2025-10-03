@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version 6.0.0 (released 2025-10-03)
+
+- breaking change: permissions: turn permission that checks if user can see notifications into read permission
+- permissions: add backoffice readonly action
+
 Version 5.1.0 (released 2025-09-24)
 
 - eitem: add api methods to get eitems by `created_by` and `source` fields
