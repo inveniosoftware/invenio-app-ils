@@ -300,5 +300,16 @@
     "medium": "NOT_SPECIFIED",
     "status": "IN_BINDING",
     "document": {}
+  },
+  {
+    "pid": "itemid-75",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-75",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-5",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "IN_BINDING",
+    "document": {}
   }
 ]

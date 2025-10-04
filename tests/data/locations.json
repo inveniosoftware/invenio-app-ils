@@ -22,5 +22,11 @@
     "name": "Library of Testing",
     "opening_weekdays": [{"weekday": "monday", "is_open": true}, {"weekday": "tuesday", "is_open": true}, {"weekday": "wednesday", "is_open": true}, {"weekday": "thursday", "is_open": true}, {"weekday": "friday", "is_open": true}, {"weekday": "saturday", "is_open": false}, {"weekday": "sunday", "is_open": false}],
     "opening_exceptions": []
+  },
+  {
+    "pid": "locid-5",
+    "name": "Depot",
+    "opening_weekdays": [{"weekday": "monday", "is_open": false}, {"weekday": "tuesday", "is_open": false}, {"weekday": "wednesday", "is_open": false}, {"weekday": "thursday", "is_open": false}, {"weekday": "friday", "is_open": false}, {"weekday": "saturday", "is_open": false}, {"weekday": "sunday", "is_open": false}],
+    "opening_exceptions": []
   }
 ]
