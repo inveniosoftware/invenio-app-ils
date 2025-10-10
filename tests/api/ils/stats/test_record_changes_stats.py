@@ -120,7 +120,7 @@ def test_record_change_stats_histogram(
     for _, pid_type, _ in tests:
         for method in methods:
             final_count = _query_record_changes_stats(client, pid_type, method)
-            assert final_count == initial_counts[pid_type][method] + 1
+            assert final_count == initial_counts[pid_type][method] + 1, f'{pid_type} {method} count mismatch'
 
 
 def test_record_change_stats_per_user(
