@@ -21,6 +21,8 @@ from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
 from invenio_app.factory import create_app as _create_app
+from invenio_search import current_search
+from invenio_stats import current_stats
 from sqlalchemy import text
 
 from invenio_app_ils.permissions import (
@@ -223,3 +225,21 @@ def base_app(create_app, app_config, request, default_handler):
     if default_handler:
         app_.logger.addHandler(default_handler)
     yield app_
+
+
+@pytest.fixture()
+def empty_event_queues():
+    """Make sure the event queues exist and are empty."""
+    for event in current_stats.events:
+        queue = current_stats.events[event].queue
+        queue.queue.declare()
+        queue.consume()
+
+
+@pytest.fixture()
+def empty_search():
+    """Clear search indices after test finishes (function scope)."""
+    current_search.client.indices.delete(index="*")
+    current_search.client.indices.delete_template("*")
+    list(current_search.create())
+    list(current_search.put_templates())

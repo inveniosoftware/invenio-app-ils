@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test records relations."""
+"""Test ILS records relations."""
 
 import json
 
 from flask import url_for
-from invenio_db import db
 
-from invenio_app_ils.signals import record_viewed
 from tests.helpers import user_login, user_logout
 
 
