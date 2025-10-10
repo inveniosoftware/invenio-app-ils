@@ -64,6 +64,7 @@ recursive-include invenio_app_ils *.ttf
 recursive-include invenio_app_ils *.woff
 recursive-include invenio_app_ils *.woff2
 recursive-include invenio_app_ils *.config
+recursive-include invenio_app_ils *.py
 recursive-include tests *.py
 recursive-include tests *.json
 recursive-include tests *.html
