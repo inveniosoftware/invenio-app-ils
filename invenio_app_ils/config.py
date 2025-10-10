@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2018-2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +15,7 @@ You overwrite and set instance-specific configuration by either:
 
 import datetime
 from datetime import timedelta
+from functools import partial
 
 from celery.schedules import crontab
 from invenio_accounts.config import (
@@ -24,7 +25,7 @@ from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
-from invenio_stats.queries import ESTermsQuery
+from invenio_stats.queries import DateHistogramQuery, ESTermsQuery
 
 from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
 from invenio_app_ils.documents.indexer import DocumentIndexer
@@ -41,6 +42,7 @@ from invenio_app_ils.literature.search import LiteratureSearch
 from invenio_app_ils.locations.indexer import LocationIndexer
 from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
+from invenio_app_ils.stats.event_builders import ils_record_changed_event_builder
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .document_requests.api import (
@@ -95,6 +97,7 @@ from .permissions import (
     authenticated_user_permission,
     backoffice_permission,
     backoffice_read_permission,
+    superuser_permission,
     views_permissions_factory,
 )
 from .records.permissions import record_read_permission_factory
@@ -234,12 +237,20 @@ CELERY_BEAT_SCHEDULE = {
     "stats-process-events": {
         "task": "invenio_stats.tasks.process_events",
         "schedule": timedelta(minutes=30),
-        "args": [("record-view", "file-download")],
+        "args": [
+            (
+                "record-view",
+                "file-download",
+                "ils-record-changes-updates",
+                "ils-record-changes-insertions",
+                "ils-record-changes-deletions",
+            )
+        ],
     },
     "stats-aggregate-events": {
         "task": "invenio_stats.tasks.aggregate_events",
         "schedule": timedelta(hours=3),
-        "args": [("record-view-agg", "file-download-agg")],
+        "args": [("record-view-agg", "file-download-agg", "ils-record-changes-agg")],
     },
     "clean_locations_past_closures_exceptions": {
         "task": (
@@ -921,6 +932,57 @@ STATS_EVENTS = {
             "suffix": "%Y-%m",
         },
     },
+    "ils-record-changes-updates": {
+        "signal": "invenio_records.signals.after_record_update",
+        "templates": "invenio_app_ils.stats.templates.events.ils_record_changes",
+        "event_builders": [
+            partial(ils_record_changed_event_builder, method="update"),
+            "invenio_app_ils.stats.event_builders.add_librarian_user_id_to_event",
+            "invenio_app_ils.stats.event_builders.add_record_pid_to_event",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_app_ils.stats.processors.add_record_change_ids",
+            ],
+            "double_click_window": 0,
+            "suffix": "%Y",
+        },
+    },
+    "ils-record-changes-insertions": {
+        "signal": "invenio_records.signals.after_record_insert",
+        "templates": "invenio_app_ils.stats.templates.events.ils_record_changes",
+        "event_builders": [
+            partial(ils_record_changed_event_builder, method="insert"),
+            "invenio_app_ils.stats.event_builders.add_librarian_user_id_to_event",
+            "invenio_app_ils.stats.event_builders.add_record_pid_to_event",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_app_ils.stats.processors.add_record_change_ids",
+            ],
+            "double_click_window": 0,
+            "suffix": "%Y",
+        },
+    },
+    "ils-record-changes-deletions": {
+        "signal": "invenio_records.signals.after_record_delete",
+        "templates": "invenio_app_ils.stats.templates.events.ils_record_changes",
+        "event_builders": [
+            partial(ils_record_changed_event_builder, method="delete"),
+            "invenio_app_ils.stats.event_builders.add_librarian_user_id_to_event",
+            "invenio_app_ils.stats.event_builders.add_record_pid_to_event",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_app_ils.stats.processors.add_record_change_ids",
+            ],
+            "double_click_window": 0,
+            "suffix": "%Y",
+        },
+    },
 }
 
 STATS_AGGREGATIONS = {
@@ -967,6 +1029,19 @@ STATS_AGGREGATIONS = {
             ),
         ),
     ),
+    "ils-record-changes-agg": dict(
+        templates="invenio_app_ils.stats.templates.aggregations.ils_record_changes",
+        cls=StatAggregator,
+        params=dict(
+            event="ils-record-changes",
+            field="aggregation_id",
+            interval="day",
+            index_interval="year",
+            copy_fields=dict(pid_type="pid_type", method="method", user_id="user_id"),
+            metric_fields=dict(),
+            query_modifiers=[],
+        ),
+    ),
 }
 
 STATS_QUERIES = {
@@ -1001,6 +1076,44 @@ STATS_QUERIES = {
                 count=("sum", "count", {}),
                 unique_count=("sum", "unique_count", {}),
             ),
+        ),
+    ),
+    "ils-record-changes": dict(
+        cls=DateHistogramQuery,
+        permission_factory=backoffice_read_permission,
+        params=dict(
+            index="stats-ils-record-changes",
+            copy_fields=dict(
+                pid_type="pid_type",
+                method="method",
+            ),
+            required_filters=dict(
+                pid_type="pid_type",
+                method="method",
+            ),
+            metric_fields=dict(
+                count=("sum", "count", {}),
+            ),
+        ),
+    ),
+    "ils-record-changes-per-user": dict(
+        cls=ESTermsQuery,
+        permission_factory=superuser_permission,
+        params=dict(
+            index="stats-ils-record-changes",
+            copy_fields=dict(
+                pid_type="pid_type",
+                method="method",
+                user_id="user_id",
+            ),
+            required_filters=dict(
+                pid_type="pid_type",
+                method="method",
+            ),
+            metric_fields=dict(
+                count=("sum", "count", {}),
+            ),
+            aggregated_fields=["user_id"],
         ),
     ),
 }

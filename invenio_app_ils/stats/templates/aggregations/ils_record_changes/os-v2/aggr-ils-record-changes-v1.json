@@ -1,0 +1,41 @@
+{
+  "index_patterns": [
+    "__SEARCH_INDEX_PREFIX__stats-ils-record-changes-*"
+  ],
+  "settings": {
+    "index": {
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "dynamic": false,
+    "numeric_detection": false,
+    "properties": {
+      "timestamp": {
+        "type": "date"
+      },
+      "updated_timestamp": {
+        "type": "date"
+      },
+      "pid_type": {
+        "type": "keyword"
+      },
+      "method": {
+        "type": "keyword"
+      },
+      "user_id": {
+        "type": "keyword"
+      },
+      "aggregation_id": {
+        "type": "keyword"
+      },
+      "count": {
+        "type": "integer"
+      }
+    }
+  },
+  "aliases": {
+    "__SEARCH_INDEX_PREFIX__stats-ils-record-changes": {}
+  }
+}
