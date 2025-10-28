@@ -13,16 +13,18 @@ def add_record_change_ids(doc):
     """Add unique_id and aggregation_id to the doc."""
 
     # We use this field to group by during aggregation.
-    # e.g. the count of created eitems by a user with id 7 is tracked under eitmid__insert__None.
-    doc["aggregation_id"] = f"{doc['pid_type']}__{doc['method']}__{doc['user_id']}"
+    # e.g. the count of created eitems by a user with id 7 is tracked under eitmid__insert__7.
+    doc["aggregation_id"] = f"{doc['pid_type']}__{doc['method']}"
 
     # unique_id identifies each individual event and is used by invenio-stats.
     # It automatically deduplicates events from the same second that have the same unique_id.
     # Including the pid_value ensures distinctness between events,
     # even when multiple records are updated within the same second.
     # e.g. during the importer in cds-ils where many eitems are created in bulk.
-    doc["unique_id"] = (
-        f"{doc['pid_value']}__{doc['pid_type']}__{doc['method']}__{doc['user_id']}"
-    )
+    doc["unique_id"] = f"{doc['pid_value']}__{doc['pid_type']}__{doc['method']}"
+
+    if doc["user_id"]:
+        doc["aggregation_id"] += f"__{doc['user_id']}"
+        doc["unique_id"] += f"__{doc['user_id']}"
 
     return doc
