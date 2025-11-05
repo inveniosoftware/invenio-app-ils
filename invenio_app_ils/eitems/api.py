@@ -133,7 +133,7 @@ def get_eitems_for_document_by_creator(document_pid, creator, case_insensitive=F
         document_pid=document_pid
     ).filter(
         "term",
-        created_by__value={"term": creator, "case_insensitive": case_insensitive},
+        created_by__value={"value": creator, "case_insensitive": case_insensitive},
     )
 
     return creator_match
