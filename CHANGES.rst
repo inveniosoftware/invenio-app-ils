@@ -8,6 +8,14 @@
 Changes
 =======
 
+Version 6.1.0 (released 2025-10-05)
+
+- fix: make terms query that gets eitems by creator use correct keyword
+- stats: record change ids only contain `user_id` when it is not None
+- global: include python files inside invenio_app_ils in manifest
+- stats: move file `test_stats` into folder for stats
+- stats: add stats to track ILSRecord insertions, deletions and updates
+
 Version 6.0.0 (released 2025-10-03)
 
 - breaking change: permissions: turn permission that checks if user can see notifications into read permission
