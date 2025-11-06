@@ -62,7 +62,7 @@ services:
       - "15672:15672"
       - "5672:5672"
   search:
-    image: opensearchproject/opensearch:2.11.1
+    image: opensearchproject/opensearch::3.2.0
     environment:
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -78,7 +78,7 @@ services:
       - "9200:9200"
       - "9300:9300"
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.11.1
+    image: opensearchproject/opensearch-dashboards:3.2.0
     ports:
       - "5601:5601"
     expose:
