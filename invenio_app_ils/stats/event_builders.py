@@ -71,3 +71,32 @@ def add_record_pid_to_event(event, sender_app, record=None, **kwargs):
     event.update({"pid_value": record.get("pid")})
 
     return event
+
+
+def loan_transition_event_builder(
+    event,
+    sender_app,
+    transition=None,
+    initial_loan=None,
+    loan=None,
+    trigger=None,
+    **kwargs
+):
+    """Build an event for a loan state transition."""
+    event.update(
+        {
+            "timestamp": datetime.datetime.now(datetime.timezone.utc)
+            .replace(tzinfo=None)
+            .isoformat(),
+            "trigger": trigger,
+            "pid_value": loan["pid"],
+        }
+    )
+
+    if trigger == "extend":
+        # Extensions are aggregated by invenio-stats and no extra information is required
+        pass
+    else:
+        return None
+
+    return event

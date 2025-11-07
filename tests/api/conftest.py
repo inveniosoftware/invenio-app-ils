@@ -7,9 +7,11 @@
 
 """Pytest fixtures and plugins for the API application."""
 
+import json
 import tempfile
 
 import pytest
+from flask import url_for
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -37,6 +39,7 @@ from tests.helpers import (
     internal_location_ref_builder,
     load_json_from_datadir,
     mint_record_pid,
+    user_login,
 )
 
 
@@ -209,6 +212,24 @@ def loan_params():
         transaction_location_pid="locid-1",
         transaction_date="2018-02-01T09:30:00+02:00",
     )
+
+
+@pytest.fixture
+def checkout_loan(client, json_headers, users):
+    """Perform loan checkout action."""
+
+    def checkout(loan_pid, params):
+        user_login(client, "librarian", users)
+        checkout_url = url_for(
+            "invenio_circulation_loan_actions.loanid_actions",
+            pid_value=loan_pid,
+            action="checkout",
+        )
+        resp = client.post(checkout_url, headers=json_headers, data=json.dumps(params))
+        assert resp.status_code == 202
+        return resp.get_json()
+
+    return checkout
 
 
 @pytest.fixture()
