@@ -125,14 +125,12 @@ def test_record_change_stats_histogram(
 
 
 def test_record_change_stats_per_user(
-    app, users, empty_event_queues, empty_search, testdata
+    client, users, empty_event_queues, empty_search, testdata
 ):
     """Test that insertions by different users are tracked correctly."""
 
     pid_type = DOCUMENT_PID_TYPE
     method = "insert"
-
-    client = app.test_client()
 
     user_login(client, "admin", users)
     # Create one record with admin to have a user with existing stats
@@ -174,14 +172,13 @@ def test_record_change_stats_per_user(
 
 
 def test_patron_record_changes_not_tracked_per_user(
-    app, users, empty_event_queues, empty_search, testdata
+    client, users, empty_event_queues, empty_search, testdata
 ):
     """Test that patron users are not tracked in per-user stats."""
 
     pid_type = DOCUMENT_PID_TYPE
     method = "insert"
 
-    client = app.test_client()
     user_login(client, "admin", users)
     # Create one record with admin to have a user with existing stats
     data = testdata["documents"][0].copy()
