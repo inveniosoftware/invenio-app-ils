@@ -27,11 +27,10 @@
       "pid_value": {
         "type": "keyword"
       },
-      "field": {
-        "type": "keyword"
-      },
-      "value": {
-        "type": "integer"
+      "extra_data": {
+        "type": "object",
+        "dynamic": true,
+        "enabled": true
       }
     }
   },

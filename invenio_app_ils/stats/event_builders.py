@@ -14,6 +14,7 @@ from flask import g
 from flask_login import current_user
 
 from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
 
 
@@ -93,7 +94,26 @@ def loan_transition_event_builder(
         }
     )
 
-    if trigger == "extend":
+    if trigger == "request":
+        # Store how many items were available during request.
+        # This information is used by the loan indexer and added to the loan.
+        document_pid = loan["document_pid"]
+        document_class = current_app_ils.document_record_cls
+        document = document_class.get_record_by_pid(document_pid)
+        document_dict = document.replace_refs()
+
+        available_items_during_request_count = document_dict["circulation"][
+            "available_items_for_loan_count"
+        ]
+
+        event.update(
+            {
+                "extra_data": {
+                    "available_items_during_request_count": available_items_during_request_count
+                },
+            }
+        )
+    elif trigger == "extend":
         # Extensions are aggregated by invenio-stats and no extra information is required
         pass
     else:
