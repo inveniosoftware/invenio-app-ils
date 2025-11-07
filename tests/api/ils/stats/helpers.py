@@ -24,7 +24,12 @@ def process_and_aggregate_stats(event_types=None, aggregation_types=None):
 
 
 def query_stats(client, stat, params):
-    """Query stats via the HTTP API."""
+    """Query stats via the HTTP API.
+
+    :param client: Flask test client.
+    :param stat: The stat to query.
+    :param params: The parameters for the stat query.
+    """
 
     query = {
         "queried_stat": {
@@ -43,7 +48,10 @@ def query_stats(client, stat, params):
 
 
 def extract_buckets_from_stats_query(response):
-    """Extract buckets from the stats query response."""
+    """Extract buckets from the stats query response.
+
+    :param response: The HTTP response from the query_stats function.
+    """
 
     data = json.loads(response.data)
     buckets = data.get("queried_stat").get("buckets", [])
