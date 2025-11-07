@@ -44,6 +44,7 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.stats.event_builders import ils_record_changed_event_builder
 from invenio_app_ils.stats.processors import (
+    LoansEventsIndexer,
     filter_extend_transitions,
 )
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
@@ -994,13 +995,18 @@ STATS_EVENTS = {
             "suffix": "%Y",
         },
     },
+    # The following events are used to track loan state transitions and store additional data.
+    # Only the "extend" transition will be aggregated and used in the way intended by invenio-stats.
+    # Other transitions, e.g. "request", are used to store additional information,
+    # like the number of available items when a loan is requested.
+    # The loan indexer then later queries those events and adds the information to the loan.
     "loan-transitions": {
         "signal": "invenio_circulation.signals.loan_state_changed",
         "templates": "invenio_app_ils.stats.templates.events.loan_transitions",
         "event_builders": [
             "invenio_app_ils.stats.event_builders.loan_transition_event_builder",
         ],
-        "cls": EventsIndexer,
+        "cls": LoansEventsIndexer,
         "params": {
             "preprocessors": [
                 "invenio_app_ils.stats.processors.add_loan_transition_unique_id",

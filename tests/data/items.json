@@ -300,5 +300,27 @@
     "medium": "NOT_SPECIFIED",
     "status": "IN_BINDING",
     "document": {}
+  },
+  {
+    "pid": "itemid-loan-histogram-1",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-loan-histogram-1",
+    "document_pid": "docid-loan-histogram",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE",
+    "document": {}
+  },
+  {
+    "pid": "itemid-loan-histogram-2",
+    "created_by": { "type": "script", "value": "demo" },
+    "barcode": "123456789-loan-histogram-2",
+    "document_pid": "docid-loan-histogram",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE",
+    "document": {}
   }
 ]

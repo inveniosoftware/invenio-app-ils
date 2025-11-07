@@ -185,6 +185,23 @@ def testdata_most_loaned(db, testdata):
 
 
 @pytest.fixture()
+def testdata_loan_histogram(db, testdata):
+    """Create, index and return test data for loans histogram."""
+    loans_histogram = load_json_from_datadir("loans_histogram.json")
+    recs = _create_records(db, loans_histogram, Loan, CIRCULATION_LOAN_PID_TYPE)
+
+    ri = RecordIndexer()
+    for rec in recs:
+        ri.index(rec)
+
+    current_search.flush_and_refresh(index="loans")
+
+    testdata["loans_histogram"] = loans_histogram
+
+    return testdata
+
+
+@pytest.fixture()
 def item_record(app):
     """Fixture to return an Item payload."""
     return {
