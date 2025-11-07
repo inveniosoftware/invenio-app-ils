@@ -43,6 +43,9 @@ from invenio_app_ils.locations.indexer import LocationIndexer
 from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.stats.event_builders import ils_record_changed_event_builder
+from invenio_app_ils.stats.processors import (
+    filter_extend_transitions,
+)
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .document_requests.api import (
@@ -244,13 +247,21 @@ CELERY_BEAT_SCHEDULE = {
                 "ils-record-changes-updates",
                 "ils-record-changes-insertions",
                 "ils-record-changes-deletions",
+                "loan-transitions",
             )
         ],
     },
     "stats-aggregate-events": {
         "task": "invenio_stats.tasks.aggregate_events",
         "schedule": timedelta(hours=3),
-        "args": [("record-view-agg", "file-download-agg", "ils-record-changes-agg")],
+        "args": [
+            (
+                "record-view-agg",
+                "file-download-agg",
+                "ils-record-changes-agg",
+                "loan-transitions-agg",
+            )
+        ],
     },
     "clean_locations_past_closures_exceptions": {
         "task": (
@@ -983,6 +994,21 @@ STATS_EVENTS = {
             "suffix": "%Y",
         },
     },
+    "loan-transitions": {
+        "signal": "invenio_circulation.signals.loan_state_changed",
+        "templates": "invenio_app_ils.stats.templates.events.loan_transitions",
+        "event_builders": [
+            "invenio_app_ils.stats.event_builders.loan_transition_event_builder",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [
+                "invenio_app_ils.stats.processors.add_loan_transition_unique_id",
+            ],
+            "double_click_window": 0,
+            "suffix": "%Y",
+        },
+    },
 }
 
 STATS_AGGREGATIONS = {
@@ -1040,6 +1066,20 @@ STATS_AGGREGATIONS = {
             copy_fields=dict(pid_type="pid_type", method="method", user_id="user_id"),
             metric_fields=dict(),
             query_modifiers=[],
+        ),
+    ),
+    "loan-transitions-agg": dict(
+        templates="invenio_app_ils.stats.templates.aggregations.loan_transitions",
+        cls=StatAggregator,
+        params=dict(
+            event="loan-transitions",
+            field="trigger",
+            interval="day",
+            index_interval="year",
+            copy_fields=dict(),
+            metric_fields=dict(),
+            # We only track extension transitions
+            query_modifiers=[filter_extend_transitions],
         ),
     ),
 }
@@ -1114,6 +1154,18 @@ STATS_QUERIES = {
                 count=("sum", "count", {}),
             ),
             aggregated_fields=["user_id"],
+        ),
+    ),
+    "loan-extensions": dict(
+        cls=DateHistogramQuery,
+        permission_factory=backoffice_read_permission,
+        params=dict(
+            index="stats-loan-transitions",
+            copy_fields=dict(),
+            required_filters=dict(),
+            metric_fields=dict(
+                count=("sum", "count", {}),
+            ),
         ),
     ),
 }

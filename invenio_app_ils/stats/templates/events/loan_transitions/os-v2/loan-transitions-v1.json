@@ -1,0 +1,41 @@
+{
+  "index_patterns": [
+    "__SEARCH_INDEX_PREFIX__events-stats-loan-transitions-*"
+  ],
+  "settings": {
+    "index": {
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "dynamic": false,
+    "numeric_detection": false,
+    "properties": {
+      "timestamp": {
+        "type": "date"
+      },
+      "updated_timestamp": {
+        "type": "date"
+      },
+      "unique_id": {
+        "type": "keyword"
+      },
+      "trigger": {
+        "type": "keyword"
+      },
+      "pid_value": {
+        "type": "keyword"
+      },
+      "field": {
+        "type": "keyword"
+      },
+      "value": {
+        "type": "integer"
+      }
+    }
+  },
+  "aliases": {
+    "__SEARCH_INDEX_PREFIX__events-stats-loan-transitions": {}
+  }
+}

@@ -28,3 +28,17 @@ def add_record_change_ids(doc):
         doc["unique_id"] += f"__{doc['user_id']}"
 
     return doc
+
+
+def add_loan_transition_unique_id(doc):
+    """Add unique_id to the doc for a loan transition event."""
+
+    doc["unique_id"] = f"{doc['pid_value']}__{doc['trigger']}"
+
+    return doc
+
+
+def filter_extend_transitions(query):
+    """Filter for extend transitions only"""
+
+    return query.filter("term", trigger="extend")
