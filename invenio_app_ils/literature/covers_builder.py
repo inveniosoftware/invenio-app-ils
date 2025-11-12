@@ -13,7 +13,19 @@ from flask import url_for
 def build_ils_demo_cover_urls(metadata):
     """Build working ulrs for demo data."""
     cover_metadata = metadata.get("cover_metadata", {})
-    isbn = cover_metadata.get("ISBN", "")
+
+    isbn = (
+        cover_metadata.get("ISBN", "")
+        or cover_metadata.get("isbn", "")
+        or metadata.get("isbn", "")
+        or ""
+    )
+    identifiers = metadata.get("identifiers", [])
+    if not isbn and identifiers:
+        for identifier in identifiers:
+            if identifier.get("scheme") == "ISBN":
+                isbn = identifier.get("value", "")
+                break
     if isbn:
         return build_openlibrary_urls(isbn)
     return build_placeholder_urls()
