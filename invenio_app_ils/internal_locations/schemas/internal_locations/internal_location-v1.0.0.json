@@ -2,7 +2,14 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Internal Location",
   "type": "object",
-  "required": ["$schema", "pid", "location", "location_pid", "name"],
+  "required": [
+    "$schema",
+    "pid",
+    "location",
+    "location_pid",
+    "name",
+    "accessible_by_patrons"
+  ],
   "properties": {
     "$schema": {
       "type": "string"
@@ -41,6 +48,10 @@
     "pid": {
       "type": "string",
       "title": "The persistent identifier of this Internal Location"
+    },
+    "accessible_by_patrons": {
+      "type": "boolean",
+      "title": "Marks if this Internal Location is accessible by patrons"
     }
   }
 }
