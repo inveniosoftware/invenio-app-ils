@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2025 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Tests for covers_builder module."""
 
-import pytest
 from unittest.mock import patch
+
 from invenio_app_ils.literature.covers_builder import (
     build_ils_demo_cover_urls,
     build_openlibrary_urls,
