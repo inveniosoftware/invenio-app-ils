@@ -15,6 +15,7 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.proxies import current_circulation
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PIDDeletedError
+from invenio_search import current_search_client
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
@@ -97,3 +98,70 @@ def index_extra_fields_for_loan(loan_dict):
 
     can_circulate_items_count = document["circulation"]["can_circulate_items_count"]
     loan_dict["can_circulate_items_count"] = can_circulate_items_count
+
+
+def index_stats_fields_for_loan(loan_dict):
+    """Indexer hook to modify the loan record dict before indexing"""
+
+    creation_date = datetime.fromisoformat(loan_dict["_created"]).date()
+    start_date = (
+        datetime.fromisoformat(loan_dict["start_date"]).date()
+        if loan_dict.get("start_date")
+        else None
+    )
+    end_date = (
+        datetime.fromisoformat(loan_dict["end_date"]).date()
+        if loan_dict.get("end_date")
+        else None
+    )
+
+    # Collect extra information relevant for stats
+    stats = {}
+
+    # Time ranges in days
+    if start_date and end_date:
+        loan_duration = (end_date - start_date).days
+        stats["loan_duration"] = loan_duration
+
+    if creation_date and start_date:
+        waiting_time = (start_date - creation_date).days
+        stats["waiting_time"] = waiting_time if waiting_time >= 0 else None
+
+    # Document availability during loan request
+    stat_events_index_name = "events-stats-loan-transitions"
+    if current_search_client.indices.exists(index=stat_events_index_name):
+        search_body = {}
+
+        loan_pid = loan_dict["pid"]
+        search_body = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"term": {"trigger": "request"}},
+                        {"term": {"pid_value": loan_pid}},
+                    ],
+                }
+            },
+        }
+
+        search_result = current_search_client.search(
+            index=stat_events_index_name, body=search_body
+        )
+        hits = search_result["hits"]["hits"]
+        if len(hits) == 1:
+            request_transition_event = hits[0]["_source"]
+            available_items_during_request_count = request_transition_event[
+                "extra_data"
+            ]["available_items_during_request_count"]
+            stats["available_items_during_request"] = (
+                available_items_during_request_count > 0
+            )
+        elif len(hits) > 1:
+            raise ValueError(
+                f"Multiple request transition events for loan {loan_pid}."
+                "Expected zero or one."
+            )
+
+    if not "extra_data" in loan_dict:
+        loan_dict["extra_data"] = {}
+    loan_dict["extra_data"]["stats"] = stats

@@ -24,7 +24,12 @@ def process_and_aggregate_stats(event_types=None, aggregation_types=None):
 
 
 def query_stats(client, stat, params):
-    """Query stats via the HTTP API."""
+    """Query stats via the HTTP API.
+
+    :param client: Flask test client.
+    :param stat: The stat to query.
+    :param params: The parameters for the stat query.
+    """
 
     query = {
         "queried_stat": {
@@ -43,8 +48,46 @@ def query_stats(client, stat, params):
 
 
 def extract_buckets_from_stats_query(response):
-    """Extract buckets from the stats query response."""
+    """Extract buckets from the stats query response.
+
+    :param response: The HTTP response from the query_stats function.
+    """
 
     data = json.loads(response.data)
     buckets = data.get("queried_stat").get("buckets", [])
     return buckets
+
+
+def query_histogram(client, url, group_by, metrics=None, q=None):
+    """Query a histogram endpoint via the HTTP API.
+
+    :param client: Flask test client.
+    :param url: The histogram endpoint URL.
+    :param group_by: List of dicts defining the grouping fields.
+    :param metrics: List of dicts defining the aggregation metrics.
+    :param q: The search query.
+    """
+
+    params = {
+        "group_by": json.dumps(group_by),
+    }
+    if metrics:
+        params["metrics"] = json.dumps(metrics)
+    if q:
+        params["q"] = q
+
+    response = client.get(
+        url,
+        query_string=params,
+    )
+
+    return response
+
+
+def extract_buckets_from_histogram(response):
+    """Extract buckets from the histogram response.
+
+    :param response: The HTTP response from the histogram endpoint.
+    """
+    data = json.loads(response.data)
+    return data.get("buckets", [])
