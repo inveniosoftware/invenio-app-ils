@@ -12,7 +12,6 @@ from copy import deepcopy
 from datetime import timedelta
 
 import arrow
-from flask import url_for
 from invenio_circulation.api import Loan
 from invenio_db import db
 
@@ -21,34 +20,24 @@ from invenio_app_ils.items.api import Item
 from tests.helpers import user_login
 
 
-def _checkout_loan_pid1(client, json_headers, users, loan_params):
+def _checkout_loan_pid1(loan_params, checkout_loan):
     """Create an ongoing loan."""
-
-    def _checkout(loan_pid, params):
-        """Perform checkout action."""
-        user_login(client, "librarian", users)
-        checkout_url = url_for(
-            "invenio_circulation_loan_actions.loanid_actions",
-            pid_value=loan_pid,
-            action="checkout",
-        )
-        resp = client.post(checkout_url, headers=json_headers, data=json.dumps(params))
-        assert resp.status_code == 202
-        return resp.get_json()
 
     loan_pid = "loanid-1"
     params = deepcopy(loan_params)
     params["document_pid"] = "docid-1"
     params["item_pid"]["value"] = "itemid-2"
 
-    return _checkout(loan_pid, params)
+    return checkout_loan(loan_pid, params)
 
 
-def test_loan_extend_permissions(client, json_headers, users, testdata, loan_params):
+def test_loan_extend_permissions(
+    client, json_headers, users, testdata, loan_params, checkout_loan
+):
     """Test loan can be extended."""
     params = deepcopy(loan_params)
     del params["transaction_date"]
-    loan = _checkout_loan_pid1(client, json_headers, users, params)
+    loan = _checkout_loan_pid1(params, checkout_loan)
 
     tests = [
         ("admin", 202),
@@ -71,12 +60,12 @@ def test_loan_extend_permissions(client, json_headers, users, testdata, loan_par
 
 
 def test_loan_extension_end_date(
-    app, client, json_headers, users, testdata, loan_params
+    app, client, json_headers, users, testdata, loan_params, checkout_loan
 ):
     """Test loan end date after extension."""
     params = deepcopy(loan_params)
     del params["transaction_date"]
-    record = _checkout_loan_pid1(client, json_headers, users, params)
+    record = _checkout_loan_pid1(params, checkout_loan)
     extend_url = record["links"]["actions"]["extend"]
     loan = record["metadata"]
 

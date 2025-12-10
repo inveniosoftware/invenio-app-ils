@@ -1,0 +1,54 @@
+[
+  {
+    "pid": "loan-hist-1",
+    "state": "ITEM_ON_LOAN",
+    "patron_pid": "1",
+    "document_pid": "docid-loan-histogram",
+    "item_pid": {
+      "type": "pitmid",
+      "value": "itemid-loan-histogram-1"
+    },
+    "transaction_location_pid": "locid-1",
+    "start_date": "2025-07-01",
+    "end_date": "2025-12-01",
+    "extension_count": 1
+  },
+  {
+    "pid": "loan-hist-2",
+    "state": "PENDING",
+    "patron_pid": "2",
+    "document_pid": "docid-loan-histogram",
+    "transaction_location_pid": "locid-1",
+    "start_date": "2025-07-15",
+    "end_date": "2025-07-30",
+    "extension_count": 2
+  },
+  {
+    "pid": "loan-hist-3",
+    "state": "ITEM_RETURNED",
+    "patron_pid": "2",
+    "document_pid": "docid-loan-histogram",
+    "item_pid": {
+      "type": "pitmid",
+      "value": "itemid-loan-histogram-1"
+    },
+    "transaction_location_pid": "locid-1",
+    "start_date": "2024-01-01",
+    "end_date": "2024-07-01",
+    "extension_count": 1
+  },
+  {
+    "pid": "loan-hist-4",
+    "state": "ITEM_RETURNED",
+    "patron_pid": "2",
+    "document_pid": "docid-loan-histogram",
+    "item_pid": {
+      "type": "pitmid",
+      "value": "itemid-loan-histogram-1"
+    },
+    "transaction_location_pid": "locid-2",
+    "start_date": "2024-07-01",
+    "end_date": "2025-01-01",
+    "extension_count": 3
+  }
+]
