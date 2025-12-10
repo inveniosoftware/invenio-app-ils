@@ -26,10 +26,16 @@ def test_document_resolvers(app, testdata):
     assert "past_loans_count" in document["circulation"]
 
     # item and eitems
-    assert document["items"]["total"] == 9 and document["items"]["hits"]
+    assert document["items"]["total"] == 10 and document["items"]["hits"]
     assert document["eitems"]["total"] == 3 and document["eitems"]["hits"]
 
     # stock
     mediums = set([item["medium"] for item in document["items"]["hits"]])
     mediums.add("E-BOOK")
     assert set(document["stock"]["mediums"]) == mediums
+
+    # internal location - accessible_by_patrons
+    item = next(
+        item for item in document["items"]["hits"] if item["pid"] == "itemid-75"
+    )
+    assert item["internal_location"]["accessible_by_patrons"] is False
