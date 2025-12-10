@@ -1,12 +1,18 @@
 
 ..
-    Copyright (C) 2018-2024 CERN.
+    Copyright (C) 2018-2025 CERN.
 
     invenio-app-ils is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version 6.1.1 (released 2025-12-10)
+
+- tests: move covers builder test into correct folder
+- setup: bump oauthclient major version
+- global: bump OpenSearch to v3.2.0
 
 Version 6.1.0 (released 2025-10-05)
 
