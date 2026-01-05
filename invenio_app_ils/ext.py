@@ -330,4 +330,5 @@ def before_loan_index_hook(sender, json=None, record=None, index=None, **kwargs)
     :param kwargs: Any other parameters.
     """
     index_extra_fields_for_loan(json)
-    index_stats_fields_for_loan(json)
+    if current_app.config["ILS_EXTEND_INDICES_WITH_STATS_ENABLED"]:
+        index_stats_fields_for_loan(json)
