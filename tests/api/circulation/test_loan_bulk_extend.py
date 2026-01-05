@@ -19,7 +19,7 @@ from invenio_search import current_search
 from invenio_app_ils.circulation.api import bulk_extend_loans
 from invenio_app_ils.items.api import ITEM_PID_TYPE, Item
 from invenio_app_ils.proxies import current_app_ils
-from tests.api.conftest import _create_records
+from tests.api.conftest import create_records
 from tests.helpers import user_login
 
 pid_start_value = 200
@@ -108,8 +108,8 @@ def _prepare_data(db, repeated_run_number=0):
     loans = create_loans(new_pid_start_value, new_pid_end_value)
     items = create_items(new_pid_start_value, new_pid_end_value)
 
-    bulk_index_items = _create_records(db, items, Item, ITEM_PID_TYPE)
-    bulk_index_loans = _create_records(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
+    bulk_index_items = create_records(db, items, Item, ITEM_PID_TYPE)
+    bulk_index_loans = create_records(db, loans, Loan, CIRCULATION_LOAN_PID_TYPE)
 
     for item in bulk_index_items:
         current_app_ils.item_indexer.index(item)

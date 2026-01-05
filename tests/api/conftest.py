@@ -74,7 +74,7 @@ def json_headers():
     ]
 
 
-def _create_records(db, objs, cls, pid_type):
+def create_records(db, objs, cls, pid_type):
     """Create records and index."""
     recs = []
     for obj in objs:
@@ -89,42 +89,42 @@ def _create_records(db, objs, cls, pid_type):
 def testdata(app, db, search_clear, users):
     """Create, index and return test data."""
     data = load_json_from_datadir("locations.json")
-    locations = _create_records(db, data, Location, LOCATION_PID_TYPE)
+    locations = create_records(db, data, Location, LOCATION_PID_TYPE)
 
     data = load_json_from_datadir("internal_locations.json")
-    int_locs = _create_records(db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE)
+    int_locs = create_records(db, data, InternalLocation, INTERNAL_LOCATION_PID_TYPE)
 
     data = load_json_from_datadir("series.json")
-    series = _create_records(db, data, Series, SERIES_PID_TYPE)
+    series = create_records(db, data, Series, SERIES_PID_TYPE)
 
     data = load_json_from_datadir("documents.json")
-    documents = _create_records(db, data, Document, DOCUMENT_PID_TYPE)
+    documents = create_records(db, data, Document, DOCUMENT_PID_TYPE)
 
     data = load_json_from_datadir("items.json")
-    items = _create_records(db, data, Item, ITEM_PID_TYPE)
+    items = create_records(db, data, Item, ITEM_PID_TYPE)
 
     data = load_json_from_datadir("eitems.json")
-    eitems = _create_records(db, data, EItem, EITEM_PID_TYPE)
+    eitems = create_records(db, data, EItem, EITEM_PID_TYPE)
 
     data = load_json_from_datadir("loans.json")
-    loans = _create_records(db, data, Loan, CIRCULATION_LOAN_PID_TYPE)
+    loans = create_records(db, data, Loan, CIRCULATION_LOAN_PID_TYPE)
 
     data = load_json_from_datadir("acq_providers.json")
-    acq_providers = _create_records(db, data, Provider, PROVIDER_PID_TYPE)
+    acq_providers = create_records(db, data, Provider, PROVIDER_PID_TYPE)
 
     data = load_json_from_datadir("acq_orders.json")
-    acq_orders = _create_records(db, data, Order, ORDER_PID_TYPE)
+    acq_orders = create_records(db, data, Order, ORDER_PID_TYPE)
 
     data = load_json_from_datadir("ill_providers.json")
-    ill_providers = _create_records(db, data, Provider, PROVIDER_PID_TYPE)
+    ill_providers = create_records(db, data, Provider, PROVIDER_PID_TYPE)
 
     data = load_json_from_datadir("ill_borrowing_requests.json")
-    ill_brw_reqs = _create_records(
+    ill_brw_reqs = create_records(
         db, data, BorrowingRequest, BORROWING_REQUEST_PID_TYPE
     )
 
     data = load_json_from_datadir("document_requests.json")
-    doc_reqs = _create_records(db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE)
+    doc_reqs = create_records(db, data, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE)
 
     # index
     ri = RecordIndexer()
@@ -166,7 +166,7 @@ def testdata(app, db, search_clear, users):
 def testdata_most_loaned(db, testdata):
     """Create, index and return test data for most loans tests."""
     most_loaned = load_json_from_datadir("loans_most_loaned.json")
-    recs = _create_records(db, most_loaned, Loan, CIRCULATION_LOAN_PID_TYPE)
+    recs = create_records(db, most_loaned, Loan, CIRCULATION_LOAN_PID_TYPE)
 
     ri = RecordIndexer()
     for rec in recs:
@@ -182,23 +182,6 @@ def testdata_most_loaned(db, testdata):
         "loans": most_loaned,
         "series": testdata["series"],
     }
-
-
-@pytest.fixture()
-def testdata_loan_histogram(db, testdata):
-    """Create, index and return test data for loans histogram."""
-    loans_histogram = load_json_from_datadir("loans_histogram.json")
-    recs = _create_records(db, loans_histogram, Loan, CIRCULATION_LOAN_PID_TYPE)
-
-    ri = RecordIndexer()
-    for rec in recs:
-        ri.index(rec)
-
-    current_search.flush_and_refresh(index="loans")
-
-    testdata["loans_histogram"] = loans_histogram
-
-    return testdata
 
 
 @pytest.fixture()

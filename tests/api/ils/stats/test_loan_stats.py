@@ -198,6 +198,7 @@ def test_loan_stats_histogram_group_by_document_availability(
     json_headers,
     testdata_loan_histogram,
     loan_params,
+    with_stats_index_extensions,
 ):
     """Test that the availability of an item during loan request can be used for grouping loans in the histogram."""
 
@@ -266,6 +267,7 @@ def test_loan_stats_indexed_fields(
     empty_event_queues,
     empty_search,
     testdata_loan_histogram,
+    with_stats_index_extensions,
 ):
     """Test loan time ranges being indexed onto loans
 
