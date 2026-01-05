@@ -113,10 +113,5 @@ def loan_transition_event_builder(
                 },
             }
         )
-    elif trigger == "extend":
-        # Extensions are aggregated by invenio-stats and no extra information is required
-        pass
-    else:
-        return None
 
     return event
