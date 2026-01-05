@@ -17,6 +17,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PIDDeletedError
 from invenio_search import current_search_client
 
+from invenio_app_ils.circulation.errors import LoanTransitionEventsIndexMissingError
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
@@ -129,43 +130,39 @@ def index_stats_fields_for_loan(loan_dict):
 
     # Document availability during loan request
     stat_events_index_name = "events-stats-loan-transitions"
-    if current_search_client.indices.exists(index=stat_events_index_name):
-        loan_pid = loan_dict["pid"]
-        search_body = {
-            "query": {
-                "bool": {
-                    "must": [
-                        {"term": {"trigger": "request"}},
-                        {"term": {"pid_value": loan_pid}},
-                    ],
-                }
-            },
-        }
+    if not current_search_client.indices.exists(index=stat_events_index_name):
+        raise LoanTransitionEventsIndexMissingError()
 
-        search_result = current_search_client.search(
-            index=stat_events_index_name, body=search_body
+    loan_pid = loan_dict["pid"]
+    search_body = {
+        "query": {
+            "bool": {
+                "must": [
+                    {"term": {"trigger": "request"}},
+                    {"term": {"pid_value": loan_pid}},
+                ],
+            }
+        },
+    }
+
+    search_result = current_search_client.search(
+        index=stat_events_index_name, body=search_body
+    )
+    hits = search_result["hits"]["hits"]
+    if len(hits) == 1:
+        request_transition_event = hits[0]["_source"]
+        available_items_during_request_count = request_transition_event[
+            "extra_data"
+        ]["available_items_during_request_count"]
+        stats["available_items_during_request"] = (
+            available_items_during_request_count > 0
         )
-        hits = search_result["hits"]["hits"]
-        if len(hits) == 1:
-            request_transition_event = hits[0]["_source"]
-            available_items_during_request_count = request_transition_event[
-                "extra_data"
-            ]["available_items_during_request_count"]
-            stats["available_items_during_request"] = (
-                available_items_during_request_count > 0
-            )
-        elif len(hits) > 1:
-            raise ValueError(
-                f"Multiple request transition events for loan {loan_pid}."
-                "Expected zero or one."
-            )
-    else:
-        current_app.logger.error(
-            "Stats events index '{stat_events_index_name}' does not exist. "
-            "This is normal during initial setup or if no events have been processed yet. "
-            "No data is lost, as soon as the events are processed, " \
-            "the loan wil lbe reindex and the the stat will be available."
+    elif len(hits) > 1:
+        raise ValueError(
+            f"Multiple request transition events for loan {loan_pid}."
+            "Expected zero or one."
         )
+
 
     if not "extra_data" in loan_dict:
         loan_dict["extra_data"] = {}
