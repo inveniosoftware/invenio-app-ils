@@ -19,12 +19,14 @@ from tests.api.ils.stats.helpers import (
 from tests.helpers import user_login, user_logout
 
 
-def _query_loan_extensions_stats(client):
+def _query_loan_extensions_stats(client, trigger):
     """Query stats via the HTTP API."""
     response = query_stats(
         client,
-        "loan-extensions",
-        {},
+        "loan-transitions",
+        {
+            "trigger": trigger,
+        },
     )
     assert response.status_code == 200
     buckets = extract_buckets_from_stats_query(response)
@@ -33,7 +35,7 @@ def _query_loan_extensions_stats(client):
     return total_count
 
 
-def test_loan_extensions_histogram(
+def test_loan_transition_histogram(
     client,
     json_headers,
     users,
@@ -43,13 +45,18 @@ def test_loan_extensions_histogram(
     loan_params,
     checkout_loan,
 ):
-    """Test that loan extensions are tracked correctly."""
+    """Test that certain transitions are tracked correctly.
+
+    The following transitions are tested checkout, extend and checkin
+    """
 
     process_and_aggregate_stats()
     user_login(client, "admin", users)
-    initial_count = _query_loan_extensions_stats(client)
+    initial_checkout_count = _query_loan_extensions_stats(client, "checkout")
+    initial_extend_count = _query_loan_extensions_stats(client, "extend")
+    initial_checkin_count = _query_loan_extensions_stats(client, "checkin")
 
-    # checkout and extend loan
+    # checkout loan
     loan_pid = "loanid-1"
     params = deepcopy(loan_params)
     params["document_pid"] = "docid-1"
@@ -57,7 +64,9 @@ def test_loan_extensions_histogram(
     del params["transaction_date"]
     loan = checkout_loan(loan_pid, params)
 
-    extend_url = loan["links"]["actions"]["extend"]
+    # extend loan
+    urls = loan["links"]["actions"]
+    extend_url = urls["extend"]
     user_login(client, "admin", users)
     res = client.post(
         extend_url,
@@ -66,15 +75,30 @@ def test_loan_extensions_histogram(
     )
     assert res.status_code == 202
 
+    # checkin loan
+    checkin_url = urls["checkin"]
+    user_login(client, "librarian", users)
+    res = client.post(
+        checkin_url,
+        headers=json_headers,
+        data=json.dumps(params),
+    )
+    assert res.status_code == 202
+
     process_and_aggregate_stats()
-    final_count = _query_loan_extensions_stats(client)
-    assert final_count == initial_count + 1
+    final_checkout_count = _query_loan_extensions_stats(client, "checkout")
+    final_extend_count = _query_loan_extensions_stats(client, "extend")
+    final_checkin_count = _query_loan_extensions_stats(client, "checkin")
+
+    assert final_extend_count == initial_extend_count + 1
+    assert final_checkout_count == initial_checkout_count + 1
+    assert final_checkin_count == initial_checkin_count + 1
 
 
-def test_loan_extensions_stats_permissions(client, users):
+def test_loan_transition_stats_permissions(client, users):
     """Test that only certain users can access the stats."""
 
-    stat = "loan-extensions"
+    stat = "loan-transitions"
     tests = [
         ("admin", 200),
         ("patron1", 403),
@@ -83,7 +107,9 @@ def test_loan_extensions_stats_permissions(client, users):
         ("anonymous", 401),
     ]
 
-    params = {}
+    params = {
+        "trigger": "request",
+    }
     for username, expected_resp_code in tests:
         user_login(client, username, users)
         response = query_stats(

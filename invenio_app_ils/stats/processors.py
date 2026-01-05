@@ -44,12 +44,6 @@ def add_loan_transition_unique_id(doc):
     return doc
 
 
-def filter_extend_transitions(query):
-    """Filter for extend transitions only"""
-
-    return query.filter("term", trigger="extend")
-
-
 class LoansEventsIndexer(EventsIndexer):
     """Events indexer for events related to loans.
 

@@ -43,10 +43,7 @@ from invenio_app_ils.locations.indexer import LocationIndexer
 from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.stats.event_builders import ils_record_changed_event_builder
-from invenio_app_ils.stats.processors import (
-    LoansEventsIndexer,
-    filter_extend_transitions,
-)
+from invenio_app_ils.stats.processors import LoansEventsIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .document_requests.api import (
@@ -995,9 +992,8 @@ STATS_EVENTS = {
             "suffix": "%Y",
         },
     },
-    # The following events are used to track loan state transitions and store additional data.
-    # Only the "extend" transition will be aggregated and used in the way intended by invenio-stats.
-    # Other transitions, e.g. "request", are used to store additional information,
+    # The following events are used to count loan state transitions.
+    # Additionally, some transitions, e.g. "request", are used to store extra data,
     # like the number of available items when a loan is requested.
     # The loan indexer then later queries those events and adds the information to the loan.
     "loan-transitions": {
@@ -1084,8 +1080,7 @@ STATS_AGGREGATIONS = {
             index_interval="year",
             copy_fields=dict(),
             metric_fields=dict(),
-            # We only track extension transitions
-            query_modifiers=[filter_extend_transitions],
+            query_modifiers=[],
         ),
     ),
 }
@@ -1162,13 +1157,13 @@ STATS_QUERIES = {
             aggregated_fields=["user_id"],
         ),
     ),
-    "loan-extensions": dict(
+    "loan-transitions": dict(
         cls=DateHistogramQuery,
         permission_factory=backoffice_read_permission,
         params=dict(
             index="stats-loan-transitions",
             copy_fields=dict(),
-            required_filters=dict(),
+            required_filters=dict(trigger="trigger"),
             metric_fields=dict(
                 count=("sum", "count", {}),
             ),
