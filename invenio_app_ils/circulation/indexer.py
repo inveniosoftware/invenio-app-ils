@@ -130,8 +130,6 @@ def index_stats_fields_for_loan(loan_dict):
     # Document availability during loan request
     stat_events_index_name = "events-stats-loan-transitions"
     if current_search_client.indices.exists(index=stat_events_index_name):
-        search_body = {}
-
         loan_pid = loan_dict["pid"]
         search_body = {
             "query": {
@@ -161,6 +159,13 @@ def index_stats_fields_for_loan(loan_dict):
                 f"Multiple request transition events for loan {loan_pid}."
                 "Expected zero or one."
             )
+    else:
+        current_app.logger.error(
+            "Stats events index '{stat_events_index_name}' does not exist. "
+            "This is normal during initial setup or if no events have been processed yet. "
+            "No data is lost, as soon as the events are processed, " \
+            "the loan wil lbe reindex and the the stat will be available."
+        )
 
     if not "extra_data" in loan_dict:
         loan_dict["extra_data"] = {}
