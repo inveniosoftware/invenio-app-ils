@@ -1,12 +1,22 @@
 
 ..
-    Copyright (C) 2018-2025 CERN.
+    Copyright (C) 2018-2026 CERN.
 
     invenio-app-ils is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version 6.2.0 (released 2026-01-06)
+
+- stats: generalize stat tracking loan extensions to track all transitions
+- stats: raise error when loan is indexed while loan transition events index does not exits
+- stats: add feature flag for extending record indices with stats
+- stats: warn when loan gets indexed while loan-transitions index does not exist
+- global: update invenio-circulation
+- stats: add loan stats endpoint and extend loans index
+- stats: add stat to track loan extensions
 
 Version 6.1.1 (released 2025-12-10)
 
