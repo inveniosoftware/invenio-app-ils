@@ -23,7 +23,7 @@ from tests.api.ils.stats.helpers import (
     process_and_aggregate_stats,
     query_histogram,
 )
-from tests.helpers import user_login, user_logout
+from tests.helpers import user_login
 
 LOAN_HISTOGRAM_ENDPOINT = "invenio_app_ils_circulation_stats.loan_histogram"
 
@@ -335,84 +335,4 @@ def test_loan_stats_indexed_fields(
     )
 
 
-def test_loan_stats_permissions(client, users):
-    """Test that only certain users can access the loan histogram endpoint."""
-
-    tests = [
-        ("admin", 200),
-        ("librarian", 200),
-        ("readonly", 200),
-        ("patron1", 403),
-        ("anonymous", 401),
-    ]
-
-    for username, expected_resp_code in tests:
-        user_login(client, username, users)
-
-        url = url_for(LOAN_HISTOGRAM_ENDPOINT)
-        response = query_histogram(
-            client,
-            url,
-            group_by=[{"field": "state"}],
-            metrics=[],
-            q="",
-        )
-
-        assert (
-            response.status_code == expected_resp_code
-        ), f"Failed for user: {username}"
-
-        user_logout(client)
-
-
-def test_loan_stats_input_validation(client, users):
-    user_login(client, "admin", users)
-    url = url_for(LOAN_HISTOGRAM_ENDPOINT)
-
-    # Attempt to use wrong aggregation type
-    group_by = [{"field": "state"}]
-    metrics = [{"field": "loan_duration", "aggregation": "script"}]
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Attempt to pass a field with special characters as the metric field
-    group_by = [{"field": "state"}]
-    metrics = [{"field": "doc['loan_duration'].value", "aggregation": "avg"}]
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Attempt to pass a field with special characters as the group by field
-    group_by = [{"field": "doc['loan_duration'].value"}]
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Attempt to use an invalid date interval
-    group_by = [{"field": "start_date", "interval": "1z"}]
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Attempt to use a date field without an interval
-    group_by = [{"field": "start_date"}]
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Attempt to use a  non date field with an interval
-    group_by = [{"field": "state", "interval": "1M"}]
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Missing group_by parameter
-    group_by = None
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
-
-    # Empty group_by parameter
-    group_by = []
-    metrics = []
-    resp = query_histogram(client, url, group_by, metrics)
-    assert resp.status_code == 400
+# Permission and input validation tests are in test_histogram_common.py

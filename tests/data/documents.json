@@ -245,5 +245,16 @@
     "document_type": "BOOK",
     "restricted": false,
     "publication_year": "1950"
+  },
+  {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v2.0.0.json",
+    "pid": "docid-order-histogram",
+    "created_by": {"type": "script", "value": "demo"},
+    "title": "Document used to differentiate orders for the order histogram test",
+    "authors": [{ "full_name": "Test Author" }],
+    "abstract": "Just an abstract",
+    "document_type": "BOOK",
+    "restricted": false,
+    "publication_year": "2024"
   }
 ]

@@ -17,6 +17,7 @@ from invenio_search import current_search
 from invenio_stats import current_stats
 from invenio_stats.tasks import process_events
 
+from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, Order
 from tests.api.conftest import create_records
 from tests.helpers import (
     load_json_from_datadir,
@@ -45,6 +46,23 @@ def testdata_loan_histogram(db, testdata):
     current_search.flush_and_refresh(index="loans")
 
     testdata["loans_histogram"] = loans_histogram
+
+    return testdata
+
+
+@pytest.fixture()
+def testdata_order_histogram(db, testdata):
+    """Create, index and return test data for orders histogram."""
+    orders_histogram = load_json_from_datadir("acq_orders_histogram.json")
+    recs = create_records(db, orders_histogram, Order, ORDER_PID_TYPE)
+
+    ri = RecordIndexer()
+    for rec in recs:
+        ri.index(rec)
+
+    current_search.flush_and_refresh(index="acq_orders")
+
+    testdata["orders_histogram"] = orders_histogram
 
     return testdata
 

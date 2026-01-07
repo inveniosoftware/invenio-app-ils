@@ -358,6 +358,11 @@
       },
       "provider_pid": {
         "type": "keyword"
+      },
+      "stats": {
+        "type": "object",
+        "dynamic": true,
+        "enabled": true
       }
     }
   }
