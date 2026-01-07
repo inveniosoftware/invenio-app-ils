@@ -164,6 +164,8 @@ def index_stats_fields_for_loan(loan_dict):
         )
 
 
+    # Make use of the `extra_data` property as loans are part of `invenio-circulation`,
+    # which do not expose the `stats` property directly
     if not "extra_data" in loan_dict:
         loan_dict["extra_data"] = {}
     loan_dict["extra_data"]["stats"] = stats

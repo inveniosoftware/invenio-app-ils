@@ -18,17 +18,17 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 from marshmallow.exceptions import ValidationError
 
-from invenio_app_ils.circulation.stats.api import (
-    fetch_most_loaned_documents,
-    get_loan_statistics,
-)
-from invenio_app_ils.circulation.stats.schemas import HistogramParamsSchema
-from invenio_app_ils.circulation.stats.serializers import loan_stats_response
+from invenio_app_ils.circulation.stats.api import fetch_most_loaned_documents
 from invenio_app_ils.circulation.views import IlsCirculationResource
 from invenio_app_ils.config import RECORDS_REST_MAX_RESULT_WINDOW
 from invenio_app_ils.documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_TYPE
 from invenio_app_ils.errors import InvalidParameterError
 from invenio_app_ils.permissions import need_permissions
+from invenio_app_ils.stats.histogram import (
+    HistogramParamsSchema,
+    create_histogram_view,
+    get_record_statistics,
+)
 
 
 def create_most_loaned_documents_view(blueprint, app):
@@ -56,33 +56,18 @@ def create_most_loaned_documents_view(blueprint, app):
     )
 
 
-def create_loan_histogram_view(blueprint, app):
-    """Add url rule for loan histogram view."""
-
-    endpoints = app.config.get("RECORDS_REST_ENDPOINTS")
-    document_endpoint = endpoints.get(CIRCULATION_LOAN_PID_TYPE)
-    default_media_type = document_endpoint.get("default_media_type")
-    loan_stats_serializers = {"application/json": loan_stats_response}
-
-    loan_stats_view_func = LoanHistogramResource.as_view(
-        LoanHistogramResource.view_name,
-        serializers=loan_stats_serializers,
-        default_media_type=default_media_type,
-        ctx={},
-    )
-    blueprint.add_url_rule(
-        "/circulation/loans/stats",
-        view_func=loan_stats_view_func,
-        methods=["GET"],
-    )
-
-
 def create_circulation_stats_blueprint(app):
     """Add statistics views to the blueprint."""
     blueprint = Blueprint("invenio_app_ils_circulation_stats", __name__, url_prefix="")
 
     create_most_loaned_documents_view(blueprint, app)
-    create_loan_histogram_view(blueprint, app)
+    create_histogram_view(
+        blueprint,
+        app,
+        CIRCULATION_LOAN_PID_TYPE,
+        LoanHistogramResource,
+        "/circulation/loans",
+    )
 
     return blueprint
 
@@ -190,7 +175,7 @@ class LoanHistogramResource(IlsCirculationResource):
         search = search_cls()
         search, _ = default_search_factory(self, search)
 
-        aggregation_buckets = get_loan_statistics(
+        aggregation_buckets = get_record_statistics(
             loan_date_fields,
             search,
             parsed_args["group_by"],

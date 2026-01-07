@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Marshmallow schemas for loan statistics validation."""
+"""Marshmallow schemas for histogram statistics validation."""
 
 import json
 import re
@@ -27,30 +27,30 @@ _VALID_AGGREGATE_FUNCTION_TYPES = _OS_NATIVE_AGGREGATE_FUNCTION_TYPES.union({"me
 _VALID_DATE_INTERVALS = {"1d", "1w", "1M", "1q", "1y"}
 
 
-def validate_field_name(field_name):
-    """Validate a field name for search to prevent injection attacks.
-
-    :param field_name: The field name to validate
-    :raises InvalidParameterError: If field name is invalid or potentially malicious
-    """
-    if not _OS_VALID_FIELD_NAME_PATTERN.match(field_name):
-        raise InvalidParameterError(
-            description=(
-                f"Invalid field name '{field_name}'. "
-                "Field names may contain only alphanumeric characters, underscores, "
-                "and dots."
-            )
-        )
-
-
 class SecureFieldNameField(fields.String):
     """Marshmallow field that validates field names to prevent injection attacks."""
+
+    @classmethod
+    def _validate_field_name(cls, field_name):
+        """Validate a field name for search to prevent injection attacks.
+
+        :param field_name: The field name to validate
+        :raises InvalidParameterError: If field name is invalid or potentially malicious
+        """
+        if not _OS_VALID_FIELD_NAME_PATTERN.match(field_name):
+            raise InvalidParameterError(
+                description=(
+                    f"Invalid field name '{field_name}'. "
+                    "Field names may contain only alphanumeric characters, underscores, "
+                    "and dots."
+                )
+            )
 
     def _deserialize(self, value, attr, data, **kwargs):
         """Deserialize and validate field name."""
 
         field_name = super()._deserialize(value, attr, data, **kwargs)
-        validate_field_name(field_name)
+        SecureFieldNameField._validate_field_name(field_name)
         return field_name
 
 

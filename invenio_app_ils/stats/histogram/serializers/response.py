@@ -6,15 +6,15 @@
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio App ILS loan stats response serializers."""
+"""Invenio App ILS histogram stats response serializers."""
 
 import json
 
 from flask import current_app
 
 
-def loan_stats_responsify(schema_class, mimetype):
-    """Loan stats response serializer.
+def histogram_stats_responsify(schema_class, mimetype):
+    """Histogram stats response serializer.
 
     :param schema_class: Schema instance.
     :param mimetype: MIME type of response.
@@ -22,7 +22,6 @@ def loan_stats_responsify(schema_class, mimetype):
 
     def view(data, code=200, headers=None):
         """Generate the response object."""
-        # return jsonify(data), code
         response_data = schema_class().dump(data)
 
         response = current_app.response_class(
