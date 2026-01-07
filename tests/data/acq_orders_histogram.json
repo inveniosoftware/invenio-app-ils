@@ -1,0 +1,60 @@
+[
+  {
+    "pid": "order-hist-1",
+    "status": "PENDING",
+    "order_date": "2024-01-01",
+    "provider_pid": "acq-provid-1",
+    "order_lines": [
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-order-histogram",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ]
+  },
+  {
+    "pid": "order-hist-2",
+    "status": "ORDERED",
+    "order_date": "2024-06-01",
+    "provider_pid": "acq-provid-1",
+    "order_lines": [
+      {
+        "copies_ordered": 2,
+        "document_pid": "docid-order-histogram",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ]
+  },
+  {
+    "pid": "order-hist-3",
+    "status": "RECEIVED",
+    "order_date": "2024-01-01",
+    "received_date": "2024-07-01",
+    "provider_pid": "acq-provid-2",
+    "order_lines": [
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-order-histogram",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ]
+  },
+  {
+    "pid": "order-hist-4",
+    "status": "RECEIVED",
+    "order_date": "2025-01-01",
+    "received_date": "2025-06-01",
+    "provider_pid": "acq-provid-2",
+    "order_lines": [
+      {
+        "copies_ordered": 3,
+        "document_pid": "docid-order-histogram",
+        "medium": "paperback",
+        "recipient": "library"
+      }
+    ]
+  }
+]
