@@ -19,7 +19,6 @@ from marshmallow import (
     validates_schema,
 )
 
-from invenio_app_ils.errors import InvalidParameterError
 
 _OS_VALID_FIELD_NAME_PATTERN = re.compile(r"^[A-Za-z0-9_.]+$")
 _OS_NATIVE_AGGREGATE_FUNCTION_TYPES = {"avg", "sum", "min", "max"}
@@ -27,35 +26,18 @@ _VALID_AGGREGATE_FUNCTION_TYPES = _OS_NATIVE_AGGREGATE_FUNCTION_TYPES.union({"me
 _VALID_DATE_INTERVALS = {"1d", "1w", "1M", "1q", "1y"}
 
 
-class SecureFieldNameField(fields.String):
-    """Marshmallow field that validates field names to prevent injection attacks."""
+class SecureSearchFieldNameField(fields.String):
+    """Field that validates field names for search to prevent injection attacks."""
 
-    @classmethod
-    def _validate_field_name(cls, field_name):
-        """Validate a field name for search to prevent injection attacks.
-
-        :param field_name: The field name to validate
-        :raises InvalidParameterError: If field name is invalid or potentially malicious
-        """
-        if not _OS_VALID_FIELD_NAME_PATTERN.match(field_name):
-            raise InvalidParameterError(
-                description=(
-                    f"Invalid field name '{field_name}'. "
-                    "Field names may contain only alphanumeric characters, underscores, "
-                    "and dots."
-                )
-            )
-
-    def _deserialize(self, value, attr, data, **kwargs):
-        """Deserialize and validate field name."""
-
-        field_name = super()._deserialize(value, attr, data, **kwargs)
-        SecureFieldNameField._validate_field_name(field_name)
-        return field_name
+    def __init__(self, *args, **kwargs):
+        kwargs["validate"] = validate.Regexp(_OS_VALID_FIELD_NAME_PATTERN)
+        super().__init__(*args, **kwargs)
 
 
 class GroupByItemSchema(Schema):
-    field = SecureFieldNameField(required=True)
+    """Schema for validating a single group_by item."""
+
+    field = SecureSearchFieldNameField(required=True)
     interval = fields.String(validate=validate.OneOf(_VALID_DATE_INTERVALS))
 
     @validates_schema
@@ -78,7 +60,7 @@ class GroupByItemSchema(Schema):
 class MetricItemSchema(Schema):
     """Schema for validating a single metric item."""
 
-    field = SecureFieldNameField(required=True)
+    field = SecureSearchFieldNameField(required=True)
     aggregation = fields.String(
         required=True, validate=validate.OneOf(_VALID_AGGREGATE_FUNCTION_TYPES)
     )
