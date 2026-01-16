@@ -26,6 +26,11 @@ HISTOGRAM_ENDPOINTS = [
         "keyword_field": "status",
         "date_field": "order_date",
     },
+    {
+        "endpoint": "invenio_app_ils_document_request_stats.document_request_histogram",
+        "keyword_field": "state",
+        "date_field": "_created",
+    },
 ]
 
 
