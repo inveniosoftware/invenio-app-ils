@@ -18,6 +18,10 @@ from invenio_stats import current_stats
 from invenio_stats.tasks import process_events
 
 from invenio_app_ils.acquisition.api import ORDER_PID_TYPE, Order
+from invenio_app_ils.document_requests.api import (
+    DOCUMENT_REQUEST_PID_TYPE,
+    DocumentRequest,
+)
 from tests.api.conftest import create_records
 from tests.helpers import (
     load_json_from_datadir,
@@ -63,6 +67,25 @@ def testdata_order_histogram(db, testdata):
     current_search.flush_and_refresh(index="acq_orders")
 
     testdata["orders_histogram"] = orders_histogram
+
+    return testdata
+
+
+@pytest.fixture()
+def testdata_document_request_histogram(db, testdata):
+    """Create, index and return test data for document requests histogram."""
+    doc_requests_histogram = load_json_from_datadir("document_requests_histogram.json")
+    recs = create_records(
+        db, doc_requests_histogram, DocumentRequest, DOCUMENT_REQUEST_PID_TYPE
+    )
+
+    ri = RecordIndexer()
+    for rec in recs:
+        ri.index(rec)
+
+    current_search.flush_and_refresh(index="document_requests")
+
+    testdata["document_requests_histogram"] = doc_requests_histogram
 
     return testdata
 

@@ -153,7 +153,7 @@ def test_order_stats_indexed_fields(
     empty_event_queues,
     empty_search,
     testdata_order_histogram,
-    with_stats_index_extensions
+    with_stats_index_extensions,
 ):
     """Test order time ranges being indexed onto orders.
 

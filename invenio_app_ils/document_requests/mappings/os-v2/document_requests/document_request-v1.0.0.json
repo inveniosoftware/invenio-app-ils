@@ -190,6 +190,11 @@
       },
       "publisher": {
         "type": "text"
+      },
+      "stats": {
+        "type": "object",
+        "dynamic": true,
+        "enabled": true
       }
     }
   }

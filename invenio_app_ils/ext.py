@@ -27,6 +27,7 @@ from .circulation.indexer import (
 )
 from .circulation.receivers import register_circulation_signals
 from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
+from .document_requests.indexer import index_stats_fields_for_document_request
 from .documents.api import DOCUMENT_PID_TYPE
 from .eitems.api import EITEM_PID_TYPE
 from .files.receivers import register_files_signals
@@ -226,6 +227,7 @@ class InvenioAppIls(object):
             self.init_metadata_extensions(app)
             self.init_loan_indexer_hook(app)
             self.init_order_indexer_hook(app)
+            self.init_document_request_indexer_hook(app)
 
     def init_app(self, app):
         """Flask application initialization."""
@@ -287,6 +289,15 @@ class InvenioAppIls(object):
             sender=app,
             weak=False,
             index="acq_orders-order-v1.0.0",
+        )
+
+    def init_document_request_indexer_hook(self, app):
+        """Custom document request indexer hook init."""
+        before_record_index.dynamic_connect(
+            before_document_request_index_hook,
+            sender=app,
+            weak=False,
+            index="document_requests-document_request-v1.0.0",
         )
 
     def update_config_records_rest(self, app):
@@ -356,3 +367,17 @@ def before_order_index_hook(sender, json=None, record=None, index=None, **kwargs
     """
     if current_app.config["ILS_EXTEND_INDICES_WITH_STATS_ENABLED"]:
         index_stats_fields_for_order(json)
+
+def before_document_request_index_hook(
+    sender, json=None, record=None, index=None, **kwargs
+):
+    """Hook to transform document request record before ES indexing.
+
+    :param sender: The entity sending the signal.
+    :param json: The dumped Record dict which will be indexed.
+    :param record: The corresponding Record object.
+    :param index: The index in which the json will be indexed.
+    :param kwargs: Any other parameters.
+    """
+    if current_app.config["ILS_EXTEND_INDICES_WITH_STATS_ENABLED"]:
+        index_stats_fields_for_document_request(json)

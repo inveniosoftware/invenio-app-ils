@@ -207,6 +207,7 @@ _is_backoffice_read_permission = [
     "stats-most-loaned",
     "stats-loans",
     "stats-orders",
+    "stats-document-requests",
     "get-notifications-sent-to-patron",
 ]
 _is_patron_owner_permission = [

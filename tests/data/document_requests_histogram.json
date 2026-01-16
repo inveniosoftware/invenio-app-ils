@@ -1,0 +1,56 @@
+[
+  {
+    "pid": "dreq-hist-1",
+    "state": "PENDING",
+    "patron_pid": "1",
+    "medium": "PAPER",
+    "title": "Test histogram title 1",
+    "request_type": "LOAN",
+    "document_pid": "docid-dreq-histogram"
+  },
+  {
+    "pid": "dreq-hist-2",
+    "state": "PENDING",
+    "patron_pid": "2",
+    "medium": "PAPER",
+    "title": "Test histogram title 2",
+    "request_type": "BUY",
+    "document_pid": "docid-dreq-histogram"
+  },
+  {
+    "pid": "dreq-hist-3",
+    "state": "ACCEPTED",
+    "patron_pid": "1",
+    "medium": "PAPER",
+    "title": "Test histogram title 3",
+    "request_type": "LOAN",
+    "document_pid": "docid-dreq-histogram",
+    "physical_item_provider": {
+      "pid": "acqoid-1",
+      "pid_type": "acqoid"
+    }
+  },
+  {
+    "pid": "dreq-hist-4",
+    "state": "DECLINED",
+    "patron_pid": "3",
+    "medium": "PAPER",
+    "title": "Test histogram title 4",
+    "request_type": "BUY",
+    "decline_reason": "NOT_FOUND",
+    "document_pid": "docid-dreq-histogram"
+  },
+  {
+    "pid": "dreq-hist-5",
+    "state": "ACCEPTED",
+    "patron_pid": "2",
+    "medium": "PAPER",
+    "title": "Test histogram title 5",
+    "request_type": "LOAN",
+    "document_pid": "docid-dreq-histogram",
+    "physical_item_provider": {
+      "pid": "illbid-1",
+      "pid_type": "illbid"
+    }
+  }
+]
