@@ -8,6 +8,13 @@
 Changes
 =======
 
+Version 8.0.0 (released 2026-01-21)
+
+- stats: add document request stats endpoint and extend document request index
+- stats: fix Schema using deserialize to validate
+- stats: add order stats endpoint and extend orders index
+- stats: turn loan histogram endpoint into reusable component
+
 Version 7.0.0 (released 2026-01-06)
 
 - stats: generalize stat tracking loan extensions to track all transitions
