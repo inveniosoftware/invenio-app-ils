@@ -14,7 +14,7 @@ services:
         - ENVIRONMENT=DEV
     image: invenio_app_ils-backend
     ports:
-      - "5000"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5000:5000"
     environment:
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
       - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
@@ -34,20 +34,20 @@ services:
       dockerfile: ./docker/frontend/Dockerfile
     image: invenio_app_ils-frontend
     ports:
-      - "80"
-      - "443"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:80:80"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:443:443"
   lb:
     build: ./docker/lb/
     image: invenio_app_ils-lb
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:80:80"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:443:443"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:8080:8080"
   cache:
     image: redis:6
     read_only: true
     ports:
-      - "6379:6379"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:6379:6379"
   db:
     image: postgres:14
     environment:
@@ -55,12 +55,12 @@ services:
       - "POSTGRES_PASSWORD=psw"
       - "POSTGRES_DB=ils"
     ports:
-      - "5432:5432"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5432:5432"
   mq:
     image: rabbitmq:3-management
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:15672:15672"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5672:5672"
   search:
     image: opensearchproject/opensearch::3.2.0
     environment:
@@ -75,12 +75,12 @@ services:
         hard: -1
     mem_limit: 1g
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:9200:9200"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:9300:9300"
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:3.2.0
     ports:
-      - "5601:5601"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5601:5601"
     expose:
       - "5601"
     environment:
@@ -91,4 +91,4 @@ services:
     image: mher/flower:0.9.7
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
     ports:
-      - "5555:5555"
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5555:5555"
