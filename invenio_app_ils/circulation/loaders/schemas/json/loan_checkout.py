@@ -11,7 +11,7 @@ import arrow
 from flask import current_app
 from invenio_circulation.records.loaders.schemas.json import (
     DateString,
-    LoanItemPIDSchemaV1,
+    LoanItemPIDSchemaV1, DateTimeString, set_missing_transaction_date,
 )
 from marshmallow import ValidationError, fields, post_load, validates
 
@@ -27,6 +27,8 @@ class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
     start_date = DateString()
     end_date = DateString()
     force = fields.Bool(load_default=False)
+
+    transaction_date = DateTimeString(missing=set_missing_transaction_date)
 
     @validates("force")
     def validate_force(self, value, **kwargs):
