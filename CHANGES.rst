@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version 7.1.1 (released 2026-02-02)
+
+- fix(checkout): explicitly set transaction date on loan checkout
+
 Version 7.1.0 (released 2026-01-22)
 
 - stats: add document request stats endpoint and extend document request index
