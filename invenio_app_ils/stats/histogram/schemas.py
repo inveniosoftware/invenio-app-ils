@@ -88,5 +88,5 @@ class HistogramParamsSchema(Schema):
                 # default value as the field "metrics" is not required
                 data[key] = json.loads(data.get(key, "[]"))
         except Exception as e:
-            raise ValidationError from e
+            raise ValidationError("Failed to parse metrics and group_by parameters from JSON") from e
         return data
