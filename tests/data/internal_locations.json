@@ -17,6 +17,13 @@
   {
     "pid": "ilocid-4",
     "location_pid": "locid-2",
-    "name": "Another unused library"
+    "name": "Another unused library",
+    "restricted": false
+  },
+  {
+    "pid": "ilocid-5",
+    "location_pid": "locid-4",
+    "name": "Location not accessible by patrons",
+    "restricted": true
   }
 ]

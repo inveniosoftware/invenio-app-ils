@@ -102,6 +102,9 @@
       },
       "pid": {
         "type": "keyword"
+      },
+      "restricted": {
+        "type": "boolean"
       }
     }
   }

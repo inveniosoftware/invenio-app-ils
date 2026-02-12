@@ -492,6 +492,9 @@
                   },
                   "name": {
                     "type": "keyword"
+                  },
+                  "restricted": {
+                    "type": "boolean"
                   }
                 },
                 "type": "object"

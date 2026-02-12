@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020 CERN.
+# Copyright (C) 2020-2026 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -19,7 +19,7 @@ def test_get_item_pids_by_document_pid(testdata):
     """Test retrieve Items PIDs for the given Document PID."""
     first_doc_pid = testdata["documents"][0]["pid"]
     items_pids = get_item_pids_by_document_pid(first_doc_pid)
-    assert len(list(items_pids)) == 9
+    assert len(list(items_pids)) == 10
 
 
 def test_get_document_pid_by_item_pid(testdata):
