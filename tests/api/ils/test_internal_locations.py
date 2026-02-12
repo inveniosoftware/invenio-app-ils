@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2021 CERN.
+# Copyright (C) 2018-2026 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -38,6 +38,7 @@ def test_internal_locations_permissions(client, testdata, json_headers, users):
     dummy_internal_location = dict(
         location_pid=testdata["locations"][0]["pid"],
         name=_INTERNAL_LOCATION_NAME,
+        restricted=False,
     )
     tests = [
         ("admin", _HTTP_OK, dummy_internal_location),

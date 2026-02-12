@@ -41,6 +41,10 @@
     "pid": {
       "type": "string",
       "title": "The persistent identifier of this Internal Location"
+    },
+    "restricted": {
+      "type": "boolean",
+      "title": "Marks if this Internal Location is accessible by patrons"
     }
   }
 }

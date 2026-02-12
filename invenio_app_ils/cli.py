@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2020 CERN.
+# Copyright (C) 2018-2026 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -204,6 +204,7 @@ class InternalLocationGenerator(Generator):
                 "notes": lorem.sentence(),
                 "physical_location": lorem.sentence(),
                 "location_pid": location_pid_value,
+                "restricted": True,
             }
             for pid in range(1, size + 1)
         ]

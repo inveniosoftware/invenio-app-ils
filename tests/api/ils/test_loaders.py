@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2026 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -18,6 +18,7 @@ NEW_INTERNAL_LOCATION = {
     "legacy_ids": ["Test legacy id"],
     "name": "My test internal location",
     "physical_location": "Left from the right building",
+    "restricted": False,
     "notes": "In house",
 }
 

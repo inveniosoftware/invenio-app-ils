@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2026 CERN.
 #
 # Invenio-Circulation is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -26,10 +26,17 @@ def test_document_resolvers(app, testdata):
     assert "past_loans_count" in document["circulation"]
 
     # item and eitems
-    assert document["items"]["total"] == 9 and document["items"]["hits"]
+    assert document["items"]["total"] == 10 and document["items"]["hits"]
     assert document["eitems"]["total"] == 3 and document["eitems"]["hits"]
 
     # stock
     mediums = set([item["medium"] for item in document["items"]["hits"]])
     mediums.add("E-BOOK")
     assert set(document["stock"]["mediums"]) == mediums
+
+    # internal location - restricted
+    # only one item is inside a restricted internal location
+    for item in document["items"]["hits"]:
+        assert item["internal_location"]["restricted"] is (
+            item["pid"] == "itemid-75-in-archive"
+        )
