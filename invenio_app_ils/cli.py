@@ -204,7 +204,7 @@ class InternalLocationGenerator(Generator):
                 "notes": lorem.sentence(),
                 "physical_location": lorem.sentence(),
                 "location_pid": location_pid_value,
-                "restricted": True,
+                "restricted": False,
             }
             for pid in range(1, size + 1)
         ]
