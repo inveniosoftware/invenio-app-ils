@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version v7.2.0 (released 2026-02-25)
+
+- fix: use correct search dsl interface for date range filters
+- fix: ensure test data creates non restricted internal locations
+- internal location: add field accessible_by_patrons
+
 Version 7.1.1 (released 2026-02-02)
 
 - fix(checkout): explicitly set transaction date on loan checkout
