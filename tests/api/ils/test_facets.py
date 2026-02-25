@@ -78,10 +78,10 @@ def test_date_range_filter(app):
         to_filter = date_range_filter("field", "lte")
 
         try:
-            assert from_filter([input_date]) == dsl.RangeField(
+            assert from_filter([input_date]) == dsl.query.Range(
                 field={"gte": input_date}
             )
-            assert to_filter([input_date]) == dsl.RangeField(field={"lte": input_date})
+            assert to_filter([input_date]) == dsl.query.Range(field={"lte": input_date})
         except (ValueError, AssertionError):
             with pytest.raises(ValueError):
                 from_filter([input_date])
