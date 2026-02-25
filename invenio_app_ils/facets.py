@@ -140,6 +140,6 @@ def date_range_filter(field, comparator):
             input_date = str(arrow.get(values[0]).date())
         except arrow.parser.ParserError:
             raise ValueError("Input should be a date")
-        return dsl.RangeField(**{field: {comparator: input_date}})
+        return dsl.query.Range(**{field: {comparator: input_date}})
 
     return inner
