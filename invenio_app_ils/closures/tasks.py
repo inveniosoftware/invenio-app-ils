@@ -75,6 +75,9 @@ def notify_location_updated(location_pid):
         for results in filtered_results:
             for result in results.values():
                 for task in result:
+                    if "request" not in task:
+                        # this happens in case of scheduled tasks
+                        continue
                     request = task["request"]
                     matches_name = (
                         request["name"] == extend_active_loans_location_closure.name
