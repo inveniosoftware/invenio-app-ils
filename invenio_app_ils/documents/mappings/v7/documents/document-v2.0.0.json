@@ -312,6 +312,9 @@
               "open_access": {
                 "type": "boolean"
               },
+              "_created": {
+                "type": "date"
+              },
               "pid": {
                 "type": "keyword"
               },
@@ -515,6 +518,9 @@
               },
               "medium": {
                 "type": "keyword"
+              },
+              "_created": {
+                "type": "date"
               },
               "pid": {
                 "type": "keyword"

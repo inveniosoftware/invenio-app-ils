@@ -29,6 +29,7 @@ def jsonresolver_loader(url_map):
             circulation = item.get("circulation", {})
             obj = {
                 "pid": item.get("pid"),
+                "_created": item.get("_created"),
                 "isbn": item.get("isbn"),
                 "internal_location_pid": item.get("internal_location_pid"),
                 "circulation_restriction": item.get("circulation_restriction"),
