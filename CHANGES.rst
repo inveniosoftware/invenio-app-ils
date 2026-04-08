@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version v7.3.0 (released 2026-04-08)
+
+- add(document): creation dates to eitems and eitems resolver
+
 Version v7.2.1 (released 2026-04-08)
 
 - fix(closures): exclude scheduled tasks from conflict check
