@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version v7.2.1 (released 2026-04-08)
+
+- fix(closures): exclude scheduled tasks from conflict check
+
 Version v7.2.0 (released 2026-02-25)
 
 - fix: use correct search dsl interface for date range filters
