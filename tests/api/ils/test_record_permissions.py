@@ -142,7 +142,7 @@ def test_record_librarian_readonly_access(client, db, users, with_access):
 @pytest.fixture()
 def with_role_creator(db):
     """ "Create a new role and assign action."""
-    role = Role(name="records-creators")
+    role = Role(name="records-creators", id="records-creators")
     db.session.add(role)
     db.session.commit()
     # assign role to the action "create-records"

@@ -15,6 +15,8 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
     ChangedBySchema,
     set_changed_by,
 )
+from marshmallow_utils.context import context_schema
+
 from invenio_app_ils.records.loaders.schemas.identifiers import IdentifierSchema
 
 
@@ -70,5 +72,5 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     @pre_load
     def set_changed_by(self, data, **kwargs):
         """Automatically set `created_by` and `updated_by`."""
-        record = self.context.get("record")
+        record = context_schema.get().get("record")
         return set_changed_by(data, record)

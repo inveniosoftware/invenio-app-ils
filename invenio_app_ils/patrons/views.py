@@ -22,8 +22,8 @@ def get_user_loan_information_blueprint(_):
     blueprint = Blueprint("invenio_app_ils_patrons", __name__)
 
     @blueprint.route("/me/loans")
-    @use_kwargs({"document_pid": fields.Str(required=True)})
     @need_permissions("patron-loans")
+    @use_kwargs({"document_pid": fields.Str(required=True)}, location="query")
     def get_user_information(document_pid):
         patron_pid = str(current_user.id)
         return retrieve_user_loans_information(patron_pid, document_pid)

@@ -10,6 +10,7 @@
 from flask import current_app
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
+from marshmallow_utils.context import context_schema
 
 from invenio_app_ils.documents.loaders.jsonschemas.document import (
     AlternativeTitleSchema,
@@ -124,7 +125,7 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     @pre_load
     def preload_fields(self, data, **kwargs):
         """Automatically inject system fields."""
-        record = self.context.get("record")
+        record = context_schema.get().get("record")
         data.update(set_changed_by(data, record))
         data.update(preserve_cover_metadata(data, record))
         return data

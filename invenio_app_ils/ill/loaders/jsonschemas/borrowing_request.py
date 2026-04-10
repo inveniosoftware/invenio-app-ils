@@ -13,6 +13,7 @@ from flask import has_request_context
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, post_load, pre_load, validate
+from marshmallow_utils.context import context_schema
 
 from invenio_app_ils.ill.api import BorrowingRequest
 from invenio_app_ils.records.loaders.schemas.changed_by import (
@@ -80,11 +81,11 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     @pre_load
     def set_changed_by(self, data, **kwargs):
         """Automatically set `created_by` and `updated_by`."""
-        record = self.context.get("record")
+        record = context_schema.get().get("record")
         return set_changed_by(data, record)
 
     @post_load
     def preserve_patron_loan(self, data, **kwargs):
         """Preserve `patron_loan` system field."""
-        record = self.context.get("record")
+        record = context_schema.get().get("record")
         return preserve_patron_loan(data, record)

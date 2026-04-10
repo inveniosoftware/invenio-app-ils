@@ -11,6 +11,7 @@ import arrow
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_rest.serializer import BaseSchema as InvenioBaseSchema
 from marshmallow import EXCLUDE, ValidationError, fields, pre_load, validates
+from marshmallow_utils.context import context_schema
 
 from invenio_app_ils.circulation.loaders.schemas.json.base import (
     transaction_location_pid_validator,
@@ -50,7 +51,7 @@ class RequestExtensionSchemaV1(InvenioBaseSchema):
         if no_payload:
             # marshmallow needs a default empty payload
             data = {}
-        record = self.context["record"]
+        record = context_schema.get()["record"]
         ext_status = validate_statuses(record)
         if ext_status == "PENDING":
             raise ValidationError(
@@ -78,7 +79,7 @@ class AcceptExtensionSchemaV1(InvenioBaseSchema):
     @pre_load
     def validate_action(self, data, **kwargs):
         """Validate action."""
-        record = self.context["record"]
+        record = context_schema.get()["record"]
         ext_status = validate_statuses(record)
         if ext_status != "PENDING":
             raise ValidationError(
@@ -116,7 +117,7 @@ class DeclineExtensionSchemaV1(InvenioBaseSchema):
         if no_payload:
             # marshmallow needs a default empty payload
             data = {}
-        record = self.context["record"]
+        record = context_schema.get()["record"]
         ext_status = validate_statuses(record)
         if ext_status != "PENDING":
             raise ValidationError(
