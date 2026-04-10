@@ -16,6 +16,8 @@ from invenio_app_ils.records.loaders.schemas.changed_by import (
     ChangedBySchema,
     set_changed_by,
 )
+from marshmallow_utils.context import context_schema
+
 from invenio_app_ils.records.loaders.schemas.price import PriceSchema
 
 
@@ -87,5 +89,5 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     @pre_load
     def set_changed_by(self, data, **kwargs):
         """Automatically set `created_by` and `updated_by`."""
-        record = self.context.get("record")
-        return set_changed_by(data, record)
+        record = context_schema.get().get("record")
+        return set_changed_by(data, prev_record=record)

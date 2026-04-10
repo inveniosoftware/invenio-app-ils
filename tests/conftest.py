@@ -65,8 +65,9 @@ def users(app, db):
     """Create admin, librarians and patrons."""
     # with Postgresql, when dropping the User table, the sequence is not
     # automatically reset to 1, causing issues with the tests demo data.
-    db.session.execute(text("ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART"))
-    db.session.commit()
+    if db.engine.dialect.name == "postgresql":
+        db.session.execute(text("ALTER SEQUENCE IF EXISTS accounts_user_id_seq RESTART"))
+        db.session.commit()
 
     with db.session.begin_nested():
         datastore = app.extensions["security"].datastore
