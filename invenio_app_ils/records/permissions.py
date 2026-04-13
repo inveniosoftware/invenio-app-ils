@@ -10,7 +10,7 @@
 from flask import current_app
 from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
-from six import string_types
+from invenio_accounts.models import Role
 
 from invenio_app_ils.permissions import (
     backoffice_access_action,
@@ -87,7 +87,7 @@ class RecordPermission(Permission):
         needs = []
         for access_entity in self.record_explicit_restrictions():
             try:
-                if isinstance(access_entity, string_types):
+                if isinstance(access_entity, str):
                     needs.append(UserNeed(int(access_entity)))
                 elif isinstance(access_entity, int):
                     needs.append(UserNeed(access_entity))
