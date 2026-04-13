@@ -101,11 +101,11 @@ def users(app, db):
             email="admin@test.com", password="123456", active=True
         )
         # Give role to admin
-        admin_role = Role(name="admin")
+        admin_role = Role(name="admin", id="admin")
         db.session.add(ActionRoles(action=superuser_access.value, role=admin_role))
         datastore.add_role_to_user(admin, admin_role)
         # Give role to librarian
-        librarian_role = Role(name="librarian")
+        librarian_role = Role(name="librarian", id="librarian")
         db.session.add(
             ActionRoles(action=backoffice_access_action.value, role=librarian_role)
         )
@@ -116,7 +116,7 @@ def users(app, db):
         )
         datastore.add_role_to_user(librarian2, librarian_role)
         # Give role to readonly user
-        librarian_readonly_role = Role(name="librarian-readonly")
+        librarian_readonly_role = Role(name="librarian-readonly", id="librarian-readonly")
         db.session.add(
             ActionRoles(
                 action=backoffice_readonly_access_action.value,
