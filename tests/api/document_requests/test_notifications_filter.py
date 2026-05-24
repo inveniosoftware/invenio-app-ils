@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021-2024 CERN.
+# SPDX-License-Identifier: MIT
+
 from invenio_app_ils.document_requests.notifications.api import (
     send_document_request_notification,
 )
