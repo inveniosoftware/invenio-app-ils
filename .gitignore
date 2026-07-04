@@ -71,3 +71,7 @@ target/
 *.egg-info
 *.pid
 celerybeat-schedule
+uv.lock
+
+# Virtual env
+.venv
