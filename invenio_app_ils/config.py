@@ -747,6 +747,16 @@ RECORDS_REST_SORT_OPTIONS = dict(
             title="Best match",
             order=1,
         ),
+        name=dict(
+            fields=["name.keyword"],
+            title="Name [A-Z]",
+            order=2,
+        ),
+        name_desc=dict(
+            fields=["-name.keyword"],
+            title="Name [Z-A]",
+            order=3,
+        ),
     ),
     series=dict(  # SeriesSearch.Meta.index
         created=dict(fields=["_created"], title="Recently added", order=1),
