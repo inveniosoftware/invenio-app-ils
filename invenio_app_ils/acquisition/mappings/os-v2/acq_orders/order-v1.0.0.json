@@ -5,6 +5,11 @@
         "email": {
           "type": "custom",
           "tokenizer": "uax_url_email"
+        },
+        "accent_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
         }
       }
     }
@@ -68,7 +73,8 @@
         "type": "keyword"
       },
       "notes": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "order_date": {
         "type": "date"
@@ -87,14 +93,16 @@
           "document": {
             "properties": {
               "authors": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "accent_folding"
               },
               "cover_metadata": {
                 "properties": {},
                 "type": "object"
               },
               "edition": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "accent_folding"
               },
               "pid": {
                 "type": "keyword"
@@ -104,6 +112,7 @@
               },
               "title": {
                 "type": "text",
+                "analyzer": "accent_folding",
                 "fields": {
                   "keyword": {
                     "type": "keyword"
@@ -119,7 +128,8 @@
                     "type": "keyword"
                   },
                   "value": {
-                    "type": "text"
+                    "type": "text",
+                    "analyzer": "accent_folding"
                   }
                 },
                 "type": "object"
@@ -143,7 +153,8 @@
             "type": "keyword"
           },
           "notes": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "patron": {
             "properties": {
@@ -156,6 +167,7 @@
               },
               "name": {
                 "type": "text",
+                "analyzer": "accent_folding",
                 "fields": {
                   "keyword": {
                     "type": "keyword"
@@ -258,6 +270,52 @@
           "copies_received": {
             "type": "integer"
           },
+          "document": {
+            "properties": {
+              "authors": {
+                "type": "text",
+                "analyzer": "accent_folding"
+              },
+              "cover_metadata": {
+                "type": "object"
+              },
+              "edition": {
+                "type": "text",
+                "analyzer": "accent_folding"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "publication_year": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text",
+                "analyzer": "accent_folding",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "alternative_titles": {
+                "properties": {
+                  "language": {
+                    "type": "keyword"
+                  },
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "text",
+                    "analyzer": "accent_folding"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
           "document_pid": {
             "type": "keyword"
           },
@@ -274,7 +332,32 @@
             "type": "keyword"
           },
           "notes": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
+          },
+          "patron": {
+            "properties": {
+              "email": {
+                "type": "text",
+                "analyzer": "email"
+              },
+              "id": {
+                "type": "keyword"
+              },
+              "location_pid": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text",
+                "analyzer": "accent_folding",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            },
+            "type": "object"
           },
           "patron_pid": {
             "type": "keyword"
@@ -342,10 +425,12 @@
                 "type": "keyword"
               }
             },
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "notes": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "phone": {
             "type": "keyword"
