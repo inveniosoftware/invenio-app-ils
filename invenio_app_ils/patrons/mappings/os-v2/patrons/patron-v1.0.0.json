@@ -5,6 +5,11 @@
         "email": {
           "type": "custom",
           "tokenizer": "uax_url_email"
+        },
+        "accent_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
         }
       }
     }
@@ -25,6 +30,7 @@
       },
       "name": {
         "type": "text",
+        "analyzer": "accent_folding",
         "fields": {
           "keyword": {
             "type": "keyword"
