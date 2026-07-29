@@ -5,6 +5,11 @@
         "email": {
           "type": "custom",
           "tokenizer": "uax_url_email"
+        },
+        "accent_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
         }
       }
     }
@@ -23,7 +28,8 @@
         "type": "date"
       },
       "cancel_reason": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "created_by": {
         "properties": {
@@ -39,7 +45,8 @@
       "document": {
         "properties": {
           "authors": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "cover_metadata": {
             "properties": {},
@@ -55,7 +62,8 @@
             "type": "keyword"
           },
           "title": {
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "alternative_titles": {
             "properties": {
@@ -66,7 +74,8 @@
                 "type": "keyword"
               },
               "value": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "accent_folding"
               }
             },
             "type": "object"
@@ -94,7 +103,8 @@
                 "type": "keyword"
               }
             },
-            "type": "text"
+            "type": "text",
+            "analyzer": "accent_folding"
           },
           "pid": {
             "type": "keyword"
@@ -106,7 +116,8 @@
         "type": "keyword"
       },
       "notes": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "patron": {
         "properties": {
@@ -119,6 +130,7 @@
           },
           "name": {
             "type": "text",
+            "analyzer": "accent_folding",
             "fields": {
               "keyword": {
                 "type": "keyword"
@@ -142,7 +154,8 @@
           "extension": {
             "properties": {
               "notes": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "accent_folding"
               },
               "request_date": {
                 "type": "date"
