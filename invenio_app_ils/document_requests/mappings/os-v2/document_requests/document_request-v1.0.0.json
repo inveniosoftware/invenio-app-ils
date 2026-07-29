@@ -1,4 +1,15 @@
 {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "accent_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
@@ -13,7 +24,8 @@
         "type": "date"
       },
       "authors": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "document": {
         "properties": {
@@ -97,6 +109,7 @@
           },
           "title": {
             "type": "text",
+            "analyzer": "accent_folding",
             "fields": {
               "keyword": {
                 "type": "keyword"
@@ -113,8 +126,9 @@
         "type": "keyword"
       },
       "internal_note": {
-          "type": "text"
-        },
+        "type": "text",
+        "analyzer": "accent_folding"
+      },
       "isbn": {
         "type": "keyword"
       },
@@ -134,7 +148,8 @@
         "type": "keyword"
       },
       "note": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "page": {
         "type": "keyword"
@@ -179,6 +194,7 @@
       },
       "title": {
         "type": "text",
+        "analyzer": "accent_folding",
         "fields": {
           "keyword": {
             "type": "keyword"
@@ -186,10 +202,12 @@
         }
       },
       "volume": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "publisher": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "stats": {
         "type": "object",
