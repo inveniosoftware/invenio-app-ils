@@ -5,6 +5,11 @@
         "email": {
           "type": "custom",
           "tokenizer": "uax_url_email"
+        },
+        "accent_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
         }
       }
     }
@@ -23,7 +28,8 @@
         "type": "date"
       },
       "address": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "email": {
         "type": "text",
@@ -38,10 +44,12 @@
             "type": "keyword"
           }
         },
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "notes": {
-        "type": "text"
+        "type": "text",
+        "analyzer": "accent_folding"
       },
       "phone": {
         "type": "keyword"
