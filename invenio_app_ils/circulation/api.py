@@ -13,6 +13,8 @@ from flask_login import current_user
 from invenio_circulation.config import (
     CIRCULATION_STATES_LOAN_ACTIVE,
     CIRCULATION_STATES_LOAN_COMPLETED,
+    CIRCULATION_STATES_LOAN_REQUEST,
+    CIRCULATION_STATES_LOAN_CANCELLED,
 )
 from invenio_circulation.errors import CirculationException
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -374,47 +376,45 @@ def update_dates_loan(
 ):
     """Updates the dates of a loan."""
     state = record["state"]
-    is_active = state in CIRCULATION_STATES_LOAN_ACTIVE
-    is_completed = state in CIRCULATION_STATES_LOAN_COMPLETED
+    requested = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "request_start_date": request_start_date,
+        "request_expire_date": request_expire_date,
+    }
+    requested = {k: v for k, v in requested.items() if v is not None}
+
+    if state in CIRCULATION_STATES_LOAN_ACTIVE:
+        if "request_start_date" in requested or "request_expire_date" in requested:
+            raise IlsException(
+                description="Cannot modify request dates of an active loan."
+            )
+        if "start_date" in requested:
+            raise InvalidParameterError(
+                description="Cannot modify start date for active loans."
+            )
+
+    elif state in CIRCULATION_STATES_LOAN_REQUEST:
+        pass  # all fields editable while pending
+
+    elif state in CIRCULATION_STATES_LOAN_CANCELLED or state in CIRCULATION_STATES_LOAN_COMPLETED:
+        if requested:
+            raise IlsException(
+                description="Cannot modify dates of a returned or cancelled loan."
+            )
 
     data = copy(record)
+    data.update(requested)
 
-    if is_active or is_completed:
-        today = date.today().strftime("%Y-%m-%d")
-        if request_start_date or request_expire_date:
-            raise IlsException(
-                description="Cannot modify request dates of "
-                "an active or completed loan."
-            )
-        if start_date:
-            if start_date > today:
-                raise InvalidParameterError(
-                    description="Start date cannot be in "
-                    "the future for active loans."
-                )
-            data["start_date"] = start_date
-        if end_date:
-            data["end_date"] = end_date
-        if data["end_date"] < data["start_date"]:
-            raise InvalidParameterError(description="Negative date range.")
-    else:  # Pending or cancelled
-        if start_date or end_date:
-            raise IlsException(
-                description="Cannot modify dates of " "a pending or cancelled loan."
-            )
-        if request_start_date:
-            data["request_start_date"] = request_start_date
-        if request_expire_date:
-            data["request_expire_date"] = request_expire_date
-        if data["request_expire_date"] < data["request_start_date"]:
-            raise InvalidParameterError(description="Negative date range.")
+    if data.get("start_date") and data.get("end_date") and data["end_date"] < data["start_date"]:
+        raise InvalidParameterError(description="Negative date range.")
 
     record.update(data)
     record.commit()
     db.session.commit()
     current_circulation.loan_indexer().index(record)
 
-    if is_active:
+    if state in CIRCULATION_STATES_LOAN_ACTIVE:
         send_dates_updated_notification(record)
 
     return record
