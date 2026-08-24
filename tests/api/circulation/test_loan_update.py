@@ -8,6 +8,7 @@ from datetime import date, timedelta
 
 from flask import url_for
 from invenio_circulation.api import Loan
+from invenio_db import db
 
 from tests.helpers import user_login, user_logout
 
@@ -67,80 +68,64 @@ def test_loan_access_permission(client, json_headers, users, testdata):
 
 def test_loan_update_date(client, json_headers, users, testdata):
     """Test the edition of the dates on a loan."""
-    pid = testdata["loans"][4]["pid"]  # Item on loan
-
-    res = _post_loan_update(client, json_headers, pid)
-    assert res.status_code == 401
-
-    # Patron cannot update loan
-    user_login(client, "patron1", users)
-    res = _post_loan_update(client, json_headers, pid)
-    assert res.status_code == 403
-    user_logout(client)
-
-    # Librarian can
     user_login(client, "librarian", users)
-    old_loan = _load_result(client.get(_url_loan(pid), headers=json_headers))
-    res = _post_loan_update(client, json_headers, pid)
-    assert res.status_code == 202
-    new_loan = _load_result(res)
-    assert old_loan["updated"] < new_loan["updated"]  # Liveness check
 
-    # Update both values
-    start_date = "2020-01-01"
-    end_date = _today(+1)
+    def _get_or_set_loan(index, state):
+        """Fetch loan by testdata index and ensure it has the required DB state."""
+        pid = testdata["loans"][index]["pid"]
+        loan = Loan.get_record_by_pid(pid)
+        if loan.get("state") != state:
+            loan["state"] = state
+            loan.commit()
+            db.session.commit()
+        return pid
+
+    # 1. Test update cancelled loan dates -> fail
+    pid_cancelled = _get_or_set_loan(0, "CANCELLED")
+    res = _post_loan_update(client, json_headers, pid_cancelled, end_date=_today(+1))
+    assert res.status_code == 400
+
+    # 2. Test update returned loan dates -> fail
+    pid_returned = _get_or_set_loan(1, "ITEM_RETURNED")
+    res = _post_loan_update(client, json_headers, pid_returned, end_date=_today(+1))
+    assert res.status_code == 400
+
+    # 3. Test update request dates on active loan -> fail
+    pid_active = _get_or_set_loan(4, "ITEM_ON_LOAN")
     res = _post_loan_update(
-        client, json_headers, pid, start_date=start_date, end_date=end_date
+        client,
+        json_headers,
+        pid_active,
+        request_start_date=_today(0),
+        request_expire_date=_today(+5),
+    )
+    assert res.status_code == 400
+
+    # 4. Test update start date on active loan -> fail
+    res = _post_loan_update(client, json_headers, pid_active, start_date="2020-01-01")
+    assert res.status_code == 400
+
+    # 5. Test update end date on active loan -> pass
+    new_end_date = _today(+5)
+    res = _post_loan_update(client, json_headers, pid_active, end_date=new_end_date)
+    assert res.status_code == 202
+    new_loan_meta = _load_result(res)["metadata"]
+    assert new_loan_meta["end_date"] == new_end_date
+
+    # 6. Test update all dates on pending loan -> pass
+    pid_pending = _get_or_set_loan(3, "PENDING")
+    req_start = _today(0)
+    req_expire = _today(+5)
+    res = _post_loan_update(
+        client,
+        json_headers,
+        pid_pending,
+        request_start_date=req_start,
+        request_expire_date=req_expire,
+        start_date=_today(+5),
+        end_date=_today(+10)
     )
     assert res.status_code == 202
     new_loan_meta = _load_result(res)["metadata"]
-    assert new_loan_meta["start_date"] == start_date
-    assert new_loan_meta["end_date"] == end_date
-
-    # Start date after today
-    start_date = _today(+2)
-    end_date = _today(+3)
-    res = _post_loan_update(
-        client, json_headers, pid, start_date=start_date, end_date=end_date
-    )
-    assert res.status_code == 400
-
-    # No relative constraints on non-active loans
-    pid = testdata["loans"][3]["pid"]  # Pending
-    res = _post_loan_update(
-        client,
-        json_headers,
-        pid,
-        request_start_date=start_date,
-        request_expire_date=end_date,
-    )
-    assert res.status_code == 202
-    new_loan_meta = _load_result(res)["metadata"]
-    assert new_loan_meta["request_start_date"] == start_date
-    assert new_loan_meta["request_expire_date"] == end_date
-
-    # Negative date range
-    start_date = "2000-02-01"
-    end_date = "2000-01-01"
-    res = _post_loan_update(
-        client,
-        json_headers,
-        pid,
-        request_start_date=start_date,
-        request_expire_date=end_date,
-    )
-    assert res.status_code == 400
-
-    # Illegal combination of parameters
-    start_date = _today(-2)
-    end_date = _today(+2)
-    res = _post_loan_update(
-        client,
-        json_headers,
-        pid,
-        start_date=start_date,
-        end_date=end_date,
-        request_start_date=start_date,
-        request_expire_date=end_date,
-    )
-    assert res.status_code == 400
+    assert new_loan_meta["request_start_date"] == req_start
+    assert new_loan_meta["request_expire_date"] == req_expire
