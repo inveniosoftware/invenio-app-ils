@@ -4,6 +4,16 @@
 Changes
 =======
 
+Version v8.0.0 (released 2026-08-31)
+
+- update(search): add accent folding to backoffice search
+- update(api): loan dates now only editable if active or pending through api
+- add(patron search): alphabetical search now added to patron menu in backoffice
+- change(permissions): remove six typing
+- change(tests): adapt to role.id
+- change(schemas): use context schema from marshmallow utils
+- change(setup): upgrade python dependencies
+
 Version v7.3.0 (released 2026-04-08)
 
 - add(document): creation dates to eitems and eitems resolver

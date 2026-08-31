@@ -3,6 +3,6 @@
 
 """invenio-app-ils."""
 
-__version__ = "7.3.0"
+__version__ = "8.0.0"
 
 __all__ = ("__version__",)
