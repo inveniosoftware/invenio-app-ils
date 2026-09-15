@@ -4,6 +4,10 @@
 Changes
 =======
 
+Version v8.0.1 (released 2026-09-15)
+
+- fix(api): fix loan dates to not restrict end date on active loan
+
 Version v8.0.0 (released 2026-08-31)
 
 - update(search): add accent folding to backoffice search
