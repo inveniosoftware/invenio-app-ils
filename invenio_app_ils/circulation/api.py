@@ -389,7 +389,7 @@ def update_dates_loan(
             raise IlsException(
                 description="Cannot modify request dates of an active loan."
             )
-        if "start_date" in requested:
+        if "start_date" in requested and requested["start_date"] != record["start_date"]:
             raise InvalidParameterError(
                 description="Cannot modify start date for active loans."
             )
