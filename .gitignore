@@ -72,3 +72,6 @@ target/
 *.pid
 celerybeat-schedule
 uv.lock
+
+# venv
+.venv/
