@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
           tests-chunk: [acquisition, circulation, document_requests, ill, ils]
-          python-version: [3.9]
+          python-version: ["3.9", "3.14"]
           requirements-level: [pypi]
           db-service: [postgresql14]
           search-service: [opensearch2]
@@ -50,7 +50,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-          cache-dependency-path: setup.cfg
+          cache-dependency-path: pyproject.toml
 
       - name: Install dependencies
         run: |

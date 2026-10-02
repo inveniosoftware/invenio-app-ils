@@ -1,11 +1,11 @@
 # SPDX-FileCopyrightText: 2018-2020 CERN.
 # SPDX-License-Identifier: MIT
 
-FROM registry.cern.ch/inveniosoftware/almalinux:1
+FROM ghcr.io/inveniosoftware/invenio:debian-python3.14 
 
-RUN dnf update -y && dnf upgrade -y  && dnf update -y
+RUN apt-get update -y && apt-get upgrade -y  && apt-get update -y
 RUN cd /tmp && curl -sL  https://rpm.nodesource.com/setup_16.x  -o nodesource_setup.sh && bash nodesource_setup.sh
-RUN dnf install -y nodejs git vim
+RUN apt-get install -y nodejs git vim
 
 RUN python -m site
 RUN python -m site --user-site
