@@ -4,6 +4,11 @@
 Changes
 =======
 
+Version v9.0.0 (released 2026-10-02)
+
+- update(python): add python 3.14
+- update(docker): update dockerfile to use debian not alma
+
 Version v8.0.1 (released 2026-09-15)
 
 - fix(api): fix loan dates to not restrict end date on active loan
