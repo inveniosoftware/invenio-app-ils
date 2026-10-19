@@ -167,3 +167,60 @@ def test_notifications_db_table_and_endpoint(
 
     assert res.get_json()["send_log"] == "Error: 'An error occurred.'"
     assert res.get_json()["id"] == 2
+
+
+def test_get_notifications_filter_by_pid_value_and_action(
+    users, client, json_headers, app_with_notifs
+):
+    """Test that pid_value and action query args filter the notifications."""
+    base = {
+        "recipients": ["patron1@test.com"],
+        "is_manually_triggered": False,
+        "patron_id": "1",
+    }
+    notifs = [
+        dict(id="n1", pid_type="loanid", pid_value="loan-1", action="checkout"),
+        dict(id="n2", pid_type="loanid", pid_value="loan-1", action="extend"),
+        dict(id="n3", pid_type="loanid", pid_value="loan-2", action="checkout"),
+        dict(id="n4", pid_type="docid", pid_value="doc-1", action="request"),
+    ]
+    for notif in notifs:
+        log_successful_notification(None, {**base, **notif})
+
+    LIST_ENDPOINT = "invenio_app_ils_notifications.get_notifications"
+    user_login(client, "librarian", users)
+
+    def _get(**params):
+        res = client.get(url_for(LIST_ENDPOINT, **params), headers=json_headers)
+        assert res.status_code == 200
+        body = res.get_json()
+        assert body["total"] == len(body["hits"])
+        return body["hits"]
+
+    res = client.get(url_for(LIST_ENDPOINT, size=1), headers=json_headers)
+    assert len(res.get_json()["hits"]) == 1
+    assert res.get_json()["total"] == 4
+    res = client.get(
+        url_for(LIST_ENDPOINT, size=1, action="checkout"), headers=json_headers
+    )
+    assert len(res.get_json()["hits"]) == 1
+    assert res.get_json()["total"] == 2
+
+    assert len(_get()) == 4
+
+    hits = _get(pid_value="loan-1")
+    assert {h["message_id"] for h in hits} == {"n1", "n2"}
+    assert all(h["pid_value"] == "loan-1" for h in hits)
+
+    hits = _get(action="checkout")
+    assert {h["message_id"] for h in hits} == {"n1", "n3"}
+    assert all(h["action"] == "checkout" for h in hits)
+
+    hits = _get(pid_value="loan-1", action="extend")
+    assert [h["message_id"] for h in hits] == ["n2"]
+
+    hits = _get(pid_type="loanid", pid_value="loan-2", action="checkout")
+    assert [h["message_id"] for h in hits] == ["n3"]
+
+    assert _get(pid_value="missing") == []
+    assert _get(pid_value="loan-1", action="request") == []
