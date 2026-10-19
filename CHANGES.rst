@@ -4,6 +4,10 @@
 Changes
 =======
 
+Version v9.0.1 (released 2026-10-19)
+
+- fix(api): get notifications query filters
+
 Version v9.0.0 (released 2026-10-02)
 
 - update(python): add python 3.14
