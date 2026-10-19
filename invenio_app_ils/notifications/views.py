@@ -34,7 +34,8 @@ def get_notifications_blueprint(_):
             "pid_value": fields.Str(),
             "action": fields.Str(),
             "size": fields.Int(validate=[validate.Range(min=1, max=100)]),
-        }
+        },
+        location="query",
     )
     @need_permissions("get-notifications-sent-to-patron")
     def get_notifications(
@@ -54,17 +55,16 @@ def get_notifications_blueprint(_):
         if action:
             filters.update({"action": action})
 
+        query = NotificationsLogs.query.filter_by(**filters)
+        total = query.count()
         notifications = (
-            NotificationsLogs.query.filter_by(**filters)
-            .order_by(NotificationsLogs.triggered_on.desc())
-            .limit(size)
-            .all()
+            query.order_by(NotificationsLogs.triggered_on.desc()).limit(size).all()
         )
 
         for i, notification in enumerate(notifications):
             notifications[i] = serialize_notification(notification)
 
-        return {"hits": notifications, "total": len(notifications)}
+        return {"hits": notifications, "total": total}
 
     @blueprint.route("/notifications/<int:id>")
     @need_permissions("get-notifications-sent-to-patron")
